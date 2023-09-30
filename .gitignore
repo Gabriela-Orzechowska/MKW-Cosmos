@@ -33,7 +33,6 @@ cw/
 *.lib
 
 # Executables
-*.exe
 *.out
 *.app
 engine/.editorconfig
