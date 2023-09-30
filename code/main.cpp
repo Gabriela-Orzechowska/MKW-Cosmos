@@ -1,4 +1,5 @@
 #include <main.hpp>
+#include <game/System/Archive.hpp>
 
 namespace DX{
 
@@ -12,6 +13,24 @@ namespace DX{
         )
     }
 
+    void LoadAdditionalFiles(ArchiveFile * file, const char * path, EGG::Heap *heap, bool isCompressed, s32 align, EGG::Heap * fileHeap, EGG::Archive::FileInfo * fileInfo)
+    {
+        if(&ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archives[2] == file){
+            path = DX::UIArchive;
+        }
+        else if(&ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archives[2] == file){
+            path = DX::CommonArchive;
+        }
+        //else if(&ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COURSE]->archives[4] == file){
+        //    path = DX::CourseArchive;
+        //}
+        file->Load(path, heap, isCompressed, align, fileHeap, fileInfo);
+    }
+
+    kmWrite32(0x8052a108, 0x38800003); //+1 for CommonDX.szs
+    kmWrite32(0x8052a188, 0x38800003); //+1 for UIDX.szs
+    //kmWrite32(0x8052a148, 0x38800005); //+1 for CourseDX.szs
+    kmCall(0x8052aa2c, LoadAdditionalFiles);
 
     //Unlock Everything Without Save [_tZ]
     kmWrite32(0x80549974,0x38600001);
