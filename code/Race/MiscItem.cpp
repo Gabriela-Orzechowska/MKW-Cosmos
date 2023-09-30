@@ -8,18 +8,19 @@
 #include <game/Item/ItemSlotTable.hpp>
 #include <game/Item/Obj/ItemObj.hpp>
 
-int HandleMegaMushroomCollision(KartCollision * kartCollision)
-{
-    kartCollision->base.GetKartMovement()->ActivateMega();
-    return -1;
-}
-
 ItemPlayer * GetItemPlayer(KartCollision * kartCollision)
 {
     ItemPlayer * itemPlayer = ItemManager::sInstance->players;
     u8 playerId = kartCollision->base.GetPlayerIdx();
 
     return &itemPlayer[playerId];
+}
+
+int HandleMegaMushroomCollision(KartCollision * kartCollision)
+{
+    ItemPlayer * itemPlayer = GetItemPlayer(kartCollision);
+    itemPlayer->UseMegaMushroom();
+    return -1;
 }
 
 int HandleLightingCollision(KartCollision * kartCollision)
@@ -103,7 +104,6 @@ kmWritePointer(0x808b550c, HandleBulletCollision);
 
 void IncreaseItemLimit(ItemObjProperties * src, ItemObjProperties * dst)
 {
-    src->limit = NEW_ITEM_LIMIT;
     CopyItemOBJPropertiesFromRelToTable(src, dst);
     dst->limit = NEW_ITEM_LIMIT;
     return;
