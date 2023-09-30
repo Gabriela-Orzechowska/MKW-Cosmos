@@ -28,9 +28,9 @@ public:
   Vec3 unknown_0x8c;
   Vec3 unknown_0x98;
   Vec3 rotVec0; //contains drift, diving and wheel rotation
-  Vec3 speed2;
+  Vec3 movingRoadSpeed;
   Vec3 rotVec1;
-  Vec3 speed3;
+  Vec3 waterStreamSpeed;
   Vec3 speed; //sum of vel0, vel1, vel2 and vel3
   float speedNorm;
   Vec3 rotVec2;

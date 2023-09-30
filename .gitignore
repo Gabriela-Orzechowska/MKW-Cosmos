@@ -36,3 +36,11 @@ cw/
 *.app
 engine/.editorconfig
 source/.editorconfig
+build/E.bin
+build/J.bin
+build/K.bin
+build/P.bin
+TestPack/mkwdx/sys/E.bin
+TestPack/mkwdx/sys/J.bin
+TestPack/mkwdx/sys/K.bin
+TestPack/mkwdx/sys/P.bin

@@ -72,23 +72,27 @@ namespace DXUI{
 
         float maxSpeed = pointers->kartMovement->hardSpeedLimit;
 
-        //We add engine speed + water speed + 3rd speed (idk what)
+        //We add engine speed + moving road speed + moving water speed;
         Vec3 vec3Speed;
-        PSVECAdd(static_cast<Vec*>(&kartPhysics->engineSpeed), &kartPhysics->speed2, &vec3Speed);
-        PSVECAdd(&vec3Speed, &kartPhysics->speed3, &vec3Speed);
+        PSVECAdd(static_cast<Vec*>(&kartPhysics->engineSpeed), &kartPhysics->movingRoadSpeed, &vec3Speed);
+        PSVECAdd(&vec3Speed, &kartPhysics->waterStreamSpeed, &vec3Speed);
         float speed = PSVECMag(&vec3Speed);
 
-        speed = speed > maxSpeed ? maxSpeed : speed;
+        if(speed > maxSpeed) speed = maxSpeed;
 
-        u32 actualSpeed = (u32) (speed * 10.0f);
+        u32 splitSpeed = (u32) (speed * 10.0f);
 
-        float decimals = (float) (actualSpeed % 10 / 1);
-        float units = (float) (actualSpeed % 100 / 10);
-        float tens = (float) (actualSpeed % 1000 / 100);
-        float hundreds = (float) (actualSpeed % 10000 / 1000);
+        float decimals = (float) (splitSpeed % 10 / 1);
+        float units = (float) (splitSpeed % 100 / 10);
+        float tens = (float) (splitSpeed % 1000 / 100);
+        float hundreds = (float) (splitSpeed % 10000 / 1000);
 
-        if(hundreds < 0.1f) hundreds = 10.0f;
-        if(tens < 0.1f) tens = 10.0f;
+        if(hundreds < 0.1f) 
+        {
+            hundreds = 10.0f;
+            if(tens < 0.1f) 
+                tens = 10.0f;
+        }
 
         this->animator.GetAnimationGroupById(0)->PlayAnimationAtFrameAndDisable(0, hundreds);
         this->animator.GetAnimationGroupById(1)->PlayAnimationAtFrameAndDisable(0, tens);
