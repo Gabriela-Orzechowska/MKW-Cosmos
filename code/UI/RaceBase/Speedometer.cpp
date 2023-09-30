@@ -74,7 +74,7 @@ namespace DXUI{
 
         //We add engine speed + moving road speed + moving water speed;
         Vec3 vec3Speed;
-        PSVECAdd(static_cast<Vec*>(&kartPhysics->engineSpeed), &kartPhysics->movingRoadSpeed, &vec3Speed);
+        PSVECAdd(&kartPhysics->engineSpeed, &kartPhysics->movingRoadSpeed, &vec3Speed);
         PSVECAdd(&vec3Speed, &kartPhysics->waterStreamSpeed, &vec3Speed);
         float speed = PSVECMag(&vec3Speed);
 
