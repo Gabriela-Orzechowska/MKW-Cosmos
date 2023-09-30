@@ -1,14 +1,14 @@
 #ifndef _NW4R_SNDWAVEPLAYER_
 #define _NW4R_SNDWAVEPLAYER_
-#include <types.hpp>
+#include "types.hpp"
 
 #include <core/nw4r/snd/BasicPlayer.hpp>
 
 
-namespace nw4r {
-namespace snd {
-namespace detail {
-class WsdPlayer : public BasicPlayer {
+namespace nw4r{
+namespace snd{
+namespace detail{
+class WsdPlayer : public BasicPlayer{
     WsdPlayer(); //800add80
     ~WsdPlayer(); //800ad510 vtable 80274bb8
     bool Start() override; //800ae040

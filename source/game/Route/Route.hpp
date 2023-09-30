@@ -7,14 +7,14 @@
 
 
 
-class RoutePoint {
+class RoutePoint{
     RoutePoint(); //806ecafc
     ~RoutePoint(); //806ecb00
     Vec3 position;
     u16 settings[2];
 }; //0x10
 
-class RouteSegment { //from point i to point i+1 except for last if cyclic where it's from n to 0
+class RouteSegment{ //from point i to point i+1 except for last if cyclic where it's from n to 0
     RouteSegment(); //806efbf0
     ~RouteSegment(); //806efbf4
     float distance; //0
@@ -22,7 +22,7 @@ class RouteSegment { //from point i to point i+1 except for last if cyclic where
     Vec3 unitVec; //0x8 direction from A to B
 }; //0x14
 
-class RouteArc {
+class RouteArc{
     RouteArc(); //806ed6c0
     ~RouteArc(); //806ed6c4
     Vec3 originPoint;
@@ -30,7 +30,7 @@ class RouteArc {
     Vec3 unknown_0x18[3];
 }; //0x38
 
-class Route {
+class Route{
     Route(u32 routeId, KMP::POTIHolder *route); //806ec9a4
     Route(u32 routeId, Vec3 *pointsArray, u32 pointCount, u32 isCurved, bool isNotCyclic); //806ec9a4 array of vectors
     virtual ~Route(); //806ecc40 vtable 808c76a8
@@ -54,12 +54,12 @@ class Route {
     u8 padding; //0xB
     RoutePoint *pointsArray; //0xC
     u8 unknown_0x10;
-    u8 unknown_0x11[0x20 - 0x11];
+    u8 unknown_0x11[0x20-0x11];
     float unknown_0x20;
     u32 isCurved; //0x24
 }; //0x28
 
-class RouteStraight : public Route {
+class RouteStraight : public Route{
     RouteStraight(u32 routeId, KMP::POTIHolder *route); //806ef9b4
     RouteStraight(u32 routeId, Vec3 *pointsArray, u32 pointCount, u32 isCurved, bool isNotCyclic); //806efc34 unsure what r5 is
     ~RouteStraight() override; //806efd6c vtable 808c7768
@@ -71,7 +71,7 @@ class RouteStraight : public Route {
     float *GetPercentFromOriginArrays() const override; //806f0994 returns NULL
     void Update() override; //806f0990
     void UpdateTotalDistance(); //806f098c
-
+    
     u8 unknown_0x28[2];
     u16 segmentCount; //0x2A points - 1 if cyclic, else point count
     RouteSegment *segments; //0x2C
@@ -80,7 +80,7 @@ class RouteStraight : public Route {
 
 
 
-class RouteCurved : public Route {
+class RouteCurved : public Route{ 
     RouteCurved(u32 routeId, KMP::POTIHolder *route); //806ed57c
     RouteCurved(u32 routeId, Vec3 *pointsArray, u32 pointCount, u32 isCurved, bool isNotCyclic); //806ed704 unsure what r5 is
     ~RouteCurved() override; //806ed828 vtable 808c7708

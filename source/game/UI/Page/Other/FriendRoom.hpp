@@ -11,37 +11,37 @@
 #include <game/Network/RKNetRoom.hpp>
 
 
-namespace Pages {
+namespace Pages{
 class FriendRoomMessages;
 }
 
-class UnkUnkFriendRoomManager {
+class UnkUnkFriendRoomManager{
     ROOMPacket packet;
     u8 index; //id * 2 + isGuest
-    u8 unknown_0x5[0x8 - 0x5];
+    u8 unknown_0x5[0x8-0x5];
 };
 
-class UnkFriendRoomManager {
+class UnkFriendRoomManager{
     ~UnkFriendRoomManager(); //805dae80
     UnkFriendRoomManager(); //805daec0
     UnkUnkFriendRoomManager packetHolders[12];
-    u8 unknown[0xf0 - 0x60];
+    u8 unknown[0xf0-0x60];
     u32 lastSentAid;
     ROOMPacket receivedPackets[24]; //0xf4 arranged by pairs
 }; //0x158
 
 
 
-class FriendMatchingPlayer : public LayoutUIControl {
+class FriendMatchingPlayer : public LayoutUIControl{
     FriendMatchingPlayer(); //805d945c
     ~FriendMatchingPlayer() override; //805d94d0 vtable 808b8f90
     void InitSelf() override; //0x18 805d9614
     void OnUpdate() override; //0x1c 805d9700
     int GetRuntimeTypeInfo() const override; //0x28 805de884
-    const char *GetClassName() const override; //0x2c 805d944c
+    const char* GetClassName() const override; //0x2c 805d944c
     void Load(MiiGroup *miiGroup, u8 id, bool isGuest); //805d9528
     void OnMessageSent(Mii *mii); //805d9aa8 just does the animation, mii isn't actually used
-    PtmfHolder_1A<FriendMatchingPlayer, void, Mii *> onMessageSentHandler; //0x174 805d9aa8
+    PtmfHolder_1A<FriendMatchingPlayer, void, Mii*> onMessageSentHandler; //0x174 805d9aa8
     MiiGroup *miiGroup; //0x188
     u8 id; //0x18c
     bool isGuest; //0x18d
@@ -52,17 +52,16 @@ class FriendMatchingPlayer : public LayoutUIControl {
     bool hasJoined; //0x19c 0->1 triggers the join animation
     u8 padding2[3];
 }; //total size 0x1a0
-size_assert(FriendMatchingPlayer, 0x1a0);
+static_assert(sizeof(FriendMatchingPlayer) == 0x1a0, "FriendMatchingPlayer");
 
-class MessageSelectControl : public LayoutUIControl {
-public:
+class MessageSelectControl : public LayoutUIControl{
     MessageSelectControl(); //805db6c8
     ~MessageSelectControl() override; //805db724 vtable 808b8ef0
     void InitSelf() override; //0x18 805db8ec
     void OnUpdate() override; //0x1c 805db8f0
     void SetPositionAnim(float curFrame, PositionAndScale *positionAndScale) override; //0x20  805db9e8
     int GetRuntimeTypeInfo() const override; //0x28 805de86c
-    const char *GetClassName() const override; //0x2c 805db6b8
+    const char* GetClassName() const override; //0x2c 805db6b8
     void Load(); //805db798
     void Activate(); //805dba20 plays show anim + sets playerbitfield
     void Deactivate(); //805dbab8 opposite plays hide anim
@@ -71,21 +70,21 @@ public:
     bool IsActivated(); //805dbc20
     bool IsDeactivated(); //805dbc58
     void SetButtonBmg(u8 id, u32 r5, u32 bmgId, const TextInfo *text); //805dbc8c
-    void SetOnClickHandler(PtmfHolder_2A<Pages::FriendRoomMessages, void, PushButton *, u32> *handler); //805dbcc4
+    void SetOnClickHandler(PtmfHolder_2A<Pages::FriendRoomMessages, void, PushButton*, u32> *handler); //805dbcc4
     void SelectInitialButton(u32 hudSlotId, u8 id); //805dbd24
     u32 GetSelectedButtonId() const; //805dbd34
     PushButton buttons[4]; //0x174
 }; //total size 0xac4
-size_assert(MessageSelectControl, 0xAC4);
+static_assert(sizeof(MessageSelectControl) == 0xAC4, "MessageSelectControl");
 
-namespace Pages {
+namespace Pages{
 
-class FriendRoomWaiting : public Page { //ID 0x9b
+class FriendRoomWaiting : public Page{ //0x9b
 public:
     FriendRoomWaiting(); //805dd330
     ~FriendRoomWaiting(); //805dd38c vtable 808b8df8
     PageId GetNextPage() const override; //0x10 805de844
-    int IsHomeMenuWorking() override; //0x14 805de84c
+    int func_0x14() override; //0x14 805de84c
     void OnInit() override; //0x28 805dd418
     void OnActivate() override; //0x30 805dd5ac
     void OnDeactivate() override; //0x34 805dd724
@@ -98,12 +97,12 @@ public:
     MatchingMessageWindow messageWindow; //0x54
     CountDownTimerControl countdownControl; //0x1c8
     CountDown countdown; //0x344
-    u8 unknown_0x350[0x360 - 0x350];
+    u8 unknown_0x350[0x360-0x350];
     PageId nextPageId;
-};
-size_assert(FriendRoomWaiting, 0x364);
+}; 
+static_assert(sizeof(FriendRoomWaiting) == 0x364, "FriendRoomWaiting");
 
-class FriendRoomManager : public Page { //ID 0x9c
+class FriendRoomManager : public Page{ //0x9c
 public:
     FriendRoomManager(); //805d9b38
     ~FriendRoomManager() override; //805d9bcc vtable 808b8f2c
@@ -114,7 +113,7 @@ public:
     void BeforeExitAnimations() override; //0x40 805da028
     void AfterControlUpdate() override; //0x4c 805da140
     int GetRuntimeTypeInfo() const override; //0x60 805de878
-    static u32 GetMessageBmg(ROOMPacket *packet, u32 r4); //805dacb0
+    static u32 GetMessageBmg(ROOMPacket *packet); //805dacb0
     void SetToSendPacket(ROOMPacket *packet); //805dae30
     void SetPacket(ROOMPacket *packet, u8 id); //805dae58
 
@@ -130,17 +129,17 @@ public:
     u32 playerCount; //0x2ae8
     u32 waitingDuration; //0x2aec at 3600 frames something happens with the globe (reset?)
     bool isWaiting; //0x2af0 if true, busySymbol is made visible
-    u8 unknown_0x2af1[0x2af8 - 0x2af1];
+    u8 unknown_0x2af1[0x2af8-0x2af1];
     u8 lastMessageId; //1 to 4 
-    u8 unknown_0x2af8[0x2b08 - 0x2af8]; //0x2af1
+    u8 unknown_0x2af8[0x2b08-0x2af8]; //0x2af1
     UnkFriendRoomManager unknownStruct; //0x2b08
     ROOMPacket lastSentPacket; //0x2c60
     u8 localAid; //0x2c64
     u8 padding2[3];
 }; //0x2c68
-size_assert(FriendRoomManager, 0x2c68);
+static_assert(sizeof(FriendRoomManager) ==  0x2c68, "FriendRoomManager");
 
-class FriendRoom : public Page { //ID 0x9d
+class FriendRoom : public Page{ //0x9d
 public:
     FriendRoom(); //805d7f78
     ~FriendRoom() override; //805d8160 vtable 808b8fd8
@@ -157,11 +156,11 @@ public:
     void OnBackButtonClick(PushButton *button, u32 hudSlotId); //805d9160
     void OnButtonSelect(PushButton *button, u32 hudSlotId); //805d92a0
     void OnBackPress(u32 hudSlotId); //805d930c
-    PtmfHolder_2A<FriendRoom, void, PushButton *, u32> onMessagesButtonsClickHandler; //0x44 805d8f84
-    PtmfHolder_2A<FriendRoom, void, PushButton *, u32> onStartButtonClickHandler; //0x58 805d906c
-    PtmfHolder_2A<FriendRoom, void, PushButton *, u32> onAddFriendsButtonClickHandler; //0x6c 805d9154
-    PtmfHolder_2A<FriendRoom, void, PushButton *, u32> onBackButtonClickHandler; //0x80 805d9160
-    PtmfHolder_2A<FriendRoom, void, PushButton *, u32> onButtonSelectHandler; //0x94 805d92a0
+    PtmfHolder_2A<FriendRoom, void, PushButton*, u32> onMessagesButtonsClickHandler; //0x44 805d8f84
+    PtmfHolder_2A<FriendRoom, void, PushButton*, u32> onStartButtonClickHandler; //0x58 805d906c
+    PtmfHolder_2A<FriendRoom, void, PushButton*, u32> onAddFriendsButtonClickHandler; //0x6c 805d9154
+    PtmfHolder_2A<FriendRoom, void, PushButton*, u32> onBackButtonClickHandler; //0x80 805d9160
+    PtmfHolder_2A<FriendRoom, void, PushButton*, u32> onButtonSelectHandler; //0x94 805d92a0
     PtmfHolder_1A<FriendRoom, void, u32> onBackPressHandler; //0xa8 805d930c
     ControlsManipulatorManager manipulatorManager; //0xbc
     PushButton messagesButton; //0x2e0
@@ -176,12 +175,11 @@ public:
     bool hasClickedAddFriends; //0xdc1
     u8 unknown_0xdc2[2];
 }; //total size 0xdc4
-size_assert(FriendRoom, 0xdc4);
+static_assert(sizeof(FriendRoom) == 0xdc4, "FriendRoom");
 
 class FriendRoomMessages;
 
-class FriendRoomMessages : public Page { //ID 0x9e
-public:
+class FriendRoomMessages : public Page{
     FriendRoomMessages(); //805dbd94
     ~FriendRoomMessages() override; //805dc034 vtable 808b8e5c
     void OnInit() override; //0x28 805dc104
@@ -198,12 +196,12 @@ public:
     void OnBackButtonClick(CtrlMenuBackButton *backButton, u32 hudSlotId); //805dd2dc
     void OnBackPress(u32 hudSlotId);  //805dd318
     void End(); //805dca9c sets animLength and isEnding
-    PtmfHolder_2A<FriendRoomMessages, void, PushButton *, u32> onMessageButtonClickHandler; //0x44 805dcc70
-    PtmfHolder_2A<FriendRoomMessages, void, PushButton *, u32> onModeButtonClickHandler; //0x58 805dcd78
-    PtmfHolder_2A<FriendRoomMessages, void, PushButton *, u32> onAddFriendsButtonClickHandler; //0x6c 805dce80
-    PtmfHolder_2A<Page, void, SheetSelectControlScaleFade *, u32> onRightArrowPressHandler; //0x80 805dd0c8
-    PtmfHolder_2A<Page, void, SheetSelectControlScaleFade *, u32> onLeftArrowPressHandler; //0x94 805dd1d4
-    PtmfHolder_2A<FriendRoomMessages, void, CtrlMenuBackButton *, u32> onBackButtonClick; //0xa8 805dd2dc
+    PtmfHolder_2A<FriendRoomMessages, void, PushButton*, u32> *onMessageButtonClickHandler; //0x44 805dcc70
+    PtmfHolder_2A<FriendRoomMessages, void, PushButton*, u32> *onModeButtonClickHandler; //0x58 805dcd78
+    PtmfHolder_2A<FriendRoomMessages, void, PushButton*, u32> *onAddFriendsButtonClickHandler; //0x6c 805dce80
+    PtmfHolder_2A<Page, void, SheetSelectControlScaleFade*, u32> *onRightArrowPressHandler; //0x80 805dd0c8
+    PtmfHolder_2A<Page, void, SheetSelectControlScaleFade*, u32> *onLeftArrowPressHandler; //0x94 805dd1d4
+    PtmfHolder_2A<FriendRoomMessages, void, CtrlMenuBackButton*, u32> *onBackButtonClick; //0xa8 805dd2dc
     PtmfHolder_1A<Page, void, u32> onBackPress; //0xbc 805dd318
     ControlsManipulatorManager manipulatorManager; //0xd0
     LayoutUIControlScaleFade messageBase; //0x2f4
@@ -212,18 +210,14 @@ public:
     LayoutUIControlScaleFade pageNumber; //0x1f28
     LayoutUIControl obiBottom; //0x209c
     CtrlMenuBackButton backButton; //0x2210
-    MessageSelectControl *messagesPtrs[2]; //0x2474
-    u32 location; //0x247c messages = 0, mode selection = 1, add friends = 2
-    u32 msgCount; //0x2480
-    u32 pageCount; //0x2484
-    u32 curPageIdx; //0x2488
+    u8 unknown_0x2474[0x248c-0x2474];
     bool isEnding; //0x248c
     u8 padding[3];
     float animLength; //0x2490
     MiiGroup miiGroup; //0x2494
-    u8 unknown_0x252c[0x2680 - 0x252c]; //0x252c
-
+    u8 unknown_0x252c[0x2680-0x252c]; //0x252c
+    
 }; //total size 0x2680
-size_assert(FriendRoomMessages, 0x2680);
+//static_assert(sizeof(FriendRoomMessages) == 0x2680, "FriendRoomMessages");
 }//namespace Pages
 #endif

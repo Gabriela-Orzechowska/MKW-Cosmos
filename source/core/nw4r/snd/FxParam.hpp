@@ -1,10 +1,10 @@
 #ifndef _NW4R_SNDFXPARAM_
 #define _NW4R_SNDFXPARAM_
-#include <types.hpp>
-namespace nw4r {
-namespace snd {
-namespace detail {
-struct FxReverbHiParam {
+#include "types.hpp"
+namespace nw4r{
+namespace snd{
+namespace detail{
+struct FxReverbHiParam{
     float preDelayTime;
     float fusedTime;
     float coloration;

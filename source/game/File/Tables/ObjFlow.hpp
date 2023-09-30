@@ -4,7 +4,7 @@
 
 //https://wiki.tockdom.com/wiki/Filesystem/Race/Common.szs/ObjFlow.bin
 //Objects params
-enum ObjectClippingMethod {
+enum ObjectClippingMethod{
     OBJ_CLIPPING_NONE = 0x0,
     OBJ_CLIPPING_DEFAULT_ENABLED = 0x1, //disabled outside draw distance
     OBJ_CLIPPING_DEFAULT_DISABLED = 0x2, //enabled inside draw distance
@@ -14,7 +14,7 @@ enum ObjectClippingMethod {
     OBJ_CLIPPING_DEFAULT_DISABLED_AREA_RECALCULATE = 0xB
 };
 
-struct ObjFlowEntry {
+struct ObjFlowEntry{
     u16 objId;
     char name[0x20];
     char neededFiles[0x40]; //separated by a ; such as koopaFirebar; WLfirebarGC
@@ -26,9 +26,9 @@ struct ObjFlowEntry {
     s16 solidityParams[3]; //0x6c value used depends on solidity type
     u16 unknown_0x72; //0x72
 }; //total size 0x74
-size_assert(ObjFlowEntry, 0x74);
+static_assert(sizeof(ObjFlowEntry) == 0x74, "ObjFlowEntry");
 
-struct ObjFlow {
+struct ObjFlow{
     TableBinaryHeader header;
     ObjFlowEntry entries; //number = objCount
     //IndexToIDTable idxToID;

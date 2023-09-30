@@ -14,12 +14,12 @@ public:
     void OnUpdate() override; //0x1c 805e2968
     int GetRuntimeTypeInfo() const override; //0x28 805e2f40
     const char *GetClassName() const override; //0x2c 805e2740
-    void Load(const char *variantName); //805e2844
+    void Load(const char*variantName); //805e2844
     void UpdateInfoAnimate(GhostData *header, bool isNew, u32 animationId); //805e2d40
     void UpdateInfo(GhostData *header, bool isNew); //805e296c
     MiiGroup miiGroup; //0x174
     //0x20c
-    u8 unknown_0x20C[0x234 - 0x20c];
+    u8 unknown_0x20C[0x234-0x20c];
     u32 unknown_0x234; //set to 0
     u16 unknown_0x238; //set to 0
     u16 unknown_0x23A; //set to 0
@@ -29,6 +29,6 @@ public:
     u16 unknown_0x246;
     u32 unknown_0x248; //gets set to 0x00080000 in the ctor
 }; //total size 0x24C
-size_assert(GhostInfoControl, 0x24C);
+static_assert(sizeof(GhostInfoControl) == 0x24C,"GhostInfoControl");
 
 #endif

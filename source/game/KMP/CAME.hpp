@@ -2,7 +2,7 @@
 #define _CAME_
 #include <game/KMP/SectionBase.hpp>
 
-struct CAME {
+struct CAME{ 
     u8 type;
     u8 nextCam;
     u8 shake;
@@ -21,6 +21,6 @@ struct CAME {
     float duration;
 }; //total size 0x48
 
-typedef struct KMPSection<CAME> CAMESection;
+typedef struct Section<CAME> CAMESection;
 
 #endif

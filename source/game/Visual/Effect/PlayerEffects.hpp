@@ -4,7 +4,7 @@
 #include <core/egg/Effect/Effect.hpp>
 #include <game/Race/Kart/Kart.hpp>
 
-class UnkEffectClass {
+class UnkEffectClass{
 public:
     UnkEffectClass(); //8068e844 just a blr
     ~UnkEffectClass(); //8068e848
@@ -22,13 +22,13 @@ public:
     void DisplayEffects2(EGG::Effect **effectsArray, u32 firstEffectIndex, u32 lastEffectIndex, bool r7);
     void FadeEffects2(EGG::Effect **effectsArray, u32 firstEffectIndex, u32 lastEffectIndex, bool r7);
     bool unknown_0x4;
-    u8 unknown_0x5[0xB - 0x5]; //0x8068ea78, init func maybe
+    u8 unknown_0x5[0xB-0x5]; //0x8068ea78, init func maybe
     bool hasOnlyOnePage; //ScnManager pageCoutn if <2 then true
     bool unknown_0xC;
     bool isInsideDrift; //0xd
     bool isAutomaticDrift; //0xe
     bool isHumanPlayer; //0xF
-    u8 unknown_0x10[0x15 - 0x10]; //806b26c
+    u8 unknown_0x10[0x15-0x10]; //806b26c
     bool hasGottenStartBoost;
     u16 frameTimer; //0x16 up to 1000, seems to only trigger for certain effects 0x16
     u16 startBoostDuration; //0x18
@@ -39,14 +39,14 @@ public:
     bool isOnJumpPad; //0x22 same
     bool hasMTBoost; //0x23
     bool isOverZipper; //0x24
-    u8 unknown_0x25[0x2B - 0x25]; //8068eb04 same as above but 1 frame delayed most likely
+    u8 unknown_0x25[0x2B-0x25]; //8068eb04 same as above but 1 frame delayed most likely
     bool hasMushroomBoost; //0x2B
     u8 unknown_0x2C[2]; //8068eb04
     bool isInExplosion; //0x2E
     bool unknown_0x2F;
-    u8 unknown_0x30;
+    u8 unknown_0x30; 
     u8 unknown_0x31; //8068eb2c
-    u8 unknown_0x32[0x34 - 0x32];
+    u8 unknown_0x32[0x34-0x32];
     u32 smtCharge; //0x34 80698650 
     u8 unknown_0x38; //mess at 0x8068eec4
     u8 unknown_0x39; //mess at 0x8068eec4
@@ -63,18 +63,18 @@ public:
     bool isInMega; //0x47
     bool hasTC; //0x48
     u8 unknown_0x49; //80693fa8
-    u8 unknown_0x4A[0x4C - 0x4A];
+    u8 unknown_0x4A[0x4C-0x4A];
     u32 unknown_0x4C; //set to 0x2b2 8068ec18
     u32 unknown_0x50; //set to 0x21C
     u32 frameTimer3; //0x54
     u32 frameTimer4; //0x58
     bool isInCannon; //0x5C
-    u8 unknown_0x5D[0x60 - 0x5D]; //padding?
+    u8 unknown_0x5D[0x60-0x5D]; //padding?
     u32 unknown_0x60; //set to 0x23 8068eb54
     u32 unknown_0x64; //set to -1
     u8 unknown_0x68; //806950d0
-    u8 unknown_0x69;
-    u8 unknown_0x6A;
+    u8 unknown_0x69; 
+    u8 unknown_0x6A; 
     u8 unknown_0x6B; //8068eb5c
     u8 unknown_0x6C; //8068eb5c
     u8 unknown_0x6D[3];
@@ -92,7 +92,7 @@ public:
     u32 unknown_0x84;
     bool unknown_0x88; //bitfield 1 0x20000000
     bool unknown_0x89; //related to MT sparks 8069bad4
-    u8 unknown_0x8A[0x8C - 0x8A];
+    u8 unknown_0x8A[0x8C-0x8A];
     u32 unknown_0x8C; //set to -1
     u8 unknown_0x90; //8068eb94
     u8 unknown_0x91;
@@ -103,8 +103,8 @@ public:
     bool isInPreRespawn; //0x96
     bool isInPreRespawn1framedelayed; //0x97
     u8 unknown_0x98; //80694528
-    u8 unknown_0x99[0xA0 - 0x99];
-    u8 unknown_0xA0[0xA8 - 0xA0];
+    u8 unknown_0x99[0xA0-0x99];
+    u8 unknown_0xA0[0xA8-0xA0];
     u8 unknown_0xA8; //8068ebc4 
     u8 unknown_0xA9;
     bool isManualDrifting; //0xAA
@@ -123,21 +123,21 @@ public:
     u8 unknown_0xB7;
     u8 unknown_0xB8;
     bool hasHitItem; //0xB9
-    u8 unknown_0xBA[0xC0 - 0XBA];
+    u8 unknown_0xBA[0xC0-0XBA];
     bool unknown_0xC0; //related to cameras, 0x80694568
-    u8 unknown_0xC1[0xc4 - 0xC1];
+    u8 unknown_0xC1[0xc4-0xC1];
     Mtx34 playerMat2; //might be one frame delayed, copy of the one at 6f4 80694c6c 
     u8 unknown_0xF4; //806945bc
     bool hasVanished; //80693dc0
     u8 unknown_0xF6; //80694660 related to cameras
-    u8 unknown_0xF7[0x100 - 0xF7];
+    u8 unknown_0xF7[0x100-0xF7];
     float float_0x100; //0x8069ec94
     float float_0x104;
     float float_0x108;
     u8 unknown_0x10C; //8069eca8
     u8 unknown_0x10D;
     bool isAcceleratingAtStart; //0x10e
-    u8 unknown_0x10F[0x118 - 0x10f];
+    u8 unknown_0x10F[0x118-0x10f];
     Kart *kart; //0x118
     KartId kartId; //0x11c
     CharacterId characterId; //0x120
@@ -150,7 +150,7 @@ public:
     bool isRealOrNotGhost; //0x12D
     u8 playerId; //0x12e
     u8 unknown_0x12f; //0x8068ee44
-    u8 unknown_0x130[0x134 - 0x130];
+    u8 unknown_0x130[0x134-0x130];
     u32 playerIdPlus2; //0x134 0x8068f064
     bool isCPURace; //0x138
     bool isReplay; //0x139
@@ -179,7 +179,7 @@ public:
     u8 unknown_0x150; //related to objects 8068e284
     bool isSL; //0x151
     bool hasEnvFire;
-    bool hasKareha;
+    bool hasKareha; 
     bool isRedTeam; //0x154
     bool isBlueTeam; //0x155
     bool isBattle; //0x156 
@@ -196,10 +196,10 @@ public:
 
     EGG::Effect *rk_raceEffects[92]; //use enum
 
-    bool hasLoaded_1[0x38c - 0x360]; //0x360 check from crash to hitA
-    bool hasLoaded_2[0x39A - 0x38C]; //rk_koukasen to rk_effect_0x2D4
-    bool hasLoaded_3[0x3AA - 0x39A]; //806b0e50 check from gasSmoke to miniTurbo_4
-    bool hasLoaded_4[0x3BC - 0x3AA]; //806b0ec8 check from dirtSmoke to stone2
+    bool hasLoaded_1[0x38c-0x360]; //0x360 check from crash to hitA
+    bool hasLoaded_2[0x39A-0x38C]; //rk_koukasen to rk_effect_0x2D4
+    bool hasLoaded_3[0x3AA-0x39A]; //806b0e50 check from gasSmoke to miniTurbo_4
+    bool hasLoaded_4[0x3BC-0x3AA]; //806b0ec8 check from dirtSmoke to stone2
 
     float unk_emission_value_0x3BC[44]; //related from crash to hitA ends at 46c, corresponds to unknown emission value on the wiki
     float unk_emission_value_0x46C[14]; //0x46C from rk_koukasen to rk_effect_0x2D4,
@@ -234,13 +234,13 @@ public:
     Mtx34 unknown_0x74C;
     Vec3 unknown_kartParam; //from 0x6CC field 8068ef9c
     Vec3 unknown_kartParam2; //from 0x6CC field
-    u8 unknown_0x794[0x79C - 0x794];
+    u8 unknown_0x794[0x79C-0x794];
     u32 unknown_0x79C; //set to C8 8068ed88
     u16 driftState; //from kartMovement 7a0, delayed by one frame so that on the transition stuff happens
     u8 unknown_0x7A2[2];
     Vec3 vector_0x7A4;
     u32 unknown_0x7B0; //8068ed90
-    u8 unknown_0x7B4[0x7B9 - 0x7B4]; //all incremented until 0x64 at 806947ac
+    u8 unknown_0x7B4[0x7B9-0x7B4]; //all incremented until 0x64 at 806947ac
     bool isSecondWheelOnFloor; //0x7b9
     bool isThirdWheelOnFloor; //0x7ba
     Vec3 thirdWheelPos; //0x7bc from WheelPhysics, set at 80694040
@@ -264,7 +264,7 @@ public:
     Vec3 vector_0x8A0; //copy of 870, 1 frame delayed?
     Mtx34 boostMat[4]; //806a0ef0
     bool isAccelerating; //0x96C
-    u8 unknown_0x96D[0x971 - 0x96D]; //80694960
+    u8 unknown_0x96D[0x971-0x96D]; //80694960
     u8 unknown_0x971[3];
     float float_0x974[2];
     Vec3 vector_0x97C; //806b1340
@@ -272,25 +272,25 @@ public:
     u8 unknown_0x98E[2];
     float float_0x990;
     u16 unknown_0x994[7]; //ends at 9a2
-    u8 unknown_0x9B0[0x9B0 - 0x9A2];
+    u8 unknown_0x9B0[0x9B0-0x9A2];
     float float_0x9B0[14]; //806b146c ends at 9e8
-    u8 unknown_0x9E8[0x9F0 - 0x9e8];
+    u8 unknown_0x9E8[0x9F0-0x9e8];
     float float_0x9F0[22]; //ends at 0xA48
-    u8 unknown_0xA48[0xA4C - 0xA48];
+    u8 unknown_0xA48[0xA4C-0xA48];
     u8 unknown_0xA4C; //806b159c
-    u8 unknown_0xA4D[0xA50 - 0xA4D];
+    u8 unknown_0xA4D[0xA50-0xA4D];
     float unknown_0xA50[5];
-    u8 unknown_0xA64[0xA68 - 0xA64];
+    u8 unknown_0xA64[0xA68-0xA64];
     float float_0xA68[6];
-    u8 unknown_0xA80[0xA84 - 0xA80]; //806b1670
+    u8 unknown_0xA80[0xA84-0xA80]; //806b1670
     float float_0xA84[6]; //806b16d0 ends at A9C
-    u8 unknown_0xA9C[0xAAC - 0xA9C];
+    u8 unknown_0xA9C[0xAAC-0xA9C];
     float float_0xAAC[2];
     u16 unknown_0xAB4[3]; //8068ed44
     u8 unknown_0xABA[2];
     float float_0xABC[5]; //8068ec2c
     u16 unknown_0xAD0[5]; //806b11bc
-    u8 unknown_0xADA[0xAE0 - 0xADA];
+    u8 unknown_0xADA[0xAE0-0xADA];
     u8 unknown_0xAE0; //8068eb88
     u8 unknown_0xAE1[3];
     u32 unknown_0xAE4; //8068ebc8

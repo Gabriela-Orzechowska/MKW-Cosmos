@@ -2,7 +2,7 @@
 #define _AREA_
 #include <game/KMP/SectionBase.hpp>
 
-struct AREA {
+struct AREA{ 
     u8 shape; //0 box 1 cylinder
     u8 type;
     u8 camera;
@@ -17,6 +17,6 @@ struct AREA {
     u16 unknown_0x2e;
 }; //total size 0x30
 
-typedef struct KMPSection<AREA> AREASection;
+typedef struct Section<AREA> AREASection;
 
 #endif

@@ -18,12 +18,12 @@ class KartMovement;
 class KartDamage;
 class KartCollision;
 class KartSuspensions;
-class Wheels;
+class Wheels; 
 class WheelPhysics;
 class CollisionData;
 class WheelPhysicsHolder;
 
-class KartBase {
+class KartBase{
 public:
     KartBase(); //8059018c
     void SetPointersFromHolder(u8 playerId); //805901d0
@@ -56,7 +56,6 @@ public:
     CollisionData *GetWheelPhysicsCollisionData(u32 wheelIdx) const; //80590834
     WheelPhysicsHolder *GetWheelPhysicsHolder(u32 wheelIdx) const; //80590704
     KartSound *GetKartSound() const; //80590794
-    Mtx34 *GetKartMtx(); //80590264
     bool IsBike(); //80590a6c
     bool IsCpu(); //80590664
     void SetKartPosition(Vec3 *position); //80590238
@@ -64,5 +63,5 @@ public:
     void PlayCharacterSound(CharacterSoundType type); //805907b0
     KartPointers *pointers;
     nw4r::ut::Link kartLink; //link used in KartObjects list
-}; //0xC
+};
 #endif

@@ -1,14 +1,14 @@
 #ifndef _NW4R_UTDVDFILESTREAM_
 #define _NW4R_UTDVDFILESTREAM_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/ut/FileStream.hpp>
 #include <core/rvl/dvd/dvd.hpp>
 
-namespace nw4r {
-namespace ut {
-class DvdFileStream : public FileStream {
+namespace nw4r{
+namespace ut{
+class DvdFileStream : public FileStream{
 public:
-    class DvdFileStreamInfo {
+    class DvdFileStreamInfo{
         DVDFileInfo dvdInfo;
         DvdFileStream *stream;
     };
@@ -30,7 +30,7 @@ public:
     u32 offset; //70
     u32 size; //74
 };
-size_assert(DvdFileStream, 0x78);
+static_assert(sizeof(DvdFileStream) == 0x78, "DvdFileStream");
 }//namespace ut
 }//namespace nw4r
 #endif

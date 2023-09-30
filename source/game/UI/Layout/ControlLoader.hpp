@@ -5,8 +5,7 @@
 #include <game/File/BRCTR.hpp>
 
 class LayoutUIControl;
-
-class ControlLoader {
+class ControlLoader{
 public:
     explicit ControlLoader(LayoutUIControl *control); //805c2c18
     ~ControlLoader(); //805c2c20
@@ -30,6 +29,6 @@ public:
     BRCTRPicture *pictures; //0x20
     void *nameTable;
 };//Total Size 0x28
-size_assert(ControlLoader, 0x28);
+static_assert(sizeof(ControlLoader) == 0x28,"ControlLoader");
 
 #endif

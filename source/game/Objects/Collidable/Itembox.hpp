@@ -1,11 +1,11 @@
-et#ifndef _ITEMBOX_
+#ifndef _ITEMBOX_
 #define _ITEMBOX_
 #include <kamek.hpp>
 #include <game/Objects/Collidable/ObjectCollidable.hpp>
 
-namespace Objects {
-
-class Itembox : public ObjectCollidable, public ObjectCycleManager { //0x65 = 101
+namespace Objects{
+    
+class Itembox : public ObjectCollidable, public ObjectCycleManager{ //0x65 = 101
     explicit Itembox(KMP::GOBJHolder *gobjHolder); //808285b0
 
     ~Itembox() override; //806c4f74 vtable 808d7bc0
@@ -25,7 +25,7 @@ class Itembox : public ObjectCollidable, public ObjectCycleManager { //0x65 = 10
     u32 respawnTime; //0xb8 based on setting 5
     u16 randomSeedMaybe; //0xBC random value 0-180
     u16 shadowSetting; //0xbe shadows disabled if set
-    u8 unknown_0xc0[0xc8 - 0xc0];
+    u8 unknown_0xc0[0xc8-0xc0];
 }; //0xc8
 
 }//namespace Objects

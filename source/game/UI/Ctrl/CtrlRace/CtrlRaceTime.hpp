@@ -17,9 +17,9 @@ public:
     virtual int func_0x58(); //807f88b8
     virtual int func_0x5c(); //807f88b0
     u8 GetPlayerId() const; //807f7e80
-
+    
     Page *GetParentPage() const; //807f8274
-    void Load(const char *variant, u8 hudSlotId); //0x2c 807f842c
+    void Load(const char*variant, u8 hudSlotId); //0x2c 807f842c
     void SetTimer(Timer *timer); //807f84c0
     void DisableFlashingAnimation(); //807f8840
     void EnableFlashingAnimation(); //807f8878 if new best time or flap
@@ -32,9 +32,9 @@ public:
     static bool IsTimerInvalid(Timer *timer); //807f8360
     static void ResetTimer(Timer *timer, u16 minutes, u8 seconds, u16 milliseconds); //807f8380
     static PageId GetParentPageId(Page *page); //807f826c
-    static SectionId GetSectionId(); //807f8298
-    static Section *GetCurSection(); //807f8288
-    static bool isPaused(Section *curSection); //807f8280
+    static MenuId GetMenuId(); //807f8298
+    static Scene *GetCurScene(); //807f8288
+    static bool isPaused(Scene *curScene); //807f8280
     static void FillTimerGlobal(Timer *timer); //807f82ac global raceinfo timer
     static u8 GetPlayerMaxLap(u8 playerId); //807f7e64
     static bool hasPlayerFinished(u8 playerId); //807f82bc
@@ -48,11 +48,11 @@ public:
     u8 unknown_0x1AA[2]; //padding
     u32 idTimes3Plus1; //0x1AC
     u32 frames; //0x1B0 set to the number of active frames of Parent Page OnDeactivate, and then same on OnDeactivate, but never read?
-    u8 unknown_0x1B4[0x1B8 - 0x1B4];
+    u8 unknown_0x1B4[0x1B8-0x1B4];
     u32 type; //0x1b8
-    u8 unknown_0x1BC[0x1C0 - 0x1BC];
+    u8 unknown_0x1BC[0x1C0-0x1BC];
     u32 maxLap; //from raceinfoPlayer
 }; //0x1C4
 
-size_assert(CtrlRaceTime, 0x1C4);
+static_assert(sizeof(CtrlRaceTime) == 0x1C4, "CtrlRaceTime");
 #endif

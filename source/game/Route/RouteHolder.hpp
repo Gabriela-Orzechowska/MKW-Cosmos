@@ -4,7 +4,7 @@
 #include <game/KMP/Controller.hpp>
 #include <game/Route/Route.hpp>
 
-class RouteHolder {
+class RouteHolder{
     static RouteHolder *sInstance; //809c22b0
     static RouteHolder *GetStaticInstance; //806f09c8
     static void DestroyStaticInstance(); //806f0a4c

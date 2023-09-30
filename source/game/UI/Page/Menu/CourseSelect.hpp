@@ -8,8 +8,8 @@
 #include <game/UI/Ctrl/Menu/CtrlMenuCourse.hpp>
 
 //_sinit_ at 80840dd8
-namespace Pages {
-class CourseSelect : public MenuInteractable { //ID 0x6F    
+namespace Pages{
+class CourseSelect : public Menu{ //0x6F    
 public:
     CourseSelect(); //80627bd8
     ~CourseSelect() override; //80840ce0 vtable 808d9450
@@ -34,20 +34,20 @@ public:
     void UpdateBottomText(CtrlMenuCourseSelectCourse *course, PushButton *button, u32 hudSlotId); //80840728
     void OnTimeout(); //80840ba0 ends page and loads 0x92 (course votes)
     void LoadNextPage(CtrlMenuCourseSelectCourse *control, PushButton *courseButton, u32 hudSlotId); //80840830
-    static Page *GetPageById(PageId id = PAGE_COURSE_SELECT); //808401e4
+    static Page *GetPageById(PageId id = COURSE_SELECT); //808401e4
     //here the button refers to the back button as the course buttons are handled via extern controls
     //onButtonClick 0x658 vtable 808bd054 80840a44
     //onButtonSelect 0x66C vtable 808bd054 virtual 0x64
     //onButtonDeselect 0x680 vtable 808bd054 80840ab0
     //onBackPress  0x694 vtable 808bd048 80840ab4
     //onStartPress 0x6A8 vtable 808bd048 virtual off 0x7C
-
+    
     u32 unknown_0x6C4;
     CtrlMenuCourseSelectCup ctrlMenuCourseSelectCup; //0x6c8
     CtrlMenuCourseSelectCourse CtrlMenuCourseSelectCourse; //0x149c
     bool unknown_0x215c; //init at 0, set to 1 when a button is pressed
-    u8 unknown_0x215d[0x2160 - 0x215d];
+    u8 unknown_0x215d[0x2160-0x215d];
 }; //total size 0x2160
-size_assert(CourseSelect, 0x2160);
+static_assert(sizeof(CourseSelect) == 0x2160, "CourseSelect");
 }//namespace Pages
 #endif

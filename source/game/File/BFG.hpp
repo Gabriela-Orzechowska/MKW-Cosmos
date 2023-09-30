@@ -4,7 +4,7 @@
 #include <core/rvl/gx/GXEnum.hpp>
 
 
-struct BFGEntry {
+struct BFGEntry{
     GXFogType type;
     float startZ; //0x4
     float endZ; //0x8
@@ -15,7 +15,7 @@ struct BFGEntry {
     u8 unknown_0x18[2];
 };
 
-struct BFG {
+struct BFG{
     BFGEntry entries[4];
 };
 

@@ -5,7 +5,7 @@
 class UIControl;
 class Page;
 
-class ControlGroupAction {
+class ControlGroupAction{
     virtual void Calc(UIControl *control) = 0;
 };
 
@@ -19,7 +19,7 @@ public:
     void SetControl(u8 index, UIControl *control, u32 isOpaque); //0x805c27dc
     void InitControls(); //0x805c2868
     void Update(); //0x805c28d8
-    void Draw(u32 isOpaque); //805c2948
+    void Draw(); //805c2948
     void ResetControlsPosition(); //805c2a5c
     UIControl *GetControl(u8 index); //805c2ac0
     void DoAction(ControlGroupAction *action); //805c2ad0
@@ -31,7 +31,7 @@ public:
     u32 controlCount; //0x10
 };//Total Size 0x14
 
-size_assert(ControlGroup, 0x14);
+static_assert(sizeof(ControlGroup) == 0x14,"ControlGroup");
 
 
 

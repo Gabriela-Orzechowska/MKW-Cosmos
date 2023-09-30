@@ -5,7 +5,7 @@
 #include <core/nw4r/ut/List.hpp>
 
 class ScnManager;
-class LightMgrHolder {
+class LightMgrHolder{
 public:
     explicit LightMgrHolder(ScnManager *parent); //80561024 inlined
     nw4r::ut::List list1;
@@ -20,12 +20,12 @@ public:
     u32 list2MembersCount; //0x24
 }; //0x28
 
-class LightMgrHolderRace : public LightMgrHolder {
+class LightMgrHolderRace : public LightMgrHolder{
     explicit LightMgrHolderRace(ScnManager *parent); //80561688
     ~LightMgrHolderRace() override; //80561ec0 vtable 808b4a60
     void LoadBLIGHT() override; //80561988
     void LoadBLMAP() override; //80561A88
-
+    
 }; //0x28
 
 

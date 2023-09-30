@@ -6,8 +6,8 @@
 
 
 //_sinit_ at 8084fc88
-namespace Pages {
-class SinglePlayer : public MenuInteractable { //ID 0x69
+namespace Pages{
+class SinglePlayer : public Menu { //0x69
 public:
     SinglePlayer(); //80626698
     ~SinglePlayer() override; //8084fbfc vtable 808d9f00
@@ -27,14 +27,14 @@ public:
     void OnButtonClick(PushButton *button, u32 hudSlotId); //8084f298
     void OnButtonDeselect(PushButton *button, u32 hudSlotId); //8084fb34
     void OnBackPress(u32 hudSlotId); //8084fb38
-    static Page *GetPageById(PageId id = PAGE_SINGLE_PLAYER_MENU); //8084ee0c
+    static Page *GetPageById(PageId id = SINGLE_PLAYER_MENU); //8084ee0c
     //onButtonClick    vtable = 0x808bd204 function = 8084f298
     //onButtonSelect   vtable = 0x808bd204 offset = 0x64 call is virtual
     //onButtonDeselect vtable = 0x808bd204 function = 8084fb34
     //onBackPress      vtable = 0x808bd1f8 function = 8084fb38
     //onStartPress     vtable = 0x808bd1f8 offset = 0x7c call is virtual Handler
-
+    
 }; //total size 0x6c4
-size_assert(SinglePlayer, 0x6c4);
+static_assert(sizeof(SinglePlayer) == 0x6c4, "SinglePlayer");
 }//namespace Pages
 #endif

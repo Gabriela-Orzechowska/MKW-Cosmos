@@ -1,6 +1,6 @@
 #ifndef _NW4R_LYT_
 #define _NW4R_LYT_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/lyt/Animation.hpp>
 #include <core/nw4r/lyt/ArcResourceAccessor.hpp>
 #include <core/nw4r/lyt/common.hpp>

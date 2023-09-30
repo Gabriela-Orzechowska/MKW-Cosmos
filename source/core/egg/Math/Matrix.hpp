@@ -1,10 +1,10 @@
 #ifndef _EGGMATRIX_
 #define _EGGMATRIX_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/egg/Math/Math.hpp>
 #include <core/egg/Math/Vector.hpp>
 #include <core/egg/Math/Quat.hpp>
-namespace EGG {
+namespace EGG{
 
 //Everything is assumed to be in an euclidean space
 /* Transformation Matrixes are used to map linearly a vector from one euclidean space to another
@@ -13,14 +13,14 @@ https://cdn.discordapp.com/attachments/739985181389094975/1052953626462666782/im
 this is how it looks, with rotation, scale and translation components in game*/
 
 //_sinit_ at 8023040c
-typedef struct Matrix34f : nw4r::math::MTX34 {
-    Matrix34f() {};
+typedef struct Matrix34f : nw4r::math::MTX34{
+    Matrix34f(){};
     void CalcRPY(Vector3f &dest); //8022fb04
     void Set(float n00, float n01, float n02,
-        float n03, float n10, float n11,
-        float n12, float n13, float n20,
-        float n21, float n22, float n23); //8022fbf0
-
+              float n03, float n10, float n11,
+              float n12, float n13, float n20,
+              float n21, float n22, float n23); //8022fbf0
+        
     void InverseTo(Matrix34f &dest) const; //8022fabc
     void InverseTransposeTo(Matrix34f &dest) const; //8022fac0
     void MakeIdentity(); //8022fac4
@@ -36,11 +36,11 @@ typedef struct Matrix34f : nw4r::math::MTX34 {
     Vector3f &MultVector(const Vector3f &factor); //802303f8
     void LoadPosMtx(u32 id); //8023040c
     void MultiplyTo(const Matrix34f &other, Matrix34f &dest); //80230410
-
+    
 };
 }//namespace EGG
 
 
 
 #endif
-
+    

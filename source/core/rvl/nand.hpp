@@ -1,9 +1,9 @@
 #ifndef _RVLNAND_
 #define _RVLNAND_
-#include <types.hpp>
+#include "types.hpp"
 #define NAND_MAX_PATH 64
 
-struct NANDFileInfo {
+struct NANDFileInfo{
     s32 fd;
     s32 origFd;
     char origPath[NAND_MAX_PATH];
@@ -13,5 +13,5 @@ struct NANDFileInfo {
     u8 mark;
     u8 padding;
 };
-size_assert(NANDFileInfo, 0x8c);
+static_assert(sizeof(NANDFileInfo) == 0x8c, "NANDFileInfo");
 #endif

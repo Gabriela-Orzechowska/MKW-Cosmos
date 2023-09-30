@@ -5,8 +5,8 @@
 #include <game/UI/Ctrl/Menu/CtrlMenuText.hpp>
 
 //_sinit_ at 80842a64
-namespace Pages {
-class StartRace : public MenuInteractable { //ID 0x4B //tied to one OK button "Start?"
+namespace Pages{
+class StartRace : public Menu{ //0x4B //tied to one OK button "Start?"
     StartRace(); //80625a7c
     ~StartRace() override; //808429d8 vtable 808d9580
     void OnInit() override; //80842464 0x28
@@ -23,7 +23,7 @@ class StartRace : public MenuInteractable { //ID 0x4B //tied to one OK button "S
     void OnButtonClick(PushButton *button, u32 hudSlotId); //80842948 refers to back button
     void OnButtonDeselect(PushButton *button, u32 hudSlotId); //808429a8
     void OnBackPress(u32 hudSlotId); //808429ac
-    static Page *GetPageById(PageId id = PAGE_START_RACE); //80842354
+    static Page *GetPageById(PageId id = START_RACE); //80842354
     //onButtonClick    vtable = 0x808bd30c function = 80842948
     //onButtonSelect   vtable = 0x808bd30c  offset = 0x64 call is virtual
     //onButtonDeselect vtable = 0x808bd30c function = 808429a8
@@ -35,7 +35,7 @@ class StartRace : public MenuInteractable { //ID 0x4B //tied to one OK button "S
     CtrlMenuObiTop ctrlMenuObiTop; //0x6c8
 
 }; //total size 0x6cc
-size_assert(StartRace, 0x6cc);
+static_assert(sizeof(StartRace) == 0x6cc, "StartGameOK");
 }//namespace Pages
 
 

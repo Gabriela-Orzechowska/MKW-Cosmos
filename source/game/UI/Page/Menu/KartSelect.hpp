@@ -16,11 +16,11 @@ Contributors:
 */
 
 //_sinit_ at 80847d00
-enum KartUIOrder {
+enum KartUIOrder{
     UIORDER_STANDARD_KART_S,
     UIORDER_BABY_BOOSTER,
     UIORDER_MINI_BEAST,
-    UIORDER_CHEEP_CHARGER,
+    UIORDER_CHEEP_CHARGER, 
     UIORDER_RALLY_ROMPER,
     UIORDER_BLUE_FALCON,
     UIORDER_STANDARD_BIKE_S,
@@ -57,7 +57,7 @@ enum KartUIOrder {
     UIORDER_PHANTOM
 };
 
-enum KartUIStats {
+enum KartUIStats{
     UISTATS_SPEED,
     UISTATS_WEIGHT,
     UISTATS_ACCELERATION,
@@ -67,20 +67,20 @@ enum KartUIStats {
     UISTATS_MT
 };
 
-class ButtonMachine : public PushButton {
+class ButtonMachine : public PushButton{
 public:
     //ctor inline
     ~ButtonMachine() override; //80847ca8 vtable 0x808d9918
     void InitSelf() override; //0x18 80847810
     void OnUpdate() override; //0x1c 808476f0
     int GetRuntimeTypeInfo() const override; //0x28 80847c9c
-    const char *GetClassName() const override; //0x2c 808448dc
-    u8 unknown_0x254[0x260 - 0x254];
+    const char* GetClassName() const override; //0x2c 808448dc
+    u8 unknown_0x254[0x260-0x254];
 }; //total size 0x260
 
 //_sinit_ at 80847d00
-namespace Pages {
-class KartSelect : public MenuInteractable { //ID 0x6C
+namespace Pages{
+class KartSelect: public Menu { //0x6C
 public:
     KartSelect(); //
     ~KartSelect() override; //80847bf4 vtable 808d9880
@@ -106,7 +106,7 @@ public:
     u32 GetMinUnlockedKartsCount() const; //80844abc inlined
     static void func_8084745c(); //some weird random stuff that stores different karts in racedata scenario1, akin to char select
     static void func_80847590(); //same, but without the random 
-    static Page *GetPageById(PageId id = PAGE_KART_SELECT); //80847d24 only ever used with id = veh select so it's here
+    static Page *GetPageById(PageId id = KART_SELECT); //80847d24 only ever used with id = veh select so it's here
     static KartId kartUIOrderToIDArray[KARTCOUNT]; //808ad678
 
     void OnButtonClick(PushButton *button, u32 hudSlotId); //80846c1c
@@ -118,7 +118,7 @@ public:
     //onButtonDeselect function = 80846fbc (onDeSelect, just a blr)
     //onBackPress function = 80846fc0 (onBackPress)
     //onStartPress offset = 0x7c call is virtual Handler (onStartPress?)
-
+    
     u32 unknwown_0x6C4; //init at -1
     bool isUnlocked[KARTCOUNT]; //in UIORDER
     u32 kartsDisplayType; //0 = only karts, 1 = only bikes, 2 = all
@@ -129,7 +129,7 @@ public:
     Vec2 kartScale; //depends on minUnlockedKartCount
     u32 minUnlockedKartsCount; //min unlocked karts out of all weight classes and types
 }; //Total Size 0xA0C
-size_assert(KartSelect, 0xA0C);
+static_assert(sizeof(KartSelect) == 0xA0C,"KartSelect");
 }//namespace Pages
 
 bool IsKartUnlocked(KartId kart, bool isBike); //8081cfb4 belongs to another file but idk

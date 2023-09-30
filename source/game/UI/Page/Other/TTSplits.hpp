@@ -6,8 +6,8 @@
 #include <game/UI/Ctrl/CtrlRace/CtrlRaceCount.hpp>
 
 //_sinit_TTSplitsPAGE_cpp; //80856264
-namespace Pages {
-class TTSplits : public Page { //ID 0x2D
+namespace Pages{
+class TTSplits : public Page{ //0x2D
 public:
     TTSplits(); //808556e4
     ~TTSplits() override; //80855864 vtable 808da5dc
@@ -29,6 +29,6 @@ public:
     CtrlRaceCount ctrlRaceCount; //0x1D8 NEW RECORD
     LayoutUIControl savedGhostMessage; //0x370, live_message brctr
 };
-size_assert(TTSplits, 0x4e4);
+static_assert(sizeof(TTSplits) == 0x4e4,"TTSplits");
 }//namespace Pages
 #endif

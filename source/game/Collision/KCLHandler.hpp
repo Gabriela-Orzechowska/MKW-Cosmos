@@ -3,7 +3,7 @@
 #include <kamek.hpp>
 #include <game/File/KCL.hpp>
 
-class KCLHandler {
+class KCLHandler{
 public:
     explicit KCLHandler(KCL *raw); //807bdc5c
     Vec3 *vertices; //0
@@ -19,12 +19,12 @@ public:
     u32 yShift; //0x30
     u32 zShift; //0x34
     float maximumRadius; //0x38
-    u8 unknown_0x3C[0x6c - 0x3C];
+    u8 unknown_0x3C[0x6c-0x3C];
     u32 triangleCount; //determined via the length of the triangleArray
     KCLTriangle *triangles;
-    u8 unknown_0x74[0x80 - 0x74];
+    u8 unknown_0x74[0x80-0x74];
     Vec3 firstVertice; //0x80
-    u8 unknown_0x8c[0x2A4 - 0x8c];
+    u8 unknown_0x8c[0x2A4-0x8c];
 };
-size_assert(KCLHandler, 0x2a4);
+static_assert(sizeof(KCLHandler) == 0x2a4, "KCLHandler");
 #endif

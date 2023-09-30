@@ -5,13 +5,13 @@
 
 using namespace nw4r;
 //ObjFlow has 3 sound values, not sure what they do hence the names
-class ObjectSound : public SimpleRaceAudioActor { //type 1 
+class ObjectSound : public SimpleRaceAudioActor{ //type 1 
     ObjectSound(); //8070ca8c
-
+    
     //AUDIOACTOR
     //SoundActor vtable 808c8b88
     ~ObjectSound() override; //8070cb78
-    StartResult SetupSound(snd::SoundHandle *handle, u32 soundId, const StartInfo *startInfo, void *setupArg) override; //8070e674
+    StartResult SetupSound(snd::SoundHandle* handle, u32 soundId, const StartInfo* startInfo, void* setupArg) override; //8070e674
 
     //AudioActor vtable 808c8ba4 at 0x54
     //~AudioActor thunk 8070e770 func 8070cb78
@@ -30,13 +30,13 @@ class ObjectSound : public SimpleRaceAudioActor { //type 1
 }; //0xb8
 
 
-class ObjectSoundAnim : public RaceAnimAudioActor { //presumably if the object supports BRASDs
+class ObjectSoundAnim : public RaceAnimAudioActor{ //presumably if the object supports BRASDs
     ObjectSoundAnim(); //807029f0
-
+    
     //AUDIOACTOR
     //SoundActor vtable 808c8088
     ~ObjectSoundAnim() override; //80703fb0
-    StartResult SetupSound(snd::SoundHandle *handle, u32 soundId, const StartInfo *startInfo, void *setupArg) override; //80703ac8
+    StartResult SetupSound(snd::SoundHandle* handle, u32 soundId, const StartInfo* startInfo, void* setupArg) override; //80703ac8
     //AudioActor vtable 808c8944 at 0x54
     //~AudioActor thunk 8070408c func 80703fb0
 

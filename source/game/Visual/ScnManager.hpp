@@ -1,20 +1,20 @@
 #ifndef _SCN_MANAGER_
 #define _SCN_MANAGER_
 #include <kamek.hpp>
-#include <core/egg/mem/Disposer.hpp>
-#include <core/egg/mem/Heap.hpp>
+#include <core/egg/Disposer.hpp>
+#include <core/egg/Heap.hpp>
 #include <core/nw4r/g3d.hpp>
 #include <core/egg/3D/Scn.hpp>
 #include <game/Visual/Fog.hpp>
 
-enum ScnType {
+enum ScnType{
     SCNTYPE_MDLSIMPLE,
     SCNTYPE_MDL,
     SCNTYPE_MDL1MAT1SHP,
     SCTYPE_3
 };
 class ModelDirector;
-class ScnManager : public EGG::Disposer {
+class ScnManager : public EGG::Disposer{
 public:
     static u32 pageCount; //808b4bf0 copied from racedata
     static ScnManager *sInstance; //809c1850 there are multiple there, set with Register
@@ -48,13 +48,13 @@ public:
     nw4r::g3d::ScnRoot *scnRoot[2]; //0x28
     EGG::ScnRenderer *scnRender; //0x30
     FogManager *fogManager; //0x38
-    u8 unknown_0x3c[0x58 - 0x3c];
+    u8 unknown_0x3c[0x58-0x3c];
     nw4r::ut::List modelDirectors1; //0x58
     nw4r::ut::List modelDirectors2; //0x64
-    u8 unknown_0x64[0x98 - 0x64];
+    u8 unknown_0x64[0x98-0x64];
 };
 
-class ScnManagerRace : public ScnManager {
+class ScnManagerRace : public ScnManager{
 public:
     ScnManagerRace(); //805b1300
     ~ScnManagerRace(); //805b1354 vtable 808b70b0
@@ -66,7 +66,7 @@ public:
     void LoadLights() override; //0x38 805b1a18
     void vf_0x3c() override; //0x3c 805b2110
     void vf_0x44() override; //0x44 805b1470
-
+    
 }; //0xCC
 
 

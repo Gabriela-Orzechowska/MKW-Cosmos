@@ -6,8 +6,8 @@
 
 
 //_sinit_ at 808502b8
-namespace Pages {
-class VSTeamsView : public MenuInteractable { //ID 0x74
+namespace Pages{
+class VSTeamsView : public Menu{ //0x74
     VSTeamsView(); //806287e0
     ~VSTeamsView() override; //80850214 vtable 808d9f98
     void OnInit() override; //8084fdac 0x28
@@ -25,7 +25,7 @@ class VSTeamsView : public MenuInteractable { //ID 0x74
     void OnButtonDeselect(PushButton *button, u32 hudSlotId); //8084ffb8
     void OnBackPress(u32 hudSlotId); //8084ffbc
     void AssignTeams(); //8084ffc8
-    static Page *GetPageById(PageId id = PAGE_VS_TEAMS_VIEW); //8084fc9c
+    static Page *GetPageById(PageId id = VS_TEAMS_VIEW); //8084fc9c
     //onButtonClick    vtable = 0x808bd174 function = 8084feb0
     //onButtonSelect   vtable = 0x808bd174 offset = 0x64 call is virtual
     //onButtonDeselect vtable = 0x808bd174 function = 8084ffb8
@@ -35,6 +35,6 @@ class VSTeamsView : public MenuInteractable { //ID 0x74
     u32 blueTeamPlayerCount;
     CtrlMenuTeamConfirmTeam teams[2]; //0x6cc
 }; //total size 0x1b2c
-size_assert(VSTeamsView, 0x1b2c);
+static_assert(sizeof(VSTeamsView) == 0x1b2c, "VSTeamView");
 }//namespace Pages
 #endif

@@ -3,10 +3,10 @@
 #include <kamek.hpp>
 #include <game/Objects/Collidable/ObjectCollidable.hpp>
 
-namespace Objects {
-class Cannon : public ObjectCollidable { //378 StarRing, 601 DonkyCannonGC, 607 DonkyCannon_wii, 609 tree_cannon
+namespace Objects{
+class Cannon : public ObjectCollidable{ //378 StarRing, 601 DonkyCannonGC, 607 DonkyCannon_wii, 609 tree_cannon
 public:
-    enum Type {
+    enum Type{
         DonkyCannon_wii = 0,
         DonkyCannonGC = 1,
         tree_cannon = 2,
@@ -26,7 +26,7 @@ public:
     Type type; //0xe0
     float chr0FrameCount; //0xe4
     u8 idx; //0xe8 809c2248
-    u8 unknown_0xE9;
+    u8 unknown_0xE9; 
     u16 unknown_0xEA;
     u16 unknown_0xEC;
     u8 unknown_0xEE;

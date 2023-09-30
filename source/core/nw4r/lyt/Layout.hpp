@@ -1,11 +1,11 @@
 #ifndef _NW4R_LYTLAYOUT_
 #define _NW4R_LYTLAYOUT_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/lyt.hpp>
 #include <core/nw4r/ut/TagProcessorBase.hpp>
 
-namespace nw4r {
-namespace lyt {
+namespace nw4r{
+namespace lyt{
 class Layout {
 public:
     Layout(); //0x8007a000
@@ -23,7 +23,7 @@ public:
     virtual void Draw(const DrawInfo &info); //8007a990
     virtual void Animate(u64 option = 0); //8007a9b0
     virtual void SetTagProcessor(nw4r::ut::TagProcessorBase<wchar_t> *tagProc); //8007a9d0
-    static Pane *BuildPaneObj(s32 type, const void *data, const ResBlockSet &resBlockSet); //8007ab90
+    static Pane* BuildPaneObj(s32 type, const void* data, const ResBlockSet& resBlockSet); //8007ab90
     ut::LinkList<AnimTransform, offsetof(AnimTransform, link)> animList; //0xc
     Pane *rootPane; //0x10
     GroupContainer *groupContainer; //0x14

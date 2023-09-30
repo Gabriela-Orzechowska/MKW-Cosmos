@@ -6,36 +6,36 @@
 
 
 //_sinit_ at 80601958
-class PadControl : LayoutUIControl {
+class PadControl : LayoutUIControl{
     PadControl(); //806012bc
     ~PadControl() override; //806012f8 808ba4f8
     void InitSelf() override; //80601410 0x18
     void OnUpdate() override; //8060147c 0x1c
     int GetRuntimeTypeInfo() const override; //0x28 8060194c
-    const char *GetClassName() const override; //0x2c 806012b0
-    void Load(const char *folderName, const char *ctrName, const char *variant, u32 hudSlotId, u8 team, u32 unknown_0x180, u32 padSlotAndType); //80601350
+    const char* GetClassName() const override; //0x2c 806012b0
+    void Load(const char*folderName, const char*ctrName, const char*variant, u32 hudSlotId, u8 team, u32 unknown_0x180, u32 padSlotAndType); //80601350
     u32 hudSlotId;
     u32 padSlotAndType; //0x178
     u8 team; //0x17c colours the controller frame
     u8 padding[3];
     u32 unknown_0x180; //if set to 2, controller image disappears
 }; //total size 0x184
-size_assert(PadControl, 0x184);
+static_assert(sizeof(PadControl) == 0x184, "PadControl");
 
-class RecognizePadWindow : public LayoutUIControl {
+class RecognizePadWindow : public LayoutUIControl{
     RecognizePadWindow(); //806017e4
     ~RecognizePadWindow() override; //80601820
     void InitSelf() override; //806018f4 0x18
     void OnUpdate() override; //806018f8 0x1c
     void SetPositionAnim(float curFrame, PositionAndScale *positionAndScale) override; //806018fc 0x20
     int GetRuntimeTypeInfo() const override; //0x28 80601934
-    const char *GetClassName() const override; //0x2c 806017d4
-    void Load(const char *folderName, const char *ctrName, const char *variant); //80601878
+    const char* GetClassName() const override; //0x2c 806017d4
+    void Load(const char*folderName, const char*ctrName, const char*variant); //80601878
 };
 
-namespace Pages {
-class RecognizePad : public System {
-
+namespace Pages{
+class RecognizePad : public System{
+    
     RecognizePad(); //8061bffc always inlined
     ~RecognizePad() override; //8061c058 vtable 808bb594
     void OnInit() override; //0x28 8061c0d8
@@ -56,13 +56,13 @@ class RecognizePad : public System {
     u32 padSlotAndType; //0x4b8
     u32 unknown_0x4bc; //type? setting it to 4 auto clicks A
 };//total size 0x4c0
-size_assert(RecognizePad, 0x4c0);
+static_assert(sizeof(RecognizePad) == 0x4c0, "RecognizePad");
 
 class RecognizePadMenu : public RecognizePad {
     RecognizePadMenu(); //8061c53c
     ~RecognizePadMenu() override; //8061c5a4 vtable 808bb528
-    const char *GetClassName() const override; //8061d1c8 0xc
-    bool IsDVDEnabled() override; //8061c86c 0x18
+    const char* GetClassName() const override; //8061d1c8 0xc
+    int func_0x18() override; //8061c86c 0x18
     void BeforeEntranceAnimations() override; //0x38 8061c628
     void AfterEntranceAnimations() override; //0x3c 8061c720
     void BeforeExitAnimations() override; //0x40 8061c76c

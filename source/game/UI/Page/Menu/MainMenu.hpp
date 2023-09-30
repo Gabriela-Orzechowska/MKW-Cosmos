@@ -2,8 +2,8 @@
 #include <game/UI/Page/Menu/Menu.hpp>
 #ifndef _MAINMENU_
 #define _MAINMENU_
-namespace Pages {
-class MainMenu : public MenuInteractable { //ID 0x5a
+namespace Pages{
+class MainMenu : public Menu{ //0x5a
     MainMenu(); //80625da0
     ~MainMenu() override; //80851c94 vtable 808da0a0 
     void OnInit() override; //0x28 808503dc
@@ -18,12 +18,12 @@ class MainMenu : public MenuInteractable { //ID 0x5a
     UIControl *CreateExternalControl(u32 externControlId) override; //0x84 808504e4
     UIControl *CreateControl(u32 controlId) override; //0x88 80850580
     void SetButtonHandlers(PushButton *button) override; //0x8C 80850d54
-    void ResetSectionMgr98AndRaceDataScenario1(u8 localPlayerCount); //player count = 1 except for 2P/3P/4P buttons
+    void ResetMenuData98AndRaceDataScenario1(u8 localPlayerCount); //player count = 1 except for 2P/3P/4P buttons
     void ShowMessageBox(); //80851b8c "Unable to connect to nintendo wi-fi", no idea how to trigger, inlined
     void OnButtonClick(PushButton *button, u32 hudSlotId); //8085110c
     void OnButtonDeselect(PushButton *button, u32 hudSlotId); //808515a0
     void OnBackPress(u32 hudSlotId); //808516ac
-    static Page *GetPageById(PageId id = PAGE_MAIN_MENU); //808502cc
+    static Page *GetPageById(PageId id = MAIN_MENU_PAGE); //808502cc
     //onButtonClick    vtable = 0x808bd2f4 function = 8085110c
     //onButtonSelect   vtable = 0x808bd2f4 offset = 0x64
     //onButtonDeselect vtable = 0x808bd2f4 function = 808515a0
@@ -40,6 +40,6 @@ class MainMenu : public MenuInteractable { //ID 0x5a
     PushButton *fileAdminCopy; //0xcb0
     PushButton *fileAdmin; //license settings most likely
 }; //total size 0cb8
-size_assert(MainMenu, 0xcb8);
+static_assert(sizeof(MainMenu) == 0xcb8, "MainMenu");
 }//namespace Pages
 #endif

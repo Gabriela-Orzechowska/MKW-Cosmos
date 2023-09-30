@@ -2,12 +2,12 @@
 #define _GHOST_
 
 #include <kamek.hpp>
-#include <core/egg/mem/Heap.hpp>
+#include <core/egg/Heap.hpp>
 #include <game/File/RKG.hpp>
 #include <game/System/identifiers.hpp>
 #include <game/System/Timer.hpp>
 
-enum GhostGroupType {
+enum GhostGroupType{
     GROUP_SAVED,
     GROUP_DOWNLOADED,
     GROUP_EASY_STAFF,
@@ -31,7 +31,7 @@ public:
     bool CreateRKGWithoutInputs(RKG *dest); //8051ca0c this assumes RKG is already filled with inputs?
     void FillHeader(RKG *dest); //8051c7f4
     void Reset(); //8051c4a0
-
+    
     bool isValid; //0x0
     u8 padding;
     wchar_t userData[11]; //emulating wide chars
@@ -56,14 +56,14 @@ public:
     void *inputs; //0xD4
 }; //total size 0xd8
 
-class GhostGroup {
+class GhostGroup{
 public:
-    GhostGroup(EGG::Heap *heap, u32 type); //0x8051ce94 vtable 808b2d38
+    GhostGroup(EGG::ExpHeap *heap, u32 type); //0x8051ce94 vtable 808b2d38
     virtual ~GhostGroup(); //8051cff8
     void DisableGhostData(u16 id); //8051d064 set isValid to false
     GhostData *GetGhostData(u16 id); //8051d084 only if valid
     bool ReadRKG(u16 id, RKG *src); //8051d0bc
-
+    
     u16 count; //depends on type
     u8 unknown_0x6[2];
     GhostGroupType ghostType;  //saved 0, downloaded 1, easy 2, expert 3, ghost race 4, competition 5

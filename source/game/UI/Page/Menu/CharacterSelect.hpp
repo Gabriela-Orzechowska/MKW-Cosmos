@@ -14,7 +14,7 @@ Contributors:
 */
 
 //_sinit_ for both classes below at
-class CharaName :public LayoutUIControl {
+class CharaName :public LayoutUIControl{
 public:
     CharaName(); //8083d840
     ~CharaName() override; //0x8062912c vtable 808d9358
@@ -23,10 +23,10 @@ public:
     const char *GetClassName() const override; //0x2c 8083d440
     u32 unknown_0x178;
 }; //total size 0x178
-size_assert(CharaName, 0x178);
+static_assert(sizeof(CharaName) == 0x178,"LayoutUIControl");
 
-namespace Pages {
-class CharacterSelect : public MenuInteractable { //ID 0x6B
+namespace Pages{
+class CharacterSelect: public Menu { //0x6B
 public:
     CharacterSelect(); //80626c10
     ~CharacterSelect() override; //8083f2cc vtable 808d92c0 
@@ -52,8 +52,8 @@ public:
     void OnBackPress(u32 hudSlotId); //8083e928
     static void func_8083ec28(); //some weird random stuff that stores different characters in racedata scenario 1
     static void func_8083ee1c(); //same, but without the random
-    static Page *GetPageById(PageId id = PAGE_CHARACTER_SELECT); //80840dec only ever used with id = char select so it's here
-
+    static Page *GetPageById(PageId id = CHARACTER_SELECT); //80840dec only ever used with id = char select so it's here
+    
     //here the button refers to the backbutton since the char buttons are handled via external controls
     //onButtonClick    vtable = 0x808bd1d4 function = 8083e740
     //onButtonSelect   vtable = 0x808bd1d4 offset = 0x64 call is virtual
@@ -63,7 +63,7 @@ public:
 
     CtrlMenuCharacterSelect ctrlMenuCharSelect; //0x6C4
     Mii *localPlayerMiis;
-    u8 unknwon_0x8F8[0x904 - 0x8f8];
+    u8 unknwon_0x8F8[0x904-0x8f8];
     u32 localPlayerBitfield; //0x904
     u32 unknwon_0x908;
     CountDown *timer; //0x90c
@@ -71,7 +71,7 @@ public:
     DriverModelControl *models;
 
 }; //Total Size 0x918
-size_assert(CharacterSelect, 0x918);
+static_assert(sizeof(CharacterSelect) == 0x918,"CharacterSelect");
 }//namespace Pages
 //807e2fcc select initial character
 

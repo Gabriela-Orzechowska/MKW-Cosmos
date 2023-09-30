@@ -9,12 +9,12 @@
 
 class Pause;
 
-namespace Pages {
-class RaceHUD : public Page {
+namespace Pages{
+class RaceHUD: public Page { 
 public:
     //ctor inlined
     static RaceHUD *sInstance;
-    ~RaceHUD() override; //80624764 vtable 808da710
+    ~RaceHUD() override; //80624764 vtable 0x808da710
     PageId GetNextPage() const override; //80633510
     void func_0x20() override; //80858a34
     void OnInit() override; //80856278
@@ -46,19 +46,19 @@ public:
     bool hudHasPlayer[4]; //is true if there's a player 0x60
     u32 playerCount;
     u8 unknown_0x68; //8085629c
-    u8 unknown_0x69[0x70 - 0x69];
+    u8 unknown_0x69[0x70-0x69];
     CtrlRaceWifiStartMessage **ctrlRaceWifiStartMessageArray; //0x70 one per hud slot only online
     CtrlRaceWifiFinishMessage **CtrlRaceWifiFinishMessageArray; //0x74 one per hud slot
     u32 framesAfterFinish; //0x78, interface fades at 120 frames
     Pause *pausePage; //0x7C, only set when in an actual pause, as an added page layer
     PageManipulatorManager inputController;
     PtmfHolder_1A<Page, void, u32> *onPauseHandler; //0x1c4
-    PtmfHolder_1A<Page, void, u32> *onNextPlayerSwitchHandler; //0x1c8
-    PtmfHolder_1A<Page, void, u32> *onPrevPlayerSwitchHandler; //0x1cc
+    PtmfHolder_1A<Page, void, u32>  *onNextPlayerSwitchHandler; //0x1c8
+    PtmfHolder_1A<Page, void, u32>  *onPrevPlayerSwitchHandler; //0x1cc
     CtrlRaceNameBalloon *ctrlRaceNameBalloonArray; //0x1d0 as many as GetCtrlRaceNameBalloonCount, 3 names max?
     RaceBalloons *balloonClassArray; //0x1D4 one per hudslot
     CtrlRaceItemBalloon *ctrlRaceItemBalloon; //0x1d8 one per hudslot
 }; //Total Size 0x1DC
-size_assert(RaceHUD, 0x1DC);
+static_assert(sizeof(RaceHUD) == 0x1DC, "RacePage");
 }//namespace Pages
 #endif

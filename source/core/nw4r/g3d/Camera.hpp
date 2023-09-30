@@ -1,15 +1,15 @@
 #ifndef _NW4R_G3D_CAMERA_
 #define _NW4R_G3D_CAMERA_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/g3d/res/ResCommon.hpp>
 #include <core/nw4r/math/math.hpp>
 #include <core/rvl/gx/GXEnum.hpp>
 
-namespace nw4r {
-namespace g3d {
+namespace nw4r{
+namespace g3d{
 
-struct CameraData {
-    enum Flag {
+struct CameraData{
+    enum Flag{
         FLAG_CAMERA_LOOKAT = 0x00000001,
         FLAG_CAMERA_ROTATE = 0x00000002,
         FLAG_CAMERA_AIM = 0x00000004,
@@ -22,7 +22,7 @@ struct CameraData {
         MASK_PROJ = 0x00000070,
         FLAG_PMTX_VALID = 0x00000080,
 
-        FLAG_VIEWPORT_JITTER_ABOVE = 0x00000100
+        FLAG_VIEWPORT_JITTER_ABOVE  = 0x00000100
     };
 
     //
@@ -63,16 +63,16 @@ struct CameraData {
     s32  scissorOffsetY;
 };
 
-class Camera : public ResCommon<CameraData> {
-    enum PostureType {
+class Camera : public ResCommon<CameraData>{
+    enum PostureType{
         POSTURE_LOOKAT,
         POSTURE_ROTATE,
-        POSTURE_AIM
+        POSTURE_AIM  
     };
 
-    struct PostureInfo {
-        PostureType type;
-        math::VEC3 cameraUp;
+    struct PostureInfo{
+        PostureType type;  
+        math::VEC3 cameraUp;  
         math::VEC3 cameraTarget;
         math::VEC3 cameraRotate;
         float cameraTwist;
@@ -83,7 +83,7 @@ class Camera : public ResCommon<CameraData> {
     void GetEnvironmentTexMtx(math::MTX34 *dest) const; //8006a970
     void GetProjectionMtx(math::MTX44 *dest) const; //8006a7c0
     void GetProjectionTexMtx(math::MTX34 *dest) const; //8006a8a0
-    void GetViewport(float *xOrigin, float *yOrigin, float *width, float *height, float *near, float *far) const; //8006a6f0
+    void GetViewport(float * xOrigin, float * yOrigin, float * width, float * height, float * near, float * far) const; //8006a6f0
     void GXSetProjection() const; //8006aa80
     void SetScissor(u32 xOrigin, u32 yOrigin, u32 width, u32 height); //8006ab50
     void SetScissorBoxOffset(s32 xOffset, s32 yOffset); //8006ab80
@@ -95,7 +95,7 @@ class Camera : public ResCommon<CameraData> {
     void SetPerspective(float fovy, float aspect, float near, float far); //8006a520
     void SetPosition(float x, float y, float z); //8006a240
     void SetPosition(const math::VEC3 &position); //8006a270
-    void SetPosture(const PostureInfo &info); //8006a2b0
+    void SetPosture(const PostureInfo& info); //8006a2b0
     void SetProjectionMtxDirectly(const math::MTX44 *dest); //8006a5a0
     void GXSetScissor() const; //8006a5f0
     void GXSetScissorBoxOffset() const; //8006a610

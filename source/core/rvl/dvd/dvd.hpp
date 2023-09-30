@@ -1,6 +1,6 @@
 #ifndef _DVD_
 #define _DVD_
-#include <types.hpp>
+#include "types.hpp"
 
 /*
 Contributors:
@@ -12,7 +12,7 @@ struct DVDFileInfo;
 typedef void (*DVDCBCallback)(s32 result, DVDCommandBlock *block);
 typedef void (*DVDCallback)(s32 result, DVDFileInfo *fileInfo);
 
-struct DVDDiskID {
+struct DVDDiskID{
     char gameName[4];
     char company[2];
     u8 diskNumber;
@@ -24,7 +24,7 @@ struct DVDDiskID {
     u32 gcMagic;          // GC magic number is here
 };
 
-struct DVDCommandBlock {
+struct DVDCommandBlock{
     DVDCommandBlock *next;
     DVDCommandBlock *prev; //4
     u32 command; //8
@@ -36,17 +36,17 @@ struct DVDCommandBlock {
     u32 transferredSize; //20
     DVDDiskID *id; //0x24
     DVDCBCallback callback; //0x28
-    void *userData; //0x2c
+    void * userData; //0x2c
 };
-size_assert(DVDCommandBlock, 0x30);
+static_assert(sizeof(DVDCommandBlock) == 0x30, "DVDCommandBlock");
 
-struct DVDFileInfo {
+struct DVDFileInfo{
     DVDCommandBlock commandBlock;
     u32             startAddr;      // disk address of file
     u32             length;         // file size in bytes
     DVDCallback     callback;
 };
-size_assert(DVDFileInfo, 0x3c);
+static_assert(sizeof(DVDFileInfo) == 0x3c, "DVDFileInfo");
 
 extern "C" {
     s32 DVDConvertPathToEntryNum(const char *pathPtr); //8015df4c
@@ -54,8 +54,8 @@ extern "C" {
     BOOL DVDOpen(const char *fileName, DVDFileInfo *fileInfo); //8015e2bc
     BOOL DVDClose(DVDFileInfo *fileInfo); //8015e568
     BOOL DVDEntrynumIsDir(s32 entrynum); //8015e58c
-    BOOL DVDReadAsyncPrio(DVDFileInfo *fileInfo, void *buffer, s32 length, s32 offset, DVDCallback callback, s32 prio); //8015e74c
-    s32  DVDReadPrio(DVDFileInfo *fileInfo, void *buffer, s32 length, s32 offset, s32 prio); //8015e834
+    BOOL DVDReadAsyncPrio(DVDFileInfo *fileInfo, void *buffer, s32 length,s32 offset, DVDCallback callback, s32 prio); //8015e74c
+    s32  DVDReadPrio(DVDFileInfo *fileInfo, void *buffer, s32 length,s32 offset, s32 prio); //8015e834
     void DVDInit(); //8015ea1c
     s32 DVDReadAbsAsyncPrio(DVDFileInfo *handle, void *buffer, u32 size, u32 offset, DVDCallback callback, s32 prio); //801628cc
     s32 DVDInquiryAsync(DVDFileInfo *handle, void *buffer, char *company); //801629b0

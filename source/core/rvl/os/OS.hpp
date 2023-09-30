@@ -1,19 +1,19 @@
 #ifndef _OS_
 #define _OS_
-#include <types.hpp>
-#include <core/rvl/gx/GX.hpp>
+#include "types.hpp"
+
 
 
 typedef struct {
-    int sec, min, hour, mday, mon, year, wday, yday, msec, usec;
+	int sec, min, hour, mday, mon, year, wday, yday, msec, usec;
 } OSCalendarTime;
 void OSTicksToCalendarTime(u64 time, OSCalendarTime *result);
 
-extern "C" {
+extern "C"{
     void OSReport(const char *format, ...);
     u64 OSGetTime();
     u32 OSGetTick();
-    void OSFatal(GXColor foreground, GXColor background, const char *message);
+    void OSFatal(u32 *fg, u32 *bg, const char *message);
     void OSLaunchTitle(UnkType r3, UnkType r4);
     int OSCalcCRC32(void *data, u32 length);
     int OSDisableInterrupts(); //801a65ac

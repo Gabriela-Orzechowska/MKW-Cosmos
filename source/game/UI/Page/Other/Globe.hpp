@@ -8,15 +8,15 @@
 
 //_sinit_ at 805e6b2c
 class FriendMatchingPlayer;
-namespace Pages {
-class Globe : public Page { //ID 0x95
+namespace Pages{
+class Globe : public Page{ //0x95
 public:
-    class MessageWindow : public LayoutUIControl {
+    class MessageWindow : public LayoutUIControl{
         //no ctor
         ~MessageWindow() override; //805e42c0 vtable 808b9414
         void InitSelf() override; //0x18 805e6930
         int GetRuntimeTypeInfo() const override; //0x28 805e6b20
-        const char *GetClassName() const override; //0x2c 805e683c
+        const char* GetClassName() const override; //0x2c 805e683c
     }; //0x174
     Globe(); //805e422c
     ~Globe(); //805e4318 vtable 808b93b0
@@ -32,13 +32,13 @@ public:
     u32 state;
     Mii mii; //0x340
     u32 friendListIdx; //0x3f8
-    u8 unknown_0x3fc[0x40c - 0x3fc];
-    PtmfHolder_1A<FriendMatchingPlayer, void, Mii *> *onMessageSentHandler; //0x40c
+    u8 unknown_0x3fc[0x40c-0x3fc];
+    PtmfHolder_1A<FriendMatchingPlayer, void, Mii*> *onMessageSentHandler; //0x40c
     Mii mii2; //0x410
 
 
 };
-size_assert(Globe, 0x4c8);
+static_assert(sizeof(Globe) == 0x4c8, "GlobePage");
 
 }//namespace Pages
 #endif

@@ -1,9 +1,9 @@
 #ifndef _RKNETPLAYERINFO_
 #define _RKNETPLAYERINFO_
 #include <kamek.hpp>
-#include <game/System/Identifiers.hpp>
+#include <System/Identifiers.hpp>
 
-struct RACEHEADER1Packet {
+struct RACEHEADER1Packet{
     u32 timer;
     u32 selectId; //0x4
     u16 team[2]; //0x8
@@ -18,7 +18,7 @@ struct RACEHEADER1Packet {
     u8 unknown_0x25[3];
 }; //0x28
 
-struct RH1Data {
+struct RH1Data{
     u32 timer; //0
     KartId kartIds[2]; //0x4
     CharacterId charIds[2]; //0xc
@@ -32,7 +32,7 @@ struct RH1Data {
     u8 padding;
 }; //0x30
 
-class RKNetRH1Handler {
+class RKNetRH1Handler{
 public:
     static RKNetRH1Handler *sInstance; //809c2118
     static void GetStaticInstance(); //80663aa4
@@ -42,5 +42,5 @@ public:
     u8 unknown_0x0[0x20];
     RH1Data rh1Data[12]; //0x20
 }; //total size 0x260
-size_assert(RKNetRH1Handler, 0x260);
+static_assert(sizeof(RKNetRH1Handler) == 0x260, "RKNetRH1Handler");
 #endif

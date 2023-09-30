@@ -5,7 +5,7 @@
 
 using namespace nw4r;
 class Kart;
-class KartSound : public SimpleRaceAudioActor {
+class KartSound : public SimpleRaceAudioActor{
 public:
     static Vec3 DefaultVelocity; //809c2858 0.0f x3
     KartSound(); //8070722c
@@ -13,10 +13,10 @@ public:
     //AUDIOACTOR
     //SoundActor vtable 808c8928
     ~KartSound() override; //807073ec
-    StartResult SetupSound(snd::SoundHandle *handle, u32 soundId, const StartInfo *startInfo, void *setupArg) override; //8070803c
+    StartResult SetupSound(snd::SoundHandle* handle, u32 soundId, const StartInfo* startInfo, void* setupArg) override; //8070803c
     //AudioActor vtable 808c8944 at 0x54
     //~AudioActor thunk 8070ca1c func 807073ec
-    void detail_UpdateAmbientArg(void *arg, const snd::detail::BasicSound *sound) override; //thunk 807025c8 func 80701794
+    void detail_UpdateAmbientArg(void* arg, const snd::detail::BasicSound* sound) override; //thunk 807025c8 func 80701794
 
     //LinkedRaceActor vtable 808c89a4 at 0x94 
     void Link(void *pointer, u16 objectId) override; //thunk 8070ca84 func 80707534
@@ -35,12 +35,12 @@ public:
     int GetRoadSound() const; //8070b8f0 actually virtual, but missing the middle class 
     void UpdateLapSounds(); //8070b250, can play sounds by itself based on certain conditions like lap transitions
     void UpdateMTSounds(); //807093c4
-
+    
     bool isChargingSSMT; //0xb4
     u8 padding[3];
     UnkType *unkClass_0xb8; //some sort of kart engine manager
     AudioHandle handles[4]; //0xbc c4 seems to be the one used most of the times? cur handle?
-    u8 unknown_0xCc[0xDb - 0xCc]; //0xd6 weird s16 cumulative speed
+    u8 unknown_0xCc[0xDb-0xCc]; //0xd6 weird s16 cumulative speed
     u8 currentLap; //0xdb
     Kart *kart; //0xdc
     bool isLocal; //0xe0
@@ -54,7 +54,7 @@ public:
     float speedNorm; //0xec
     u16 kclFlag; //0xf0
     u16 variant; //0xf2
-    u8 unknown_0xF4[0xfc - 0xf4];
+    u8 unknown_0xF4[0xfc-0xf4];
 };  // Total size 0xfc
-size_assert(KartSound, 0xfc);
+static_assert(sizeof(KartSound) == 0xfc, "KartSound");
 #endif

@@ -1,6 +1,6 @@
 #ifndef _NW4R_UT_
 #define _NW4R_UT_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/ut/BinaryFileFormat.hpp>
 #include <core/nw4r/ut/Color.hpp>
 #include <core/nw4r/ut/DvdFileStream.hpp>

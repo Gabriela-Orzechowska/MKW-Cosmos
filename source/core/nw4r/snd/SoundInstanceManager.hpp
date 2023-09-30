@@ -1,21 +1,21 @@
 #ifndef _NW4R_SNDSOUNDINSTANCEMANAGER_
 #define _NW4R_SNDSOUNDINSTANCEMANAGER_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/ut/LinkList.hpp>
 #include <core/rvl/os/mutex.hpp>
 #include <core/nw4r/snd/BasicSound.hpp>
 
 //templated stuff
-namespace nw4r {
-namespace snd {
-namespace detail {
+namespace nw4r{
+namespace snd{
+namespace detail{
 
 template <class T>
-class SoundInstanceManager {
+class SoundInstanceManager{
 public:
-    SoundInstanceManager *nextInstance;
-    ut::LinkList<T, offsetof(T, priorityLink)> priorityList;
-    OSMutex mutex; //0x10
+	SoundInstanceManager *nextInstance;
+	ut::LinkList<T, offsetof(T, priorityLink)> priorityList;
+	OSMutex mutex; //0x10
 }; //total size 0x28
 
 class SeqSound;

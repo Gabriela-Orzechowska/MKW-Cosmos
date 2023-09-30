@@ -1078,7 +1078,7 @@ ActivateMushroom__10ItemPlayerFv = 0x8079864c
 ActivateMegaMushroom__10ItemPlayerFv = 0x807986b4
 
 SetGoldenTimer__15PlayerInventoryFi = 0x807bcab0
-SetGoldenSomething2__15PlayerInventoryFi = 0x807bcad0
+SetGoldenSomething2__15PlayerInventoryFUi = 0x807bcad0
 
 CopyItemOBJPropertiesFromRelToTable__FP17ItemObjPropertiesP17ItemObjProperties = 0x80790e7c
 

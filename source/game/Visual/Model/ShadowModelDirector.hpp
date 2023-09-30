@@ -4,7 +4,7 @@
 #include <game/Visual/Model/ModelDirector.hpp>
 
 using namespace nw4r;
-class ShadowModelDirector : public ModelDirector {
+class ShadowModelDirector : public ModelDirector{
 public:
     ShadowModelDirector(ClipInfo *clipInfo, u32 r5, u32 bitfield); //805b8984
     ShadowModelDirector(u32 bitfield); //805b89f4

@@ -1,9 +1,9 @@
 #ifndef _EGG_SHADOW_
 #define _EGG_SHADOW_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/g3d.hpp>
-namespace EGG {
-class ShadowTextureManager {
+namespace EGG{
+class ShadowTextureManager{
     ShadowTextureManager(); //8023ff24
     u8 unknown_0x0;
     u8 padding;

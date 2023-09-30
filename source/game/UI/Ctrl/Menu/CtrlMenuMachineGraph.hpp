@@ -3,7 +3,7 @@
 #include <kamek.hpp>
 #include <game/UI/Ctrl/UIControl.hpp>
 
-class MachineAbility : public LayoutUIControl { //somehow, get class name isn't changed
+class MachineAbility : public LayoutUIControl{ //somehow, get class name isn't changed
     MachineAbility(); //807e7d88
     ~MachineAbility() override; //807e7dc4 vtable 808d345c
     void InitSelf() override; //807e7f44
@@ -18,7 +18,7 @@ public:
     ~CtrlMenuMachineGraph() override; //80627374 vtable 808d3420
     void OnUpdate() override; //807e7e1c
     int GetRuntimeTypeInfo() const override; //0x28 807e8118
-    const char *GetClassName() const override; //0x2c 807e7a2c
+    const char* GetClassName() const override; //0x2c 807e7a2c
     void Load(u32 statsCountPerKart, u32 hudSlotId, bool isMultiplayer); //
     void OnDeactivate(CharacterId character, KartId kart); //807e7e20
     MachineAbility *abilityArray; //of size statsCountPerKart

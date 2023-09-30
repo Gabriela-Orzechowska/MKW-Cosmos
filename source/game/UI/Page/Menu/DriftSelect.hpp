@@ -12,8 +12,8 @@ Contributors:
 */
 
 //_sinit_ at 8084e848
-namespace Pages {
-class DriftSelect : public MenuInteractable { //ID 0x6D
+namespace Pages{
+class DriftSelect: public Menu { //0x6D
 public:
     DriftSelect(); //806273cc
     ~DriftSelect() override; //8084E7BC vtable 808d9db0
@@ -33,7 +33,7 @@ public:
     void OnButtonClick(PushButton *button, u32 hudSlotId); //8084e388
     void OnButtonDeselect(PushButton *button, u32 hudSlotId); //8084e6f4
     void OnBackPress(u32 hudSlotId); //8084e6f8
-    static Page *GetPageById(PageId id = PAGE_DRIFT_SELECT); //8084dcec
+    static Page *GetPageById(PageId id = DRIFT_SELECT); //8084dcec
 
     //onDriftButtonClick vtable = 0x808bd15c function = 8084e388
     //onDriftButtonSelect vtable = 0x808bd15c offset = 0x64 call is virtual
@@ -41,8 +41,8 @@ public:
     //onBackPress vtable = 0x808BD1150 function = 8084e6f8
     //on StartPres svtable = 0x808bd150 offset = 0x7c call is virtual Handler
     CountDown *timer; //0x6C4
-    SectionId sectionId;
+    MenuId menuId;
 }; //Total Size 0x6CC
-size_assert(DriftSelect, 0x6CC);
+static_assert(sizeof(DriftSelect) == 0x6CC,"DriftSelect");
 }//namespace Pages
 #endif

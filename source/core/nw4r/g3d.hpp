@@ -1,12 +1,11 @@
 #ifndef _NW4R_G3D_
 #define _NW4R_G3D_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/g3d/res/ResCommon.hpp>
 #include <core/nw4r/g3d/res/ResDic.hpp>
 #include <core/nw4r/g3d/res/ResFile.hpp>
 #include <core/nw4r/g3d/res/ResMat.hpp>
 #include <core/nw4r/g3d/res/ResMdl.hpp>
-#include <core/nw4r/g3d/res/ResNode.hpp>
 #include <core/nw4r/g3d/AnmChr.hpp>
 #include <core/nw4r/g3d/AnmObj.hpp>
 #include <core/nw4r/g3d/AnmShp.hpp>

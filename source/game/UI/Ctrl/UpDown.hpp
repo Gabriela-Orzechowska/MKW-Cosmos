@@ -9,7 +9,7 @@
 //_sinit_ at 80642a20
 class UpDownDisplayedText {
 public:
-    UpDownDisplayedText() {}; //inlined? //808bf3d8 vtable
+    UpDownDisplayedText(){}; //inlined? //808bf3d8 vtable
     virtual LayoutUIControl *GetTextControl() const = 0; //0x8 
     virtual void InitText(bool state) = 0; //0xc 
     virtual void OnSelect(bool state, u32 hudSlotId) = 0; //0x10 
@@ -21,7 +21,7 @@ public:
     virtual void SetBorderColours(RGBA16 *primary, RGBA16 *secondary) = 0; //0x28 
     virtual void SetColor_BaseColours(RGBA16 *colour) = 0; //0x2c 
 }; //total size 0x4
-size_assert(UpDownDisplayedText, 0x4);
+static_assert(sizeof(UpDownDisplayedText) == 0x4,"UpDownDisplayedText");
 
 class TextUpDownValueControl : public LayoutUIControl, public UpDownDisplayedText {
 public:
@@ -31,8 +31,8 @@ public:
         ~TextControl() override; //8064111c vtable 808bf430
         void InitSelf() override; //0x18 806411e8
         int GetRuntimeTypeInfo() const override; //0x28 80642998
-        const char *GetClassName() const override; //0x2c 806410d0
-        void Load(const char *folderName, const char *ctrName, const char *variant); //80641174 inlined
+        const char* GetClassName() const override; //0x2c 806410d0
+        void Load(const char*folderName, const char*ctrName, const char*variant); //80641174 inlined
         void ToggleSelect(bool state); //806412f8
     }; //total size 0x174
 
@@ -42,7 +42,7 @@ public:
     void Init() override; //0xc 806407dc
     void Update() override; //0x10 806408fc
     int GetRuntimeTypeInfo() const override; //0x28 8064298c
-    const char *GetClassName() const override; //0x2c 806405c0
+    const char* GetClassName() const override; //0x2c 806405c0
     //UpDownDisplayText vt 808bf3d8
     LayoutUIControl *GetTextControl() const override; //0x8 thunk 80642a98 func 80642988 just a blr
     void InitText(bool state) override; //0xc thunk 80642a90 func 80640aa0 bool is true if UpDownControl's parent manipulator manager has a manipulator that matches its own
@@ -55,18 +55,18 @@ public:
     void SetBorderColours(RGBA16 *primary, RGBA16 *secondary) override; //0x28 thunk 80642a58 func 80640f74 by editing fuchi_pattern mat
     void SetColor_BaseColours(RGBA16 *colour) override; //0x2c thunk 80642a50 func 80641028 color_base seems to always be null so doesn't do anything
 
-    void SetOnTextChangeHandler(PtmfHolder_2A<Page, void, TextControl *, u32> *handler); //806407d4
-    void Load(const char *folderName, const char *ctrName, const char *variant, const char *textControlCtrName, const char *textControlVariant); //806406b0
+    void SetOnTextChangeHandler(PtmfHolder_2A<Page, void, TextControl*, u32> *handler); //806407d4
+    void Load(const char*folderName, const char*ctrName, const char*variant, const char*textControlCtrName, const char*textControlVariant); //806406b0
 
-    PtmfHolder_2A<Page, void, TextControl *, u32> *onTextChangeHandler; //0x178 when you scroll, r5 has button ID
+    PtmfHolder_2A<Page, void, TextControl*, u32> *onTextChangeHandler; //0x178 when you scroll, r5 has button ID
     TextControl textControl[2]; //array 0x17C
     TextControl *activeTextValueControl; // 0x464
     TextControl *otherTextValueControl; // 0x468 they invert everytime the button is moved, might mean each textControl only holds half?
     nw4r::lyt::Pane *fuchi_pattern;
     nw4r::lyt::Pane *color_base; //0x470
 }; //total size 0x474
-size_assert(TextUpDownValueControl, 0x474);
-size_assert(TextUpDownValueControl::TextControl, 0x174);
+static_assert(sizeof(TextUpDownValueControl) == 0x474,"TextUpDownValueControl");
+static_assert(sizeof(TextUpDownValueControl::TextControl) == 0x174,"TextControl");
 
 //if you click/select etc... on one of the arrows with the pointer, curChildId is not -1 and the Handle function also triggers
 //for example HandleClick triggers the onChangePtmf if the arrow was clicked, but just clicking on the number doesn't
@@ -79,15 +79,15 @@ public:
         void Init() override; //0xc 8063ff18
         void Update() override; //0x10 8063ffb0
         int GetRuntimeTypeInfo() const override; //0x28 806429b4
-        const char *GetClassName() const override; //0x2c 8063fdb0
-        void Load(const char *folderName, const char *ctrName, const char *variant, ControlBoundingBox *boudingBox); //8063fe54 inlined
+        const char* GetClassName() const override; //0x2c 8063fdb0
+        void Load(const char*folderName, const char*ctrName, const char*variant, ControlBoundingBox *boudingBox); //8063fe54 inlined
         void SetIsVisibleOnIdle(bool isVisible); //806405b0
         void ToggleSelect(bool state, u32 hudSlotId); //8063f8e0 bool 1 = select, 0 = deselect
         void HandleClick(); //80640360 inlined just plays some animations
-
+       
         bool isVisibleOnIdle;
         UpDownControl *GetParentControl() const; //8064009c
-        u8 padding[3];
+        u8 padding[3]; 
         nw4r::lyt::Pane *fuchi_pattern;
         nw4r::lyt::Pane *color_base; //can't find it it seems
         nw4r::lyt::Pane *color_yajirushi; //can't find it either //0x180
@@ -99,17 +99,17 @@ public:
     void Init() override; //0xc 8063f16c
     void Update() override; //0x10 8063f2a8
     int GetRuntimeTypeInfo() const override; //0x28 806429a8
-    const char *GetClassName() const override; //0x2c 8063e954
+    const char* GetClassName() const override; //0x2c 8063e954
     virtual void OnDeactivateingEnd(); //0x3c 8063f01c called at the end of load
     virtual void func_0x40(); //806429a4
 
-    void SetOnChangeHandler(PtmfHolder_3A<Page, void, UpDownControl *, u32, u32> *handler); //8063f020
-    void SetOnClickHandler(PtmfHolder_2A<Page, void, UpDownControl *, u32> *handler); //8063f028
-    void SetOnSelectHandler(PtmfHolder_2A<Page, void, UpDownControl *, u32> *handler); //8063f030
-    void SetOnDeselectHandler(PtmfHolder_2A<Page, void, UpDownControl *, u32> *handler); //8063f038
+    void SetOnChangeHandler(PtmfHolder_3A<Page, void, UpDownControl*, u32, u32> *handler); //8063f020
+    void SetOnClickHandler(PtmfHolder_2A<Page, void, UpDownControl*, u32> *handler); //8063f028
+    void SetOnSelectHandler(PtmfHolder_2A<Page, void, UpDownControl*, u32> *handler); //8063f030
+    void SetOnDeselectHandler(PtmfHolder_2A<Page, void, UpDownControl* , u32> *handler); //8063f038
 
-    void Load(u32 optionCount, u32 initialOptionId, const char *folderName, const char *ctrName, const char *variant, const char *buttonRCtrName, const char *buttonRvariant,
-        char *buttonLCtrName, const char *buttonLvariant, UpDownDisplayedText *text, u32 localPlayerBitfield, u8 unk_13, bool isNotSelectable, bool isLooped, bool onClickSendsToNextControl);
+    void Load(u32 optionCount, u32 initialOptionId, const char*folderName, const char*ctrName, const char*variant, const char*buttonRCtrName, const char*buttonRvariant, 
+    char *buttonLCtrName, const char*buttonLvariant, UpDownDisplayedText *text, u32 localPlayerBitfield, u8 unk_13, bool isNotSelectable, bool isLooped, bool onClickSendsToNextControl);
     void HandleSelect(u32 hudSlotId, u32 curChildId); //8063f694
     void HandleDeselect(u32 hudSlotId, u32 curChildId); //8063f7c4
     void HandleClick(u32 hudSlotId, u32 curChildId); //8063f8f8
@@ -133,17 +133,17 @@ public:
     u8 unknown_0x210[4];
     UpDownDisplayedText *text; //0x214
     ControlManipulator manipulator; //0x218
-    PtmfHolder_3A<Page, void, UpDownControl *, u32, u32> *onChangeHandler; //0x29c hud slot Id, cur selected option
-    PtmfHolder_2A<Page, void, UpDownControl *, u32> *onClickHandler; //0x2a0
-    PtmfHolder_2A<Page, void, UpDownControl *, u32> *onSelectHandler; //0x2a4
-    PtmfHolder_2A<Page, void, UpDownControl *, u32> *onDeselectHandler; //0x2a8
+    PtmfHolder_3A<Page, void, UpDownControl*, u32, u32> *onChangeHandler; //0x29c hud slot Id, cur selected option
+    PtmfHolder_2A<Page, void, UpDownControl*, u32> *onClickHandler; //0x2a0
+    PtmfHolder_2A<Page, void, UpDownControl*, u32> *onSelectHandler; //0x2a4
+    PtmfHolder_2A<Page, void, UpDownControl*, u32> *onDeselectHandler; //0x2a8
     nw4r::lyt::Pane *fuchi_pattern; //0x2ac
     nw4r::lyt::Pane *color_base; //0x2b0
     UpDownButton arrowButtons[2];
     u32 soundID; //init at 0x13, sound to play when the arrows are pressed
 };  //0x5C8
-size_assert(UpDownControl, 0x5C8);
-size_assert(UpDownControl::UpDownButton, 0x188);
+static_assert(sizeof(UpDownControl) == 0x5C8,"UpDownControl");
+static_assert(sizeof(UpDownControl::UpDownButton) == 0x188, "UpDownButton");
 
 
 

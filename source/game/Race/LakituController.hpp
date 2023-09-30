@@ -12,19 +12,19 @@ class LakituControllerPlayer;
 class UnkLakituClass2;
 class Kart;
 
-class UnkLakituClass { //likely inherited from another class 808cbc30, AI stuff
+class UnkLakituClass{ //likely inherited from another class 808cbc30, AI stuff
     UnkLakituClass(); //0x8074ae2c
     void *actionsHolder; //instance +0x8 on ctor, then copy of the ptr at 4
     void *currentActionHolder; //only non-0 while lakitu is active, instance + a set amount depending on what lakitu is
     virtual void func_vtable(); //at 0x8
-
+    
     u32 pointerToItself;
-    u8 unknown_0x10[0x38 - 0x10];
+    u8 unknown_0x10[0x38-0x10];
     UnkType unknownClass_0x34; //0x808cbc18, just to get o the correct size, idk because it gets overwritten
 }; //unknown total size 0x38
 
 class LakituControllerPlayer;
-class LakituActionHolder {
+class LakituActionHolder{
     virtual ~LakituActionHolder(); //80721cec vtable 808c9728
     LakituControllerPlayer *lakituPlayer; //always the controllerplayer itself
     Ptmf_0A<LakituControllerPlayer, void> ptmf_0x8; //vt_0x2c
@@ -32,24 +32,24 @@ class LakituActionHolder {
     Ptmf_0A<LakituControllerPlayer, void> ptmf_0x20; //idk
 }; //total size 0x2C
 
-class EnableLakituAction {
+class EnableLakituAction{
     EnableLakituAction(); //inlined everywhere
-    virtual ~EnableLakituAction();
+    virtual ~EnableLakituAction(); 
     virtual void ResetState(); //always called on init
     virtual void EnableAction(); //if the conditions are met
     u8 playerId;
-    bool isEnabled;
+    bool isEnabled; 
     bool hasHappened; //held true forever except if certain conditions can reset the state
     u8 unknown_0x7[2];
 };
-class EnableCountdownAction : public EnableLakituAction {
+class EnableCountdownAction : public EnableLakituAction{
     EnableCountdownAction(); //0x80725a78
     ~EnableCountdownAction() override; //80725a98 vtable 808c98a0
     void ResetState() override; //80725ad8
     void EnableAction() override; //80725ae8 if the conditions are met checks raceinfo state to set it 
 }; //total size 0x8
 
-class EnableDisplayLapAction : public EnableLakituAction {
+class EnableDisplayLapAction : public EnableLakituAction{
     EnableDisplayLapAction(); //0x80725b48
     ~EnableDisplayLapAction() override; //80725b68 vtable 808c988c 
     void ResetState() override; //80725ba8  runs every frame the action is not enabled, enables by comparing with stored maxLap
@@ -57,14 +57,14 @@ class EnableDisplayLapAction : public EnableLakituAction {
     u8 maxLap; //0x7
 }; //total size 0x8
 
-class EnableRespawnAction : public EnableLakituAction { //this one 
+class EnableRespawnAction : public EnableLakituAction{ //this one 
     EnableRespawnAction(); //0x80725dd8
     ~EnableRespawnAction() override; //80725df8 vtable 808c9864
     void ResetState() override; //80725e38 
     void EnableAction() override; //80725e48 conditions are always met so just a blr
 }; //total size 0x8
 
-class EnableBackwardsAction : public EnableLakituAction { //this one 
+class EnableBackwardsAction : public EnableLakituAction{ //this one 
     EnableBackwardsAction(); //0x80725c1c
     ~EnableBackwardsAction() override; //80725c3c vtable 808c9878
     void ResetState() override; //80725c7c 
@@ -72,7 +72,7 @@ class EnableBackwardsAction : public EnableLakituAction { //this one
     float unknown_0x8; //unknown
 }; //total size 0xC
 
-class EnableEndingAction : public EnableLakituAction { //this one 
+class EnableEndingAction : public EnableLakituAction{ //this one 
     EnableEndingAction(); //0x80725e4c
     ~EnableEndingAction() override; //80725e6c vtable 808c9850
     void ResetState() override; //80725eac
@@ -130,15 +130,14 @@ class LakituControllerPlayer { //very likely inherits from a class with vtable 8
 
 class LakituController {
 public:
-    static LakituController *sInstance;
+    static LakituController *sInstance; 
     static LakituController GetStaticInstance(); //8071e270
     static void DestroyStaticInstance(); //8071e2fc
     LakituController(); //8071e330 inlined
     EGG::TDisposer<LakituController> disposer; //8071e1d8 vtable 808c94bc
     virtual ~LakituController(); //8071e390 vtable 808c94b0 at 0x10
     void Init(); //8071e638
-    void Update(); //8071e6c0
     LakituControllerPlayer *lakituControllerPlayers[4]; //lakitu player, one per local player
-    u32 localPlayerCount; //8071e610
+    u32 localPlayerCount ; //8071e610
 }; //total size 0x28
 #endif

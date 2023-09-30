@@ -15,21 +15,21 @@ Contributors:
 -kHacker35000vr (main documentation)
 -Melg
 */
-enum ObjectType {
+enum ObjectType{
     OBJECT_TYPE_NORMAL = 0x0,
     OBJECT_TYPE_SPECIAL = 0x2,
 };
 
 
 class Object;
-struct CyclePtmfs {
+struct CyclePtmfs{
     u16 id;
     u8 padding[2];
     Ptmf_0A<Object, void> ptmfs[2];
 };
 
 
-class Object {
+class Object{
 public:
     explicit Object(KMP::GOBJHolder *gobj); //8081f828
     Object(const char *name, Vec3 *position, Vec3 *rotation, Vec3 *scale, u32 r8); //8081fb04 used for sub objects
@@ -79,16 +79,16 @@ public:
 
     void LoadAnimationByType(u32 idx, AnmType type); //80820a90
     void LinkAnimations(char **brasd, char **idk, u32 brsadCount, u32 idkCount); //80820eb8
-    AudioHandle *UpdateMatrix(); //80821640
-    AudioHandle *StartSoundLimited(u32 soundId, float volume); //808204fc
-    AudioHandle *HoldSoundLimited(u32 soundId); //8082051c
-    AudioHandle *StartNewSoundLimited(u32 soundId, float volume); //no overlap, if sound already started, does nothing
+    AudioHandle* UpdateMatrix(); //80821640
+    AudioHandle* StartSoundLimited(u32 soundId, float volume); //808204fc
+    AudioHandle* HoldSoundLimited(u32 soundId); //8082051c
+    AudioHandle* StartNewSoundLimited(u32 soundId, float volume); //no overlap, if sound already started, does nothing
     bool StartSound(u32 soundId); //40 8082055c
     bool HoldSound(u32 soundId); //44 8082057c
     void StopAllSound(int fadeOutFrames); //0x8082059c 
     void StopSound(int fadeOutFrames); //0x48 808205bc
-
-
+    
+    
     ObjectType type;
     ModelDirector *mdlDirector; //0x8
     ModelDirector *mdlLodDirection; //0xc
@@ -113,15 +113,15 @@ public:
     const char *lodResName; //0x94
     u8 unknown_0x98[8];
     KMP::GOBJHolder *gobj; //0xa0
-    u32 holderIdx;
+    u32 holderIdx; 
     bool unknown_0xA8;
     u8 padding3[3];
 }; //total size 0xac
-size_assert(Object, 0xaC);
+static_assert(sizeof(Object) == 0xaC, "Object");
 
-class ObjectCycleManager {
+class ObjectCycleManager{
     static CyclePtmfs routePtmfs;
-    virtual ~ObjectCycleManager();
+    virtual ~ObjectCycleManager();  
     virtual int vf_0xC() = 0; //0xC 
     u16 unknown_0x4;
     u8 padding[2];

@@ -5,15 +5,15 @@
 
 
 
-struct KCLTypeHolder {
+struct KCLTypeHolder{
     static KCLTypeHolder *cur; //809c3be0
     void Reset(); //807bda7c resets closest collision entry and entry count to 0
     void ApplyFlag(float distance, KCLTypeHolder addedTypesBitfield, u16 kclFlag);
     KCLTypesBIT bitfield;  //1<<KCLTYPE
 };
 
-struct CollisionEntry {
-
+struct CollisionEntry{
+    
     static CollisionEntry entriesArray; //809c38d8
     static u32 entryCount; //809c3bd8
     static u32 maxCount; //0x40
@@ -21,7 +21,7 @@ struct CollisionEntry {
     KCLTypeHolder type;
     u16 kclFlag;
     u8 padding[2];
-    float distance;
-};
+    float distance;  
+};////
 
 #endif

@@ -15,7 +15,7 @@ public:
         void SetPositionAnim(float curFrame, PositionAndScale *positionAndScale) override; //0x20 80637344
         int GetRuntimeTypeInfo() const override; //0x28 806374ac
         const char *GetClassName() const override; //0x2c 80636460
-        void Load(u32 buttonId, const char *folderName, const char *ctrName, const char *variant, const char **anims, bool r8, bool inaccessible); //806365cc
+        void Load(u32 buttonId, const char*folderName, const char*ctrName, const char*variant, const char **anims, bool r8, bool inaccessible); //806365cc
         void HandleSelect(u32 hudSlotId); //80636d08
         void AfterSelect(u32 hudSlotId); //806371ac
         void SetEnabledHudSlots(u32 playerBitField); //80636c2c
@@ -30,7 +30,7 @@ public:
         u32 buttonId; //0x234 0x0 for left, 0x1 for right
         u32 localPlayerBitfield; //copied straight from arrowpaircontrol
         bool enabled;
-        u8 unknown_0x23d[0x240 - 0x23d]; //might be padding
+        u8 unknown_0x23d[0x240-0x23d]; //might be padding
         u32 *fuchi_pattern;
         u32 *rootPane;
     }; //total size 0x248
@@ -38,15 +38,15 @@ public:
     ~SheetSelectControl() override; //8063607c vtable 0x808be950
     void Init() override; //806362e8
     int GetRuntimeTypeInfo() const override; //0x28 806374a0
-    const char *GetClassName() const override; //0x2c 80635eb8
+    const char* GetClassName() const override; //0x2c 80635eb8
     virtual void func_0x38(); //0x38 806361e4 just a blr
     virtual void AfterRightScroll(); //0x3c 806363d4 just a blr
     virtual void AfterLeftScroll(); //0x40 8063645c just a blr
     virtual int GetArrowAnimationType() const; //0x44 80637474 returns 0, if changed to 1 the arrows pop instead of sliding to the sides
-    void Load(const char *folderName, const char *rightArrowctrName, const char *rightArrowVariantName,
-        char *leftArrowctrname, const char *leftArrowVariantName, u32 localPlayerBitfield, bool r10, bool inaccessible); //80636120
-    void SetRightArrowHandler(PtmfHolder_2A<Page, void, SheetSelectControl *, u32> *handler); //806361e8
-    void SetLeftArrowHandler(PtmfHolder_2A<Page, void, SheetSelectControl *, u32> *handler); //806361f0
+    void Load(const char*folderName, const char*rightArrowctrName, const char*rightArrowVariantName, 
+    char *leftArrowctrname, const char*leftArrowVariantName, u32 localPlayerBitfield, bool r10, bool inaccessible); //80636120
+    void SetRightArrowHandler(PtmfHolder_2A<Page, void, SheetSelectControl*, u32> *handler); //806361e8
+    void SetLeftArrowHandler(PtmfHolder_2A<Page, void, SheetSelectControl*, u32> *handler); //806361f0
     void HandleRightArrowSelect(u32 hudSlotId); //80636350 inlined triggers ptmf at 0x98
     void HandleLeftArrowSelect(u32 hudSlotId); //806363d8 inlined
     void SetEnabledHudSlots(u32 playerBitfield); //806361f8 inlined?
@@ -54,19 +54,19 @@ public:
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> *rightArrowHandler; //0x98
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> *leftArrowHandler; //0x9C
     u32 localPlayerBitfield;
-    u8 unknown_0xA4[0xa8 - 0xa4];
+    u8 unknown_0xA4[0xa8-0xa4];
     SheetSelectButton rightArrow; //0xa8
     SheetSelectButton leftArrow;
 }; //total size 0x538
-size_assert(SheetSelectControl, 0x538);
-size_assert(SheetSelectControl::SheetSelectButton, 0x248);
+static_assert(sizeof(SheetSelectControl) == 0x538,"SheetSelectControl");
+static_assert(sizeof(SheetSelectControl::SheetSelectButton) == 0x248,"SheetSelectButton");
 
-class SheetSelectControlScaleFade : public SheetSelectControl {
+class SheetSelectControlScaleFade : public SheetSelectControl{
 public:
     //no ctor
     ~SheetSelectControlScaleFade() override; //805dbfdc vtable 808BE908
     int GetRuntimeTypeInfo() const override; //0x28 80637494
-    const char *GetClassName() const override; //0x2c 8063747c
+    const char* GetClassName() const override; //0x2c 8063747c
     int GetArrowAnimationType() const override; //0x44 8063748c
 };
 #endif

@@ -10,7 +10,7 @@
 using namespace nw4r;
 
 template <int handleNum>
-class AudioActor : public EGG::Audio3DActor { //value for <4>||<2>||<1>
+class AudioActor : public EGG::Audio3DActor{ //value for <4>||<2>||<1>
 public:
     //ctor always inlined
     //Sound3DActor vtable 808c7fa0||808c86c8||808c8408
@@ -42,7 +42,7 @@ public:
     u32 handleCount; //0x90 unsure
 }; //0x94||0x8C||0x88
 
-class LinkedRaceActor { //actors managed by RaceAudioManager //nw4r has a similar "LinkedObject" so names copied
+class LinkedRaceActor{ //actors managed by RaceAudioManager //nw4r has a similar "LinkedObject" so names copied
     static u16 actorCount; //809c26a0
     LinkedRaceActor(); //80702678
     ~LinkedRaceActor(); //807026cc
@@ -69,11 +69,11 @@ class LinkedRaceActor { //actors managed by RaceAudioManager //nw4r has a simila
     virtual bool HoldSound(u32 soundId, AudioHandle *handle, const snd::SoundStartable::StartInfo *startInfo) = 0; //0x58
     virtual void SetupBRASD(snd::detail::AnimSoundFile *rawBRASD) = 0; //0x5c
     virtual void UpdateBRASDFrame(float frame) = 0; //0x60
-
+    
     bool CannotPlaySounds(); //807028e4 if it returns 1, the actor is forbidden from playing sounds
     Vec3 *GetKartPosition() const; //807029cc only call if the subject is Kart
     Vec3 *GetObjectPosition() const; //807029d4 called by RaceAudioActor update, so that HAS to be overridden
-
+    
     //+0x20 to get "final" classes offsets
     void *pointer; //Kart, ItemObj etc.. depends on the child class
     u16 objectId; //0x8 item, kart, etc.. depends on the child class
@@ -89,16 +89,16 @@ class LinkedRaceActor { //actors managed by RaceAudioManager //nw4r has a simila
     u8 id; //hudslotid, item id, depends on actor
 }; //0x20
 
-class RaceAudioActor : public AudioActor<4>, public LinkedRaceActor {
+class RaceAudioActor : public AudioActor<4>, public LinkedRaceActor{
     //no ctor
     //AUDIOACTOR
     //Sound3DActor vtable 808c7d60
     ~RaceAudioActor() override; //807009bc
-    StartResult SetupSound(snd::SoundHandle *handle, u32 soundId, const StartInfo *startInfo, void *setupArg) override; //80700818
+    StartResult SetupSound(snd::SoundHandle* handle, u32 soundId, const StartInfo* startInfo, void* setupArg) override; //80700818
 
     //AudioActor vtable 808c7d7c at 0x54
     //~AudioActor thunk 80702588 func 807009bc
-    void detail_UpdateAmbientArg(void *arg, const snd::detail::BasicSound *sound) override; //thunk 807025c8 func 80701794
+    void detail_UpdateAmbientArg(void* arg, const snd::detail::BasicSound* sound) override; //thunk 807025c8 func 80701794
 
     //LinkedRaceActor vtable 808c7ddc at 0x94 
     void Update() override; //thunk 80702670 func 807007cc
@@ -122,7 +122,7 @@ class RaceAudioActor : public AudioActor<4>, public LinkedRaceActor {
 
 }; //0xb4
 
-class SimpleRaceAudioActor : public RaceAudioActor { //for actors without BRASD support
+class SimpleRaceAudioActor : public RaceAudioActor{ //for actors without BRASD support
     //no ctor
     //AUDIOACTOR
     //Sound3DActor vtable 808C8A68
@@ -139,11 +139,11 @@ class SimpleRaceAudioActor : public RaceAudioActor { //for actors without BRASD 
 }; //0xb4
 
 
-class AnimAudio : public snd::detail::AnimSoundImpl { //BRASD for example penguins
+class AnimAudio : public snd::detail::AnimSoundImpl{ //BRASD for example penguins
     snd::detail::AnimEventPlayer players[2];
 }; //0x40
 
-class RaceAnimAudioActor : public RaceAudioActor {
+class RaceAnimAudioActor : public RaceAudioActor{
     RaceAnimAudioActor(); //80701018
     //AUDIOACTOR
     //SoundActor vtable 808c7b00

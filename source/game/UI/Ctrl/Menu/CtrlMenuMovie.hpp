@@ -5,13 +5,13 @@
 #include <game/UI/Ctrl/PushButton.hpp>
 
 class Page;
-class MovieScale {
+class MovieScale{
     MovieScale(); //807e84a8
     Vec2 scale;
 }; //0x8
 
 //_sinit_ at 807e917c
-class CtrlMenuMovieHandler {
+class CtrlMenuMovieHandler{ 
 public:
     //no ctor
     virtual ~CtrlMenuMovieHandler(); //80627a40 vable 808D3608 
@@ -26,10 +26,10 @@ public:
     u32 delay; //0x10 in frames, until it appears
     MovieScale *scales; //0x14 size movie count
 }; //total size 0x18
-size_assert(CtrlMenuMovieHandler, 0x18);
+static_assert(sizeof(CtrlMenuMovieHandler) == 0x18,"CtrlMenuMovieHandler");
 
 
-class CtrlMenuMovieLayout : public CtrlMenuMovieHandler, public LayoutUIControl {
+class CtrlMenuMovieLayout : public CtrlMenuMovieHandler, public LayoutUIControl{
     //no ctor
     ~CtrlMenuMovieLayout() override; //80627a80 808d34b0 for thp part
     int GetMovieCount() const override; //807e8e04
@@ -38,15 +38,15 @@ class CtrlMenuMovieLayout : public CtrlMenuMovieHandler, public LayoutUIControl 
     void InitSelf() override; //0x18 thunk 807e91f4 function 807e8e0c
     void OnUpdate() override; //0x1c thunk 807e91ec function 807e8ff8
     int GetRuntimeTypeInfo() const override; //0x28 thunk 807e920c function 80
-    const char *GetClassName() const override; //0x2c thunk 807e9204 function 807e8c4c
+    const char* GetClassName() const override; //0x2c thunk 807e9204 function 807e8c4c
     void OnDeactivate(); //807e8c5c
 }; //total size 0x18C
-size_assert(CtrlMenuMovieLayout, 0x18c);
+static_assert(sizeof(CtrlMenuMovieLayout) == 0x18c, "CtrlMenuMovieLayout");
 
 
-class CtrlMenuMovieButton : public CtrlMenuMovieHandler, public PushButton {
+class CtrlMenuMovieButton : public CtrlMenuMovieHandler, public PushButton{
 public:
-    CtrlMenuMovieButton() {};
+    CtrlMenuMovieButton(){};
     ~CtrlMenuMovieButton() override; //806280d4 vtable 808d3590 for Movie
     int GetMovieCount() const override; //807e2520
     char **GetPaneNames() const override; //807e82d0
@@ -54,13 +54,13 @@ public:
     void InitSelf() override; //0x18 thunk 807e2574 function 807e8698
     void OnUpdate() override; //0x1c thunk 807e256c function 807e84ac
     int GetRuntimeTypeInfo() const override; //0x28 thunk 807e91b4 function 807e9170
-    const char *GetClassName() const override; //0x2c thunk 807e91ac function 807e82f4
+    const char* GetClassName() const override; //0x2c thunk 807e91ac function 807e82f4
     void OnDeactivate() override; //0x3c thunk 807e257c function 807e8300
 
 }; //total size 0x26C
-size_assert(CtrlMenuMovieButton, 0x26c);
+static_assert(sizeof(CtrlMenuMovieButton) == 0x26c,"CtrlMenuMovieButton");
 
-class CtrlMenuSingleTopMovieButton : public CtrlMenuMovieHandler, public PushButton {
+class CtrlMenuSingleTopMovieButton : public CtrlMenuMovieHandler, public PushButton{
     ~CtrlMenuSingleTopMovieButton() override; //807e9114 vtable 808d3518 for thp
     int GetMovieCount() const override; //807e8954
     char **GetPaneNames() const override; //807e82e8
@@ -68,9 +68,9 @@ class CtrlMenuSingleTopMovieButton : public CtrlMenuMovieHandler, public PushBut
     void InitSelf() override; //0x18 thunk 807e91c4 function 807e895c
     void OnUpdate() override; //0x1c thunk 807e91bc function 807e8b48
     int GetRuntimeTypeInfo() const override; //0x28 thunk 807e91e4 function 807e9108
-    const char *GetClassName() const override; //0x2c thunk 807e91dc function 807e879c
+    const char* GetClassName() const override; //0x2c thunk 807e91dc function 807e879c
     void OnDeactivate() override; //0x3c thunk 807e91cc function 807e87ac
 }; //total size 0x26c
-size_assert(CtrlMenuSingleTopMovieButton, 0x26c);
+static_assert(sizeof(CtrlMenuSingleTopMovieButton) == 0x26c, "CtrlMenuSingleTopMovieButton");
 
 #endif

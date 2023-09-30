@@ -4,7 +4,7 @@
 #include <game/KMP/Controller.hpp>
 #include <game/Route/RouteHolder.hpp>
 
-class RouteController {
+class RouteController{
     RouteController(u16 routeId, float baseSpeed); //806ed160
     virtual ~RouteController(); //806ed53c vtable 808c7678
     virtual void SetParams() = 0; //0xC
@@ -37,7 +37,7 @@ class RouteController {
     u8 padding3;
 }; //0x4C
 
-class RouteStraightController : public RouteController {
+class RouteStraightController : public RouteController{
     RouteStraightController(u16 routeId, float unknown); //806efdc4
     ~RouteStraightController() override; //806f094c vtable 808c7738
     void SetParams() override; //0xC 806efe50 sets pointsArray/point count...but already done by ctor
@@ -53,7 +53,7 @@ class RouteStraightController : public RouteController {
 
 }; //0x5c
 
-class RouteCurvedController : public RouteController {
+class RouteCurvedController : public RouteController{
     RouteCurvedController(); //806ee830
     ~RouteCurvedController() override; //806ef944 vtable 808c76d8 
     void SetParams() override; //0xC 806eead8

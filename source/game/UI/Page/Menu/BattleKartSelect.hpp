@@ -7,8 +7,8 @@
 #include <game/UI/Ctrl/ModelControl.hpp>
 
 //_sinit_ at 8083b0cc
-namespace Pages {
-class BattleKartSelect : public MenuInteractable { //ID 0x76
+namespace Pages{
+class BattleKartSelect : public Menu { //0x76
 public:
     BattleKartSelect(); //80628e3c 
     ~BattleKartSelect() override; //8083b014 vtable 0x808D8F40
@@ -30,7 +30,7 @@ public:
     void OnBackPress(u32 hudSlotId); //8083ab80
     static void func_8083ac54(); //some weird random stuff that stores different karts in racedata scenario1, akin to char select
     static void func_8083ad54(); //same, but without the random
-    static Page *GetPageById(PageId id = PAGE_BATTLE_KART_SELECT); //8083a0d4
+    static Page *GetPageById(PageId id = BATTLE_KART_SELECT); //8083a0d4
     //onButtonClick    vtable = 0x808bd114 function = 8083A918
     //onButtonSelect   vtable = 0x808bd114 offset = 0x64 call is virtual
     //onButtonDeselect vtable = 0x808bd114 function = 8083AB78
@@ -44,6 +44,6 @@ public:
     CharaName name; //0x854
     CtrlMenuMachineGraph ctrlMenuMachineGraph;
 }; // Total Size 0xb50
-size_assert(BattleKartSelect, 0xB50);
+static_assert(sizeof(BattleKartSelect) == 0xB50,"BattleKartSelect");
 }//namespace Pages
 #endif

@@ -1,12 +1,12 @@
 #ifndef _NW4R_UTFILESTREAM_
 #define _NW4R_UTFILESTREAM_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/ut/IOStream.hpp>
-namespace nw4r {
-namespace ut {
-class FileStream : public IOStream {
+namespace nw4r{
+namespace ut{
+class FileStream : public IOStream{
 public:
-    class FilePosition {
+    class FilePosition{
     public:
         u32 size;
         u32 pos;

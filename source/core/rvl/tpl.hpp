@@ -1,23 +1,23 @@
 #ifndef _TPL_HEADER_
 #define _TPL_HEADER_
 
-#include <types.hpp>
+#include "types.hpp"
 #include <core/rvl/gx/GX.hpp>
 
-typedef struct {
+typedef struct{
     u16             numEntries;
     u8              unpacked;
     u8              pad8;
     GXTlutFmt       format;
-    void *data;
+    void *           data;
 } TPLClutHeader, *TPLClutHeaderPtr;
 
 
-typedef struct {
+typedef struct{
     u16             height;
     u16             width;
     u32             format;
-    void *data;
+    void *           data;
     GXTexWrapMode   wrapS;
     GXTexWrapMode   wrapT;
     GXTexFilter     minFilter;
@@ -30,13 +30,13 @@ typedef struct {
 } TPLHeader, *TPLHeaderPtr;
 
 
-typedef struct {
+typedef struct{
     TPLHeaderPtr        textureHeader;
     TPLClutHeaderPtr    CLUTHeader;
 } TPLDescriptor, *TPLDescriptorPtr;
 
 
-typedef struct {
+typedef struct{
     u32                 versionNumber;
     u32                 numDescriptors;
     TPLDescriptorPtr    descriptorArray;

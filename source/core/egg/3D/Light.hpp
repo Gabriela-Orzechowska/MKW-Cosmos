@@ -1,16 +1,16 @@
 #ifndef _EGG_LIGHT_
 #define _EGG_LIGHT_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/rvl/gx/GXStruct.hpp>
 #include <core/rvl/gx/GXEnum.hpp>
 #include <core/egg/Math/Vector.hpp>
 #include <core/egg/3D/Texture.hpp>
 
-namespace EGG {
+namespace EGG{ 
 //https://wiki.tockdom.com/wiki/BLIGHT_(File_Format)
 //https://wiki.tockdom.com/wiki/BLMAP_(File_Format)
 
-struct BinaryLightHeader {
+struct BinaryLightHeader{
     char magic[4]; //LGHT
     u32 fileSize;
     u8 version;
@@ -18,14 +18,14 @@ struct BinaryLightHeader {
     u32 unknown_0xC;
 };
 
-struct BinaryLIGHTInfo {
+struct BinaryLIGHTInfo{
     u16 lightObjectCount;
     u16 ambLightsCount;
     GXColor ambBlackColor;
     u8 padding[16]; //alignment
 };
 
-struct BinaryLIGHTObject {
+struct BinaryLIGHTObject{
     BinaryLightHeader header; //LOBJ
     u8 attenuationFalloffFuncType; //0x10
     u8 attenuationDistanceFuncType;
@@ -46,22 +46,22 @@ struct BinaryLIGHTObject {
     u8 padding[2];
 }; //0x50
 
-struct BinaryAmbLight {
+struct BinaryAmbLight{
     GXColor color;
     u32 unknown_0x4;
 };
 
-struct BinaryLightMAPInfo {
+struct BinaryLightMAPInfo{
     u16 ltexCount;
     u8 padding[14];
 };
 
-struct BinaryLightTexEntry {
+struct BinaryLightTexEntry{
     float intensity;
     u8 gradient;
     u8 padding[3];
 };
-struct BinaryLightTex {
+struct BinaryLightTex{
     BinaryLightHeader header; //LTEX
     u16 subObjectsCount;
     char lm_TexName[32];
@@ -71,14 +71,14 @@ struct BinaryLightTex {
     //BinaryLightTexEntry entries;
 };
 
-struct BLIGHT {
+struct BLIGHT{
     BinaryLightHeader header;
     BinaryLIGHTInfo info;
     //BinaryLIGHTObject objects;
     //BinaryAmbLight lights;
 };
 
-struct BLMAP {
+struct BLMAP{
     BinaryLightHeader header;
     BinaryLightMAPInfo info;
     //BinaryLightTex objects;
@@ -91,7 +91,7 @@ class LightMapBinary;
 class LightMgr;
 
 
-class LightTextureBinary { //probably not abstract, can't find the vtable
+class LightTextureBinary{ //probably not abstract, can't find the vtable
     void Mount(BinaryLightTex *raw); //8022f3e8
     virtual void MountImpl() = 0;
     virtual void SaveImpl() = 0;
@@ -99,7 +99,7 @@ class LightTextureBinary { //probably not abstract, can't find the vtable
     virtual void vf_0x14() = 0;
     virtual void vf_0x18(); //8022e780
     virtual void vf_0x1c(); //8022e77c
-    u8 unknown_0x4[0x58 - 0x4];
+    u8 unknown_0x4[0x58-0x4];
     u8 unknown_0x[2];
     u16 gradLimit;
     Vector3f unknown_0x8;
@@ -110,7 +110,7 @@ class LightTextureBinary { //probably not abstract, can't find the vtable
     u32 type;
     float *clrIntensityArr;
     int *gradientRefs;
-    char name[32]; //0x28
+	char name[32]; //0x28
     LightMapBinary *lmap; //0x48
     u8 status; //0x4c
     u8 tevStageCount;
@@ -122,7 +122,7 @@ class LightTextureBinary { //probably not abstract, can't find the vtable
     u8 padding2[2];
 }; //0x58
 
-class CapTexture : public MatTexture, public LightTextureBinary {
+class CapTexture : public MatTexture, public LightTextureBinary{
     CapTexture(u16 r4, const char *name, LightMapBinary *lightMapBinary); //8022d730
 
     //CPUTexture vtable 802a3148 at 0x10
@@ -130,13 +130,13 @@ class CapTexture : public MatTexture, public LightTextureBinary {
     void Configure() override; //8022da48
 
     //LightTextureBinary
-    void MountImpl() override;  //thunk 8022e79c func 8022e4d4 vtable 802a315c
-    void SaveImpl() override;   //thunk 8022e7a4 func 8022e6dc
-    char *GetMagic() override;  //thunk 8022e7ac func 8022e4c4
-    void vf_0x14() override;    //thunk 8022e7b4 func 8022e788
+   void MountImpl() override;  //thunk 8022e79c func 8022e4d4 vtable 802a315c
+   void SaveImpl() override;   //thunk 8022e7a4 func 8022e6dc
+   char *GetMagic() override;  //thunk 8022e7ac func 8022e4c4
+   void vf_0x14() override;    //thunk 8022e7b4 func 8022e788
 }; //0x80
 
-class LightMapBinary {
+class LightMapBinary{
     explicit LightMapBinary(LightMgr *mgr); //8022e7bc
     virtual void Mount(BLMAP *raw); //8022f2a8 vtable 802a3190
     virtual void Save(); //8022f358
@@ -145,14 +145,14 @@ class LightMapBinary {
     virtual void vf_0x18(); //8022f3e0
     virtual void vf_0x1c(); //8022f3dc
     void CreateCapTexturesByPrefix(const char *prefix, ScnMdlEx *scnMdlEx); //8022eaa4
-    u8 unknown_0x4[0x6 - 0x4];
+    u8 unknown_0x4[0x6-0x4];
     u16 ltexCount; //0x6
     CapTexture **capTextures; //0x8
     LightMgr *mgr; //0xC
-    u8 unknown_0x10[0x2C - 0x10];
+    u8 unknown_0x10[0x2C-0x10];
 }; //0x2C
 
-class LightObject {
+class LightObject{
     LightObject(); //8022b6d4
     virtual void LoadImpl(BinaryLIGHTObject *raw); //8022c2b4 vtable 802a3128
     virtual void Save(); //8022c958
@@ -175,20 +175,20 @@ class LightObject {
     float spotlightCutoffAngle; //0x44
     float attenuationRefDistance; //0x48
     float attenuatioNRefBrightness; //0x4C
-    u8 unknown_0x50[0x68 - 0x50];
+    u8 unknown_0x50[0x68-0x50];
     u32 attenuationFalloffFuncType; //0x68 probably enums now
     u32 attenuationDistanceFuncType; //0x6C
-    u8 unknown_0x70[0x76 - 0x70];
+    u8 unknown_0x70[0x76-0x70];
     u16 bitField; //0x76
-    u8 unknown_0x78[0xb0 - 0x78];
+    u8 unknown_0x78[0xb0-0x78];
 }; //0xB0
 
-class AmbientLight {
+class AmbientLight{
     GXColor color;
     u32 unknown_0x4;
 };
 
-class LightMgr {
+class LightMgr{
     LightMgr(u16 lightObjCount, u16 ambLightCount, u8 pageCount); //8022a38c
     virtual void Mount(BLIGHT *rawBLIGHT); //8022a8f0 vtable 802a3100
     virtual void Save(); //8022aee4
@@ -206,9 +206,9 @@ class LightMgr {
     LightObject **lightObjs; //0xC
     AmbientLight *ambientLights; //0x10
     GXColor ambBlackColor; //0x14
-    u8 unknown_0x18[0x20 - 0x18];
+    u8 unknown_0x18[0x20-0x18];
     LightMapBinary binary; //0x20
-    u8 unknown_0x24[0x2C - 0x24];
+    u8 unknown_0x24[0x2C-0x24];
 };
 }//namespace EGG
 

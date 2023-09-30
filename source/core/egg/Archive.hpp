@@ -1,14 +1,14 @@
 #ifndef _EGGARCHIVE_
 #define _EGGARCHIVE_
-#include <types.hpp>
-#include <core/egg/mem/Heap.hpp>
-#include <core/egg/mem/Disposer.hpp>
+#include "types.hpp"
+#include <core/egg/Heap.hpp>
+#include <core/egg/Disposer.hpp>
 #include <core/rvl/arc/arc.h>
 
-namespace EGG {
-class Archive : public Disposer {
+namespace EGG{
+class Archive : public Disposer{
 public:
-    struct FileInfo {
+    struct FileInfo{
         u32 offset;
         u32 size;
     };

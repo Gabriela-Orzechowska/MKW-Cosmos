@@ -4,7 +4,7 @@
 #include <core/egg/3D/Fog.hpp>
 #include <game/File/BFG.hpp>
 
-class BFGHolder {
+class BFGHolder{
     explicit BFGHolder(BFG *raw); //805adff0 built with the 0th entry
     virtual ~BFGHolder(); //805ae774 vtable 808b6e64
     void Update(u8 bfgEntryIdx, float f1); //805ae0f8
@@ -16,13 +16,13 @@ class BFGHolder {
     u16 hasRangeCorrection; //0x14
     float transitionSpeed; //0x18
     u8 unknown_0x1C[2]; //0x18/0x19 of the bfgentry
-    u8 unknown_0x1E[0x24 - 0x1E];
+    u8 unknown_0x1E[0x24-0x1E];
     BFG *raw; //0x24
     float inverseThicknessRatio; //0x28 the lower, the thicker the fog, set to 1
-    u8 unknown_0x2C[0x38 - 0x2C];
+    u8 unknown_0x2C[0x38-0x2C];
 }; //0x38
 
-class FogManager {
+class FogManager{
 public:
     explicit FogManager(EGG::FogMgr *fogMgr); //805ae440
     virtual ~FogManager(); //805ae734 vtable 808b6e58

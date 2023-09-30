@@ -3,8 +3,8 @@
 
 #include <kamek.hpp>
 #include <core/egg/Audio.hpp>
-#include <core/egg/mem/Heap.hpp>
-#include <core/egg/mem/Disposer.hpp>
+#include <core/egg/Heap.hpp>
+#include <core/egg/Disposer.hpp>
 #include <game/System/Identifiers.hpp>
 
 /*
@@ -14,7 +14,7 @@ Contributors:
 
 using namespace nw4r;
 
-class AudioManager : public EGG::ExpAudioMgr { //almost certainly missing a layer of inheritance as the snd::SoundHeap vt funcs are also present in another class
+class AudioManager : public EGG::ExpAudioMgr{ //almost certainly missing a layer of inheritance as the snd::SoundHeap vt funcs are also present in another class
 public:
     static AudioManager *sInstance; //809c2898
     static AudioManager *GetStaticInstance(); //0x80716e2c
@@ -50,7 +50,7 @@ public:
     bool HoldSound(snd::SoundHandle *handle, u32) const override; //78 807179c4
     bool HoldSound(snd::SoundHandle *handle, const char *string) override; //7c 807179f8
     void Init(EGG::Heap *heap); //80717150
-    void InitSelf(EGG::Heap *heap); //8071724c
+    void InitSelf(); //8071724c
     static void OpenBRSAR(); //80716d68
 
     EGG::TDisposer<AudioManager> disposer; //80716d94 vtable 808c91d0
@@ -58,19 +58,19 @@ public:
     u32 unknown_0x8A8[3];
     float unknown_0x8B4[3];
 }; // Total size 0x8c0
-size_assert(AudioManager, 0x8c0);
+static_assert(sizeof(AudioManager) == 0x8c0, "AudioManager");
 
-class AudioHeapClass {
+class AudioHeapClass{
 public:
     virtual bool LoadState(u32 level); //806fe1b4 vtable 808c79f0
     virtual int GetCurrentLevel(); //806fe240
     virtual void SaveState(); //806fe0e0
     snd::SoundHeap heap; //0x4
-    u8 unknown_0x30[0x60 - 0x30];
+    u8 unknown_0x30[0x60-0x30];
     EGG::SoundMessages messages[3]; //0x60
 };
 
-class AudioHeapMgr : public AudioHeapClass {
+class AudioHeapMgr : public AudioHeapClass{
     static AudioHeapMgr *sInstance; //808c2350
     static AudioHeapMgr *GetStaticInstance(); //806fdc1c
     static void DestroyStaticInstance(); //806fdcec
@@ -86,49 +86,48 @@ class AudioHeapMgr : public AudioHeapClass {
 
 
 
-class Audio3DMgr : public snd::Sound3DEngine {
+class Audio3DMgr : public snd::Sound3DEngine{
     static snd::detail::BasicSound *curSound; //809c22d0 used by updateambientparam and then cleared
     static Audio3DMgr *sInstance; //809c2318
     static Audio3DMgr *GetStaticInstance(); //806f6a04
     static void DestroyStaticInstance(); //806f6a94
     ~Audio3DMgr() override; //806f6d4c vtable 808c77d8
     int GetAmbientPriority(
-        const snd::Sound3DManager *sound3DManager,
-        const snd::Sound3DParam *sound3DParam,
-        u32 soundId
+    const snd::Sound3DManager* sound3DManager,
+    const snd::Sound3DParam* sound3DParam,
+    u32 soundId
     ) override; //806f7608
     void UpdateAmbientParam(
-        const snd::Sound3DManager *sound3DManager,
-        const snd::Sound3DParam *sound3DParam,
-        u32 soundId,
-        int voiceOutCount,
-        snd::SoundAmbientParam *ambientParam
+	const snd::Sound3DManager* sound3DManager,
+	const snd::Sound3DParam* sound3DParam,
+	u32 soundId,
+	int voiceOutCount,
+	snd::SoundAmbientParam* ambientParam
     ) override; //806f6df4
     EGG::TDisposer<Audio3DMgr> disposer; //806f696c vtable 808c77f4
 };
 
-class SoundTrack : public EGG::AudioTrack {
-    void Calc() override; //80717d2c vtable 808c91e0
-    void SetVolume(float minValue, float maxValue); //80717d08 if curVol > max then set to max, opposite for min
+class AudioTrack : public EGG::AudioTrack{
+   void Calc() override; //80717d2c vtable 808c91e0
+   void SetVolume(float minValue, float maxValue); //80717d08 if curVol > max then set to max, opposite for min
 
 };//total size 0x1C
 
-class SoundPlayersVolumeMgr {
+class SoundPlayersVolumeMgr{
     static SoundPlayersVolumeMgr *sInstance; //809c27ec
     static SoundPlayersVolumeMgr *GetStaticInstance(); //8070eff4
     static void DestroyStaTicInstance(); //8070f0e8
     ~SoundPlayersVolumeMgr(); //8070f19c
     EGG::TDisposer<SoundPlayersVolumeMgr> disposer; //8070eec8 vtable 808c8f90
-    static SoundTrack volumes[11]; //808b28b8 1 ramper = 1 soundPlayer
+    static AudioTrack volumes[11]; //808b28b8 1 ramper = 1 soundPlayer
 };
 
-class AudioHandle : public snd::SoundHandle { //sound handle with a ctor
+class AudioHandle : public snd::SoundHandle{ //sound handle with a ctor
     AudioHandle(); //806f88e8
     ~AudioHandle(); //806f88f4
 };
 
-class AudioHandleHolder { //can hold 2 basicSound, for example on raceStart when the track brstm is waiting and countdown is playing
-public:
+class AudioHandleHolder{ //can hold 2 basicSound, for example on raceStart when the track brstm is waiting and countdown is playing
     static AudioHandleHolder *sInstance; //809c2328
     static AudioHandleHolder *GetStaticInstance(); //806f8648
     static void DestroyStaticInstance(); //806f86f0
@@ -149,19 +148,19 @@ public:
     u8 padding2[3];
 }; //0x3C 
 
-class MainSoundPlayerVolumeMgr { //allows a finer control of soundplayer 0's volume
+class MainSoundPlayerVolumeMgr{ //allows a finer control of soundplayer 0's volume
     static MainSoundPlayerVolumeMgr *sInstance; //809c232c
     static MainSoundPlayerVolumeMgr *GetStaticInstance(); //806f9abc
     static void DestroyStaticInstance(); //806f9b64
     ~MainSoundPlayerVolumeMgr();//806f9c18
     EGG::TDisposer<MainSoundPlayerVolumeMgr> disposer; //806f9990 vtable 808c78e0
-    SoundTrack volumes[6]; //their volume is multiplied and used to set SoundPlayer 0's volume
+    AudioTrack volumes[6]; //their volume is multiplied and used to set SoundPlayer 0's volume
     AudioHandle *curHandle; //0xb8
     u32 soundId; //0xbc
     float unknown_0xC0;
 };
 
-class AudioStreamsMgr {
+class AudioStreamsMgr{
     static AudioStreamsMgr *sInstance; //809c2330
     static AudioStreamsMgr *GetStaticInstance(); //806fa0ac
     static void DestroyStaticInstance(); //806fa154
@@ -169,14 +168,14 @@ class AudioStreamsMgr {
     void ChangeStream(u8 streamId, u32 delay); //806fab2c
     void Calc(); //806fa420
     EGG::TDisposer<AudioStreamsMgr> disposer; //806f9f80 vtable 808c78d4
-
-    SoundTrack streamsVolume[10]; //first 4 for the usual 4 streams, idk of a sound with 10 streams though
+    
+    AudioTrack streamsVolume[10]; //first 4 for the usual 4 streams, idk of a sound with 10 streams though
     AudioHandle *curHandle; //0x1d0
     u8 streamCount; //1d4
     u8 padding[3];
 }; //0x1d8
 
-class UnkAudioClass {
+class UnkAudioClass{
     static UnkAudioClass *sInstance; //809c2818
     static UnkAudioClass *GetStaticInstance(); //807139fc
     ~UnkAudioClass(); //80713a64
@@ -194,7 +193,7 @@ class AudioReverbMgr {
     bool unknown_0x10;
     u8 padding[3];
     snd::detail::FxReverbHiParam params;
-    SoundTrack volumes[4];
+    AudioTrack volumes[4];
 }; //ac
 
 

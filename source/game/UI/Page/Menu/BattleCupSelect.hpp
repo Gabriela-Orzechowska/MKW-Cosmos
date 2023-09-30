@@ -5,8 +5,8 @@
 #include <game/UI/Ctrl/Menu/CtrlMenuBattleCup.hpp>
 
 //_sinit_ at 8083a0c0
-namespace Pages {
-class BattleCupSelect : public MenuInteractable { //ID 0x78
+namespace Pages{
+class BattleCupSelect : public Menu{ //0x78
     BattleCupSelect(); //8062949c
     ~BattleCupSelect() override; //80839fc0 vtable 808d8ea8
     void OnInit() override; //80838f70 0x28
@@ -30,8 +30,8 @@ class BattleCupSelect : public MenuInteractable { //ID 0x78
     void OnButtonClick(PushButton *button, u32 hudSlotId); //80839694
     void OnButtonDeselect(PushButton *button, u32 hudSlotId); //80839908
     void OnBackPress(u32 hudSlotId); //8083990c
-    static Page *GetPageById(PageId id = PAGE_BATTLE_CUP_SELECT); //80838e60 only ever used with id = battlecupselect so it's here
-
+    static Page *GetPageById(PageId id = BATTLE_CUP_SELECT); //80838e60 only ever used with id = battlecupselect so it's here
+    
     //for back button
     //onButtonClick    vtable = 0x808bd03c function = 80839694
     //onButtonSelect   vtable = 0x808bd03c offset = 0x64 call is virtual
@@ -46,5 +46,5 @@ class BattleCupSelect : public MenuInteractable { //ID 0x78
     float float_0x1758;
 }; //0x175c
 }//namespace Pages
-size_assert(BattleCupSelectPage, 0x175c);
+static_assert(sizeof(BattleCupSelectPage) == 0x175c, "BattleCupSelectPage");
 #endif

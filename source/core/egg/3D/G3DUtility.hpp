@@ -1,11 +1,11 @@
 #ifndef _EGG_G3DUTILITY_
 #define _EGG_G3DUTILITY_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/g3d.hpp>
 
-namespace EGG {
-namespace G3DUtility {
-struct SearchNodes {
+namespace EGG{
+namespace G3DUtility{
+struct SearchNodes{
     static SearchNodes sInstance; //802578f8
     int (*SearchNodes)(nw4r::g3d::ResMdl resMdl, const char *prefix, u32 r5, u16 *r6, u32 max); //802287e4
     int (*SearchMaterials)(nw4r::g3d::ResMdl resMdl, const char *prefix, u32 r5, u16 *r6, u32 max); //802288e0

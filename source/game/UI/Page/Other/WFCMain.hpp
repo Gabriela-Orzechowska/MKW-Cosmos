@@ -13,8 +13,8 @@ class FriendStatusButton : public PushButton {
     u32 unknown_0x25C; //idk
 }; //total size 0x25C
 
-namespace Pages {
-class WFCMain : public Page { //ID 0x8B
+namespace Pages{
+class WFCMain : public Page{
 public:
     WFCMain(); //8064b640
     ~WFCMain() override; //vtable 0x808bff44 8064b850
@@ -23,11 +23,11 @@ public:
     void OnActivate() override; //0x8064bc90
     int GetRuntimeTypeInfo() const override; //0x8064d690
     void OnButtonSelect(PushButton *pushButton, u32 hudSlotId); //8064bf4c
-    PtmfHolder_2A<WFCMain, void, PushButton *, u32> onWorldwideClick; //0x44 vtable 808bffb4 8064bce8
-    PtmfHolder_2A<WFCMain, void, PushButton *, u32> onContinentalClick; //0x58 vtable 808bffb4 8064bdc4
-    PtmfHolder_2A<WFCMain, void, PushButton *, u32> onFriendsClick; //0x6C vtable 808bffb4 8064bea0
-    PtmfHolder_2A<WFCMain, void, PushButton *, u32> onBackButtonPress; //0x80 vtable 808bffb4 8064bee4 ctrlmenubackbutton
-    PtmfHolder_2A<WFCMain, void, PushButton *, u32> onButtonSelectHandler; //0x94 vtable 808bffb4 8064bf4c
+    PtmfHolder_2A<WFCMain, void, PushButton*, u32> onWorldwideClick; //0x44 vtable 808bffb4 8064bce8
+    PtmfHolder_2A<WFCMain, void, PushButton*, u32> onContinentalClick; //0x58 vtable 808bffb4 8064bdc4
+    PtmfHolder_2A<WFCMain, void, PushButton*, u32> onFriendsClick; //0x6C vtable 808bffb4 8064bea0
+    PtmfHolder_2A<WFCMain, void, PushButton*, u32> onBackButtonPress; //0x80 vtable 808bffb4 8064bee4 ctrlmenubackbutton
+    PtmfHolder_2A<WFCMain, void, PushButton*, u32> onButtonSelectHandler; //0x94 vtable 808bffb4 8064bf4c
     PtmfHolder_1A<WFCMain, void, u32> onBackPress; //0xA8 vtable 808bffa8 8064bfb8
     CtrlMenuPageTitleText ctrlMenuPageTitleText; //0xBC
     PushButton worldwideButton; //0x230
@@ -38,6 +38,6 @@ public:
     ControlsManipulatorManager manipulatorManager; //0xd0c
     PageId nextPageId; //when you press a button
 };//total size 0xf34
-size_assert(WFCMain, 0xf34);
+static_assert(sizeof(WFCMain) == 0xf34, "WFCMain");
 }//namespace Pages
 #endif

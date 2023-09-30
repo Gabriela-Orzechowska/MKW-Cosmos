@@ -1,22 +1,22 @@
 #ifndef _NW4R_LYTRESOURCES_
 #define _NW4R_LYTRESOURCES_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/lyt/lytTypes.hpp>
 #include <core/rvl/gx/GX.hpp>
 
-namespace nw4r {
-namespace lyt {
-namespace res {
-enum ResourceType {
-    RESOURCETYPE_LAYOUT = 'blyt',
-    RESOURCETYPE_ANIMATION = 'anim',
-    RESOURCETYPE_TEXTURE = 'timg',
-    RESOURCETYPE_FONT = 'font',
-    RESOURCETYPE_ARCHIVEFONT = 'fnta'
+namespace nw4r{
+namespace lyt{
+namespace res{
+enum ResourceType{
+    RESOURCETYPE_LAYOUT         = 'blyt',
+    RESOURCETYPE_ANIMATION      = 'anim',
+    RESOURCETYPE_TEXTURE        = 'timg',
+    RESOURCETYPE_FONT           = 'font',
+    RESOURCETYPE_ARCHIVEFONT    = 'fnta'
 };
 
 
-struct BinaryFileHeader {
+struct BinaryFileHeader{
     char magic[4]; //rlyt
     u16  byteOrder; //0x4 0xfeff    
     u16  version; //0x6 always 0xa
@@ -25,56 +25,56 @@ struct BinaryFileHeader {
     u16  blocksCount; //0xe
 };
 
-struct DataBlockHeader {
+struct DataBlockHeader{
     char magic[4];
     u32 blockSize;
 };
 
-struct Layout {
+struct Layout{
     DataBlockHeader blockHeader; //lyt1
     u8              originType;
     u8              padding[3];
     Vec2            size;
 };
 
-struct ExtUserDataList {
+struct ExtUserDataList{
     DataBlockHeader     blockHeader; //usd1
     detail::ResU16      count;
     u8                  padding[2];
-    //  ExtUserData         extUserData[num];
+//  ExtUserData         extUserData[num];
 };
 
-struct TextureList {
+struct TextureList{
     DataBlockHeader blockHeader; //txl1
     u16 texCount;
     u8 padding[2];
 };
 
-struct FontList {
+struct FontList{
     DataBlockHeader blockHeader; //fnl1
     u16 fontCount;
     u8 padding[2];
 };
 
-struct MaterialList {
+struct MaterialList{
     DataBlockHeader blockHeader; //mat1
     u16 matCount;
     u8 padding[2];
 };
 
-struct TexMap {
+struct TexMap{
     u16 index;
     u8 wrapS;
     u8 wrapT;
 };
 
-struct Texture {
+struct Texture{
     u32 nameOffset;
     u8 type;
     u8 padding[3];
 };
 
-struct MaterialResourceNum {
+struct MaterialResourceNum{
     u8   GetTexMapNum() const; //8007fd10
     u8   GetTexSRTNum() const; //8007fd20
     u8   GetTexCoordGenNum() const; //8007fd30
@@ -86,7 +86,7 @@ struct MaterialResourceNum {
     bool HasBlendMode() const;   //8007fd80
     u8   GetChanCtrlNum() const; //8007fd40
     u8   GetMatColNum() const; //8007fd50    
-    u32 bits;
+    u32 bits; 
     /*
     0-3	Unknown.
     4	Has Material Color.
@@ -104,7 +104,7 @@ struct MaterialResourceNum {
     */
 };
 
-struct Material {
+struct Material{
     char name[0x14]; //0
     GXColorS10 tevColors[3]; //0x14
     GXColor tevKColors[4]; //0x2c
@@ -124,7 +124,7 @@ struct Material {
     //BlendMode blendMode;
 }; //texmap array right after
 
-struct Pane { //https://wiki.tockdom.com/wiki/BRLYT_(File_Format)#pan1
+struct Pane{ //https://wiki.tockdom.com/wiki/BRLYT_(File_Format)#pan1
     DataBlockHeader header; //pan1
     u8 basePosition; //1 isVisible, 2 influenced alpha, 4 isWidePage
     u8 originType;
@@ -136,17 +136,17 @@ struct Pane { //https://wiki.tockdom.com/wiki/BRLYT_(File_Format)#pan1
     math::VEC3 rotation; //0x30
     Vec2 scale; //0x3c
     float width;
-    float height;
+    float height; 
 }; //0x4C
 
-struct Picture : Pane { //pic1
+struct Picture : Pane{ //pic1
     u32 vertexColours[4]; //top left, top right, bottom left, bottom right
     u16 materialId;
     u8 texCoordNum; //number of uv sets
     u8 padding;
 };
 
-struct TextBox : Pane { //txt1
+struct TextBox : Pane{ //txt1
     u16 stringSize;
     u16 maxStringSize;
     u16 materialId;
@@ -162,7 +162,7 @@ struct TextBox : Pane { //txt1
     float lineSpace;
 };
 
-struct Window : Pane { //wnd1
+struct Window : Pane{ //wnd1
     float leftPos;
     float rightPos;
     float topPos;
@@ -178,15 +178,15 @@ struct Window : Pane { //wnd1
     u8 padding2[1];
 };
 
-struct WindowFrame {
+struct WindowFrame{
     u16 materialId;
     u8 flipType;
     u8 padding;
 };
 
-struct Bounding : Pane {}; //bnd1
+struct Bounding : Pane{}; //bnd1
 
-struct Group {
+struct Group{
     DataBlockHeader blockHeader; //grp1
     char name[0x10];
     u16  paneCount;
@@ -196,7 +196,7 @@ struct Group {
 };
 
 //BRLAN https://wiki.tockdom.com/wiki/BRLAN_(File_Format)
-struct AnimationBlock {
+struct AnimationBlock{
     DataBlockHeader blockHeader; //pai1
     u16 frameSize;
     bool isLooped;
@@ -210,7 +210,7 @@ struct AnimationBlock {
     //u32 animContOffsets[paneCount];
 };
 
-struct AnimationContent {
+struct AnimationContent{
     char name[20];
     u8 infoCount;
     u8 type; //0 pane, 1material
@@ -218,14 +218,14 @@ struct AnimationContent {
     //u32 animInfoOffsets[num];
 };
 
-struct AnimationInfo {
+struct AnimationInfo{
     u32 kind; //RLPA, RLTS etc...
     u8 targetCount;
     u8 padding[3];
     //u32 animTargetOffsets[num];
 };
 
-struct AnimationTarget {
+struct AnimationTarget{
     u8 id;
     u8 target; //https://wiki.tockdom.com/wiki/BRLAN_(File_Format)/Targets depends on kind
     u8 curveType; //hermite vs step
@@ -236,13 +236,13 @@ struct AnimationTarget {
     // Hermite keys[keyNum];
 };
 
-struct HermiteKey {
+struct HermiteKey{
     float frame;
     float value;
     float slope;
 };
 
-struct StepKey {
+struct StepKey{
     float frame;
     u16 value;
     u16 padding;

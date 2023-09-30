@@ -16,8 +16,8 @@ Contributors:
 
 //_sinit_ at 8063a570
 
-namespace Pages {
-class GhostSelectSupporting : public Page { //ID 0x70
+namespace Pages{
+class GhostSelectSupporting : public Page { //0x70
     GhostSelectSupporting(); //80638e88
     ~GhostSelectSupporting() override; //80638ecc vtable 808becd8
     PageId GetNextPage() const override; //8063a4cc
@@ -33,10 +33,10 @@ class GhostSelectSupporting : public Page { //ID 0x70
     PageId nextPageId; //set to -1 by OnDeactivate, then by 0x71 by
     u32 state; //0x0 list not init, 0x1 update GhostList, 0x2 list init
 }; //total size 0x5C
-size_assert(GhostSelectSupporting, 0x5C);
+static_assert(sizeof(GhostSelectSupporting) == 0x5C,"GhostSelectSupporting");
 
 
-class GhostSelect : public Page { //ID 0x71
+class GhostSelect : public Page { //0x71
 public:
     GhostSelect(); //0x806395ec vtable 808bec2c
     ~GhostSelect() override; //0x8063982c
@@ -65,17 +65,17 @@ public:
     GhostInfoControl *info; //0x1880 they alternate even and odd pages
     GhostInfoControl *info2;
     u32 selectedButtonId; //0x1888
-    PtmfHolder_2A<Page, void, SheetSelectControl *, u32> onRightArrowPressHandler;  //8063a1a4 0x188c
-    PtmfHolder_2A<Page, void, SheetSelectControl *, u32> onLeftArrowPressHandler;  //8063a2a4 0x18a0
-    PtmfHolder_2A<Page, void, PushButton *, u32> onChallengeGhostClickHandler;  //8063a3a0 0x18B4
-    PtmfHolder_2A<Page, void, PushButton *, u32> onWatchReplayClickHandler;  //8063a3c0 0x18C8
-    PtmfHolder_2A<Page, void, PushButton *, u32> onSoloTimeTrialClickHandler; //8063a3e0 0x18DC
-    PtmfHolder_2A<Page, void, CtrlMenuBackButton *, u32> onBackButtonClickHandler; //8063a444 0x18F0
+    PtmfHolder_2A<Page, void, SheetSelectControl*, u32> onRightArrowPressHandler;  //8063a1a4 0x188c
+    PtmfHolder_2A<Page, void, SheetSelectControl*, u32> onLeftArrowPressHandler;  //8063a2a4 0x18a0
+    PtmfHolder_2A<Page, void, PushButton*, u32> onChallengeGhostClickHandler;  //8063a3a0 0x18B4
+    PtmfHolder_2A<Page, void, PushButton*, u32> onWatchReplayClickHandler;  //8063a3c0 0x18C8
+    PtmfHolder_2A<Page, void, PushButton*, u32> onSoloTimeTrialClickHandler; //8063a3e0 0x18DC
+    PtmfHolder_2A<Page, void, CtrlMenuBackButton*, u32> onBackButtonClickHandler; //8063a444 0x18F0
     PtmfHolder_1A<Page, void, u32> onBackPress; //8063a400 0x1904
     GhostList *ghostList; //0x1918 from page 0xA7
     u32 page; //0x191C
     PageId nextPageId; //0x1920
 }; //total size 0x1924
-size_assert(GhostSelect, 0x1924);
+static_assert(sizeof(GhostSelect) == 0x1924,"GhostSelect");
 }//namespace Pages
 #endif

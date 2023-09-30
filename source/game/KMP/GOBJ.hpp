@@ -3,7 +3,7 @@
 #include <game/KMP/SectionBase.hpp>
 
 
-struct GOBJ {
+struct GOBJ{
     u16 objID; //0
     u8 padding[2];
     Vec3 position; //4
@@ -14,6 +14,6 @@ struct GOBJ {
     u16 presenceFlags; //3a
 }; //0x3C
 
-typedef KMPSection<GOBJ> GOBJSection;
+typedef Section<GOBJ> GOBJSection;
 
 #endif

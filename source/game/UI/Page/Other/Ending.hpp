@@ -4,39 +4,39 @@
 #include <game/UI/Page/Page.hpp>
 
 //_sinit_ at 805cd91c
-class StaffRollControl : public LayoutUIControl {
+class StaffRollControl : public LayoutUIControl{
     //no ctor
     ~StaffRollControl() override; //805cae24 vtable 808b8558
     void InitSelf() override; //0x18 805caf30
     int GetRuntimeTypeInfo() const override; //0x28 805cd880
-    const char *GetClassName() const override; //0x2c 805caddc
+    const char* GetClassName() const override; //0x2c 805caddc
 }; //0x174
 
-class StaffRollText {
+class StaffRollText{
     StaffRollText(); //805cb074
     ~StaffRollText(); //805cb0d0
-    void Load(const char *ctrName, const char *variant); //805cae7c inlined
+    void Load(const char*ctrName, const char*variant); //805cae7c inlined
     void AppearAnimated();  //805caf68 slides from the outside inlined
     void DisappearAnimated(); //805cafa0 slides to the outside inlined
-
+    
     StaffRollControl category;
-    StaffRollControl developpers;
+    StaffRollControl developpers; 
 }; //0x2e8
 
-class EndingMovieControl : public LayoutUIControl {
+class EndingMovieControl : public LayoutUIControl{
     EndingMovieControl(); //805cbb0c
     ~EndingMovieControl() override; //805cbb48 vtable 808b84a0
     void InitSelf() override; //0x18 805cbc98
     int GetRuntimeTypeInfo() const override; //0x28 805cd868
-    const char *GetClassName() const override; //0x2c 805cbafc
-    void Load(const char *variant); //805cbba0
+    const char* GetClassName() const override; //0x2c 805cbafc
+    void Load(const char*variant); //805cbba0
     void FadeIn(); //805cbcd0
     void FadeOut(); //805cbd08
     bool IsCurrentAnimation1Or2(); //805cbd40 idk
 }; //0x174
 
-namespace Pages {
-class StaffRoll : public Page { //ID 0X3d
+namespace Pages{
+class StaffRoll : public Page{ //0X3d
     StaffRoll(); //805cafd8
     ~StaffRoll() override; //805cb144 vtable 808b84dc
     void OnInit() override; //0x28 805cb1c4
@@ -60,11 +60,11 @@ class StaffRoll : public Page { //ID 0X3d
     bool hasNotStarted; //0xa66 essentially checks if duration == 0
     u8 padding[1];
 }; //a68
-size_assert(StaffRoll, 0xa68);
+static_assert(sizeof(StaffRoll) == 0xa68, "StaffRoll");
 
 
 
-class EndingMovie : public Page { //ID 0x3e
+class EndingMovie : public Page{ //0x3e
     EndingMovie(); //805cbd88
     ~EndingMovie() override; //805cbe24 vtable 808b8424
     void OnInit() override; //0x28 805cbea4 
@@ -77,6 +77,6 @@ class EndingMovie : public Page { //ID 0x3e
     EndingMovieControl endingMovieControls[2]; //0x68 top and bottom
     u32 unknown_0x350; //0x350 if set to -1, it'll not transition between the two controls  
 }; //0x354
-size_assert(EndingMovie, 0x354);
+static_assert(sizeof(EndingMovie) == 0x354, "EndingMovie");
 }//namespace Pages
 #endif

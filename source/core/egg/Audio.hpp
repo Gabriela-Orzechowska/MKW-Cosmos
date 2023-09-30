@@ -1,18 +1,17 @@
 #ifndef _EGGAUDIO_
 #define _EGGAUDIO_
 
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/snd.hpp>
 #include <core/rvl/os/thread.hpp>
-#include <core/rvl/os/message.hpp>
 #include <core/rvl/arc/arc.h>
-#include <core/egg/mem/Heap.hpp>
+#include <core/egg/Heap.hpp>
 
 
-namespace EGG {
+namespace EGG{
 using namespace nw4r;
 
-class Audio3DActor : public snd::Sound3DActor {
+class Audio3DActor : public snd::Sound3DActor{
 public:
     Audio3DActor(snd::SoundArchivePlayer *soundArchivePlayer, snd::Sound3DManager *sound3DManager); //0x802104ec
     //SoundActor vtable 802a2700
@@ -21,9 +20,9 @@ public:
     //~Audio3DActor thunk 80210588 func 8021053
 }; //total size 0x80
 
-class ArcPlayer {
+class ArcPlayer{
 public:
-    ArcPlayer(snd::SoundArchivePlayer *soundArchivePlayer, snd::SoundHeap *heap); //0x80210590
+    ArcPlayer(snd::SoundArchivePlayer *soundArchivePlayer,snd::SoundHeap *heap); //0x80210590
     virtual ~ArcPlayer(); //80210624 vtable 802a2730
     virtual void *OpenArchive(char *filePath, snd::SoundHeap *heap, u32 type, ARCHandle *handle); //802106b8 type 0 = dvd, 1 nand, 2 memory
     virtual void *OpenDVDArchive(char *filePath, snd::SoundHeap *heap); //80210748
@@ -34,7 +33,7 @@ public:
     virtual void CloseArchive(); //80210ce4
     virtual bool LoadGroup(u32 groupId, snd::SoundHeap *heap, u32 loadBlockSize); //80210d70
     virtual bool LoadGroup(s32 groupId, snd::SoundHeap *heap, u32 loadBlockSize); //80210e3c
-    virtual bool LoadGroup(const char *groupName, snd::SoundHeap *heap, u32 loadBlockSize); //80210f08
+    virtual bool LoadGroup(const char* groupName, snd::SoundHeap *heap, u32 loadBlockSize); //80210f08
     virtual void Calc(); //80210fd4
     virtual bool StartSound(snd::SoundHandle *handle, u32 soundId); //802110fc
     virtual bool StartSound(snd::SoundHandle *handle, u32 soundId) const; //802110c8
@@ -43,7 +42,7 @@ public:
     virtual bool PrepareSound(snd::SoundHandle *handle, u32) const; //802111a0
     virtual bool PrepareSound(snd::SoundHandle *handle, const char *string); //80211130
     virtual bool HoldSound(snd::SoundHandle *handle, u32); //802112ac
-    virtual bool HoldSound(snd::SoundHandle *handle, u32) const; //80211278
+    virtual bool HoldSound(snd::SoundHandle *handle, u32) const ; //80211278
     virtual bool HoldSound(snd::SoundHandle *handle, const char *string); //80211208
     bool SetStreamBlocks(u32 count); //80210698
     void StopAllSound(); //80210fec
@@ -61,9 +60,9 @@ public:
     u32 streamBlocks;
     void *brsarINFO; //0x4d4
 }; //total size 0x4D8
-size_assert(ArcPlayer, 0x4D8);
+static_assert(sizeof(ArcPlayer) == 0x4D8, "ArcPlayer");
 
-class AudioSystem {
+class AudioSystem{
 public:
     AudioSystem(); //0x80213cc8
     ~AudioSystem(); //80213ce4
@@ -71,9 +70,9 @@ public:
     float unknown_0x0;
     u32 unknown_0x4[2];
 }; //total size 0xC
-size_assert(AudioSystem, 0xC);
+static_assert(sizeof(AudioSystem) == 0xC,"AudioSystem");
 
-class AudioFx {
+class AudioFx{
 public:
     AudioFx(); //80211a14
     ~AudioFx(); //80211a28
@@ -81,13 +80,13 @@ public:
     bool CreateFx(u32 type, void *fxParam); //80211a94
     snd::FxReverbHiDpl2 *fxReverbHiDpl2;
     u32 unknown_0x4;
-    nw4r::snd::detail::FxReverbHiParam *reverbHiParam;
+    nw4r::snd::detail::FxReverbHiParam *reverbHiParam; 
     u32 type;
     Heap *heap;
     UnkType *array_0x14;
 }; //total size 0x18
 
-class AudioFxMgr {
+class AudioFxMgr{
 public:
     AudioFxMgr(); //80211c14
     ~AudioFxMgr(); //80211c74
@@ -98,7 +97,7 @@ public:
 
 
 
-struct AudioMgrParams {
+struct AudioMgrParams{
     Heap *heap;
     u32 unknown_0x4;
     snd::SoundSystem::SoundSystemParam params; //0x8
@@ -107,25 +106,25 @@ struct AudioMgrParams {
 };
 
 
-class SoundMessages {
+class SoundMessages{
     OSMessageQueue messageQueue;
     OSMessage msgBuffer[4]; //similar to snd::SoundThread
 }; //0x30
-size_assert(SoundMessages, 0x30);
+static_assert(sizeof(SoundMessages) == 0x30, "SoundMessages");
 
-class SoundHeapMgr {
+class SoundHeapMgr{
 public:
 
     virtual bool LoadState(u32 level); //80211874 vtable 802a2950
     virtual int GetCurrentLevel(); //8021174c
     virtual void SaveState(); //802117a0
     nw4r::snd::SoundHeap heap; //0x4
-    u8 unknown_0x30[0x60 - 0x30];
+    u8 unknown_0x30[0x60-0x30];
     SoundMessages messages[3]; //0x60
 };
-size_assert(SoundHeapMgr, 0xF0);
+static_assert(sizeof(SoundHeapMgr) == 0xF0, "SoundHeapMgr");
 
-class IAudioMgr {
+class IAudioMgr{
     virtual void Initialize(AudioMgrParams *params); //80213690 vtable 802a2910
     virtual void Calc() = 0;
     bool isInitialized;
@@ -133,7 +132,7 @@ class IAudioMgr {
 };
 
 
-class AudioArchivePlayer : public snd::SoundArchivePlayer { //non-official name
+class AudioArchivePlayer : public snd::SoundArchivePlayer{ //non-official name
     //SoundArchivePlayer
     //callback vtable 802a2920
     ~AudioArchivePlayer() override; //8021337c
@@ -141,9 +140,9 @@ class AudioArchivePlayer : public snd::SoundArchivePlayer { //non-official name
     //~SoundArchivePlayerMgr() override; //thunk 8021369c func 8021337c
     StartResult detail_SetupSound(snd::SoundHandle *handle, u32 id, bool r6, snd::SoundArchive::SoundInfo *soundInfo) override; //thunk 80213694 func 8021365c
 };
-size_assert(AudioArchivePlayer, 0xe0);
+static_assert(sizeof(AudioArchivePlayer) == 0xe0, "AudioArchivePlayer");
 
-class SimpleAudioMgr : public IAudioMgr, public SoundHeapMgr, public ArcPlayer {
+class SimpleAudioMgr : public IAudioMgr, public SoundHeapMgr, public ArcPlayer{
 public:
     static AudioArchivePlayer *audioArchivePlayer; //80386d98
     SimpleAudioMgr(); //8021329c
@@ -162,7 +161,7 @@ public:
     AudioSystem audioSystem; //0x5d0
     AudioArchivePlayer archivePlayer; //0x5dc 
 }; //total size 0x6bc
-size_assert(SimpleAudioMgr, 0x6bc);
+static_assert(sizeof(SimpleAudioMgr) == 0x6bc, "SimpleAudioMgr");
 
 
 class ExpAudioMgr : public SimpleAudioMgr {
@@ -186,12 +185,12 @@ public:
 }; //total size 0x894
 
 class AudioTrack;
-struct AudioTrackCallback {
-    void(*callbackFunc);
+struct AudioTrackCallback{
+    void (*callbackFunc);
     AudioTrack *ptr;
 };
 
-class AudioTrack {
+class AudioTrack{
     AudioTrack(); //80213e1c
     AudioTrackCallback callback;
     virtual void Reset(); //80213e48 vtable 802a2980
@@ -204,7 +203,7 @@ class AudioTrack {
     float step; //how much volume increases every frame
 };
 
-class SimpleAudioTrack : public AudioTrack {
+class SimpleAudioTrack : public AudioTrack{
     SimpleAudioTrack(u32 r4, snd::SoundHandle *handle); //80213f88
     void Reset() override; //80213ffc vtable 802a2968
     void Calc() override; //802141c0

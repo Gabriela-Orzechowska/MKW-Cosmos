@@ -11,8 +11,8 @@ public:
     void Init() override; //0xc 807ee30c
     void OnUpdate() override; //0x1c 807ee358
     int GetRuntimeTypeInfo() const override; //0x28 807ee468
-    const char *GetClassName() const override; //0x2c 807ee250
-    virtual void Load(const char *ctrName, const char *variant); //807ee25c
+    const char* GetClassName() const override; //0x2c 807ee250
+    virtual void Load(const char*ctrName, const char*variant); //807ee25c
     virtual void Animate(); //807ee3d4, in between the numbers
     virtual void func_0x58(); //807ee39c
 }; //total size 0x198

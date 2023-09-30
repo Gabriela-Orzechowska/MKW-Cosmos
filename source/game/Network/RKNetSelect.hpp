@@ -4,7 +4,7 @@
 #include <game/System/Identifiers.hpp>
 //https://wiki.tockdom.com/wiki/MKWii_Network_Protocol/SELECT
 
-enum OnlineMode {
+enum OnlineMode{
     ONLINEMODE_PUBLIC_VS = 0x1,
     ONLINEMODE_PUBLIC_BATTLE = 0x2,
     ONLINEMODE_PRIVATE_VS = 0x3,
@@ -16,7 +16,7 @@ enum OnlineMode {
 //2 80662290
 //3 80662588
 
-struct SELECTPlayerData {
+struct SELECTPlayerData{
     u16 prevRaceRank;
     u16 sumPoints;
     u8 character;
@@ -24,20 +24,20 @@ struct SELECTPlayerData {
     u8 courseVote;
     u8 starRank;
 }; //total size 0x8
-size_assert(SELECTPlayerData, 0x8);
+static_assert(sizeof(SELECTPlayerData) == 0x8, "SELECTPlayerData");
 
 #pragma pack(push, 1)
-struct SELECTTeam {
+struct SELECTTeam{
     u8 team : 2;
 }; //2 bits
 #pragma pack(pop)
 
-struct SELECTPacket {
+struct SELECTPacket{
     u64 timeSender;
     u64 timeReceived;
     SELECTPlayerData playersData[2]; //0x10
     u32 selectId; //0x20
-    u8 battleType; //0x24
+    u8 battleType;
     u32 teams : 24; //0x25 idk how to do an array of 2 bits variables
     u8 playerIdToAid[12]; //0x28
     u8 winningCourse; //0x34
@@ -45,13 +45,13 @@ struct SELECTPacket {
     u8 winningVoterAid; //0x36
     u8 engineClass; //0x37 none, 100, 150, mirror
 }; //total size 0x38
-size_assert(SELECTPacket, 0x38);
+static_assert(sizeof(SELECTPacket) == 0x38, "SELECTPacket");
 
 
-class RKNetSELECTHandler {
+class RKNetSELECTHandler{
 public:
     static RKNetSELECTHandler *sInstance; //0x809c2100
-    static RKNetSELECTHandler *GetStaticInstance(OnlineMode mode); //8065fe8c
+    static RKNetSELECTHandler *GetStaticInstance(); //8065fe8c
     static void DestroyStaticInstance(); //8065ff60
     RKNetSELECTHandler(); //8066076c inlined
     ~RKNetSELECTHandler(); //806607f4
@@ -71,11 +71,7 @@ public:
     u8 SetPlayerData(CharacterId character, KartId kart, CourseId courseVote, u8 hudSlotId, u8 starRank); //80660750
     void DecideTrack(); //80661ce8
     void DecideTeams(u32 &teams); //80662290
-    bool HasUnprocessedRecvPackets(); //8066068c
-    bool IsPrepared(); //80660710 checks if in phase 0
-    void AllocatePlayerIdsToAids(); //80662034
-
-    OnlineMode mode; //from page 0x90 OnInit SectionId Switch
+    OnlineMode mode; //from page 0x90 OnInit MenuId Switch
     u32 unknown_0x4;
     SELECTPacket toSendPacket; //0x8
     SELECTPacket receivedPackets[12]; //0x40
@@ -92,6 +88,6 @@ public:
     u32 hasVoted; //0x3f0
     u8 unknown_0x3F4[4];
 }; //total size 0x3F8
-size_assert(RKNetSELECTHandler, 0x3F8);
+static_assert(sizeof(RKNetSELECTHandler) == 0x3F8, "RKNetSELECTHandler");
 
 #endif

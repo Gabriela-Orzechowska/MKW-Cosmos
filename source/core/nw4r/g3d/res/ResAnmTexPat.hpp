@@ -1,6 +1,6 @@
 #ifndef _NW4R_G3D_RES_ANMPAT_
 #define _NW4R_G3D_RES_ANMPAT_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/g3d/res/ResCommon.hpp>
 #include <core/nw4r/g3d/res/ResDic.hpp>
 #include <core/nw4r/g3d/res/ResMat.hpp>
@@ -8,17 +8,17 @@
 #include <core/nw4r/g3d/res/ResTex.hpp>
 #include <core/nw4r/math/math.hpp>
 
-namespace nw4r {
-namespace g3d {
+namespace nw4r{
+namespace g3d{
 
-struct TexPatAnmResult {
-    u8 bTexExist;
+struct TexPatAnmResult{
+    u8 bTexExist; 
     u8 bPlttExist;
     u8 padding[2];
     ResTex  tex[GX_MAX_TEXMAP];
 };
 
-struct ResAnmTexPatInfoData { //"PAT0 header"
+struct ResAnmTexPatInfoData{ //"PAT0 header"
     u16 frameCount;
     u16 materialCount;
     u16 textureCount;
@@ -26,11 +26,11 @@ struct ResAnmTexPatInfoData { //"PAT0 header"
     u32 isLooped;
 };
 
-struct ResAnmTexPatData { //https://wiki.tockdom.com/wiki/PAT0_(File_Format)
+struct ResAnmTexPatData{ //https://wiki.tockdom.com/wiki/PAT0_(File_Format)
     ResBlockHeaderData header;
     u32 version; //v4    
     s32 offsetToBRRES;
-    s32 offsetToTexPatDataDic;
+    s32 offsetToTexPatDataDic; 
     s32 offsetToTexNameArray;
     s32 offsetToPaletteNameArray;
     s32 offsetToResTexArray;
@@ -42,7 +42,7 @@ struct ResAnmTexPatData { //https://wiki.tockdom.com/wiki/PAT0_(File_Format)
     //data
 };
 
-class ResAnmTexPat : public ResCommon<ResAnmTexPatData> {};
+class ResAnmTexPat : public ResCommon<ResAnmTexPatData>{};
 
 }//namespace g3d 
 }//namespace nw4r

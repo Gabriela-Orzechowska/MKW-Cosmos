@@ -17,7 +17,7 @@
 #include <game/KMP/POTI.hpp>
 #include <game/KMP/STGI.hpp>
 
-enum Sections {
+enum Sections{
     KMP_SECTION_KTPT,
     KMP_SECTION_ENPT,
     KMP_SECTION_ENPH,
@@ -35,7 +35,7 @@ enum Sections {
     KMP_SECTION_STGI
 };
 
-struct KMPHeader {  //https://wiki.tockdom.com/wiki/KMP_(File_Format)
+struct KMPHeader{  //https://wiki.tockdom.com/wiki/KMP_(File_Format)
     char magic[4]; //RKMD
     u32 fileSize;
     u16 sectionCount; //15 in mkwii

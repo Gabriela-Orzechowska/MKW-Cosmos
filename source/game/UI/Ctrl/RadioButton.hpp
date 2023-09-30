@@ -14,8 +14,8 @@ public:
         void Init() override; //80606994
         void Update() override; //0x10 80606a14
         int GetRuntimeTypeInfo() const override; //0x28 806070f4
-        const char *GetClassName() const override; //0x2c 80606848
-        void Load(const char *folderName, const char *ctrName, const char *variant); //806068ec inlined
+        const char* GetClassName() const override; //0x2c 80606848
+        void Load(const char*folderName, const char*ctrName, const char*variant); //806068ec inlined
         void ToggleSelect(bool State); //80606e24
         void ToggleChose(bool State); //80606c48 called by Radio HandleClick, enables or disables the red fuchi
         RadioButtonControl GetParentControl() const; //80606ad0
@@ -30,12 +30,12 @@ public:
     void Init() override; //0xc 80605f24
     void Update() override; //0x10 80606100
     int GetRuntimeTypeInfo() const override; //0x28 806070e8
-    const char *GetClassName() const override; //0x2c 80605718
+    const char* GetClassName() const override; //0x2c 80605718
     virtual void OnDeactivateingEnd(); //0x3c 80605d50
     virtual void func_0x40(); //0x40 806070e4
 
-    void Load(u32 buttonsCount, u32 initialButtonId, const char *folderName, const char *ctrName, const char *variant, const char *optionCtrName,
-        const char **optionVariants, u32 localPlayerBitfield, u8 arg10, u8 arg11); //8060594c
+    void Load(u32 buttonsCount, u32 initialButtonId, const char*folderName, const char*ctrName, const char*variant, const char*optionCtrName, 
+    const char **optionVariants, u32 localPlayerBitfield, u8 arg10, u8 arg11); //8060594c
     void SelectInitialButton(u8 hudSlotId); //80605d74
     void HandleSelect(u32 hudSlotId, u32 curChildId); //806062d8
     void HandleDeselect(u32 hudSlotId, u32 curChildId); //80606434
@@ -43,10 +43,10 @@ public:
     void HandleClick(u32 hudSlotId, u32 curChildId); //80606620
     void HandleRightPress(u32 hudSlotId, u32 curChildId); //806066d4
     void HandleLeftPress(u32 hudSlotId, u32 curChildId); //80606790
-    void SetOnClickHandler(PtmfHolder_3A<Page, void, RadioButtonControl *, u32, u32> *handler); //80605d54
-    void SetOnSelectHandler(PtmfHolder_3A<Page, void, RadioButtonControl *, u32, u32> *handler);//80605d5c
-    void SetOnDeselectHandler(PtmfHolder_3A<Page, void, RadioButtonControl *, u32, u32> *handler);  //80605d64
-    void SetOnChangeHandler(PtmfHolder_3A<Page, void, RadioButtonControl *, u32, u32> *handler); //80605d6c
+    void SetOnClickHandler(PtmfHolder_3A<Page, void, RadioButtonControl*, u32, u32> *handler); //80605d54
+    void SetOnSelectHandler(PtmfHolder_3A<Page, void, RadioButtonControl*, u32, u32> *handler);//80605d5c
+    void SetOnDeselectHandler(PtmfHolder_3A<Page, void, RadioButtonControl*, u32, u32> *handler);  //80605d64
+    void SetOnChangeHandler(PtmfHolder_3A<Page, void, RadioButtonControl*, u32, u32> *handler); //80605d6c
     static void Trigger2APtmf(PtmfHolder_2A<LayoutUIControl, void, u32, u32> *handler, u32 hudSlotId, u32 curChildId); //80607130
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> onSelectHandlerObj; //0x174 vtable 808baa60 806062d8
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> onDeselectHandlerObj; //0x188 vtable 808baa60 80606434
@@ -55,10 +55,10 @@ public:
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> onRightPressHandlerObj; //0x1C4 vtable 808baa60 806066d4
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> onLeftPressHandlerObj; //0x1D8 vtable 808baa60 80606790
     u32 localPlayerBitfield; //0x1EC
-    PtmfHolder_3A<Page, void, RadioButtonControl *, u32, u32> *onClickHandler; //0x1F0
-    PtmfHolder_3A<Page, void, RadioButtonControl *, u32, u32> *onSelectHandler; //0x14
-    PtmfHolder_3A<Page, void, RadioButtonControl *, u32, u32> *onDeselectHandler; //0x1f8
-    PtmfHolder_3A<Page, void, RadioButtonControl *, u32, u32> *onChangeHandler; //0x1fc called by both handle select and deselect
+    PtmfHolder_3A<Page, void, RadioButtonControl*, u32, u32> *onClickHandler; //0x1F0
+    PtmfHolder_3A<Page, void, RadioButtonControl*, u32, u32> *onSelectHandler; //0x14
+    PtmfHolder_3A<Page, void, RadioButtonControl*, u32, u32> *onDeselectHandler; //0x1f8
+    PtmfHolder_3A<Page, void, RadioButtonControl*, u32, u32> *onChangeHandler; //0x1fc called by both handle select and deselect
     u32 buttonsCount; //0x200
     u32 chosenButtonId; //init at -1
     u32 selectedButtonId;
@@ -66,6 +66,6 @@ public:
     ControlManipulator manipulator; //0x210
     RadioButtonControl::OptionButton *optionButtonsArray; //0x294
 }; //total size 0x298
-size_assert(RadioButtonControl, 0x298);
-size_assert(RadioButtonControl::OptionButton, 0x17c);
+static_assert(sizeof(RadioButtonControl) == 0x298,"RadioButtonControl");
+static_assert(sizeof(RadioButtonControl::OptionButton) == 0x17c,"RadioButtonControlOptionButton");
 #endif

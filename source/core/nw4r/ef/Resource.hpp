@@ -1,12 +1,12 @@
 #ifndef _NW4R_EF_RESOURCE_
 #define _NW4R_EF_RESOURCE_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/ut/List.hpp>
 #include <core/nw4r/ef/LinkedObject.hpp>
 
-namespace nw4r {
-namespace ef {
-struct EffectProject { //BREFF
+namespace nw4r{
+namespace ef{
+struct EffectProject{ //BREFF
     u32 headersize;
     ut::Link projectlink;
     u16 projectnameLen;
@@ -14,7 +14,7 @@ struct EffectProject { //BREFF
     u8 projectname[4];
 };
 
-struct TextureProject { //BREFT
+struct TextureProject{ //BREFT
     u32 headersize;
     ut::Link projectlink;
     u16 projectnameLen;
@@ -22,9 +22,9 @@ struct TextureProject { //BREFT
     u8 projectname[4];
 };
 
-class Resource {
+class Resource{
 public:
-    EffectProject *Add(u8 *data);
+    EffectProject* Add(u8* data);
     ut::List BREFFList;
     u32 emitterCount;
     ut::List BREFTList;

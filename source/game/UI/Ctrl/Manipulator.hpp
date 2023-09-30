@@ -7,7 +7,7 @@
 
 class ControlManipulator;
 
-enum Action { //each value represent an action, itself represented by an actionHandler in PushButton's pageElementActionHolder and a bool in the same struct 
+enum Action{ //each value represent an action, itself represented by an actionHandler in PushButton's pageElementActionHolder and a bool in the same struct 
     FORWARD_PRESS,
     BACK_PRESS,
     START_PRESS,
@@ -20,7 +20,7 @@ enum Action { //each value represent an action, itself represented by an actionH
     UNK_PRESS_0x9 = 0x9
 };
 
-class ButtonInfo {
+class ButtonInfo { 
 public:
     ButtonInfo(); //inlined for pageactionHandler, 805eee24 for pages
     virtual ~ButtonInfo(); //805eeed0 vtable 808b9a80
@@ -39,9 +39,9 @@ public:
     bool buttonHeld[9]; //0x28set to true if button is held
     u8 unknown_0x31[3]; //padding
 }; //total size 0x34
-size_assert(ButtonInfo, 0x34);
+static_assert(sizeof(ButtonInfo) == 0x34,"ButtonInfo");
 
-class ControlButtonInfo : public ButtonInfo {
+class ControlButtonInfo : public ButtonInfo{
 public:
     ControlButtonInfo(); //805ef780 always inlined
     ~ControlButtonInfo() override; //805ef848 vt 808b9a30 at 0x8
@@ -56,22 +56,22 @@ public:
     bool enabled; //if this control button info is taking inputs
     u8 unknown_0x49[3]; //padding?
     ControlManipulator *childManipulator; //set by controls that have children like RadioControl or TabControl
-    u8 unknown_0x50[0x54 - 0x50];
+    u8 unknown_0x50[0x54-0x50];
 };//0x54
-size_assert(ControlButtonInfo, 0x54);
+static_assert(sizeof(ControlButtonInfo) == 0x54,"ControlButtonInfo");
 
 class ControlManipulatorHolder { //holds an action holder
 public:
     ControlManipulatorHolder(); //805f0a98
     ~ControlManipulatorHolder(); //805f0b94
-
+    
     ControlManipulator *curManipulator;
     u32 curChildId; //for controls that have children like RadioControl or TabControl
     ControlButtonInfo info; //0xC
 }; //total size 0x5C
-size_assert(ControlManipulatorHolder, 0x5C);
+static_assert(sizeof(ControlManipulatorHolder) == 0x5C,"ControlManipulatorHolder");
 
-class ManipulatorManager { //PARENT
+class ManipulatorManager{ //PARENT
 public:
     ManipulatorManager(); //805eeb68  808b9a98
     virtual int GetRuntimeTypeInfo() const; //805bd704 vtable 0x808b9a98
@@ -95,13 +95,13 @@ public:
 
     bool inaccessible; //0xC if set to true, actions are blocked
     bool isMultiplayer;
-    u8 unknown_0xE[0x10 - 0xE]; //padding?
+    u8 unknown_0xE[0x10-0xE]; //padding?
     static ControllerHolder *GetControllerHolder(u8 id); //805eee0c
 };//total size 0x10
-size_assert(ManipulatorManager, 0x10);
+static_assert(sizeof(ManipulatorManager) == 0x10,"ManipulatorManager");
 
 class PageManipulatorManager : public ManipulatorManager { //sets actions for page, equivalent to ControlsManipulatorManager but for pages 80601d04 checks actions
-public:
+public: 
     PageManipulatorManager(); //805ef240
     int GetRuntimeTypeInfo() const override; //0x805f2cf8 vtable 808b9a48
     ~PageManipulatorManager() override; //0xc 805ef2fc
@@ -110,21 +110,21 @@ public:
     void Activate(u32 hudSlotId, u32 localPlayerBitfield2, bool isMultiplayer) override; //805ef5a8
     void OnReset() override; //0x24 805ef688
     void SetGlobalHandler(Action input, PtmfHolder_1A<Page, void, u32> *handler, bool isTriggered); //805ef768
-    PtmfHolder_1A<Page, void, u32> *globalHandlers[9]; //0x10 805f15cc, first arg is buttin info id
+    PtmfHolder_2A<LayoutUIControl, void, u32, u32> *globalHandlers[9]; //0x10 805f15cc, first arg is buttin info id
     bool isTriggered[9]; //0x34
     u8 unknown_0x3D[3]; //padding
     ButtonInfo buttoninfoArray[5]; //0x40 5th corresponds to inputdata's dummy controller
 }; //Total Size 0x144
-size_assert(PageManipulatorManager, 0x144);
+static_assert(sizeof(PageManipulatorManager) == 0x144,"PageManipulatorManager");
 
-enum Directions {
+enum Directions{
     DIRECTION_NONE,
     DIRECTION_UP = 0x1,
     DIRECTION_DOWN = 0x2,
     DIRECTION_RIGHT = 0x4,
     DIRECTION_LEFT = 0x8,
 };
-class ControlsManipulatorManager : public ManipulatorManager { //contains multiple action handlers, tied to a page
+class ControlsManipulatorManager : public ManipulatorManager{ //contains multiple action handlers, tied to a page
 public:
     ControlsManipulatorManager(); //805f09a8
     int GetRuntimeTypeInfo() const override; //805f2cdc vtable 0x808b99e8
@@ -150,20 +150,20 @@ public:
     bool IsActionAllowed(u8 holderId); //805f2134
     bool HasDirectionalGlobalHandler(u8 directions); //805f216c 1,2,8,4 for up, down, left, right, can call it with an or of directions
     bool func_805f21e4(u8 holderId); //weird
-    bool func_805f226c(u8 hudSlotId, u8 r5);
-
+    bool func_805f226c(u8 hudSlotId, u8 r5); 
+    
     EGG::List manipulatorsList; //0x10
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> *globalHandlers[9]; //805f15cc, applies to all controls
     bool repeatable[9]; //the input triggers the action every 15 frames if this is set to true and the action doesn't change the curManipulator
     bool isPointerDisabled[9];
     u8 unknown_0x52[2]; //padding?
     ControlManipulatorHolder holders[5]; //0x54, 5th corresponds to inputdata's dummy controller
-    int (*calcDistanceFunc)(ControlManipulator *subject, ControlManipulator *other, Directions direction,
-        bool hasHorizontalWrapping, bool hasVerticalWrapping); //0x220
+    int (*calcDistanceFunc)(ControlManipulator *subject, ControlManipulator *other, Directions direction, 
+                            bool hasHorizontalWrapping, bool hasVerticalWrapping); //0x220
 };//total size 0x224
-size_assert(ControlsManipulatorManager, 0x224);
+static_assert(sizeof(ControlsManipulatorManager) == 0x224,"ControlsManipulatorManager");
 
-class ControlBoundingBox {
+class ControlBoundingBox{
 public:
     ControlBoundingBox(); //805f058c
     ~ControlBoundingBox(); //805f05cc
@@ -174,15 +174,15 @@ public:
     nw4r::lyt::Pane *touchPane; //0
     Vec3 boundingBoxOrigin; //0x4
     Vec2 boundingBoxSize; //0x10
-    PtmfHolder_2A<LayoutUIControl, void, u32, u32> *onSelectControlHandler;  //0x18 tied to control's handleSelect
+    PtmfHolder_2A<LayoutUIControl, void, u32, u32>  *onSelectControlHandler;  //0x18 tied to control's handleSelect
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> *onDeselectControlHandler; //0x1C
     u32 childId; //-1 if not in the array
     u8 bool_0x24; //0x24, unsure 8063ffd8
     u8 padding[3];
 }; //total size 0x28
-size_assert(ControlBoundingBox, 0x28);
+static_assert(sizeof(ControlBoundingBox) == 0x28,"ControlBoundingBox");
 
-class ControlManipulator {
+class ControlManipulator{
 public:
     ControlManipulator(); //805efaf8 
     nw4r::ut::LinkListNode link;
@@ -195,7 +195,7 @@ public:
     void Load(); //805efef4
     void Update(); //805f0040
     void GetHudColor(RGBA16 *primary, RGBA16 *secondary) const; //805f03dc
-    void GetHudSlotIdColorSingle(u8 hudSlotId, RGBA16 *out) const; //805f04d8
+    void GetHudSlotIdColorSingle(u8 hudSlotId,RGBA16 *out) const; //805f04d8
     int CalcDistanceBothWrapping(ControlManipulator *other, Directions direction); //805f0d38 calls calcdistance with true, true
     int CalcDistanceVerticalWrappingOnly(ControlManipulator *other, Directions direction); //805f0e18 calls calcdistance with false, true
     int CalcDistanceNoWrapping(ControlManipulator *other, Directions direction); //805f0e24 calls calcdistance with false, false
@@ -218,5 +218,5 @@ public:
     u32 activeFrames; //probably same thing as above
     u32 distance; //converted from a float
 }; //total size 0x84
-size_assert(ControlManipulator, 0x84);
+static_assert(sizeof(ControlManipulator) == 0x84,"ControlManipulator");
 #endif

@@ -5,7 +5,7 @@
 #include <game/UI/Ctrl/Menu/CtrlMenuText.hpp>
 #include <game/UI/Page/Other/Message.hpp>
 
-class VoteControl : public LayoutUIControl {
+class VoteControl : public LayoutUIControl{
 public:
     VoteControl(); //80642aac
     ~VoteControl() override; //80642ae8 808bf67c
@@ -22,11 +22,11 @@ public:
     void AnimateFadeOut(); //80642efc
     bool IsAnimationShow(); //80642f58 animation is called "Show3 that in the brctr
     //unsure about r7, but loops 12 times 80643b48
-    u8 unknown_0x174[0x178 - 0x174];
+    u8 unknown_0x174[0x178-0x174];
 };
 
-namespace Pages {
-class Vote : public Page { //ID 0x92
+namespace Pages{
+class Vote : public Page{ //0x92
 public:
     Vote(); //80642f90
     ~Vote() override; //806430bc vtable 808bf60c
@@ -41,7 +41,7 @@ public:
     void FillVoteControls(u32 id);  //80643f8c
     void FillVotesCounter(); //80644430
     void OnMessageBoxClick(MessageBox *messageBox);
-    PtmfHolder_1A<Vote, void, MessageBox *> onMessageBoxClick; //806445a8 disconnected message box
+    PtmfHolder_1A<Vote, void, MessageBox*> onMessageBoxClick; //806445a8 disconnected message box
     ManipulatorManager manipulatorManager; //0x48
     CourseId votedCourse; //0x68  
     CtrlMenuPageTitleText titleText; //0x6c
@@ -55,12 +55,12 @@ public:
     u32 localPlayerCount; //0x16a4
     u32 curSelectedVote; //0x16a8, for roulette, 1-indexed
     u32 winningVote; //0x16ac
-    u32 trackBmgId; //0x16b0
+    u32 trackBmgId; //
     float remainingRoulette; //0x16b4
     float unknown_0x16b8;
     u32 remainingRouletteDuration; //0x16bc
 }; //total size 0x16c0
-size_assert(Vote, 0x16c0);
+static_assert(sizeof(Vote) == 0x16c0, "Vote");
 }//namespace Pages
 
 #endif

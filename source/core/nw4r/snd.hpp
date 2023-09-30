@@ -1,6 +1,6 @@
 #ifndef _NW4R_SND_
 #define _NW4R_SND_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/snd/AnimSound.hpp>
 #include <core/nw4r/snd/AnimSoundFile.hpp>
 #include <core/nw4r/snd/BasicPlayer.hpp>
@@ -37,11 +37,11 @@
 #include <core/nw4r/snd/StrmSoundHandle.hpp>
 #include <core/nw4r/snd/Util.hpp>
 
-enum SoundType {
-    SOUND_TYPE_INVALID,
-    SOUND_TYPE_SEQ,
-    SOUND_TYPE_STRM,
-    SOUND_TYPE_WAVE
+enum SoundType{
+	SOUND_TYPE_INVALID,
+	SOUND_TYPE_SEQ,
+	SOUND_TYPE_STRM,
+	SOUND_TYPE_WAVE
 };
 
 #endif

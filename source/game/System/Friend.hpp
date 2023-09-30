@@ -3,7 +3,7 @@
 #include <kamek.hpp>
 #include <game/System/SaveDataManager.hpp>
 
-class Friend {
+class Friend{
     virtual ~Friend(); //80519670 vtable 808b2c88
     void SetFriend(FriendData *src); //805196b0
     void StoreFriend(FriendData *dest); //805196f0 stores in RKPD

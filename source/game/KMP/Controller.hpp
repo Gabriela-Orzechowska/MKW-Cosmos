@@ -10,22 +10,22 @@ Contributors:
 -Melg
 */
 
-union SpeedModConv {
-    float speedMod;
-    u32 kmpValue;
+union SpeedModConv{
+float speedMod;
+u32 kmpValue;
 };
 
-namespace KMP {
+namespace KMP{
 
 template<class T, class Section>
-struct SectionHolder {
+struct SectionHolder{
     T **pointArray;
     u16 pointCount;
     u16 unknown_0x6;
     Section *rawSection;
 };
 
-struct Header {
+struct Header{
     KMPHeader *rawKMP;
     u32 *offsetToSections;
     u32 versionNumber;
@@ -33,23 +33,23 @@ struct Header {
 }; //total size 0x10
 
 template<class T>
-struct EntryHolder {
+struct EntryHolder{
     T *raw;
 };
 
-struct KTPTHolder : EntryHolder<KTPT> {
+struct KTPTHolder : EntryHolder<KTPT>{ 
     void CalcCoordinates_0Indexed(Vec3 &position, Vec3 &rotation, u32 playerPosition, u32 playerCount);
     void CalcCoordinates(Vec3 &position, Vec3 &rotation, u32 playerPosition, u32 playerCount); //80514b24
     u8 enemyLink;
     u8 unknown_0x5[3];
 }; //total size 0x8
 
-struct ENPHHolder : EntryHolder<ENPH> {
+struct ENPHHolder : EntryHolder<ENPH>{ 
     u32 unknown_0x4;
     u32 unknown_0x8;
 }; //total size 0x10
 
-class ENPTHolder {
+class ENPTHolder{
     virtual void func_vtable();
     ENPT *raw; //0x4
     u8 *prevLinks[6]; //0x8
@@ -61,7 +61,7 @@ class ENPTHolder {
     u8 unknown_0x14[4];
 }; //total size 0x18
 
-struct ITPTHolder : EntryHolder<ITPT> {
+struct ITPTHolder : EntryHolder<ITPT> { 
     u8 prevLinks[6];
     u8 nextLinks[6];
     u8 inCount;
@@ -69,13 +69,13 @@ struct ITPTHolder : EntryHolder<ITPT> {
     u8 unknown_0x12[2];
 }; //total size 0x14
 
-struct CKPTHolder : EntryHolder <CKPH> {
+struct CKPTHolder : EntryHolder <CKPH>{
     u8 layer;
     u8 unknown_0x3;
     float invLength;
 };
 
-struct CKPHSectionHolder : SectionHolder<CKPTHolder, CKPH> {
+struct CKPHSectionHolder : SectionHolder<CKPTHolder, CKPH>{ 
     float invLayerSize;
 };
 
@@ -94,7 +94,7 @@ struct CheckPoint {
     CheckPoint *nextCKTPTs[6];
 };
 
-class AREAHolder {
+class AREAHolder{
 public:
     virtual void vf_0x8(); //805163f4 vtable 808b2c54
     bool IsPointInAREA(Vec3 *position); //805160b0
@@ -108,14 +108,14 @@ public:
     float unknown_0x38[2];
     float radius;
     u16 id;
-    u8 unknown_0x46[0x48 - 0x46];
+    u8 unknown_0x46[0x48-0x46];
 }; //total size 0x48
 
-struct AREASectionHolder : SectionHolder<AREAHolder, AREA> {
+struct AREASectionHolder : SectionHolder<AREAHolder, AREA>{
     AREAHolder **sortedArray;
 }; //total size 0x14
 
-struct JPGTHolder : EntryHolder<JGPT> {
+struct JPGTHolder : EntryHolder<JGPT>{ 
     Vec3 rotation;
     Vec3 zScale;
     Vec3 xScale;
@@ -135,11 +135,11 @@ typedef EntryHolder<CNPT> CNPTHolder;
 typedef EntryHolder<STGI> STGIHolder;
 typedef EntryHolder<MSPT> MSPTHolder;
 
-struct GOBJHolder : EntryHolder<GOBJ> {
+struct GOBJHolder : EntryHolder<GOBJ>{
     POTIHolder *GetRoute() const; //80514194
 };
 
-class Controller {
+class Controller{ 
 public:
     static Controller *sInstance;
     static Controller *GetStaticInstance(); //80512694
@@ -174,7 +174,7 @@ public:
     CAMEHolder *openingCam; //4c
     u32 unknown_0x50; //50
 };
-size_assert(Controller, 0x54);
+static_assert(sizeof(Controller) == 0x54, "KMP:Controller");
 
 static KMPHeader *GetKMPFromU8(ArchiveSource source, const char *kmpName); //80512c10
 }//namespace KMP

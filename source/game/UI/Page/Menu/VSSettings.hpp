@@ -11,8 +11,8 @@ Contributors:
 -Melg
 */
 //_sinit_ at 80853ca4
-namespace Pages {
-class VSSettings : public MenuInteractable { //ID 0x73
+namespace Pages{
+class VSSettings : public Menu{ //0x73
 public:
     VSSettings(); //0x806284c8
     ~VSSettings() override; //80853b10 vtable 0x808da3c8
@@ -38,11 +38,11 @@ public:
     void OnUpDownSelect(UpDownControl *control, u32 hudSlotId); //80853c74
     void OnTextChange(TextUpDownValueControl::TextControl *control, u32 hudSlotId); //80853a10
 
-    static Page *GetPageById(PageId id = PAGE_VS_SETTINGS); //80852c80
-    static void TriggerRadioPtmf(PtmfHolder_3A<Page, void, RadioButtonControl *, u32, s32>, RadioButtonControl *control, u32 hudSlotId, u32 buttonId); //80853c14
-    static void TriggerUpDown2APtmf(PtmfHolder_2A<Page, void, UpDownControl *, u32>, UpDownControl *control, u32 hudSlotId); //80853c74
-    static void TriggerUpDown3APtmf(PtmfHolder_3A<Page, void, UpDownControl *, u32, u32>, UpDownControl *control, u32 hudSlotId, u32 optionId); //80853be4
-    static void TriggerTextPtmf(PtmfHolder_2A<Page, void, TextUpDownValueControl::TextControl *, u32>, TextUpDownValueControl::TextControl *, u32 hudSlotId); //80853c44
+    static Page *GetPageById(PageId id = VS_SETTINGS); //80852c80
+    static void TriggerRadioPtmf(PtmfHolder_3A<Page, void, RadioButtonControl*, u32, s32>, RadioButtonControl *control, u32 hudSlotId, u32 buttonId); //80853c14
+    static void TriggerUpDown2APtmf(PtmfHolder_2A<Page, void, UpDownControl*, u32>, UpDownControl *control, u32 hudSlotId); //80853c74
+    static void TriggerUpDown3APtmf(PtmfHolder_3A<Page, void, UpDownControl*, u32, u32>, UpDownControl *control, u32 hudSlotId, u32 optionId); //80853be4
+    static void TriggerTextPtmf(PtmfHolder_2A<Page, void, TextUpDownValueControl::TextControl*, u32>, TextUpDownValueControl::TextControl*, u32 hudSlotId); //80853c44
     //onButtonClick 0x658 vtable 808bd18c 80853654
     //onButtonSelect 0x66C vtable 808bd18c virtual off 0x64
     //onButtonDeselect0x680 vtable 808bd18c 808536b0
@@ -52,13 +52,13 @@ public:
     RadioButtonControl radioButtonControls[5]; //0x6c4
     UpDownControl upDownControl[1]; //0x13BC
     TextUpDownValueControl textUpDownValueControl[1]; //0x1984
-    PtmfHolder_3A<Page, void, RadioButtonControl *, u32, s32> *radioButtonClickHandler; //0x1DF8
-    PtmfHolder_3A<Page, void, RadioButtonControl *, u32, s32> *radioButtonChangeHandler;  //0x1DFC
-    PtmfHolder_3A<Page, void, UpDownControl *, u32, u32> *upDownChangeHandler; //0x1E00 //when you scroll
-    PtmfHolder_2A<Page, void, UpDownControl *, u32> *upDownClickHandler; //0x1E04
-    PtmfHolder_2A<Page, void, UpDownControl *, u32> *upDownSelectHandler; //0x1E08
-    PtmfHolder_2A<Page, void, TextUpDownValueControl::TextControl *, u32> *onTextChangeHandler; //0x1E0C
+    PtmfHolder_3A<Page, void, RadioButtonControl*, u32, s32> *radioButtonClickHandler; //0x1DF8
+    PtmfHolder_3A<Page, void, RadioButtonControl*, u32, s32> *radioButtonChangeHandler;  //0x1DFC
+    PtmfHolder_3A<Page, void, UpDownControl*, u32, u32> *upDownChangeHandler; //0x1E00 //when you scroll
+    PtmfHolder_2A<Page, void, UpDownControl*, u32> *upDownClickHandler; //0x1E04
+    PtmfHolder_2A<Page, void, UpDownControl*, u32> *upDownSelectHandler; //0x1E08
+    PtmfHolder_2A<Page, void, TextUpDownValueControl::TextControl*, u32> *onTextChangeHandler; //0x1E0C
 }; //0x1E10
-size_assert(VSSettings, 0x1e10);
+static_assert(sizeof(VSSettings) == 0x1e10, "VSSettings");
 }//namespace Pages
 #endif

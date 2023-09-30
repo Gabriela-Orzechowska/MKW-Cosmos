@@ -4,8 +4,8 @@
 #include <game/Objects/Collidable/ObjectCollidable.hpp>
 
 //Chomp with a wedge (pile)
-namespace Objects {
-class Pile : public ObjectCollidable {
+namespace Objects{
+class Pile : public ObjectCollidable{
     //ctor inlined
     ~Pile() override; //806e9568 vtable 808c73b8
     void OnStart() override; //0xC 806e3e20
@@ -16,12 +16,12 @@ class Pile : public ObjectCollidable {
     char *GetSubFileName() const override; //0x38 806e9548
     u32 unknown_0xb0;
     Mtx34 transformationMtx; //0xb4 unsure why copy*
-    u8 unknown_0xe4[0xf0 - 0xe4];
+    u8 unknown_0xe4[0xf0-0xe4];
     float unknown_0xf0[3];
 }; //total size 0xfc
-size_assert(Pile, 0xfc);
+static_assert(sizeof(Pile) == 0xfc, "Pile");
 
-class Wanwan_Chn : public ObjectCollidable {
+class Wanwan_Chn : public ObjectCollidable{
     //ctor inlined, takes wanwan's gobjholder as a param
     ~Wanwan_Chn() override; //806e94fc vtable 808c72cc
     void OnStart() override; //0xC 806e4a64
@@ -37,7 +37,7 @@ class Wanwan_Chn : public ObjectCollidable {
 }; //0xc0
 
 
-class Wanwan : public ObjectCollidable, public ObjectCycleManager {
+class Wanwan : public ObjectCollidable, public ObjectCycleManager{
     Wanwan(KMP::GOBJHolder *gobjHolder); //806e4224
     ~Wanwan() override; //806e4aec vtable 808c71c4
     void OnStart() override; //0xC 806e4b9c
@@ -75,22 +75,22 @@ class Wanwan : public ObjectCollidable, public ObjectCycleManager {
     Wanwan_Chn **chainLinks; //0xd4
     Pile *pile; //0xd8
     void *unknown_0xdc;
-    void *unknown_0xe0;
-    u8 unknown_0xe4[0x438 - 0xe4];
+    void *unknown_0xe0; 
+    u8 unknown_0xe4[0x438-0xe4];
     float chainLength; //0x438 kmp setting
     float setting3; //0x43c
     u32 setting2; //0x440
     Vec2 snapRange; //0x444 based on settings 4 and 5
     u32 chainLinksCount; //0x44c based on scale/chain length
-    u8 unknown_0x450[0x474 - 0x450];
+    u8 unknown_0x450[0x474-0x450];
     Vec3 topPilePosition; //0x474
-    u8 unknown_0x480[0x4e0 - 0x480];
+    u8 unknown_0x480[0x4e0-0x480];
     u32 wanderPeriod; //0x4e0 setting 6
     float wedgeWidth; //0x4e4 setting 7 (width - 35 /2 in deg)
-    u8 unknown_0x4e8[0x520 - 0x4e8];
+    u8 unknown_0x4e8[0x520-0x4e8];
     Mtx34 unknown_0x520; //0x520
 }; //total size 0x550
-size_assert(Wanwan, 0x550);
+static_assert(sizeof(Wanwan) == 0x550, "Wanwan");
 }
 
 

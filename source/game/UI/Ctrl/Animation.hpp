@@ -6,7 +6,7 @@
 class MainLayout;
 using namespace nw4r;
 
-class Animation {
+class Animation{
 public:
     Animation(); //8063c53c 
     lyt::AnimTransformBasic *transform;
@@ -16,7 +16,7 @@ public:
     u8 padding[3];
 }; //total size 0x10
 
-class AnimationGroup {
+class AnimationGroup{
 public:
     AnimationGroup(); //0x8063c844
     ~AnimationGroup(); //8063c8ac
@@ -35,9 +35,9 @@ public:
     float curFrame;
     float unknown_0x40;
 }; //total size 0x44
-size_assert(AnimationGroup, 0x44);
+static_assert(sizeof(AnimationGroup) == 0x44, "AnimationGroup");
 
-class UIAnimator {
+class UIAnimator{
 public:
     UIAnimator(); //0x8063c3ec
     void Init(u32 animationCount); //8063c470
@@ -45,8 +45,8 @@ public:
     void AppendGroup(u32 groupId, Group *groupName); //8063c560 appends brlyt group to animationGroup
     void SetLayout(MainLayout *layout, Pane *rootPane); //8063c464
     void Update(); //8063c7bc
-    void LoadAnimation(u32 groupId, u32 animationId, const char *brlanName, u32 onEndAnimationId, bool unknown_0xc, float speed); //8063c714
-    void LoadNewAnimation(u32 groupId, u32 animationId, const char *brlanName, u32 onEndAnimationId, bool unknown_0xc, float speed);
+    void LoadAnimation(u32 groupId, u32 animationId, const char*brlanName, u32 onEndAnimationId, bool unknown_0xc, float speed); //8063c714
+    void LoadNewAnimation(u32 groupId, u32 animationId, const char*brlanName, u32 onEndAnimationId, bool unknown_0xc, float speed);
     //8063c650 unused assumes brlan has struct brlyt_brlanname.brlan, gets brlyt name from layout
     AnimationGroup *GetAnimationGroupById(u32 groupId) const; //8063c820
     AnimationGroup *animationGroups; //array of animation groups
@@ -54,5 +54,5 @@ public:
     Pane *rootPane;
     MainLayout *layout; //0xC
 }; //Total Size 0x10
-size_assert(UIAnimator, 0x10);
+static_assert(sizeof(UIAnimator) == 0x10 , "UIAnimator");
 #endif

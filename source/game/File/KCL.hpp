@@ -3,7 +3,7 @@
 #include <kamek.hpp>
 
 //https://wiki.tockdom.com/wiki/KCL_(File_Format)
-struct KCLHeader {
+struct KCLHeader{
     u32 offsetToVertices;
     u32 offsetToNormals; //4
     u32 offsetToTris; //8
@@ -19,7 +19,7 @@ struct KCLHeader {
     float maximumRadius; //0x38
 }; //total size 0x3c
 
-struct KCLTriangle {
+struct KCLTriangle{
     float length;
     u16 posIdx; //4
     u16 dirIdx; //6
@@ -29,7 +29,7 @@ struct KCLTriangle {
     u16 flag; //d
 };
 
-struct KCL {
+struct KCL{
     KCLHeader header;
     Vec3 vertices; //array
     //Vec3 normals;

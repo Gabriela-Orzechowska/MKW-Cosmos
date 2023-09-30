@@ -14,71 +14,71 @@ Contributors:
 #include <game/System/Identifiers.hpp>
 
 
-enum Buttons {
-    WHEEL_DPAD_LEFT = 0x1,
-    WHEEL_DPAD_RIGHT = 0x2,
-    WHEEL_DPAD_DOWN = 0x4,
-    WHEEL_DPAD_UP = 0x8,
-    WHEEL_A = 0x800,
-    WHEEL_B = 0x400,
-    WHEEL_MINUS = 0x1000,
-    WHEEL_PLUS = 0x10,
-    WHEEL_HOME = 0x8000,
-    WHEEL_1 = 0x200,
-    WHEEL_2 = 0x100,
+enum Buttons{
+    WHEEL_DPAD_LEFT=0x1,
+    WHEEL_DPAD_RIGHT=0x2,
+    WHEEL_DPAD_DOWN=0x4,
+    WHEEL_DPAD_UP=0x8,
+    WHEEL_A=0x800,
+    WHEEL_B=0x400,
+    WHEEL_MINUS=0x1000,
+    WHEEL_PLUS=0x10,
+    WHEEL_HOME=0x8000,
+    WHEEL_1=0x200,
+    WHEEL_2=0x100,
 
-    NUNCHUCK_DPAD_LEFT = 0x1,
-    NUNCHUCK_DPAD_RIGHT = 0x2,
-    NUNCHUCK_DPAD_DOWN = 0x4,
-    NUNCHUCK_DPAD_UP = 0x8,
-    NUNCHUCK_A = 0x800,
-    NUNCHUCK_B = 0x400,
-    NUNCHUCK_MINUS = 0x1000,
-    NUNCHUCK_PLUS = 0x10,
-    NUNCHUCK_HOME = 0x8000,
-    NUNCHUCK_1 = 0x200,
-    NUNCHUCK_2 = 0x100,
-    NUNCHUCK_C = 0x4000,
-    NUNCHUCK_Z = 0x2000,
+    NUNCHUCK_DPAD_LEFT=0x1,
+    NUNCHUCK_DPAD_RIGHT=0x2,
+    NUNCHUCK_DPAD_DOWN=0x4,
+    NUNCHUCK_DPAD_UP=0x8,
+    NUNCHUCK_A=0x800,
+    NUNCHUCK_B=0x400,
+    NUNCHUCK_MINUS=0x1000,
+    NUNCHUCK_PLUS=0x10,
+    NUNCHUCK_HOME=0x8000,
+    NUNCHUCK_1=0x200,
+    NUNCHUCK_2=0x100,
+    NUNCHUCK_C=0x4000,
+    NUNCHUCK_Z=0x2000,
 
-    CLASSIC_DPAD_LEFT = 0x2,
-    CLASSIC_DPAD_RIGHT = 0x2000,
-    CLASSIC_DPAD_DOWN = 0x4000,
-    CLASSIC_DPAD_UP = 0x1,
-    CLASSIC_A = 0x10,
-    CLASSIC_B = 0x40,
-    CLASSIC_X = 0x8,
-    CLASSIC_Y = 0x20,
-    CLASSIC_MINUS = 0x1000,
-    CLASSIC_PLUS = 0x40,
-    CLASSIC_HOME = 0x800,
-    CLASSIC_L = 0x2000,
-    CLASSIC_R = 0x200,
-    CLASSIC_ZL = 0x80,
-    CLASSIC_Z = 0x4,
+    CLASSIC_DPAD_LEFT=0x2,
+    CLASSIC_DPAD_RIGHT=0x2000,
+    CLASSIC_DPAD_DOWN=0x4000,
+    CLASSIC_DPAD_UP=0x1,
+    CLASSIC_A=0x10,
+    CLASSIC_B=0x40,
+    CLASSIC_X=0x8,
+    CLASSIC_Y=0x20,
+    CLASSIC_MINUS=0x1000,
+    CLASSIC_PLUS=0x40,
+    CLASSIC_HOME=0x800,
+    CLASSIC_L=0x2000,
+    CLASSIC_R=0x200,
+    CLASSIC_ZL=0x80,
+    CLASSIC_Z=0x4,
 
-    GCN_DPAD_LEFT = 0x1,
-    GCN_DPAD_RIGHT = 0x2,
-    GCN_DPAD_DOWN = 0x4,
-    GCN_DPAD_UP = 0x8,
-    GCN_A = 0x100,
-    GCN_B = 0x200,
-    GCN_X = 0x400,
-    GCN_Y = 0x800,
-    GCN_Z = 0x10,
-    GCN_START = 0x1000,
-    GCN_L = 0x40,
-    GCN_R = 0x20
+    GCN_DPAD_LEFT=0x1,
+    GCN_DPAD_RIGHT=0x2,
+    GCN_DPAD_DOWN=0x4,
+    GCN_DPAD_UP=0x8,
+    GCN_A=0x100,
+    GCN_B=0x200,
+    GCN_X=0x400,
+    GCN_Y=0x800,
+    GCN_Z=0x10,
+    GCN_START=0x1000,
+    GCN_L=0x40,
+    GCN_R=0x20
 };
 
 struct KPADStatus {
-    u8 unknown_0x0[0x10 - 0x0];
+    u8 unknown_0x0[0x10-0x0];
     float acc_value;
     float acc_speed;
-    u8 unknown_0x18[0x74 - 0x18];
+    u8 unknown_0x18[0x74-0x18];
     float cStickHorizontal;
     float cStickVertical;
-    u8 unknown_7C[0x84 - 0x7C];
+    u8 unknown_7C[0x84-0x7C];
 }; //total size 0x84
 
 struct WPADInfo {
@@ -99,7 +99,7 @@ struct PADStatus {
     s8 verticalStickU8; // -62 to 62
     s8 horizontalCStickU8;
     s8 verticalCStickU8; // -50 to 50
-    u8 unknown_0x6[0xC - 0x6];
+    u8 unknown_0x6[0xC-0x6];
 }; //total size 0xC
 
 class InputState {
@@ -107,13 +107,13 @@ public:
     virtual void unknown_vtable();
     // vtable 808b2f2c
     u16 buttonActions; // bit flags:
-    /*
-    0x1 = accelerate
-    0x2 = brake + reverse (used for SSMT)
-    0x4 = use item
-    0x8 = hop + drift
-    0x20 = rear-view camera
-    */
+        /* 
+        0x1 = accelerate
+        0x2 = brake + reverse (used for SSMT)
+        0x4 = use item
+        0x8 = hop + drift
+        0x20 = rear-view camera
+        */
     u16 buttonRaw; // bit flags, vary slightly by controller
     float stickX; // -1.0 to 1.0 //0x8
     float stickY; // -1.0 to 1.0 //0xC
@@ -121,7 +121,7 @@ public:
     u8 quantisedStickY; // 0-14
     u8 motionControlFlick; // 1 up, 2 down, 3 left, 4 right; includes the first frame of d-pad presses
     u8 motionControlFlick2; // not sure what the difference is from the other one
-    u8 unknown_0x14[0x18 - 0x14];
+    u8 unknown_0x14[0x18-0x14];
 }; // Total size 0x18
 
 class UIInputState {
@@ -142,13 +142,13 @@ public:
     u16 buttonRaw; // bit flags, vary slightly by controller //0x8
     float stickX; // -1.0 to 1.0 //0xC
     float stickY; // -1.0 to 1.0 //0x10
-    u8 unknown_0x14[0x18 - 0x14]; //0x14
+    u8 unknown_0x14[0x18-0x14]; //0x14
     u8 quantisedStickX; // 0-14 0x18
     u8 quantisedStickY; // 0-14 0x19
-    u8 unknown_0x1A[0x34 - 0x1A];
+    u8 unknown_0x1A[0x34-0x1A];
 }; //total size 0x34
 
-class Controller {
+class Controller{
 public:
     Controller(); //8051eba8 
     virtual ~Controller(); //8051f1ec vtable 808b2ed8
@@ -173,10 +173,10 @@ public:
     bool isDriftAuto;
     u8 unknown_0x52[2];
     u32 battery;
-    u8 unknown_0x58[0x90 - 0x58];
+    u8 unknown_0x58[0x90-0x58];
 }; //total size 0x90
 
-class DummyController : public Controller {
+class DummyController : public Controller{
 public:
     //no ctor
     ~DummyController() override; //805232b0 vtable 808b3020
@@ -199,14 +199,14 @@ public:
     int GetRemainingBattery() const override; //0x40 8051f3d0
     void Init(bool isDriftAuto) override; //0x44 8051f22c
     KPADStatus kpadStatus[16];
-    u8 unknown_0x8d0[0x8d4 - 0x8d0];
+    u8 unknown_0x8d0[0x8d4-0x8d0];
     u32 channel; //0x8d4 = slot
     u32 type; //0x8dc
     u32 type2;
     WPADInfo wpadInfo;
-    u8 unknown_0x8F8[0x900 - 0x8f8];
+    u8 unknown_0x8F8[0x900-0x8f8];
     u32 wpadType;
-    u8 unknown_0x904[0x920 - 0x904];
+    u8 unknown_0x904[0x920-0x904];
 };//total size 0x920 seems other controllers related
 
 class GCNController : public Controller {
@@ -225,7 +225,7 @@ public:
     u32 channel; // = slot 
     float cStickHorizontal;
     float cStickVertical;
-    u8 unknown_0xa8[0xb0 - 0xa8];
+    u8 unknown_0xa8[0xb0-0xa8];
 };//total size 0xb0 seems GCN related
 
 class GhostController : public Controller {
@@ -234,8 +234,8 @@ class GhostController : public Controller {
     void Update() override; //80520b9c
     int GetType() const override; //0x10 8052282c returns 4
     void Init(bool isDriftAuto) override; //0x44 80520998
-
-    u8 unknown_0x0[0xa8 - 0x90];
+    
+    u8 unknown_0x0[0xa8-0x90];
 };//total size 0xa8
 
 class ControllerHolder {
@@ -252,23 +252,23 @@ public:
     Controller *controller; //0x4
     Controller *controller2;
     Controller *controller3; //0xc
-    u8 unknown_0x10[0x28 - 0x10];
+    u8 unknown_0x10[0x28-0x10];
     InputState inputStates[2]; // 0 is current frame, 1 is previous    0x28
     UIInputState uiinputStates[2]; //0 is current frame, 1 is previous 0x58
-    u8 unknown_0xC0[0xd8 - 0xc0];
+    u8 unknown_0xC0[0xd8-0xc0];
     static int ConvertType(u32 type); //80523a58 if wiimote based, returns 3, gcn returns 1, other returns 0
 }; // Total size 0xd8
 
-struct RKGInputBuffer {
+struct RKGInputBuffer{
     u8 input[0x2774];
 };
 
 
-class GhostWriter {
+class GhostWriter{
 public:
     GhostWriter(); //80524ac4
     virtual ~GhostWriter(); //80524c2c vtable 808b3068
-    u8 unknown_0x4[0x14 - 0x4];
+    u8 unknown_0x4[0x14-0x4];
     u32 state; //0x14
     u8 unknown_0x18[4];
 }; //0x1C 
@@ -282,13 +282,13 @@ public:
     int unknown4() override; // 80522700
     int unknown5() override; // 805226f8
     int unknown6() override; // 80520ebc
-
+    
     // vtable 808b2d90
     void SetController(Controller *controller, u32 *r5); //80521554 r5 is a pointer, but unsure to what as it's always NULL
     void RequestRumble(double intensity, Controller *controller, u32 length, u8 r6); //80521acc
-    RKGInputBuffer *rkgInputBuffer; // 0xd8 0x2774 byte buffer for storing a controller input section of an RKG file
-    u8 unknown_0xdc[0xe8 - 0xdc];
-    GhostWriter *ghostWriter; //0xE8
+    RKGInputBuffer * rkgInputBuffer; // 0xd8 0x2774 byte buffer for storing a controller input section of an RKG file
+    u8 unknown_0xdc[0xe8-0xdc];
+  GhostWriter *ghostWriter; //0xE8
 }; // Total size 0xec
 
 class VirtualControllerHolder : public ControllerHolder {
@@ -296,13 +296,13 @@ public:
     VirtualControllerHolder(); //805234a0
     ~VirtualControllerHolder() override; // 8052279c vtable 808b2db4
     int unknown3() override; // 805219ac
-
+    
     // vtable 808b2db4
-    u8 unknown_0xd8[0x180 - 0xd8];
+    u8 unknown_0xd8[0x180-0xd8];
 }; // Total size 0x180
 
-class RumbleManager { //name based on RequestRumble extensively loading class fields
-    //no ctor
+class RumbleManager{ //name based on RequestRumble extensively loading class fields
+  //no ctor
     virtual ~RumbleManager(); //80525204 vtable 808b30fc
     void Init(KRM *vibrationKRM); //805250c8
     KRM *rawKRM;
@@ -313,8 +313,8 @@ class RumbleManager { //name based on RequestRumble extensively loading class fi
 
 class InputData {
 public:
-    static InputData *sInstance; // 809bd70c
-    static InputData *getStaticInstance(); // 8052313c
+    static InputData * sInstance; // 809bd70c
+    static InputData * getStaticInstance(); // 8052313c
     static void destroyStaticInstance(); // 8052318c
     InputData(); // 805232f0
     virtual ~InputData(); // 805231dc vtable 808b2fc8
@@ -335,10 +335,10 @@ public:
     GCNController gcnControllers[4]; //0x3ba0
     GhostController ghostControllers[4]; //0x3e60
     RumbleManager rumbleManager;
-    u8 unknown_0x4110[0x4154 - 0x4110];
+    u8 unknown_0x4110[0x4154-0x4110];
     bool isPaused; //0x4154
     bool isMirror; //0x4155
-    u8 unknown_0x4156[0x415c - 0x4156];
+    u8 unknown_0x4156[0x415c-0x4156];
 }; // Total size 0x415c
-size_assert(InputData, 0x415c);
+static_assert(sizeof(InputData) == 0x415c, "InputData");
 #endif

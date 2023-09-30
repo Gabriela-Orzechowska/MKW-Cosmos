@@ -3,7 +3,7 @@
 #include <game/UI/Page/Page.hpp>
 
 //_sinit_ at 8085c3cc
-namespace Pages {
+namespace Pages{
 class Leaderboard : public Page { //used for tt leaderboard, GP/VS score table etc..
 public:
     Leaderboard(); //8085be44
@@ -17,7 +17,7 @@ public:
     virtual void LoadRows() = 0; //0x68
     virtual void func_0x6c() = 0;
     virtual int GetRowCount() const = 0; //0x70, 6 for example in TTs (top 5 and flap)
-
+     
     u32 maxDuration; //300 frames online, 600 online Compared to the page frame counter
     PtmfHolder_1A<Leaderboard, void, u32> onUnfocusHandler; //ends state
     PageManipulatorManager inputController; //0x5c ends at 0x1A0. The page's controlController is replaced by this 8085bf38

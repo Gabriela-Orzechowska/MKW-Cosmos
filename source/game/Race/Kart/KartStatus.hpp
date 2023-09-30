@@ -6,20 +6,18 @@
 #include <game/Race/Kart/KartBase.hpp>
 #include <game/Race/Kart/KartParams.hpp>
 
-
 class KartPointers;
 
 class KartStatus {
 public:
-   
-    explicit KartStatus(KartValues *values); //805943b4
-    void UpdateFromInput(); //8059487c
-    UnkType ComputeStartBoost(); //805959d4
-    UnkType ApplyStartBoost(int startBoostIdx); //80595af8
-    UnkType UpdateCollisions(); //80594bd4
-    //vtable 808b6534
-    virtual void Unknown_vtable();
-    u32 bitfield0; //bit flags: //0x4
+  explicit KartStatus(KartValues *values); //805943b4
+  void UpdateFromInput(); //8059487c
+  UnkType ComputeStartBoost(); //805959d4
+  UnkType ApplyStartBoost(int startBoostIdx); //80595af8
+  UnkType UpdateCollisions(); //80594bd4
+  //vtable 808b6534
+  virtual void Unknown_vtable();
+  u32 bitfield0; //bit flags: //0x4
     /*
        0 accelerate
        1 brake
@@ -48,7 +46,7 @@ public:
       30 jump pad enabled
       31 ramp boost
     */
-    u32 bitfield1; //bit flags: //0x8
+  u32 bitfield1; //bit flags: //0x8
     /*
        0 hit by an item or an object
        1 first frame of respawn
@@ -65,7 +63,7 @@ public:
       30 on a trickable surface
       31 in a star
     */
-    u32 bitfield2; //bit flags:
+  u32 bitfield2; //bit flags:
     /*
        0 charging a slipstream
        1 in a slipstream
@@ -79,12 +77,12 @@ public:
       28 ink applied
       29 has a tc
     */
-    u32 bitfield3; //bit flags:
+  u32 bitfield3; //bit flags:
     /*
        5 hwg (horizontal wall glitch)
        8 start boost charge
     */
-    u32 bitfield4; //bit flags:
+  u32 bitfield4; //bit flags:
     /*
        0 cpu-controlled
        1 real local
@@ -93,31 +91,31 @@ public:
        4 automatic drift
        6 ghost
     */
-    KartBase *base; //0x18
-    u32 airtime;
-    u8 unknown_0x20[0x28 - 0x20];
-    Vec3 floorNor;
-    Vec3 unknown_0x34;
-    u8 unknown_0x40[0x6b - 0x40];
-    s32 hwgTimer;
-    u8 unknown_0x70[0x74 - 0x70];
-    u32 boostRampType;
-    u32 jumpPadType; //essentially used to access jump pad properties array
-    u8 unknown_0x7c[0x7f - 0x7c];
-    u32 cnptId;
-    u8 unknown_0x84[0x88 - 0x84];
-    float stickX;
-    float stickY;
-    u32 oobWipeState;
-    s16 oobWipeFrame;
-    bool bool_0x96;
-    bool bool_0x97;
-    u8 unknown_0x98[0x9c - 0x98];
-    float startBoostCharge;
-    s32 startBoostIdx; //-1 when burning out
-    u8 unknown_0xa4[2];
-    s16 trickableTimer;
-    u8 unknown_0xa8[0xc0 - 0xa8];
+  KartBase *base; //0x18
+  u32 airtime;
+  u8 unknown_0x20[0x28-0x20];
+  Vec3 floorNor;
+  Vec3 unknown_0x34;
+  u8 unknown_0x40[0x6b-0x40];
+  s32 hwgTimer;
+  u8 unknown_0x70[0x74-0x70];
+  u32 boostRampType;
+  u32 jumpPadType; //essentially used to access jump pad properties array
+  u8 unknown_0x7c[0x7f-0x7c];
+  u32 cnptId;
+  u8 unknown_0x84[0x88-0x84];
+  float stickX;
+  float stickY;
+  u32 oobWipeState;
+  s16 oobWipeFrame;
+  bool bool_0x96;
+  bool bool_0x97;
+  u8 unknown_0x98[0x9c-0x98];
+  float startBoostCharge;
+  s32 startBoostIdx; //-1 when burning out
+  u8 unknown_0xa4[2];
+  s16 trickableTimer;
+  u8 unknown_0xa8[0xc0-0xa8];
 }; //Total size 0xc0
 
 #endif

@@ -5,7 +5,7 @@
 
 using namespace nw4r;
 
-class ItemSound : public AudioActor<2>, public LinkedRaceActor {
+class ItemSound : public AudioActor<2>, public LinkedRaceActor{
 public:
     ItemSound(); //807040dc
 
@@ -15,8 +15,8 @@ public:
 
     //AudioActor vtable 808c84a0 at 0x54
     //~ItemSound thunk 80707094
-    void detail_UpdateAmbientArg(void *arg, const snd::detail::BasicSound *sound) override; //thunk 8070708c func 80705728
-
+    void detail_UpdateAmbientArg(void* arg, const snd::detail::BasicSound* sound) override; //thunk 8070708c func 80705728
+    
     //LinkedRaceActor vtable 808c89a4 at 0x8c
     void Link(void *pointer, u16 objectId) override; //0x8 thunk 8070712c func 807042c0
     void Unlink() override; //0xc thunk 80707124 func 807042c8
@@ -39,11 +39,11 @@ public:
     void UpdateBRASDFrame(float frame) override; //0x60 thunk 8070709c func 80704f80
 
 };  // Total size 0xac
-size_assert(ItemSound, 0xac);
+static_assert(sizeof(ItemSound) == 0xac, "ItemSound");
 
 
 
-class GessoSound : public AudioActor<1>, public LinkedRaceActor {
+class GessoSound : public AudioActor<1>, public LinkedRaceActor{
 public:
     GessoSound(); //80704bd4
 
@@ -53,8 +53,8 @@ public:
 
     //AudioActor vtable 808c81e4 at 0x54
     //~GessoSound thunk 80707154 func 80706fc8
-    void detail_UpdateAmbientArg(void *arg, const snd::detail::BasicSound *sound) override; //thunk 8070714c func 80705404
-
+    void detail_UpdateAmbientArg(void* arg, const snd::detail::BasicSound* sound) override; //thunk 8070714c func 80705404
+    
     //LinkedRaceActor vtable 808c8244 at 0x88
     void Link(void *pointer, u16 objectId) override; //0x8 thunk 807071e4 func 80704d78
     void Update() override; //0x10 thunk 807071dc func 80704d80
@@ -76,5 +76,5 @@ public:
     void UpdateBRASDFrame(float frame) override; //0x60 thunk 8070715c func 80704f78
 
 };  // Total size 0xa8
-size_assert(GessoSound, 0xa8);
+static_assert(sizeof(GessoSound) == 0xa8, "GessoSound");
 #endif

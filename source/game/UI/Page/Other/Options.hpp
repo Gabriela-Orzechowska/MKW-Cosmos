@@ -9,8 +9,8 @@ Contributors:
 -Melg
 */
 //_sinit_ at 80601284
-namespace Pages {
-class Options : public Page { //ID 0xC0
+namespace Pages{
+class Options : public Page{ //0xC0
 public:
     Options(); //805fd518
     ~Options() override; //805fd638 vtable 808ba3ec
@@ -22,9 +22,9 @@ public:
 
     void OnButtonClick(PushButton *pushButton, u32 hudSlotId); //805fd90c
     void OnBackPress(u32 hudSlotId); //805fda80
-    static void TriggerPtmf(PtmfHolder_2A<Options, void, PushButton *, u32> *handler, PushButton *button, u32 hudSlotId); //80601134
+    static void TriggerPtmf(PtmfHolder_2A<Options, void, PushButton*, u32> *handler, PushButton *button, u32 hudSlotId); //80601134
     static void TriggerBackPtmf(PtmfHolder_1A<Options, void, u32> *handler, u32 hudSlotId); //80601254
-    PtmfHolder_2A<Options, void, PushButton *, u32> onButtonClickHandler; //0x44 vtable 808ba45c 805fd90c
+    PtmfHolder_2A<Options, void, PushButton*, u32> onButtonClickHandler; //0x44 vtable 808ba45c 805fd90c
     PtmfHolder_1A<Options, void, u32> onBackPressHandler; //0x58 vtable 808ba450 805fda80
     ControlsManipulatorManager manipulatorManager; //0x6C
     CtrlMenuPageTitleText titleText; //0x290
@@ -36,9 +36,9 @@ public:
 
 
 }; //total size 0xd68
-size_assert(Options, 0xD68);
+static_assert(sizeof(Options) == 0xD68,"OptionsPage");
 
-class WiFiOptions : public Page { //ID 0xC1
+class WiFiOptions : public Page { //0xC1
     WiFiOptions(); //805fdaa8
     ~WiFiOptions() override; //805fdbd8 vtable 808ba370
     PageId GetNextPage() const override; //0x10 8060104c
@@ -47,9 +47,9 @@ class WiFiOptions : public Page { //ID 0xC1
     int GetRuntimeTypeInfo() const override; //0x60 80601054
     void OnButtonClick(PushButton *pushButton, u32 hudSlotId); //805fdf58
     void OnBackPress(u32 hudSlotId); //805fe110
-    static void TriggerPtmf(PtmfHolder_2A<WiFiOptions, void, PushButton *, u32> *handler, PushButton *button, u32 hudSlotId); //80601104
+    static void TriggerPtmf(PtmfHolder_2A<WiFiOptions, void, PushButton*, u32> *handler, PushButton *button, u32 hudSlotId); //80601104
     static void TriggerBackPtmf(PtmfHolder_1A<WiFiOptions, void, u32> *handler, u32 hudSlotId); //80601224
-    PtmfHolder_2A<WiFiOptions, void, PushButton *, u32> onButtonClickHandler; //0x44 805fdf58 808ba3e0
+    PtmfHolder_2A<WiFiOptions, void, PushButton*, u32> onButtonClickHandler; //0x44 805fdf58 808ba3e0
     PtmfHolder_1A<WiFiOptions, void, u32> onBackPressHandler; //0x58 805fe110 808ba3d4
     ControlsManipulatorManager manipulatorManager; //0x6C
     CtrlMenuPageTitleText titleText; //0x290
@@ -61,9 +61,9 @@ class WiFiOptions : public Page { //ID 0xC1
     CtrlMenuBackButton backButton; //0xfa8 to 120C
     PageId nextPageId;
 };
-size_assert(WiFiOptions, 0x1210);
+static_assert(sizeof(WiFiOptions) == 0x1210,"WifiOptionsPage");
 
-class OptionExplanation : public Page {//ID 0xc2 a message box with explanations about the upcoming OptionBox, and a next button
+class OptionExplanation : public Page{//0xc2 a message box with explanations about the upcoming OptionBox, and a next button
     OptionExplanation(); //805fe128
     ~OptionExplanation() override; //805fe240 vtable 808ba2f4
     void OnInit() override; //0x28 805fe2e0
@@ -71,9 +71,9 @@ class OptionExplanation : public Page {//ID 0xc2 a message box with explanations
     int GetRuntimeTypeInfo() const override; //0x60 80601040
     void OnButtonClick(PushButton *pushButton, u32 hudSlotId); //805fe48c
     void OnBackPress(u32 hudSlotId); //805fe57c
-    static void TriggerPtmf(PtmfHolder_2A<OptionExplanation, void, PushButton *, u32> *handler, PushButton *button, u32 hudSlotId); //806010d4
+    static void TriggerPtmf(PtmfHolder_2A<OptionExplanation, void, PushButton*, u32> *handler, PushButton *button, u32 hudSlotId); //806010d4
     static void TriggerPtmf(PtmfHolder_1A<OptionExplanation, void, u32> *handler, u32 hudSlotId); //806011f4
-    PtmfHolder_2A<OptionExplanation, void, PushButton *, u32> onButtonClickHandler; //0x44 805fe48c 808ba364
+    PtmfHolder_2A<OptionExplanation, void, PushButton*, u32> onButtonClickHandler; //0x44 805fe48c 808ba364
     PtmfHolder_1A<OptionExplanation, void, u32> onBackPressHandler; //0x58 805fe57c 808ba358
     ControlsManipulatorManager manipulatorManager; //0x6C
     CtrlMenuPageTitleText titleText; //0x290
@@ -82,10 +82,10 @@ class OptionExplanation : public Page {//ID 0xc2 a message box with explanations
     CtrlMenuBackButton backButton; //0x7cc
     PageId nextPageId; //a30, if set to 0, chains into itself
 };
-size_assert(OptionExplanation, 0xa34);
+static_assert(sizeof(OptionExplanation) == 0xa34,"FlagExplanationPage");
 
-class OptionChoice : public Page { //ID 0xc3 (2used buttons) and ID 0xc4(3 buttons), a message box with yes/no buttons
-    // "master" page inits and sets the controls to the correct values
+class OptionChoice : public Page{ //0xc3 (2used buttons) and 0xc4(3 buttons), a message box with yes/no buttons
+// "master" page inits and sets the controls to the correct values
     OptionChoice(); //805fe5f8
     ~OptionChoice() override; //805fe728 vtable 808ba278
     void OnInit() override; //0x28 805fe7d4
@@ -98,9 +98,9 @@ class OptionChoice : public Page { //ID 0xc3 (2used buttons) and ID 0xc4(3 butto
     void SetMessageWindowText(u32 bmgId); //805feb6c inlined
     void SetButtonText(u32 buttonId, u32 bmgId, u32 ed8); //805feb78 inlined
     void SetInitialButton(u8 buttonId); //805febdc
-    static void TriggerPtmf(PtmfHolder_2A<OptionChoice, void, PushButton *, u32> *handler, PushButton *button, u32 hudSlotId); //806010a4
+    static void TriggerPtmf(PtmfHolder_2A<OptionChoice, void, PushButton*, u32> *handler, PushButton *button, u32 hudSlotId); //806010a4
     static void TriggerBackPtmf(PtmfHolder_1A<OptionChoice, void, u32> *handler, u32 hudSlotId); //806011c4
-    PtmfHolder_2A<OptionChoice, void, PushButton *, u32> onButtonClickHandler; //0x44 805febe4 808ba2e8
+    PtmfHolder_2A<OptionChoice, void, PushButton*, u32> onButtonClickHandler; //0x44 805febe4 808ba2e8
     PtmfHolder_1A<OptionChoice, void, u32> onBackPressHandler; //0x58 805fed8c 808ba2dc
     ControlsManipulatorManager manipulatorManager; //0x6C
     CtrlMenuPageTitleText titleText; //0x290
@@ -113,9 +113,9 @@ class OptionChoice : public Page { //ID 0xc3 (2used buttons) and ID 0xc4(3 butto
     u8 initialButton; //0xeec based on rksys setting, mostly
     u8 padding[3];
 };
-size_assert(OptionChoice, 0xef0);
+static_assert(sizeof(OptionChoice) == 0xef0, "BoxWith3ButtonsPage");
 
-class RegionOptions : public Page {//ID 0xc5
+class RegionOptions : public Page {//0xc5
     RegionOptions(); //805feda4
     ~RegionOptions() override; //805feefc vtable 808ba1fc
     PageId GetNextPage() const override; //0x10 805ff134
@@ -125,10 +125,10 @@ class RegionOptions : public Page {//ID 0xc5
     void OnButtonClick(PushButton *pushButton, u32 hudSlotId); //805ff194
     void OnBackButtonClick(CtrlMenuBackButton *backButton, u32 hudSlotId); //805ff1e0
     void OnBackPress(u32 hudSlotId); //805ff2a0
-    static void TriggerPtmf(PtmfHolder_2A<OptionChoice, void, PushButton *, u32> *handler, PushButton *button, u32 hudSlotId); //80601074
+    static void TriggerPtmf(PtmfHolder_2A<OptionChoice, void, PushButton*, u32> *handler, PushButton *button, u32 hudSlotId); //80601074
     static void TriggerBackPtmf(PtmfHolder_1A<OptionChoice, void, u32> *handler, u32 hudSlotId); //80601194
-    PtmfHolder_2A<OptionChoice, void, PushButton *, u32> onButtonClickHandler; //0x44 805ff194 808ba26c
-    PtmfHolder_2A<OptionChoice, void, CtrlMenuBackButton *, u32> onBackButtonClickHandler; //0x58 805ff1e0 808ba26c
+    PtmfHolder_2A<OptionChoice, void, PushButton*, u32> onButtonClickHandler; //0x44 805ff194 808ba26c
+    PtmfHolder_2A<OptionChoice, void, CtrlMenuBackButton*, u32> onBackButtonClickHandler; //0x58 805ff1e0 808ba26c
     PtmfHolder_1A<OptionChoice, void, u32> onBackPressHandler; //0x6c 805ff2a0 808ba260
     ControlsManipulatorManager manipulatorManager; //0x80
     CtrlMenuPageTitleText titleText; //0x2A4
@@ -136,9 +136,9 @@ class RegionOptions : public Page {//ID 0xc5
     PushButton yesButton; //0x58c
     CtrlMenuBackButton backButton; //0x7e0
 }; //0xa44
-size_assert(RegionOptions, 0xa44);
+static_assert(sizeof(RegionOptions) == 0xa44, "RegionOptions");
 
-class MasterOptions : public Page { //ID 0xc6 chooses which option to load depending on the section and which button was pressed in the generic box pages
+class MasterOptions : public Page{ //0xc6 chooses which option to load depending on the menu and which button was pressed in the generic box pages
     //0xc2 = choice, 0xc3 and c4 = choice, 0xc7 = waiting, 0xc8 = choice saved
     MasterOptions(); //805ff328
     ~MasterOptions() override; //805ff3a4 vtable 808ba180
@@ -166,7 +166,7 @@ class MasterOptions : public Page { //ID 0xc6 chooses which option to load depen
     PageId nextPageId; //0x70
     u32 choiceChosen; //0x74 used to set the correct text
 };
-size_assert(MasterOptions, 0x78);
+static_assert(sizeof(MasterOptions) == 0x78, "MasterOptionsPage");
 }//namespace Pages
 
 #endif

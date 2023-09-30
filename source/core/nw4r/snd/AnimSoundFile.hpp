@@ -1,15 +1,15 @@
 #ifndef _NW4R_SNDANIMSOUNDFILE_
 #define _NW4R_SNDANIMSOUNDFILE_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/snd/SoundHandle.hpp>
 #include <core/nw4r/snd/SoundArchive.hpp>
 #include <core/nw4r/snd/Util.hpp>
 #include <core/nw4r/ut/BinaryFileFormat.hpp>
-namespace  nw4r {
-namespace snd {
-namespace detail {
+namespace  nw4r{
+namespace snd{
+namespace detail{
 
-struct AnimEvent {
+struct AnimEvent{
     u32 optionFlag;
     u32 soundId;
     Util::DataRef<char> soundNameRef;
@@ -20,7 +20,7 @@ struct AnimEvent {
     u32 userParam;
 };
 
-struct AnimEventFrameInfo { //https://wiki.tockdom.com/wiki/BRASD_(File_Format)#Event
+struct AnimEventFrameInfo{ //https://wiki.tockdom.com/wiki/BRASD_(File_Format)#Event
     s32 startFrame;  //event start frame
     s32 endFrame;    //event end frame
     u8 frameFlag;    //frame processing option flag
@@ -29,31 +29,31 @@ struct AnimEventFrameInfo { //https://wiki.tockdom.com/wiki/BRASD_(File_Format)#
     u8 reserved;
 };
 
-struct AnimEventRef {
+struct AnimEventRef{
     AnimEventFrameInfo frameInfo;
     detail::Util::DataRef<AnimEvent> ref;
 };
-struct AnimSoundFile { //https://wiki.tockdom.com/wiki/BRASD_(File_Format)#File_Header
-    struct EventTable {
-        u32 eventCount;
-        AnimEventRef eventRef[0]; //keeps on going after
+struct AnimSoundFile{ //https://wiki.tockdom.com/wiki/BRASD_(File_Format)#File_Header
+    struct EventTable{
+      u32 eventCount;
+      AnimEventRef eventRef[0]; //keeps on going after
     };
 
-    struct DataBlock {
-        ut::BinaryBlockHeader blockHeader;
-        u32 frameSize;
-        detail::Util::DataRef<EventTable> eventTableOffset;
+    struct DataBlock{
+      ut::BinaryBlockHeader blockHeader;
+      u32 frameSize;
+      detail::Util::DataRef<EventTable> eventTableOffset;
     };
 
-    struct Header {
+    struct Header{
         ut::BinaryFileHeader fileHeader;
         u32 dataBlockOffset;
         u32 dataBlockSize;
     };
 };
 
-class AnimSoundFileReader {
-public:
+class AnimSoundFileReader{
+  public:
     AnimSoundFileReader(); //80088100
     bool Setup(const void *animSoundData); //80088110
     void Shutdown(); //80088180

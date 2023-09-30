@@ -1,9 +1,9 @@
 #ifndef _VI_
 #define _VI_
-#include <types.hpp>
+#include "types.hpp"
 
 
-extern "C" {
+extern "C"{
     void *VIGetNextFrameBuffer(); //801bab24
 }
 #endif

@@ -1,14 +1,14 @@
 #ifndef _NW4R_LYTTEXTBOX_
 #define _NW4R_LYTTEXTBOX_
-#include <types.hpp>
+#include "types.hpp"
 #include <core/nw4r/lyt.hpp>
 #include <core/nw4r/ut/TagProcessorBase.hpp>
 
-namespace nw4r {
-namespace lyt {
+namespace nw4r{
+namespace lyt{
 class TextBox : public Pane {
 public:
-    TextBox(const res::TextBox *src, const ResBlockSet &resBlockSet); //8007b320
+    TextBox(const res::TextBox* src, const ResBlockSet& resBlockSet); //8007b320
     ~TextBox() override; //8007b610 vtable 80273578
     void *GetRuntimeTypeInfo() const override; //0xc 8007cc10
     void DrawSelf(const DrawInfo &info) override; //0x18 8007b870
@@ -31,9 +31,9 @@ public:
     u16 bufferLength;
     u16 stringLength;
     u8 alignment;
-    struct {
-        u8 isAllocFont : 1;
-        u8 hasextAlignment : 2;
+    struct{
+        u8 isAllocFont: 1;
+        u8 hasextAlignment: 2;
     }flags;
 }; // Total size 0xf0
 }//namespace lyt

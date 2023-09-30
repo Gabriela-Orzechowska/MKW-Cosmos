@@ -3,29 +3,29 @@
 #include <kamek.hpp>
 
 typedef struct BRCTR;
-struct BRCTRAnimSubHeader {
+struct BRCTRAnimSubHeader{
     u16 firstGroupOffset;
     u16 groupsCount;
     u16 firstAnimOffset;
     u16 animationsCount;
 };
 
-struct BRCTRAnimGroup {
+struct BRCTRAnimGroup{
     u16 offsetToName;
     u16 offsetToBRLYTPaneName;
     u16 firstAnimIndex;
     u16 groupAnimationsCount;
 }; //total 0x8
 
-struct BRCTRAnimation {
+struct BRCTRAnimation{
     u16 offsetToName;
     u16 offsetToBRLANName;
     u16 offsetToNextAnimBRLANName;
     u16 isAnimationReversed;
-    float animationSpeed;
+    float animationSpeed; 
 }; //total 0xC
 
-struct BRCTRLayoutSubHeader {
+struct BRCTRLayoutSubHeader{
     u16 offsetToFirstVariant;
     u16 variantsCount;
     u16 offsetToFirstMessage;
@@ -34,7 +34,7 @@ struct BRCTRLayoutSubHeader {
     u16 picturesCount;
 }; //total size 0xC
 
-struct BRCTRVariant {
+struct BRCTRVariant{
     u16 offsetToName;
     u16 alpha;
     u16 isAnimated;
@@ -50,13 +50,13 @@ struct BRCTRVariant {
     u16 picturesCount;
 }; //total size 0x3C
 
-struct BRCTRMessage {
+struct BRCTRMessage{
     u16 offsetToBRLYTPaneName;
     u16 offsetToName;
     u32 bmgId;
 }; //total size 0x8
 
-struct BRCTRPicture {
+struct BRCTRPicture{
     u16 offsetToBRLYTPaneName;
     u16 offsetToSourceBRLYTPaneName;
 }; //total size 0x4

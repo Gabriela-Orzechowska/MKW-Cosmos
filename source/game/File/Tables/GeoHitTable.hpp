@@ -7,7 +7,7 @@
 //https://wiki.tockdom.com/wiki/Filesystem/Race/Common.szs/GeoHitTableItemObj.bin
 //how items interact with objects
 
-enum GeoHitItemID {
+enum GeoHitItemID{
     GEO_HIT_GREEN_SHELL,
     GEO_HIT_RED_SHELL,
     GEO_HIT_BANANA,
@@ -25,17 +25,17 @@ enum GeoHitItemID {
     GEO_HIT_THUNDERCLOUD
 };
 
-enum ObjToItemInteraction {
+enum ObjToItemInteraction{
     OBJ_ITEM_INTERACTION_CLIPS,
     OBJ_ITEM_INTERACTION_BOUNCES,
     OBJ_ITEM_INTERACTION_BREAKS,
 };
 
-enum ItemToObjInteraction {
-    //idk
+enum ItemToObjInteraction{
+//idk
 };
 
-enum ObjToKartHit {
+enum ObjToKartHit{
     OBJ_KART_WALL_ALL_SPEED = 0x8,
     OBJ_KART_SPIN_ALL_SPEED = 0x9, //unused
     OBJ_KART_SPIN_SOME_SPEED = 0xA,
@@ -64,18 +64,18 @@ enum ObjToKartHit {
     OBJ_KART_KNOCKBACK_LOSE_ITEM = 0x100
 };
 
-enum KartToObjHit {
+enum KartToObjHit{
     KART_OBJ_STATE_1 = 0x5,
     KART_OBJ_STATE_2 = 0x6, //unused
 };
 
-struct GeoHitTableEntry {
+struct GeoHitTableEntry{
     u16 objId;
     u16 interactions; //use enums for types, entry count for amount
 };
 
 
-struct GeoHitTable {
+struct GeoHitTable{
     TableBinaryHeader header;
     u16 entryCount;
     GeoHitTableEntry entries;

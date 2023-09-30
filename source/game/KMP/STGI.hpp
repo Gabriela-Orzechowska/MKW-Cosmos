@@ -3,7 +3,7 @@
 #define _STGI_
 #include <game/KMP/SectionBase.hpp>
 
-struct STGI {
+struct STGI{ 
     u8 lapCount;
     u8 polePosition;
     u8 narrow;
@@ -14,6 +14,6 @@ struct STGI {
     u16 speedMod; //usually 0 but for the code
 }; //total size 0xc
 
-typedef struct KMPSection<STGI> STGISection;
+typedef struct Section<STGI> STGISection;
 
 #endif

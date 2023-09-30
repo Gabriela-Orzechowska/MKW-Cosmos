@@ -1,11 +1,11 @@
-er#ifndef _KOOPABALL_
+#ifndef _KOOPABALL_
 #define _KOOPABALL_
 #include <kamek.hpp>
 #include <game/Objects/Collidable/ObjectCollidable.hpp>
 
-namespace Objects {
-
-class KoopaBall : public ObjectCollidable { //0xcf = 207
+namespace Objects{
+    
+class KoopaBall : public ObjectCollidable{ //0xcf = 207
     explicit KoopaBall(KMP::GOBJHolder *gobjHolder); //80770384
     ~KoopaBall() override; //80771f70 vtable 808cf410
     void OnStart() override; //0xC 807703d0

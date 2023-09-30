@@ -9,7 +9,7 @@
 
 using namespace nw4r;
 
-class MoviePaneHandler {
+class MoviePaneHandler{
     MoviePaneHandler(); //805fb820
     ~MoviePaneHandler(); //805fb850
     void Init(lyt::Picture *pane); //805fb890
@@ -24,7 +24,7 @@ class MoviePaneHandler {
     class Initializer;
 };//0x18
 
-class MovieManager : public EGG::Disposer {
+class MovieManager : public EGG::Disposer{
     static MovieManager *sInstance(); //809bd718
     MovieManager(); //80529ac4
     virtual ~MovieManager(); //80529b68 vtable 808b3178
@@ -37,8 +37,8 @@ class MovieManager : public EGG::Disposer {
     EGG::TaskThread task; //0xB0
 }; //0xb4
 
-class MoviePlayer : public MovieManager {
-    u8 unknown_0x100[0x100 - 0xb4];
+class MoviePlayer : public MovieManager{
+    u8 unknown_0x100[0x100-0xb4];
 }; //total size 0x100
 
 #endif

@@ -2,23 +2,23 @@
 #define _ARCHIVE_
 #include <kamek.hpp>
 #include <core/nw4r/lyt/ArcResourceAccessor.hpp>
-#include <core/egg/mem/ExpHeap.hpp>
+#include <core/egg/Heap.hpp>
 #include <core/egg/Archive.hpp>
-#include <core/egg/mem/Disposer.hpp>
+#include <core/egg/Disposer.hpp>
 #include <core/egg/Thread.hpp>
 #include <game/System/identifiers.hpp>
-class LayoutResources;
+class LayoutResources; 
 
-class ArchiveFile {
+class ArchiveFile{
 public:
-    //Load functions will also mount the file
+//Load functions will also mount the file
     ArchiveFile(); //80518cc0
     virtual ~ArchiveFile(); //80518cf4 vtable 808b2c78
     void Dump(const char *path, EGG::Heap *heap, s32 allocDirection); //805190f0 will also decompress
     void Mount(EGG::Heap *heap); //80518dcc inlined in load
     void DecompressAndMount(void *compressedArchive, u32 compressedSize, EGG::Heap *decompressHeap, bool isCompressed); //80518fbc
-    void Load(const char *path, EGG::Heap *decompressedHeap, bool isCompressed, s32 allocDirection,
-        EGG::Heap *archiveHeap, EGG::Archive::FileInfo *info); //80518e10
+    void Load(const char *path, EGG::Heap *decompressedHeap, bool isCompressed, s32 allocDirection, 
+            EGG::Heap *archiveHeap, EGG::Archive::FileInfo *info); //80518e10
     void LoadUncompressed(const char *path, u32 r5, EGG::Heap *heap); //80518fa4
     //decompressed used for archive if archive == null size set by func
     void Decompress(const char *path, EGG::Heap *heap); //80519508 r4 unused
@@ -33,9 +33,9 @@ public:
     EGG::Heap *archiveHeap;
     u32 status; //0x20 2 loaded 3 decompressed 4 mounted
 };//total size 0x24
-size_assert(ArchiveFile, 0x24);
+static_assert(sizeof(ArchiveFile) == 0x24, "ArchiveFile");
 
-enum ArchiveSource {
+enum ArchiveSource{
     ARCHIVE_HOLDER_COMMON = 0x0, //common.szs
     ARCHIVE_HOLDER_COURSE = 0x1, //beginner_course
     ARCHIVE_HOLDER_UI = 0x2, //title.szs
@@ -48,7 +48,7 @@ enum ArchiveSource {
     ARCHIVE_HOLDER_KART = 0x9
 };
 
-class ArchivesHolder {
+class ArchivesHolder{
 public:
     explicit ArchivesHolder(u16 archiveCount); //0x8052a538 vtable 
     static ArchivesHolder *CreateByType(ArchiveSource type); //8052a098
@@ -69,36 +69,36 @@ public:
     u32 *fileSizes; //only used for sourceType 2
     u32 *sourceType; //0x18 name => 0 = file.extension 1 = file 2 = idk
 };//total size 0x1c
-size_assert(ArchivesHolder, 0x1C);
+static_assert(sizeof(ArchivesHolder) == 0x1C, "ArchivesHolder");
 
-class CommonArchivesLoader : public ArchivesHolder {
+class CommonArchivesLoader : public ArchivesHolder{
     //ctor inlined
     ~CommonArchivesLoader() override; //8052a4e0 vtable 808b31a8
     void Reset() override; //8052a3c0
 };
 
-class CourseArchivesHolder : public ArchivesHolder {
+class CourseArchivesHolder : public ArchivesHolder{
     CourseArchivesHolder(); //8052a1c8
     ~CourseArchivesHolder() override; //8052a430 vtable 808b31c8
     void Reset() override; //8052a21c
 };
-class UIArchivesHolder : public ArchivesHolder {
+class UIArchivesHolder : public ArchivesHolder{
     //ctor inlined
     ~UIArchivesHolder() override; //8052a488 vtable 808b31b8
     void Reset() override; //8052a2fc
 };
 
 
-class ArchiveLoadHandle {
+class ArchiveLoadHandle{
     ArchivesHolder *ArchivesHolder;
-    u8 unknown_0x4[0xc - 0x4];
+    u8 unknown_0x4[0xc-0x4];
     char archivePath[0x40];
     EGG::Heap *heap; //0x4c
     void *targetHeap;
 }; //total size 0x54
-size_assert(ArchiveLoadHandle, 0x54);
+static_assert(sizeof(ArchiveLoadHandle) == 0x54, "ArchiveLoadHandle");
 
-class AsyncCourseArchivesHolder : public EGG::Disposer {
+class AsyncCourseArchivesHolder : public EGG::Disposer{
     ~AsyncCourseArchivesHolder() override; //80541ac4 vtable 808b3c20
     void LoadCourseArchive(CourseId id); //80541b58
     void *startAddress;
@@ -107,21 +107,21 @@ class AsyncCourseArchivesHolder : public EGG::Disposer {
     u32 status; //2 means loaded
     CourseArchivesHolder *courseArchivesHolder;
 }; //0x24
-size_assert(AsyncCourseArchivesHolder, 0x24);
+static_assert(sizeof(AsyncCourseArchivesHolder) == 0x24, "AsyncCourseArchivesHolder");
 
-class KartArchivesHolder {
+class KartArchivesHolder{
     KartArchivesHolder(); //8053fe68
     virtual ~KartArchivesHolder(); //8053fe94 vtable 808b3c08
     EGG::Heap *decompressedHeap;
     EGG::Heap *compressedHeap;
-    u8 unknown_0xC[0xf - 0xC];
+    u8 unknown_0xC[0xf-0xC];
     bool hasRequest;
     CharacterId id;
     u32 mode; //0 battle 2 otherwise
 }; //total size 0x18
-size_assert(KartArchivesHolder, 0x18);
+static_assert(sizeof(KartArchivesHolder) == 0x18, "KartArchivesHolder");
 
-class ArchiveRoot {
+class ArchiveRoot{
 public:
     ArchiveRoot(); //0x8053fcec
     static ArchiveRoot *sInstance; //809bd738
@@ -146,18 +146,17 @@ public:
     int GetUIArchiveCount() const; //80541794
     void AttachLayoutDIR(nw4r::lyt::MultiArcResourceAccessor *resourceAccessor, const char *dir, LayoutResources *resources); //80541878
     void Unmount(ArchivesHolder *holder); //805411e4
-    void ProcessRequestsAndShutdown(); //80541ce0 Waits for all requests to finish then shuts down (bool isFree set to false)
-
-    ArchivesHolder **archivesHolders; //0x4 use enum for array idx
+    
+    ArchivesHolder **archivesHolders; //use enum for array idx
     ArchivesHolder kartModelsHolders[12]; //0x8 mr-allkart.szs, mdf_kart-mr.szs etc... in races
     ArchivesHolder unknown_Holders[12]; //0x158
     ArchiveFile contentArchives[4]; //0x2a8 contents/HomeButton.arc e.g.
     ArchiveLoadHandle loadHandles[7]; //0x338 use enum 6 contents
-    EGG::TaskThread *taskThread; //0x584
+    EGG::TaskThread* taskThread; //0x584
     AsyncCourseArchivesHolder asyncCourseLoader; //0x588 80541ac4 vtable 808b3c20
     KartArchivesHolder kartsModelsLoaders[4]; //0x5ac kart models one per hudslotid in menus
     u8 unknown_0x60c;
-    bool sceneIsExiting;
+    bool unknown_0x60d;
     u8 padding[2];
     EGG::Heap *heap_0x610;
     u8 unknown_0x614[4];
@@ -165,5 +164,5 @@ public:
     bool isFree; //0x619
     u8 padding2[2];
 }; //total size 0x61C
-size_assert(ArchiveRoot, 0x61c);
+static_assert(sizeof(ArchiveRoot) == 0x61c, "ArchiveRoot");
 #endif
