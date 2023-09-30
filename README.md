@@ -1,10 +1,25 @@
-Base used for various Mario Kart Wii Kamek-based projects (such as the Skill Issue Pack).
+# MKWDX-Kamek
 
-Contains
-*A lot of documented game code.
-*The kamek engine: https://github.com/Treeki/Kamek
-*Game symbols
-*A version file used for porting
-*A Mario Kart Wii specific code loader
+In development Kamek-based Mario Kart Wii Deluxe version. 
 
-You may use any part of the repo at your own discretion, provided you credit the correct individuals.
+Currently working on reimplementing basic features.
+
+## Building
+Run `Build.bat` or VSCode `Build Kamek Binaries` task.
+
+Update `CC=` path inside `Build.bat` if needed.
+
+### Requires
+[CodeWarrior for MPC55xx/MPC56xx v2.10 Special Edition](https://nxp.com/lgfiles/devsuites/PowerPC/CW55xx_v2_10_SE.exe) ([mirror](https://cache.nxp.com/lgfiles/devsuites/PowerPC/CW55xx_v2_10_SE.exe))
+
+## Currently Implemented Codes
+- Exception Handler
+- All Items Can Land
+- Increase Item Limit
+- BRSAR Patch
+- Final Lap Music Speed Up
+- Fast Menus
+- Unlock Everything without Save
+
+## Credits
+Documentation by Melg: https://github.com/MelgMKW/Mario-Kart-Wii-Kamek-Documentation/tree/main
