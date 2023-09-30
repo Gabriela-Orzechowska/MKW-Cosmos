@@ -1,0 +1,103 @@
+#include <UI/RaceBase/Speedometer.hpp>
+
+namespace DXUI{
+    u32 ControlRaceSpeedometer::Count()
+    {
+        u32 result = RaceData::sInstance->racesScenario.localPlayerCount;
+        MenuId menuId = MenuData::sInstance->curScene->menuId;
+
+        if(menuId >= WATCH_GHOST_FROM_CHANNEL && menuId <= WATCH_GHOST_FROM_MENU) result++;
+
+        return result;
+    }
+
+    void ControlRaceSpeedometer::Create(Page * page, u32 index)
+    {
+        u32 screens = Count();
+        u8 type = (screens == 3) ? 4 : screens;
+        for(int i = 0; i < screens; i++)
+        {
+            ControlRaceSpeedometer * speedometer = new(ControlRaceSpeedometer);
+            page->AddControl(index + i, speedometer, 0);
+            char speedoVariant[0x30];
+            snprintf(speedoVariant, 0x30, "CtrlRaceSpeedo_%1d_%1d", type, i);
+            speedometer->Load(speedoVariant, i);
+        }
+    }
+    
+    static CustomControlBuilder SpeedOMeter(ControlRaceSpeedometer::Count, ControlRaceSpeedometer::Create);
+
+    void ControlRaceSpeedometer::Load(const char * variant, u8 id)
+    {
+        this->hudSlotId = id;
+
+        ControlLoader loader(this);
+
+        const char* anims[16] = {"eHundreds", "texture_pattern_0_9_0", NULL,
+        "eTens", "texture_pattern_0_9_1", NULL,
+        "eUnits", "texture_pattern_0_9_2", NULL,
+        "eDot", "texture_pattern_0_9_3",NULL,
+        "eDecimals", "texture_pattern_0_9_4",NULL, NULL};
+
+        loader.Load("game_image", "speedometer", variant, anims);
+        
+        for(int i = 0; i < 5; i++)
+        {
+            this->animator.GetAnimationGroupById(i)->PlayAnimationAtFrameAndDisable(0, 0.0f);
+        }
+        return;
+    }
+
+    void ControlRaceSpeedometer::Init()
+    {
+        this->HudSlotColorEnable("kmh", true);
+        this->HudSlotColorEnable("speed0", true);
+        this->HudSlotColorEnable("speed1", true);
+        this->HudSlotColorEnable("speed2", true);
+        this->HudSlotColorEnable("speed3", true);
+        this->HudSlotColorEnable("speed4", true);
+
+        LayoutUIControl::Init();
+        return;
+    }
+
+    void ControlRaceSpeedometer::OnUpdate()
+    {
+        this->UpdatePausePosition();
+
+        u8 playerId = this->GetPlayerId();
+
+        KartPointers * pointers = &KartHolder::sInstance->karts[playerId]->pointers;
+        KartPhysics * kartPhysics = pointers->kartBody->kartPhysicsHolder->kartPhysics;
+
+        float maxSpeed = pointers->kartMovement->hardSpeedLimit;
+
+        //We add engine speed + water speed + 3rd speed (idk what)
+        Vec3 vec3Speed;
+        PSVECAdd(static_cast<Vec*>(&kartPhysics->engineSpeed), &kartPhysics->speed2, &vec3Speed);
+        PSVECAdd(&vec3Speed, &kartPhysics->speed3, &vec3Speed);
+        float speed = PSVECMag(&vec3Speed);
+
+        speed = speed > maxSpeed ? maxSpeed : speed;
+
+        u32 actualSpeed = (u32) (speed * 10.0f);
+
+        float decimals = (float) (actualSpeed % 10 / 1);
+        float units = (float) (actualSpeed % 100 / 10);
+        float tens = (float) (actualSpeed % 1000 / 100);
+        float hundreds = (float) (actualSpeed % 10000 / 1000);
+
+        if(hundreds < 0.1f) hundreds = 10.0f;
+        if(tens < 0.1f) tens = 10.0f;
+
+        this->animator.GetAnimationGroupById(0)->PlayAnimationAtFrameAndDisable(0, hundreds);
+        this->animator.GetAnimationGroupById(1)->PlayAnimationAtFrameAndDisable(0, tens);
+        this->animator.GetAnimationGroupById(2)->PlayAnimationAtFrameAndDisable(0, units);
+        this->animator.GetAnimationGroupById(3)->PlayAnimationAtFrameAndDisable(0, decimals);
+
+        this->animator.GetAnimationGroupById(4)->PlayAnimationAtFrameAndDisable(0, 11.0f);
+
+        return;
+    }
+
+}

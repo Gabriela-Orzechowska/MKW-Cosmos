@@ -625,6 +625,38 @@ CalculateBounds__18ControlBoundingBoxFv = 0x805f0618
 TriggerOnSelectHandler__18ControlBoundingBoxFUc = 0x805f08a0
 TriggerOnDeselectHandler__18ControlBoundingBoxFUc = 0x805f08f0
 
+#MenuData
+sInstance__8MenuData = 0x809c1e38
+SetupMenuLoad = 0x805b9344
+LoadNextMenu__8MenuDataFv = 0x80634fbc
+StartTransition__8MenuDataFUiUi = 0x80635ac8
+
+#MenuDataPad
+GetCurrentSlotAndType__11MenuDataPadFUi = 0x8061b358
+GetType__11MenuDataPadFUi = 0x8061bfac
+
+#Scene
+BuildPages__5SceneF6MenuId = 0x8062c3a4
+CreatePage__5SceneF6PageId = 0x80622d08
+
+#LayoutUIControl
+__vt__15LayoutUIControl = 0x808befb4
+__ct__15LayoutUIControlFv = 0x8063d798
+__dt__15LayoutUIControlFv = 0x8063d8c0
+Init__15LayoutUIControlFv = 0x8063dac0
+Update__15LayoutUIControlFv = 0x8063DB00
+Draw__15LayoutUIControlFv = 0x8063DB84
+GetRuntimeTypeInfo__15LayoutUIControlCFv = 0x80636bd0
+GetClassName__15LayoutUIControlCFv = 0x8063d788
+func_0x30__15LayoutUIControlFv = 0x8063E61c
+LoadNewLayout__15LayoutUIControlFPCcPCc = 0x8063D954
+SetTextBoxMsg__15LayoutUIControlFPCcUiPC8TextInfo = 0x8063dcbc
+SetMsgId__15LayoutUIControlFUiPC8TextInfo = 0x8063ddb4
+SetMiiPane__15LayoutUIControlFPCcP8MiiGroupUiUc = 0x8063e3dc
+SetPicturePane__15LayoutUIControlFPCcPCc = 0x8063e0f0
+__ct__24LayoutUIControlScaleFadeFv = 0x8063e674
+__dt__24LayoutUIControlScaleFadeFv = 0x8063e7a8
+
 
 #CtrlMenu
 #BackButton

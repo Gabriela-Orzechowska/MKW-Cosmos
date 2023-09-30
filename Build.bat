@@ -25,7 +25,7 @@ echo Linking...
 "KamekSource/bin/Debug/Kamek" "build/kamek.o" %OBJECTS% -dynamic -externals="source/symbols.txt" -versions="source/versions.txt" -output-kamek=build\$KV$.bin
 
 if %ErrorLevel% equ 0 (
-    xcopy /Y build\*.bin ".\TestPack\pack\sys"
+    xcopy /Y build\*.bin ".\TestPack\mkwdx\sys"
 	del build\*.o
 
     echo Binaries copied
