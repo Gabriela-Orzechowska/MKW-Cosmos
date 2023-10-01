@@ -12,6 +12,7 @@ Run `Build.bat`. Update `CC=` path inside `Build.bat` if needed.
 
 ## Currently Implemented Codes
 - Exception Handler (For debugging purposes)
+- Speedometer
 - All Items Can Land
 - Increase Item Limit
 - BRSAR Patch
