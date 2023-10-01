@@ -83,7 +83,7 @@ namespace DXUI{
 
         u32 splitSpeed = (u32) (speed * 10.0f);
 
-        float decimals = (float) (splitSpeed % 10 / 1);
+        float decimal = (float) (splitSpeed % 10 / 1);
         float digit_1 = (float) (splitSpeed % 100 / 10);
         float digit_2 = (float) (splitSpeed % 1000 / 100);
         float digit_3 = (float) (splitSpeed % 10000 / 1000);
@@ -99,7 +99,7 @@ namespace DXUI{
         this->animator.GetAnimationGroupById(1)->PlayAnimationAtFrameAndDisable(0, digit_2);
         this->animator.GetAnimationGroupById(2)->PlayAnimationAtFrameAndDisable(0, digit_1);
 
-        this->animator.GetAnimationGroupById(3)->PlayAnimationAtFrameAndDisable(0, decimals);
+        this->animator.GetAnimationGroupById(3)->PlayAnimationAtFrameAndDisable(0, decimal);
 
         return;
     }
