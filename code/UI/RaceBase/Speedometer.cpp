@@ -41,10 +41,11 @@ namespace DXUI{
 
         loader.Load("game_image", "speedometer", variant, anims);
         
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 4; i++)
         {
             this->animator.GetAnimationGroupById(i)->PlayAnimationAtFrameAndDisable(0, 0.0f);
         }
+        this->animator.GetAnimationGroupById(4)->PlayAnimationAtFrameAndDisable(0, 11.0f);
         return;
     }
 
@@ -83,23 +84,22 @@ namespace DXUI{
         u32 splitSpeed = (u32) (speed * 10.0f);
 
         float decimals = (float) (splitSpeed % 10 / 1);
-        float units = (float) (splitSpeed % 100 / 10);
-        float tens = (float) (splitSpeed % 1000 / 100);
-        float hundreds = (float) (splitSpeed % 10000 / 1000);
+        float digit_1 = (float) (splitSpeed % 100 / 10);
+        float digit_2 = (float) (splitSpeed % 1000 / 100);
+        float digit_3 = (float) (splitSpeed % 10000 / 1000);
 
-        if(hundreds < 0.1f) 
+        if(digit_3 < 0.1f) 
         {
-            hundreds = 10.0f;
-            if(tens < 0.1f) 
-                tens = 10.0f;
+            digit_3 = 10.0f;
+            if(digit_2 < 0.1f) 
+                digit_2 = 10.0f;
         }
 
-        this->animator.GetAnimationGroupById(0)->PlayAnimationAtFrameAndDisable(0, hundreds);
-        this->animator.GetAnimationGroupById(1)->PlayAnimationAtFrameAndDisable(0, tens);
-        this->animator.GetAnimationGroupById(2)->PlayAnimationAtFrameAndDisable(0, units);
-        this->animator.GetAnimationGroupById(3)->PlayAnimationAtFrameAndDisable(0, decimals);
+        this->animator.GetAnimationGroupById(0)->PlayAnimationAtFrameAndDisable(0, digit_3);
+        this->animator.GetAnimationGroupById(1)->PlayAnimationAtFrameAndDisable(0, digit_2);
+        this->animator.GetAnimationGroupById(2)->PlayAnimationAtFrameAndDisable(0, digit_1);
 
-        this->animator.GetAnimationGroupById(4)->PlayAnimationAtFrameAndDisable(0, 11.0f);
+        this->animator.GetAnimationGroupById(3)->PlayAnimationAtFrameAndDisable(0, decimals);
 
         return;
     }

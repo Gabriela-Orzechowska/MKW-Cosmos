@@ -44,3 +44,4 @@ TestPack/mkwdx/sys/E.bin
 TestPack/mkwdx/sys/J.bin
 TestPack/mkwdx/sys/K.bin
 TestPack/mkwdx/sys/P.bin
+*.bin
