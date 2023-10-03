@@ -128,6 +128,7 @@ class AudioHandle : public snd::SoundHandle{ //sound handle with a ctor
 };
 
 class AudioHandleHolder{ //can hold 2 basicSound, for example on raceStart when the track brstm is waiting and countdown is playing
+public:
     static AudioHandleHolder *sInstance; //809c2328
     static AudioHandleHolder *GetStaticInstance(); //806f8648
     static void DestroyStaticInstance(); //806f86f0
@@ -161,6 +162,7 @@ class MainSoundPlayerVolumeMgr{ //allows a finer control of soundplayer 0's volu
 };
 
 class AudioStreamsMgr{
+public:
     static AudioStreamsMgr *sInstance; //809c2330
     static AudioStreamsMgr *GetStaticInstance(); //806fa0ac
     static void DestroyStaticInstance(); //806fa154
@@ -196,7 +198,7 @@ class AudioReverbMgr {
     AudioTrack volumes[4];
 }; //ac
 
-
+void SwitchAudioChannel(u32 * unknown, u32 channel, u32 transitionSpeed); //806fab2c
 
 
 #endif

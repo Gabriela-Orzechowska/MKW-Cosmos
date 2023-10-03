@@ -48,6 +48,7 @@ public:
 	}; //0x34
 
 	class StrmChannel{
+	public:
 		void *buffer; //allocated from pool
 		u8 unknown_0x4[0x30];
 	}; //0x34

@@ -195,8 +195,10 @@ GetSoundType__Q34nw4r3snd12SoundArchiveCFUi = 0x8009df30
 ReadStrmInfo__Q44nw4r3snd6detail14StrmFileLoaderFPQ54nw4r3snd6detail14StrmFileReader8StrmInfo = 0x800a5490
 DetailUtilCalcRandom__Q24nw4r3sndFv = 0x800ad050
 
+SwitchAudioChannel__FPUiUiUi = 0x806fab2c
 
-
+sInstance__17AudioHandleHolder = 0x809c2328
+sInstance__15AudioStreamsMgr = 0x809c2330
 
 
 #EGG
