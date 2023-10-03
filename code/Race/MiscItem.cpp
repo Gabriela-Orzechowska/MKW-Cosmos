@@ -32,3 +32,6 @@ kmWrite32(0x807a9b28, 0x60000000);
 
 //Global POW
 kmWrite32(0x807b1e64, 0x60000000);
+
+// Rotating Triple Bananas
+kmWrite8(0x808A5383, 0x03);
