@@ -35,3 +35,6 @@ kmWrite32(0x807b1e64, 0x60000000);
 
 // Rotating Triple Bananas
 kmWrite8(0x808A5383, 0x03);
+
+// Buffed Bananas
+kmWrite32(0x80573188, 0x38600001);
