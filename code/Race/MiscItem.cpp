@@ -38,3 +38,6 @@ kmWrite8(0x808A5383, 0x03);
 
 // Buffed Bananas
 kmWrite32(0x80573188, 0x38600001);
+
+// Cant lose Thunder Cloud
+kmWrite32(0x807AFAA8, 0x48000038);
