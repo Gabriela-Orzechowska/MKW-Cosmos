@@ -27,4 +27,5 @@ kmCall(0x80790be4, IncreaseItemLimit); //Golden
 kmCall(0x80790bf4, IncreaseItemLimit); //Bullet
 kmCall(0x80790bc4, IncreaseItemLimit); //Blooper
 
-
+// No Bill Icon
+kmWrite32(0x807a9b28, 0x60000000);
