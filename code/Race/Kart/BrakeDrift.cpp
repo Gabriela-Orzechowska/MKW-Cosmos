@@ -5,6 +5,8 @@
 #include <game/UI/MenuData/MenuData.hpp>
 #include <game/Race/RaceData.hpp>
 
+//Ported from Stebler's 200cc code
+
 void EnableBrakeDrifting()
 {
     for(int i = 0; i < RaceData::sInstance->racesScenario.localPlayerCount; i++)
@@ -53,3 +55,29 @@ void BrakeDrift(KartMovement * movement)
 }
 
 kmCall(0x80579910, BrakeDrift);
+
+int EnableSound(Kart * kart, KartStatus * status)
+{
+    if(IsHoldingBrakeDrift(status))
+        return 4;
+    return status->bitfield0;
+}
+
+// Had to Check SIP with that, Credits to Melg
+asm int BrakeDriftSound(){
+    ASM(
+        nofralloc;
+        mflr r27;
+        mr r30, r3;
+        bl EnableSound;
+        mtlr r27;
+        rlwinm r0, r3, 0, 31, 31;
+        rlwinm r27, r3, 31, 31, 31;
+        rlwinm r28, r3, 30, 31, 31;
+        mr r3, r30;
+        mr r30, r0;
+        blr;
+    );
+}
+
+kmCall(0x806faff8, BrakeDriftSound);
