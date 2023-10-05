@@ -81,3 +81,31 @@ asm int BrakeDriftSound(){
 }
 
 kmCall(0x806faff8, BrakeDriftSound);
+
+int BrakeDriftParticlesBike(PlayerEffects * effects)
+{
+    Kart * kart = effects->kart;
+    if(IsHoldingBrakeDrift(kart->base.pointers->kartStatus))
+        effects->DisplayEffects2(effects->bikeDriftEffects, 25, 26, true);
+    else    
+        effects->FadeEffects2(effects->bikeDriftEffects, 25, 26, true);
+
+    return kart->GetDriftState();
+}
+
+kmWrite32(0x80698f88, 0x60000000);
+kmCall(0x80698f8c, BrakeDriftParticlesBike);
+
+int BrakeDriftParticlesKart(PlayerEffects * effects)
+{
+    Kart * kart = effects->kart;
+    if(IsHoldingBrakeDrift(kart->base.pointers->kartStatus))
+        effects->DisplayEffects2(effects->kartDriftEffects, 34, 36, true);
+    else    
+        effects->FadeEffects2(effects->kartDriftEffects, 34, 36, true);
+
+    return kart->GetDriftState();
+}
+
+kmWrite32(0x80698048, 0x60000000);
+kmCall(0x8069804c, BrakeDriftParticlesKart);
