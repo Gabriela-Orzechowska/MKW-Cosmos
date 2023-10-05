@@ -3,8 +3,8 @@
 
 void CheckArchiveBeforeClearing(ArchiveFile * file)
 {
-    if(file->archiveHeap == NULL) return;
-    if(file->decompressedArchiveHeap == NULL) return
+    if(file->archive != NULL && file->archiveHeap == NULL) return;
+    if(file->decompressedArchive != NULL && file->decompressedArchiveHeap == NULL) return;
 
     file->Clear();
 }
