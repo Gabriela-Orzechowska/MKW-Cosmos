@@ -24,6 +24,7 @@ public:
     void Decompress(const char *path, EGG::Heap *heap); //80519508 r4 unused
     void *GetFile(const char *path, u32 *size); //80519420
     void Unmount(); //805192cc
+    void Clear(); //80519240
     EGG::Archive *archive; //4
     void *decompressedArchive; //0x8
     u32 decompressedarchiveSize; //0xc

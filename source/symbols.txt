@@ -266,6 +266,7 @@ sInstance__11ArchiveRoot = 0x809bd738
 DumpArchive__14ArchivesHolderFPcPQ23EGG4Heap = 0x8052ab6c
 Load__11ArchiveFileFPCcPQ23EGG4HeapbiPQ23EGG4HeapPQ33EGG7Archive8FileInfo = 0x80518e10
 Dump__11ArchiveFileFPCcPQ23EGG4Heapi = 0x805190f0
+Clear__11ArchiveFileFv = 0x80519240
 Unmount__11ArchiveFileFv = 0x805192cc
 GetFile__11ArchiveRootF13ArchiveSourcePCcUi = 0x805411fc
 RequestLoadCourseAsync__11ArchiveRootF8CourseId = 0x805419ac
