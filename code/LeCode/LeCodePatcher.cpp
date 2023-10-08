@@ -10,19 +10,19 @@ void LoadLeCode()
     DVDFileInfo fileHandle;
     char * filepath = GetLecodeFilepath();
 
-    binHeader * header = new(binHeader);
+    lectHeader * header = new(lectHeader);
 
     if(DVDOpen(filepath, &fileHandle))
     {
-        int output = DVDReadPrio(&fileHandle, (void *) 0x80004000, 0x20, 0x0, 0x2);
+        if (DVDReadPrio(&fileHandle, (void *) (0x80004000 - 0x20), 0x20, 0x0, 0x2));
+        {
+            header = (lectHeader *) (0x80004000 - 0x20);
+            DVDReadPrio(&fileHandle, header->baseAddress, header->totalSize, 0x0, 0x2);      
 
-        header = (binHeader *) 0x80004000;
-        DVDReadPrio(&fileHandle, header->baseAddress, header->totalSize, 0x0, 0x2);      
+            DVDClose(&fileHandle);      
 
-        DVDClose(&fileHandle);      
-
-        ((void (*)(void))header->entryPoint)(); 
-
+            ((void (*)(void))header->entryPoint)(); 
+        }
     }
     else{     
         u32 black = 0x000000FF;
