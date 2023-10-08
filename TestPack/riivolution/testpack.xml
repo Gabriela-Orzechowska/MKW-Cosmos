@@ -20,6 +20,7 @@
 		<memory offset="0x8000A4FC" value="4BFF9B08" original="4e800020" /> <!--RMCK-->
 		<folder external="/mkwdx/Extra" disc="/" create="true"/>
 		<folder external="/mkwdx/Scene" disc="/Scene/UI/" create="true"/>
+		<folder external="/mkwdx/Course" disc="/Race/Course/" create="true"/>
 		<folder external="/mkwdx/My Stuff" recursive="false"/>
 		<folder external="/mkwdx/My Stuff" disc="/"/>
 	</patch>
