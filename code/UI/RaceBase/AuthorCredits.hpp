@@ -5,8 +5,7 @@
 #include <UI/RaceBase/ControlRaceBase.hpp>
 #include <game/UI/Ctrl/CtrlRace/CtrlRaceWifi.hpp>
 
-#define BMGOFFSET 0x1000
-#define LECODETRACKIDADDRESS 0x808ee450
+#define BMGOFFSET 0x13000
 
 namespace DXUI{
     class ControlAuthorCredits : public CtrlRaceWifiStartMessage

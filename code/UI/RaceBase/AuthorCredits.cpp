@@ -1,4 +1,5 @@
 #include <UI/RaceBase/AuthorCredits.hpp>
+#include <LeCode/LeCodeManager.hpp>
 
 namespace DXUI{
 
@@ -22,7 +23,7 @@ namespace DXUI{
         ControlLoader loader(this);
         loader.Load("game_image", "credits", "info_1", NULL);
         this->textBox_00 = this->layout.GetPaneByName("TextBox_00");
-        u32 trackId = *reinterpret_cast<u32 *>(LECODETRACKIDADDRESS);
+        u32 trackId = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
         this->SetMsgId(BMGOFFSET + trackId, 0);
     }
 
