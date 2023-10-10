@@ -53,7 +53,7 @@ kmCall(0x805cdd7c, AdditionalHolderGetMessage);
 wchar_t * AdditionalHolderGetMessageString(BMGHolder * baseHolder, u32 slot)
 {
     wchar_t * result;
-    if(useAdditionalHolder && AdditionalHolder != nullptr && AdditionalHolder->bmgFile != nullptr)
+    if(useAdditionalHolder)
         result = AdditionalHolder->GetMsgByMsgId(slot);
     else
         result = baseHolder->GetMsgByMsgId(slot);
