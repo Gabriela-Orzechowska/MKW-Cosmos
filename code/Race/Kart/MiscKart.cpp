@@ -2,7 +2,7 @@
 #include <game/Race/Kart/KartStatus.hpp>
 
 // No Drift Threshold
-kmWrite32(0x808b5b1c, 0.0f);
+kmWrite32(0x808b5b1c, 0x00);
 
 // Patch Offroad Glitch [vabold]
 void EndJumpPad(KartStatus * status)
