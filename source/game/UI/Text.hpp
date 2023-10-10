@@ -14,6 +14,7 @@ class CharacterInfo{
 class BMGHolder{
 public:
     BMGHolder(); //0x805f8b34
+    void Destroy(int param_2); //805f8b50
     void Load(const char *name); //805f8b90
     void Init(BMGHeader *bmgFile); //805f8c00
     u32 GetMsgId(s32 bmgId) const; //805f8c88
