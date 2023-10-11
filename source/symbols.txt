@@ -188,6 +188,8 @@ __vt__Q34nw4r3lyt6Layout = 0x802734c0
 GetFrameSize__Q34nw4r3lyt13AnimTransformFv = 0x800829d0
 GetTexMapAry__Q34nw4r3lyt8MaterialFv = 0x800809a0
 ReplaceImage__Q34nw4r3lyt6TexMapFP10TPLPaletteUi = 0x80082550
+TextBox_setMessage__11PaneManagerFPQ34nw4r3lyt7TextBoxP9BMGHolderP9BMGHolderUiPUi = 0x805cdd00
+SetTextBoxMessage__11PaneManagerFPQ34nw4r3lyt7TextBoxP9BMGHolderP9BMGHolderUi = 0x805e7804
 
 #snd
 OpenExtStream__Q34nw4r3snd15DVDSoundArchiveFPQ44nw4r3snd15DVDSoundArchive13DvdFileStreamUiPcUiUi = 0x800912c0
@@ -391,13 +393,17 @@ __ct__9BMGHolderFv = 0x805f8b34
 __dt__9BMGHolderFv = 0x805f8b50
 Load__9BMGHolderFPCc = 0x805f8b90
 Destroy__9BMGHolderFi = 0x805f8b50
-GetMsgId__8BMGHolderFi = 0x805f8c88
-GetMsgId__9BMGHolderCFi = 0x805f8c88
+GetMsgId__9BMGHolderFi = 0x805f8c88
+GetMsgId__9BMGHolderFUi = 0x805f8c88
 GetMsgByMsgId__9BMGHolderCFUi = 0x805f8cf0
 Init__9BMGHolderFP9BMGHeader = 0x805f8c00
 loadBmgFile         =0x805f8b90
 getMessageByIdx     =0x805f8cf0
 getMessageFlags     =0x805f8d2c
+
+#BMGHelpers
+TextBox_setMessage_wrong__Fv = 0x805cdde4
+TextBox_setMessage_correct__Fv = 0x805cddbc
 
 #UIControl
 __vt__9UIControl = 0x808bf008      
@@ -435,6 +441,8 @@ SetMiiPane__15LayoutUIControlFPCcP8MiiGroupUiUc = 0x8063e3dc
 SetPicturePane__15LayoutUIControlFPCcPCc = 0x8063e0f0
 __ct__24LayoutUIControlScaleFadeFv = 0x8063e674
 __dt__24LayoutUIControlScaleFadeFv = 0x8063e7a8
+
+
 
 #ControlGroup
 ControlGroup = 0x805C23E4

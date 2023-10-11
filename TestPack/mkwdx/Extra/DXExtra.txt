@@ -6,46 +6,10 @@
 #  * The BMG file format:  https://szs.wiimm.de/r/wiki/BMG
 #
 #
-#------------------------------------------------------------------------------
-# All parameters begin with '@'. Unknown parameters are ignored on scanning.
-
-# The endianness of binary files: 0=big endian (default), 1=little endian.
-# Little endian is only tested for encoding UTF-8 (need examples of analysis).
-@ENDIAN = 0
-
-# If 1, then enable legacy (GameCube) mode for old binary BMG files.
-# If enabled, ENCODING is always CP1252.
-@LEGACY = 0
-
-# Define encoding of BMG: 1=CP1252, 2=UTF-16/be, 3=Shift-JIS, 4=UTF-8
-@ENCODING = 2
-
-# Create »MID1« section: 0=off, 1=on
-@BMG-MID = 1
-
-# Size of each element of section 'INF1' (MKW=8).
-# This setting has impact to attributes and MKW features.
-@INF-SIZE = 0x08
-
-# Default attribute values for this BMG (MKW=[1])
-@DEFAULT-ATTRIBS = [4]
-
-# Use MKW specific color names: 0=off, 1=auto, 2=on
-@COLOR-NAMES = 1
-
-# Use MKW messages and track names: 0=off, 1=auto, 2=on
-@MKW-MESSAGES = 1
-
-#
+
 #------------------------------------------------------------------------------
 
-# This part defines values for unknown parameters of section headers.
-@UNKNOWN-INF32-0C =          0	# 32 bit value of section INF1 offset 0x0c
-@UNKNOWN-MID16-0A =     0x1000	# 16 bit value of section MID1 offset 0x0a
-@UNKNOWN-MID32-0C =          0	# 32 bit value of section MID1 offset 0x0c
-
-#
-#------------------------------------------------------------------------------
-
-   10100 = Wii Luigi Circuit by Nintendo
+  232e	= Maro
+  232f	= Luig ma brotgher
+ 10100 [4] = Wii Luigi Circuit by Nintendo
 

@@ -17,9 +17,9 @@ public:
     void Destroy(int param_2); //805f8b50
     void Load(const char *name); //805f8b90
     void Init(BMGHeader *bmgFile); //805f8c00
-    u32 GetMsgId(s32 bmgId) const; //805f8c88
-    wchar_t *GetMsgByMsgId(u32 msgId) const; //805f8cf0
-    u8 GetFontType(u32 msgId) const; //805f8d2c
+    s32 GetMsgId(u32 bmgId); //805f8c88
+    wchar_t *GetMsgByMsgId(u32 msgId); //805f8cf0
+    u8 GetFontType(u32 msgId); //805f8d2c
     BMGHeader *bmgFile; //0
     BMGInfo *info; //0x4
     BMGData *data; //0x8 string pool

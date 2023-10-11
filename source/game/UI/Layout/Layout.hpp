@@ -47,6 +47,7 @@ class MoviePaneHandler::Initializer : PaneAction{
 };
 
 class PaneManager{
+public:
     virtual void Draw(DrawInfo *drawInfo) = 0; //abstract
     static bool SearchPane(Pane *pane, Pane *otherPane); //805e7460 checks if pane or any of its parents are equal to otherPane
     static Pane *GetParentPane(Pane *pane); //805e74f8
@@ -57,6 +58,7 @@ class PaneManager{
     static char GetNextUserInfo(Pane *pane, char info); //805e7aec
     static void DoAction(Pane *pane, PaneAction *action); //805e78f0 does it for a pane and all its parents
     static void SetTextBoxMessage(TextBox *pane, BMGHolder *curFileBmgs, BMGHolder *commonBmgs, u32 bmgId); //805e7804
+    static void TextBox_setMessage(TextBox *pane, BMGHolder *curFileBmgs, BMGHolder *commonBmgs, u32 bmgId, u32 * messInfo); //805cdd00
     PaneManager *prevHolder;   
     class Initializer;
 };
