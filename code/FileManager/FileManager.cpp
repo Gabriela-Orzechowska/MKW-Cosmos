@@ -21,7 +21,12 @@ namespace DXFile
             }
             manager = new (heap) FileManager();
         }
-            //We might need a riivo helper
+        else
+        {
+            valid = true;
+            IOS::Close(ret);
+            manager = new (heap) RiivoFileManager();
+        }
         FileManager::sInstance = manager;
         manager->isValid = valid;
         FileManager::sInstance->taskThread = EGG::TaskThread::Create(2, 30, 0x2000, NULL);
