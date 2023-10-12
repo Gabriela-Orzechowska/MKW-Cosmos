@@ -1,5 +1,6 @@
 #include <main.hpp>
 #include <game/System/Archive.hpp>
+#include <game/Race/RaceData.hpp>
 
 namespace DX{
 
@@ -12,6 +13,22 @@ namespace DX{
             b Open2ndInst;
         )
     }
+
+    void SetTTCC(TT_MODE ttMode)
+    {
+        TTMode = ttMode;
+        SetCC();
+    }
+
+    void SetCC()
+    {
+        EngineClass cc = CC_100;
+        if(TTMode == DX_TT_200CC) cc = CC_150;
+        RaceData::sInstance->menusScenario.settings.engineClass = cc;
+    }
+
+    kmBranch(0x805e1ef4, SetCC);
+    kmBranch(0x805e1d58, SetCC);
 
     void LoadAdditionalFiles(ArchiveFile * file, const char * path, EGG::Heap *heap, bool isCompressed, s32 align, EGG::Heap * fileHeap, EGG::Archive::FileInfo * fileInfo)
     {
