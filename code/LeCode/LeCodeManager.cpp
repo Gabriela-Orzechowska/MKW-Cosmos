@@ -63,14 +63,14 @@ namespace LeCode
 
     void * LeCodeManager::GetLoaderAddress()
     {
-        return &this->loaderHeader;
+        return this->loaderHeader;
     }
 
     u32 LeCodeManager::GetTrackID()
     {
-        char * address = reinterpret_cast<char*>(this->settingHeader);
+        char * address = (char*)(this->settingHeader);
         address += this->settingHeader->off_eod;
-        return *reinterpret_cast<u32*>(address);
+        return *(u32*)(address);
     }
 
     void InitLoader()

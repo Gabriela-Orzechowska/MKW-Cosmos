@@ -5,7 +5,7 @@
 #include <UI/RaceBase/ControlRaceBase.hpp>
 #include <game/UI/Ctrl/CtrlRace/CtrlRaceWifi.hpp>
 
-#define BMGOFFSET 0x13000
+#define BMGOFFSET 0x7000
 
 namespace DXUI{
     class ControlAuthorCredits : public CtrlRaceWifiStartMessage

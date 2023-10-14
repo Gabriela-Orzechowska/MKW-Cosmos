@@ -1,6 +1,7 @@
 #include <kamek.hpp>
 #include <game/UI/Text.hpp>
 #include <game/UI/Layout/Layout.hpp>
+#include <core/rvl/os/OS.hpp>
 
 static BMGHolder * AdditionalHolder = new(BMGHolder);
 
@@ -8,7 +9,6 @@ void InjectAdditionalHolder(BMGHolder * baseHolder, char * filename)
 {
     baseHolder->Load(filename);
     AdditionalHolder->Load("DXExtra");
-
     return;
 }
 
@@ -20,7 +20,8 @@ void TextBox_setMessage_Patch(nw4r::lyt::TextBox * pane, BMGHolder * contextHold
     {
         if(AdditionalHolder->GetMsgId(id) >= 0) 
         {
-            PaneManager::TextBox_setMessage(pane, AdditionalHolder, commonHolder, id, messInfo);
+            OSReport("[DX] Patching MessageGroup ID: %d\n", id);
+            PaneManager::TextBox_setMessage(pane, AdditionalHolder, AdditionalHolder, id, messInfo);
             return;
         }        
     }
@@ -37,7 +38,8 @@ void setTextBoxMessage_Patch(nw4r::lyt::TextBox * pane, BMGHolder * contextHolde
     {
         if(AdditionalHolder->GetMsgId(id) >= 0) 
         {
-            PaneManager::SetTextBoxMessage(pane, AdditionalHolder, commonHolder, id);
+            OSReport("[DX] Patching MessageGroup ID: %d\n", id);
+            PaneManager::SetTextBoxMessage(pane, AdditionalHolder, AdditionalHolder, id);
             return;
         }
             
