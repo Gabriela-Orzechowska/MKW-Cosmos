@@ -1,5 +1,4 @@
 # Prerequisites
-*.d
 /cw
 cw/
 /.vscode
@@ -12,6 +11,8 @@ cw/
 *.lo
 *.o
 *.obj
+build/*.bin
+/build/*.bin
 
 # Precompiled Headers
 *.gch
@@ -36,4 +37,3 @@ cw/
 *.app
 engine/.editorconfig
 source/.editorconfig
-build/*
