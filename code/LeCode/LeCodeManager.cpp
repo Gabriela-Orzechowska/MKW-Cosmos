@@ -39,7 +39,7 @@ namespace LeCode
                 DVDReadPrio(&fileHandle, this->loaderHeader->baseAddress, this->loaderHeader->totalSize, 0x0, 0x2);      
 
                 this->loaderHeader = (le_binary_header *) this->loaderHeader->baseAddress;
-                this->settingHeader = (lpar_header *)(&this->loaderHeader + 0x40);
+                this->settingHeader = (lpar_header *)(((u8 * )this->loaderHeader) + 0x40);
 
                 DVDClose(&fileHandle);      
 
@@ -68,7 +68,9 @@ namespace LeCode
 
     u32 LeCodeManager::GetTrackID()
     {
-        return *reinterpret_cast<u32 *>(&this->settingHeader + this->settingHeader->off_cup_par);
+        char * address = reinterpret_cast<char*>(this->settingHeader);
+        address += this->settingHeader->off_eod;
+        return *reinterpret_cast<u32*>(address);
     }
 
     void InitLoader()

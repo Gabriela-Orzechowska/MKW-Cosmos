@@ -24,7 +24,7 @@ namespace LeCode{
     } le_binary_header;
 
     typedef struct lpar_header {
-        u32 magic[8];
+        u8 magic[8];
         u32 version;
         u32 size;
         u32 off_eod;
