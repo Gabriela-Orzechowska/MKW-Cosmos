@@ -37,6 +37,7 @@ namespace DXUI
         this->AddControl(0x0F, button, 0);
         button->Load("button", "DXVRScreen", "ChangeCombo", 1, 0, false);
         button->SetOnClickHandler((PtmfHolder_2A<Page, void, PushButton *, u32> * )&this->onChangeComboButton, 0);
+        button->manipulator.SetAction(START_PRESS, &button->onClickHandlerObj, 0);
     }
 
     void VRPagePlus::ChangeCombo(PushButton * button, u32 slotId)
