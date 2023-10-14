@@ -28,7 +28,7 @@ enum MenuState {
 class MenuData {
 public:
     static MenuData *sInstance;
-    static MenuData *GetStaticInstance(); //80634c90
+    static MenuData *CreateStaticInstance(); //80634c90
     static void DestroyStaticInstance(); //80634cc8
     static Pages::System *CreateSystemPages(u8 idx, MenuId id); //80634a64
     

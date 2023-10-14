@@ -32,7 +32,7 @@ public:
     virtual int func_0x18(); //0x18 805bb24c 
     virtual void ChangeMenu(MenuId menuId, u32 animDirection, float delay); //0x1c 806024b0
     virtual void func_0x20(); //0x20 80602530
-    virtual void AddPageLayer(PageId id, u32 animDirection); //0x24 806025b0
+    virtual void AddPageLayer(PageId id, s32 animDirection); //0x24 806025b0
     virtual void OnInit(); //0x28 80601ad8 just a blr 
     virtual void OnDispose(); //0x2c 805bb248 just a blr 
     virtual void OnActivate(); //0x30 805c9888 just a blr   

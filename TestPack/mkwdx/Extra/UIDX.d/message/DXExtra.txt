@@ -14,6 +14,7 @@
  2800   = Time Trials (150cc)
  2801   = Time Trials (200cc)
  2820   = A solo race for the fastest record! (200cc)
+ 2830   = Change Combo
   13044	= DS Test Circle \n\z{800,40}\c{blue1}Bruh de la Boi\c{off}
   13045	= Castle Gorge \n\z{800,40}\c{blue1}Toadette Hack Fan, Mystora\c{off} 
   13046	= KKW Prismatic Parkway \n\z{800,40}\c{blue1}Mystora\c{off} 

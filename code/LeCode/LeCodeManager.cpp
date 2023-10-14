@@ -19,7 +19,7 @@ namespace LeCode
                 snprintf(filepath, 20, LECODE_FILE, "USA");
                 break;
             case 'J':
-                snprintf(filepath, 20, LECODE_FILE, "JPN");
+                snprintf(filepath, 20, LECODE_FILE, "JAP");
                 break;
         }
 
