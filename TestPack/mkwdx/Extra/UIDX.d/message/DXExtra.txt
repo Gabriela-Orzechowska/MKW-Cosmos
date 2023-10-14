@@ -1,0 +1,18 @@
+#BMG  <<<  The first 4 characters '#BMG' are the magic for a BMG text file.
+#     <<<  Don't remove them!
+#
+# Details about BMG text files are available in the Web:
+#  * Syntax and Semantics: https://szs.wiimm.de/doc/bmg/text
+#  * The BMG file format:  https://szs.wiimm.de/r/wiki/BMG
+#
+#
+
+#------------------------------------------------------------------------------
+
+
+  beb	= A solo race for the fastest record! (150cc)
+ 2800   = Time Trials (150cc)
+ 2801   = Time Trials (200cc)
+ 2820   = A solo race for the fastest record! (200cc)
+ 10100 [4] = Wii Luigi Circuit by Nintendo
+
