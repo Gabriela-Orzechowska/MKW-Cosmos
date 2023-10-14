@@ -11,4 +11,4 @@ void CheckArchiveBeforeClearing(ArchiveFile * file)
 
 kmCall(0x8052ac70, CheckArchiveBeforeClearing);
 
-kmWrite32(0x806394f0, 0x60000000);
+//kmWrite32(0x806394f0, 0x60000000);
