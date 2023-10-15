@@ -4,6 +4,10 @@
 
 static bool hasHighwayManager = false;
 
+kmWrite32(0x8082a4fc,0x48000030); //Always create control group
+
+#pragma region MoonviewHighway
+
 void * TGECarManagerCreate(u32 size)
 {
     bool hasCar = false;
