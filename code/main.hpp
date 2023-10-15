@@ -24,6 +24,9 @@ namespace DX
     void SetTTCC(TT_MODE mode);
     void SetCC();
 
+
+    void CreateBranch(u32 from, u32 to);
+    void CreateCall(u32 from, u32 to);
 }
 
 

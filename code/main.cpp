@@ -58,4 +58,20 @@ namespace DX{
     kmWrite32(0x80635670, 0x38000000);
     kmWrite32(0x80896830, 0x00000000);
 
+    void CreateBranch(u32 from, u32 to)
+    {
+        u32 offset = to-from;
+        u32 command = 0x48000000 | (offset & 0x03FFFFFF);
+        *((u32 *)from) = command;
+    }
+    void CreateCall(u32 from, u32 to)
+    {
+        u32 offset = to-from+1;
+
+        u32 command = 0x48000000 | (offset & 0x03FFFFFF);
+        *((u32 *)from) = command;
+    }
+
+
+
 }

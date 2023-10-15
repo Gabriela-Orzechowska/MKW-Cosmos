@@ -1,4 +1,5 @@
 #include <LeCode/LeCodeManager.hpp>
+#include <game/System/Archive.hpp>
 
 extern char gameID[4];
 char filepath[20];
@@ -26,6 +27,23 @@ namespace LeCode
         return filepath;
     }
 
+    void * LoadAdditionalBinaries(ArchiveRoot * archive, ArchiveSource source, const char * name)
+    {
+        void * file = archive->GetFile(ARCHIVE_HOLDER_COURSE, name, 0);
+        if(file == NULL)
+        {
+            char commonName[0x30];
+            snprintf(commonName, 0x30, "Common/%s", name);
+            file = archive->GetFile(ARCHIVE_HOLDER_COURSE, commonName, 0);
+        }
+        if(file == NULL)
+            file = archive->GetFile(ARCHIVE_HOLDER_COMMON, name, 0);
+        return file;
+    }
+
+    kmCall(0x8082c140, LoadAdditionalBinaries);
+    kmCall(0x807f92ac, LoadAdditionalBinaries);
+
     void LeCodeManager::LoadLeCode()
     {
         DVDFileInfo fileHandle;
@@ -44,6 +62,9 @@ namespace LeCode
                 DVDClose(&fileHandle);      
 
                 ((void (*)(void))this->loaderHeader->entryPoint)(); 
+
+                DX::CreateCall(0x8082c140, (u32)&LoadAdditionalBinaries);
+                DX::CreateCall(0x807f92ac, (u32)&LoadAdditionalBinaries);
             }
         }
         else{     
