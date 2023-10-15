@@ -37,3 +37,5 @@ build/*.bin
 *.app
 engine/.editorconfig
 source/.editorconfig
+TestPack/riivolution/config/RMCJ.xml
+build/P.bin

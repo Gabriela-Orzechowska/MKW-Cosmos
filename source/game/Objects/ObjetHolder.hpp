@@ -5,8 +5,7 @@
 #include <game/File/Tables/GeoHitTable.hpp>
 #include <game/Objects/Object.hpp>
 #include <game/Objects/ObjectCollision.hpp>
-#include <game/System/Misc.hpp>
-#include <game/Item/ItemObj.hpp>
+#include <game/Item/Obj/ItemObj.hpp>
 #include <game/KMP/Controller.hpp>
 
 
@@ -19,7 +18,7 @@ class ObjFlowHolder{
     ObjFlowEntry *entries; //0x8 array size objectCount
     IndexToIDTable *idxToIDTable; //0xC
 }; //0x10
-static_assert(sizeof(ObjFlowHolder) == 0x160, "ObjFlowHolder");
+static_assert(sizeof(ObjFlowHolder) == 0x10, "ObjFlowHolder");
 
 class GeoHitTableHolder{
     explicit GeoHitTableHolder(const char *fileName); //807f9278
@@ -63,6 +62,7 @@ struct ObjectArray{
 }; //0x8
 
 class ObjectHolder{
+    public:
     static ObjectHolder *sInstance; //0x809c4330
     static ObjectHolder *GetStaticInstance(); //8082a784 also inits
     static void DestroyStaticInstance(); //8082a824
@@ -77,7 +77,11 @@ class ObjectHolder{
     void HandleDroppedItem(ItemObj *itemEntity, Vec3 *position, float unknown); //8082adbc
     void AddObject(Object *object); //8082b0e8
     void CheckCollision(Kart *kart, ObjectCollisionPolyhedra *collision); //8082ab04
+    u32 GetControlledCount(); //8082b3b8
+    Object * GetControlledObjectByID(s32 id); //8082b3a8
     
+
+    u32 unknown_0x00; //0x0
     ObjFlowHolder *objFlow; //0x4
     GeoHitTableItemHolder *geoHitTableItem; //0x8
     GeoHitTableItemObjHolder *geoHitTableItemObj; //0xC
@@ -85,19 +89,21 @@ class ObjectHolder{
     GeoHitTableKartObjHolder *geoHitTableKartObj; //0x14
     ObjectArray arrays[5]; //0x18 use enum, doesn't have ObjectKCLs
     Object *objects_0x40; //0x40
-    Vec3ZeroInit *positions[0xC8]; //0x44, no idea
+    Vec3ZeroInit *positions; //0x44, no idea
     ObjToKartHit *kartInteractionArray; //0x48
     u8 unknown_0x4C[4];
     Object *pseaOrVenice_Nami; //0x50
+    u8 padding5;
     bool isNotTT; //0x55
-    u8 padding6[3];
+    u8 padding6[2];
     Object *managedObjects; //0x58 only for MH, DC, rSGB, rDH, galaxy colosseum ie objects with a object that is managed
     u8 unknown_0x5c[4];
     bool unknown_0x60; 
     u8 padding7[3];
     Mtx34 transformationMatrixes[4]; //0x64
     float angles[4]; //0x124 0 45 90 135
-    ObjectCollisionManager droppedItemManager; //0x134
+    u8 unknown_0x134[0x26];
+    //ObjectCollisionManager droppedItemManager; //0x134
 }; //total size 0x160
 static_assert(sizeof(ObjectHolder) == 0x160, "ObjectHolder");
 #endif

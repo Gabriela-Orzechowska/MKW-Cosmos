@@ -1159,6 +1159,9 @@ AllocatePlayerIdsToAids__18RKNetSELECTHandlerFv = 0x80662034
 
 #Objects
 Update__12ObjectHolderFv = 0x8082a8f4
+sInstance__12ObjectHolder = 0x809c4330
+GetControlledCount__12ObjectHolderFv = 0x8082b3b8
+GetControlledObjectByID__12ObjectHolderFi = 0x8082b3a8
 
 ##Rel
 
