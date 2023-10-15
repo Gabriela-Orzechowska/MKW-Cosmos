@@ -54,3 +54,24 @@ kmCall(0x806d686c, HighwayManagerCheck);
 kmWrite32(0x806d6870, 0x2c030000);
 
 kmWrite32(0x8078df44, 0x48000070); //Mat Fix
+
+#pragma endregion
+
+void * HeyhoShipManagerCreate(u32 size)
+{
+    u32 controlledCount = ObjectHolder::sInstance->GetControlledCount();
+    for(int i = 0; i < controlledCount; i++)
+    {
+        Object * object = ObjectHolder::sInstance->GetControlledObjectByID(i);
+        const char * objectName = object->GetName();
+        if(strcmp(objectName, "HeyhoShipGBA") == 0x0)
+        {
+            return new u8[size];
+        }
+    }
+    return NULL;
+}
+kmCall(0x80827a34, HeyhoShipManagerCreate);
+kmWrite32(0x80827a3c, 0x41820018);
+
+kmWrite32(0x80827a2c, 0x60000000);
