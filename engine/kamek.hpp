@@ -146,6 +146,27 @@ public:
     }
 };
 
+class LeCodeLoadHook {
+private:
+    typedef void (Func)();
+    Func *mFunc;
+    LeCodeLoadHook * mNext;
+
+    static LeCodeLoadHook * sHooks;
+
+public:
+    LeCodeLoadHook(Func * f) {
+        mNext = sHooks;
+        sHooks = this;
+        mFunc = f;
+    }
+
+    static void exec() {
+        for (LeCodeLoadHook * p = sHooks; p; p = p->mNext)
+            p->mFunc();
+    }
+};
+
 class RaceLoadHook {
 private:
     typedef void (Func)();

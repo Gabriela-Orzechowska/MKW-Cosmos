@@ -5,7 +5,6 @@
 #include <core/rvl/dvd/dvd.hpp>
 #include <core/rvl/rvl_sdk.hpp>
 #include <core/rvl/os/OS.hpp>
-#include <main.hpp>
 
 #define LECODE_FILE "/rel/lecode-%s.bin"
 

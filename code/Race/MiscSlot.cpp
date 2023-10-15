@@ -1,6 +1,7 @@
 #include <kamek.hpp>
 #include <game/System/Archive.hpp>
 #include <game/Objects/ObjetHolder.hpp>
+#include <main.hpp>
 
 static bool hasHighwayManager = false;
 
@@ -75,3 +76,29 @@ kmCall(0x80827a34, HeyhoShipManagerCreate);
 kmWrite32(0x80827a3c, 0x41820018);
 
 kmWrite32(0x80827a2c, 0x60000000);
+
+
+void * LoadAdditionalBinaries(ArchiveRoot * archive, ArchiveSource source, const char * name)
+{
+    void * file = archive->GetFile(ARCHIVE_HOLDER_COURSE, name, 0);
+    if(file == NULL)
+    {
+        char commonName[0x30];
+        snprintf(commonName, 0x30, "Common/%s", name);
+        file = archive->GetFile(ARCHIVE_HOLDER_COURSE, commonName, 0);
+    }
+    if(file == NULL)
+        file = archive->GetFile(ARCHIVE_HOLDER_COMMON, name, 0);
+    return file;
+}
+
+kmCall(0x8082c140, LoadAdditionalBinaries);
+kmCall(0x807f92ac, LoadAdditionalBinaries);
+
+void PatchLeCode()
+{
+    DX::CreateCall(0x8082c140, (u32)&LoadAdditionalBinaries);
+    DX::CreateCall(0x807f92ac, (u32)&LoadAdditionalBinaries);
+}
+
+static LeCodeLoadHook PatchBinaries(PatchLeCode);

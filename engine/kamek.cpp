@@ -4,6 +4,7 @@ BootHook *BootHook::sHooks = NULL;
 MenuLoadHook *MenuLoadHook::sHooks = NULL;
 RaceLoadHook *RaceLoadHook::sHooks = NULL;
 RaceFrameHook *RaceFrameHook::sHooks = NULL;
+LeCodeLoadHook *LeCodeLoadHook::sHooks = NULL;
 
 kmBranch(0x800074d4, BootHook::exec);
 kmBranch(0x805320d0, RaceLoadHook::exec);
