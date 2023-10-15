@@ -10,6 +10,7 @@ RipFromDiscAsync__13SystemManagerFPcPvUiUiPv = 0x8000b308
 
 wcstombs = 0x8000f138
 snprintf = 0x80011938
+vsnprintf = 0x8001182c
 qsort = 0x80011b00
 rand = 0x80011c70
 srand = 0x80011c90
@@ -166,6 +167,7 @@ DirectPrint_DrawString__Q24nw4r2dbFUiUibPc  = 0x80021E90
 DirectPrint_StoreCache__Q24nw4r2dbFv = 0x80021e70
 DumpException___Q24nw4r2dbFPCQ34nw4r2db22ExceptionCallbackParam = 0x80023410
 PrintContext___Q24nw4r2dbFUsPC9OSContextUiUi = 0x80023680
+Exception_Printf___Q24nw4r2dbFPCce = 0x800235a0
 
 
 #g3d

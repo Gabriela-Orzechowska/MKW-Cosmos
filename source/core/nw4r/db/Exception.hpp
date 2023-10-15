@@ -11,13 +11,13 @@ struct Exception{
 	u8 unknown[0x360]; 
 }; //total size 0x360
 
-struct ExceptionCallbackParam{
+typedef struct ExceptionCallbackParam{
     u16 error;
     u8 padding[2];
     OSContext* context;
     u32 dsisr;
     u32 dar;
-};
+} ExceptionCallbackParam;
 
 // prints message to NW4R console
 void DirectPrint_ChangeXfb(void *frameBuffer, u16 width, u16 height);
