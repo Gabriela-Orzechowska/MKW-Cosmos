@@ -14,14 +14,14 @@ extern char gameID[4];
 
 namespace DXDebug{
 
-    static char output[1024];
+    static char output[0x100];
 
     void HandlePanic( const char *file, int line, const char *fmt, va_list vlist, bool halt, u32 LR)
     {
-        char format[1024];
-        snprintf(output, 1024, "%s:%d Panic:\n", file, line);
-        vsnprintf(format, 1024, fmt, vlist);
-        snprintf(output, 1024, "%s%s", output, format);
+        char format[0x100];
+        snprintf(output, 0x100, "%s:%d Panic:\n", file, line);
+        vsnprintf(format, 0x100, fmt, vlist);
+        snprintf(output, 0x100, "%s%s", output, format);
         OSContext * context = OSGetCurrentContext();
         nw4r::db::ExceptionCallbackParam exc;
         exc.error = 0x30; 
@@ -29,7 +29,6 @@ namespace DXDebug{
         exc.dar = 0x0;
         exc.dsisr = LR;
         nw4r::db::DumpException_(&exc);
-
     }
     
     kmWrite32(0x80026028, 0x60000000);

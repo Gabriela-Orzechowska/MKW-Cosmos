@@ -40,6 +40,18 @@ namespace DXUI
         button->manipulator.SetAction(START_PRESS, &button->onClickHandlerObj, 0);
     }
 
+    void UpdateOKButton(PushButton * button, const char * folderName, const char * controlName, const char * variant, u32 localPlayerCount, u8 param_5, bool inaccesable)
+    {
+        MenuId menuId = MenuData::sInstance->curScene->menuId;
+        if(isVotingScreen(menuId))
+        {
+            controlName = "DXVRScreen";
+        }
+        button->Load(folderName, controlName, variant, localPlayerCount, param_5, inaccesable);
+    }
+
+    kmCall(0x8064a6e8, UpdateOKButton);
+
     void VRPagePlus::ChangeCombo(PushButton * button, u32 slotId)
     {
         this->menuState = 1;
