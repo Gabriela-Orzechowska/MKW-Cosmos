@@ -49,3 +49,4 @@ kmWrite32(0x80827f40, 0x2c030000);
 kmCall(0x806d686c, HighwayManagerCheck);
 kmWrite32(0x806d6870, 0x2c030000);
 
+kmWrite32(0x8078df44, 0x48000070); //Mat Fix
