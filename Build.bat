@@ -27,6 +27,7 @@ echo Linking...
 if %ErrorLevel% equ 0 (
     xcopy /Y build\*.bin ".\TestPack\mkwdx\sys"
 	del build\*.o
+	del build\*.bin
 
     echo Binaries copied
 )
