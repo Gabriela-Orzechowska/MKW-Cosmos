@@ -2,6 +2,8 @@
 #include <game/System/Archive.hpp>
 #include <game/Race/RaceData.hpp>
 
+extern char gameID[4];
+
 namespace DX{
 
     //Wiimmfi Stuff
@@ -71,7 +73,22 @@ namespace DX{
         u32 command = 0x48000000 | (offset & 0x03FFFFFF);
         *((u32 *)from) = command;
     }
-
-
+    
+    u32 GetPortAddress(u32 PAL, u32 NTSCU, u32 NTSCJ, u32 NTSCK)
+    {
+        switch (gameID[3])
+        {
+            default:
+            case 'P':
+                return PAL;
+            case 'E':
+                return NTSCU;
+            case 'J':
+                return NTSCJ;
+            case 'K':
+                return NTSCK;
+        }
+        return PAL;
+    }
 
 }
