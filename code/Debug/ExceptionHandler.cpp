@@ -57,6 +57,24 @@ namespace DXDebug{
         return filepath;
     }
 
+    void PrintHeader()
+    {
+        nw4r::db::Exception_Printf_("**** MKWDX EXCEPTION HANDLER ****\n");
+        nw4r::db::Exception_Printf_("Mario Kart Wii Deluxe v9.0 (17/10/2023)\n");
+        return;
+    }
+
+    kmCall(0x800236c8, PrintHeader);
+
+    void PrintSRR(const char * format, u32 srr0, u32 srr1)
+    {
+       nw4r::db::Exception_Printf_("SRR0:   %08XH   SRR1:%08XH\n", srr0, srr1);
+       nw4r::db::Exception_Printf_("<Symbol not found>\n");
+
+    }
+
+    kmCall(0x80023b8c, PrintSRR);
+
     void PrintPanic(u16 error, const OSContext * context, u32 dsisr, u32 dar)
     {
         char * region_name= GetRegionName();

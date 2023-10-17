@@ -97,8 +97,8 @@ kmCall(0x807f92ac, LoadAdditionalBinaries);
 
 void PatchLeCode()
 {
-    DX::CreateCall(DX::GetPortAddress(0x8082c140 ,0x8081862c, 0x8082b7ac, 0x8081a500), (u32)&LoadAdditionalBinaries);
-    DX::CreateCall(DX::GetPortAddress(0x807f92ac, 0x807edebc, 0x807f8918, 0x807e766c), (u32)&LoadAdditionalBinaries);
+    DX::CreateCall(DX::GetPortAddress(0x8082c140 ,0x8081862c, 0x8082b7ac, 0x8081a500), &LoadAdditionalBinaries);
+    DX::CreateCall(DX::GetPortAddress(0x807f92ac, 0x807edebc, 0x807f8918, 0x807e766c), &LoadAdditionalBinaries);
 }
 
 static LeCodeLoadHook PatchBinaries(PatchLeCode);

@@ -20,7 +20,6 @@ void TextBox_setMessage_Patch(nw4r::lyt::TextBox * pane, BMGHolder * contextHold
     {
         if(AdditionalHolder->GetMsgId(id) >= 0) 
         {
-            OSReport("[DX] Patching MessageGroup ID: %d\n", id);
             PaneManager::TextBox_setMessage(pane, AdditionalHolder, AdditionalHolder, id, messInfo);
             return;
         }        
@@ -38,7 +37,6 @@ void setTextBoxMessage_Patch(nw4r::lyt::TextBox * pane, BMGHolder * contextHolde
     {
         if(AdditionalHolder->GetMsgId(id) >= 0) 
         {
-            OSReport("[DX] Patching MessageGroup ID: %d\n", id);
             PaneManager::SetTextBoxMessage(pane, AdditionalHolder, AdditionalHolder, id);
             return;
         }
