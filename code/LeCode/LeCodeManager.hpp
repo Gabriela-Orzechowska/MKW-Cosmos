@@ -24,11 +24,12 @@ namespace LeCode{
     } le_binary_header;
 
     typedef struct lpar_header {
-        u8 magic[8];
-        u32 version;
-        u32 size;
-        u32 off_eod;
-        u32 off_cup_par;	// offset to cup param
+        u32 magic; //0x00
+        u32 padding_; //0x04
+        u32 version; //0x08
+        u32 size; //0x0C
+        u32 off_eod; //0x10
+        u32 off_cup_par;	// offset to cup param 0x14
         u32 off_cup_track;	// offset of cup-track list
         u32 off_cup_arena;	// offset of cup-arena list
         u32 off_course_par;	// offset of course param
@@ -37,6 +38,13 @@ namespace LeCode{
         u32 off_flags;	// offset of flags
         u8 engine[3];
     } lpar_header;
+
+    typedef struct cup2_header {
+        u32 header;
+        u32 course_cups;
+        u32 battle_cups;
+        u32 padding;
+    } cup2_header;
 
     class LeCodeManager{
     private:
@@ -49,6 +57,8 @@ namespace LeCode{
         static LeCodeManager *GetStaticInstance();
         u32 GetTrackID();
         void * GetLoaderAddress();
+        void * GetCupParamAddress();
+        void * GetCupDefAddress();
         void LoadLeCode();
     };
 }

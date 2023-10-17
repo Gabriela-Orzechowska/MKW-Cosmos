@@ -1,9 +1,4 @@
 #include <UI/SinglePlayer/SinglePlayer.hpp>
-#include <game/GlobalFunctions.hpp>
-#include <game/UI/Page/Menu/SinglePlayer.hpp>
-#include <game/UI/Text.hpp>
-#include <game/Race/RaceData.hpp>
-#include <main.hpp>
 
 #pragma region SingleMenuPage
 
@@ -11,7 +6,6 @@ const char * ttButtonBrctr = "DX_TT";
 
 void LoadCorrectControlFile(PushButton * button, const char * folderName, const char * controlName, const char * variantName, u32 param_5, u32 param_6, u32 idx)
 {
-    
     if(idx == TIME_TRIAL || idx == TIME_TRIAL_200)
     {
         char ttButtonVariant[17];

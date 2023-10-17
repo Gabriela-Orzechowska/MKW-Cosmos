@@ -2,6 +2,12 @@
 #define _DX_UI_SP_
 
 #include <kamek.hpp>
+#include <game/GlobalFunctions.hpp>
+#include <game/UI/Page/Menu/SinglePlayer.hpp>
+#include <game/UI/Page/Menu/CupSelect.hpp>
+#include <game/UI/Text.hpp>
+#include <game/Race/RaceData.hpp>
+#include <main.hpp>
 
 enum MAIN_SCREEN_IDX{
     GP = 0,

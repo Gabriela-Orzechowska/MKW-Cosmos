@@ -76,6 +76,19 @@ namespace LeCode
         return *(u32*)(address);
     }
 
+    void * LeCodeManager::GetCupParamAddress()
+    {
+        char * address = (char*)(this->settingHeader);
+        address += this->settingHeader->off_cup_par;
+        return address;
+    }
+    void * LeCodeManager::GetCupDefAddress()
+    {
+        char * address = (char*)(this->settingHeader);
+        address += this->settingHeader->off_cup_track;
+        return address;
+    }
+
     void InitLoader()
     {
         LeCodeManager::GetStaticInstance()->LoadLeCode();
