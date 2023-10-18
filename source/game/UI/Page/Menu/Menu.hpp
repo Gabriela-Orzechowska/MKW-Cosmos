@@ -18,7 +18,7 @@ public:
     //virtual int func_0x18();  0x18
     //virtual void ChangeMenu(MenuId menuId, u32 r5, float delay); 0x1c
     //virtual void func_0x20(); 0x20
-    void AddPageLayer(PageId id, u32 r5) override; //0x24 80837d1c
+    void AddPageLayer(PageId id, u32 r5); //0x24 80837d1c
     void OnInit() override; //80836b9c 0x28
     //virtual void OnDispose();0x2c
     void OnActivate() override; //80837170 0x30

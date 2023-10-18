@@ -18,9 +18,14 @@ namespace DXUI
         this->controlsManipulatorManager.SetGlobalHandler(SWITCH_PRESS, (PtmfHolder_1A<Page, void, u32>*)&onSwitchPressHandler, false, false);
     }
 
+    void CupSelectPlus::OnActivate()
+    {
+        Pages::CupSelect::OnActivate();
+        this->bottomText->SetMsgId(0x2810 + (u32)currentLayout);
+    }
+
     void CupSelectPlus::OnSwitchPress(u32 slotId)
     {        
-
         currentLayout = static_cast<CUP_LAYOUT>(((u32)currentLayout) ^ 0x1);
 
         DVDFileInfo fileHandle;
@@ -36,8 +41,8 @@ namespace DXUI
             {
                 LeCode::cup2_header * header = (LeCode::cup2_header * ) &buffer;
 
-                u32 num_bytes = 0x10 * (header->course_cups);
-                char * dataBuffer = new char[num_bytes + 0x40];
+                u32 num_bytes = 0x10 + 0x10 * (header->course_cups);
+                char * dataBuffer = new char[num_bytes + 0x30];
                 char * actualBuffer = (char *)((u32)(dataBuffer + 0x1F) & ~0x1F);
 
                 char * address = (char *) LeCode::LeCodeManager::GetStaticInstance()->GetCupParamAddress();
@@ -47,7 +52,11 @@ namespace DXUI
                 memcpy(address, actualBuffer, num_bytes);
                 delete(dataBuffer);
             }
+            else {
+                return;
+            }
         }
+        else return;
 
         if(((u32)currentLayout) & 0x1)
         {

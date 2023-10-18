@@ -23,6 +23,7 @@ namespace DXUI
             CupSelectPlus();
         private:
             void OnSwitchPress(u32 slotId);
+            void OnActivate() override;
             PtmfHolder_1A<CupSelectPlus, void, u32> onSwitchPressHandler;
     };
 }
