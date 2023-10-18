@@ -34,9 +34,11 @@ namespace LeCode
 
         if(DVDOpen(filepath, &fileHandle))
         {
-            if (DVDReadPrio(&fileHandle, (void *) (0x80004000 - 0x20), 0x20, 0x0, 0x2));
+            char buffer[0x20] __attribute__ ((aligned( 0x20 )));
+
+            if (DVDReadPrio(&fileHandle, (void *) buffer, 0x20, 0x0, 0x2));
             {
-                this->loaderHeader = (le_binary_header *) (0x80004000 - 0x20);
+                this->loaderHeader = (le_binary_header *) &buffer;
                 DVDReadPrio(&fileHandle, this->loaderHeader->baseAddress, this->loaderHeader->totalSize, 0x0, 0x2);      
 
                 this->loaderHeader = (le_binary_header *) this->loaderHeader->baseAddress;

@@ -26,29 +26,26 @@ namespace DXUI
         DVDFileInfo fileHandle;
         char * filepath = "/bin/cup2.bin";
 
-        LeCode::cup2_header * header = (LeCode::cup2_header * ) LeCode::LeCodeManager::GetStaticInstance()->GetCupParamAddress();
-
-        char * address = (char *) LeCode::LeCodeManager::GetStaticInstance()->GetCupDefAddress();
-        u32 extraOffset = 0x10;
-
-        if((u32)address & 0x10)
-        {
-            address -= 0x10;
-            extraOffset = 0x0;
-        }
+        char buffer[0x10] __attribute__ ((aligned(0x20)));
 
         if(DVDOpen(filepath, &fileHandle))
         {
             u32 offset = ((u32)currentLayout) * CUPFILE_SORT_OFFSET;
 
-            offset += extraOffset;
+            if(DVDReadPrio(&fileHandle, buffer, 0x10, offset, 0x2))
+            {
+                LeCode::cup2_header * header = (LeCode::cup2_header * ) &buffer;
 
-            u32 num_bytes = 0x10 * (header->course_cups);
-            num_bytes = ((num_bytes + 31) & ~31);
-            //address = LeCode::LeCodeManager::GetStaticInstance()->GetCupDefAddress();
+                u32 num_bytes = 0x10 * (header->course_cups);
+                num_bytes = ((num_bytes + 31) & ~31);
+                char dataBuffer[CUPFILE_SORT_OFFSET] __attribute__ ((aligned(0x20))); 
 
-            DVDReadPrio(&fileHandle, address, num_bytes, offset, 0x2);
-            DVDClose(&fileHandle);
+                char * address = (char *) LeCode::LeCodeManager::GetStaticInstance()->GetCupParamAddress();
+
+                DVDReadPrio(&fileHandle, dataBuffer, num_bytes, offset, 0x2);
+                DVDClose(&fileHandle);
+                memcpy(address, dataBuffer, num_bytes);
+            }
         }
 
         if(((u32)currentLayout) & 0x1)
