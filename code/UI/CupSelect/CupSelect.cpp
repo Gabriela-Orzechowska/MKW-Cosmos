@@ -37,14 +37,15 @@ namespace DXUI
                 LeCode::cup2_header * header = (LeCode::cup2_header * ) &buffer;
 
                 u32 num_bytes = 0x10 * (header->course_cups);
-                num_bytes = ((num_bytes + 31) & ~31);
-                char dataBuffer[CUPFILE_SORT_OFFSET] __attribute__ ((aligned(0x20))); 
+                char * dataBuffer = new char[num_bytes + 0x40];
+                char * actualBuffer = (char *)((u32)(dataBuffer + 0x1F) & ~0x1F);
 
                 char * address = (char *) LeCode::LeCodeManager::GetStaticInstance()->GetCupParamAddress();
 
-                DVDReadPrio(&fileHandle, dataBuffer, num_bytes, offset, 0x2);
+                DVDReadPrio(&fileHandle, actualBuffer, num_bytes, offset, 0x2);
                 DVDClose(&fileHandle);
-                memcpy(address, dataBuffer, num_bytes);
+                memcpy(address, actualBuffer, num_bytes);
+                delete(dataBuffer);
             }
         }
 
