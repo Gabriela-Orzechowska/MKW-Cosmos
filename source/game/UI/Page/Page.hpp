@@ -47,6 +47,7 @@ public:
     virtual void OnResume(); //0x54 805bb228 just a blr
     virtual void OnMenuChange(); //0x58 805bb224 just a blr
     virtual void func_0x5C(); //0x5c 805bb220 just a blr
+    //virtual void Refocus();
     virtual int GetRuntimeTypeInfo() const; //0x60 805bed68 returns 809C1d10
     void InitControlGroup(u32 controlCount); //inits the sub class and sets the count to a specified value
     void AddControl(u8 controlIdx, UIControl *control, u32 isOpaque);

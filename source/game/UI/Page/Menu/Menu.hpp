@@ -90,7 +90,7 @@ public:
     PageId prevPageId;//0x3ec
     MenuId prevMenu; //0x3f0
     MenuId nextMenu; //0x3f4
-    u32 controlSources; //0x80836cc8 3f8
+    u32 controlSources; //   3f8
     PtmfHolder_1A<Menu, void, Pages::Click*> onMessageBoxClickHandler; //0x3fc
     PtmfHolder_1A<Menu, void, u32> onMovieActivate; //0x410
     u32 movieStartFrame; //0x424

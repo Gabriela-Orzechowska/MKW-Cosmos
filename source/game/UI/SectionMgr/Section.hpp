@@ -8,8 +8,10 @@
 #include <game/UI/Page/System/RecognizePad.hpp>
 #include <game/UI/Page/System/DpdPointer.hpp>
 #include <game/UI/FriendList.hpp>
-#include <game/Scene/BaseScene.hpp>
+//#include <game/Scene/BaseScene.hpp>
 
+typedef u32 SectionId;
+typedef u32 SceneId;
 
 class Section {
 public:

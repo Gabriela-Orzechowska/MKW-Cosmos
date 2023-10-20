@@ -7,6 +7,7 @@
 namespace EGG {
 class GroupSizeHolder;
 
+/*
 class ExpHeap : public Heap {
 public:
     class GroupSizeHolder { //non-official naming
@@ -37,7 +38,7 @@ public:
     //adds size to group's entry matching the block's group Id, used as a  MEMVisitor
 };
 
-
+*/
 
 }//namespace EGG
 

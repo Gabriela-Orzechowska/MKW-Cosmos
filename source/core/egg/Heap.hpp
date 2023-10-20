@@ -56,8 +56,17 @@ namespace EGG {
 		const char *name; //0x34
 	}; //total size 0x38
 
+	
 	class ExpHeap : public Heap{
 	public:
+		class GroupSizeHolder { //non-official naming
+		public:
+			GroupSizeHolder(); //80226dd0
+			void Reset(); //80226e00
+			void Add(u16 groupId, u32 size); //adds size to the entry of groupId
+			u32 groupSize[0x100]; //in byte, the total size in bbytes of every block of a given groupId
+		}; //0x400
+
 		static ExpHeap *Create(int size, Heap *parent, u16 flags);
 		ExpHeap(); //80226a1c
 		virtual ~ExpHeap(); //0x8 802269a8 vtable 802a2ff8
@@ -70,7 +79,10 @@ namespace EGG {
 		u32 getAllocatableSize(s32 alignment) override; //0x24 80226c90
 		virtual u32 adjust(); //0x28 80226d4c
 		u32 getTotalFreeSize(); //80226c88
+		void SetGroupId(u16 groupId); //80226c98 
 
+		void CalculateGroupSizes(GroupSizeHolder *groupSizeHolder); //80226cfc
+		static void AddSizeToGroup(void *block, ExpHeap *heap, GroupSizeHolder *groupSizeHolder); //80226ca0, non-official
 	};
 }
 

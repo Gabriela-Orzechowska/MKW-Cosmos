@@ -3,7 +3,7 @@
 #include <types.hpp>
 #include <core/nw4r/ut/LinkList.hpp>
 #include <core/egg/mem/Disposer.hpp>
-#include <core/egg/mem/ExpHeap.hpp>
+#include <core/egg/Heap.hpp>
 #include <core/egg/Fader.hpp>
 
 namespace EGG {

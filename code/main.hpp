@@ -6,8 +6,16 @@
 #include <core/rvl/ipc/ipc.hpp>
 #include <core/rvl/os/OS.hpp>
 
+#define NO_FAST_MENU
+
 namespace DX
 {
+    enum CUSTOM_PAGE_IDS 
+    {
+        SET_PAGE_1 = 0xB7,
+        SET_PAGE_2 = 0xB8,
+    };
+
     const char packFolder[20] = "/mkwdx";
     const char CommonArchive[14] = "/CommonDX.szs";
     const char UIArchive[10] = "/UIDX.szs";

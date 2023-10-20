@@ -471,6 +471,7 @@ sInstance__10SectionMgr = 0x809c1e38
 SetupSectionLoad = 0x805b9344
 LoadSection__10SectionMgrFv = 0x80634fbc
 RequestSceneChange__10SectionMgrFUiUi = 0x80635ac8
+CreatePageById__5SceneF6PageId = 0x80623390
 
 #SectionMgrPad
 GetCurrentSlotAndType__10SectionPadFUi = 0x8061b358
@@ -584,6 +585,7 @@ SelectInitial__13UpDownControlFUiUi = 0x8063f0c0
 HandleRightPress__13UpDownControlFUiUi = 0x8063fb64
 HandleLeftPress__13UpDownControlFUiUi = 0x8063fc90
 HandleClick__13UpDownControlFUiUi = 0x8063f8f8
+Select__13UpDownControlFP13UpDownControlUi = 0x8063f0ac
 
 #ControlManipulatorFv
 __vt__18ControlManipulatorFv = 0x808b9a20
@@ -772,6 +774,11 @@ SetTransitionSound__4PageFUiUi = 0x80602d20
 PlaySound__4PageFUiUi = 0x80602cf8
 Setup__4PageF6PageId = 0x80601a60
 transitionDelay__4Page = 0x80896830
+GetPageById__4PageF6PageId = 0x80842354
+Deactivate__4PageFv = 0x80601c08
+Page_Refocus__4DXUIFPQ25Pages4Menu = 0x80602390
+StartExit__4PageFv = 0x80602b04
+StartEntrance__4PageFv = 0x80602970
 
 #FriendRoomPage
 __ct__Q25Pages10FriendRoomFv = 0x805d7f78
@@ -818,8 +825,10 @@ LoadPrevPageWithDelayById__Q25Pages4MenuF6PageIdf = 0x80837830
 LoadNextPageWithDelayById__Q25Pages4MenuF6PageIdf = 0x8083761c
 LoadNextPageById__Q25Pages4MenuF6PageIdP10PushButton = 0x80837720
 ChangeToPrevSection__Q25Pages4MenuFPQ25Pages5Click = 0x808387ac
+ChangeToPrevMenu__Q25Pages4MenuFPQ25Pages5Click = 0x808387ac
 ChangeSectionById__Q25Pages4MenuF9SectionIdP10PushButton = 0x80837e40 
 HandleStartPress__Q25Pages4MenuFUi = 0x80838b14
+AddPageLayer__Q25Pages4MenuF6PageIdUi = 0x80837d1c
 
 #RaceMenu
 __ct__Q25Pages8RaceMenuFv = 0x80858ca4
@@ -839,7 +848,7 @@ OnActivate__Q25Pages8RaceMenuFv = 0x80859a2c
 
 
 #CustomSettingsPanel
-VSSettingsStaticAddr = 0x809c4618
+VSSettings_sInstance = 0x809c4618
 
 
 #RacePage

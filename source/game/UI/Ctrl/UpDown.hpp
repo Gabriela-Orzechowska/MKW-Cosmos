@@ -84,7 +84,7 @@ public:
         void SetIsVisibleOnIdle(bool isVisible); //806405b0
         void ToggleSelect(bool state, u32 hudSlotId); //8063f8e0 bool 1 = select, 0 = deselect
         void HandleClick(); //80640360 inlined just plays some animations
-       
+
         bool isVisibleOnIdle;
         UpDownControl *GetParentControl() const; //8064009c
         u8 padding[3]; 
@@ -119,6 +119,7 @@ public:
     void HandleButtonDeselect(u32 hudSlotId, u32 curChildId); //8063f8e0 same
     void SelectInitial(u32 optionsCount, u32 initialButton); //8063f0c0
     void SetPlayerBitfield(u32 playerBitfield); //8063f160
+    static void Select(UpDownControl * control, u32 hudSlotId);
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> onSelectHandlerObj; //0x174 vtable 808bf4ec 8063f694
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> onDeselectHandlerObj; //0x188 vtable 808bf4ec 8063f7c4
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> onButtonSelectHandlerObj; //0x19C vtable 808bf4ec 8063f8c8
