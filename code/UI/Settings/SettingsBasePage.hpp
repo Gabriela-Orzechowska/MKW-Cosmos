@@ -9,7 +9,6 @@
 #include <game/UI/Ctrl/Menu/CtrlMenuText.hpp>
 #include <main.hpp>
 
-#define SUBPAGECOUNT 1
 
 extern u32 VSSettings_sInstance;
 
@@ -32,8 +31,12 @@ namespace DXUI
         void OnExternalButtonSelect(PushButton  *button, u32 param_2) override;
         UIControl *CreateControl(u32 id) override;
         void SetButtonHandlers(PushButton *pushButton) override;
+        void HandleChange(u32 direction);
         u32 sheetIndex;
         void OnBackPress(u32 slotId);
+        UpDownControl * upDownControls;
+
+        u32 currentPageId;
 
         private:
         static void SaveSettings();
@@ -44,7 +47,6 @@ namespace DXUI
         void OnTextChange(TextUpDownValueControl::TextControl *text, u32 optionId);
         void SaveAndQuit(PushButton *button);
 
-        UpDownControl * upDownControls;
         TextUpDownValueControl * textUpDown;
         PtmfHolder_2A<Page, void, UpDownControl*, u32> onUpDownClickHandler; 
         PtmfHolder_2A<Page, void, UpDownControl*, u32> onUpDownSelectHandler; 

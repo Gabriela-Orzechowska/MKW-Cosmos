@@ -10,7 +10,7 @@
 #include <UI/Settings/SettingsBasePage.hpp>
 #include <main.hpp>
 
-#define SUBPAGECOUNT 1
+#define SUBPAGECOUNT 2
 
 extern u32 VSSettings_sInstance;
 
@@ -53,14 +53,25 @@ namespace DXUI
         void OnSaveButtonClick(PushButton * button, u32 hudSlotId);
         void OnUpDownClick(UpDownControl *upDownControl, u32 hudSlotId);
         void OnUpDownSelect(UpDownControl *upDownControl, u32 hudSlotId);
+        void OnMainUpDownSelect(UpDownControl *upDownControl, u32 hudSlotId);
+        void OnMainUpDownDeselect(UpDownControl *upDownControl, u32 hudSlotId);
+        void OnMainUpDownChange(UpDownControl *upDownControl, u32 hudSlotId, u32 optionId);
+
 
         void OnTextChange(TextUpDownValueControl::TextControl *text, u32 optionId);
         void SaveAndQuit(PushButton *button);
+
+        u32 mainControlId;
 
         UpDownControl * upDownControls;
         TextUpDownValueControlPlus * textUpDownPlus;
         PtmfHolder_2A<Page, void, UpDownControl*, u32> onUpDownClickHandler; 
         PtmfHolder_2A<Page, void, UpDownControl*, u32> onUpDownSelectHandler; 
+        
+        PtmfHolder_2A<Page, void, UpDownControl*, u32> onMainUpDownSelectHandler; 
+        PtmfHolder_2A<Page, void, UpDownControl*, u32> onMainUpDownDeselectHandler; 
+        PtmfHolder_3A<Page, void, UpDownControl*, u32, u32> onMainUpDownChangeHandler;
+
         PtmfHolder_2A<Page, void, TextUpDownValueControl::TextControl*, u32> onTextChangeHandler; 
         u32 scrollersCount;
         u8 optionsPerScroller[8];

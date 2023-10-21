@@ -459,7 +459,7 @@ GetAnimationGroupById__10UIAnimatorCFUi = 0x8063c820
 AnimationGroup = 0x8063c844
 dtAnimationGroup = 0x8063c8ac 
 PlayAnimationAtFrameAndDisable__14AnimationGroupFUif = 0x8063cb20
-PlayAnimationAtFrame__14AnimationGroupFUif = 0x8063c91c
+PlayAnimationAtFrame__14AnimationGroupFfUi = 0x8063c91c
 PlayAnimationAtPercent__14AnimationGroupFUif = 0x8063ca98
 
 
@@ -578,14 +578,19 @@ SetColor_BaseColours__22TextUpDownValueControlFP6RGBA16 = 0x80641028
 __ct__13UpDownControlFv = 0x8063e960
 __dt__13UpDownControlFv = 0x8063eb5c
 Load__13UpDownControlFUiUiPCcPCcPCcPCcPCcPcPCcP19UpDownDisplayedTextUiUcbbb = 0x8063ebdc
-SetOnChangeHandler__13UpDownControlFP47PtmfHolder_3A<4Page,v,P13UpDownControl,Ui,Ui> = 0x8063f020
+SetOnChangeHandler__13UpDownControlFP45PtmfHolder_3A<4Page,v,P13UpDownControl,Ui,Ui> = 0x8063f020
 SetOnClickHandler__13UpDownControlFP42PtmfHolder_2A<4Page,v,P13UpDownControl,Ui> = 0x8063f028
 SetOnSelectHandler__13UpDownControlFP42PtmfHolder_2A<4Page,v,P13UpDownControl,Ui> = 0x8063f030
+SetOnDeselectHandler__13UpDownControlFP42PtmfHolder_2A<4Page,v,P13UpDownControl,Ui> = 0x8063f038
 SelectInitial__13UpDownControlFUiUi = 0x8063f0c0
 HandleRightPress__13UpDownControlFUiUi = 0x8063fb64
 HandleLeftPress__13UpDownControlFUiUi = 0x8063fc90
 HandleClick__13UpDownControlFUiUi = 0x8063f8f8
 Select__13UpDownControlFP13UpDownControlUi = 0x8063f0ac
+HandleSelect__13UpDownControlFUiUi = 0x8063f694
+HandleButtonDeselect__13UpDownControlFUiUi = 0x8063f7c4
+HandleRightPress__13UpDownControlFUiUi = 0x8063fb64
+HandleLeftPress__13UpDownControlFUiUi = 0x8063fc90
 
 #ControlManipulatorFv
 __vt__18ControlManipulatorFv = 0x808b9a20

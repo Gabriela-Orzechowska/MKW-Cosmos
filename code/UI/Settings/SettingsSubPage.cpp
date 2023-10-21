@@ -25,6 +25,15 @@ namespace DXUI
         onUpDownSelectHandler.subject = this;
         onUpDownSelectHandler.ptmf = static_cast<void (Page::*)(UpDownControl*, u32)>(&SettingSubPage::OnUpDownSelect);
 
+
+        //Dummy
+        onMainUpDownSelectHandler.subject = this;
+        onMainUpDownSelectHandler.ptmf = static_cast<void (Page::*)(UpDownControl*, u32)>(&SettingSubPage::OnMainUpDownSelect);
+        onMainUpDownDeselectHandler.subject = this;
+        onMainUpDownDeselectHandler.ptmf = static_cast<void (Page::*)(UpDownControl*, u32)>(&SettingSubPage::OnMainUpDownDeselect);
+        onMainUpDownChangeHandler.subject = this;
+        onMainUpDownChangeHandler.ptmf = static_cast<void (Page::*)(UpDownControl*, u32, u32)>(&SettingSubPage::OnMainUpDownChange);
+
         onTextChangeHandler.subject = this;
         onTextChangeHandler.ptmf = static_cast<void (Page::*)(TextUpDownValueControl::TextControl*, u32)>(&SettingSubPage::OnTextChange);
 
@@ -115,6 +124,40 @@ namespace DXUI
         return;
     }
 
+
+    void SettingSubPage::OnMainUpDownSelect(UpDownControl *upDownControl, u32 hudSlotId){
+        UpDownControl * baseControl = this->basePage->upDownControls;
+
+        baseControl->HandleSelect(hudSlotId, 0);
+
+        return;
+    }
+
+    void SettingSubPage::OnMainUpDownDeselect(UpDownControl *upDownControl, u32 hudSlotId){
+        UpDownControl * baseControl = this->basePage->upDownControls;
+
+        baseControl->HandleButtonDeselect(hudSlotId, 0);
+
+        return;
+    }
+
+    void SettingSubPage::OnMainUpDownChange(UpDownControl *upDownControl, u32 hudSlotId, u32 optionId){
+        
+        this->basePage->HandleChange(optionId);
+
+        PageId id = (PageId)this->basePage->currentPageId;
+
+        if(optionId == 0)
+            this->LoadPrevPageWithDelayById(id, 0.0f);
+        else
+            this->LoadNextPageWithDelayById(id, 0.0f);
+        
+        upDownControl->curSelectedOption = 1;
+
+        return;
+    }
+
+
     UIControl * SettingSubPage::CreateControl(u32 id)
     {
         if(id < this->scrollersCount)
@@ -146,17 +189,16 @@ namespace DXUI
         else if(id = this->scrollersCount)
         {
             UpDownControl * upDownCtrl = &this->upDownControls[id];
+            this->mainControlId = id;
             this->AddControl(this->controlCount, upDownCtrl, 0);
             this->controlCount++;
 
-            //char * variant = "UpDown0";
-            char variant[0x20];
-            snprintf(variant, 0x20, "UpDown%d", id);
-
-            upDownCtrl->Load(this->optionsPerScroller[id], 0, "control", "DXSettingPageUpDownBase", "UpDownTrans", "DXSettingPageUpDownButtonR", "RightButtonTrans",
+            upDownCtrl->Load(3, 1, "control", "DXSettingPageUpDownBase", "UpDownTrans", "DXSettingPageUpDownButtonR", "RightButtonTrans",
             "DXSettingPageUpDownButtonL", "LeftButtonTrans", (UpDownDisplayedText*) &this->textUpDownPlus[id], 1, 0, false, true, true);
             upDownCtrl->SetOnClickHandler(&this->onUpDownClickHandler);
-            upDownCtrl->SetOnSelectHandler(&this->onUpDownSelectHandler);
+            upDownCtrl->SetOnSelectHandler(&this->onMainUpDownSelectHandler);
+            upDownCtrl->SetOnDeselectHandler(&this->onMainUpDownDeselectHandler);
+            upDownCtrl->SetOnChangeHandler(&this->onMainUpDownChangeHandler);
             upDownCtrl->id = 99;
 
             TextUpDownValueControlPlus * valueCtrl = &this->textUpDownPlus[id];
@@ -196,14 +238,19 @@ namespace DXUI
 
     void SettingSubPage::OnActivate()
     {
-        UpDownControl::Select(&this->upDownControls[0], 0);
+        UpDownControl::Select(&this->upDownControls[this->mainControlId], 0);
+        basePage = MenuData::sInstance->curScene->Get<SettingsBasePage>((PageId)DX::SETTINGS_MAIN);
+        //this->basePage->upDownControls->HandleButtonDeselect(0,0);
+        nextPageId = PAGE_NONE;
+        prevPageId = OPTIONS;
+        backButton.isHidden = true;  
         Menu::OnActivate();
     }
 
     void SettingSubPage::OnBackPress(u32 slotId)
     {
-        this->EndStateAnimate(0.0f, 1);
-        MenuData::sInstance->curScene->Get<SettingsBasePage>((PageId)DX::SET_PAGE_1)->OnBackPress(slotId);
+        EndStateAnimate(0.0f, 1);
+        basePage->OnBackPress(slotId);
     }
 
     void SettingSubPage::OnSaveButtonClick(PushButton *button, u32 hudSlotId){

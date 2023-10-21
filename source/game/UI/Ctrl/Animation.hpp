@@ -20,7 +20,7 @@ class AnimationGroup{
 public:
     AnimationGroup(); //0x8063c844
     ~AnimationGroup(); //8063c8ac
-    void PlayAnimationAtFrame(u32 id, float frame); //8063c91c
+    void PlayAnimationAtFrame(float frame, u32 id); //8063c91c
     void PlayAnimationAtPercent(u32 id, float percent); //8063ca98
     void PlayAnimationAtFrameAndDisable(u32 id, float frame); //8063cb20
     void PlayAnimationAtPercentAndDisable(u32 id, float percent); //8063cb54

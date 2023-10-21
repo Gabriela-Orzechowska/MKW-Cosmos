@@ -7,8 +7,9 @@ namespace DXUI
     void InjectPage(Scene *scene, PageId id)
     {
         scene->CreatePage(id);
-        scene->CreatePage((PageId)DX::SET_PAGE_1);
-        scene->CreatePage((PageId)DX::SET_PAGE_2);
+        scene->CreatePage((PageId)DX::SETTINGS_MAIN);
+        scene->CreatePage((PageId)DX::RACE_SETTINGS1);
+        scene->CreatePage((PageId)DX::RACE_SETTINGS2);
         return;
     }
     kmCall(0x8062fe3c, InjectPage);
@@ -21,7 +22,7 @@ namespace DXUI
         nextMenu = MENU_NONE;
 
         controlSources = 2;
-        externControlCount = 0;
+        externControlCount = 1;
         internControlCount = 1;
         hasBackButton = true;
 
@@ -63,30 +64,52 @@ namespace DXUI
         activePlayerBitfield = 1;
         scrollersCount = 1;
         
-        this->optionsPerScroller[0] = 3; 
+        this->optionsPerScroller[0] = 2; 
     }
 
     SettingsBasePage::~SettingsBasePage()
     {
-        delete[] upDownControls;
-        delete[] textUpDown;
+        delete(upDownControls);
+        delete(textUpDown);
     }
 
     void SettingsBasePage::OnInit()
     {
-        upDownControls = new UpDownControl[this->scrollersCount];
-        textUpDown = new TextUpDownValueControl[this->scrollersCount];
+        upDownControls = new UpDownControl();
+        textUpDown = new TextUpDownValueControl();
         Menu::OnInit();
         this->SetTransitionSound(0x0,0x0);
     }
 
     UIControl * SettingsBasePage::CreateExternalControl(u32 id)
     {
-        return NULL;
+        PushButton * button = new(PushButton);
+        this->AddControl(this->controlCount, button, 0);
+        this->controlCount++;
+        button->Load("button", "DXInvi", "Main", this->activePlayerBitfield, 0, false);
+        return button;
     }
 
     void SettingsBasePage::OnExternalButtonSelect(PushButton *button, u32 param_2){
         return;
+    }
+
+    void SettingsBasePage::HandleChange(u32 direction)
+    {
+        if(direction == 0)
+        {
+            upDownControls->HandleLeftPress(0, 0);
+        }
+        else if(direction == 2)
+        {
+            upDownControls->HandleRightPress(0, 0);
+        }
+        if(currentPageId == (u32)DX::RACE_SETTINGS1)
+            currentPageId = (u32)DX::RACE_SETTINGS2;   
+        else
+            currentPageId = (u32)DX::RACE_SETTINGS1;          
+
+        UpDownControl::Select(upDownControls, 0);
     }
 
     void SettingsBasePage::OnUpDownClick(UpDownControl *upDownControl, u32 hudSlotId){
@@ -98,7 +121,7 @@ namespace DXUI
     void SettingsBasePage::OnTextChange(TextUpDownValueControl::TextControl *text, u32 optionId){
         TextUpDownValueControl *valueControl = (TextUpDownValueControl*) text->parentGroup->parentControl;
 
-        u32 bmgId = 0x239e;// + (this->sheetIndex<<12) + optionId;
+        u32 bmgId = 0x239e + optionId;// + (this->sheetIndex<<12) + optionId;
         text->SetMsgId(bmgId);
         //TEXT HERE 80853a10
         return;
@@ -118,7 +141,7 @@ namespace DXUI
             this->AddControl(this->controlCount, upDownCtrl, 0);
             this->controlCount++;
 
-            upDownCtrl->Load(this->optionsPerScroller[0], 0, "control", "DXSettingPageUpDownBase", "UpDown4", "DXSettingPageUpDownButtonR", "RightButton",
+            upDownCtrl->Load(2, 0, "control", "DXSettingPageUpDownBase", "UpDown4", "DXSettingPageUpDownButtonR", "RightButton",
             "DXSettingPageUpDownButtonL", "LeftButton", (UpDownDisplayedText*) this->textUpDown, 1, 0, false, true, true);
             upDownCtrl->SetOnClickHandler(&this->onUpDownClickHandler);
             upDownCtrl->SetOnSelectHandler(&this->onUpDownSelectHandler);
@@ -160,8 +183,8 @@ namespace DXUI
     void SettingsBasePage::OnActivate()
     {
         Menu::OnActivate();
-        this->AddPageLayer((PageId)DX::SET_PAGE_2, 0);
-        backButton.isHidden = true;  
+        this->AddPageLayer((PageId)DX::RACE_SETTINGS1, 0);
+        currentPageId = (u32)DX::RACE_SETTINGS1;
     }
 
     void SettingsBasePage::OnBackPress(u32 slotId)

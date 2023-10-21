@@ -12,8 +12,9 @@ namespace DX
 {
     enum CUSTOM_PAGE_IDS 
     {
-        SET_PAGE_1 = 0xB7,
-        SET_PAGE_2 = 0xB8,
+        SETTINGS_MAIN = 0xB7,
+        RACE_SETTINGS1 = 0xB8,
+        RACE_SETTINGS2 = 0xB9,
     };
 
     const char packFolder[20] = "/mkwdx";
