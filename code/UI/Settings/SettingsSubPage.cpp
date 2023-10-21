@@ -43,7 +43,7 @@ namespace DXUI
         onButtonClickHandler.ptmf = static_cast<void (Menu::*)(PushButton *, u32)> (&SettingSubPage::OnSaveButtonClick);
 
         sheetIndex = sheetId;
-        titleBmg = 0x2810;
+        titleBmg = 0x00;
 
         this->controlsManipulatorManager.Init(1,false);
         this->SetManipulatorManager(&controlsManipulatorManager);
@@ -90,15 +90,27 @@ namespace DXUI
     void SettingSubPage::OnTextChange(TextUpDownValueControl::TextControl *text, u32 optionId){
         TextUpDownValueControlPlus *valueControl = (TextUpDownValueControlPlus*) text->parentGroup->parentControl;
 
-        u32 bmgId = 0x2800;
+        u32 bmgId = 0x7d2 + optionId;
+        if(valueControl->id == 99)
+        {
+            text->SetMsgId(0x0);
+            this->bottomText->SetMsgId(0x00);
+            return;
+        }
         text->SetMsgId(bmgId);
-        this->bottomText->SetMsgId(bmgId + (valueControl->id+1<<8));
+        this->bottomText->SetMsgId(bmgId);
         //TEXT HERE 80853a10
         return;
     };
 
     void SettingSubPage::OnUpDownSelect(UpDownControl *upDownControl, u32 hudSlotId){
-        u32 bmgId = 0x2801;
+        u32 bmgId = upDownControl->curSelectedOption + 0x7d2;
+        if(upDownControl->id == 99)
+        {
+            this->bottomText->SetMsgId(0x00);
+            return;
+        }
+
         this->bottomText->SetMsgId(bmgId);
         return;
     }
@@ -127,8 +139,8 @@ namespace DXUI
             valueCtrl->SetOnTextChangeHandler(&this->onTextChangeHandler);
             valueCtrl->id = id;
             u32 bmgCategory = 0x6000 + (this->sheetIndex<<12);
-            upDownCtrl->SetMsgId(0x7008);
-            valueCtrl->activeTextValueControl->SetMsgId(0x7000);
+            upDownCtrl->SetMsgId(0x2328 + id);
+            valueCtrl->activeTextValueControl->SetMsgId(0x700a);
         }
 
         else if(id = this->scrollersCount)
@@ -145,16 +157,15 @@ namespace DXUI
             "DXSettingPageUpDownButtonL", "LeftButtonTrans", (UpDownDisplayedText*) &this->textUpDownPlus[id], 1, 0, false, true, true);
             upDownCtrl->SetOnClickHandler(&this->onUpDownClickHandler);
             upDownCtrl->SetOnSelectHandler(&this->onUpDownSelectHandler);
-            upDownCtrl->id = id;
+            upDownCtrl->id = 99;
 
             TextUpDownValueControlPlus * valueCtrl = &this->textUpDownPlus[id];
 
             valueCtrl->Load("control", "DXSettingPageUpDownValue", "ValueTrans", "DXSettingPageUpDownText", "TextTrans");
             valueCtrl->SetOnTextChangeHandler(&this->onTextChangeHandler);
-            valueCtrl->id = id;
-            u32 bmgCategory = 0x6000 + (this->sheetIndex<<12);
+            valueCtrl->id = 99;
             upDownCtrl->SetMsgId(0x00);
-            valueCtrl->activeTextValueControl->SetMsgId(0x700a);
+            valueCtrl->activeTextValueControl->SetMsgId(0x00);
         }
 
         return NULL;
@@ -201,7 +212,12 @@ namespace DXUI
 
     void TextUpDownValueControlPlus::SetMessage(u32 optionId){
         TextUpDownValueControl::TextControl *text = this->activeTextValueControl;
-        u32 bmgId = 0x5000 + optionId;
+        if(this->id == 99)
+        {
+            text->SetMsgId(0x0);
+            return;
+        }
+        u32 bmgId = 0x7d2 + optionId;
         text->SetMsgId(bmgId);
     }
 

@@ -1,138 +1,138 @@
 {
-  "main brlyt": "common_w023_rule_menu",
-  "bmg": "Menu",
-  "picture source brlyt": "",
-  "groups": [
-    {
-      "name": "Select",
-      "pane": "select_free_g",
-      "first animation": 0,
-      "animation count": 4
-    },
-    {
-      "name": "SelectIn",
-      "pane": "text_light_02",
-      "first animation": 4,
-      "animation count": 2
-    }
-  ],
-  "animations": [
-    {
-      "name": "Free",
-      "brlan": "common_w023_rule_menu_free.brlan",
-      "next": "",
-      "reversed": false,
-      "speed": 1.0
-    },
-    {
-      "name": "FreeToSelect",
-      "brlan": "common_w023_rule_menu_free_to_select.brlan",
-      "next": "Select",
-      "reversed": false,
-      "speed": 1.0
-    },
-    {
-      "name": "Select",
-      "brlan": "common_w023_rule_menu_select.brlan",
-      "next": "",
-      "reversed": false,
-      "speed": 1.0
-    },
-    {
-      "name": "SelectToFree",
-      "brlan": "common_w023_rule_menu_select_to_free.brlan",
-      "next": "Free",
-      "reversed": false,
-      "speed": 1.0
-    },
-    {
-      "name": "SelectIn",
-      "brlan": "common_w023_rule_menu_text_light_02_select.brlan",
-      "next": "SelectStop",
-      "reversed": false,
-      "speed": 1.0
-    },
-    {
-      "name": "SelectStop",
-      "brlan": "common_w023_rule_menu_text_light_02_stop.brlan",
-      "next": "",
-      "reversed": false,
-      "speed": 1.0
-    }
-  ],
-  "variants": [
-    {
-      "name": "UpDown0",
-      "opacity": 255,
-      "animated": true,
-      "animation delay": 7.0,
-      "translation x 4:3": 0.0,
-      "translation y 4:3": 145.0,
-      "translation z 4:3": 1.0,
-      "scale x 4:3": 1.0,
-      "scale y 4:3": 1.0,
-      "translation x 16:9": 0.0,
-      "translation y 16:9": 145.0,
-      "translation z 16:9": 1.0,
-      "scale x 16:9": 1.0,
-      "scale y 16:9": 1.0,
-      "first message": 0,
-      "message count": 1,
-      "first picture": 0,
-      "picture count": 0
-    },
-    {
-      "name": "UpDownTrans",
-      "opacity": 0,
-      "animated": false,
-      "animation delay": 7.0,
-      "translation x 4:3": 0.0,
-      "translation y 4:3": 145.0,
-      "translation z 4:3": 1.0,
-      "scale x 4:3": 1.0,
-      "scale y 4:3": 1.0,
-      "translation x 16:9": 0.0,
-      "translation y 16:9": 145.0,
-      "translation z 16:9": 1.0,
-      "scale x 16:9": 1.0,
-      "scale y 16:9": 1.0,
-      "first message": 0,
-      "message count": 1,
-      "first picture": 0,
-      "picture count": 0
-    }
-  ],
-  "messages": [
-    {
-      "pane": "",
-      "name": "",
-      "message id": 16384
-    },
-    {
-      "pane": "",
-      "name": "",
-      "message id": 16385
-    },
-    {
-      "pane": "",
-      "name": "",
-      "message id": 16386
-    },
-    {
-      "pane": "",
-      "name": "",
-      "message id": 16387
-    },
-    {
-      "pane": "",
-      "name": "",
-      "message id": 16388
-    },
-    {
-      "pane": "",
-      "name": "",
-      "message id": 16388
-    }
-  ],
-  "pictures": []
+    "main brlyt": "dx_common_w000_setting_menu",
+    "bmg": "Menu",
+    "picture source brlyt": "",
+    "groups": [
+        {
+            "name": "Select",
+            "pane": "select_free_g",
+            "first animation": 0,
+            "animation count": 4,
+        },
+        {
+            "name": "SelectIn",
+            "pane": "text_light_02",
+            "first animation": 4,
+            "animation count": 2,
+        },
+    ],
+    "animations": [
+        {
+            "name": "Free",
+            "brlan": "common_w023_rule_menu_free.brlan",
+            "next": "",
+            "reversed": false,
+            "speed": 1.0,
+        },
+        {
+            "name": "FreeToSelect",
+            "brlan": "common_w023_rule_menu_free_to_select.brlan",
+            "next": "Select",
+            "reversed": false,
+            "speed": 1.0,
+        },
+        {
+            "name": "Select",
+            "brlan": "common_w023_rule_menu_select.brlan",
+            "next": "",
+            "reversed": false,
+            "speed": 1.0,
+        },
+        {
+            "name": "SelectToFree",
+            "brlan": "common_w023_rule_menu_select_to_free.brlan",
+            "next": "Free",
+            "reversed": false,
+            "speed": 1.0,
+        },
+        {
+            "name": "SelectIn",
+            "brlan": "common_w023_rule_menu_text_light_02_select.brlan",
+            "next": "SelectStop",
+            "reversed": false,
+            "speed": 1.0,
+        },
+        {
+            "name": "SelectStop",
+            "brlan": "common_w023_rule_menu_text_light_02_stop.brlan",
+            "next": "",
+            "reversed": false,
+            "speed": 1.0,
+        },
+    ],
+    "variants": [
+        {
+            "name": "UpDown0",
+            "opacity": 255,
+            "animated": true,
+            "animation delay": 7.0,
+            "translation x 4:3": 0.0,
+            "translation y 4:3": 145.0,
+            "translation z 4:3": 1.0,
+            "scale x 4:3": 1.0,
+            "scale y 4:3": 1.0,
+            "translation x 16:9": 0.0,
+            "translation y 16:9": 145.0,
+            "translation z 16:9": 1.0,
+            "scale x 16:9": 1.0,
+            "scale y 16:9": 1.0,
+            "first message": 0,
+            "message count": 1,
+            "first picture": 0,
+            "picture count": 0,
+        },
+        {
+            "name": "UpDownTrans",
+            "opacity": 0,
+            "animated": false,
+            "animation delay": 7.0,
+            "translation x 4:3": 0.0,
+            "translation y 4:3": 145.0,
+            "translation z 4:3": 1.0,
+            "scale x 4:3": 1.0,
+            "scale y 4:3": 1.0,
+            "translation x 16:9": 0.0,
+            "translation y 16:9": 145.0,
+            "translation z 16:9": 1.0,
+            "scale x 16:9": 1.0,
+            "scale y 16:9": 1.0,
+            "first message": 0,
+            "message count": 1,
+            "first picture": 0,
+            "picture count": 0,
+        },
+    ],
+    "messages": [
+        {
+            "pane": "",
+            "name": "",
+            "message id": 16384,
+        },
+        {
+            "pane": "",
+            "name": "",
+            "message id": 16385,
+        },
+        {
+            "pane": "",
+            "name": "",
+            "message id": 16386,
+        },
+        {
+            "pane": "",
+            "name": "",
+            "message id": 16387,
+        },
+        {
+            "pane": "",
+            "name": "",
+            "message id": 16388,
+        },
+        {
+            "pane": "",
+            "name": "",
+            "message id": 16388,
+        },
+    ],
+    "pictures": [],
 }

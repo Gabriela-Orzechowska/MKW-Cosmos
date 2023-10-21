@@ -11,7 +11,7 @@ void * CreatePage(Scene * scene, u32 pageId)
     }
     else if(pageId == (u32)DX::SET_PAGE_2)
     {
-        u8 optionCount[8] = {2, 2, 2, 2, 2, 2, 2, 2};
+        u8 optionCount[8] = {3, 3, 3, 2, 2, 2, 2, 2};
 
         return new(DXUI::SettingSubPage)(6,optionCount,1);
     }

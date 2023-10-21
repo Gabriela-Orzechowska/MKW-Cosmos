@@ -54,7 +54,7 @@ namespace DXUI
         onButtonClickHandler.ptmf = static_cast<void (Menu::*)(PushButton *, u32)> (&SettingsBasePage::OnSaveButtonClick);
 
         sheetIndex = 0;
-        titleBmg = 0x2810;
+        titleBmg = 0x7da;
 
         this->controlsManipulatorManager.Init(1,false);
         this->SetManipulatorManager(&controlsManipulatorManager);
@@ -98,8 +98,8 @@ namespace DXUI
     void SettingsBasePage::OnTextChange(TextUpDownValueControl::TextControl *text, u32 optionId){
         TextUpDownValueControl *valueControl = (TextUpDownValueControl*) text->parentGroup->parentControl;
 
-        u32 bmgId = 0x5000 + (this->sheetIndex<<12) + optionId;
-        text->SetMsgId(bmgId + (1<< 4));
+        u32 bmgId = 0x239e;// + (this->sheetIndex<<12) + optionId;
+        text->SetMsgId(bmgId);
         //TEXT HERE 80853a10
         return;
     };
@@ -128,9 +128,8 @@ namespace DXUI
 
             valueCtrl->Load("control", "DXSettingPageUpDownValue", "Value", "DXSettingPageUpDownText", "Text");
             valueCtrl->SetOnTextChangeHandler(&this->onTextChangeHandler);
-            u32 bmgCategory = 0x7000 + (this->sheetIndex<<12);
-            upDownCtrl->SetMsgId(bmgCategory + id);
-            valueCtrl->activeTextValueControl->SetMsgId(0x7000);
+            upDownCtrl->SetMsgId(0x239e);
+            valueCtrl->activeTextValueControl->SetMsgId(0x239e);
         }
         return NULL;
     }
