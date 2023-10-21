@@ -116,7 +116,7 @@ namespace DXUI
             snprintf(variant, 0x20, "UpDown%d", id);
 
             upDownCtrl->Load(this->optionsPerScroller[id], 0, "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
-            "DXSettingsUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textUpDownPlus[id], 1, 0, false, false, true);
+            "DXSettingsUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textUpDownPlus[id], 1, 0, false, true, true);
             upDownCtrl->SetOnClickHandler(&this->onUpDownClickHandler);
             upDownCtrl->SetOnSelectHandler(&this->onUpDownSelectHandler);
             upDownCtrl->id = id;
@@ -142,7 +142,7 @@ namespace DXUI
             snprintf(variant, 0x20, "UpDown%d", id);
 
             upDownCtrl->Load(this->optionsPerScroller[id], 0, "control", "DXSettingPageUpDownBase", "UpDownTrans", "DXSettingPageUpDownButtonR", "RightButtonTrans",
-            "DXSettingPageUpDownButtonL", "LeftButtonTrans", (UpDownDisplayedText*) &this->textUpDownPlus[id], 1, 0, false, false, true);
+            "DXSettingPageUpDownButtonL", "LeftButtonTrans", (UpDownDisplayedText*) &this->textUpDownPlus[id], 1, 0, false, true, true);
             upDownCtrl->SetOnClickHandler(&this->onUpDownClickHandler);
             upDownCtrl->SetOnSelectHandler(&this->onUpDownSelectHandler);
             upDownCtrl->id = id;

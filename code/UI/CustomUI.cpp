@@ -13,7 +13,7 @@ void * CreatePage(Scene * scene, u32 pageId)
     {
         u8 optionCount[8] = {2, 2, 2, 2, 2, 2, 2, 2};
 
-        return new(DXUI::SettingSubPage)(3,optionCount,1);
+        return new(DXUI::SettingSubPage)(6,optionCount,1);
     }
     return scene->CreatePageById((PageId)pageId);
 }
