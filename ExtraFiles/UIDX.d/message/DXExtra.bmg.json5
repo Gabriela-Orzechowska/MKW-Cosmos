@@ -1,0 +1,126 @@
+{
+    "3051": {
+        "font": "regular",
+        "string": "A solo race for the fastest record! (150cc)",
+    },
+    "10240": {
+        "font": "regular",
+        "string": "Time Trials (150cc)",
+    },
+    "10241": {
+        "font": "regular",
+        "string": "Time Trials (200cc)",
+    },
+    "10256": {
+        "font": "regular",
+        "string": "Track Layout: Normal",
+    },
+    "10257": {
+        "font": "regular",
+        "string": "Track Layout: Castle Gorge\t",
+    },
+    "10272": {
+        "font": "regular",
+        "string": "A solo race for the fastest record! (200cc)",
+    },
+    "10288": {
+        "font": "regular",
+        "string": "Change Combo",
+    },
+    "10752": {
+        "font": "regular",
+        "string": "Settings",
+    },
+    "10753": {
+        "font": "regular",
+        "string": "Race (1/1)",
+    },
+    "10754": {
+        "font": "regular",
+        "string": "Menu (1/1)",
+    },
+    "10785": {
+        "font": "regular",
+        "string": "Manage your Race settings!",
+    },
+    "10786": {
+        "font": "regular",
+        "string": "Manage your Menu settings!",
+    },
+    "12288": {
+        "font": "regular",
+        "string": "Final Lap Music Speed-Up",
+    },
+    "12289": {
+        "font": "regular",
+        "string": "Enabled",
+    },
+    "12290": {
+        "font": "regular",
+        "string": "No Cut-off",
+    },
+    "12291": {
+        "font": "regular",
+        "string": "Disabled",
+    },
+    "12304": {
+        "font": "regular",
+        "string": "Draggable Blue-Shells",
+    },
+    "12544": {
+        "font": "regular",
+        "string": "Fast Menus",
+    },
+    "14080": {
+        "font": "regular",
+        "string": "Enabled",
+    },
+    "14081": {
+        "font": "regular",
+        "string": "Disabled",
+    },
+    "14337": {
+        "font": "regular",
+        "string": "Music will speed-up over 4s when entering final lap.",
+    },
+    "14338": {
+        "font": "regular",
+        "string": "Music will continue when entering final lap.",
+    },
+    "14339": {
+        "font": "regular",
+        "string": "Music will change to fast variant as normal.",
+    },
+    "14353": {
+        "font": "regular",
+        "string": "You can hold Blue-Shells behind like other shells.",
+    },
+    "14354": {
+        "font": "regular",
+        "string": "You can't hold Blue-Shells behind like other shells.",
+    },
+    "14593": {
+        "font": "regular",
+        "string": "Menu transitions will be instant.",
+    },
+    "14594": {
+        "font": "regular",
+        "string": "Menu transitions will be normal.",
+    },
+    "77892": {
+        "font": "regular",
+        "string": "DS Test Circle \n{font scale|64}{color|team blue}Bruh de la Boi{color|unspecified}",
+    },
+    "77893": {
+        "font": "regular",
+        "string": "Castle Gorge \n{font scale|64}{color|team blue}Toadette Hack Fan, Mystora{color|unspecified} ",
+    },
+    "77894": {
+        "font": "regular",
+        "string": "KKW Prismatic Parkway \n{font scale|64}{color|team blue}Mystora{color|unspecified} ",
+    },
+    "77895": {
+        "font": "regular",
+        "string": "Ruinated Peach's Castle \n{font scale|64}{color|team blue}Gabriela_{color|unspecified}",
+    },
+}
