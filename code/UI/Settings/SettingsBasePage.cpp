@@ -1,5 +1,6 @@
 #include <UI/Settings/SettingsBasePage.hpp>
 #include <UI/Settings/SettingsSubPage.hpp>
+#include <UI/BMG/BMG.hpp>
 
 namespace DXUI
 {
@@ -9,7 +10,7 @@ namespace DXUI
         scene->CreatePage(id);
         scene->CreatePage((PageId)DX::SETTINGS_MAIN);
         scene->CreatePage((PageId)DX::RACE_SETTINGS1);
-        scene->CreatePage((PageId)DX::RACE_SETTINGS2);
+        scene->CreatePage((PageId)DX::MENU_SETTINGS1);
         return;
     }
     kmCall(0x8062fe3c, InjectPage);
@@ -55,7 +56,7 @@ namespace DXUI
         onButtonClickHandler.ptmf = static_cast<void (Menu::*)(PushButton *, u32)> (&SettingsBasePage::OnSaveButtonClick);
 
         sheetIndex = 0;
-        titleBmg = 0x7da;
+        titleBmg = 0x2A00;
 
         this->controlsManipulatorManager.Init(1,false);
         this->SetManipulatorManager(&controlsManipulatorManager);
@@ -77,6 +78,7 @@ namespace DXUI
     {
         upDownControls = new UpDownControl();
         textUpDown = new TextUpDownValueControl();
+        currentPageId = (u32)DX::RACE_SETTINGS1;
         Menu::OnInit();
         this->SetTransitionSound(0x0,0x0);
     }
@@ -105,7 +107,7 @@ namespace DXUI
             upDownControls->HandleRightPress(0, 0);
         }
         if(currentPageId == (u32)DX::RACE_SETTINGS1)
-            currentPageId = (u32)DX::RACE_SETTINGS2;   
+            currentPageId = (u32)DX::MENU_SETTINGS1;   
         else
             currentPageId = (u32)DX::RACE_SETTINGS1;          
 
@@ -121,15 +123,13 @@ namespace DXUI
     void SettingsBasePage::OnTextChange(TextUpDownValueControl::TextControl *text, u32 optionId){
         TextUpDownValueControl *valueControl = (TextUpDownValueControl*) text->parentGroup->parentControl;
 
-        u32 bmgId = 0x239e + optionId;// + (this->sheetIndex<<12) + optionId;
+        u32 bmgId = BMG_SETTINGS_PAGE + 0xB8 + optionId;// + (this->sheetIndex<<12) + optionId;
         text->SetMsgId(bmgId);
-        //TEXT HERE 80853a10
+
         return;
     };
 
     void SettingsBasePage::OnUpDownSelect(UpDownControl *upDownControl, u32 hudSlotId){
-        u32 bmgId = 0x5000 + (this->sheetIndex<<12) + (upDownControl->id+1<<8) + upDownControl->curSelectedOption;
-        this->bottomText->SetMsgId(bmgId);
         return;
     }
 
@@ -151,8 +151,8 @@ namespace DXUI
 
             valueCtrl->Load("control", "DXSettingPageUpDownValue", "Value", "DXSettingPageUpDownText", "Text");
             valueCtrl->SetOnTextChangeHandler(&this->onTextChangeHandler);
-            upDownCtrl->SetMsgId(0x239e);
-            valueCtrl->activeTextValueControl->SetMsgId(0x239e);
+            upDownCtrl->SetMsgId(BMG_SETTINGS_PAGE + currentPageId);
+            valueCtrl->activeTextValueControl->SetMsgId(BMG_SETTINGS_PAGE + currentPageId);
         }
         return NULL;
     }
@@ -183,8 +183,7 @@ namespace DXUI
     void SettingsBasePage::OnActivate()
     {
         Menu::OnActivate();
-        this->AddPageLayer((PageId)DX::RACE_SETTINGS1, 0);
-        currentPageId = (u32)DX::RACE_SETTINGS1;
+        this->AddPageLayer((PageId)currentPageId, 0);
     }
 
     void SettingsBasePage::OnBackPress(u32 slotId)

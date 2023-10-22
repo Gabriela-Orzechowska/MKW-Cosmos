@@ -11,16 +11,18 @@ void * CreatePage(Scene * scene, u32 pageId)
     }
     else if(pageId == (u32)DX::RACE_SETTINGS1)
     {
-        u8 optionCount[8] = {3, 3, 3, 2, 2, 2, 2, 2};
+        u8 optionCount[8] = {3, 2, 3, 2, 2, 2, 2, 2};
+        u8 onOff[8] = {0,1,0,0,0,0,0,0};
 
-        return new(DXUI::SettingSubPage)(6,optionCount,1);
+        return new(DXUI::SettingSubPage)(2,optionCount,pageId,onOff);
     }
     
-    else if(pageId == (u32)DX::RACE_SETTINGS2)
+    else if(pageId == (u32)DX::MENU_SETTINGS1)
     {
         u8 optionCount[8] = {2, 2, 2, 2, 2, 2, 2, 2};
+        u8 onOff[8] = {1,0,0,0,0,0,0,0};
 
-        return new(DXUI::SettingSubPage)(2,optionCount,2);
+        return new(DXUI::SettingSubPage)(1,optionCount,pageId, onOff);
     }
     return scene->CreatePageById((PageId)pageId);
 }

@@ -14,7 +14,7 @@ namespace DX
     {
         SETTINGS_MAIN = 0xB7,
         RACE_SETTINGS1 = 0xB8,
-        RACE_SETTINGS2 = 0xB9,
+        MENU_SETTINGS1 = 0xB9,
     };
 
     const char packFolder[20] = "/mkwdx";

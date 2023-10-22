@@ -16,6 +16,9 @@ extern u32 VSSettings_sInstance;
 namespace DXUI
 {
 
+#define MINPAGE 0xB8
+#define MAXPAGE 0xB9
+
     class SettingsBasePage : public Pages::Menu
     {
         public:

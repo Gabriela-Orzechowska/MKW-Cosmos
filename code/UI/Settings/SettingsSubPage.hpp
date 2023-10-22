@@ -30,7 +30,7 @@ namespace DXUI
     class SettingSubPage : public Pages::Menu
     {
         public:
-        SettingSubPage(u32 selectorCount, const u8 optionCount[8], u32 sheetId);
+        SettingSubPage(u32 selectorCount, const u8 optionCount[8], u32 pageId, const u8 isOnOff[8]);
         ~SettingSubPage() override;
         void OnInit() override;
         void OnActivate() override;
@@ -42,7 +42,9 @@ namespace DXUI
         void OnExternalButtonSelect(PushButton  *button, u32 param_2) override;
         UIControl *CreateControl(u32 id) override;
         void SetButtonHandlers(PushButton *pushButton) override;
-        u32 sheetIndex;
+        u32 pageIndex;
+        u8 areScrollersOnOff[8];
+
 
         SettingsBasePage * basePage;
 

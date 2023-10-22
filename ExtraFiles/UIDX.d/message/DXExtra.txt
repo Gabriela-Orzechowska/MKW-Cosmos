@@ -17,9 +17,40 @@
  2810   = Track Layout: Normal
  2811   = Track Layout: Castle Gorge	
 
+ 2A00   = Settings
+ 2A01   = Race (1/1)
+ 2A02   = Menu (1/1)
+
+ 2A21   = Manage your Race settings!
+ 2A22   = Manage your Menu settings!
+
+ 3700   = Enabled
+ 3701   = Disabled
+
+ 3000   = Final Lap Music Speed-Up
+ 
+ 3001   = Enabled
+ 3002   = No Cut-off
+ 3003   = Disabled
+
+ 3801   = Music will speed-up over 4s when entering final lap.
+ 3802   = Music will continue when entering final lap.
+ 3803   = Music will change to fast variant as normal.
+
+ 3010   = Draggable Blue-Shells
+
+ 3811   = You can hold Blue-Shells behind like other shells.
+ 3812   = You can't hold Blue-Shells behind like other shells.
+
+ 3100   = Fast Menus
+
+ 3901   = Menu transitions will be instant.
+ 3902   = Menu transitions will be normal.
+
  2820   = A solo race for the fastest record! (200cc)
  2830   = Change Combo
   13044	= DS Test Circle \n\z{800,40}\c{blue1}Bruh de la Boi\c{off}
   13045	= Castle Gorge \n\z{800,40}\c{blue1}Toadette Hack Fan, Mystora\c{off} 
   13046	= KKW Prismatic Parkway \n\z{800,40}\c{blue1}Mystora\c{off} 
   13047	= Ruinated Peach's Castle \n\z{800,40}\c{blue1}Gabriela_\c{off}
+

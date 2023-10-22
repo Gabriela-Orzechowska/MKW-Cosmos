@@ -1,8 +1,9 @@
 #include <UI/Settings/SettingsSubPage.hpp>
+#include <UI/BMG/BMG.hpp>
 
 namespace DXUI
 {
-    SettingSubPage::SettingSubPage(u32 selectorCount, const u8 optionCount[8], u32 sheetId)
+    SettingSubPage::SettingSubPage(u32 selectorCount, const u8 optionCount[8], u32 pageId, const u8 isOnOff[8])
     {
         nextPageId = PAGE_NONE;
         prevPageId = OPTIONS;
@@ -51,7 +52,7 @@ namespace DXUI
         onButtonClickHandler.subject = this;
         onButtonClickHandler.ptmf = static_cast<void (Menu::*)(PushButton *, u32)> (&SettingSubPage::OnSaveButtonClick);
 
-        sheetIndex = sheetId;
+        pageIndex = pageId;
         titleBmg = 0x00;
 
         this->controlsManipulatorManager.Init(1,false);
@@ -62,6 +63,7 @@ namespace DXUI
         scrollersCount = selectorCount;
         
         memcpy(this->optionsPerScroller, optionCount, 8);
+        memcpy(this->areScrollersOnOff, isOnOff, 8);
     }
 
     SettingSubPage::~SettingSubPage()
@@ -99,26 +101,28 @@ namespace DXUI
     void SettingSubPage::OnTextChange(TextUpDownValueControl::TextControl *text, u32 optionId){
         TextUpDownValueControlPlus *valueControl = (TextUpDownValueControlPlus*) text->parentGroup->parentControl;
 
-        u32 bmgId = 0x7d2 + optionId;
         if(valueControl->id == 99)
         {
             text->SetMsgId(0x0);
             this->bottomText->SetMsgId(0x00);
             return;
         }
+
+        u32 bmgId = BMG_SETTING_OPTION + ((pageIndex-MINPAGE) << 8) + (valueControl->id << 4) + optionId;
+
+        u32 bottomBmgId = bmgId - BMG_SETTING_OPTION + BMG_SETTING_OPTION_BOTTOM;
+
+        if(areScrollersOnOff[valueControl->id] != 0)
+            bmgId = BMG_ENABLED_DISABLED + optionId;
+
         text->SetMsgId(bmgId);
-        this->bottomText->SetMsgId(bmgId);
+        this->bottomText->SetMsgId(bottomBmgId);
         //TEXT HERE 80853a10
         return;
     };
 
     void SettingSubPage::OnUpDownSelect(UpDownControl *upDownControl, u32 hudSlotId){
-        u32 bmgId = upDownControl->curSelectedOption + 0x7d2;
-        if(upDownControl->id == 99)
-        {
-            this->bottomText->SetMsgId(0x00);
-            return;
-        }
+        u32 bmgId = BMG_SETTING_OPTION_BOTTOM + ((pageIndex-MINPAGE) << 8) + (upDownControl->id << 4) + upDownControl->curSelectedOption;
 
         this->bottomText->SetMsgId(bmgId);
         return;
@@ -129,6 +133,7 @@ namespace DXUI
         UpDownControl * baseControl = this->basePage->upDownControls;
 
         baseControl->HandleSelect(hudSlotId, 0);
+        this->bottomText->SetMsgId(BMG_SETTINGS_PAGE_BOTTOM + MINPAGE + baseControl->curSelectedOption);
 
         return;
     }
@@ -181,9 +186,16 @@ namespace DXUI
             valueCtrl->Load("control", "DXSettingsUpDownValue", "Value", "DXSettingsUpDownText", "Text");
             valueCtrl->SetOnTextChangeHandler(&this->onTextChangeHandler);
             valueCtrl->id = id;
-            u32 bmgCategory = 0x6000 + (this->sheetIndex<<12);
-            upDownCtrl->SetMsgId(0x2328 + id);
-            valueCtrl->activeTextValueControl->SetMsgId(0x700a);
+
+            u32 bmgOption = BMG_SETTING_FIELD | ((pageIndex-MINPAGE) << 8) | (id << 4);
+            OSReport("[DX] BMG ID: %d", bmgOption);
+
+            u32 bmgId = BMG_SETTING_OPTION | ((pageIndex-MINPAGE) << 8) | (id << 4);
+            if(areScrollersOnOff[id] > 0)
+                bmgId = BMG_ENABLED_DISABLED;
+
+            upDownCtrl->SetMsgId(bmgOption);
+            valueCtrl->activeTextValueControl->SetMsgId(bmgId);
         }
 
         else if(id = this->scrollersCount)
@@ -264,7 +276,12 @@ namespace DXUI
             text->SetMsgId(0x0);
             return;
         }
-        u32 bmgId = 0x7d2 + optionId;
+        
+        SettingSubPage * basePage = ((DXUI::SettingSubPage *)this->parentGroup->parentPage);
+
+        u32 bmgId = BMG_SETTING_OPTION + ((basePage->pageId-MINPAGE) << 8) + (id << 4) + optionId;
+        if(basePage->areScrollersOnOff[id] > 0)
+           bmgId = BMG_ENABLED_DISABLED | optionId;
         text->SetMsgId(bmgId);
     }
 
