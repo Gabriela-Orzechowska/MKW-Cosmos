@@ -37,7 +37,10 @@ namespace DXUI
         void HandleChange(u32 direction);
         u32 sheetIndex;
         void OnBackPress(u32 slotId);
+        void SetPrevPage(PageId pageId);
         UpDownControl * upDownControls;
+
+        PageId lastPage;
 
         u32 currentPageId;
 

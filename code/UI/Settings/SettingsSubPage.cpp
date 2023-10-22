@@ -6,7 +6,7 @@ namespace DXUI
     SettingSubPage::SettingSubPage(u32 selectorCount, const u8 optionCount[8], u32 pageId, const u8 isOnOff[8])
     {
         nextPageId = PAGE_NONE;
-        prevPageId = OPTIONS;
+        prevPageId = PAGE_NONE;
 
         nextMenu = MENU_NONE;
 
@@ -89,8 +89,6 @@ namespace DXUI
     void SettingSubPage::OnExternalButtonSelect(PushButton *button, u32 param_2){
         return;
     }
-
-    kmWrite32(0x805fd9f4, 0x380000b7);
 
     void SettingSubPage::OnUpDownClick(UpDownControl *upDownControl, u32 hudSlotId){
         //PushButton *okButton = this->externControls[0];
@@ -254,7 +252,7 @@ namespace DXUI
         basePage = MenuData::sInstance->curScene->Get<SettingsBasePage>((PageId)DX::SETTINGS_MAIN);
         //this->basePage->upDownControls->HandleButtonDeselect(0,0);
         nextPageId = PAGE_NONE;
-        prevPageId = OPTIONS;
+        prevPageId = basePage->lastPage;
         backButton.isHidden = true;  
         Menu::OnActivate();
     }

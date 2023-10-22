@@ -68,6 +68,13 @@ namespace DXUI
         this->optionsPerScroller[0] = 2; 
     }
 
+    void SettingsBasePage::SetPrevPage(PageId pageId)
+    {
+        prevPageId = pageId;
+        lastPage = pageId;
+        return;
+    }
+
     SettingsBasePage::~SettingsBasePage()
     {
         delete(upDownControls);
