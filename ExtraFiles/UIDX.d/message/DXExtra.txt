@@ -27,11 +27,11 @@
  3700   = Enabled
  3701   = Disabled
 
- 3000   = Final Lap Music Speed-Up
+ 3000   = Final Lap Music
  
- 3001   = Enabled
+ 3001   = Speed-Up
  3002   = No Cut-off
- 3003   = Disabled
+ 3003   = Default
 
  3801   = Music will speed-up over 4s when entering final lap.
  3802   = Music will continue when entering final lap.

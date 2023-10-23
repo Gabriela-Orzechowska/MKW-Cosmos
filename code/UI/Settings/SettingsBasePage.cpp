@@ -4,21 +4,10 @@
 
 namespace DXUI
 {
-
-    void InjectPage(Scene *scene, PageId id)
-    {
-        scene->CreatePage(id);
-        scene->CreatePage((PageId)DX::SETTINGS_MAIN);
-        scene->CreatePage((PageId)DX::RACE_SETTINGS1);
-        scene->CreatePage((PageId)DX::MENU_SETTINGS1);
-        return;
-    }
-    kmCall(0x8062fe3c, InjectPage);
-
     SettingsBasePage::SettingsBasePage()
     {
         nextPageId = PAGE_NONE;
-        prevPageId = OPTIONS;
+        prevPageId = SINGLE_PLAYER_MENU;
 
         nextMenu = MENU_NONE;
 
@@ -195,7 +184,7 @@ namespace DXUI
 
     void SettingsBasePage::OnBackPress(u32 slotId)
     {
-        this->LoadPrevPageWithDelayById(OPTIONS, 0.0f);
+        this->LoadPrevPageWithDelayById(prevPageId, 0.0f);
     }
 
     void SettingsBasePage::OnSaveButtonClick(PushButton *button, u32 hudSlotId){
