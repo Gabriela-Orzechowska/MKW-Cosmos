@@ -12,14 +12,14 @@ public:
     ExpHeap::GroupSizeHolder groupSizes[3]; //0xC, one per heap
 }; //0xc0c
 
-class RKScene : public Scene {
+class RKScene : public EggScene {
     ~RKScene() override; //800073f0 vtable 802585d8
     ExpHeapGroup expHeapGroup; //0x30
     u8 unknown_0xc3c[0xc70 - 0xc3c]; //0xc3c
 }; //0xc70
 
 class RKSceneCreator : public SceneCreator { //Creates StrapScene
-    Scene *create(u32 sceneId) override; //8000a550 vtable 80270cd0
+    EggScene *create(u32 sceneId) override; //8000a550 vtable 80270cd0
     void destroy(u32 sceneId) override;  //8000a5a8
 };
 

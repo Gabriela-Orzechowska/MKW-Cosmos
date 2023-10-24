@@ -9,18 +9,18 @@
 namespace EGG {
 
 class SceneManager;
-class Scene;
+class EggScene;
 
 class SceneCreator { //vtable got done away by the compiler
-    virtual Scene *create(u32 sceneId); //0x8
+    virtual EggScene *create(u32 sceneId); //0x8
     virtual void destroy(u32 sceneId);  //0xc
 }; //0x4 
 
 size_assert(SceneCreator, 0x4);
-class Scene : public EGG::Disposer {
+class EggScene : public EGG::Disposer {
 public:
-    Scene(); //8023ad10
-    ~Scene() override;     //8023ad84, vtable 802a3de0
+    EggScene(); //8023ad10
+    ~EggScene() override;     //8023ad84, vtable 802a3de0
     virtual void calc();   //0xc  80007f4c
     virtual void draw();   //0x10 80007f48
     virtual void enter();  //0x14 80007f44
@@ -32,12 +32,12 @@ public:
     ExpHeap *mem1Heap; //0x14
     ExpHeap *mem2Heap; //0x18
     void *unknown_0x1c; //0x1c
-    Scene *parent; //0x20
-    Scene *child;
+    EggScene *parent; //0x20
+    EggScene *child;
     u32 id;
     SceneManager *manager; //0x2c
 }; //0x30
-size_assert(Scene, 0x30);
+size_assert(EggScene, 0x30);
 
 class SceneManager {
 public:
@@ -68,8 +68,8 @@ public:
     bool reinitCurrentSceneAfterFadeOut(); //8023af18 initiates a fadeout and prepares a scene reinit
     SceneCreator *curSectionCeator; //0x4
     u8 unknown_0x8[4];
-    Scene *currentScene; //0xc
-    Scene *parentOfCurrent; //0x10
+    EggScene *currentScene; //0xc
+    EggScene *parentOfCurrent; //0x10
     u32 nextSceneId; //0x14
     u32 currentSceneId; //0x18
     u32 someKindOfSceneId; //0x1c

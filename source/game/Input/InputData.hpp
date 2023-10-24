@@ -55,7 +55,7 @@ enum Buttons{
     CLASSIC_L=0x2000,
     CLASSIC_R=0x200,
     CLASSIC_ZL=0x80,
-    CLASSIC_Z=0x4,
+    CLASSIC_ZR=0x4,
 
     GCN_DPAD_LEFT=0x1,
     GCN_DPAD_RIGHT=0x2,
