@@ -6,7 +6,7 @@
 #include <core/rvl/ipc/ipc.hpp>
 #include <core/rvl/os/OS.hpp>
 
-#define NO_FAST_MENU
+//#define NO_FAST_MENU
 
 namespace DX
 {

@@ -4,6 +4,7 @@
 #include <game/Visual/Effect/EffectMgr.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
 #include <game/Race/RaceData.hpp>
+#include <Controller/MiscController.hpp>
 
 //Ported from Stebler's 200cc code
 
@@ -11,25 +12,32 @@ void EnableBrakeDrifting()
 {
     for(int i = 0; i < RaceData::sInstance->racesScenario.localPlayerCount; i++)
     {
+        bool brakeDrift = false;
+
         u8 playerId = RaceData::sInstance->racesScenario.settings.hudPlayerIds[i];
 
         u32 controller = MenuData::sInstance->pad.padInfos[0].controllerSlotAndTypeActive;
         ControllerType type = ControllerType(controller & 0xFF);
-        RealControllerHolder * controllerHolder = &InputData::sInstance->realControllerHolders[i];
+        RealControllerHolder * holder = &InputData::sInstance->realControllerHolders[i];
 
-        u16 controllerInputs = controllerHolder->inputStates[0].buttonRaw;
+        using namespace DXController;
 
-        u32 inputMask = 0x700;
-        if(type == NUNCHUCK)
-            inputMask = 0xC04;
-        else if(type == GCN)
-            inputMask = 0x320;
-        else if(type == CLASSIC)
-            inputMask = 0x250;
+        switch(type) {
+            case CLASSIC:
+            case GCN:
+                if(arePressed(holder, type, (ButtonCommon)(BUTTON_A | BUTTON_B | BUTTON_R))) brakeDrift = true;
+                break;
+            case NUNCHUCK:
+                if(arePressed(holder, type, (ButtonCommon)(BUTTON_A | BUTTON_B | BUTTON_DPAD_DOWN))) brakeDrift = true;
+                break;
+            case WHEEL:
+                if(arePressed(holder, type, (ButtonCommon)(BUTTON_1 | BUTTON_2 | BUTTON_B))) brakeDrift = true;
+                break;
+            default:
+                brakeDrift = false;
+        }
 
-        if((controllerInputs & inputMask) == inputMask)
-            controllerHolder->inputStates[0].buttonActions |= 0x10;
-
+        if(brakeDrift) holder->inputStates[0].buttonActions |= 0x10;
     }
 }
 
