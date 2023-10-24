@@ -15,7 +15,7 @@ namespace LeCode{
         u32 version;
         u32 buildNumber;
         void * baseAddress;
-        void *  entryPoint;
+        void * entryPoint;
         u32 totalSize;
         u32 offsetParam;
         char region;
@@ -29,10 +29,10 @@ namespace LeCode{
         u32 version; //0x08
         u32 size; //0x0C
         u32 off_eod; //0x10
-        u32 off_cup_par;	// offset to cup param 0x14
-        u32 off_cup_track;	// offset of cup-track list
-        u32 off_cup_arena;	// offset of cup-arena list
-        u32 off_course_par;	// offset of course param
+        u32 off_cup_parameters;	// offset to cup param 0x14
+        u32 off_track_layout;	// offset of cup-track list
+        u32 off_battle_layout;	// offset of cup-arena list
+        u32 off_course_parameters;	// offset of course param
         u32 off_property;	// offset of property list
         u32 off_music;	// offset of music list
         u32 off_flags;	// offset of flags

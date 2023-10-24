@@ -81,13 +81,13 @@ namespace LeCode
     void * LeCodeManager::GetCupParamAddress()
     {
         char * address = (char*)(this->settingHeader);
-        address += this->settingHeader->off_cup_par;
+        address += this->settingHeader->off_cup_parameters;
         return address;
     }
     void * LeCodeManager::GetCupDefAddress()
     {
         char * address = (char*)(this->settingHeader);
-        address += this->settingHeader->off_cup_track;
+        address += this->settingHeader->off_track_layout;
         return address;
     }
 
