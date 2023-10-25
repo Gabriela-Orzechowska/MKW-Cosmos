@@ -7,6 +7,7 @@
 #include <game/UI/Page/Menu/Menu.hpp>
 #include <game/UI/Page/Menu/VSSettings.hpp>
 #include <game/UI/Ctrl/Menu/CtrlMenuText.hpp>
+#include <Settings/UserData.hpp>
 #include <main.hpp>
 
 

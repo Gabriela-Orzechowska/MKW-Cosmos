@@ -94,6 +94,7 @@ namespace DXUI
 
     void SettingsBasePage::HandleChange(u32 direction)
     {
+        this->SaveSettings();
         if(direction == 0)
         {
             upDownControls->HandleLeftPress(0, 0);
@@ -184,7 +185,26 @@ namespace DXUI
 
     void SettingsBasePage::OnBackPress(u32 slotId)
     {
-        this->LoadPrevPageWithDelayById(prevPageId, 0.0f);
+        this->SaveSettings();
+        this->LoadPrevPageWithDelayById(lastPage, 0.0f);
+    }
+
+    void SettingsBasePage::SaveSettings()
+    {
+        Scene * scene = MenuData::sInstance->curScene;
+
+        using namespace DXData;
+
+        for(int i = 0; i < PAGECOUNT; i++)
+        {
+            SettingSubPage * page = scene->Get<SettingSubPage>((PageId)(MINPAGE + i));
+            SettingsPage * settings = &SettingsHolder::GetInstance()->GetSettings()->pages[i];
+            for(UpDownControl * control = page->upDownControls; control < &page->upDownControls[page->scrollersCount]; control++)
+            {
+                settings->setting[control->id] = control->curSelectedOption;
+            }
+        }
+        SettingsHolder::GetInstance()->Update();
     }
 
     void SettingsBasePage::OnSaveButtonClick(PushButton *button, u32 hudSlotId){

@@ -8,6 +8,7 @@
 #include <game/UI/Page/Menu/VSSettings.hpp>
 #include <game/UI/Ctrl/Menu/CtrlMenuText.hpp>
 #include <UI/Settings/SettingsBasePage.hpp>
+#include <Settings/UserData.hpp>
 #include <main.hpp>
 
 #define SUBPAGECOUNT 2
@@ -44,9 +45,10 @@ namespace DXUI
         void SetButtonHandlers(PushButton *pushButton) override;
         u32 pageIndex;
         u8 areScrollersOnOff[8];
-
+        u32 scrollersCount;
 
         SettingsBasePage * basePage;
+        UpDownControl * upDownControls;
 
 
         private:
@@ -65,7 +67,6 @@ namespace DXUI
 
         u32 mainControlId;
 
-        UpDownControl * upDownControls;
         TextUpDownValueControlPlus * textUpDownPlus;
         PtmfHolder_2A<Page, void, UpDownControl*, u32> onUpDownClickHandler; 
         PtmfHolder_2A<Page, void, UpDownControl*, u32> onUpDownSelectHandler; 
@@ -75,7 +76,6 @@ namespace DXUI
         PtmfHolder_3A<Page, void, UpDownControl*, u32, u32> onMainUpDownChangeHandler;
 
         PtmfHolder_2A<Page, void, TextUpDownValueControl::TextControl*, u32> onTextChangeHandler; 
-        u32 scrollersCount;
         u8 optionsPerScroller[8];
         PtmfHolder_2A<Menu, void, PushButton *, u32> onRightButtonClickHandler;
         PtmfHolder_2A<Menu, void, PushButton *, u32> onLeftButtonClickHandler;

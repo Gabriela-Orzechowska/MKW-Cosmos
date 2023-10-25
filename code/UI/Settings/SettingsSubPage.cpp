@@ -163,6 +163,7 @@ namespace DXUI
 
     UIControl * SettingSubPage::CreateControl(u32 id)
     {
+        DXData::SettingsHolder * settingsHolder = DXData::SettingsHolder::GetInstance();
         if(id < this->scrollersCount)
         {
             UpDownControl * upDownCtrl = &this->upDownControls[id];
@@ -173,7 +174,7 @@ namespace DXUI
             char variant[0x20];
             snprintf(variant, 0x20, "UpDown%d", id);
 
-            upDownCtrl->Load(this->optionsPerScroller[id], 0, "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
+            upDownCtrl->Load(this->optionsPerScroller[id], settingsHolder->GetSettings()->pages[this->pageId - MINPAGE].setting[id], "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
             "DXSettingsUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textUpDownPlus[id], 1, 0, false, true, true);
             upDownCtrl->SetOnClickHandler(&this->onUpDownClickHandler);
             upDownCtrl->SetOnSelectHandler(&this->onUpDownSelectHandler);
@@ -248,12 +249,19 @@ namespace DXUI
 
     void SettingSubPage::OnActivate()
     {
+        DXData::SettingsPage * settingsPage = &DXData::SettingsHolder::GetInstance()->GetSettings()->pages[this->pageId - MINPAGE];
         UpDownControl::Select(&this->upDownControls[this->mainControlId], 0);
         basePage = MenuData::sInstance->curScene->Get<SettingsBasePage>((PageId)DX::SETTINGS_MAIN);
         //this->basePage->upDownControls->HandleButtonDeselect(0,0);
         nextPageId = PAGE_NONE;
         prevPageId = basePage->lastPage;
         backButton.isHidden = true;  
+
+        for(UpDownControl * control = this->upDownControls; control < &this->upDownControls[this->scrollersCount]; control++)
+        {
+            control->curSelectedOption = settingsPage->setting[control->id];
+        }
+
         Menu::OnActivate();
     }
 
@@ -264,7 +272,7 @@ namespace DXUI
     }
 
     void SettingSubPage::OnSaveButtonClick(PushButton *button, u32 hudSlotId){
-        this->LoadPrevPage(button);
+        //this->LoadPrevPage(button);
     }
 
     void TextUpDownValueControlPlus::SetMessage(u32 optionId){
