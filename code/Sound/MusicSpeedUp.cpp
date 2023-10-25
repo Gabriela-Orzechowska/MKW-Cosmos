@@ -4,6 +4,7 @@
 #include <game/Sound/Actors/KartSound.hpp>
 #include <game/Sound/RSARSounds.hpp>
 #include <game/UI/Ctrl/CtrlRace/CtrlRaceGhostDiffTime.hpp>
+#include <Settings/UserData.hpp>
 
 void FinalLapSpeedUp(RaceRSARSoundsPlayer *soundPlayer, u32 lapSoundId, u32 playerId)
 {
@@ -19,19 +20,31 @@ void FinalLapSpeedUp(RaceRSARSoundsPlayer *soundPlayer, u32 lapSoundId, u32 play
 
     if (maxLap == RaceData::sInstance->racesScenario.settings.lapCount)
     {
-        RaceInfo * raceInfo = RaceInfo::sInstance;
-        Timer * raceTimer = &raceInfo->timerManager->timers[0];
-        Timer * playerTimer = &raceInfo->players[firstPlayerId]->lapSplits[maxLap-2];
-        Timer difference;
-        CtrlRaceGhostDiffTime::SubtractTimers(difference, raceTimer, playerTimer);
+        using namespace DXData;
+        if(SettingsHolder::GetInstance()->GetSettings()->pages[DX_RACE_SETTINGS_1].setting[DX_MUSIC_CUTOFF] != CUTOFF_DISABLED)
+        {
+            RaceInfo * raceInfo = RaceInfo::sInstance;
+            Timer * raceTimer = &raceInfo->timerManager->timers[0];
+            Timer * playerTimer = &raceInfo->players[firstPlayerId]->lapSplits[maxLap-2];
+            Timer difference;
+            CtrlRaceGhostDiffTime::SubtractTimers(difference, raceTimer, playerTimer);
 
-        if(difference.minutes < 1 && difference.seconds < 5)
-        {
-            KartHolder::sInstance->GetKart(hudIdFinalLap)->pointers.kartSound->soundArchivePlayer->soundPlayerArray->soundList.GetFirst()->ambientParam.pitch += 0.0002f;
+            if(SettingsHolder::GetInstance()->GetSettings()->pages[DX_RACE_SETTINGS_1].setting[DX_MUSIC_CUTOFF] == SPEEDUP)
+            {
+                if(difference.minutes < 1 && difference.seconds < 5)
+                {
+                    KartHolder::sInstance->GetKart(hudIdFinalLap)->pointers.kartSound->soundArchivePlayer->soundPlayerArray->soundList.GetFirst()->ambientParam.pitch += 0.0002f;
+                }
+            }
+
+            if(maxLap != currentLap) 
+            {
+                soundPlayer->PlaySound(0x74, playerId);
+            }
         }
-        if(maxLap != currentLap) 
+        else if ((maxLap != currentLap) && (audioMgr->raceState == 0x4 || audioMgr->raceState == 0x6)) 
         {
-            soundPlayer->PlaySound(0x74, playerId);
+            audioMgr->ChangeMusic(RACE_STATE_FAST);
         }
     }
     else if(currentLap != maxLap)
