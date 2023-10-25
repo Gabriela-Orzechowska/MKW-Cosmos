@@ -1,6 +1,7 @@
 #include <kamek.hpp>
 #include <game/Race/RaceData.hpp>
 #include <game/Item/ItemManager.hpp>
+#include <Settings/UserData.hpp>
 
 void MegaTC(KartMovement * kartMovement)
 {
@@ -22,6 +23,20 @@ void MegaFov(KartMovement * kartMovement)
    
 }
 kmCall(0x805795d8, MegaFov); 
+
+void DraggableBlues(ItemPlayerSub *sub)
+{
+    using namespace DXData;
+    if(SettingsHolder::GetInstance()->GetSettings()->pages[DX_RACE_SETTINGS_1].setting[DX_DRAGGABLE_BLUES] == DISABLED) sub->isNotDragged = true;
+}
+
+void LeCodeItemPatches()
+{
+    DX::CreateBranch(DX::GetPortAddress(0x807ae8ac, 0x807a3c04, 0x807adf18, 0x8079cc6c), DraggableBlues);
+    *(u32 *)DX::GetPortAddress(0x808a5b30, 0x808a1058, 0x808a4c90, 0x80893f90) = DX::GetPortAddress(0x807ae8a8, 0x807a3c00, 0x807adf14, 0x8079cc68);
+}
+static LeCodeLoadHook ItemLeCode(LeCodeItemPatches);
+kmBranch(0x807ae8ac, DraggableBlues);
 
 // Engine Class Speed Factors
 
