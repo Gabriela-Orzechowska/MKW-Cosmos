@@ -94,7 +94,7 @@ namespace DXUI
 
     void SettingsBasePage::HandleChange(u32 direction)
     {
-        this->SaveSettings();
+        //this->SaveSettings();
         if(direction == 0)
         {
             upDownControls->HandleLeftPress(0, 0);
@@ -205,6 +205,7 @@ namespace DXUI
             }
         }
         SettingsHolder::GetInstance()->Update();
+        return;
     }
 
     void SettingsBasePage::OnSaveButtonClick(PushButton *button, u32 hudSlotId){

@@ -6,27 +6,24 @@
 #include <core/rvl/os/OS.hpp>
 #include <main.hpp>
 
-class SettingUpdateHook{
-    private:
+class SettingsUpdateHook {
+private:
     typedef void (Func)();
-    Func * func;
-    SettingUpdateHook * mNext;
+    Func *mFunc;
+    SettingsUpdateHook * mNext;
 
-    static SettingUpdateHook * sHooks;
+    static SettingsUpdateHook * sHooks;
 
-    public:
-    SettingUpdateHook(Func * f)
-    {
+public:
+    SettingsUpdateHook(Func * f) {
         mNext = sHooks;
         sHooks = this;
-        func = f;
+        mFunc = f;
     }
-    static void exec()
-    {
-        for(SettingUpdateHook * p = sHooks; p; p->mNext)
-        {
-            p->func();
-        }
+
+    static void exec() {
+        for (SettingsUpdateHook * p = sHooks; p; p = p->mNext)
+            p->mFunc();
     }
 };
 
@@ -66,6 +63,32 @@ namespace DXData
             void RequestSave();
             char filepath[IPCMAXPATH];
     };
+
+    enum SETTINGSPAGES{
+        DX_RACE_SETTINGS_1 = 0x0,
+        DX_MENU_SETTINGS_1 = 0x1,
+    };
+
+    enum RACE_SETTINGS_1_SETTINGS {
+        DX_MUSIC_CUTOFF = 0x0,
+        DX_DRAGGABLE_BLUES = 0x1,
+    };
+
+    enum MENU_SETTINGS_1_SETTINGS {
+        DX_FAST_MENUS = 0x0,
+    };
+    
+    enum MUSIC_CUTOFF_OPTIONS {
+        SPEEDUP = 0x0,
+        NO_CUTOFF = 0x1,
+        CUTOFF_DISABLED = 0x2,
+    };
+
+    enum SETTINGS_BOOL {
+        ENABLED = 0x0,
+        DISABLED = 0x1,
+    };
+
 
 }
 

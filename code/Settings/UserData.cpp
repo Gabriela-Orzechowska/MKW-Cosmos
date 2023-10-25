@@ -1,6 +1,6 @@
 #include <Settings/UserData.hpp>
 
-SettingUpdateHook * SettingUpdateHook::sHooks = NULL;
+SettingsUpdateHook * SettingsUpdateHook::sHooks = NULL;
 
 namespace DXData
 {
@@ -12,7 +12,7 @@ namespace DXData
 
     void SettingsHolder::Update()
     {
-        SettingUpdateHook::exec();
+        SettingsUpdateHook::exec();
         this->RequestSave();
     }
 
