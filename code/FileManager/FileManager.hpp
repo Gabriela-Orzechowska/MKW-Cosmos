@@ -34,6 +34,7 @@ namespace DXFile
             FileManager() : fd(-1) {memset(&this->path, 0, IPCMAXPATH);}
             virtual s32 Open(const char * filepath, u32 mode);
             virtual s32 CreateOpen(const char * filepath, u32 mode);
+            virtual s32 CreateFolder(const char * filepath);
             virtual s32 GetDeviceFd() const;
             virtual void GetCorrectPath(char * realPath, const char * path) const;
             s32 Read(void * buffer = NULL, s32 size = 0);

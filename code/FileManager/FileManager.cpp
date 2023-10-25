@@ -70,6 +70,13 @@ namespace DXFile
         return this->Open(path, mode);
     }
 
+    s32 FileManager::CreateFolder(const char * path)
+    {
+        char realPath[IPCMAXPATH];
+        this->GetCorrectPath(realPath, path);
+        return ISFS::CreateDir(realPath, 0, IOS::MODE_READ_WRITE, IOS::MODE_READ_WRITE, IOS::MODE_READ_WRITE);
+    }
+
     s32 FileManager::Read(void * buffer, s32 size)
     {
         if(this->fd < 0) return -1;

@@ -18,6 +18,7 @@ namespace DX
     };
 
     const char packFolder[20] = "/mkwdx";
+    const char SaveFile[11] = "DXData.bin";
     const char CommonArchive[14] = "/CommonDX.szs";
     const char UIArchive[10] = "/UIDX.szs";
     const char CourseArchive[14] = "/CourseDX.szs";

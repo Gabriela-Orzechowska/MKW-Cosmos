@@ -1,5 +1,4 @@
 #include <Settings/UserData.hpp>
-#include <core/rvl/os/OS.hpp>
 
 SettingUpdateHook * SettingUpdateHook::sHooks = NULL;
 
@@ -54,10 +53,10 @@ namespace DXData
 
     void SettingsHolder::Create(){
         SettingsHolder * holder = new (RKSystem::mInstance.EGGSystem) SettingsHolder();
-        char path[IPCMAXPATH] = "/mkwdx/DXData.bin";
+        char path[IPCMAXPATH];
+        snprintf(path, IPCMAXPATH, "%s/%s", DX::packFolder, DX::SaveFile);
         holder->Init(path, "DXSD", 0x01);
         SettingsHolder::sInstance = holder;
-        OSReport("[DX] Create mkwdx/DXData.bin");
     }
 
     BootHook InitSettings(SettingsHolder::Create, MEDIUM);

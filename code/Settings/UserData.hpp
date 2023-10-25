@@ -3,6 +3,8 @@
 
 #include <kamek.hpp>
 #include <FileManager/FileManager.hpp>
+#include <core/rvl/os/OS.hpp>
+#include <main.hpp>
 
 class SettingUpdateHook{
     private:

@@ -1,6 +1,7 @@
 #include <main.hpp>
 #include <game/System/Archive.hpp>
 #include <game/Race/RaceData.hpp>
+#include <FileManager/FileManager.hpp>
 
 extern char gameID[4];
 
@@ -61,6 +62,14 @@ namespace DX{
     kmWrite32(0x80635670, 0x38000000);
     kmWrite32(0x80896830, 0x00000000);
 #endif
+
+    void CreateFolders()
+    {
+        DXFile::FileManager * manager = DXFile::FileManager::GetStaticInstance();
+        manager->CreateFolder(packFolder);
+    }
+
+    BootHook InitFolders(CreateFolders, HIGH);
 
     void CreateBranch(u32 from, void * to)
     {
