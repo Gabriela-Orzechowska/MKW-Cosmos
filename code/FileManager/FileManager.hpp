@@ -54,6 +54,7 @@ namespace DXFile
             s32 Open(const char * filepath, u32 mode) override;
             s32 CreateOpen(const char * filepath, u32 mode) override;
             s32 GetDeviceFd() const override;
+            s32 CreateFolder(const char * filepath) override;
         private:
             void GetCorrectPath(char *realPath, const char *path) const override;
             RiivoMode GetRiivoMode(u32 mode) const;

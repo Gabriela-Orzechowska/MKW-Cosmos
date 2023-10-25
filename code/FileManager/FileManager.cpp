@@ -126,4 +126,13 @@ namespace DXFile
         return (RiivoMode) mode;
     }
 
+    s32 RiivoFileManager::CreateFolder(const char * filepath)
+    {
+        char realPath[IPCMAXPATH];
+        s32 riivo_fd = this->GetDeviceFd();
+        s32 error = IOS::IOCtl(riivo_fd, (IOS::IOCtlType) RIIVO_IOCTL_CREATEDIR, (void *) filepath, strlen(filepath)+1, NULL, 0);
+        IOS::Close(riivo_fd);
+        return error;
+    }
+
 }
