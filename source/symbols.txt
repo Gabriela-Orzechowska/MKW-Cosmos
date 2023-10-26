@@ -260,6 +260,7 @@ Request__Q23EGG10TaskThreadFPFPv_vPvUi = 0x80242c18
 
 #Scene
 GetCurrent__9GameSceneFv = 0x8051bed0
+SetFramerate__9GameSceneFUc = 0x8051af84
 
 #KMP
 sInstance__Q23KMP10Controller = 0x809BD6E8

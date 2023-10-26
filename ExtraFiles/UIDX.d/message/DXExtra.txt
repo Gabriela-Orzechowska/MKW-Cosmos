@@ -40,7 +40,17 @@
  3010   = Draggable Blue-Shells
 
  3811   = You can hold Blue-Shells behind like other shells.
- 3812   = You can't hold Blue-Shells behind like other shells.
+ 3812   = You won't be able hold Blue-Shells behind like other shells.
+
+ 3020   = FPS Mode
+
+ 3021   = Normal
+ 3022   = Force 30FPS
+ 3023   = Force 60FPS
+
+ 3821   = Use the default FPS mode.
+ 3822   = Use when the game is too laggy.
+ 3823   = Use for better systems (Dolphin only).
 
  3100   = Fast Menus
 

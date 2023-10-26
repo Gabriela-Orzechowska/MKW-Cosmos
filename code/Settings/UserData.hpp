@@ -72,6 +72,7 @@ namespace DXData
     enum RACE_SETTINGS_1_SETTINGS {
         DX_MUSIC_CUTOFF = 0x0,
         DX_DRAGGABLE_BLUES = 0x1,
+        DX_FRAME_MODE = 0x2,
     };
 
     enum MENU_SETTINGS_1_SETTINGS {
@@ -82,6 +83,12 @@ namespace DXData
         SPEEDUP = 0x0,
         NO_CUTOFF = 0x1,
         CUTOFF_DISABLED = 0x2,
+    };
+
+    enum FRAME_MODE{
+        FRAME_MODE_DEFAULT = 0x0,
+        FORCE_30 = 0x1,
+        FORCE_60 = 0x2,
     };
 
     enum SETTINGS_BOOL {

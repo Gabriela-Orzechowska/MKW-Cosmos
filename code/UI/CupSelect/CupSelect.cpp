@@ -31,7 +31,7 @@ namespace DXUI
         DVDFileInfo fileHandle;
         char * filepath = "/bin/cup2.bin";
 
-        char buffer[0x10] __attribute__ ((aligned(0x20)));
+        char buffer[0x20] __attribute__ ((aligned(0x20)));
 
         if(DVDOpen(filepath, &fileHandle))
         {
@@ -42,15 +42,13 @@ namespace DXUI
                 LeCode::cup2_header * header = (LeCode::cup2_header * ) &buffer;
 
                 u32 num_bytes = 0x10 + 0x10 * (header->course_cups);
-                char * dataBuffer = new char[num_bytes + 0x30];
-                char * actualBuffer = (char *)((u32)(dataBuffer + 0x1F) & ~0x1F);
+                char actualBuffer[0x1000] __attribute__ ((aligned(0x20)));
 
                 char * address = (char *) LeCode::LeCodeManager::GetStaticInstance()->GetCupParamAddress();
 
                 DVDReadPrio(&fileHandle, actualBuffer, num_bytes, offset, 0x2);
                 DVDClose(&fileHandle);
                 memcpy(address, actualBuffer, num_bytes);
-                delete(dataBuffer);
             }
             else {
                 return;

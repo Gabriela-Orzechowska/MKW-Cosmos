@@ -14,7 +14,7 @@ void * CreatePage(Scene * scene, u32 pageId)
         u8 optionCount[8] = {3, 2, 3, 2, 2, 2, 2, 2};
         u8 onOff[8] = {0,1,0,0,0,0,0,0};
 
-        return new(DXUI::SettingSubPage)(2,optionCount,pageId,onOff);
+        return new(DXUI::SettingSubPage)(3,optionCount,pageId, onOff);
     }
     
     else if(pageId == (u32)DX::MENU_SETTINGS1)
