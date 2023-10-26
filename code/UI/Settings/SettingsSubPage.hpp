@@ -18,6 +18,15 @@ extern u32 VSSettings_sInstance;
 
 namespace DXUI
 {
+    typedef struct SettingPageOption{
+        u8 optionCount;
+        bool isBool;
+    } SettingPageOption;
+
+    typedef struct SettingPageDefinition{
+        u8 settingCount;
+        SettingPageOption settings[8];
+    } SettingPageDefinition;
 
     void Page_Refocus(Pages::Menu * page);
 
@@ -31,7 +40,7 @@ namespace DXUI
     class SettingSubPage : public Pages::Menu
     {
         public:
-        SettingSubPage(u32 selectorCount, const u8 optionCount[8], u32 pageId, const u8 isOnOff[8]);
+        SettingSubPage::SettingSubPage(SettingPageDefinition * definition, u32 pageId);
         ~SettingSubPage() override;
         void OnInit() override;
         void OnActivate() override;
@@ -44,8 +53,9 @@ namespace DXUI
         UIControl *CreateControl(u32 id) override;
         void SetButtonHandlers(PushButton *pushButton) override;
         u32 pageIndex;
-        u8 areScrollersOnOff[8];
         u32 scrollersCount;
+
+        SettingPageDefinition pageDefinition;
 
         SettingsBasePage * basePage;
         UpDownControl * upDownControls;

@@ -11,18 +11,27 @@ void * CreatePage(Scene * scene, u32 pageId)
     }
     else if(pageId == (u32)DX::RACE_SETTINGS1)
     {
-        u8 optionCount[8] = {3, 2, 3, 2, 2, 2, 2, 2};
-        u8 onOff[8] = {0,1,0,0,0,0,0,0};
+        DXUI::SettingPageDefinition definition;
+        definition.settingCount = 3;
+        definition.settings[0].isBool = false;
+        definition.settings[0].optionCount = 3;
+        definition.settings[1].isBool = true;
+        definition.settings[1].optionCount = 2;
+        definition.settings[2].isBool = false;
+        definition.settings[2].optionCount = 3;
 
-        return new(DXUI::SettingSubPage)(3,optionCount,pageId, onOff);
+        return new(DXUI::SettingSubPage)(&definition, pageId);
     }
     
     else if(pageId == (u32)DX::MENU_SETTINGS1)
     {
-        u8 optionCount[8] = {2, 2, 2, 2, 2, 2, 2, 2};
-        u8 onOff[8] = {1,0,0,0,0,0,0,0};
 
-        return new(DXUI::SettingSubPage)(1,optionCount,pageId, onOff);
+        DXUI::SettingPageDefinition definition;
+        definition.settingCount = 1;
+        definition.settings[0].isBool = true;
+        definition.settings[0].optionCount = 2;
+
+        return new(DXUI::SettingSubPage)(&definition ,pageId);
     }
     return scene->CreatePageById((PageId)pageId);
 }
@@ -47,4 +56,3 @@ kmCall(0x8062d5bc, InjectPage); //From ChangeCourse
 kmCall(0x8062d640, InjectPage); //From Versus
 kmCall(0x8062d6c4, InjectPage); //From Battle
 kmCall(0x8062d808, InjectPage); //From Mission MOde
-

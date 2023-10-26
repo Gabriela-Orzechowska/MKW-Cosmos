@@ -3,7 +3,7 @@
 
 namespace DXUI
 {
-    SettingSubPage::SettingSubPage(u32 selectorCount, const u8 optionCount[8], u32 pageId, const u8 isOnOff[8])
+    SettingSubPage::SettingSubPage(SettingPageDefinition * definition, u32 pageId)
     {
         nextPageId = PAGE_NONE;
         prevPageId = PAGE_NONE;
@@ -12,7 +12,7 @@ namespace DXUI
 
         controlSources = 2;
         externControlCount = 0;
-        internControlCount = selectorCount + 1;
+        internControlCount = definition->settingCount + 1;
         hasBackButton = true;
 
         onMessageBoxClickHandler.ptmf = (&Menu::ChangeToPrevMenu);
@@ -60,10 +60,9 @@ namespace DXUI
         this->controlsManipulatorManager.SetGlobalHandler(BACK_PRESS, (PtmfHolder_1A<Page, void, u32>*) &onBackPressHandler, false, false);
         this->controlsManipulatorManager.SetGlobalHandler(START_PRESS, (PtmfHolder_1A<Page, void, u32>*) &onStartPressHandler, false, false);
         activePlayerBitfield = 1;
-        scrollersCount = selectorCount;
+        scrollersCount = definition->settingCount;
         
-        memcpy(this->optionsPerScroller, optionCount, 8);
-        memcpy(this->areScrollersOnOff, isOnOff, 8);
+        memcpy(&pageDefinition, definition, sizeof(SettingPageDefinition));
     }
 
     SettingSubPage::~SettingSubPage()
@@ -110,7 +109,7 @@ namespace DXUI
 
         u32 bottomBmgId = bmgId - BMG_SETTING_OPTION + BMG_SETTING_OPTION_BOTTOM;
 
-        if(areScrollersOnOff[valueControl->id] != 0)
+        if(pageDefinition.settings[valueControl->id].isBool)
             bmgId = BMG_ENABLED_DISABLED + optionId;
 
         text->SetMsgId(bmgId);
@@ -174,7 +173,7 @@ namespace DXUI
             char variant[0x20];
             snprintf(variant, 0x20, "UpDown%d", id);
 
-            upDownCtrl->Load(this->optionsPerScroller[id], settingsHolder->GetSettings()->pages[this->pageId - MINPAGE].setting[id], "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
+            upDownCtrl->Load(this->pageDefinition.settings[id].optionCount, settingsHolder->GetSettings()->pages[this->pageId - MINPAGE].setting[id], "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
             "DXSettingsUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textUpDownPlus[id], 1, 0, false, true, true);
             upDownCtrl->SetOnClickHandler(&this->onUpDownClickHandler);
             upDownCtrl->SetOnSelectHandler(&this->onUpDownSelectHandler);
@@ -190,7 +189,7 @@ namespace DXUI
             OSReport("[DX] BMG ID: %d", bmgOption);
 
             u32 bmgId = BMG_SETTING_OPTION | ((pageIndex-MINPAGE) << 8) | (id << 4);
-            if(areScrollersOnOff[id] > 0)
+            if(this->pageDefinition.settings[id].isBool)
                 bmgId = BMG_ENABLED_DISABLED;
 
             upDownCtrl->SetMsgId(bmgOption);
@@ -286,7 +285,7 @@ namespace DXUI
         SettingSubPage * basePage = ((DXUI::SettingSubPage *)this->parentGroup->parentPage);
 
         u32 bmgId = BMG_SETTING_OPTION + ((basePage->pageId-MINPAGE) << 8) + (id << 4) + optionId;
-        if(basePage->areScrollersOnOff[id] > 0)
+        if(basePage->pageDefinition.settings[id].isBool)
            bmgId = BMG_ENABLED_DISABLED | optionId;
         text->SetMsgId(bmgId);
     }

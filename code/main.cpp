@@ -56,13 +56,6 @@ namespace DX{
     //Unlock Everything Without Save [_tZ]
     kmWrite32(0x80549974,0x38600001);
 
-#ifndef NO_FAST_MENU
-    //Fast Menus [east]
-    kmWrite32(0x8038900C, 0x00000000);
-    kmWrite32(0x80635670, 0x38000000);
-    kmWrite32(0x80896830, 0x00000000);
-#endif
-
     void CreateFolders()
     {
         DXFile::FileManager * manager = DXFile::FileManager::GetStaticInstance();
