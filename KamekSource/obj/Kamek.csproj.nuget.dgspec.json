@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Mario Kart Wii\\Kamek-Project\\KamekSource\\Kamek.csproj": {}
+    "C:\\Users\\janor\\Documents\\GitHub\\MKWDX-Kamek\\KamekSource\\Kamek.csproj": {}
   },
   "projects": {
-    "D:\\Mario Kart Wii\\Kamek-Project\\KamekSource\\Kamek.csproj": {
+    "C:\\Users\\janor\\Documents\\GitHub\\MKWDX-Kamek\\KamekSource\\Kamek.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Mario Kart Wii\\Kamek-Project\\KamekSource\\Kamek.csproj",
+        "projectUniqueName": "C:\\Users\\janor\\Documents\\GitHub\\MKWDX-Kamek\\KamekSource\\Kamek.csproj",
         "projectName": "Kamek",
-        "projectPath": "D:\\Mario Kart Wii\\Kamek-Project\\KamekSource\\Kamek.csproj",
-        "packagesPath": "C:\\Users\\Gabi\\.nuget\\packages\\",
-        "outputPath": "D:\\Mario Kart Wii\\Kamek-Project\\KamekSource\\obj\\",
+        "projectPath": "C:\\Users\\janor\\Documents\\GitHub\\MKWDX-Kamek\\KamekSource\\Kamek.csproj",
+        "packagesPath": "C:\\Users\\janor\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\janor\\Documents\\GitHub\\MKWDX-Kamek\\KamekSource\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Gabi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\janor\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -59,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

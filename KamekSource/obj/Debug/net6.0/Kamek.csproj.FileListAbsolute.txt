@@ -26,3 +26,16 @@ D:\Mario Kart Wii\Kamek-Project\KamekSource\obj\Debug\net6.0\refint\Kamek.dll
 D:\Mario Kart Wii\Kamek-Project\KamekSource\obj\Debug\net6.0\Kamek.pdb
 D:\Mario Kart Wii\Kamek-Project\KamekSource\obj\Debug\net6.0\Kamek.genruntimeconfig.cache
 D:\Mario Kart Wii\Kamek-Project\KamekSource\obj\Debug\net6.0\ref\Kamek.dll
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.exe
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.dll.config
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.deps.json
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.runtimeconfig.json
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.dll
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.pdb
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.csproj.CoreCompileInputs.cache
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.dll
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\refint\Kamek.dll
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.pdb
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.genruntimeconfig.cache
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\ref\Kamek.dll

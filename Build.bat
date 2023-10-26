@@ -1,6 +1,9 @@
 @echo off
 SETLOCAL EnableDelayedExpansion
 
+
+
+
 SET CC="C:\Program Files (x86)\Freescale\CW for MPC55xx and MPC56xx 2.10\PowerPC_EABI_Tools\Command_Line_Tools\mwcceppc.exe"
 SET CFLAGS=-I- -i "engine" -i "source" -i "source/game" -i code -gcc_extensions on -Cpp_exceptions off -enum int -O4,s -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0 -maxerrors 1 -func_align 4 -rtti off
 SET DEFINE=
@@ -22,7 +25,7 @@ FOR %%H IN (%CPPFILES%) DO (
 
 :: Link
 echo Linking...
-"KamekSource/bin/Debug/Kamek" "build/kamek.o" %OBJECTS% -dynamic -externals="source/symbols.txt" -versions="source/versions.txt" -output-kamek=build\$KV$.bin
+"KamekSource/bin/Debug/net6.0/Kamek" "build/kamek.o" %OBJECTS% -dynamic -externals="source/symbols.txt" -versions="source/versions.txt" -output-kamek=build\$KV$.bin
 
 if %ErrorLevel% equ 0 (
     xcopy /Y build\*.bin ".\TestPack\mkwdx\sys"
