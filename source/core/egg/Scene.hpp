@@ -8,7 +8,7 @@
 
 namespace EGG {
 
-class SceneManager;
+class EggSceneManager;
 class EggScene;
 
 class SceneCreator { //vtable got done away by the compiler
@@ -35,13 +35,13 @@ public:
     EggScene *parent; //0x20
     EggScene *child;
     u32 id;
-    SceneManager *manager; //0x2c
+    EggSceneManager *manager; //0x2c
 }; //0x30
 size_assert(EggScene, 0x30);
 
-class SceneManager {
+class EggSceneManager {
 public:
-    SceneManager(SceneCreator *creator); //8023addc
+    EggSceneManager(SceneCreator *creator); //8023addc
     virtual void calc();                //0x8  8023ae60 vtable 802a3e08
     virtual void draw();                //0xc  8023aeac 
     virtual void calcCurrentScene();    //0x10 8023b588
@@ -49,15 +49,15 @@ public:
     virtual void drawCurrentScene();    //0x18 8023b800
     virtual void drawCurrentFader();    //0x1c 8023b890
     virtual void createDefaultFader();  //0x20 8023b8b0
-    void createScene(u32 sceneId, Scene *parent); //8023b0e4
-    void createChildScene(u32 sceneId, Scene *parent); //8023b248
-    Scene *findParentScene(u32 sceneId); //8023b940
-    void destroyScene(Scene *scene); //8023b3f0
+    void createScene(u32 sceneId, EggScene *parent); //8023b0e4
+    void createChildScene(u32 sceneId,EggScene *parent); //8023b248
+    EggScene *findParentScene(u32 sceneId); //8023b940
+    void destroyScene(EggScene *scene); //8023b3f0
     void destroyCurrentScene(bool destroyIfNoParent); //8023b2ac
     bool destroyToSelectSceneId(u32 sceneId); //8023b344 destroys from current scene until sceneId then switches to sceneId
     void setupNextSceneId(); //8023b910 non-official
     void incomingCurrentScene(); //8023b568
-    void outgoingParentScene(Scene *parent); //8023b92c calls outgoing_child_create
+    void outgoingParentScene(EggScene *parent); //8023b92c calls outgoing_child_create
 
     void reinitCurrentScene(); //8023aef8
     void changeUncleScene(u32 sceneId); //8023af84
@@ -81,7 +81,7 @@ public:
 
 
 }; //0x30
-size_assert(SceneManager, 0x30);
+size_assert(EggSceneManager, 0x30);
 
 }//namespace EGG
 

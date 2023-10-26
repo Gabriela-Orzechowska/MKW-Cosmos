@@ -1,4 +1,4 @@
-#ifndef _EGGHEAP_
+#if 0
 #define _EGGHEAP_
 #include <types.hpp>
 #include <core/rvl/mem/heap.h>

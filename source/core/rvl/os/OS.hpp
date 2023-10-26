@@ -3,15 +3,16 @@
 #include "types.hpp"
 
 
+typedef s32 OSTime;
 
 typedef struct {
 	int sec, min, hour, mday, mon, year, wday, yday, msec, usec;
 } OSCalendarTime;
-void OSTicksToCalendarTime(u64 time, OSCalendarTime *result);
+void OSTicksToCalendarTime(OSTime time, OSCalendarTime *result);
 
 extern "C"{
     void OSReport(const char *format, ...);
-    u64 OSGetTime();
+    OSTime OSGetTime();
     u32 OSGetTick();
     void OSFatal(u32 *fg, u32 *bg, const char *message);
     void OSLaunchTitle(UnkType r3, UnkType r4);

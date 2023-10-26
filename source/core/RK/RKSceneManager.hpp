@@ -23,7 +23,7 @@ class RKSceneCreator : public SceneCreator { //Creates StrapScene
     void destroy(u32 sceneId) override;  //8000a5a8
 };
 
-class RKSceneManager : public SceneManager {
+class RKSceneManager : public EggSceneManager {
 public:
     void calc() override;             //0x8  80009984 vtable 80270c68
     void draw() override;             //0xc  80009988

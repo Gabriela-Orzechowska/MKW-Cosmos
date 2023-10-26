@@ -2,6 +2,7 @@
 #define _RKSYSTEM_
 #include <types.hpp>
 #include <core/egg/mem/ExpHeap.hpp>
+#include <core/egg/Heap.hpp>
 #include <core/egg/Audio.hpp>
 #include <core/egg/ProcessMeter.hpp>
 #include <core/egg/Display.hpp>

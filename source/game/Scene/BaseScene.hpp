@@ -19,7 +19,7 @@ enum SceneId {
 
 class GameSceneCreator : public RKSceneCreator { //also creates the rootscene
 public:
-    Scene *create(u32 sceneId) override; //8054aa64 vtable 808b3cb0
+    EggScene *create(u32 sceneId) override; //8054aa64 vtable 808b3cb0
     void destroy(u32 sceneId) override;  //8054ab28
 };
 
