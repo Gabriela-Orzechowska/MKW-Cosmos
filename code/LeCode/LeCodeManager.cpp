@@ -2,25 +2,25 @@
 #include <game/System/Archive.hpp>
 
 extern char gameID[4];
-char filepath[20];
 
 namespace LeCode
 {
     LeCodeManager * LeCodeManager::sInstance = nullptr;
     
-    char * LeCodeManager::GetLeCodeFilepath()
+    const char * LeCodeManager::GetLeCodeFilepath()
     {
+        const char * filepath;
         switch (gameID[3])
         {
-            default:
             case 'P':
-                snprintf(filepath, 20, LECODE_FILE, "PAL");
+                filepath = "/rel/lecode-PAL.bin";
                 break;
+            default:
             case 'E':
-                snprintf(filepath, 20, LECODE_FILE, "USA");
+                filepath = "/rel/lecode-USA.bin";
                 break;
             case 'J':
-                snprintf(filepath, 20, LECODE_FILE, "JAP");
+                filepath = "/rel/lecode-JAP.bin";
                 break;
         }
 
@@ -30,13 +30,13 @@ namespace LeCode
     void LeCodeManager::LoadLeCode()
     {
         DVDFileInfo fileHandle;
-        char * filepath = GetLeCodeFilepath();
+        const char * filepath = GetLeCodeFilepath();
 
         if(DVDOpen(filepath, &fileHandle))
         {
             char buffer[0x20] __attribute__ ((aligned( 0x20 )));
 
-            if (DVDReadPrio(&fileHandle, (void *) buffer, 0x20, 0x0, 0x2));
+            if (DVDReadPrio(&fileHandle, (void *) buffer, 0x20, 0x0, 0x2))
             {
                 this->loaderHeader = (le_binary_header *) &buffer;
                 DVDReadPrio(&fileHandle, this->loaderHeader->baseAddress, this->loaderHeader->totalSize, 0x0, 0x2);      
@@ -46,16 +46,23 @@ namespace LeCode
 
                 DVDClose(&fileHandle);      
 
-                ((void (*)(void))this->loaderHeader->entryPoint)(); 
+                this->loaderHeader->entryPoint(); 
 
                 LeCodeLoadHook::exec();
+            }
+            else
+            {
+                u32 black = 0x000000FF;
+                u32 white = 0xFFFFFFFF;
+
+                OSFatal(&white, &black, "Could not load LE-CODE files.\nMake sure your SD card is not locked.");
             }
         }
         else{     
             u32 black = 0x000000FF;
             u32 white = 0xFFFFFFFF;
 
-            OSFatal(&white, &black, "Could not load LE-CODE files.\nMake sure your installation is correct");
+            OSFatal(&white, &black, "Could not find LE-CODE files.\nMake sure your installation is correct");
         }
     } 
 
@@ -97,6 +104,6 @@ namespace LeCode
         return;
     }
 
-    BootHook loadCustomCode(InitLoader, HIGH);
+    BootHook loadCustomCode(InitLoader, LOW);
 }
 

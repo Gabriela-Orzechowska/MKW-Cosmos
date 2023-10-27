@@ -4,13 +4,13 @@
 		<section name="Test Pack">
 			<option name="Pack">
 				<choice name="Enabled">
-					<patch id="loadpack" />
+					<patch id="dxpackloadfuck" />
 				</choice>
 			</option>
 		</section>
 	</options>
 	
-	<patch id="loadpack">
+	<patch id="dxpackloadfuck">
 		<memory valuefile="/mkwdx/sys/Loader.bin" offset="0x80004000"/>
 		<folder external="/mkwdx/sys" disc="/kamek" create="true"/>
 		<folder external="/mkwdx/sys" disc="/rel" create="true"/>

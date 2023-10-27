@@ -15,7 +15,7 @@ namespace LeCode{
         u32 version;
         u32 buildNumber;
         void * baseAddress;
-        void * entryPoint;
+        void (*entryPoint)();;
         u32 totalSize;
         u32 offsetParam;
         char region;
@@ -49,7 +49,7 @@ namespace LeCode{
     class LeCodeManager{
     private:
         static LeCodeManager * sInstance; //0x80003FD8
-        char * GetLeCodeFilepath();
+        const char * GetLeCodeFilepath();
         le_binary_header * loaderHeader;
         lpar_header * settingHeader;
 

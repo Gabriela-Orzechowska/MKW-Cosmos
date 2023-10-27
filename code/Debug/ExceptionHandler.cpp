@@ -36,6 +36,20 @@ namespace DXDebug{
     kmWrite32(0x80026038, 0x7c080378);
     kmCall(0x8002603c, HandlePanic);
 
+    void HandleOSPanic(char * file, u32 line, char * message)
+    {
+        snprintf(output, 0x100, "%s:%d Panic:\n%s", file, line, message);
+        OSContext * context = OSGetCurrentContext();
+        nw4r::db::ExceptionCallbackParam exc;
+        exc.error = 0x31; 
+        exc.context = context;
+        exc.dar = 0x0;
+        exc.dsisr = 0x0;
+        nw4r::db::DumpException_(&exc);
+    }
+
+    kmBranch(0x801a2660, HandleOSPanic);
+
     char filepath[20];
 
     char * GetRegionName()
@@ -79,8 +93,10 @@ namespace DXDebug{
     {
         char * region_name= GetRegionName();
 
-
-        nw4r::db::Exception_Printf_("\n\n*** Mario Kart Wii Deluxe PANIC HANDLER ***\nOSPanic() has been called at 0x%08x (%s)\n<Symbol not found>\n\n", dsisr-4, region_name);
+        if(error == 0x30)
+            nw4r::db::Exception_Printf_("\n\n*** Mario Kart Wii Deluxe PANIC HANDLER ***\nnw4r::Panic() has been called at 0x%08x (%s)\n<Symbol not found>\n\n", dsisr-4, region_name);
+        else if(error == 0x31)
+            nw4r::db::Exception_Printf_("\n\n*** Mario Kart Wii Deluxe PANIC HANDLER ***\nRVL::OSPanic() has been called; (%s)\n<Symbol not found>\n\n", region_name);
         nw4r::db::Exception_Printf_("*** Message ***\n%s\n", output);
     }
 
