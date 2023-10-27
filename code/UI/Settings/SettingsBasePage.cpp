@@ -180,6 +180,7 @@ namespace DXUI
     void SettingsBasePage::OnActivate()
     {
         Menu::OnActivate();
+        Page::transitionDelay = 176.0f;
         this->AddPageLayer((PageId)currentPageId, 0);
     }
 
