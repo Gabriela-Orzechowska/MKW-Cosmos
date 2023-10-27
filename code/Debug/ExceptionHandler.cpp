@@ -12,6 +12,8 @@
 
 extern char gameID[4];
 
+//#define FORCEOSFATAL
+
 namespace DXDebug{
 
     static char output[0x100];
@@ -28,7 +30,14 @@ namespace DXDebug{
         exc.context = context;
         exc.dar = 0x0;
         exc.dsisr = LR;
+        #ifndef FORCEOSFATAL
         nw4r::db::DumpException_(&exc);
+        #else
+        u32 black = 0x000000FF;
+        u32 white = 0xFFFFFFFF;
+
+        OSFatal(&white, &black, output);
+        #endif
     }
     
     kmWrite32(0x80026028, 0x60000000);
@@ -45,7 +54,14 @@ namespace DXDebug{
         exc.context = context;
         exc.dar = 0x0;
         exc.dsisr = 0x0;
+        #ifndef FORCEOSFATAL
         nw4r::db::DumpException_(&exc);
+        #else
+        u32 black = 0x000000FF;
+        u32 white = 0xFFFFFFFF;
+
+        OSFatal(&white, &black, output);
+        #endif
     }
 
     kmBranch(0x801a2660, HandleOSPanic);
@@ -100,6 +116,25 @@ namespace DXDebug{
         nw4r::db::Exception_Printf_("*** Message ***\n%s\n", output);
     }
 
+
+    #ifdef FORCEOSFATAL
+
+    char output2[0x100];
+    void PrintFATALContext(u16 error, const OSContext * context, u32 dsisr, u32 dar)
+    {
+        snprintf(output2, 0x100, "AN ERROR HAS OCCURED at %8x: ", context->srr0);
+
+        u32 black = 0x000000FF;
+        u32 white = 0xFFFFFFFF;
+
+        OSFatal(&white, &black, output2);
+    }
+    
+    kmCall(0x80023484, PrintFATALContext);
+
+    #else
+    
+
     void PrintContext(u16 error, const OSContext * context, u32 dsisr, u32 dar)
     {
         if(error != 0x30)
@@ -111,4 +146,5 @@ namespace DXDebug{
 
     kmCall(0x80023484, PrintContext);
 
+    #endif
 }

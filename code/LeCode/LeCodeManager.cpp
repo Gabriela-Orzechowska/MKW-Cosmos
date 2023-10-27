@@ -5,7 +5,7 @@ extern char gameID[4];
 
 namespace LeCode
 {
-    LeCodeManager * LeCodeManager::sInstance = nullptr;
+    LeCodeManager * LeCodeManager::sInstance = NULL;
     
     const char * LeCodeManager::GetLeCodeFilepath()
     {
@@ -68,7 +68,7 @@ namespace LeCode
 
     LeCodeManager * LeCodeManager::GetStaticInstance()
     {
-        if(sInstance == nullptr)
+        if(sInstance == NULL)
             sInstance = new(LeCodeManager);
         return sInstance;
     }

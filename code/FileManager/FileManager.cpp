@@ -28,7 +28,13 @@ namespace DXFile
             manager = new (heap) RiivoFileManager();
         }
         FileManager::sInstance = manager;
-        manager->isValid = valid;
+        manager->isValid = true;
+        if(!valid || manager == nullptr)
+        {
+            u32 black = 0x000000FF;
+            u32 white = 0xFFFFFFFF;
+            OSFatal(&white, &black, "Could not create FileManager");
+        }
         FileManager::sInstance->taskThread = EGG::TaskThread::Create(2, 30, 0x2000, NULL);
     }
 
@@ -101,7 +107,7 @@ namespace DXFile
     }
 
     s32 RiivoFileManager::Open(const char * filepath, u32 mode){
-        return FileManager::Open(path, this->GetRiivoMode(mode));
+        return FileManager::Open(filepath, this->GetRiivoMode(mode));
     }
 
     s32 RiivoFileManager::CreateOpen(const char * filepath, u32 mode){
@@ -118,7 +124,6 @@ namespace DXFile
     void RiivoFileManager::GetCorrectPath(char * realPath, const char * path) const
     {
         snprintf(realPath, IPCMAXPATH, "%s%s", "file", path);
-        return;
     }
 
     RiivoMode RiivoFileManager::GetRiivoMode(u32 mode) const{
