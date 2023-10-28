@@ -30,7 +30,7 @@ namespace Kamek
 
         public void LinkStatic(uint baseAddress, Dictionary<string, uint> externalSymbols)
         {
-            _baseAddress = new Word(WordType.AbsoluteAddr, Mapper.Remap(baseAddress));
+            _baseAddress = new Word(WordType.AbsoluteAddr, Mapper.Remap(baseAddress, out bool inwasported));
             DoLink(externalSymbols);
         }
         public void LinkDynamic(Dictionary<String, uint> externalSymbols)
@@ -47,7 +47,14 @@ namespace Kamek
 
             _externalSymbols = new Dictionary<string, uint>();
             foreach (var pair in externalSymbols)
-                _externalSymbols.Add(pair.Key, Mapper.Remap(pair.Value));
+            {
+                _externalSymbols.Add(pair.Key, Mapper.Remap(pair.Value, out bool wasPorted));
+                if(wasPorted)
+                {
+                    Console.WriteLine($"Could not port the address at {pair.Value:X8} for {pair.Key}");
+                }
+            }
+                
 
             CollectSections();
             BuildSymbolTables();
@@ -313,7 +320,11 @@ namespace Kamek
                 if (addr.StartsWith("0x") || addr.StartsWith("0X"))
                     addr = addr.Substring(2);
                 var parsedAddr = uint.Parse(addr, System.Globalization.NumberStyles.AllowHexSpecifier);
-                var mappedAddr = Mapper.Remap(parsedAddr);
+                var mappedAddr = Mapper.Remap(parsedAddr, out bool inwasported);
+                if(inwasported)
+                { 
+                    Console.WriteLine($"Could not find port address at {mappedAddr:X8} for {name}");
+                }
                 return new Symbol { address = new Word(WordType.AbsoluteAddr, mappedAddr) };
             }
 
@@ -390,6 +401,7 @@ namespace Kamek
 
                 Word source = _sectionBases[section] + r_offset;
                 Word dest = ResolveSymbol(elf, symName).address + r_addend;
+                //Console.WriteLine("{1} {0,-30}", symName, dest);
 
                 //Console.WriteLine("Linking from {0} to {1}", source, dest);
 

@@ -79,7 +79,7 @@
 80009194 0388 RKSystem::initialize
 8000951C 02FC RKSystem::run
 80009818 0008 BaseSystem::getDisplay
-80009820 0004 BaseSystem::onBeginFrame)
+80009820 0004 BaseSystem::onBeginFrame
 80009824 0004 BaseSystem::onEndFrame
 80009828 0008 BaseSystem::getSceneManager
 80009830 0014 BaseSystem::getPerformanceView
