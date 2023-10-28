@@ -49,7 +49,7 @@ namespace Kamek.Hooks
                     uint val = mapper.Remap(word.Value, out bool wasPorted);
                     if (wasPorted)
                     {
-                        Console.WriteLine($"Could not port address {val:X8}");
+                        Console.Write($"{val:X8} ");
                     }
                     return new Word(WordType.AbsoluteAddr, val);
                 }

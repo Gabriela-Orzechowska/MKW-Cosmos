@@ -18,7 +18,7 @@ public class AddressMapper
 
         public override string ToString()
         {
-            return string.Format("{0:8X}-{1:8X}: {2}0x{3:X}", start, end, (delta >= 0) ? '+' : '-', Math.Abs(delta));
+            return string.Format("{0:X8}-{1:X8}: {2}0x{3:X}", start, end, (delta >= 0) ? '+' : '-', Math.Abs(delta));
         }
     }
 

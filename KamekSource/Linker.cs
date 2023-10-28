@@ -51,7 +51,8 @@ namespace Kamek
                 _externalSymbols.Add(pair.Key, Mapper.Remap(pair.Value, out bool wasPorted));
                 if(wasPorted)
                 {
-                    Console.WriteLine($"Could not port the address at {pair.Value:X8} for {pair.Key}");
+                    Console.Write($"{pair.Value:X8} ");
+                    //Console.WriteLine($"Could not port the address at {pair.Value:X8} for {pair.Key}");
                 }
             }
                 
@@ -323,7 +324,7 @@ namespace Kamek
                 var mappedAddr = Mapper.Remap(parsedAddr, out bool inwasported);
                 if(inwasported)
                 { 
-                    Console.WriteLine($"Could not find port address at {mappedAddr:X8} for {name}");
+                    Console.Write($"{mappedAddr:X8} ");
                 }
                 return new Symbol { address = new Word(WordType.AbsoluteAddr, mappedAddr) };
             }

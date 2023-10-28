@@ -18,7 +18,18 @@ namespace portHelper
 
             string[] outputs = new string[3];
 
-            for(int a = 0; a < args.Length; a++)
+            var temps = new uint[args.Length];
+            for(int i = 0; i < args.Length; i++)
+            {
+                temps[i] = Convert.ToUInt32(args[i], 16);
+            }
+            Array.Sort(temps);
+            for (int i = 0; i < args.Length; i++)
+            {
+                args[i] = $"{temps[i]:X8}";
+            }
+
+            for (int a = 0; a < args.Length; a++)
             {
                 var addressToPort = Convert.ToUInt32(args[a], 16);
                 var addressString = args[0];
