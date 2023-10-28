@@ -65,6 +65,7 @@ void UpdateLanguage()
     char * localization = suffixes[language];
     if(language == NO_CHANGE) localization = szsLanguageNames[language];
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1], localization, 0x80);
+    strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archiveSuffixes[0x1], localization, 0x80);
 }
 
 void UpdateArchiveHolderLanguageOnInit()
@@ -82,6 +83,7 @@ void UpdateArchiveHolderLanguageOnInit()
     SystemManager::sInstance->gameLanguage = language;
     char * localization = suffixes[language];
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1], localization, 0x80);
+    strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archiveSuffixes[0x1], localization, 0x80);
 }
 
 kmWrite32(0x8000ad9c, 0x38000006); //System Dutch
