@@ -67,9 +67,10 @@
  3117   = Spanish (PAL)
  3118   = Spanish (NTSC)
  3119   = Italian
- 311A   = Japanese
- 311B   = Dutch
- 311C   = Polish
+ 311A   = Dutch
+ 311B   = Polish
+ 311C   = Japanese
+ 311D   = Korean
 
  2820   = A solo race for the fastest record! (200cc)
  2830   = Change Combo

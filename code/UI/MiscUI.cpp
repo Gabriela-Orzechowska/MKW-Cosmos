@@ -4,6 +4,7 @@
 #include <Settings/UserData.hpp>
 #include <core/System/SystemManager.hpp>
 #include <game/System/Archive.hpp>
+#include <game/UI/SectionMgr/SectionMgr.hpp>
 
 using namespace DXData;
 
@@ -37,9 +38,7 @@ static BootHook FasterPagesBoot(FasterPageBoot, LOW);
 
 static u32 defaultLanguage;
 
-const char no[1] = "";
-
-static char * suffixes[12] = {
+static char * suffixes[13] = {
     "",
     "_E.szs",
     "_U.szs",
@@ -49,12 +48,17 @@ static char * suffixes[12] = {
     "_S.szs",
     "_M.szs",
     "_I.szs",
-    "_J.szs",
     "_H.szs",
     "_PL.szs",
+    "_J.szs",
+    "_K.szs",
 };
 
 kmWriteRegionInstruction(0x80604094, 0x4800001c, 'E');
+
+
+static bool loadedAsKorean = false;
+
 
 void UpdateLanguage()
 {
@@ -67,7 +71,16 @@ void UpdateLanguage()
     if(language == NO_CHANGE) localization = szsLanguageNames[language];
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1], localization, 0x80);
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archiveSuffixes[0x1], localization, 0x80);
+
+    if(loadedAsKorean != (language == 12))
+    {
+        //SystemManager::sInstance->RestartGame();
+        //SectionMgr::sInstance->RequestGoToWiiMenu();
+    }
 }
+
+const char koreanFontFile[21] = "/Scene/UI/Font_K";
+const char koreanFont[22] = "kart_font_korea.brfnt";
 
 void UpdateArchiveHolderLanguageOnInit()
 {
@@ -85,6 +98,13 @@ void UpdateArchiveHolderLanguageOnInit()
     char * localization = suffixes[language];
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1], localization, 0x80);
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archiveSuffixes[0x1], localization, 0x80);
+
+    if(language == 12)
+    {
+        loadedAsKorean = true;
+        *(u32 *)(DX::GetPortAddress(0x808b396c, 0x808af11c, 0x808b2acc, 0x808a1de4)) = (u32)&koreanFontFile;
+        *(u32 *)(DX::GetPortAddress(0x808b87ac, 0x808ced94, 0x808b78fc, 0x808a6c14)) = (u32)&koreanFont;
+    }
 }
 
 kmWrite32(0x8000ad9c, 0x38000006); //System Dutch

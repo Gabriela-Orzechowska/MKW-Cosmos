@@ -2,20 +2,7 @@
 #define _MENUDATAPAD_
 #include <kamek.hpp>
 #include <game/Input/inputdata.hpp>
-
-enum ControllerType{
-    WHEEL=0x11,
-    NUNCHUCK=0x12,
-    CLASSIC=0x13,
-    GCN=0x24
-};
-
-struct PadInfo{
-    u32 controllerSlotAndType;
-    u32 controllerSlotAndTypeActive;
-    u32 wantsController; //if it's 1, controllerHolder will be held at 0 until input is pressed
-    ControllerHolder *controllerHolder; // see inputdata.h
-}; // datasize 0x10
+#include <game/UI/SectionMgr/SectionPad.hpp>
 
 class MenuDataPad{
 public:

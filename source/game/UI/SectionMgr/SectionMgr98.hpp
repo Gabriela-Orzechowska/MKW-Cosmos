@@ -3,13 +3,7 @@
 #include <kamek.hpp>
 #include <game/System/Identifiers.hpp>
 #include <game/Visual/Mii.hpp>
-
-struct PlayerCombo {
-    CharacterId selCharacter;
-    KartId selKart;
-    s8 starRank;
-    u8 unknown_0x9[0xC - 0x9]; //passing most likely
-}; //total size 0xC
+#include <game/UI/MenuData/MenuData98.hpp>
 
 class SectionMgr98 {
 public:

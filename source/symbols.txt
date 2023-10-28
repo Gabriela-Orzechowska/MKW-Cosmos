@@ -476,6 +476,7 @@ SetupSectionLoad = 0x805b9344
 LoadSection__10SectionMgrFv = 0x80634fbc
 RequestSceneChange__10SectionMgrFUiUi = 0x80635ac8
 CreatePageById__5SceneF6PageId = 0x80623390
+RequestGoToWiiMenu__10SectionMgrFv = 0x80635c0c
 
 #SectionMgrPad
 GetCurrentSlotAndType__10SectionPadFUi = 0x8061b358
