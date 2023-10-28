@@ -60,6 +60,15 @@ namespace DX{
     {
         DXFile::FileManager * manager = DXFile::FileManager::GetStaticInstance();
         manager->CreateFolder(packFolder);
+
+        isDolphin = false;
+        s32 ret = DX::Open("/dev/dolphin", IOS::MODE_NONE);
+        if(ret >= 0)
+        {
+            isDolphin = true;
+            IOS::Close(ret);
+        }
+                
     }
 
     BootHook InitFolders(CreateFolders, HIGH);

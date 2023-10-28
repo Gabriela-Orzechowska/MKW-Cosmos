@@ -19,6 +19,7 @@ void * CreatePage(Scene * scene, u32 pageId)
         definition.settings[1].optionCount = 2;
         definition.settings[2].isBool = false;
         definition.settings[2].optionCount = 3;
+        if(DX::isDolphin) definition.settings[2].optionCount = 2;
 
         return new(DXUI::SettingSubPage)(&definition, pageId);
     }
