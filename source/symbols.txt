@@ -262,6 +262,9 @@ Request__Q23EGG10TaskThreadFPFPv_vPvUi = 0x80242c18
 GetCurrent__9GameSceneFv = 0x8051bed0
 SetFramerate__9GameSceneFUc = 0x8051af84
 
+#StrapScene
+EndStrapScene__FUi = 0x80007f2c
+
 #KMP
 sInstance__Q23KMP10Controller = 0x809BD6E8
 GetKTPTHolder__Q23KMP10ControllerCFUi = 0x80514b30
@@ -1126,6 +1129,7 @@ sInstance__11CourseModel = 0x809c2F44
 ProcessCollision__11CourseModelFfP4Vec3P4Vec311KCLTypesBITPiR13KCLTypeHolderUi = 0x807907f8
 
 matNamesMH = 0x808d1860
+szsLanguageNames = 0x808b3188
 
 #Item
 sInstance__11ItemManager = 0x809c3618

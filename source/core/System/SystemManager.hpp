@@ -15,7 +15,8 @@ public:
     u32 strapPageLanguage;
     u32 isProgressiveScan;
     u32 isRGB60;
-    u32 unknown_0x6c[2];
+    u32 unknown_0x6c;
+    u32 launchType;
     float framerate;
     float frameratePAL50;
     float frameDuration;

@@ -146,6 +146,29 @@ public:
     }
 };
 
+static void EndStrapScene(u32 scene);
+
+class StrapEndHook {
+    private:
+        typedef void (Func)();
+        Func *mFunc;
+        StrapEndHook * mNext;
+
+        static StrapEndHook * sHooks;
+    public:
+        StrapEndHook(Func * f) {
+            mNext = sHooks;
+            sHooks = this;
+            mFunc = f;
+        }
+
+        static void exec(u32 scene) {
+            for (StrapEndHook * p = sHooks; p; p = p->mNext)
+                p->mFunc();
+            EndStrapScene(scene);
+        }
+};
+
 class LeCodeLoadHook {
 private:
     typedef void (Func)();

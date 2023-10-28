@@ -5,6 +5,7 @@
 #include <core/nw4r/g3d/res/ResFile.hpp>
 
 class StrapScene : public RKScene {
+    public:
     StrapScene(); //800072c0
     ~StrapScene(); //80007448 vtable 802585b0
     void calc() override;   //0xc  800079d0

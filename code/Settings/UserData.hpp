@@ -77,6 +77,7 @@ namespace DXData
 
     enum MENU_SETTINGS_1_SETTINGS {
         DX_FAST_MENUS = 0x0,
+        DX_LANGUAGE_SETTINGS = 0x1,
     };
     
     enum MUSIC_CUTOFF_OPTIONS {
@@ -85,10 +86,15 @@ namespace DXData
         CUTOFF_DISABLED = 0x2,
     };
 
+
     enum FRAME_MODE{
         FRAME_MODE_DEFAULT = 0x0,
         FORCE_30 = 0x1,
         FORCE_60 = 0x2,
+    };
+
+    enum LANGUAGE_MODE{
+        NO_CHANGE = 0x0,
     };
 
     enum SETTINGS_BOOL {
