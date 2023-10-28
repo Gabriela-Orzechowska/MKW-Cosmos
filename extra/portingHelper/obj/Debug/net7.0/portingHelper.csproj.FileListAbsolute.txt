@@ -1,0 +1,15 @@
+D:\Kamek\MKWDX-Kamek\extra\portingHelper\bin\Debug\net7.0\portingHelper.exe
+D:\Kamek\MKWDX-Kamek\extra\portingHelper\bin\Debug\net7.0\portingHelper.deps.json
+D:\Kamek\MKWDX-Kamek\extra\portingHelper\bin\Debug\net7.0\portingHelper.runtimeconfig.json
+D:\Kamek\MKWDX-Kamek\extra\portingHelper\bin\Debug\net7.0\portingHelper.dll
+D:\Kamek\MKWDX-Kamek\extra\portingHelper\bin\Debug\net7.0\portingHelper.pdb
+D:\Kamek\MKWDX-Kamek\extra\portingHelper\obj\Debug\net7.0\portingHelper.csproj.AssemblyReference.cache
+D:\Kamek\MKWDX-Kamek\extra\portingHelper\obj\Debug\net7.0\portingHelper.GeneratedMSBuildEditorConfig.editorconfig
+D:\Kamek\MKWDX-Kamek\extra\portingHelper\obj\Debug\net7.0\portingHelper.AssemblyInfoInputs.cache
+D:\Kamek\MKWDX-Kamek\extra\portingHelper\obj\Debug\net7.0\portingHelper.AssemblyInfo.cs
+D:\Kamek\MKWDX-Kamek\extra\portingHelper\obj\Debug\net7.0\portingHelper.csproj.CoreCompileInputs.cache
+D:\Kamek\MKWDX-Kamek\extra\portingHelper\obj\Debug\net7.0\portingHelper.dll
+D:\Kamek\MKWDX-Kamek\extra\portingHelper\obj\Debug\net7.0\refint\portingHelper.dll
+D:\Kamek\MKWDX-Kamek\extra\portingHelper\obj\Debug\net7.0\portingHelper.pdb
+D:\Kamek\MKWDX-Kamek\extra\portingHelper\obj\Debug\net7.0\portingHelper.genruntimeconfig.cache
+D:\Kamek\MKWDX-Kamek\extra\portingHelper\obj\Debug\net7.0\ref\portingHelper.dll
