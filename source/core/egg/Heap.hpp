@@ -87,31 +87,31 @@ namespace EGG {
 }
 
 #ifdef __INTELLISENSE__
-inline void * operator new(unsigned long long size, EGG::Heap *heap)
+inline void * operator new(u32 size, EGG::Heap *heap)
 {
 	return EGG::Heap::alloc(size, 0x4, heap);
 }
-inline void * operator new[](unsigned long long size, EGG::Heap *heap)
+inline void * operator new[](u32 size, EGG::Heap *heap)
 {
     return EGG::Heap::alloc(size, 0x4, heap);
 }
-inline void * operator new(unsigned long long size, u32 alignment)
+inline void * operator new(u32 size, u32 alignment)
 {
 	return EGG::Heap::alloc(size, alignment, 0);
 }
-inline void * operator new[](unsigned long long size, u32 alignment)
+inline void * operator new[](u32 size, u32 alignment)
 {
     return EGG::Heap::alloc(size, alignment, 0);
 }
-inline void * operator new(unsigned long long size, EGG::Heap *heap, u32 alignment)
+inline void * operator new(u32 size, EGG::Heap *heap, u32 alignment)
 {
 	return EGG::Heap::alloc(size, alignment, heap);
 }
-inline void * operator new[](unsigned long long size, EGG::Heap *heap, u32 alignment)
+inline void * operator new[](u32 size, EGG::Heap *heap, u32 alignment)
 {
     return EGG::Heap::alloc(size, alignment, heap);
 }
-inline void * operator new(unsigned long long,  void *ptr) { return ptr; }
+inline void * operator new(u32,  void *ptr) { return ptr; }
 #else
 inline void * operator new(size_t size, EGG::Heap *heap)
 {
