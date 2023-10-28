@@ -53,7 +53,7 @@ static char * suffixes[11] = {
     "_H.szs"
 };
 
-
+kmWriteRegionInstruction(0x80604094, 0x4800001c, 'E');
 
 void UpdateLanguage()
 {
