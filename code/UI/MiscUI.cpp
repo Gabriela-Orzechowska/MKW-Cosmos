@@ -39,7 +39,7 @@ static u32 defaultLanguage;
 
 const char no[1] = "";
 
-static char * suffixes[11] = {
+static char * suffixes[12] = {
     "",
     "_E.szs",
     "_U.szs",
@@ -50,7 +50,8 @@ static char * suffixes[11] = {
     "_M.szs",
     "_I.szs",
     "_J.szs",
-    "_H.szs"
+    "_H.szs",
+    "_PL.szs",
 };
 
 kmWriteRegionInstruction(0x80604094, 0x4800001c, 'E');

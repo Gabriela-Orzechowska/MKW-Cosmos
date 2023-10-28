@@ -32,7 +32,7 @@ void * CreatePage(Scene * scene, u32 pageId)
         definition.settings[0].isBool = true;
         definition.settings[0].optionCount = 2;
         definition.settings[1].isBool = false;
-        definition.settings[1].optionCount = 11;
+        definition.settings[1].optionCount = 12;
 
         return new(DXUI::SettingSubPage)(&definition ,pageId);
     }

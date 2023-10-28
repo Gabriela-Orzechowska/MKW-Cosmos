@@ -59,16 +59,17 @@
 
  3110   = Language
  3111   = Default
- 3112   = English
+ 3112   = English (PAL)
  3113   = English (NTSC)
  3114   = German
- 3115   = French
+ 3115   = French (PAL)
  3116   = French (NTSC)
- 3117   = Spanish
+ 3117   = Spanish (PAL)
  3118   = Spanish (NTSC)
  3119   = Italian
  311A   = Japanese
  311B   = Dutch
+ 311C   = Polish
 
  2820   = A solo race for the fastest record! (200cc)
  2830   = Change Combo
