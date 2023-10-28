@@ -71,13 +71,20 @@ void UpdateArchiveHolderLanguageOnInit()
 {
     extern char * szsLanguageNames[7];
 
-    defaultLanguage = SystemManager::sInstance->gameLanguage;
+    defaultLanguage = SystemManager::sInstance->strapPageLanguage; //To include Dutch
     u32 language = SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_LANGUAGE_SETTINGS];
-    if(language == NO_CHANGE) return;
+    if(language == NO_CHANGE) {
+        if(defaultLanguage == 0x6)
+            language = 0x10;
+        else
+            return;
+    }
     SystemManager::sInstance->gameLanguage = language;
     char * localization = suffixes[language];
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1], localization, 0x80);
 }
+
+kmWrite32(0x8000ad9c, 0x38000006); //System Dutch
 
 static SettingsUpdateHook UpdateSystemLanguage(UpdateLanguage);
 //static MenuLoadHook UpdateSystemLanguageMenuLoad(UpdateLanguage);
