@@ -17,7 +17,9 @@ namespace DX
         MENU_SETTINGS1 = 0xB9,
     };
 
-    const char packFolder[20] = "/mkwdx";
+    const char packFolder[20] = "/DX";
+    const char ghostFolder[20] = "/DX/RKG";
+    
     const char SaveFile[11] = "DXData.bin";
     const char CommonArchive[14] = "/CommonDX.szs";
     const char UIArchive[10] = "/UIDX.szs";

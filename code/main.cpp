@@ -61,6 +61,7 @@ namespace DX{
     {
         DXFile::FileManager * manager = DXFile::FileManager::GetStaticInstance();
         manager->CreateFolder(packFolder);
+        manager->CreateFolder(ghostFolder);
 
         isDolphin = false;
         s32 ret = DX::Open("/dev/dolphin", IOS::MODE_NONE);
