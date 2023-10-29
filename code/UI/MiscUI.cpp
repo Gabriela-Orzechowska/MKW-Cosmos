@@ -5,6 +5,8 @@
 #include <core/System/SystemManager.hpp>
 #include <game/System/Archive.hpp>
 #include <game/UI/SectionMgr/SectionMgr.hpp>
+#include <game/System/FontManager.hpp>
+#include <core/rvl/os/OS.hpp>
 
 using namespace DXData;
 
@@ -58,7 +60,16 @@ kmWriteRegionInstruction(0x80604094, 0x4800001c, 'E');
 
 
 static bool loadedAsKorean = false;
+static u32 fontFileName = 0x0;
+static u32 fontBRFNTName = 0x0;
 
+const char koreanFontFile[21] = "/Scene/UI/Font_K";
+const char koreanFont[22] = "kart_font_korea.brfnt";
+
+static char * normalFontFile = (char *) 0x808904a8;
+static char * normalFont = (char *) 0x808b87ac;
+
+static EGG::Heap * fontHeap;
 
 void UpdateLanguage()
 {
@@ -72,15 +83,13 @@ void UpdateLanguage()
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1], localization, 0x80);
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archiveSuffixes[0x1], localization, 0x80);
 
-    if(loadedAsKorean != (language == 12))
+    if((language == 12) != loadedAsKorean)
     {
-        //SystemManager::sInstance->RestartGame();
-        //SectionMgr::sInstance->RequestGoToWiiMenu();
+        //if(DX::isDolphin) 
+        //OSShutdownSystem();
+        //else SystemManager::sInstance->GoToWiiMenu();
     }
 }
-
-const char koreanFontFile[21] = "/Scene/UI/Font_K";
-const char koreanFont[22] = "kart_font_korea.brfnt";
 
 void UpdateArchiveHolderLanguageOnInit()
 {
@@ -99,11 +108,14 @@ void UpdateArchiveHolderLanguageOnInit()
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1], localization, 0x80);
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archiveSuffixes[0x1], localization, 0x80);
 
+    fontFileName = DX::GetPortAddress(0x808b396c, 0x808af11c, 0x808b2acc, 0x808a1de4);
+    fontBRFNTName = DX::GetPortAddress(0x808b87ac, 0x808ced94, 0x808b78fc, 0x808a6c14);
+
     if(language == 12)
     {
         loadedAsKorean = true;
-        *(u32 *)(DX::GetPortAddress(0x808b396c, 0x808af11c, 0x808b2acc, 0x808a1de4)) = (u32)&koreanFontFile;
-        *(u32 *)(DX::GetPortAddress(0x808b87ac, 0x808ced94, 0x808b78fc, 0x808a6c14)) = (u32)&koreanFont;
+        *(u32 *)(fontFileName) = (u32)&koreanFontFile;
+        *(u32 *)(fontBRFNTName) = (u32)&koreanFont;
     }
 }
 

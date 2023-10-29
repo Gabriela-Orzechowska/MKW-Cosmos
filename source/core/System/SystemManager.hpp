@@ -7,6 +7,8 @@ class SystemManager{
 public: 
     static SystemManager *sInstance; //80386000
     static void RestartGame(); //8000b1bc
+    static void CloseGame(); //8000b154
+    static void GoToWiiMenu(); //8000b188
     void RipFromDiscAsync(const char *path, void *heap, u32 allocDirection, u32 r7, void *buffer);
     char rippedPath[64]; //which file to rip from disc, such as ghost, savebanner.tpl etc...
     u8 unknown_0x40[0x58-0x40];

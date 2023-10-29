@@ -22,5 +22,6 @@ extern "C"{
     int OSRestoreInterrupts(int level); //801a65d4
     int OSDisableScheduler();
     void OSRestart(u32 resetCode);
+    void OSShutdownSystem(); //801a856c
 }
 #endif

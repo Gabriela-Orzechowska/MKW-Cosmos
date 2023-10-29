@@ -2,6 +2,7 @@
 #include <game/System/Archive.hpp>
 #include <game/Race/RaceData.hpp>
 #include <FileManager/FileManager.hpp>
+#include <core/System/SystemManager.hpp>
 
 extern char gameID[4];
 
@@ -102,6 +103,12 @@ namespace DX{
                 return NTSCK;
         }
         return PAL;
+    }
+
+    void Shutdown()
+    {
+        if(isDolphin) OSShutdownSystem();
+        else SystemManager::sInstance->GoToWiiMenu();
     }
 
 }

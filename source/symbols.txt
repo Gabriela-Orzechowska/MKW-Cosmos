@@ -7,6 +7,9 @@ memset = 0x80006038
 sInstance__13SystemManager = 0x80386000
 RestartGame__13SystemManagerFv = 0x8000b1bc
 RipFromDiscAsync__13SystemManagerFPcPvUiUiPv = 0x8000b308
+CloseGame__13SystemManagerFv = 0x8000b154
+GoToWiiMenu__13SystemManagerFv = 0x8000b188
+
 
 wcstombs = 0x8000f138
 snprintf = 0x80011938
@@ -118,6 +121,10 @@ IOCtlv__3IOSFiQ23IOS9IOCtlTypeiiPQ23IOS13IOCtlvRequest = 0x801945e0
 Open2ndInst__3IOSFPcQ23IOS4Mode = 0x801938fc
 fs_fd__3IOS = 0x80385920
 
+#FontManager
+sInstance__11FontManager = 0x809c1bf8
+__dt__11ResFontBaseFv = 0x800b2870
+LoadFont__11FontManagerFi = 0x805d1758
 
 PSVECAdd = 0x8019abe4
 PSVECMag = 0x8019ac68
@@ -150,6 +157,7 @@ SelectThread = 0x801a9c08
 OSSleepThread = 0x801aa9b8
 OSDetachThread = 0x801aa4ec
 OSCancelThread = 0x801aa1d4
+OSShutdownSystem = 0x801a856c
 current__8OSThread = 0x800000e4
 
 __nw__FUl = 0x80229dcc
@@ -278,6 +286,8 @@ Clear__11ArchiveFileFv = 0x80519240
 Unmount__11ArchiveFileFv = 0x805192cc
 GetFile__11ArchiveRootF13ArchiveSourcePCcUi = 0x805411fc
 RequestLoadCourseAsync__11ArchiveRootF8CourseId = 0x805419ac
+LoadArchive__11ArchiveRootF13ArchiveSourcePQ23EGG4HeapPCc = 0x80540450
+UnmountArchive__11ArchiveRootF13ArchiveSource = 0x805411d4
 
 #Exception
 console__Q23EGG9Exception = 0x80386E3C

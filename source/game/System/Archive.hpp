@@ -144,6 +144,7 @@ public:
     static void LoadCourseArchiveAsync(CourseId id); //80541998
     void *GetFile(ArchiveSource type, const char *name, u32 length); //805411fc
     void *GetFileFromKartArchives(u8 idx, const char *name, u32 length); //805413c8
+    void UnmountArchive(ArchiveSource type); //805411d4
     int GetUIArchiveCount() const; //80541794
     void AttachLayoutDIR(nw4r::lyt::MultiArcResourceAccessor *resourceAccessor, const char *dir, LayoutResources *resources); //80541878
     void Unmount(ArchivesHolder *holder); //805411e4
