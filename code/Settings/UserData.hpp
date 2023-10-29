@@ -76,8 +76,9 @@ namespace DXData
     };
 
     enum MENU_SETTINGS_1_SETTINGS {
-        DX_FAST_MENUS = 0x0,
-        DX_LANGUAGE_SETTINGS = 0x1,
+        DX_LANGUAGE_SETTINGS = 0x0,
+        DX_FAST_MENUS = 0x1,
+        DX_LAYOUT = 0x2,
     };
     
     enum MUSIC_CUTOFF_OPTIONS {

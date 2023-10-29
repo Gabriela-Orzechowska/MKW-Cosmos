@@ -29,10 +29,10 @@ void * CreatePage(Scene * scene, u32 pageId)
 
         DXUI::SettingPageDefinition definition;
         definition.settingCount = 2;
-        definition.settings[0].isBool = true;
-        definition.settings[0].optionCount = 2;
-        definition.settings[1].isBool = false;
-        definition.settings[1].optionCount = 13;
+        definition.settings[0].isBool = false;
+        definition.settings[0].optionCount = 13;
+        definition.settings[1].isBool = true;
+        definition.settings[1].optionCount = 2;
 
         return new(DXUI::SettingSubPage)(&definition ,pageId);
     }

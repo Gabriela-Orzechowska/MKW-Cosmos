@@ -85,9 +85,7 @@ void UpdateLanguage()
 
     if((language == 12) != loadedAsKorean)
     {
-        //if(DX::isDolphin) 
-        //OSShutdownSystem();
-        //else SystemManager::sInstance->GoToWiiMenu();
+
     }
 }
 

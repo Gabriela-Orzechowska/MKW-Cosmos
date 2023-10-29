@@ -52,25 +52,25 @@
  3822   = Use when the game is too laggy.
  3823   = Use for better systems (Dolphin only).
 
- 3100   = Fast Menus
+ 3110   = Fast Menus
 
- 3901   = Menu transitions will be instant.
- 3902   = Menu transitions will be normal.
+ 3911   = Menu transitions will be instant.
+ 3912   = Menu transitions will be normal.
 
- 3110   = Language
- 3111   = Default
- 3112   = English (PAL)
- 3113   = English (NTSC)
- 3114   = German
- 3115   = French (PAL)
- 3116   = French (NTSC)
- 3117   = Spanish (PAL)
- 3118   = Spanish (NTSC)
- 3119   = Italian
- 311A   = Dutch
- 311B   = Polish
- 311C   = Japanese
- 311D   = Korean
+ 3100   = Language
+ 3101   = Default
+ 3102   = English (PAL)
+ 3103   = English (NTSC)
+ 3104   = German
+ 3105   = French (PAL)
+ 3106   = French (NTSC)
+ 3107   = Spanish (PAL)
+ 3108   = Spanish (NTSC)
+ 3109   = Italian
+ 310A   = Dutch
+ 310B   = Polish
+ 310C   = Japanese
+ 310D   = Korean
 
  2820   = A solo race for the fastest record! (200cc)
  2830   = Change Combo
