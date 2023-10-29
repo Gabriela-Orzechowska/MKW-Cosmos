@@ -68,9 +68,10 @@ namespace DXGhost
         {
             rkg->ClearBuffer();
             GhostData * header = &this->files[counter];
-            //header->isValid = false;
+            header->isValid = false;
             if(manager->ReadFile(rkg, i, DXFile::FILE_MODE_READ) > 0 && rkg->CheckValidity())
             {
+                rkg->header.ghostType = (GhostType) 0x7;
                 header->Init(rkg);
                 counter++;
             }
