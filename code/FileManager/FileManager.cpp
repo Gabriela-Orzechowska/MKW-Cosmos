@@ -38,6 +38,7 @@ namespace DXFile
         FileManager::sInstance->taskThread = EGG::TaskThread::Create(2, 30, 0x2000, NULL);
     }
 
+
     BootHook SetUpFileLoader(FileManager::CreateStaticInstance, FIRST);
 
     FileManager * FileManager::GetStaticInstance()
