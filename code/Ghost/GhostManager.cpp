@@ -112,6 +112,108 @@ namespace DXGhost
         fileManager->Close();
     }
 
+    GhostLeaderboardManager::GhostLeaderboardManager()
+    {
+        memset(&this->file, 0, sizeof(GhostLeaderboardManager));
+        this->file.signature = 0x44584C44;
+        this->file.version = 0x10;
+        for(int i = 0; i < GAMEMODES; i++) this->file.ghostStatus[i] = 0x0;
+    }
+
+    GhostLeaderboardManager::GhostLeaderboardManager(const char * folderPath, u32 id)
+    {
+        new (this) GhostLeaderboardManager();
+        char filePath[IPCMAXPATH];
+        snprintf(filePath, IPCMAXPATH, "%s/ld.glm", folderPath);
+        strncpy(this->folderPath, folderPath, IPCMAXPATH);
+        DXFile::FileManager * manager = DXFile::FileManager::sInstance;
+        s32 ret = manager->Open(filePath, DXFile::FILE_MODE_READ);
+        if(ret > 0) ret = manager->Read(&this->file, sizeof(GhostLeaderboardFile));
+        if(ret <= 0)
+        {
+            manager->taskThread->Request(&GhostLeaderboardManager::CreateFile, (void*)id, NULL);
+        }
+
+
+        manager->Close();
+    }
+
+    void GhostLeaderboardManager::CreateFile(void * id)
+    {
+        char filePath[IPCMAXPATH];
+        snprintf(filePath, IPCMAXPATH, "%s/ld.glm", GhostManager::folderPath);
+        DXFile::FileManager * manager = DXFile::FileManager::sInstance;
+        manager->CreateOpen(filePath, DXFile::FILE_MODE_READ_WRITE);
+        GhostLeaderboardFile * file = new (RKSystem::mInstance.EGGSystem, 0x20) GhostLeaderboardFile;
+        file->trackId = (u32) id;
+        manager->Overwrite(sizeof(GhostLeaderboardFile), file);
+        manager->Close();
+        delete(file);
+    }
+
+    s32 GhostLeaderboardManager::Update(s32 position, TimeEntry * entry, u32 id)
+    {
+        DX::TT_MODE mode = DX::TTMode;
+        GhostLeaderboardFile * lfile = &this->file;
+        GhostTimeEntry * tentry = &lfile->entry[mode][position];
+        if(position != ENTRY_FLAP)
+        {
+            for(int i = ENTRY_5TH; i > position; i--)
+            {
+                memcpy(&lfile->entry[mode][i], &lfile->entry[mode][i-1], sizeof(GhostTimeEntry));
+            }
+        }
+        memcpy(&tentry->mii, &entry->mii, sizeof(RawMii));
+        tentry->minutes = entry->timer.minutes;
+        tentry->seconds = entry->timer.seconds;
+        tentry->miliseconds = entry->timer.milliseconds;
+        tentry->isActive = entry->timer.isActive;
+        tentry->controllerType = entry->controllerType;
+        tentry->kart = entry->kart;
+        tentry->character = entry->character;
+    }
+
+    s32 GhostLeaderboardManager::Save()
+    {
+        GhostLeaderboardManager::Save(this->folderPath);
+    }
+
+    s32 GhostLeaderboardManager::Save(const char * folderPath)
+    {
+        char filePath[IPCMAXPATH];
+        snprintf(filePath, IPCMAXPATH, "%s/ld.glm", folderPath);
+        DXFile::FileManager * manager = DXFile::FileManager::sInstance;
+        manager->Open(filePath, DXFile::FILE_MODE_WRITE);
+        manager->Overwrite(sizeof(GhostLeaderboardFile), &this->file);
+        manager->Close();
+    }
+
+    void GhostLeaderboardManager::GhostTimeEntryToTimer(Timer &timer, u32 index) const
+    {
+        DX::TT_MODE mode = DX::TTMode;
+        timer.minutes = this->file.entry[mode][index].minutes;
+        timer.seconds = this->file.entry[mode][index].seconds;
+        timer.milliseconds = this->file.entry[mode][index].miliseconds;
+        timer.isActive = this->file.entry[mode][index].isActive;
+    }
+
+    void GhostLeaderboardManager::GhostTimeEntryToTimeEntry(TimeEntry &entry, u32 index)
+    {
+        this->GhostTimeEntryToTimer(entry.timer, index);
+        DX::TT_MODE mode = DX::TTMode;
+        memcpy(&entry.mii, &this->file.entry[mode][index].mii, sizeof(RawMii));
+        entry.character = this->file.entry[mode][index].character;
+        entry.kart = this->file.entry[mode][index].kart;
+        entry.controllerType = this->file.entry[mode][index].controllerType;
+    }
+
+    TimeEntry * GetTimeEntry(u32 index)
+    {
+        GhostManager * manager = GhostManager::GetStaticInstance();
+        manager->GetLeaderboard()->GhostTimeEntryToTimeEntry(manager->entry, index);
+        return &manager->entry;
+    }
+
     void CustomGhostGroup(GhostList * list, u32 id)
     {
         u32 trackID = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();

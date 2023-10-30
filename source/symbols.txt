@@ -1079,6 +1079,9 @@ OnActivate__Q25Pages7OptionsFv = 0x805fd8e8
 GetRuntimeTypeInfo__Q25Pages7OptionsCFv = 0x80601068
 OnButtonClick__Q25Pages7OptionsFP10PushButtonUi = 0x805fd90c
 
+#TTSplits
+__ct__Q25Pages8TTSplitsFv = 0x808556e4
+
 
 #GhostList
 Init__9GhostListF8CourseId = 0x805e2200
