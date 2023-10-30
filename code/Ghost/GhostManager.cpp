@@ -65,7 +65,7 @@ namespace DXGhost
 
         this->files = new (RKSystem::mInstance.EGGSystem) GhostData[manager->GetFileCount()];
         RKG * rkg = &this->rkg;
-        u32 counter = 0;
+        u32 counter = 0;    
         for(int i = 0; i < manager->GetFileCount(); i++)
         {
             rkg->ClearBuffer();
@@ -219,6 +219,18 @@ namespace DXGhost
         GhostLeaderboardManager::Save(this->folderPath);
     }
 
+    s32 GhostLeaderboardManager::GetLeaderboardPosition(Timer * timer) const
+    {
+        s32 position = -1;
+        Timer t_timer;
+        for(int i = ENTRY_5TH; i >= 0; i--)
+        {
+            this->GhostTimeEntryToTimer(t_timer, i);
+            if(t_timer > (*timer)) position = i;
+        }
+        return position;
+    }
+
     void GhostLeaderboardManager::Save(const char * folderPath)
     {
         char filePath[IPCMAXPATH];
@@ -255,12 +267,23 @@ namespace DXGhost
         for(int i = 0; i < GAMEMODES; i++) this->ghostStatus[i] = 0x0;
     }
 
+    s32 PlayCorrectMusic(LicenseManager *license, Timer *timer, u32 courseId){
+        return GhostManager::GetStaticInstance()->GetLeaderboard()->GetLeaderboardPosition(timer);
+    }
+    kmCall(0x80856fec, PlayCorrectMusic);
+
     TimeEntry * GetTimeEntry(u32 index)
     {
         GhostManager * manager = GhostManager::GetStaticInstance();
         manager->GetLeaderboard()->GhostTimeEntryToTimeEntry(manager->entry, index);
         return &manager->entry;
     }
+
+    
+    kmCall(0x8085d8d0, GetTimeEntry);
+    kmCall(0x8085d5c8, GetTimeEntry);
+    kmCall(0x8085da54, GetTimeEntry);
+
 
     void CustomGhostGroup(GhostList * list, u32 id)
     {
@@ -350,4 +373,104 @@ namespace DXGhost
         GhostManager::GetStaticInstance()->EnableGhost(entry);
     }
     kmWritePointer(0x808bebf8, PatchOnRunPress);
+
+    void PatchBeforeInAnim(Pages::TTSplits * splitsPage)
+    {
+        MenuData * menuData = MenuData::sInstance;
+        MenuData98 * menu98 = menuData->menudata98;
+
+        int lap = 0x0;
+
+        menu98->isNewTime = false;
+        menu98->isNewBest = false;
+        menu98->fastestLapId = -1;
+        
+        TimeEntry entry;
+        RaceinfoPlayer * iPlayer = RaceInfo::sInstance->players[0];
+        RacedataPlayer * dPlayer = &RaceData::sInstance->racesScenario.players[0];
+
+        splitsPage->timers[0] = *iPlayer->raceFinishTime;
+        splitsPage->ctrlRaceTimeArray[0]->SetTimer(&splitsPage->timers[0]);
+        splitsPage->ctrlRaceTimeArray[0]->OnFocus();
+
+        Timer *fLap = &splitsPage->timers[0];
+
+        u32 flapIndex = 1;
+
+        for(int i = 1; i < splitsPage->splitsRowCount; i++)
+        {
+            RaceInfo::sInstance->players[0]->FillTimerWithSplits(i, &splitsPage->timers[i]);
+            if((*fLap) > splitsPage->timers[i])
+            {
+                fLap = &splitsPage->timers[i];
+                flapIndex = 1;
+            }
+            splitsPage->ctrlRaceTimeArray[i]->SetTimer(&splitsPage->timers[i]);
+            splitsPage->ctrlRaceTimeArray[i]->OnFocus();
+        }
+
+
+        entry.character = dPlayer->characterId;
+        entry.kart = dPlayer->kartId;
+        entry.controllerType = menuData->pad.GetType(menuData->pad.GetCurrentSlotAndType(0));
+        Mii * mii = menu98->playerMiis.GetMii(0);
+        mii->ComputeRawMii(&entry.mii, &mii->texMap);
+
+        if(menuData->curScene->menuId >= WATCH_GHOST_FROM_CHANNEL && menuData->curScene->menuId <= WATCH_GHOST_FROM_MENU)
+        {
+
+        }
+        else
+        {
+            GhostManager * manager = GhostManager::GetStaticInstance();
+            bool save = false;
+            manager->GetLeaderboard()->GhostTimeEntryToTimer(manager->entry.timer, ENTRY_FLAP);
+            if(manager->entry.timer > (*fLap))
+            {
+                entry.timer = *fLap;
+                save = true;
+                splitsPage->ctrlRaceTimeArray[flapIndex]->EnableFlashingAnimation();
+                menu98->fastestLapId = flapIndex;
+                manager->GetLeaderboard()->Update(ENTRY_FLAP, &entry, -1);
+            }
+            entry.timer = splitsPage->timers[0];
+            s32 leaderboardPosition = manager->GetLeaderboard()->GetLeaderboardPosition(&splitsPage->timers[0]);
+            menu98->leaderboardPosition = leaderboardPosition;
+            splitsPage->ctrlRaceCount.isHidden = true;
+            if(leaderboardPosition > -1)
+            {
+                save = true;
+                if(leaderboardPosition == 0)
+                {
+                    splitsPage->PlaySound(0xDD, -1);
+                    splitsPage->ctrlRaceCount.isHidden = false;
+                    splitsPage->ctrlRaceCount.Animate();
+                    splitsPage->ctrlRaceTimeArray[0]->EnableFlashingAnimation();
+                    splitsPage->savedGhostMessage.SetMsgId(0x45b, NULL);
+                    menu98->isNewBest = true;
+                    if(InputData::sInstance->realControllerHolders[0].ghostWriter->state != 3)
+                    {
+                        if(splitsPage->timers[0].minutes < 6) menu98->isNewTime = true;
+                    }
+                }
+            }
+            if(save)
+            {
+                GhostData data;
+                RKG buffer;
+                data.Fill(0);
+                buffer.ClearBuffer();
+
+                RKG * rkg = &manager->rkg;
+
+                if(data.CreateRKG(&buffer) && buffer.CompressTo(rkg))
+                {
+                    u32 trackId = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
+                    if(leaderboardPosition > -1) manager->GetLeaderboard()->Update(leaderboardPosition, &entry, trackId);
+                    DXFile::FileManager::sInstance->taskThread->Request(&GhostManager::CreateAndSaveFiles, manager, NULL);
+                }
+            }
+        }
+    }
+    kmWritePointer(0x808DA614, PatchBeforeInAnim);
 }

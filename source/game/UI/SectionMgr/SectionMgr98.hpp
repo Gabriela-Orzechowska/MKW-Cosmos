@@ -35,7 +35,7 @@ public:
     bool isNewTime; //0x3d0
     u8 unknown_0x3D1[3];
     u32 fastestLapId; //0x3d4 simply which lap is the fastest
-    bool unknown_0x3D8; //0x3D8 unsure
+    bool isNewBest; //0x3D8 unsure
     u8 unknown_0x3D9[0x4B4 - 0x3d9];
     s32 leaderboardPosition; //0x4B4
     u8 unknown_0x4B8[0x4E8 - 0x4B8];

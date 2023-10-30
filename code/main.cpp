@@ -120,7 +120,9 @@ namespace DX{
     {
         char output[0x130];
         va_list args;
-        va_start(args, fmt);
+        #ifndef __INTELLISENSE__ // I dont like errors
+        va_start(args, fmt); 
+        #endif
         vsnprintf(output, 0x100, fmt, args);
         va_end(args);
         
