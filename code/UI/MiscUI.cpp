@@ -125,3 +125,11 @@ static SettingsUpdateHook UpdateSystemLanguage(UpdateLanguage);
 //static MenuLoadHook UpdateSystemLanguageMenuLoad(UpdateLanguage);
 //static StrapEndHook SetLanguageOnBoot(UpdateLanguage);
 kmBranch(0x8053fc98, UpdateArchiveHolderLanguageOnInit);
+
+void DisableBMGSizeOverride()
+{
+    u32 * address = (u32 *) DX::GetPortAddress(0x8007b37c, 0x8007b2dc, 0x8007b29c, 0x8007b3dc);
+    *address = 0xa01d004c; //lhz r0,0x4c(r29)
+}
+
+static LeCodeLoadHook bmgFix(DisableBMGSizeOverride);

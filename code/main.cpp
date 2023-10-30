@@ -114,16 +114,17 @@ namespace DX{
         else SystemManager::sInstance->GoToWiiMenu();
     }
 
+#define FORCEOSFATAL
+
     void Panic(char * file, int line, char *fmt, ...)
     {
-        char format[0x100];
         char output[0x130];
         va_list args;
         va_start(args, fmt);
-        vsnprintf(format, 0x100, fmt, args);
+        vsnprintf(output, 0x100, fmt, args);
         va_end(args);
         
-        snprintf(output, 0x130, "%s:%d: %s", file, line, format);
+        snprintf(output, 0x130, "%s:%d: %s", file, line, output);
         
         OSContext * context = OSGetCurrentContext();
         nw4r::db::ExceptionCallbackParam exc;
@@ -134,6 +135,8 @@ namespace DX{
         #ifndef FORCEOSFATAL
         nw4r::db::DumpException_(&exc);
         #else
+        char final[0x140];
+        snprintf(final, 0x140, "%s\n\n%s", "DX::Panic() has been called", output);
         u32 black = 0x000000FF;
         u32 white = 0xFFFFFFFF;
 
