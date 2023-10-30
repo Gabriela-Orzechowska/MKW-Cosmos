@@ -194,7 +194,7 @@ namespace DXGhost
 
     void GhostLeaderboardManager::Update(s32 position, TimeEntry * entry, u32 id)
     {
-        DX::TT_MODE mode = DX::TTMode;
+        DX::TT_MODE mode = DX::GetTTMode();
         GhostLeaderboardFile * lfile = &this->file;
         GhostTimeEntry * tentry = &lfile->entry[mode][position];
         if(position != ENTRY_FLAP)
@@ -243,7 +243,7 @@ namespace DXGhost
 
     void GhostLeaderboardManager::GhostTimeEntryToTimer(Timer &timer, u32 index) const
     {
-        DX::TT_MODE mode = DX::TTMode;
+        DX::TT_MODE mode = DX::GetTTMode();
         timer.minutes = this->file.entry[mode][index].minutes;
         timer.seconds = this->file.entry[mode][index].seconds;
         timer.milliseconds = this->file.entry[mode][index].miliseconds;
@@ -253,7 +253,7 @@ namespace DXGhost
     void GhostLeaderboardManager::GhostTimeEntryToTimeEntry(TimeEntry &entry, u32 index)
     {
         this->GhostTimeEntryToTimer(entry.timer, index);
-        DX::TT_MODE mode = DX::TTMode;
+        DX::TT_MODE mode = DX::GetTTMode();
         memcpy(&entry.mii, &this->file.entry[mode][index].mii, sizeof(RawMii));
         entry.character = this->file.entry[mode][index].character;
         entry.kart = this->file.entry[mode][index].kart;
@@ -272,7 +272,7 @@ namespace DXGhost
     }
     kmCall(0x80856fec, PlayCorrectMusic);
 
-    TimeEntry * GetTimeEntry(u32 index)
+    TimeEntry * GetTimeEntry(u32 param_1, u32 index)
     {
         GhostManager * manager = GhostManager::GetStaticInstance();
         manager->GetLeaderboard()->GhostTimeEntryToTimeEntry(manager->entry, index);
