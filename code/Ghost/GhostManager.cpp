@@ -77,6 +77,7 @@ namespace DXGhost
                 header->Init(rkg);
                 counter++;
             }
+            header->padding = i;
             manager->CloseFile();
         }
         this->rkgCount = counter;
@@ -98,6 +99,39 @@ namespace DXGhost
         rkg->ClearBuffer();
         this->folderManager->ReadFile(rkg, index, DXFile::FILE_MODE_READ);
         return rkg->CheckValidity();
+    }
+
+    void GhostManager::LoadGhostReplay(RKG * buffer, bool isGhostRace)
+    {
+        u8 position = 1;
+        if(this->mainGhostIndex != 0xFF)
+        {
+            if(this->LoadGhost(buffer, this->GetGhostData(this->mainGhostIndex)->padding))
+            {
+                RaceData *raceData = RaceData::sInstance;
+                RKG * dest = &raceData->ghosts[position];
+                if(buffer->header.compressed) buffer->DecompressTo(dest);
+                else memcpy(dest, buffer, sizeof(RKG));
+                raceData->menusScenario.players[position + isGhostRace].playerType = PLAYER_GHOST;
+                GhostData data(dest);
+                MenuData::sInstance->menudata98->playerMiis.AddMii(position + isGhostRace, &data.miiData);
+            }
+        }
+    }
+
+    bool GhostManager::EnableGhost(GhostListEntry * entry)
+    {
+        bool ret = false;
+        for(int i = 0; i < this->rkgCount; i++)
+        {
+            if(&this->files[i] == entry->data)
+            {
+                this->mainGhostIndex = i;
+                ret = true;
+                break;
+            }
+        }
+        return ret;
     }
 
     void GhostManager::CreateAndSaveFiles(void * holder)
@@ -159,7 +193,7 @@ namespace DXGhost
         delete(file);
     }
 
-    s32 GhostLeaderboardManager::Update(s32 position, TimeEntry * entry, u32 id)
+    void GhostLeaderboardManager::Update(s32 position, TimeEntry * entry, u32 id)
     {
         DX::TT_MODE mode = DX::TTMode;
         GhostLeaderboardFile * lfile = &this->file;
@@ -181,12 +215,12 @@ namespace DXGhost
         tentry->character = entry->character;
     }
 
-    s32 GhostLeaderboardManager::Save()
+    void GhostLeaderboardManager::Save()
     {
         GhostLeaderboardManager::Save(this->folderPath);
     }
 
-    s32 GhostLeaderboardManager::Save(const char * folderPath)
+    void GhostLeaderboardManager::Save(const char * folderPath)
     {
         char filePath[IPCMAXPATH];
         snprintf(filePath, IPCMAXPATH, "%s/ld.glm", folderPath);
@@ -256,4 +290,57 @@ namespace DXGhost
         GhostManager::DestroyStaticInstance();
     }
     kmCall(0x8062cf98, DestroyManager);
+
+    //Loads all the ghosts while setting up the ghost race/replay
+    void ExtendSetupGhostRace(Pages::GhostManager *ghostManager, bool isStaffGhost, bool replaceGhostMiiByPlayer, bool disablePlayerMii){
+        ghostManager->SetupGhostRace(true, replaceGhostMiiByPlayer, disablePlayerMii);
+        GhostManager::GetStaticInstance()->LoadGhostReplay(ghostManager->rkgPointer, true);
+    
+    }
+    kmCall(0x805e13ac, ExtendSetupGhostRace);
+    kmCall(0x805e13e4, ExtendSetupGhostRace);
+    kmCall(0x805e141c, ExtendSetupGhostRace);
+    kmCall(0x805e149c, ExtendSetupGhostRace);
+    kmCall(0x805e14c8, ExtendSetupGhostRace);
+    kmCall(0x805e14f4, ExtendSetupGhostRace);
+
+    void LoadCorrectGhost(Pages::GhostManager * ghostManager, u8 param_2)
+    {
+        GhostManager * manager = GhostManager::GetStaticInstance();
+        if(manager->mainGhostIndex == 0xFF)
+        {
+            u32 black = 0x000000FF;
+            u32 white = 0xFFFFFFFF;
+
+            OSFatal(&black, &white, "GhostManager.cpp:315: Ghost Index is NULL");
+        }
+        manager->LoadGhost(ghostManager->rkgPointer, manager->GetGhostData(manager->mainGhostIndex)->padding);
+        if(ghostManager->state == SAVED_GHOST_RACE_FROM_MENU) ghostManager->state = STAFF_GHOST_RACE_FROM_MENU;
+    }
+    kmCall(0x805e158c, LoadCorrectGhost);
+
+    void ExtendGhostReplay(Pages::GhostManager * ghostManager, bool isStaff)
+    {
+        ghostManager->SetupGhostReplay(true);
+        GhostManager * manager = GhostManager::GetStaticInstance();
+        manager->LoadGhostReplay(ghostManager->rkgPointer, false);
+    }
+    kmCall(0x805e144c, ExtendGhostReplay);
+    kmCall(0x805e1518, ExtendGhostReplay);
+
+    void PatchOnWatchPress(Pages::GhostSelect * select ,PushButton * button, u32 slotId)
+    {
+        select->OnWatchReplayPress(button, slotId);
+        GhostListEntry * entry = &select->ghostList->entries[select->page];
+        GhostManager::GetStaticInstance()->EnableGhost(entry);
+    }
+    kmWritePointer(0x808bec04, PatchOnWatchPress);
+
+    void PatchOnRunPress(Pages::GhostSelect * select ,PushButton * button, u32 slotId)
+    {
+        select->OnChallengeGhostPress(button, slotId);
+        GhostListEntry * entry = &select->ghostList->entries[select->page];
+        GhostManager::GetStaticInstance()->EnableGhost(entry);
+    }
+    kmWritePointer(0x808bebf8, PatchOnRunPress);
 }

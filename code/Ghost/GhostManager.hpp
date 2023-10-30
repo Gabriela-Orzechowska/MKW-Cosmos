@@ -66,11 +66,11 @@ namespace DXGhost
             public:
                 GhostLeaderboardManager();
                 GhostLeaderboardManager(const char * folderPath, u32 id);
-                ~GhostLeaderboardManager();
+                //~GhostLeaderboardManager();
                 s32 GetLeaderboardPosition(Timer * timer) const;
-                s32 Update(s32 position, TimeEntry * entry, u32 id);
-                s32 Save();
-                s32 Save(const char * folderPath);
+                void Update(s32 position, TimeEntry * entry, u32 id);
+                void Save();
+                void Save(const char * folderPath);
 
                 void GhostTimeEntryToTimer(Timer &timer, u32 index) const;
                 void GhostTimeEntryToTimeEntry(TimeEntry &entry, u32 index);
@@ -92,10 +92,13 @@ namespace DXGhost
             static void DestroyStaticInstance();
             void Reset();
             void Init(u32 courseId);
+            bool EnableGhost(GhostListEntry * entry);
             GhostLeaderboardManager * GetLeaderboard() {return &this->leaderboard; }
-            const GhostData * GetGhostData(u32 idx) const {return &this->files[idx];}
+            const GhostData * GetGhostData(u32 idx) const {
+                return &this->files[idx];
+            }
             bool LoadGhost(RKG * rkg, u32 index);
-            //void LoadAllGhosts(RKG * rkg, u32 maxCount, bool isGhostRace);
+            void LoadGhostReplay(RKG * rkg, bool isGhostRace);
             static void CreateAndSaveFiles(void * holder);
 
             RKG rkg  __attribute__ ((aligned( 0x20 )));
