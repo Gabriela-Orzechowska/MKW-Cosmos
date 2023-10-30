@@ -42,6 +42,8 @@ namespace DX
     void CreateBranch(u32 from, void * to);
     void CreateCall(u32 from, void * to);
     u32 GetPortAddress(u32 PAL, u32 NTSCU, u32 NTSCJ, u32 NTSCK);
+    void Shutdown();
+    void Panic(char * file, int line, char *fmt, ...);
 }
 
 

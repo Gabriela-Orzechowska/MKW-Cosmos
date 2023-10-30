@@ -52,7 +52,7 @@ namespace DXDebug{
         nw4r::db::ExceptionCallbackParam exc;
         exc.error = 0x31; 
         exc.context = context;
-        exc.dar = 0x0;
+        exc.dar = (u32) output;
         exc.dsisr = 0x0;
         #ifndef FORCEOSFATAL
         nw4r::db::DumpException_(&exc);
@@ -90,7 +90,7 @@ namespace DXDebug{
     void PrintHeader()
     {
         nw4r::db::Exception_Printf_("**** MKWDX EXCEPTION HANDLER ****\n");
-        nw4r::db::Exception_Printf_("Mario Kart Wii Deluxe v9.0 (17/10/2023)\n");
+        nw4r::db::Exception_Printf_("Mario Kart Wii Deluxe v9.0 (30/10/2023)\n");
         return;
     }
 
@@ -113,7 +113,9 @@ namespace DXDebug{
             nw4r::db::Exception_Printf_("\n\n*** Mario Kart Wii Deluxe PANIC HANDLER ***\nnw4r::Panic() has been called at 0x%08x (%s)\n<Symbol not found>\n\n", dsisr-4, region_name);
         else if(error == 0x31)
             nw4r::db::Exception_Printf_("\n\n*** Mario Kart Wii Deluxe PANIC HANDLER ***\nRVL::OSPanic() has been called; (%s)\n<Symbol not found>\n\n", region_name);
-        nw4r::db::Exception_Printf_("*** Message ***\n%s\n", output);
+        else if(error == 0x32)
+            nw4r::db::Exception_Printf_("\n\n*** Mario Kart Wii Deluxe PANIC HANDLER ***\nDX::OSPanic() has been called; (%s)\n<Symbol not found>\n\n", region_name);
+        nw4r::db::Exception_Printf_("*** Message ***\n%s\n", (char *)dar );
     }
 
 
@@ -137,7 +139,7 @@ namespace DXDebug{
 
     void PrintContext(u16 error, const OSContext * context, u32 dsisr, u32 dar)
     {
-        if(error != 0x30)
+        if(error < 0x30)
             nw4r::db::PrintContext_(error, context, dsisr, dar);
         else
             PrintPanic(error, context, dsisr, dar);

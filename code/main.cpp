@@ -3,6 +3,8 @@
 #include <game/Race/RaceData.hpp>
 #include <FileManager/FileManager.hpp>
 #include <core/System/SystemManager.hpp>
+#include <include/c_stdarg.h>
+#include <core/nw4r/db/Exception.hpp>
 
 extern char gameID[4];
 
@@ -110,6 +112,34 @@ namespace DX{
     {
         if(isDolphin) OSShutdownSystem();
         else SystemManager::sInstance->GoToWiiMenu();
+    }
+
+    void Panic(char * file, int line, char *fmt, ...)
+    {
+        char format[0x100];
+        char output[0x130];
+        va_list args;
+        va_start(args, fmt);
+        vsnprintf(format, 0x100, fmt, args);
+        va_end(args);
+        
+        snprintf(output, 0x130, "%s:%d: %s", file, line, format);
+        
+        OSContext * context = OSGetCurrentContext();
+        nw4r::db::ExceptionCallbackParam exc;
+        exc.error = 0x32; 
+        exc.context = context;
+        exc.dar = (u32) output;
+        exc.dsisr = 0x0;
+        #ifndef FORCEOSFATAL
+        nw4r::db::DumpException_(&exc);
+        #else
+        u32 black = 0x000000FF;
+        u32 white = 0xFFFFFFFF;
+
+        OSFatal(&white, &black, output);
+        #endif
+
     }
 
 }

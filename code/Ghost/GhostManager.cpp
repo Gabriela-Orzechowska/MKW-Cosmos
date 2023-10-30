@@ -73,7 +73,6 @@ namespace DXGhost
             header->isValid = false;
             if(manager->ReadFile(rkg, i, DXFile::FILE_MODE_READ) > 0 && rkg->CheckValidity())
             {
-                rkg->header.ghostType = (GhostType) 0x7;
                 header->Init(rkg);
                 counter++;
             }
@@ -247,6 +246,13 @@ namespace DXGhost
         entry.character = this->file.entry[mode][index].character;
         entry.kart = this->file.entry[mode][index].kart;
         entry.controllerType = this->file.entry[mode][index].controllerType;
+    }
+
+    GhostLeaderboardFile::GhostLeaderboardFile()
+    {
+        this->signature = 0x44584C44;
+        this->version = 0x10;
+        for(int i = 0; i < GAMEMODES; i++) this->ghostStatus[i] = 0x0;
     }
 
     TimeEntry * GetTimeEntry(u32 index)

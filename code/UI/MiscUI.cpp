@@ -115,6 +115,8 @@ void UpdateArchiveHolderLanguageOnInit()
         *(u32 *)(fontFileName) = (u32)&koreanFontFile;
         *(u32 *)(fontBRFNTName) = (u32)&koreanFont;
     }
+
+    
 }
 
 kmWrite32(0x8000ad9c, 0x38000006); //System Dutch

@@ -1,5 +1,6 @@
 #include <LeCode/LeCodeManager.hpp>
 #include <game/System/Archive.hpp>
+#include <main.hpp>
 
 extern char gameID[4];
 

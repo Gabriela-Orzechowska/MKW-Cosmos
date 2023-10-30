@@ -53,6 +53,7 @@ namespace DXGhost
     class GhostLeaderboardFile
     {
         public:
+            GhostLeaderboardFile();
             u32 signature;
             u32 version;
             u32 trackId;
