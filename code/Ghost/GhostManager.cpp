@@ -56,7 +56,7 @@ namespace DXGhost
         DXFile::FileManager::sInstance->CreateFolder(folderPath);
 
         char folderModePath[IPCMAXPATH];
-        snprintf(folderModePath, IPCMAXPATH, "%s/%s", folderPath, ttFolders[DX::TTMode]);
+        snprintf(folderModePath, IPCMAXPATH, "%s/%s", folderPath, ttFolders[DX::GetTTMode()]);
         DXFile::FileManager::sInstance->CreateFolder(folderModePath);
 
         manager->ReadFolder(folderModePath);

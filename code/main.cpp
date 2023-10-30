@@ -33,6 +33,11 @@ namespace DX{
         RaceData::sInstance->menusScenario.settings.engineClass = cc;
     }
 
+    TT_MODE GetTTMode()
+    {
+        return TTMode;
+    }
+
     kmBranch(0x805e1ef4, SetCC);
     kmBranch(0x805e1d58, SetCC);
 
