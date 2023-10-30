@@ -17,57 +17,7 @@ namespace DXGhost
 
     #define GAMEMODES 2
 
-    class GhostManager{
-        public:
-            GhostManager();
-            ~GhostManager();
-            static GhostManager * GetStaticInstance() { return sInstance; }
-            static GhostManager * CreateStaticInstance();
-            static void DestroyStaticInstance();
-            void Reset();
-            void Init(u32 courseId);
-            GhostLeaderboardManager * GetLeaderboard() {return &this->leaderboard; }
-            const GhostData * GetGhostData(u32 idx) const {return &this->files[idx];}
-            bool LoadGhost(RKG * rkg, u32 index);
-            //void LoadAllGhosts(RKG * rkg, u32 maxCount, bool isGhostRace);
-            static void CreateAndSaveFiles(void * holder);
-
-            RKG rkg  __attribute__ ((aligned( 0x20 )));
-            GhostLeaderboardManager leaderboard __attribute__ ((aligned( 0x20 )));
-            u32 mainGhostIndex;
-            static char folderPath[IPCMAXPATH];
-            DXFile::FolderManager * folderManager;
-            TimeEntry entry;
-
-        private:
-            static GhostManager * sInstance;
-            GhostData * files;
-            u32 courseId;
-            u32 rkgCount;
-            
-    };
-
-    class GhostLeaderboardManager 
-    {
-        public:
-            GhostLeaderboardManager();
-            GhostLeaderboardManager(const char * folderPath, u32 id);
-            ~GhostLeaderboardManager();
-            s32 GetLeaderboardPosition(Timer * timer) const;
-            s32 Update(s32 position, TimeEntry * entry, u32 id);
-            s32 Save();
-            s32 Save(const char * folderPath);
-
-            void GhostTimeEntryToTimer(Timer &timer, u32 index) const;
-            void GhostTimeEntryToTimeEntry(TimeEntry &entry, u32 index);
-
-            static void CreateFile(void * id);
-
-        private:
-            GhostLeaderboardFile file __attribute__ ((aligned( 0x20 )));
-            char folderPath[IPCMAXPATH];
-    };
-
+    
     enum LEADERBOARDENTRY
     {
         ENTRY_1ST,
@@ -77,6 +27,7 @@ namespace DXGhost
         ENTRY_5TH,
         ENTRY_FLAP,
     };
+
 
     #pragma (pack, 1)
     class GhostTimeEntry
@@ -108,6 +59,58 @@ namespace DXGhost
             u8 ghostStatus[GAMEMODES];
             u32 reserved[4 * 0x8];
             GhostTimeEntry entry[GAMEMODES][6]; //5 times + flap
+    };
+
+        class GhostLeaderboardManager 
+        {
+            public:
+                GhostLeaderboardManager();
+                GhostLeaderboardManager(const char * folderPath, u32 id);
+                ~GhostLeaderboardManager();
+                s32 GetLeaderboardPosition(Timer * timer) const;
+                s32 Update(s32 position, TimeEntry * entry, u32 id);
+                s32 Save();
+                s32 Save(const char * folderPath);
+
+                void GhostTimeEntryToTimer(Timer &timer, u32 index) const;
+                void GhostTimeEntryToTimeEntry(TimeEntry &entry, u32 index);
+
+                static void CreateFile(void * id);
+
+            private:
+                GhostLeaderboardFile file __attribute__ ((aligned( 0x20 )));
+                char folderPath[IPCMAXPATH];
+        };
+
+
+        class GhostManager{
+        public:
+            GhostManager();
+            ~GhostManager();
+            static GhostManager * GetStaticInstance() { return sInstance; }
+            static GhostManager * CreateStaticInstance();
+            static void DestroyStaticInstance();
+            void Reset();
+            void Init(u32 courseId);
+            GhostLeaderboardManager * GetLeaderboard() {return &this->leaderboard; }
+            const GhostData * GetGhostData(u32 idx) const {return &this->files[idx];}
+            bool LoadGhost(RKG * rkg, u32 index);
+            //void LoadAllGhosts(RKG * rkg, u32 maxCount, bool isGhostRace);
+            static void CreateAndSaveFiles(void * holder);
+
+            RKG rkg  __attribute__ ((aligned( 0x20 )));
+            GhostLeaderboardManager leaderboard __attribute__ ((aligned( 0x20 )));
+            u32 mainGhostIndex;
+            static char folderPath[IPCMAXPATH];
+            DXFile::FolderManager * folderManager;
+            TimeEntry entry;
+
+        private:
+            static GhostManager * sInstance;
+            GhostData * files;
+            u32 courseId;
+            u32 rkgCount;
+            
     };
 }
 

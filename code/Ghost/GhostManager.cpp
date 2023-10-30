@@ -61,6 +61,8 @@ namespace DXGhost
 
         manager->ReadFolder(folderModePath);
 
+        new (this->GetLeaderboard()) GhostLeaderboardManager(folderPath, courseId);
+
         this->files = new (RKSystem::mInstance.EGGSystem) GhostData[manager->GetFileCount()];
         RKG * rkg = &this->rkg;
         u32 counter = 0;
@@ -110,6 +112,12 @@ namespace DXGhost
         if(rkg->header.compressed) size = ((CompressedRKG*)rkg)->dataLength + sizeof(RKGHeader) + 0x4 + 0x4;
         fileManager->Overwrite(size, rkg);
         fileManager->Close();
+
+        char folderPath[IPCMAXPATH];
+        snprintf(folderPath, IPCMAXPATH, "%s/%03x", DX::ghostFolder, manager->courseId);
+        manager->GetLeaderboard()->Save(folderPath);
+        manager->Init(LeCode::LeCodeManager::GetStaticInstance()->GetTrackID());
+        MenuData::sInstance->menudata98->isNewTime = true;
     }
 
     GhostLeaderboardManager::GhostLeaderboardManager()
