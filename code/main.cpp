@@ -5,6 +5,7 @@
 #include <core/System/SystemManager.hpp>
 #include <include/c_stdarg.h>
 #include <core/nw4r/db/Exception.hpp>
+#include <Debug/IOSDolphin.hpp>
 
 extern char gameID[4];
 
@@ -70,12 +71,11 @@ namespace DX{
         manager->CreateFolder(packFolder);
         manager->CreateFolder(ghostFolder);
 
-        isDolphin = false;
-        s32 ret = DX::Open("/dev/dolphin", IOS::MODE_NONE);
-        if(ret >= 0)
+        s32 ret = IOS::Dolphin::dOpen();
+        if(ret > 0)
         {
             isDolphin = true;
-            IOS::Close(ret);
+            IOS::Dolphin::dClose();
         }
                 
     }
@@ -123,31 +123,48 @@ namespace DX{
 
     void Panic(char * file, int line, char *fmt, ...)
     {
+        OSContext * context = OSGetCurrentContext();
+        
         char output[0x130];
+        char output2[0x130];
         va_list args;
         #ifndef __INTELLISENSE__ // I dont like errors
         va_start(args, fmt); 
         #endif
-        vsnprintf(output, 0x100, fmt, args);
+        vsnprintf(output2, 0x100, fmt, args);
         va_end(args);
         
-        snprintf(output, 0x130, "%s:%d: %s", file, line, output);
-        
-        OSContext * context = OSGetCurrentContext();
+
+        snprintf(output, 0x130, "%s:%d: %s\n", file, line, output2);
+
+        char stack[0x200] = "\n STACK TRACE:\n";
+        u32 * stackRegister = OSGetStackPointer();
+        for(int i = 0; i < 10; i++)
+        {
+            if(stackRegister == nullptr || stackRegister == (u32 *) -1) break;
+            char buffer[0x28];
+            snprintf(buffer, 0x20, "%08x: %08x %08x\n", stackRegister, *stackRegister, stackRegister[0x1]);
+            strcat(stack,buffer);
+            stackRegister = (u32 *) *stackRegister;
+        }
+
+        strcat(output, stack);
+
         nw4r::db::ExceptionCallbackParam exc;
         exc.error = 0x32; 
         exc.context = context;
         exc.dar = (u32) output;
         exc.dsisr = 0x0;
+
         #ifndef FORCEOSFATAL
         nw4r::db::DumpException_(&exc);
         #else
-        char final[0x140];
+        char final[0x300];
         snprintf(final, 0x140, "%s\n\n%s", "DX::Panic() has been called", output);
         u32 black = 0x000000FF;
-        u32 white = 0xFFFFFFFF;
+        u32 white = 0xc2659dFF;
 
-        OSFatal(&white, &black, output);
+        OSFatal(&white, &black, final);
         #endif
 
     }

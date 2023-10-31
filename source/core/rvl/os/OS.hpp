@@ -23,5 +23,7 @@ extern "C"{
     int OSDisableScheduler();
     void OSRestart(u32 resetCode);
     void OSShutdownSystem(); //801a856c
+    u32 * OSGetStackPointer(); //801a2030
+    bool OSIsTitleInstalled(u64 titleID); //801ae4a0
 }
 #endif

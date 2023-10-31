@@ -158,6 +158,8 @@ OSSleepThread = 0x801aa9b8
 OSDetachThread = 0x801aa4ec
 OSCancelThread = 0x801aa1d4
 OSShutdownSystem = 0x801a856c
+OSGetStackPointer = 0x801a2030
+OSIsTitleInstalled = 0x801ae4a0
 current__8OSThread = 0x800000e4
 
 __nw__FUl = 0x80229dcc

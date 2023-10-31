@@ -70,6 +70,6 @@ namespace FAT
         bool AddEntry (PARTITION* partition, DIR_ENTRY* entry, u32 dirCluster);
         u32 EntryGetCluster (PARTITION* partition, const u8 * entryData); 
         bool EntryFromPosition (PARTITION* partition, DIR_ENTRY* entry);
-        bool GgetVolumeLabel (PARTITION* partition, char *label);
+        bool GetVolumeLabel (PARTITION* partition, char *label);
     }
 }

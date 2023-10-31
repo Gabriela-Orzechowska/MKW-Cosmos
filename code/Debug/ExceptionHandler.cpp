@@ -9,6 +9,7 @@
 #include <core/egg/Exception.hpp>
 #include <core/nw4r/db/Exception.hpp>
 #include <include/c_stdarg.h>
+#include <Debug/Debug.hpp>
 
 extern char gameID[4];
 
@@ -90,7 +91,7 @@ namespace DXDebug{
     void PrintHeader()
     {
         nw4r::db::Exception_Printf_("**** MKWDX EXCEPTION HANDLER ****\n");
-        nw4r::db::Exception_Printf_("Mario Kart Wii Deluxe v9.0 (30/10/2023)\n");
+        nw4r::db::Exception_Printf_("MKW Deluxe v9.0 (%s %s)\nPlatform: %s\n", __DATE__, __TIME__, DXDebug::GetPlatformString());
         return;
     }
 
