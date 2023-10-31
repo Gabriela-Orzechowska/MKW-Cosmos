@@ -14,7 +14,8 @@
 			"string_view": "cpp",
 			"initializer_list": "cpp",
 			"functional": "cpp",
-			"cstdint": "cpp"
+			"cstdint": "cpp",
+			"compare": "cpp"
 		}
 	}
 }
