@@ -13,7 +13,8 @@
 			"vector": "cpp",
 			"string_view": "cpp",
 			"initializer_list": "cpp",
-			"functional": "cpp"
+			"functional": "cpp",
+			"cstdint": "cpp"
 		}
 	}
 }

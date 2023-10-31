@@ -5,5 +5,6 @@
 
 extern "C"{
     void *VIGetNextFrameBuffer(); //801bab24
+    void *VIWaitForRetrace(); //801b99ec
 }
 #endif

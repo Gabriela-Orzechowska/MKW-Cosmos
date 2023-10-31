@@ -1252,6 +1252,12 @@ OnActivate__27CharacterSelectPageLECODEFv = 0x808e2bbc
 #debug
 console = 0x802A73FC
 VIGetNextFrameBuffer = 0x801bab24
+VIWaitForRetrace = 0x801b99ec
+
+#ios
+iosCreateHeap__FPvi = 0x801949b8
+iosAlloc__FiiUi = 0x80194ae8
+
 
 #GX
 __GXAbort= 0x8016e6e4
