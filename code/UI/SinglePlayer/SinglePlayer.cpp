@@ -6,7 +6,6 @@ const char * ttButtonBrctr = "DX_TT";
 
 void LoadCorrectControlFile(PushButton * button, const char * folderName, const char * controlName, const char * variantName, u32 param_5, u32 param_6, u32 idx)
 {
-    *(u32*) 0xF = 0x1; 
     if(idx == TIME_TRIAL || idx == TIME_TRIAL_200)
     {
         char ttButtonVariant[17];
