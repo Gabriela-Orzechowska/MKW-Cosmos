@@ -23,9 +23,73 @@ public class Program
     public static void Main(string[] args)
     {
         BuildMapFile("GameP.SMAP", "GameP.BMAP");
+        BuildKamekFile("KamekM.SMAP", "KamekM.BMAP");
+        Console.WriteLine("Done.");
     }
 
-    public static void BuildMapFile(string input, string output)
+    public static void BuildKamekFile(string input, string output)
+    {
+        Dictionary<int, string> symDict = new();
+
+        string[] lines = File.ReadAllLines(input);
+        int lineCount = lines.Length;
+
+        Console.WriteLine($"{input}: Line Count: {lineCount}");
+        (int left, int top) = Console.GetCursorPosition();
+        for (int i = 1; i < lineCount; i++)
+        {
+            Console.SetCursorPosition(left, top);
+
+            string line = lines[i];
+            int Offset = Convert.ToInt32(line.Substring(0,8), 16);
+            string Name = line.Substring(9);
+
+            if(symDict.ContainsKey(Offset))
+            {
+                continue;
+            }
+
+            symDict.Add(Offset, Name);
+            Console.WriteLine($"Processed Symbols: {i + 1}/{lineCount}");
+        }
+
+        symDict = symDict.OrderBy(obj => obj.Key).ToDictionary(obj => obj.Key, obj => obj.Value);
+
+        string NameTableFull = "";
+        int currentNameOffset = 0;
+
+        int fileSize = 0x10 + symDict.Count * 0x8;
+        MemoryStream stream = new();
+        BetterBinaryWriter writer = new(stream);
+
+        writer.Write<UInt32>(0x53594d43);
+        writer.Write((UInt32)fileSize);
+        writer.Write((UInt32)symDict.Count);
+        writer.Write((UInt32)0x0);
+
+        foreach(var sym in symDict)
+        {
+            writer.Write(sym.Key);
+            writer.Write(currentNameOffset);
+            NameTableFull += sym.Value;
+            NameTableFull += '\0';
+            currentNameOffset = NameTableFull.Length;
+        }
+        writer.Write(NameTableFull);
+        writer.Seek(0x4);
+        fileSize += NameTableFull.Length;
+        writer.Write((UInt32)fileSize);
+        writer.Write((UInt32)symDict.Count);
+        writer.Write((UInt32)(fileSize - NameTableFull.Length));
+
+        byte[] data = stream.ToArray();
+        File.WriteAllBytes(output, data);
+
+        Console.WriteLine($"File Size (Symbols only) {fileSize - NameTableFull.Length}");
+        Console.WriteLine($"File Size (With Name Table) {fileSize}");
+    }
+
+    public static void BuildMapFile(string input, string output, bool isKamek = false)
     {
         string NameTableFull = "";
         List<Symbol> symbols = new();   
@@ -90,7 +154,5 @@ public class Program
 
         byte[] data = stream.ToArray();
         File.WriteAllBytes(output, data);
-
-        Console.WriteLine("Done");
     }
 }

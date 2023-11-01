@@ -118,6 +118,9 @@ namespace Kamek
 
             foreach (var version in versions.Mappers)
             {
+                bool createSMAP = false;
+                if(version.Key == "P") createSMAP = true;
+
                 if (selectedVersions.Count > 0 && !selectedVersions.Contains(version.Key))
                 {
                     Console.WriteLine("(skipping version {0} as it's not selected)", version.Key);
@@ -132,7 +135,7 @@ namespace Kamek
                 if (baseAddress.HasValue)
                     linker.LinkStatic(baseAddress.Value, externals);
                 else
-                    linker.LinkDynamic(externals);
+                    linker.LinkDynamic(externals, createSMAP);
 
                 var kf = new KamekFile();
                 kf.LoadFromLinker(linker);

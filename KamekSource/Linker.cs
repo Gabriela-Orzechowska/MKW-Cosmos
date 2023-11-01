@@ -33,13 +33,13 @@ namespace Kamek
             _baseAddress = new Word(WordType.AbsoluteAddr, Mapper.Remap(baseAddress, out bool inwasported));
             DoLink(externalSymbols);
         }
-        public void LinkDynamic(Dictionary<String, uint> externalSymbols)
+        public void LinkDynamic(Dictionary<String, uint> externalSymbols, bool createSMAP = false)
         {
             _baseAddress = new Word(WordType.RelativeAddr, 0);
-            DoLink(externalSymbols);
+            DoLink(externalSymbols, createSMAP);
         }
 
-        private void DoLink(Dictionary<String, uint> externalSymbols)
+        private void DoLink(Dictionary<String, uint> externalSymbols, bool createSMAP = false)
         {
             if (_linked)
                 throw new InvalidOperationException("This linker has already been linked");
@@ -59,7 +59,7 @@ namespace Kamek
 
             CollectSections();
             BuildSymbolTables();
-            ProcessRelocations();
+            ProcessRelocations(createSMAP);
             ProcessHooks();
         }
 
@@ -343,7 +343,7 @@ namespace Kamek
         private List<Fixup> _fixups = new List<Fixup>();
         public IReadOnlyList<Fixup> Fixups { get { return _fixups; } }
 
-        private void ProcessRelocations()
+        private void ProcessRelocations(bool createSMAP = false)
         {
             foreach (Elf elf in _modules)
             {
@@ -367,13 +367,13 @@ namespace Kamek
                     var affected = elf.Sections[(int)s.sh_info];
                     var symtab = elf.Sections[(int)s.sh_link];
 
-                    ProcessRelaSection(elf, s, affected, symtab);
+                    ProcessRelaSection(elf, s, affected, symtab, createSMAP);
                 }
             }
         }
 
 
-        private void ProcessRelaSection(Elf elf, Elf.ElfSection relocs, Elf.ElfSection section, Elf.ElfSection symtab)
+        private void ProcessRelaSection(Elf elf, Elf.ElfSection relocs, Elf.ElfSection section, Elf.ElfSection symtab, bool createSMAP = false)
         {
             if (relocs.sh_entsize != 12)
                 throw new InvalidDataException("Invalid relocs format (sh_entsize != 12)");
@@ -402,7 +402,27 @@ namespace Kamek
 
                 Word source = _sectionBases[section] + r_offset;
                 Word dest = ResolveSymbol(elf, symName).address + r_addend;
-                //Console.WriteLine("{1} {0,-30}", symName, dest);
+
+                if(createSMAP)
+                {
+                    if (dest.Type == WordType.RelativeAddr)
+                    {
+                        if (!File.Exists("KamekM.SMAP"))
+                        {
+                            using (FileStream fs = File.Create("KamekM.SMAP"))
+                            {
+                                byte[] info = new UTF8Encoding(true).GetBytes("KAMEK SMAP\n");
+                                fs.Write(info, 0, info.Length);
+                            }
+
+                        }
+
+                        using (StreamWriter stream = File.AppendText("KamekM.SMAP"))
+                        {
+                            stream.WriteLine($"{dest.Value:X08} {symName}");
+                        }
+                    }
+                }
 
                 //Console.WriteLine("Linking from {0} to {1}", source, dest);
 

@@ -116,7 +116,7 @@ namespace DXDebug{
 
     void PrintStack(const char * format, u32 curStack, u32 nextStack, u32 curValue)
     {
-        nw4r::db::Exception_Printf_("%08x: %08x     %08x: %s",curStack,nextStack,curValue,SymbolManager::GetSymbolName(curValue));
+        nw4r::db::Exception_Printf_("%08x:  %08x    %08x: %s()",curStack,nextStack,curValue,SymbolManager::GetSymbolName(curValue));
     }
 
     kmCall(0x80023930, PrintStack);

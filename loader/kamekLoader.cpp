@@ -161,12 +161,16 @@ void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLengt
     EGG::ExpHeap *heap = funcs->rkSystem->EGGSystem;
     u32 text = (u32)heap->alloc(textSize, 0x20);
 
+
+
     if (!text)
         kamekError(funcs, "FATAL ERROR: Out of code memory");
 
     const u8 *input = ((const u8 *)binary) + sizeof(KBHeader);
     const u8 *inputEnd = ((const u8 *)binary) + binaryLength;
     u8 *output = (u8 *)text;
+
+    *(u32 *)0x80003FFC = (u32)text;
 
     // Create text + bss sections
     for (u32 i = 0; i < header->codeSize; i++) {

@@ -16,7 +16,10 @@ namespace DXDebug
         DVDFileInfo fileHandle;
 
         EGG::Heap * heap = RKSystem::mInstance.EGGSystem;
+        //EGG::Heap * heap2 = RKSystem::mInstance.EGGRootMEM2;
         SymbolManager * manager = new (heap, 0x20) SymbolManager;
+
+        manager->kamekBaseAddress = *(u32 *)0x80003FFC;
 
         if(DVDOpen("/map/GameP.BMAP", &fileHandle))
         {
@@ -34,12 +37,37 @@ namespace DXDebug
                 {
                     if(DVDReadPrio(&fileHandle, manager->symNameTable, nameTableSize, manager->header.nameTableOffset, 2))
                     {
-                        OSReport("[DX] Symbol map loaded at: %p", manager->symEntryArray);
+                        OSReport("[DX] Symbol map loaded at: %p; %p\n", manager->symEntryArray, manager->symNameTable);
                         SymbolManager::sInstance = manager;
                     }
                 }
             }
             DVDClose(&fileHandle);
+        }
+
+        DVDFileInfo fileHandleK;
+
+        if(DVDOpen("/map/KamekM.BMAP", &fileHandleK))
+        {
+            if(DVDReadPrio(&fileHandleK, buffer, 0x10, 0x0, 2))
+            {
+                memcpy(&manager->kamekHeader, buffer, 0x10);
+
+                u32 nameTableSize = manager->kamekHeader.filesize - manager->kamekHeader.nameTableOffset;
+
+                manager->kamekSymEntryArray = new (heap, 0x20) KamekSymbolEntry[manager->kamekHeader.symbolCount];
+                manager->kamekSymNameTable = new (heap, 0x20) char[nameTableSize];
+
+                if(DVDReadPrio(&fileHandleK, manager->kamekSymEntryArray, (0x8 * manager->kamekHeader.symbolCount), 0x10, 2))
+                {
+                    if(DVDReadPrio(&fileHandleK, manager->kamekSymNameTable, nameTableSize, manager->kamekHeader.nameTableOffset, 2))
+                    {
+                        OSReport("[DX] Kamek Symbol map loaded at: %p; %p\n", manager->kamekSymEntryArray, manager->kamekSymNameTable);
+                        OSReport("[DX] Kamek base address: %08x\n", manager->kamekBaseAddress);
+                    }
+                }
+                DVDClose(&fileHandleK);
+            }
         }
 
         #endif
@@ -50,6 +78,9 @@ namespace DXDebug
         if(SymbolManager::sInstance == nullptr) return;
 
         delete[] SymbolManager::sInstance->symEntryArray;
+        delete[] SymbolManager::sInstance->symNameTable;
+        delete[] SymbolManager::sInstance->kamekSymEntryArray;
+        delete[] SymbolManager::sInstance->kamekSymNameTable;
         delete(SymbolManager::sInstance);
 
         SymbolManager::sInstance = nullptr;
@@ -61,6 +92,25 @@ namespace DXDebug
 
         if(manager == nullptr) return "";
 
+        if(address < 0x80000000 || address > 0x81700000) return "<Invalid address>";
+
+        if((address & 0xFFFE0000) == 0x80420000) 
+        {
+            for(int i = 0; i <manager->kamekHeader.symbolCount-1; i++)
+            {
+                KamekSymbolEntry entry = manager->kamekSymEntryArray[i];
+
+                u32 offsetAddress = address - manager->kamekBaseAddress;
+
+                if(offsetAddress >= entry.offset && offsetAddress <= manager->kamekSymEntryArray[i+1].offset)
+                {
+                    return manager->kamekSymNameTable + entry.nameOffset;
+                }
+
+            }
+            return "<DX SYMBOL NOT FOUND>";
+        }
+
         for(int i = 0; i < manager->header.symbolCount; i++)
         {
             SymbolEntry entry = manager->symEntryArray[i];
@@ -71,12 +121,10 @@ namespace DXDebug
             {
                 u32 nameOffset = entry.data2 & 0x00FFFFFF;
 
-                DVDFileInfo fileHandle;
-
                 return manager->symNameTable + nameOffset;
             }
         }
-        return "<Symbol not found>\n";            
+        return "<Symbol not found>";            
     }
 
     void InitSymbolMap()

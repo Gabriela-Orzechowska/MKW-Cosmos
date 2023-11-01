@@ -14,7 +14,7 @@ SET DEFINE=
 
 :: Link
 echo Linking...
-"../KamekSource/bin/Debug/Kamek" "build/mkw.o" "build/kamek.o" -static=0x80004000 -output-code=Loader.bin
+"../KamekSource/bin/Debug/net6.0/Kamek" "build/mkw.o" "build/kamek.o" -static=0x80004000 -output-code=Loader.bin
 
 if %ErrorLevel% equ 0 (
 	del build\*.o
