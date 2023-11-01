@@ -1,0 +1,15 @@
+D:\Kamek\MKWDX-Kamek\extra\build-map-file\bin\Debug\net7.0\build-map-file.exe
+D:\Kamek\MKWDX-Kamek\extra\build-map-file\bin\Debug\net7.0\build-map-file.deps.json
+D:\Kamek\MKWDX-Kamek\extra\build-map-file\bin\Debug\net7.0\build-map-file.runtimeconfig.json
+D:\Kamek\MKWDX-Kamek\extra\build-map-file\bin\Debug\net7.0\build-map-file.dll
+D:\Kamek\MKWDX-Kamek\extra\build-map-file\bin\Debug\net7.0\build-map-file.pdb
+D:\Kamek\MKWDX-Kamek\extra\build-map-file\obj\Debug\net7.0\build-map-file.csproj.AssemblyReference.cache
+D:\Kamek\MKWDX-Kamek\extra\build-map-file\obj\Debug\net7.0\build-map-file.GeneratedMSBuildEditorConfig.editorconfig
+D:\Kamek\MKWDX-Kamek\extra\build-map-file\obj\Debug\net7.0\build-map-file.AssemblyInfoInputs.cache
+D:\Kamek\MKWDX-Kamek\extra\build-map-file\obj\Debug\net7.0\build-map-file.AssemblyInfo.cs
+D:\Kamek\MKWDX-Kamek\extra\build-map-file\obj\Debug\net7.0\build-map-file.csproj.CoreCompileInputs.cache
+D:\Kamek\MKWDX-Kamek\extra\build-map-file\obj\Debug\net7.0\build-map-file.dll
+D:\Kamek\MKWDX-Kamek\extra\build-map-file\obj\Debug\net7.0\refint\build-map-file.dll
+D:\Kamek\MKWDX-Kamek\extra\build-map-file\obj\Debug\net7.0\build-map-file.pdb
+D:\Kamek\MKWDX-Kamek\extra\build-map-file\obj\Debug\net7.0\build-map-file.genruntimeconfig.cache
+D:\Kamek\MKWDX-Kamek\extra\build-map-file\obj\Debug\net7.0\ref\build-map-file.dll
