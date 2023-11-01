@@ -18,6 +18,7 @@
 #include <game/UI/MenuData/MenuData.hpp>
 #include <Controller/MiscController.hpp>
 #include <core/System/SystemManager.hpp>
+#include <Debug/SymbolMap.hpp>
 
 extern char gameID[4];
 
@@ -108,11 +109,18 @@ namespace DXDebug{
     void PrintSRR(const char * format, u32 srr0, u32 srr1)
     {
        nw4r::db::Exception_Printf_("SRR0:   %08XH   SRR1:%08XH\n", srr0, srr1);
-       nw4r::db::Exception_Printf_("<Symbol not found>\n");
+       nw4r::db::Exception_Printf_("%s\n",SymbolManager::GetSymbolName(srr0));
 
     }
-
     kmCall(0x80023b8c, PrintSRR);
+
+    void PrintStack(const char * format, u32 curStack, u32 nextStack, u32 curValue)
+    {
+        nw4r::db::Exception_Printf_("%08x: %08x     %08x: %s",curStack,nextStack,curValue,SymbolManager::GetSymbolName(curValue));
+    }
+
+    kmCall(0x80023930, PrintStack);
+    
 
     void PrintPanic(u16 error, const OSContext * context, u32 dsisr, u32 dar)
     {
@@ -158,6 +166,12 @@ namespace DXDebug{
     kmCall(0x80023484, PrintContext);
 
     #endif
+
+    void SetConsoleParams(){
+        nw4r::db::detail::ConsoleHead *console = EGG::Exception::console;
+        console->width = 0x70;
+    }
+    BootHook ConsoleParams(SetConsoleParams, LOW);
 
     bool ExceptionCallBack_(nw4r::db::detail::ConsoleHead * head, void * )
     {
@@ -268,7 +282,7 @@ namespace DXDebug{
             else
             {
                 if(right)
-                    xPos = Max(xPos - 5, -100);
+                    xPos = Max(xPos - 5, -130);
                 else if(left)
                     xPos = Min(xPos + 5, 10);
 

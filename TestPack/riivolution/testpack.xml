@@ -15,6 +15,7 @@
 		<folder external="/DX/sys" disc="/kamek" create="true"/>
 		<folder external="/DX/sys" disc="/rel" create="true"/>
 		<folder external="/DX/bin" disc="/bin" create="true"/>
+		<folder external="/DX/map" disc="/map" create="true"/>
 		<memory offset="0x8000A3F4" value="4bff9c10" original="4e800020" /> <!--RMCP-->
 		<memory offset="0x8000A3B4" value="4BFF9C50" original="4e800020" /> <!--RMCE-->
 		<memory offset="0x8000A350" value="4BFF9CB4" original="4e800020" /> <!--RMCJ-->
