@@ -30,10 +30,14 @@ public:
     u32 dolStart;
     u32 dolEnd;
     u32 dolSize;
-    u8 unknown_0xa8[0x10Fc-0xa8];
+    u8 unknown_0xa8[0xb4-0xa8];
+    u8 doShutDown; //b4
+    u8 doRestart; //b8
+    u8 unknown_0xb6[0x10fc-0xb6];
     u16 latitude;
     u16 longitude;
 }; //total size 0x1100
+size_assert(SystemManager, 0x1100);
 
 
 #endif

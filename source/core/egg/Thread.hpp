@@ -16,6 +16,7 @@ public:
 	virtual void* Run(); //8024373c 
 	virtual void OnEnter(); //80008e80 just a blr
 	virtual void OnExit(); //80008e7c just a blr
+	static void kandoTestCancelAllThread(); //8024353c
 
 	Heap *heap;
 	OSThread *osThread; //0x8

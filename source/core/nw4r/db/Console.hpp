@@ -6,7 +6,12 @@ namespace nw4r{
 namespace db{
 namespace detail{
 
-struct ConsoleHead{
+class ConsoleHead{
+    public:
+
+    s32 GetLineCount(); //800230e0
+    void DrawDirect(); //80022ab0
+
     void *textBuffer;
     u16 width; //4
     u16 height; //0x6

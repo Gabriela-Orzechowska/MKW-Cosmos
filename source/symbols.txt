@@ -80,7 +80,11 @@ _restfpr_29 = 0x8002155c
 _restfpr_30 = 0x80021560
 _restfpr_31 = 0x80021564
 
-
+#WPAD
+WPADProbe__FiPUi = 0x801c0990
+KPADRead__FiPvUi = 0x80197380
+KPADGetUnifiedWpadStatus__FiPvUi = 0x8019812c
+PADRead__FPv = 0x801af44c
 
 Util_RandInt = 0x800f2ee0
 
@@ -142,12 +146,14 @@ Seek__4NANDFPQ24NAND8FileInfoii = 0x8019b964
 OSReport = 0x801A25D0
 OSFatal = 0x801a4ec4
 OSGetTime = 0x801aad5c
+OSGetTick = 0x801aad74
 OSLaunchTitle = 0x801ada00
 DCFlushRange = 0x801a162c
 ICInvalidateRange = 0x801a1710
 OSCalcCRC32 = 0x801d1ca0
 OSDisableInterrupts = 0x801a65ac
 OSRestoreInterrupts = 0x801a65d4
+OSEnableInterrupts = 0x801a65c0
 OSGetCurrentContext = 0x801a1ecc
 OSDisableScheduler = 0x801a98ec
 OSSendMessage = 0x801a735c
@@ -157,6 +163,8 @@ SelectThread = 0x801a9c08
 OSSleepThread = 0x801aa9b8
 OSDetachThread = 0x801aa4ec
 OSCancelThread = 0x801aa1d4
+OSShutdownToSBY = 0x801ab960
+OSGetCurrentThread = 0x801a98b0
 OSShutdownSystem = 0x801a856c
 OSGetStackPointer = 0x801a2030
 OSIsTitleInstalled = 0x801ae4a0
@@ -178,6 +186,9 @@ DirectPrint_StoreCache__Q24nw4r2dbFv = 0x80021e70
 DumpException___Q24nw4r2dbFPCQ34nw4r2db22ExceptionCallbackParam = 0x80023410
 PrintContext___Q24nw4r2dbFUsPC9OSContextUiUi = 0x80023680
 Exception_Printf___Q24nw4r2dbFPCce = 0x800235a0
+
+GetLineCount__Q44nw4r2db6detail11ConsoleHeadFv = 0x800230e0
+DrawDirect__Q44nw4r2db6detail11ConsoleHeadFv = 0x80022ab0
 
 
 #g3d
@@ -262,7 +273,7 @@ measureEnd__Q23EGG10CpuMonitorFv = 0x80238750
 #Thread
 OnEnter__Q23EGG6ThreadFv = 0x80008e80
 OnExit__Q23EGG6ThreadFv = 0x80008e7c
-
+kandoTestCancelAllThread__Q23EGG6ThreadFv = 0x8024353c
 
 #TaskThread
 Create__Q23EGG10TaskThreadFiiUiPQ23EGG4Heap = 0x802428e8
@@ -1255,6 +1266,11 @@ OnActivate__27CharacterSelectPageLECODEFv = 0x808e2bbc
 console = 0x802A73FC
 VIGetNextFrameBuffer = 0x801bab24
 VIWaitForRetrace = 0x801b99ec
+VIConfigure = 0x801bab2c
+VIFlush = 0x801ba9a4
+VIGetCurrentLine = 0x801bac48
+VISetBlack = 0x801bab2c
+
 
 #ios
 iosCreateHeap__FPvi = 0x801949b8

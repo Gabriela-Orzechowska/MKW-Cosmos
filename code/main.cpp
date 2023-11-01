@@ -115,7 +115,15 @@ namespace DX{
 
     void Shutdown()
     {
-        if(isDolphin) OSShutdownSystem();
+        Shutdown(false);
+    }
+
+    void Shutdown(bool force)
+    {
+        if(isDolphin) {
+            if(force) OSShutdownToSBY();
+            else OSShutdownSystem();
+        }
         else SystemManager::sInstance->GoToWiiMenu();
     }
 

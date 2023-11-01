@@ -42,7 +42,7 @@ enum Buttons{
     NUNCHUCK_Z=0x2000,
 
     CLASSIC_DPAD_LEFT=0x2,
-    CLASSIC_DPAD_RIGHT=0x2000,
+    CLASSIC_DPAD_RIGHT=0x8000,
     CLASSIC_DPAD_DOWN=0x4000,
     CLASSIC_DPAD_UP=0x1,
     CLASSIC_A=0x10,
@@ -72,7 +72,8 @@ enum Buttons{
 };
 
 struct KPADStatus {
-    u8 unknown_0x0[0x10-0x0];
+    u32 buttons;
+    u8 unknown_0x0[0x10-0x4];
     float acc_value;
     float acc_speed;
     u8 unknown_0x18[0x74-0x18];
@@ -101,6 +102,14 @@ struct PADStatus {
     s8 verticalCStickU8; // -50 to 50
     u8 unknown_0x6[0xC-0x6];
 }; //total size 0xC
+
+struct WPADCLStatus {
+    u8 _00[0x2a - 0x00];
+    u16 buttons;
+    s16 lStickX;
+    s16 lStickY;
+    u8 _30[0x38 - 0x30];
+};
 
 class InputState {
 public:

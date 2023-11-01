@@ -10,6 +10,14 @@
 #include <core/nw4r/db/Exception.hpp>
 #include <include/c_stdarg.h>
 #include <Debug/Debug.hpp>
+#include <core/rvl/vi.hpp>
+#include <core/egg/Thread.hpp>
+#include <core/rvl/wpad.h>
+#include <game/Input/InputData.hpp>
+#include <game/Input/InputData.hpp>
+#include <game/UI/MenuData/MenuData.hpp>
+#include <Controller/MiscController.hpp>
+#include <core/System/SystemManager.hpp>
 
 extern char gameID[4];
 
@@ -150,4 +158,132 @@ namespace DXDebug{
     kmCall(0x80023484, PrintContext);
 
     #endif
+
+    bool ExceptionCallBack_(nw4r::db::detail::ConsoleHead * head, void * )
+    {
+        s32 scrollCooldown = 200;
+
+        OSReport("CALLBACK...\n");
+
+        if(head == nullptr)
+        {
+            OSReport("[DX ERROR] No Console Found\n");
+            return false;
+        }
+        VISetBlack(0);
+        OSReport("canel all thread...\n");
+        EGG::Thread::kandoTestCancelAllThread();
+        OSReport("done\n");
+        
+        OSDisableInterrupts();
+        OSDisableScheduler();
+        OSEnableInterrupts();
+
+        s32 lineCount = head->ringTopLineCnt;
+        s32 totalLineCount = head->GetLineCount();
+
+        head->viewTopLine = lineCount;
+        head->isVisible = true;
+        head->DrawDirect();
+
+        
+        u32 controllerType;
+        s32 ret = WPADProbe(0, &controllerType);
+
+        bool ccp = (ret == 0 && (controllerType == 2 || controllerType == 7));
+        
+
+       
+        u32 controller = MenuData::sInstance->pad.padInfos[0].controllerSlotAndTypeActive;
+        ControllerType type = ControllerType(controller & 0xFF);
+        RealControllerHolder * holder = &InputData::sInstance->realControllerHolders[0];
+
+        bool lock = true;
+
+        while(true)
+        {
+            KPADStatus wStatus;
+            PADStatus gcStatus[4];
+            WPADCLStatus clStatus;
+
+            KPADRead(0, &wStatus, 1);
+            PADRead(&gcStatus);
+            
+            if(ccp)
+            {
+                KPADGetUnifiedWpadStatus(0, &clStatus, 1);
+            }
+            holder->inputStates[1] = holder->inputStates[0];
+            switch(type)
+            {
+                case(CLASSIC):
+                    holder->inputStates[0].buttonRaw = clStatus.buttons;
+                    break;
+                case(NUNCHUCK):
+                case(WHEEL):
+                    holder->inputStates[0].buttonRaw = wStatus.buttons;
+                    break;
+                case(GCN):
+                    holder->inputStates[0].buttonRaw = gcStatus[0].buttons;
+                default:
+                    break;
+            }
+
+            if(SystemManager::sInstance->doShutDown > 0)
+            {
+                DX::Shutdown(true);
+            }
+
+            if(DXController::isPressed(holder, type, DXController::BUTTON_HOME) || DXController::isPressed(holder, type, DXController::BUTTON_PLUS))
+            {
+                DX::Shutdown(true);
+            }
+
+
+            u32 tick0 = OSGetTick();
+            u32 tick1 = tick0;
+            while (OSTicksToMilliseconds(tick1-tick0) < scrollCooldown) tick1 = OSGetTick();
+
+            s32 xPos = head->viewPosX;
+            s32 currentTopLine = head->viewTopLine;
+
+            s32 prevXPos = xPos;
+            s32 prevTopLine = currentTopLine;
+
+            bool down = DXController::isPressed(holder, type, DXController::BUTTON_DPAD_DOWN);
+            bool up = DXController::isPressed(holder, type, DXController::BUTTON_DPAD_UP);
+            bool left = DXController::isPressed(holder, type, DXController::BUTTON_DPAD_LEFT);
+            bool right = DXController::isPressed(holder, type, DXController::BUTTON_DPAD_RIGHT);
+
+            if(lock)
+            {
+                currentTopLine++;
+                if(currentTopLine == totalLineCount)
+                {
+                    lock = false;
+                    scrollCooldown = 100;
+                    currentTopLine = 0;
+                }
+            }
+            else
+            {
+                if(right)
+                    xPos = Max(xPos - 5, -100);
+                else if(left)
+                    xPos = Min(xPos + 5, 10);
+
+                if(down)
+                    currentTopLine = Min(currentTopLine + 1, totalLineCount - head->viewLines);
+                else if(up)
+                    currentTopLine = Max(currentTopLine - 1, lineCount);
+            }
+
+            if (currentTopLine != prevTopLine || xPos != prevXPos) {
+                head->viewPosX = xPos;
+                head->viewTopLine = currentTopLine;
+                head->DrawDirect();
+            }
+        }
+    }
+    kmBranch(0x80226464 ,ExceptionCallBack_);
 }
