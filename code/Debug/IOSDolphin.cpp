@@ -10,7 +10,7 @@ namespace IOS
             if(devDolphin < 0) dOpen();
             if(devDolphin < 0) return nullptr;
             
-            IOCtlvRequest request __attribute__ ((alignof(0x20)));
+            IOCtlvRequest request __attribute__ ((aligned(0x20)));
             request.address = result;
             request.size = 0x0F;
 

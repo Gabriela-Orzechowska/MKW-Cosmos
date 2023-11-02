@@ -1,7 +1,7 @@
 #ifndef _LOADER_
 #define _LOADER_
 #include <core/rvl/dvd/dvd.hpp>
-#include <core/RK/RKSystem.hpp>
+#include <core/System/RKSystem.hpp>
 
 
 struct loaderFunctions;

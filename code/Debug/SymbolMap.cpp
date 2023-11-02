@@ -1,6 +1,8 @@
 #include <Debug/SymbolMap.hpp>
 #include <core/System/RKSystem.hpp>
 #include <main.hpp>
+#include <Debug/IOSDolphin.hpp>
+
 
 #define DEBUG_DX
 
@@ -11,6 +13,8 @@ namespace DXDebug
     void SymbolManager::CreateStaticInstance()
     {
         #ifdef DEBUG_DX
+        if(IOS::Dolphin::GetVersion() == nullptr) return;
+
         char buffer[0x10] __attribute__((aligned(0x20)));
 
         DVDFileInfo fileHandle;
@@ -90,11 +94,11 @@ namespace DXDebug
     {
         SymbolManager * manager = SymbolManager::sInstance;
 
-        if(manager == nullptr) return "";
+        if(manager == nullptr) return "<Symbol map not loaded>";
 
         if(address < 0x80000000 || address > 0x81700000) return "<Invalid address>";
 
-        if((address & 0xFFFE0000) == 0x80420000) 
+        if(address >= manager->kamekBaseAddress && address < manager->kamekBaseAddress + 0x300000) 
         {
             for(int i = 0; i <manager->kamekHeader.symbolCount-1; i++)
             {

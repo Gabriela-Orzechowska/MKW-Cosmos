@@ -133,3 +133,15 @@ void DisableBMGSizeOverride()
 }
 
 static LeCodeLoadHook bmgFix(DisableBMGSizeOverride);
+
+void WhiteStrapTransition()
+{
+    nw4r::ut::Color white;
+    white.rgba = 0xFFFFFFFF;
+
+    
+
+    RKSystem::sInstance->sceneManager->colorFader->setColor(white);
+}
+
+static LeCodeLoadHook hWhiteStrapTransition(WhiteStrapTransition);

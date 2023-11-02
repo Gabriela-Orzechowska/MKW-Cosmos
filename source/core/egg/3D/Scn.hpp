@@ -33,7 +33,7 @@ class ScnRootEx{
     u16 unknown_0x10[3];
     u8 padding[2];
     Matrix34f cameraMtx; //0x18
-    Page page; //0x48
+    EggPage page; //0x48
     u8 unknown_0x90[0xB4-0x90];
     virtual ~ScnRootEx(); //0xB4 8023c748 vtable 802a3eb0
 };

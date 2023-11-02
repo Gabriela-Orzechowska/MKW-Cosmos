@@ -5,10 +5,10 @@
 #include <core/egg/3D/Frustum.hpp>
 
 namespace EGG{
-class Page : public Frustum{
+class EggPage : public Frustum{
 public:
-    Page(); //8023d2b4
-    ~Page() override; //8022014c
+    EggPage(); //8023d2b4
+    ~EggPage() override; //8022014c
     void LoadDirectly() override; //8023d4e8
     void LoadIntoCamera(nw4r::g3d::CameraData *data) override; //8023d67c
     u32 unknown_0x3C;

@@ -127,6 +127,15 @@ namespace DX{
         else SystemManager::sInstance->GoToWiiMenu();
     }
 
+    void Restart()
+    {
+        SystemManager::sInstance->RestartGame();
+        
+    }
+
+//38600001
+//kmWrite32(0x80007c60, 0x4e800020);
+
 #define FORCEOSFATAL
 
     void Panic(char * file, int line, char *fmt, ...)
