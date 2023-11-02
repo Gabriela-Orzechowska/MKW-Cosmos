@@ -4,7 +4,7 @@ SETLOCAL EnableDelayedExpansion
 
 del KamekM.SMAP
 
-SET CC="C:\Program Files (x86)\Freescale\CW for MPC55xx and MPC56xx 2.10\PowerPC_EABI_Tools\Command_Line_Tools\mwcceppc.exe"
+SET CC="C:\CW\PowerPC_EABI_Tools\Command_Line_Tools\mwcceppc.exe"
 SET CFLAGS=-I- -i "engine" -i "source" -i "source/game" -i code -gcc_extensions on -Cpp_exceptions off -enum int -O4,s -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0 -maxerrors 1 -func_align 4 -rtti off
 SET DEFINE=
 
