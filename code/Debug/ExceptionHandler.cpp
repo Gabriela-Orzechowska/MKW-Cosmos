@@ -272,7 +272,7 @@ namespace DXDebug{
             if(lock)
             {
                 currentTopLine++;
-                if(currentTopLine == totalLineCount)
+                if(currentTopLine == totalLineCount - (head->viewLines / 2))
                 {
                     lock = false;
                     scrollCooldown = 100;

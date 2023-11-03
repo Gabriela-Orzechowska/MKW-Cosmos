@@ -4,8 +4,6 @@
 #include <Debug/IOSDolphin.hpp>
 
 
-#define DEBUG_DX
-
 namespace DXDebug
 {
     SymbolManager * SymbolManager::sInstance = nullptr;
@@ -98,7 +96,7 @@ namespace DXDebug
 
         if(address < 0x80000000 || address > 0x81700000) return "<Invalid address>";
 
-        if(address >= manager->kamekBaseAddress && address < manager->kamekBaseAddress + 0x300000) 
+        if(address >= manager->kamekBaseAddress && address < manager->kamekBaseAddress + 0x30000) 
         {
             for(int i = 0; i <manager->kamekHeader.symbolCount-1; i++)
             {
@@ -112,7 +110,6 @@ namespace DXDebug
                 }
 
             }
-            return "<DX SYMBOL NOT FOUND>";
         }
 
         for(int i = 0; i < manager->header.symbolCount; i++)

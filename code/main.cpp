@@ -71,11 +71,11 @@ namespace DX{
         manager->CreateFolder(packFolder);
         manager->CreateFolder(ghostFolder);
 
-        s32 ret = IOS::Dolphin::dOpen();
+        s32 ret = IOS::Dolphin::Open();
         if(ret > 0)
         {
             isDolphin = true;
-            IOS::Dolphin::dClose();
+            IOS::Dolphin::Close();
         }
                 
     }

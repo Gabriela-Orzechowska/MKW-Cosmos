@@ -7,7 +7,7 @@ namespace IOS
         static char result[0x10];
         char * GetVersion()
         {
-            if(devDolphin < 0) dOpen();
+            if(devDolphin < 0) Open();
             if(devDolphin < 0) return nullptr;
             
             IOCtlvRequest request __attribute__ ((aligned(0x20)));
@@ -20,7 +20,7 @@ namespace IOS
         }
         char * GetVersionName()
         {
-            if(devDolphin < 0) dOpen();
+            if(devDolphin < 0) Open();
             if(devDolphin < 0) return nullptr;
 
             static char output[0x20];

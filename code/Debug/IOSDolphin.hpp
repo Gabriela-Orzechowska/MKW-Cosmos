@@ -26,7 +26,7 @@ namespace IOS
 
         static s32 devDolphin = -1;
 
-        static s32 dOpen()
+        static s32 Open()
         {
             if(devDolphin < 0) devDolphin = DX::Open("/dev/dolphin", IOS::MODE_NONE);
             return devDolphin;
@@ -34,7 +34,7 @@ namespace IOS
 
         static bool IsOpen() { return devDolphin >= 0; }
 
-        static bool dClose()
+        static bool Close()
         {
             if(devDolphin >= 0) IOS::Close(devDolphin);
             return true;

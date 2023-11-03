@@ -6,7 +6,7 @@ namespace DXDebug
 {
     void DetectPlatform()
     {
-        if(IOS::Dolphin::dOpen())
+        if(IOS::Dolphin::Open())
         {
             currentPlatform = DOLPHIN;
             return;

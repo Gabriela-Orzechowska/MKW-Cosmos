@@ -11,6 +11,7 @@ def create_and_pack():
 
     for r in result:
         os.system(f"python {wuj5_path} encode {r}")
+        os.remove(r)
 
     pack()
 
@@ -22,7 +23,7 @@ def decode_all():
         os.system(f"python {wuj5_path} decode {r}")
 
 def pack():
-    dst = os.path.abspath(os.path.join( os.path.dirname( __file__ ), "..", "TestPack/mkwdx/Extra"))
+    dst = os.path.abspath(os.path.join( os.path.dirname( __file__ ), "..", "TestPack/DX/Extra"))
     
     os.system("wszst c UIDX.d -o")
 

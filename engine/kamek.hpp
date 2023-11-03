@@ -125,6 +125,8 @@ struct PtmfHolder_3A : PtmfHolderBase_3A<Ret, A1, A2, A3> {
 #else
 #endif
 
+#define DEBUG_DX
+
 class MenuLoadHook {
 private:
     typedef void (Func)();

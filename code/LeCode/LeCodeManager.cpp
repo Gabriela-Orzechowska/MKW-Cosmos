@@ -43,7 +43,7 @@ namespace LeCode
                 DVDReadPrio(&fileHandle, this->loaderHeader->baseAddress, this->loaderHeader->totalSize, 0x0, 0x2);      
 
                 this->loaderHeader = (le_binary_header *) this->loaderHeader->baseAddress;
-                this->settingHeader = (lpar_header *)(((u8 * )this->loaderHeader) + 0x40);
+                this->settingHeader = (lpar_header *)(((u8 * )this->loaderHeader) + this->loaderHeader->offsetParam);
 
                 DVDClose(&fileHandle);      
 
