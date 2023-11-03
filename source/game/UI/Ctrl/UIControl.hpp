@@ -92,7 +92,9 @@ public:
     bool PicturePaneExists(const char *paneName); //8063e328
     void CropMovie(const char *paneName, nw4r::ut::Rect *rect); //8063e58c
     void CropMovie(const char *paneName, float left, float top, float right, float bottom); //8063e5c0
-    
+    void SetTransparencyPane(char * name, double param_2, double param_3, double param_4, double param_5); //8063e5c4
+
+
     UIAnimator animator; //0x98
     MainLayout layout; //0xA8
     BMGHolder curFileBmgs; //0x144

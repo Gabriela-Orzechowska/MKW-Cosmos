@@ -712,7 +712,7 @@ SetMiiPane__15LayoutUIControlFPCcP8MiiGroupUiUc = 0x8063e3dc
 SetPicturePane__15LayoutUIControlFPCcPCc = 0x8063e0f0
 __ct__24LayoutUIControlScaleFadeFv = 0x8063e674
 __dt__24LayoutUIControlScaleFadeFv = 0x8063e7a8
-
+SetTransparencyPane__15LayoutUIControlFPcdddd = 0x8063e5c4
 
 #CtrlMenu
 #BackButton

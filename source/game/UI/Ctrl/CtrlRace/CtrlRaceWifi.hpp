@@ -18,9 +18,9 @@ public:
 
     void Load(u32 variant, u8 hudSlotId); //807f8994 variant = localPlayerCount except 3 where it's 4 gamemodeType determines the displayed message
     nw4r::lyt::Pane *textBox_00;
-    u8 unknown_0x19C[0x1A0-0x19C];
-
-}; //total size 0x1a0
+    //u32 unknown_0x19C;
+}; 
+size_assert(CtrlRaceWifiStartMessage, 0x19c);
 //update pause position calls 807f8bd8 to make the state disappear
 class CtrlRaceWaitSymbol : public CtrlRaceBase{
     //no ctor
