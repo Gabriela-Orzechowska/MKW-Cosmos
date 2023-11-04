@@ -34,7 +34,7 @@ public:
   KartSub *kartSub;
   KartSound *kartSound;
   int *shadow; //0x20
-  UnkCameraStruct *camera_0x24;
+  RaceCamera *raceCamera;
   KartMovement *kartMovement; //0x28
   KartDamage *kartDamage; //0x2c
   KartCollision *kartCollision;

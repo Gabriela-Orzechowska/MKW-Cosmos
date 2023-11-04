@@ -16,7 +16,7 @@ void EnableBrakeDrifting()
 
         u8 playerId = RaceData::sInstance->racesScenario.settings.hudPlayerIds[i];
 
-        u32 controller = MenuData::sInstance->pad.padInfos[0].controllerSlotAndTypeActive;
+        u32 controller = MenuData::sInstance->pad.padInfos[i].controllerSlotAndTypeActive;
         ControllerType type = ControllerType(controller & 0xFF);
         RealControllerHolder * holder = &InputData::sInstance->realControllerHolders[i];
 

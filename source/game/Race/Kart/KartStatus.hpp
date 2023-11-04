@@ -8,6 +8,90 @@
 
 class KartPointers;
 
+namespace BITFIELD0
+{
+  enum bitfield0{
+    ACCELERATE = 1 << 0,
+    BRAKE = 1 << 1,
+    DRIFT_INPUT = 1 << 2,
+    MANUAL_DRIFT = 1 << 3,
+    OOB_BEFORE_RESPAWN = 1 << 4,
+    WALL_3_COL = 1 << 5,
+    WALL_COL = 1 << 6,
+    FIRST_FRAME_HOP = 1 << 7,
+    FIRST_FRAME_ACCELERATE = 1 << 8,
+    FIRST_FRAME_GROUND = 1 << 9,
+    FLOOR_COL_BODY = 1 << 10,
+    FLOOR_COL_WHEEL_ANY = 1 << 11,
+    FLOOR_COL_WHEEL_ALL = 1 << 12,
+    STICK_LEFT = 1 << 13,
+    AIRTIME_OVER_20 = 1 << 15,
+    STICKY_ROAD = 1 << 16,
+    GROUD = 1 << 18,
+    HOP = 1 << 19,
+    BOOST = 1 << 20,
+    STICK_RIGHT = 1 << 24,
+    MUSHY_BOOST = 1 << 26,
+    SLIPSTREAM_CHARGE = 1 << 27,
+    AUTO_DRIFT = 1 << 28,
+    WHEELIE = 1 << 29,
+    JUMP_PAD = 1 << 30,
+    RAMP_BOOST = 1 << 31,
+  };
+}
+
+namespace BITFIELD1
+{
+  enum bitfield1
+  {
+    HIT = 1 << 0,
+    FIRST_FRAME_RESPAWN = 1 << 1,
+    FIRST_FRAME_CANNON = 1 << 3,
+    IN_CANNON = 1 << 4,
+    FIRST_FRAME_TRICK = 1 << 5,
+    IN_TRICK = 1 << 6,
+    OFFROAD_INVUL = 1 << 7,
+    OVER_ZIPPER = 1 << 10,
+    JUMP_PAD_MUSHY = 1 << 11,
+    ZIPPER_BOOST = 1 << 13,
+    ZIPPER_TRICK = 1 << 15,
+    MT_BOOST = 1 << 20,
+    HAS_TRICK_ROT = 1 << 22,
+    JUMP_PAD_MUSHY_SOMETHING = 1 << 23,
+    TRICKABLE = 1 << 30,
+    IN_STAR = 1 << 31,
+  };
+}
+
+namespace BITFIELD2
+{
+  enum bitfield2{
+        /*
+       0 charging a slipstream
+       1 in a slipstream
+       4 wheelie rotation
+       7 shocked
+      15 in a mega
+      16 crushed
+      18 stopped
+      19 vanished
+      27 in a bullet
+      28 ink applied
+      29 has a tc
+    */
+   CHARGING_SLIPSTREAM = 1 << 0,
+   IN_SLIPSTREAM = 1 << 1,
+   WHEELIE_ROTATION = 1 << 4,
+   SHOCKED = 1 << 7,
+   IN_MEGA = 1 << 15,
+   STOPPED = 1 << 18,
+   VANISHED = 1 << 19,
+   JUMP_PAD_FIXED_SPEED = 1 << 20,
+   IN_BULLET = 1 << 27,
+   INK_APPLIED = 1 << 28,
+   HAS_THUNDERCLOUD = 1 << 29,
+  };
+}
 
 class KartStatus {
 public:

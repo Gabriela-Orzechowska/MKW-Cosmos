@@ -7,8 +7,8 @@ kmWrite32(0x808b5b1c, 0x00);
 // Patch Offroad Glitch [vabold]
 void EndJumpPad(KartStatus * status)
 {
-    status->bitfield0 &= ~0x40000000;
-    status->bitfield2 &= ~0x100000;
+    status->bitfield0 &= ~BITFIELD0::JUMP_PAD;
+    status->bitfield2 &= ~BITFIELD2::JUMP_PAD_FIXED_SPEED;
     return;
 }
 
