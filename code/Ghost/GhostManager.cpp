@@ -102,7 +102,7 @@ namespace DXGhost
 
     void GhostManager::LoadGhostReplay(RKG * buffer, bool isGhostRace)
     {
-        u8 position = 1;
+        u8 position = 0;
         if(this->mainGhostIndex != 0xFF)
         {
             if(this->LoadGhost(buffer, this->GetGhostData(this->mainGhostIndex)->padding))
