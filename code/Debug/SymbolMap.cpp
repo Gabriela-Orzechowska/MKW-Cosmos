@@ -12,6 +12,7 @@ namespace DXDebug
     {
         #ifdef DEBUG_DX
         if(IOS::Dolphin::GetVersion() == nullptr) return;
+        if(gameID[3] != 'P') return;
 
         char buffer[0x10] __attribute__((aligned(0x20)));
 

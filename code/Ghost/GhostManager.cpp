@@ -320,7 +320,6 @@ namespace DXGhost
     }
     kmCall(0x8062cf98, DestroyManager);
 
-    //Loads all the ghosts while setting up the ghost race/replay
     void ExtendSetupGhostRace(Pages::GhostManager *ghostManager, bool isStaffGhost, bool replaceGhostMiiByPlayer, bool disablePlayerMii){
         ghostManager->SetupGhostRace(true, replaceGhostMiiByPlayer, disablePlayerMii);
         GhostManager::GetStaticInstance()->LoadGhostReplay(ghostManager->rkgPointer, true);
@@ -336,27 +335,30 @@ namespace DXGhost
     void LoadCorrectGhost(Pages::GhostManager * ghostManager, u8 param_2)
     {
         GhostManager * manager = GhostManager::GetStaticInstance();
-        if(manager->mainGhostIndex == 0xFF)
-        {
-            u32 black = 0x000000FF;
-            u32 white = 0xFFFFFFFF;
-
-            OSFatal(&black, &white, "GhostManager.cpp:315: Ghost Index is NULL");
-        }
-        manager->LoadGhost(ghostManager->rkgPointer, manager->GetGhostData(manager->mainGhostIndex)->padding);
         if(ghostManager->state == SAVED_GHOST_RACE_FROM_MENU) ghostManager->state = STAFF_GHOST_RACE_FROM_MENU;
+        if(manager->mainGhostIndex == 0xFF) DX::Panic(__FILE__,__LINE__, "Ghost index is NULL");
+        manager->LoadGhost(ghostManager->rkgPointer, manager->GetGhostData(manager->mainGhostIndex)->padding);
     }
     kmCall(0x805e158c, LoadCorrectGhost);
+    kmCall(0x805e15a0, LoadCorrectGhost);
 
     void ExtendGhostReplay(Pages::GhostManager * ghostManager, bool isStaff)
     {
-        MenuData::sInstance->menudata98->courseId = (CourseId) LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
+        //MenuData::sInstance->menudata98->courseId = (CourseId) LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
         ghostManager->SetupGhostReplay(true);
         GhostManager * manager = GhostManager::GetStaticInstance();
         manager->LoadGhostReplay(ghostManager->rkgPointer, false);
     }
     kmCall(0x805e144c, ExtendGhostReplay);
     kmCall(0x805e1518, ExtendGhostReplay);
+
+
+    void PatchLecodeBullshit()
+    {
+        *(u32 *)(DX::GetPortAddress(0x805e1e94, 0x805cc0b8, 0x805e1770, 0x805d0030)) = 0x90031758;
+    }
+
+    static LeCodeLoadHook bruh(PatchLecodeBullshit);
 
     void PatchOnWatchPress(Pages::GhostSelect * select ,PushButton * button, u32 slotId)
     {
