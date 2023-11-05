@@ -1,5 +1,5 @@
 ```
-LECODE CODE PATCHES:
+LECODE BRANCH CODE PATCHES:
 0x80627a3c => RaceCupSelectPage::__ct //blr
 0x807e5c54 => CtrlMenuCupSelectCup::onInit //blr
 0x807e4740 => CtrlMenuCourseSelectCup::onInit //blr

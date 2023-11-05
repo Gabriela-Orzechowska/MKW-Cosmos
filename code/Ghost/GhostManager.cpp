@@ -344,7 +344,6 @@ namespace DXGhost
 
     void ExtendGhostReplay(Pages::GhostManager * ghostManager, bool isStaff)
     {
-        //MenuData::sInstance->menudata98->courseId = (CourseId) LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
         ghostManager->SetupGhostReplay(true);
         GhostManager * manager = GhostManager::GetStaticInstance();
         manager->LoadGhostReplay(ghostManager->rkgPointer, false);

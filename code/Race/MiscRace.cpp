@@ -21,8 +21,28 @@ void MegaFov(KartMovement * kartMovement)
         if(kartMovement->base.pointers->kartStatus->bitfield2 & BITFIELD2::IN_MEGA)
             camera->additionalFov = 30.0;
     }
+
+    u32 controller = MenuData::sInstance->pad.padInfos[0].controllerSlotAndTypeActive;
+    ControllerType type = ControllerType(controller & 0xFF);
+    RealControllerHolder * holder = &InputData::sInstance->realControllerHolders[0];
+
+    if(DXController::isPressed(holder,type,DXController::BUTTON_Y, true))
+    {
+        if(camera->flags & 0x8)
+        {
+            camera->flags &= ~0x18;
+            camera->enableFovEffects = 1;
+        }
+        else
+        {
+            camera->flags |= 0x18;
+            camera->enableFovEffects = 0;
+        }
+    }
+
 }
 kmCall(0x805795d8, MegaFov); 
+kmWrite32(0x805a252c, 0x70600500);
 
 void DraggableBlues(ItemPlayerSub *sub)
 {
@@ -47,3 +67,6 @@ kmWrite32(0x808b5cdc, 0x3f8ccccd); //150cc -> 1.1f => "200"cc
 // Max Speed -> 135 u/f
 
 kmWrite32(0x808b59f4, 0x43070000);
+
+
+// Team Invul

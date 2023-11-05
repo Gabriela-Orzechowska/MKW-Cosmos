@@ -25,7 +25,11 @@ struct RaceCamera{
     float additionalFov;
     u8 unknown_0x124[0x334-0x124];
     u16 flags; 
-    u8 unknown[0x348-0x338];
+    u8 unknown_0x336[0x33E - 0x336];
+    u8 enableFovEffects; //0x33E
+    u8 unknown_33f[0x342-0x33f];
+    u8 enableReplay;
+    u8 unknown_0x342[4];
 }; //total size 0x348
 size_assert(RaceCamera, 0x348);
 
