@@ -1,6 +1,8 @@
 #ifndef _RIIVO_
 #define _RIIVO_
 
+#include <kamek.hpp>
+
 #define RIIVOMAXPATH 1024
 #define RIIVOSHORTPATH 32
 #define MAXFILECOUNT 100
@@ -94,6 +96,23 @@ enum RiivoError{
     RIIVO_ERROR_ENOTEMPTY       =41
 };
 
+struct RiivoStats{
+    RiivoStats(){
+        Identifier = 0;
+        Size = 0;
+        Device = 0;
+        Mode = 0;
+    }
+    u64 Identifier;
+    u64 Size;
+    s32 Device;
+    s32 Mode;
+};
+
+enum RiivoStatsModes{
+    S_IFDIR = 0x4000, 
+	S_IFREG = 0x8000 
+};
 
 
 #endif

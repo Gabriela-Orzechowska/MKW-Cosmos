@@ -26,4 +26,10 @@ namespace DXFile
             IOS::IPCPath * filenames;
             
     };
+    class RiivoFolderManager : public FolderManager
+    {
+        public:
+            RiivoFolderManager(){}
+            s32 ReadFolder(const char * filepath) override;
+    };
 } // namespace DXFile
