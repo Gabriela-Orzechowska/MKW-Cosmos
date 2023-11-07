@@ -99,7 +99,7 @@ namespace DXFile
         IOS::IPCPath *pathArray = new(RKSystem::mInstance.EGGSystem, 0x20) IOS::IPCPath[MAXFILECOUNT];
         
         u32 count = 0;
-        for(; count < MAXFILECOUNT; count++)
+        while(count < MAXFILECOUNT)
         {
             requests[0].address = &riivo_folder_fd;
             requests[0].size = 4;
@@ -113,6 +113,7 @@ namespace DXFile
             if((stats.Mode & S_IFDIR) == S_IFDIR) continue;
 
             strncpy(pathArray[count], fileName, IPCMAXPATH);
+            count++;
         }
 
         IOS::IPCPath * finalArray = new (RKSystem::mInstance.EGGSystem) IOS::IPCPath[count];
