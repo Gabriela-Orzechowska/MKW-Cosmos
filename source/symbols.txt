@@ -194,6 +194,11 @@ DrawDirect__Q44nw4r2db6detail11ConsoleHeadFv = 0x80022ab0
 #g3d
 GetResMdl__Q34nw4r3g3d7ResFileCFPCc = 0x8004c240
 GetResMat__Q34nw4r3g3d6ResMdlCFPCc = 0x8004e8f0
+GetResAnmChr__Q34nw4r3g3d7ResFileCFPCc = 0x8004c780
+GetResAnmClr__Q34nw4r3g3d7ResFileCFPCc = 0x8004c900
+GetResAnmTexSrt__Q34nw4r3g3d7ResFileCFPCc = 0x8004cc00
+GetResAnmTexPat__Q34nw4r3g3d7ResFileCFPCc = 0x8004ca80
+
 
 #ef
 GetPtr__Q34nw4r2ef10HandleBaseCFv = 0x800375f0
@@ -283,6 +288,9 @@ Request__Q23EGG10TaskThreadFPFPv_vPvUi = 0x80242c18
 #Scene
 GetCurrent__9GameSceneFv = 0x8051bed0
 SetFramerate__9GameSceneFUc = 0x8051af84
+
+#ScnManager
+pageCount__10ScnManager = 0x808b4bf0
 
 #StrapScene
 EndStrapScene__FUi = 0x80007f2c
@@ -1182,6 +1190,8 @@ SetGoldenTimer__15PlayerInventoryFi = 0x807bcab0
 SetGoldenSomething2__15PlayerInventoryFUi = 0x807bcad0
 
 CopyItemOBJPropertiesFromRelToTable__FP17ItemObjPropertiesP17ItemObjProperties = 0x80790e7c
+LoadGraphics__7ItemObjFPCcPCcPCcUcPQ211ItemObjBase8AnmParamQ44nw4r3g3d6ScnMdl12BufferOptionPvUi = 0x807a0040
+
 
 #ItemSlotTable
 sInstance__13ItemSlotTable = 0x809c3670

@@ -97,7 +97,8 @@ namespace DXDebug
 
         if(address < 0x80000000 || address > 0x81700000) return "<Invalid address>";
 
-        if(address >= manager->kamekBaseAddress && address < manager->kamekBaseAddress + 0x30000) 
+/*
+        if(address >= manager->kamekBaseAddress && address < manager->kamekBaseAddress + 0x10000) 
         {
             for(int i = 0; i <manager->kamekHeader.symbolCount-1; i++)
             {
@@ -105,7 +106,7 @@ namespace DXDebug
 
                 u32 offsetAddress = address - manager->kamekBaseAddress;
 
-                if(offsetAddress >= entry.offset && offsetAddress <= manager->kamekSymEntryArray[i+1].offset)
+                if(offsetAddress >= entry.offset && offsetAddress < manager->kamekSymEntryArray[i+1].offset)
                 {
                     return manager->kamekSymNameTable + entry.nameOffset;
                 }
@@ -113,6 +114,11 @@ namespace DXDebug
             }
         }
 
+        KamekSymbolEntry entry = manager->kamekSymEntryArray[manager->kamekHeader.symbolCount-1];
+        if((address - manager->kamekBaseAddress) >= entry.offset)
+            return manager->kamekSymNameTable + entry.nameOffset;
+
+*/
         for(int i = 0; i < manager->header.symbolCount; i++)
         {
             SymbolEntry entry = manager->symEntryArray[i];

@@ -16,7 +16,7 @@ public:
     u8 unknown_0x1A0[8];
     bool isLocalMultiplayer; //0x1a8 for colors
     g3d::ResMatTevColor tevColors[2]; //0x1AC
-    u8 unknown_0x1b4[0x1cc-0x1b4];
+    //u8 unknown_0x1b4[0x1cc-0x1b4];
 };
 static_assert(sizeof(ItemObjFIB) == 0x1b4, "ItemObjFIB");
 
