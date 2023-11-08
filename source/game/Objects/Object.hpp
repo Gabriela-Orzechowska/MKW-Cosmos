@@ -78,7 +78,7 @@ public:
     virtual u32 GetDrawType() const = 0; //0xb0
 
     void LoadAnimationByType(u32 idx, AnmType type); //80820a90
-    void LinkAnimations(char **brasd, char **idk, u32 brsadCount, u32 idkCount); //80820eb8
+    void LinkAnimations(char **brasd, AnmType *animTypArray, u32 brsadCount, u32 animCountidk); //80820eb8
     AudioHandle* UpdateMatrix(); //80821640
     AudioHandle* StartSoundLimited(u32 soundId, float volume); //808204fc
     AudioHandle* HoldSoundLimited(u32 soundId); //8082051c
