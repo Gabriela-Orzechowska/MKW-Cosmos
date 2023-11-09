@@ -1,5 +1,15 @@
 gameID = 0x80000000
 
+# extern
+p_bmgSizeAddress = 0x8007b37c
+p_lecodeBullshit1__7DXGhost = 0x805e1e94
+p_lecodeBlueDrag = 0x807ae8ac
+p_lecodeBluePmtf = 0x808a5b30
+p_lecodeBlueFunc = 0x807ae8a8
+
+p_objFlowLoad = 0x8082c140
+p_geoHitTableLoad = 0x807f92ac
+
 memcpy = 0x80005f34
 memset = 0x80006038
 

@@ -354,7 +354,8 @@ namespace DXGhost
 
     void PatchLecodeBullshit()
     {
-        *(u32 *)(DX::GetPortAddress(0x805e1e94, 0x805cc0b8, 0x805e1770, 0x805d0030)) = 0x90031758;
+        extern u32 p_lecodeBullshit1;
+        p_lecodeBullshit1 = 0x90031758;
     }
 
     static LeCodeLoadHook bruh(PatchLecodeBullshit);

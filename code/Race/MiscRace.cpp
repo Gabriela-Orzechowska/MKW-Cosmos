@@ -52,8 +52,11 @@ void DraggableBlues(ItemPlayerSub *sub)
 
 void LeCodeItemPatches()
 {
-    DX::CreateBranch(DX::GetPortAddress(0x807ae8ac, 0x807a3c04, 0x807adf18, 0x8079cc6c), DraggableBlues);
-    *(u32 *)DX::GetPortAddress(0x808a5b30, 0x808a1058, 0x808a4c90, 0x80893f90) = DX::GetPortAddress(0x807ae8a8, 0x807a3c00, 0x807adf14, 0x8079cc68);
+    extern u32 p_lecodeBlueDrag;
+    extern u32 p_lecodeBluePmtf;
+    extern u32 p_lecodeBlueFunc;
+    DX::CreateBranch((u32)&p_lecodeBlueDrag, DraggableBlues);
+    p_lecodeBluePmtf = (u32) &p_lecodeBlueFunc;
 }
 static LeCodeLoadHook ItemLeCode(LeCodeItemPatches);
 kmBranch(0x807ae8ac, DraggableBlues);

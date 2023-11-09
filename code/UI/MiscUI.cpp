@@ -11,12 +11,8 @@
 using namespace DXData;
 
 void FasterMenusOnTransition(MenuData *menuData, u32 delay, u32 r5){
-    OSReport("[DX] Transitioning...\n");
     if (SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_FAST_MENUS] == ENABLED) 
-    {
         delay = 0;
-        OSReport("[DX] Setting delay to 0...");
-    }
     menuData->StartTransition(delay, r5);
 }
 kmCall(0x80602510, FasterMenusOnTransition);
@@ -24,7 +20,8 @@ kmCall(0x80602510, FasterMenusOnTransition);
 void FasterPageTransition()
 {
     float delay = 176.0f;
-    if(SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_FAST_MENUS] == ENABLED) delay -= delay;
+    if(SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_FAST_MENUS] == ENABLED) 
+        delay = 0.0f;
     Page::transitionDelay = delay;
 }
 static SettingsUpdateHook FasterPages(FasterPageTransition);
@@ -32,7 +29,8 @@ static SettingsUpdateHook FasterPages(FasterPageTransition);
 void FasterPageBoot()
 {
     float delay = 176.0f;
-    if(SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_FAST_MENUS] == ENABLED) delay -= delay;
+    if(SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_FAST_MENUS] == ENABLED) 
+        delay = 0.0f;
     Page::transitionDelay = delay;
 }
 
@@ -128,8 +126,8 @@ kmBranch(0x8053fc98, UpdateArchiveHolderLanguageOnInit);
 
 void DisableBMGSizeOverride()
 {
-    u32 * address = (u32 *) DX::GetPortAddress(0x8007b37c, 0x8007b2dc, 0x8007b29c, 0x8007b3dc);
-    *address = 0xa01d004c; //lhz r0,0x4c(r29)
+    extern u32 p_bmgSizeAddress;
+    p_bmgSizeAddress = 0xa01d004c; //lhz r0,0x4c(r29)
 }
 
 static LeCodeLoadHook bmgFix(DisableBMGSizeOverride);
@@ -138,9 +136,6 @@ void WhiteStrapTransition()
 {
     nw4r::ut::Color white;
     white.rgba = 0xFFFFFFFF;
-
-    
-
     RKSystem::sInstance->sceneManager->colorFader->setColor(white);
 }
 
