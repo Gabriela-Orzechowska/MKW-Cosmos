@@ -136,7 +136,7 @@ namespace DX{
 //38600001
 //kmWrite32(0x80007c60, 0x4e800020);
 
-#define FORCEOSFATAL
+//#define FORCEOSFATAL
 
     void Panic(char * file, int line, char *fmt, ...)
     {

@@ -17,6 +17,7 @@ Contributors:
 */
 enum ObjectType{
     OBJECT_TYPE_NORMAL = 0x0,
+    OBJECT_TYPE_COLLIDABLE = 0x1,
     OBJECT_TYPE_SPECIAL = 0x2,
 };
 

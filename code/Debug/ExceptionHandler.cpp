@@ -131,7 +131,8 @@ namespace DXDebug{
         else if(error == 0x31)
             nw4r::db::Exception_Printf_("\n\n*** Mario Kart Wii Deluxe PANIC HANDLER ***\nRVL::OSPanic() has been called; (%s)\n<Symbol not found>\n\n", region_name);
         else if(error == 0x32)
-            nw4r::db::Exception_Printf_("\n\n*** Mario Kart Wii Deluxe PANIC HANDLER ***\nDX::OSPanic() has been called; (%s)\n<Symbol not found>\n\n", region_name);
+            nw4r::db::Exception_Printf_("\n\n*** Mario Kart Wii Deluxe PANIC HANDLER ***\nDX::Panic() has been called; (%s)\n<Symbol not found>\n\n", region_name);
+        nw4r::db::Exception_Printf_("MKW Deluxe v9.0 (%s %s)\nPlatform: %s\n", __DATE__, __TIME__, DXDebug::GetPlatformString());
         nw4r::db::Exception_Printf_("*** Message ***\n%s\n", (char *)dar );
     }
 
