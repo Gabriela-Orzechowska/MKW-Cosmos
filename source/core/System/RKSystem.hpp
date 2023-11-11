@@ -3,6 +3,8 @@
 #include "types.hpp"
 #include <core/egg/Heap.hpp>
 #include <core/egg/Audio.hpp>
+#include <core/egg/ProcessMeter.hpp>
+#include <core/egg/Display.hpp>
 #include <core/RK/RKSceneManager.hpp>
 
 class GXRModeObj;
@@ -44,8 +46,8 @@ public:
     EGG::ExpAudioMgr *audioManager; //0x40
     Video *video; //0x44
     void *xfbManager; //0x48
-    void *asyncDisplay; //0x4c
-    void *processMeter; //0x50
+    EGG::AsyncDisplay *asyncDisplay; //0x4c
+    EGG::ProcessMeter *processMeter; //0x50
     RKSceneManager *sceneManager; //0x54
     EGG::ExpHeap *kpadWorkHeap;
     u32 unknown_0x5c;

@@ -611,6 +611,8 @@ Load__22TextUpDownValueControlFPCcPCcPCcPCcPCc = 0x806406b0
 SetOnTextChangeHandler__22TextUpDownValueControlFP66PtmfHolder_2A<4Page,v,PQ222TextUpDownValueControl11TextControl,Ui> = 0x806407d4
 func_vtable__12UnkTextClassFv = 0x80642a50
 
+AsyncDisplay_endRender__FPQ23EGG12AsyncDisplay = 0x8020ff9c
+
 #UpDownDisplayedText
 __vt__19UpDownDisplayedText = 0x808bf3d8
 GetTextControl__22TextUpDownValueControlCFv = 0x80642988
@@ -1502,4 +1504,5 @@ GXTokenInterruptHandler= 0x8016eccc
 StateGX_ChangeProjectionv= 0x802417fc
 TPLGetGXTexObjFromPalette= 0x801b7544
 
-
+C_MTXOrtho = 0x8019ab4c
+PSMTXIdentity = 0x80199d04

@@ -87,7 +87,7 @@ class Camera : public ResCommon<CameraData>{
     void GXSetProjection() const; //8006aa80
     void SetScissor(u32 xOrigin, u32 yOrigin, u32 width, u32 height); //8006ab50
     void SetScissorBoxOffset(s32 xOffset, s32 yOffset); //8006ab80
-    void SetViewport(float xOrigin, float yOrigin, float width, float height); //8006a9f0
+    void SetViewport(float xOrigin, float yOrigin, float width, float height, float near, float far); //8006a9f0
     void Init(); //8006a0d0
     void Init(u16 efbWidth, u16 efbHeight, u16 xfbWidth, u16 xfbHeight, u16 viWidth, u16 viHeight); //8006a120
     void SetCameraMtxDirectly(const math::MTX34 &src); //8006a4d0

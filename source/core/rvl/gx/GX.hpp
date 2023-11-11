@@ -28,5 +28,12 @@ void GXSetProjection(const float mtx[4][4], GXProjectionType type);
 void GXLoadPosMtxImm(const float mtx[3][4], u32 pnidx);
 void GXSetCurrentMtx(u32 mtx);
 void GXLoadPosMtxIndx(u32 indx);
+void GXSetViewport(float x, float y, float width, float height, float near, float far);
+void GXSetScissor(u32 left, u32 top, u32 right, u32 bottom);
+void GXSetScissorBoxOffset(u32 x, u32 y);
+void GXSetNumIndStages(u32 i);
+void GXSetChanMatColor(GXChannelID id, GXColor color);
+
+
 }
 #endif
