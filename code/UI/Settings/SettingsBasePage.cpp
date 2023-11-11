@@ -179,6 +179,7 @@ namespace DXUI
 
     void SettingsBasePage::OnActivate()
     {
+        this->wasLanguageChanged = false;
         Menu::OnActivate();
         Page::transitionDelay = 176.0f;
         this->AddPageLayer((PageId)currentPageId, 0);
@@ -187,7 +188,7 @@ namespace DXUI
     void SettingsBasePage::OnBackPress(u32 slotId)
     {
         this->SaveSettings();
-        this->LoadPrevPageWithDelayById(lastPage, 0.0f);
+        if(!this->wasLanguageChanged) this->LoadPrevPageWithDelayById(lastPage, 0.0f);
     }
 
     void SettingsBasePage::SaveSettings()

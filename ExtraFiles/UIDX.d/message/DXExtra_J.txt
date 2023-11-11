@@ -1,0 +1,162 @@
+#BMG  <<<  The first 4 characters '#BMG' are the magic for a BMG text file.
+#     <<<  Don't remove them!
+#
+# Details about BMG text files are available in the Web:
+#  * Syntax and Semantics: https://szs.wiimm.de/doc/bmg/text
+#  * The BMG file format:  https://szs.wiimm.de/r/wiki/BMG
+#
+#
+
+#------------------------------------------------------------------------------
+
+
+  beb	= １台で走って  最速レコードをめざします (150cc)
+ 2800   = タイムアタック (150cc)
+ 2801   = タイムアタック (200cc)
+
+ 2810   = Track Layout: Normal
+ 2811   = Track Layout: Castle Gorge	
+
+ 2A00   = セッティング
+ 2A01   = レース (1/1)
+ 2A02   = メニュー(1/1)
+
+ 2A20   = Manager your settings!
+ 2A21   = Manage your Race settings!
+ 2A22   = Manage your Menu settings!
+
+ 3700   = Enabled
+ 3701   = Disabled
+
+ 3000   = Final Lap Music
+ 
+ 3001   = Speed-Up
+ 3002   = No Cut-off
+ 3003   = Default
+
+ 3801   = Music will speed-up over 4s when entering final lap.
+ 3802   = Music will continue when entering final lap.
+ 3803   = Music will change to fast variant as normal.
+
+ 3010   = Draggable Blue-Shells
+
+ 3811   = You can hold Blue-Shells behind like other shells.
+ 3812   = You won't be able hold Blue-Shells behind like other shells.
+
+ 3020   = FPS Mode
+
+ 3021   = Normal
+ 3022   = Force 30FPS
+ 3023   = Force 60FPS
+
+ 3821   = Use the default FPS mode.
+ 3822   = Use when the game is too laggy.
+ 3823   = Use for better systems (Dolphin only).
+
+ 3110   = Fast Menus
+
+ 3911   = Menu transitions will be instant.
+ 3912   = Menu transitions will be normal.
+
+ 3100   = Language
+ 3101   = Default
+ 3102   = English (PAL)
+ 3103   = English (NTSC)
+ 3104   = Deutsch
+ 3105   = Français (PAL)
+ 3106   = Français (NTSC)
+ 3107   = Español (PAL)
+ 3108   = Español (NTSC)
+ 3109   = Italiano
+ 310A   = Nederlands
+ 310B   = Polski
+ 310C   = Japanese
+ 310D   = Korean
+
+ 2820   = １台で走って  最速レコードをめざします (200cc)
+ 2830   = Change Combo
+  13044	= DS Test Circle \n\z{800,40}\c{blue1}Bruh de la Boi\c{off}
+  13045	= Castle Gorge \n\z{800,40}\c{blue1}Toadette Hack Fan, Mystora\c{off} 
+  13046	= KKW Prismatic Parkway \n\z{800,40}\c{blue1}Mystora\c{off} 
+  13047	= Ruinated Peach's Castle \n\z{800,40}\c{blue1}Gabriela_\c{off}
+  13048	= Blissful Block \n\z{800,40}\c{blue1}Strobenz\c{off}
+  13049	= Strobenz Desert Illusion \n\z{800,40}\c{blue1}Strobenz\c{off}
+  1304A	= The \c{red}Thing\c{off} You Can't Defeat \n\z{800,40}\c{blue1}Gabriela_\c{off}
+  1304B	= \c{blue1}Fever\c{off} Factory \n\z{800,40}\c{blue1}Gabriela_\c{off}
+
+7000	= \c{blue1}Wii \c{off}Mario Circuit
+  7001	= \c{blue1}Wii \c{off}Moo Moo Meadows
+  7002	= \c{blue1}Wii \c{off}Mushroom Gorge
+  7003	= \c{blue1}Wii \c{off}Grumble Volcano
+  7004	= \c{blue1}Wii \c{off}Toad's Factory
+  7005	= \c{blue1}Wii \c{off}Coconut Mall
+  7006	= \c{blue1}Wii \c{off}DK's Snowboard Cross
+  7007	= \c{blue1}Wii \c{off}Wario's Gold Mine
+  7008	= \c{blue1}Wii \c{off}Luigi Circuit
+  7009	= \c{blue1}Wii \c{off}Daisy Circuit
+  700a	= \c{blue1}Wii \c{off}Moonview Highway
+  700b	= \c{blue1}Wii \c{off}Maple Treeway
+  700c	= \c{blue1}Wii \c{off}Bowser's Castle
+  700d	= \c{blue1}Wii \c{off}Rainbow Road
+  700e	= \c{blue1}Wii \c{off}Dry Dry Ruins
+  700f	= \c{blue1}Wii \c{off}Koopa Cape
+  7010	= \c{blue1}GCN \c{off}Peach Beach
+  7011	= \c{blue1}GCN \c{off}Mario Circuit
+  7012	= \c{blue1}GCN \c{off}Waluigi Stadium
+  7013	= \c{blue1}GCN \c{off}DK Mountain
+  7014	= \c{blue1}DS \c{off}Yoshi Falls
+  7015	= \c{blue1}DS \c{off}Desert Hills
+  7016	= \c{blue1}DS \c{off}Peach Gardens
+  7017	= \c{blue1}DS \c{off}Delfino Square
+  7018	= \c{blue1}SNES \c{off}Mario Circuit 3
+  7019	= \c{blue1}SNES \c{off}Ghost Valley 2
+  701a	= \c{blue1}N64 \c{off}Mario Raceway
+  701b	= \c{blue1}N64 \c{off}Sherbet Land
+  701c	= \c{blue1}N64 \c{off}Bowser's Castle
+  701d	= \c{blue1}N64 \c{off}DK's Jungle Parkway
+  701e	= \c{blue1}GBA \c{off}Bowser Castle 3
+  701f	= \c{blue1}GBA \c{off}Shy Guy Beach
+  7020	= \c{yor7}-----\c{off}
+  7021	= \c{yor7}-----\c{off}
+  7022	= \c{yor7}-----\c{off}
+  7023	= \c{yor7}-----\c{off}
+  7024	= \c{yor7}-----\c{off}
+  7025	= \c{yor7}-----\c{off}
+  7026	= \c{yor7}-----\c{off}
+  7027	= \c{yor7}-----\c{off}
+  7028	= \c{yor7}-----\c{off}
+  7029	= \c{yor7}-----\c{off}
+  702a	/
+  702b	/
+  702c	/
+  702d	/
+  702e	/
+  702f	/
+  7030	/
+  7031	/
+  7032	/
+  7033	/
+  7034	/
+  7035	/
+  7036	= Ring Mission
+  7037	= Winningrun Demo
+  7038	= Loser Demo
+  7039	= Draw Demo
+  703a	= Ending Demo
+  703b	/
+  703c	/
+  703d	/
+  703e	/
+  703f	/
+  7040	/
+  7041	/
+  7042	/
+  7043	=  Wiimms SZS Toolset v2.25a r8443
+  7044	= DS Test Circle
+  7045	= Castle Gorge
+  7046	= KKW Prismatic Parkway
+  7047	= Ruinated Peach's Castle
+  7048	= Blissful Block
+  7049	= Strobenz Desert Illusion
+  704A	= The \c{red}Thing\c{off} You Can't Defeat
+  704B	= \c{blue1}Fever\c{off} Factory

@@ -7,6 +7,7 @@
 #include <game/UI/SectionMgr/SectionMgr.hpp>
 #include <game/System/FontManager.hpp>
 #include <core/rvl/os/OS.hpp>
+#include <UI/Settings/SettingsBasePage.hpp>
 
 using namespace DXData;
 
@@ -24,7 +25,6 @@ void FasterPageTransition()
         delay = 0.0f;
     Page::transitionDelay = delay;
 }
-static SettingsUpdateHook FasterPages(FasterPageTransition);
 
 void FasterPageBoot()
 {
@@ -37,6 +37,7 @@ void FasterPageBoot()
 static BootHook FasterPagesBoot(FasterPageBoot, LOW);
 
 static u32 defaultLanguage;
+static u32 lastLanguage;
 
 static char * suffixes[13] = {
     "",
@@ -74,6 +75,7 @@ void UpdateLanguage()
     extern char * szsLanguageNames[7];
 
     u32 language = SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_LANGUAGE_SETTINGS];
+    u32 languageSettings = language;
     if(language == NO_CHANGE) language = defaultLanguage;
     SystemManager::sInstance->gameLanguage = language;
     char * localization = suffixes[language];
@@ -85,6 +87,18 @@ void UpdateLanguage()
     {
 
     }
+
+    if(languageSettings != lastLanguage)
+    {
+        lastLanguage = languageSettings;
+        DXUI::SettingsBasePage * page = MenuData::sInstance->curScene->Get<DXUI::SettingsBasePage>((PageId)DX::SETTINGS_MAIN);
+        page->wasLanguageChanged = true;
+        //MenuData::sInstance;
+        //page->LoadPrevPageWithDelayById(page->lastPage, 100.0f);
+        page->ChangeMenuWithDelayById(page->lastMenu, 0.0f);
+    }
+
+    lastLanguage = languageSettings;
 }
 
 void UpdateArchiveHolderLanguageOnInit()
@@ -93,12 +107,17 @@ void UpdateArchiveHolderLanguageOnInit()
 
     defaultLanguage = SystemManager::sInstance->strapPageLanguage; //To include Dutch
     u32 language = SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_LANGUAGE_SETTINGS];
+    lastLanguage = language;
     if(language == NO_CHANGE) {
         if(defaultLanguage == 0x6)
+        {
             language = 0x10;
+            lastLanguage = language;
+        }
         else
             return;
     }
+    
     SystemManager::sInstance->gameLanguage = language;
     char * localization = suffixes[language];
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1], localization, 0x80);
@@ -120,6 +139,7 @@ void UpdateArchiveHolderLanguageOnInit()
 kmWrite32(0x8000ad9c, 0x38000006); //System Dutch
 
 static SettingsUpdateHook UpdateSystemLanguage(UpdateLanguage);
+static SettingsUpdateHook FasterPages(FasterPageTransition);
 //static MenuLoadHook UpdateSystemLanguageMenuLoad(UpdateLanguage);
 //static StrapEndHook SetLanguageOnBoot(UpdateLanguage);
 kmBranch(0x8053fc98, UpdateArchiveHolderLanguageOnInit);

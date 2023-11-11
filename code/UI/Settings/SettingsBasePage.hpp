@@ -42,8 +42,10 @@ namespace DXUI
         UpDownControl * upDownControls;
 
         PageId lastPage;
+        MenuId lastMenu;
 
         u32 currentPageId;
+        bool wasLanguageChanged;
 
         private:
         static void SaveSettings();
