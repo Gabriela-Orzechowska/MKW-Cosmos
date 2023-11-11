@@ -2,13 +2,50 @@
 #include <game/UI/Text.hpp>
 #include <game/UI/Layout/Layout.hpp>
 #include <core/rvl/os/OS.hpp>
+#include <Settings/UserData.hpp>
+#include <core/System/SystemManager.hpp>
 
 static BMGHolder * AdditionalHolder = new(BMGHolder);
+
+static char * suffixes[13] = {
+    "",
+    "",
+    "",
+    "_G",
+    "_F",
+    "_Q",
+    "_S",
+    "_M",
+    "_I",
+    "_H",
+    "_PL",
+    "_J",
+    "_K",
+};
 
 void InjectAdditionalHolder(BMGHolder * baseHolder, char * filename)
 {
     baseHolder->Load(filename);
-    AdditionalHolder->Load("DXExtra");
+
+    using namespace DXData;
+
+    char baseName[] = "DXExtra";
+    char finalName[0x10];
+    char testName[0x30];
+    char suffix[0x6];
+
+    char * localization = ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1];
+
+    memset(suffix, 0, 0x6);
+    strncpy(suffix, localization, strlen(localization)-4);
+    snprintf(finalName, 0x10, "%s%s", baseName, suffix);
+    snprintf(testName, 0x30, "message/%s%s", finalName, ".bmg");
+
+    void * file = ArchiveRoot::sInstance->GetFile(ARCHIVE_HOLDER_UI, testName, 0x0);
+    if(file != nullptr)
+        AdditionalHolder->Load(finalName);
+    else
+        AdditionalHolder->Load("DXExtra");
     return;
 }
 
