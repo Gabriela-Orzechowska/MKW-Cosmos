@@ -62,14 +62,14 @@
  3101   = Default
  3102   = English (PAL)
  3103   = English (NTSC)
- 3104   = German
- 3105   = French (PAL)
- 3106   = French (NTSC)
- 3107   = Spanish (PAL)
- 3108   = Spanish (NTSC)
- 3109   = Italian
- 310A   = Dutch
- 310B   = Polish
+ 3104   = Deutsch
+ 3105   = Français (PAL)
+ 3106   = Français (NTSC)
+ 3107   = Español (PAL)
+ 3108   = Español (NTSC)
+ 3109   = Italiano
+ 310A   = Nederlands
+ 310B   = Polski
  310C   = Japanese
  310D   = Korean
 
@@ -79,6 +79,10 @@
   13045	= Castle Gorge \n\z{800,40}\c{blue1}Toadette Hack Fan, Mystora\c{off} 
   13046	= KKW Prismatic Parkway \n\z{800,40}\c{blue1}Mystora\c{off} 
   13047	= Ruinated Peach's Castle \n\z{800,40}\c{blue1}Gabriela_\c{off}
+  13048	= Blissful Block \n\z{800,40}\c{blue1}Strobenz\c{off}
+  13049	= Strobenz Desert Illusion \n\z{800,40}\c{blue1}Strobenz\c{off}
+  1304A	= The \c{red}Thing\c{off} You Can't Defeat \n\z{800,40}\c{blue1}Gabriela_\c{off}
+  1304B	= \c{blue1}Fever\c{off} Factory \n\z{800,40}\c{blue1}Gabriela_\c{off}
 
 7000	= \c{blue1}Wii \c{off}Mario Circuit
   7001	= \c{blue1}Wii \c{off}Moo Moo Meadows
@@ -148,7 +152,11 @@
   7041	/
   7042	/
   7043	=  Wiimms SZS Toolset v2.25a r8443
-  7044  =  DS Test Circle
-  7045  =  Castle Gorge
-  7046  =  KKW Prismatic Parkway
-  7047  =  Ruinated Peach's Castle
+  7044	= DS Test Circle
+  7045	= Castle Gorge
+  7046	= KKW Prismatic Parkway
+  7047	= Ruinated Peach's Castle
+  7048	= Blissful Block
+  7049	= Strobenz Desert Illusion
+  704A	= The \c{red}Thing\c{off} You Can't Defeat
+  704B	= \c{blue1}Fever\c{off} Factory
