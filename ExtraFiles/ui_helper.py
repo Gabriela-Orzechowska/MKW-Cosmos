@@ -11,7 +11,7 @@ def create_and_pack():
 
     for r in result:
         os.system(f"python {wuj5_path} encode {r}")
-        os.remove(r)
+        # os.remove(r)
 
     pack()
 

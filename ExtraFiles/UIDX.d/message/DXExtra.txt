@@ -21,6 +21,7 @@
  2A01   = Race (1/1)
  2A02   = Menu (1/1)
 
+ 2A20   = Manager your settings!
  2A21   = Manage your Race settings!
  2A22   = Manage your Menu settings!
 

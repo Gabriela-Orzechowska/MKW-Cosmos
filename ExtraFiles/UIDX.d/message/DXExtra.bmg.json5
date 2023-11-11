@@ -1,0 +1,498 @@
+{
+    "3051": {
+        "font": "regular",
+        "string": "A solo race for the fastest record! (150cc)",
+    },
+    "10240": {
+        "font": "regular",
+        "string": "Time Trials (150cc)",
+    },
+    "10241": {
+        "font": "regular",
+        "string": "Time Trials (200cc)",
+    },
+    "10256": {
+        "font": "regular",
+        "string": "Track Layout: Normal",
+    },
+    "10257": {
+        "font": "regular",
+        "string": "Track Layout: Castle Gorge\t",
+    },
+    "10272": {
+        "font": "regular",
+        "string": "A solo race for the fastest record! (200cc)",
+    },
+    "10288": {
+        "font": "regular",
+        "string": "Change Combo",
+    },
+    "10752": {
+        "font": "regular",
+        "string": "Settings",
+    },
+    "10753": {
+        "font": "regular",
+        "string": "Race (1/1)",
+    },
+    "10754": {
+        "font": "regular",
+        "string": "Menu (1/1)",
+    },
+    "10785": {
+        "font": "regular",
+        "string": "Manage your Race settings!",
+    },
+    "10786": {
+        "font": "regular",
+        "string": "Manage your Menu settings!",
+    },
+    "12288": {
+        "font": "regular",
+        "string": "Final Lap Music",
+    },
+    "12289": {
+        "font": "regular",
+        "string": "Speed-Up",
+    },
+    "12290": {
+        "font": "regular",
+        "string": "No Cut-off",
+    },
+    "12291": {
+        "font": "regular",
+        "string": "Default",
+    },
+    "12304": {
+        "font": "regular",
+        "string": "Draggable Blue-Shells",
+    },
+    "12320": {
+        "font": "regular",
+        "string": "FPS Mode",
+    },
+    "12321": {
+        "font": "regular",
+        "string": "Normal",
+    },
+    "12322": {
+        "font": "regular",
+        "string": "Force 30FPS",
+    },
+    "12323": {
+        "font": "regular",
+        "string": "Force 60FPS",
+    },
+    "12544": {
+        "font": "regular",
+        "string": "Language",
+    },
+    "12545": {
+        "font": "regular",
+        "string": "Default",
+    },
+    "12546": {
+        "font": "regular",
+        "string": "English (PAL)",
+    },
+    "12547": {
+        "font": "regular",
+        "string": "English (NTSC)",
+    },
+    "12548": {
+        "font": "regular",
+        "string": "German",
+    },
+    "12549": {
+        "font": "regular",
+        "string": "French (PAL)",
+    },
+    "12550": {
+        "font": "regular",
+        "string": "French (NTSC)",
+    },
+    "12551": {
+        "font": "regular",
+        "string": "Spanish (PAL)",
+    },
+    "12552": {
+        "font": "regular",
+        "string": "Spanish (NTSC)",
+    },
+    "12553": {
+        "font": "regular",
+        "string": "Italian",
+    },
+    "12554": {
+        "font": "regular",
+        "string": "Dutch",
+    },
+    "12555": {
+        "font": "regular",
+        "string": "Polish",
+    },
+    "12556": {
+        "font": "regular",
+        "string": "Japanese",
+    },
+    "12557": {
+        "font": "regular",
+        "string": "Korean",
+    },
+    "12560": {
+        "font": "regular",
+        "string": "Fast Menus",
+    },
+    "14080": {
+        "font": "regular",
+        "string": "Enabled",
+    },
+    "14081": {
+        "font": "regular",
+        "string": "Disabled",
+    },
+    "14337": {
+        "font": "regular",
+        "string": "Music will speed-up over 4s when entering final lap.",
+    },
+    "14338": {
+        "font": "regular",
+        "string": "Music will continue when entering final lap.",
+    },
+    "14339": {
+        "font": "regular",
+        "string": "Music will change to fast variant as normal.",
+    },
+    "14353": {
+        "font": "regular",
+        "string": "You can hold Blue-Shells behind like other shells.",
+    },
+    "14354": {
+        "font": "regular",
+        "string": "You won't be able hold Blue-Shells behind like other shells.",
+    },
+    "14369": {
+        "font": "regular",
+        "string": "Use the default FPS mode.",
+    },
+    "14370": {
+        "font": "regular",
+        "string": "Use when the game is too laggy.",
+    },
+    "14371": {
+        "font": "regular",
+        "string": "Use for better systems (Dolphin only).",
+    },
+    "14609": {
+        "font": "regular",
+        "string": "Menu transitions will be instant.",
+    },
+    "14610": {
+        "font": "regular",
+        "string": "Menu transitions will be normal.",
+    },
+    "28672": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}Mario Circuit",
+    },
+    "28673": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}Moo Moo Meadows",
+    },
+    "28674": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}Mushroom Gorge",
+    },
+    "28675": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}Grumble Volcano",
+    },
+    "28676": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}Toad's Factory",
+    },
+    "28677": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}Coconut Mall",
+    },
+    "28678": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}DK's Snowboard Cross",
+    },
+    "28679": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}Wario's Gold Mine",
+    },
+    "28680": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}Luigi Circuit",
+    },
+    "28681": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}Daisy Circuit",
+    },
+    "28682": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}Moonview Highway",
+    },
+    "28683": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}Maple Treeway",
+    },
+    "28684": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}Bowser's Castle",
+    },
+    "28685": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}Rainbow Road",
+    },
+    "28686": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}Dry Dry Ruins",
+    },
+    "28687": {
+        "font": "regular",
+        "string": "{color|team blue}Wii {color|unspecified}Koopa Cape",
+    },
+    "28688": {
+        "font": "regular",
+        "string": "{color|team blue}GCN {color|unspecified}Peach Beach",
+    },
+    "28689": {
+        "font": "regular",
+        "string": "{color|team blue}GCN {color|unspecified}Mario Circuit",
+    },
+    "28690": {
+        "font": "regular",
+        "string": "{color|team blue}GCN {color|unspecified}Waluigi Stadium",
+    },
+    "28691": {
+        "font": "regular",
+        "string": "{color|team blue}GCN {color|unspecified}DK Mountain",
+    },
+    "28692": {
+        "font": "regular",
+        "string": "{color|team blue}DS {color|unspecified}Yoshi Falls",
+    },
+    "28693": {
+        "font": "regular",
+        "string": "{color|team blue}DS {color|unspecified}Desert Hills",
+    },
+    "28694": {
+        "font": "regular",
+        "string": "{color|team blue}DS {color|unspecified}Peach Gardens",
+    },
+    "28695": {
+        "font": "regular",
+        "string": "{color|team blue}DS {color|unspecified}Delfino Square",
+    },
+    "28696": {
+        "font": "regular",
+        "string": "{color|team blue}SNES {color|unspecified}Mario Circuit 3",
+    },
+    "28697": {
+        "font": "regular",
+        "string": "{color|team blue}SNES {color|unspecified}Ghost Valley 2",
+    },
+    "28698": {
+        "font": "regular",
+        "string": "{color|team blue}N64 {color|unspecified}Mario Raceway",
+    },
+    "28699": {
+        "font": "regular",
+        "string": "{color|team blue}N64 {color|unspecified}Sherbet Land",
+    },
+    "28700": {
+        "font": "regular",
+        "string": "{color|team blue}N64 {color|unspecified}Bowser's Castle",
+    },
+    "28701": {
+        "font": "regular",
+        "string": "{color|team blue}N64 {color|unspecified}DK's Jungle Parkway",
+    },
+    "28702": {
+        "font": "regular",
+        "string": "{color|team blue}GBA {color|unspecified}Bowser Castle 3",
+    },
+    "28703": {
+        "font": "regular",
+        "string": "{color|team blue}GBA {color|unspecified}Shy Guy Beach",
+    },
+    "28704": {
+        "font": "regular",
+        "string": "{color|yor 7}-----{color|unspecified}",
+    },
+    "28705": {
+        "font": "regular",
+        "string": "{color|yor 7}-----{color|unspecified}",
+    },
+    "28706": {
+        "font": "regular",
+        "string": "{color|yor 7}-----{color|unspecified}",
+    },
+    "28707": {
+        "font": "regular",
+        "string": "{color|yor 7}-----{color|unspecified}",
+    },
+    "28708": {
+        "font": "regular",
+        "string": "{color|yor 7}-----{color|unspecified}",
+    },
+    "28709": {
+        "font": "regular",
+        "string": "{color|yor 7}-----{color|unspecified}",
+    },
+    "28710": {
+        "font": "regular",
+        "string": "{color|yor 7}-----{color|unspecified}",
+    },
+    "28711": {
+        "font": "regular",
+        "string": "{color|yor 7}-----{color|unspecified}",
+    },
+    "28712": {
+        "font": "regular",
+        "string": "{color|yor 7}-----{color|unspecified}",
+    },
+    "28713": {
+        "font": "regular",
+        "string": "{color|yor 7}-----{color|unspecified}",
+    },
+    "28714": {
+        "font": "regular",
+        "string": null,
+    },
+    "28715": {
+        "font": "regular",
+        "string": null,
+    },
+    "28716": {
+        "font": "regular",
+        "string": null,
+    },
+    "28717": {
+        "font": "regular",
+        "string": null,
+    },
+    "28718": {
+        "font": "regular",
+        "string": null,
+    },
+    "28719": {
+        "font": "regular",
+        "string": null,
+    },
+    "28720": {
+        "font": "regular",
+        "string": null,
+    },
+    "28721": {
+        "font": "regular",
+        "string": null,
+    },
+    "28722": {
+        "font": "regular",
+        "string": null,
+    },
+    "28723": {
+        "font": "regular",
+        "string": null,
+    },
+    "28724": {
+        "font": "regular",
+        "string": null,
+    },
+    "28725": {
+        "font": "regular",
+        "string": null,
+    },
+    "28726": {
+        "font": "regular",
+        "string": "Ring Mission",
+    },
+    "28727": {
+        "font": "regular",
+        "string": "Winningrun Demo",
+    },
+    "28728": {
+        "font": "regular",
+        "string": "Loser Demo",
+    },
+    "28729": {
+        "font": "regular",
+        "string": "Draw Demo",
+    },
+    "28730": {
+        "font": "regular",
+        "string": "Ending Demo",
+    },
+    "28731": {
+        "font": "regular",
+        "string": null,
+    },
+    "28732": {
+        "font": "regular",
+        "string": null,
+    },
+    "28733": {
+        "font": "regular",
+        "string": null,
+    },
+    "28734": {
+        "font": "regular",
+        "string": null,
+    },
+    "28735": {
+        "font": "regular",
+        "string": null,
+    },
+    "28736": {
+        "font": "regular",
+        "string": null,
+    },
+    "28737": {
+        "font": "regular",
+        "string": null,
+    },
+    "28738": {
+        "font": "regular",
+        "string": null,
+    },
+    "28739": {
+        "font": "regular",
+        "string": " Wiimms SZS Toolset v2.25a r8443",
+    },
+    "28740": {
+        "font": "regular",
+        "string": " DS Test Circle",
+    },
+    "28741": {
+        "font": "regular",
+        "string": " Castle Gorge",
+    },
+    "28742": {
+        "font": "regular",
+        "string": " KKW Prismatic Parkway",
+    },
+    "28743": {
+        "font": "regular",
+        "string": " Ruinated Peach's Castle",
+    },
+    "77892": {
+        "font": "regular",
+        "string": "DS Test Circle \n{font scale|64}{color|team blue}Bruh de la Boi{color|unspecified}",
+    },
+    "77893": {
+        "font": "regular",
+        "string": "Castle Gorge \n{font scale|64}{color|team blue}Toadette Hack Fan, Mystora{color|unspecified} ",
+    },
+    "77894": {
+        "font": "regular",
+        "string": "KKW Prismatic Parkway \n{font scale|64}{color|team blue}Mystora{color|unspecified} ",
+    },
+    "77895": {
+        "font": "regular",
+        "string": "Ruinated Peach's Castle \n{font scale|64}{color|team blue}Gabriela_{color|unspecified}",
+    },
+}

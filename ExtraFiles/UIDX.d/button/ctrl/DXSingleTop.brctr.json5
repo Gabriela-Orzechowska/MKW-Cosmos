@@ -1,5 +1,5 @@
 {
-  "main brlyt": "DX_TT",
+  "main brlyt": "DXcommon_single_top",
   "bmg": "Menu",
   "picture source brlyt": "",
   "groups": [
@@ -95,17 +95,17 @@
   ],
   "variants": [
     {
-      "name": "DX_TT_1",
+      "name": "ButtonGP",
       "opacity": 255,
       "animated": true,
       "animation delay": 0.0,
-      "translation x 4:3": -83.75,
-      "translation y 4:3": 73.0,
+      "translation x 4:3": 0.0,
+      "translation y 4:3": 138.0,
       "translation z 4:3": 0.0,
       "scale x 4:3": 1.0,
       "scale y 4:3": 1.0,
-      "translation x 16:9": -83.75,
-      "translation y 16:9": 73.0,
+      "translation x 16:9": 0.0,
+      "translation y 16:9": 138.0,
       "translation z 16:9": 0.0,
       "scale x 16:9": 1.0,
       "scale y 16:9": 1.0,
@@ -115,21 +115,81 @@
       "picture count": 0
     },
     {
-      "name": "DX_TT_4",
+      "name": "ButtonTA",
       "opacity": 255,
       "animated": true,
-      "animation delay": 0.0,
-      "translation x 4:3": 83.75,
+      "animation delay": 1.0,
+      "translation x 4:3": 0.0,
       "translation y 4:3": 73.0,
       "translation z 4:3": 0.0,
       "scale x 4:3": 1.0,
       "scale y 4:3": 1.0,
-      "translation x 16:9": 83.75,
+      "translation x 16:9": 0.0,
       "translation y 16:9": 73.0,
       "translation z 16:9": 0.0,
       "scale x 16:9": 1.0,
       "scale y 16:9": 1.0,
       "first message": 1,
+      "message count": 1,
+      "first picture": 0,
+      "picture count": 0
+    },
+    {
+      "name": "ButtonVS",
+      "opacity": 255,
+      "animated": true,
+      "animation delay": 3.0,
+      "translation x 4:3": 0.0,
+      "translation y 4:3": 8.0,
+      "translation z 4:3": 0.0,
+      "scale x 4:3": 1.0,
+      "scale y 4:3": 1.0,
+      "translation x 16:9": 0.0,
+      "translation y 16:9": 8.0,
+      "translation z 16:9": 0.0,
+      "scale x 16:9": 1.0,
+      "scale y 16:9": 1.0,
+      "first message": 2,
+      "message count": 1,
+      "first picture": 0,
+      "picture count": 0
+    },
+    {
+      "name": "ButtonBT",
+      "opacity": 255,
+      "animated": true,
+      "animation delay": 5.0,
+      "translation x 4:3": 0.0,
+      "translation y 4:3": -57.0,
+      "translation z 4:3": 0.0,
+      "scale x 4:3": 1.0,
+      "scale y 4:3": 1.0,
+      "translation x 16:9": 0.0,
+      "translation y 16:9": -57.0,
+      "translation z 16:9": 0.0,
+      "scale x 16:9": 1.0,
+      "scale y 16:9": 1.0,
+      "first message": 3,
+      "message count": 1,
+      "first picture": 0,
+      "picture count": 0
+    },
+    {
+      "name": "ButtonSettings",
+      "opacity": 255,
+      "animated": true,
+      "animation delay": 5.0,
+      "translation x 4:3": 0.0,
+      "translation y 4:3": -122.0,
+      "translation z 4:3": 0.0,
+      "scale x 4:3": 1.0,
+      "scale y 4:3": 1.0,
+      "translation x 16:9": 0.0,
+      "translation y 16:9": -122.0,
+      "translation z 16:9": 0.0,
+      "scale x 16:9": 1.0,
+      "scale y 16:9": 1.0,
+      "first message": 4,
       "message count": 1,
       "first picture": 0,
       "picture count": 0
@@ -139,12 +199,27 @@
     {
       "pane": "",
       "name": "",
-      "message id": 10240
+      "message id": 3000
     },
     {
       "pane": "",
       "name": "",
-      "message id": 10241
+      "message id": 3001
+    },
+    {
+      "pane": "",
+      "name": "",
+      "message id": 3002
+    },
+    {
+      "pane": "",
+      "name": "",
+      "message id": 3003
+    },
+    {
+      "pane": "",
+      "name": "",
+      "message id": 10752
     }
   ],
   "pictures": []

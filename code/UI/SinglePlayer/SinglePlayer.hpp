@@ -18,6 +18,7 @@ enum MAIN_SCREEN_IDX{
 
 enum EXTRA_MAIN_SCREEN_IDX{
     TIME_TRIAL_200 = 4,
+    SETTINGS = 5,
 };
 
 #endif //_DX_UI_SP_
