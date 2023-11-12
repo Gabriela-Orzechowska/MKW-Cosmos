@@ -160,7 +160,7 @@ namespace DX{
         {
             if(stackRegister == nullptr || stackRegister == (u32 *) -1) break;
             char buffer[0x28];
-            snprintf(buffer, 0x20, "%08x: %08x %08x\n", stackRegister, *stackRegister, stackRegister[0x1]);
+            snprintf(buffer, 0x20, " %08x: %08x %08x\n", stackRegister, *stackRegister, stackRegister[0x1]);
             strcat(stack,buffer);
             stackRegister = (u32 *) *stackRegister;
         }
