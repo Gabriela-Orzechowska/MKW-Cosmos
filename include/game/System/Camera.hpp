@@ -16,11 +16,32 @@ enum CAMERA_FLAGS{
     LOCK_VIEW_POINT = 0x10,
 };
 
-struct RaceCamera{
+class LookAtCamera
+{
+    public:
+    virtual Mtx34 * GetViewMatrix();
+    virtual void * GetObject();
+    virtual void UpdateMatrix();
+    virtual void DoUpdateMatrix();
+    virtual void LoadMatrix();
+    virtual void LoadOldMatrix();
+    virtual void GetPosition(Vec3 * vector);
+    virtual void Draw();
+    virtual void DoDraw();
+    virtual void GetViewMatrixOld();
+    Mtx34 matrix;
+    Mtx34 old_matrix;
+    Vec3 position;
+    Vec3 target;
+    Vec3 up;
+};
+
+
+class RaceCamera : public LookAtCamera{
+    public:
+    void DoUpdateMatrix() override;
     RaceCamera(); //805a1d10
-    virtual void func_vtable(); //0x808b6c40, also inherits from a bunch
-    Mtx34 worldView;
-    u8 unknown_0x34[0x11c-0x34];
+    u8 unknown_0x88[0x11c-0x88];
     float currentFov;
     float additionalFov;
     u8 unknown_0x124[0x334-0x124];

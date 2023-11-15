@@ -18,4 +18,4 @@ void FastFallCalc(KartStatus& status, KartPhysics& physics)
     status.UpdateFromInput();
 }
 
-kmCall(0x805967a4, FastFallCalc);
+//kmCall(0x805967a4, FastFallCalc);

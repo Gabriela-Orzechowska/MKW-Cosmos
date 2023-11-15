@@ -135,6 +135,7 @@ public:
   void UpdateStandstillBoostRot(); //8057d1d4
   void UpdateUps(); //8057d398
   void UpdatePow();
+  void UpdateWheelieBump(); //80579fe4
   void UpdateManualDrift(); //8057dc44
   void UpdateAutoDrift(); //8057e0dc
   void UpdateHopAndSlipdrift(); //8057e804

@@ -36,7 +36,7 @@ void C_MTXFrustum(Mtx44 dest, float top, float bottom, float left, float right, 
 void C_MTXPerspective(Mtx44 dest, float fovy, float aspect, float near, float far);
 void C_MTXOrtho(Mtx44 dest, float top, float bottom, float left, float right, float near, float far);
 void PSVECAdd(const Vec *sourceA, const Vec *sourceB, Vec *dest);
-void PSVECSubtract(const Vec *sourceA, const Vec *sourceB, Vec *dest);
+void PSVECSubtract(Vec *dest, const Vec *sourceA, const Vec *sourceB);
 void PSVECScale(const Vec *source, Vec *dest, float scale);
 void PSVECNormalize(const Vec *source, Vec *dest);
 float PSVECMag(const Vec *Vec);
