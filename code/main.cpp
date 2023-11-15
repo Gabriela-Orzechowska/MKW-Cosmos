@@ -6,6 +6,7 @@
 #include <include/c_stdarg.h>
 #include <core/nw4r/db/Exception.hpp>
 #include <Debug/IOSDolphin.hpp>
+#include <Debug/SymbolMap.hpp>
 
 extern char gameID[4];
 
@@ -154,13 +155,13 @@ namespace DX{
 
         snprintf(output, 0x130, "%s:%d: %s\n", file, line, output2);
 
-        char stack[0x200] = "\n STACK TRACE:\n";
+        char stack[0x400] = "\n STACK TRACE:\n";
         u32 * stackRegister = OSGetStackPointer();
         for(int i = 0; i < 10; i++)
         {
             if(stackRegister == nullptr || stackRegister == (u32 *) -1) break;
-            char buffer[0x28];
-            snprintf(buffer, 0x20, " %08x: %08x %08x\n", stackRegister, *stackRegister, stackRegister[0x1]);
+            char buffer[0x80];
+            snprintf(buffer, 0x80, " %08X: %08X %08X: %s\n", stackRegister, *stackRegister, stackRegister[0x1], DXDebug::SymbolManager::GetSymbolName(stackRegister[0x1]));
             strcat(stack,buffer);
             stackRegister = (u32 *) *stackRegister;
         }
