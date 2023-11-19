@@ -48,7 +48,7 @@ namespace DXFile
 
     void FileManager::GetCorrectPath(char * realPath, const char * path) const
     {
-        snprintf(realPath, IPCMAXPATH, "%s%s", "/title/00010002", path);
+        snprintf(realPath, IPCMAXPATH, "%s%s", "/title/00010004/", path);
         return;
     }
 

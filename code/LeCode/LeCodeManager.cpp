@@ -1,6 +1,7 @@
 #include <LeCode/LeCodeManager.hpp>
 #include <game/System/Archive.hpp>
 #include <main.hpp>
+#include <core/System/RKSystem.hpp>
 
 extern char gameID[4];
 
@@ -70,7 +71,7 @@ namespace LeCode
     LeCodeManager * LeCodeManager::GetStaticInstance()
     {
         if(sInstance == NULL)
-            sInstance = new(LeCodeManager);
+            sInstance = new(RKSystem::mInstance.EGGSystem) LeCodeManager;
         return sInstance;
     }
 
