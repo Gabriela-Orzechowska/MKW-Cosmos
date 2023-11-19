@@ -10,6 +10,8 @@ p_lecodeBlueFunc = 0x807ae8a8
 p_objFlowLoad = 0x8082c140
 p_geoHitTableLoad = 0x807f92ac
 
+__div2u = 0x80021604
+
 memcpy = 0x80005f34
 memset = 0x80006038
 
@@ -22,6 +24,7 @@ GoToWiiMenu__13SystemManagerFv = 0x8000b188
 
 
 wcstombs = 0x8000f138
+wcslen = 0x80017998
 snprintf = 0x80011938
 vsnprintf = 0x8001182c
 qsort = 0x80011b00
@@ -447,6 +450,7 @@ Destroy__9BMGHolderFi = 0x805f8b50
 GetMsgId__9BMGHolderFi = 0x805f8c88
 GetMsgId__9BMGHolderFUi = 0x805f8c88
 GetMsgByMsgId__9BMGHolderCFUi = 0x805f8cf0
+GetMsgByMsgId__9BMGHolderFUi = 0x805f8cf0
 Init__9BMGHolderFP9BMGHeader = 0x805f8c00
 loadBmgFile         =0x805f8b90
 getMessageByIdx     =0x805f8cf0

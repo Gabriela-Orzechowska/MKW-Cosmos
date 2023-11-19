@@ -1,9 +1,4 @@
-#include <kamek.hpp>
-#include <game/UI/Text.hpp>
-#include <game/UI/Layout/Layout.hpp>
-#include <core/rvl/os/OS.hpp>
-#include <Settings/UserData.hpp>
-#include <core/System/SystemManager.hpp>
+#include <UI/BMG/MessageGroup.hpp>
 
 static BMGHolder * AdditionalHolder = new(BMGHolder);
 
@@ -86,3 +81,59 @@ void setTextBoxMessage_Patch(nw4r::lyt::TextBox * pane, BMGHolder * contextHolde
 
 kmCall(0x8063decc, setTextBoxMessage_Patch);
 kmCall(0x8063dd90, setTextBoxMessage_Patch);
+
+int deleteElements(wchar_t * msg, int index, int size, int len)
+{
+    for(int i = 0; i < size; i++)
+    {
+        for(int j = index; j < len+1; j++)
+        {
+            msg[j] = msg[j+1];
+        }
+    }
+    return len-size;
+}
+
+void RemoveEscapeSequences(wchar_t * msg, int len)
+{
+    u8 index = 0;
+    for(wchar_t * i = (wchar_t *) msg; *i != 0x0; i++)
+    {
+        if(*i == L'\x1a')
+        {
+            u16 val = i[0x1];
+            u8 size = val >> 9;
+            deleteElements(msg, index, size, len);
+        }
+        index++;
+    }
+}
+
+char * GetTextFromMessage(u32 messageId)
+{
+    OSReport("[DX] Function (RemoveEscapeSequences): %p\n", &RemoveEscapeSequences);
+    static char message[128];
+    s32 slot = AdditionalHolder->GetMsgId(messageId);
+    if(slot < 0)
+        return "";
+    wchar_t * msg = AdditionalHolder->GetMsgByMsgId(slot);
+
+    for(wchar_t * i = (wchar_t *) msg; *i != 0x0; i++)
+    {
+        if(*i == L'\x1a')
+        {
+            u16 val = i[0x1];
+            u8 size = (val >> 9) - 2;
+            for(int j = 0; j < size; j++)
+                i[0x2+j] = (wchar_t) 0xFFFF;
+        }
+    }
+
+    u32 mLen = wcslen(msg);
+    RemoveEscapeSequences(msg,mLen);
+
+    memset(message, 0x0, 128);
+    wcstombs(message, msg, mLen+1);
+
+    return message;
+}

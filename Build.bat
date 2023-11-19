@@ -34,11 +34,10 @@ if %ErrorLevel% equ 0 (
 
     echo Binaries copied
 
-    echo Generatic Symbol Map...
+    echo Generating Symbol Map...
     xcopy /Y KamekM.SMAP ".\extra\build-map-file\bin\Debug\net7.0"
     "extra/build-map-file/bin/Debug/net7.0/build-map-file" >NUL 2>&1
     xcopy /Y ".\extra\build-map-file\bin\Debug\net7.0\*.BMAP" ".\TestPack\DX\map"
-
 )
 
 
