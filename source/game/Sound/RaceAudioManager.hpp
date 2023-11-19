@@ -59,7 +59,7 @@ public:
 	u8 localPlayerCount;
 	u8 playerCount;
 	u8 unknown_0x4e[0x54-0x4e];
-	AudioTrack engineVolume;
+	EggAudioTrack engineVolume;
 	u8 unknown_0x70[0x8];
 	nw4r::ut::List actorsList; //0x78 contains all the classes that can generate sound; KartSound, an ItemSound class, an EffectSound etc..., 
 	//in Calc a loop calls their update function

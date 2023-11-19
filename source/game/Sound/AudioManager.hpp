@@ -107,7 +107,7 @@ class Audio3DMgr : public snd::Sound3DEngine{
     EGG::TDisposer<Audio3DMgr> disposer; //806f696c vtable 808c77f4
 };
 
-class AudioTrack : public EGG::AudioTrack{
+class EggAudioTrack : public EGG::AudioTrack{
    void Calc() override; //80717d2c vtable 808c91e0
    void SetVolume(float minValue, float maxValue); //80717d08 if curVol > max then set to max, opposite for min
 
@@ -119,7 +119,7 @@ class SoundPlayersVolumeMgr{
     static void DestroyStaTicInstance(); //8070f0e8
     ~SoundPlayersVolumeMgr(); //8070f19c
     EGG::TDisposer<SoundPlayersVolumeMgr> disposer; //8070eec8 vtable 808c8f90
-    static AudioTrack volumes[11]; //808b28b8 1 ramper = 1 soundPlayer
+    static EggAudioTrack volumes[11]; //808b28b8 1 ramper = 1 soundPlayer
 };
 
 class AudioHandle : public snd::SoundHandle{ //sound handle with a ctor
@@ -155,7 +155,7 @@ class MainSoundPlayerVolumeMgr{ //allows a finer control of soundplayer 0's volu
     static void DestroyStaticInstance(); //806f9b64
     ~MainSoundPlayerVolumeMgr();//806f9c18
     EGG::TDisposer<MainSoundPlayerVolumeMgr> disposer; //806f9990 vtable 808c78e0
-    AudioTrack volumes[6]; //their volume is multiplied and used to set SoundPlayer 0's volume
+    EggAudioTrack volumes[6]; //their volume is multiplied and used to set SoundPlayer 0's volume
     AudioHandle *curHandle; //0xb8
     u32 soundId; //0xbc
     float unknown_0xC0;
@@ -171,7 +171,7 @@ public:
     void Calc(); //806fa420
     EGG::TDisposer<AudioStreamsMgr> disposer; //806f9f80 vtable 808c78d4
     
-    AudioTrack streamsVolume[10]; //first 4 for the usual 4 streams, idk of a sound with 10 streams though
+    EggAudioTrack streamsVolume[10]; //first 4 for the usual 4 streams, idk of a sound with 10 streams though
     AudioHandle *curHandle; //0x1d0
     u8 streamCount; //1d4
     u8 padding[3];
@@ -195,7 +195,7 @@ class AudioReverbMgr {
     bool unknown_0x10;
     u8 padding[3];
     snd::detail::FxReverbHiParam params;
-    AudioTrack volumes[4];
+    EggAudioTrack volumes[4];
 }; //ac
 
 void SwitchAudioChannel(u32 * unknown, u32 channel, u32 transitionSpeed); //806fab2c

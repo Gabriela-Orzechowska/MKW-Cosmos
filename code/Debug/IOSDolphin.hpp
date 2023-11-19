@@ -9,6 +9,19 @@ namespace IOS
 {
     namespace Dolphin
     {
+        typedef struct DiscordRichPresence {
+            char* state; /* max 128 bytes */
+            char* details; /* max 128 bytes */
+            s64 startTimestamp;
+            s64 endTimestamp;
+            char* largeImageKey; /* max 32 bytes */
+            char* largeImageText; /* max 128 bytes */
+            char* smallImageKey; /* max 32 bytes */
+            char* smallImageText; /* max 128 bytes */
+            int partySize;
+            int partyMax;
+        } DiscordRichPresence;
+
         enum DolRequest
         {
             GET_ELAPSED_TIME = 0x01,
@@ -21,7 +34,9 @@ namespace IOS
             DISCORD_SET_CLIENT = 0x07,
             DISCORD_SET_PRESENCE = 0x08,
 
-            GET_SYSTEM_TIME = 0x09,
+            DISCORD_RESET = 0x09,
+
+            GET_SYSTEM_TIME = 0x0A,
         };
 
         static s32 devDolphin = -1;
@@ -42,6 +57,16 @@ namespace IOS
 
         char * GetVersion();
         char * GetVersionName();
+        u32 GetRunTime();
+        u32 GetCPUSpeed();
+
+        u32 GetSpeedLimit();
+        s32 SetSpeedLimit(u32 percent);
+        u64 GetSystemTime();
+
+        s32 DiscordSetClient(const char * client);
+        s32 DiscordSetPresence(const DiscordRichPresence * presence);
+        s32 DiscordReset();
     }
 }
 
