@@ -3,6 +3,7 @@
 #include <game/UI/MenuData/MenuData.hpp>
 #include <LeCode/LeCodeManager.hpp>
 #include <UI/BMG/MessageGroup.hpp>
+#include <System/Sha1.hpp>
 
 using namespace IOS::Dolphin;
 
@@ -80,6 +81,27 @@ s32 RichPresenceManager::UpdateStatus()
     return IOS::Dolphin::DiscordSetPresence(&this->presence);
 }
 
+u32 UpdateTrackImage(u32 param_1)
+{
+    static char finalLink[0x80];
+    ArchiveFile * file = &ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COURSE]->archives[0];
+    void * buffer = file->decompressedArchive;
+    u32 fileSize = file->decompressedarchiveSize;
+    char * trackSha = SHA1::GetFileSha1(buffer,fileSize);
+
+    snprintf(finalLink, 0x80, "https://raw.githubusercontent.com/mkw-sp/mkw-sp/main/thumbnails/%s.jpg", trackSha);
+    RichPresenceManager * manager = RichPresenceManager::sInstance;
+    if(manager != nullptr)
+    {
+        manager->presence.largeImageKey = finalLink;
+        manager->presence.smallImageKey = "icon1";
+    }
+
+    return param_1;
+}
+
+kmBranch(0x80540914, UpdateTrackImage);
+
 void RPCSectionChange()
 {
     MenuId menuId = MenuData::sInstance->curScene->menuId;
@@ -88,7 +110,15 @@ void RPCSectionChange()
     char * status = "";
 
     u32 trackId = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
-    trackId += 0x7000;
+
+    if(menuId < GRAND_PRIX_PANORAMA || menuId > GHOST_RACE_GAMEPLAY_2)
+    {
+        if(menuId < P1_WIFI_VS_GAMEPLAY || menuId > P2_WIFI_FRIEND_COIN_BT_GAMEPLAY)
+        {
+            RichPresenceManager::sInstance->presence.largeImageKey = "icon1";
+            RichPresenceManager::sInstance->presence.smallImageKey = "";
+        }
+    }
 
     switch(menuId){
         case CREATE_NEW_SAVE:
@@ -243,7 +273,8 @@ void RPCSectionChange()
         case P2_WIFI_VS_LIVE_VIEW:
         case P1_WIFI_BT_LIVE_VIEW:
         case P2_WIFI_BT_LIVE_VIEW:
-            status = GetTextFromMessage(trackId);
+            status = GetTextFromMessage(trackId + 0x7000);
+            //UpdateTrackImage(trackId);
             break;
         default:    
             status = "";
@@ -254,6 +285,7 @@ void RPCSectionChange()
     RichPresenceManager::sInstance->UpdateStatus();
     return;
 }
+
 
 static MenuLoadHook mlhRPCSectionChange(RPCSectionChange);
 

@@ -82,7 +82,7 @@
   13048	= Blissful Block \n\z{800,40}\c{blue1}Strobenz\c{off}
   13049	= Strobenz Desert Illusion \n\z{800,40}\c{blue1}Strobenz\c{off}
   1304A	= The \c{red}Thing\c{off} You Can't Defeat \n\z{800,40}\c{blue1}Gabriela_\c{off}
-  1304B	= \c{blue1}Fever\c{off} Factory \n\z{800,40}\c{blue1}Gabriela_\c{off}
+  1304B	= Fever \c{blue1}Factory\c{off} \n\z{800,40}\c{blue1}Gabriela_\c{off}
 
 7000	= \c{blue1}Wii \c{off}Mario Circuit
   7001	= \c{blue1}Wii \c{off}Moo Moo Meadows
@@ -159,4 +159,4 @@
   7048	= Blissful Block
   7049	= Strobenz Desert Illusion
   704A	= The \c{red}Thing\c{off} You Can't Defeat
-  704B	= \c{blue1}Fever\c{off} Factory
+  704B	= Fever \c{blue1}Factory\c{off}

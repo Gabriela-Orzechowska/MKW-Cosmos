@@ -46,9 +46,9 @@ cos = 0x8001b590
 sin = 0x8001ba98
 pow = 0x8001bbf0
 
-NETSHA1Init = 0x801d24f4
-NETSHA1Update = 0x801d2544
-NETSHA1GetDigest = 0x801d25f8
+NETSHA1Init__FP14NETSHA1Context = 0x801d24f4
+NETSHA1Update__FP14NETSHA1ContextPCvUi = 0x801d2544
+NETSHA1GetDigest__FP14NETSHA1ContextPv = 0x801d25f8
 
 __construct_array = 0x80020ff4
 __construct_new_array = 0x80020e34
