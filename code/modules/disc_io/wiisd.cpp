@@ -2,6 +2,7 @@
 #include <core/rvl/ipc/ipc.hpp>
 #include <core/rvl/vi.hpp>
 #include <modules/disc_io/wiisd.hpp>
+#include <main.hpp>
 
 #define SDIO_HEAPSIZE				(5*1024)
  
@@ -335,7 +336,7 @@ static	bool __sd0_initio()
 
 		// reopen the handle which makes IOS clean stuff up
 		IOS::Close(__sd0_fd);
-		__sd0_fd = IOS::Open(_sd0_fs,IOS::MODE_READ);
+		__sd0_fd = DX::Open(_sd0_fs,IOS::MODE_READ);
 
 		// reset the host controller
 		if(__sdio_sethcr(SDIOHCR_SOFTWARERESET, 1, 7) < 0) goto fail;
@@ -431,7 +432,7 @@ static	bool __sd0_initio()
 	__sdio_sethcr(SDIOHCR_SOFTWARERESET, 1, 7);
 	__sdio_waithcr(SDIOHCR_SOFTWARERESET, 1, 1, 7);
 	IOS::Close(__sd0_fd);
-	__sd0_fd = IOS::Open(_sd0_fs,IOS::MODE_READ);
+	__sd0_fd = DX::Open(_sd0_fs,IOS::MODE_READ);
 	return false;
 }
 
@@ -461,7 +462,7 @@ bool sdio_Startup()
 	if(rw_buffer == NULL) rw_buffer = (u8 *) iosAlloc(hId,(4*1024),0x20);
 	if(rw_buffer == NULL) return false;
  
-	__sd0_fd = IOS::Open(_sd0_fs,IOS::MODE_READ);
+	__sd0_fd = DX::Open(_sd0_fs,IOS::MODE_READ);
 
 	if(__sd0_fd<0) {
 		sdio_Deinitialize();
