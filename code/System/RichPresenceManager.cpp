@@ -89,7 +89,8 @@ u32 UpdateTrackImage(u32 param_1)
     u32 fileSize = file->decompressedarchiveSize;
     char * trackSha = SHA1::GetFileSha1(buffer,fileSize);
 
-    snprintf(finalLink, 0x80, "https://raw.githubusercontent.com/mkw-sp/mkw-sp/main/thumbnails/%s.jpg", trackSha);
+    snprintf(finalLink, 0x80, "https://ct.wiimm.de/api/get-start-image?sha1=%s", trackSha);
+    OSReport("[DX RPC] Setting image to:%s\n",finalLink);
     RichPresenceManager * manager = RichPresenceManager::sInstance;
     if(manager != nullptr)
     {
