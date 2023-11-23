@@ -29,7 +29,7 @@ namespace FAT
 
         ~Cache();
 
-        static Cache * CreateCache(u8 * space, size_t size, const DISC_INTERFACE * interface, u32 endOfPartition, u32 bytesPerSector);
+        static Cache * GetCache(u8 * space, size_t size, const DISC_INTERFACE * interface, u32 endOfPartition, u32 bytesPerSector);
 
         bool ReadPartialSector(void * buffer, u32 sector, u32 offset, size_t size);
         bool ReadLittleEndianValue(u32 * value, u32 sector, u32 offset, s32 size);

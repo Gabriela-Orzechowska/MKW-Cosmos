@@ -206,7 +206,7 @@ namespace FAT
         }
     }
 
-    Cache * Cache::CreateCache(u8 * space, size_t size, const DISC_INTERFACE * interface, u32 endOfPartition, u32 bytesPerSector)
+    Cache * Cache::GetCache(u8 * space, size_t size, const DISC_INTERFACE * interface, u32 endOfPartition, u32 bytesPerSector)
     {
         if(size < sizeof(Cache)) return nullptr;
         u32 numberOfPages = (size - sizeof(Cache) - 32) / (sizeof(CacheEntry) + bytesPerSector * SECTORS_PER_PAGE);
