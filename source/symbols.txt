@@ -15,6 +15,8 @@ __div2u = 0x80021604
 memcpy = 0x80005f34
 memset = 0x80006038
 
+Run__FPFv_v = 0x801a31a8
+
 #systemManager
 sInstance__13SystemManager = 0x80386000
 RestartGame__13SystemManagerFv = 0x8000b1bc
@@ -49,6 +51,8 @@ pow = 0x8001bbf0
 NETSHA1Init__FP14NETSHA1Context = 0x801d24f4
 NETSHA1Update__FP14NETSHA1ContextPCvUi = 0x801d2544
 NETSHA1GetDigest__FP14NETSHA1ContextPv = 0x801d25f8
+
+CalcRating__Ff = 0x8052cef8
 
 __construct_array = 0x80020ff4
 __construct_new_array = 0x80020e34
@@ -182,6 +186,7 @@ OSShutdownSystem = 0x801a856c
 OSGetStackPointer = 0x801a2030
 OSIsTitleInstalled = 0x801ae4a0
 current__8OSThread = 0x800000e4
+OSRestart = 0x801a8688
 
 __nw__FUl = 0x80229dcc
  __nwa__FUl = 0x80229df0
