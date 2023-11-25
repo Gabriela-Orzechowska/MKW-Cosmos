@@ -4,6 +4,7 @@
 #include <game/UI/Ctrl/UIControl.hpp>
 
 class MessageWindowControl : public LayoutUIControl{
+    public:
     MessageWindowControl(); //805f9700
     ~MessageWindowControl() override; //805f973c vtable 808b9ee0
     int GetRuntimeTypeInfo() const override; //0x28 805f9e40

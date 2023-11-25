@@ -8,6 +8,7 @@
 #include <game/System/FontManager.hpp>
 #include <core/rvl/os/OS.hpp>
 #include <UI/Settings/SettingsBasePage.hpp>
+#include <UI/MiscUI.hpp>
 
 using namespace DXData;
 
@@ -58,7 +59,6 @@ static char * suffixes[13] = {
 kmWriteRegionInstruction(0x80604094, 0x4800001c, 'E');
 
 
-static bool loadedAsKorean = false;
 static u32 fontFileName = 0x0;
 static u32 fontBRFNTName = 0x0;
 
@@ -83,19 +83,21 @@ void UpdateLanguage()
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1], localization, 0x80);
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archiveSuffixes[0x1], localization, 0x80);
 
-    if((language == 12) != loadedAsKorean)
-    {
-
-    }
-
-    if(languageSettings != lastLanguage)
-    {
-        lastLanguage = languageSettings;
         DXUI::SettingsBasePage * page = MenuData::sInstance->curScene->Get<DXUI::SettingsBasePage>((PageId)DX::SETTINGS_MAIN);
         page->wasLanguageChanged = true;
-        //MenuData::sInstance;
-        //page->LoadPrevPageWithDelayById(page->lastPage, 100.0f);
-        page->ChangeMenuWithDelayById(page->lastMenu, 0.0f);
+    if((language == 12) == loadedAsKorean)
+    {
+        if(languageSettings != lastLanguage)
+        {
+            lastLanguage = languageSettings;
+            //MenuData::sInstance;
+            //page->LoadPrevPageWithDelayById(page->lastPage, 100.0f);
+            page->ChangeMenuWithDelayById(page->lastMenu, 0.0f);
+        }
+    }
+    else
+    {
+        page->koreanChange = true;
     }
 
     lastLanguage = languageSettings;

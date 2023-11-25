@@ -186,7 +186,6 @@ namespace DXUI
             valueCtrl->id = id;
 
             u32 bmgOption = BMG_SETTING_FIELD | ((pageIndex-MINPAGE) << 8) | (id << 4);
-            OSReport("[DX] BMG ID: %d", bmgOption);
 
             u32 bmgId = BMG_SETTING_OPTION | ((pageIndex-MINPAGE) << 8) | (id << 4);
             if(this->pageDefinition.settings[id].isBool)
@@ -194,6 +193,8 @@ namespace DXUI
 
             upDownCtrl->SetMsgId(bmgOption);
             valueCtrl->activeTextValueControl->SetMsgId(bmgId);
+            nw4r::ut::Color col;
+            col.rgba = 0xFF00FFFF;
         }
 
         else if(id = this->scrollersCount)
@@ -267,6 +268,7 @@ namespace DXUI
     void SettingSubPage::OnBackPress(u32 slotId)
     {
         EndStateAnimate(0.0f, 1);
+        
         basePage->OnBackPress(slotId);
     }
 

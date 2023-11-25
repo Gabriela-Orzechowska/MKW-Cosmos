@@ -26,7 +26,7 @@ static_assert(sizeof(UpDownDisplayedText) == 0x4,"UpDownDisplayedText");
 class TextUpDownValueControl : public LayoutUIControl, public UpDownDisplayedText {
 public:
     class TextControl : public LayoutUIControl {
-    private:
+    public:
         TextControl(); // 806410e0
         ~TextControl() override; //8064111c vtable 808bf430
         void InitSelf() override; //0x18 806411e8

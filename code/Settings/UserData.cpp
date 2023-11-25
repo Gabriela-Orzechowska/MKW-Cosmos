@@ -12,8 +12,8 @@ namespace DXData
 
     void SettingsHolder::Update()
     {
-        SettingsUpdateHook::exec();
         this->RequestSave();
+        SettingsUpdateHook::exec();
     }
 
     void SettingsHolder::Init(char * filepath, const char * magic, u32 version)

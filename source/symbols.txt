@@ -810,6 +810,7 @@ SetVotedCourseId__Q25Pages4VoteF8CourseId = 0x80643f48
 
 #Page
 __ct__4PageFv = 0x8060197c
+Activate__4PageFv = 0x80601aec
 GetClassName__4PageCFv = 0x805bb25c
 GetNextPage__4PageCFv = 0x805bb278
 func_0x14__4PageFv = 0x805bb254
@@ -1078,6 +1079,25 @@ OnInit__Q25Pages7WFCMainFv = 0x8064b910
 OnActivate__Q25Pages7WFCMainFv = 0x8064bc90
 GetRuntimeTypeInfo__Q25Pages7WFCMainCFv = 0x8064d690
 OnButtonSelect__Q25Pages7WFCMainFP10PushButtonUi = 0x8064bf4c
+
+#MessageWindowControl
+__ct__20MessageWindowControlFv = 0x805f9700
+Load__20MessageWindowControlFPCcPCcPCc = 0x805f9794
+
+#YesNoPage
+__ct__Q25Pages5YesNoFv = 0x80652300
+
+#Approve
+__ct__Q25Pages7ApproveFv = 0x805c1cc0
+__dt__Q25Pages7ApproveFv = 0x805c1e18
+OnInit__Q25Pages7ApproveFv = 0x805c1eb8
+SetMessageWindowMessage__Q25Pages7ApproveFUiPC8TextInfo = 0x805c21b0
+Reset__Q25Pages7ApproveFv = 0x805c211c
+GetRuntimeTypeInfo__Q25Pages7ApproveCFv = 0x805c2364
+BeforeEntranceAnimations__Q25Pages7ApproveFv = 0x805c2324
+OnDeactivate__Q25Pages7ApproveFv = 0x805c2118
+OnActivate__Q25Pages7ApproveFv = 0x805c208c
+GetNextPage__Q25Pages7ApproveCFv = 0x805c235c
 
 #CountdownTimer
 __ct__Q25Pages14CountDownTimerFv = 0x8064fbdc 

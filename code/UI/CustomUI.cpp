@@ -2,6 +2,7 @@
 #include <main.hpp>
 #include <UI/Settings/SettingsBasePage.hpp>
 #include <UI/Settings/SettingsSubPage.hpp>
+#include <UI/Settings/MessageWarning.hpp>
 
 void * CreatePage(Scene * scene, u32 pageId)
 {
@@ -36,6 +37,11 @@ void * CreatePage(Scene * scene, u32 pageId)
 
         return new(DXUI::SettingSubPage)(&definition ,pageId);
     }
+    else if(pageId == (u32)DX::WARNING_PAGE)
+    {
+        return new (DXUI::MessagePageWindow);
+    }
+
     return scene->CreatePageById((PageId)pageId);
 }
 
@@ -48,6 +54,7 @@ void InjectPage(Scene *scene, PageId id)
     scene->CreatePage((PageId)DX::SETTINGS_MAIN);
     scene->CreatePage((PageId)DX::RACE_SETTINGS1);
     scene->CreatePage((PageId)DX::MENU_SETTINGS1);
+    scene->CreatePage((PageId)DX::WARNING_PAGE);
     return;
 }
 kmCall(0x8062fe3c, InjectPage); //OPTIONS

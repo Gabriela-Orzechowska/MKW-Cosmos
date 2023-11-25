@@ -1,6 +1,7 @@
 #include <UI/Settings/SettingsBasePage.hpp>
 #include <UI/Settings/SettingsSubPage.hpp>
 #include <UI/BMG/BMG.hpp>
+#include <UI/MiscUI.hpp>
 
 namespace DXUI
 {
@@ -77,6 +78,7 @@ namespace DXUI
         currentPageId = (u32)DX::RACE_SETTINGS1;
         Menu::OnInit();
         this->SetTransitionSound(0x0,0x0);
+        this->koreanChange = false;
     }
 
     UIControl * SettingsBasePage::CreateExternalControl(u32 id)
@@ -180,6 +182,7 @@ namespace DXUI
     void SettingsBasePage::OnActivate()
     {
         this->wasLanguageChanged = false;
+        this->koreanChange = false;
         Menu::OnActivate();
         Page::transitionDelay = 176.0f;
         this->AddPageLayer((PageId)currentPageId, 0);
@@ -188,7 +191,11 @@ namespace DXUI
     void SettingsBasePage::OnBackPress(u32 slotId)
     {
         this->SaveSettings();
-        if(!this->wasLanguageChanged) this->LoadPrevPageWithDelayById(lastPage, 0.0f);
+        
+        using namespace DXData;
+        u32 language = SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_LANGUAGE_SETTINGS];
+        if(this->koreanChange) this->LoadPrevPageWithDelayById((PageId)DX::WARNING_PAGE, 0.0f);
+        else if(!this->wasLanguageChanged) this->LoadPrevPageWithDelayById(lastPage, 0.0f);
     }
 
     void SettingsBasePage::SaveSettings()

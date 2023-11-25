@@ -12,6 +12,7 @@ namespace DX
 {
     enum CUSTOM_PAGE_IDS 
     {
+        WARNING_PAGE = 0xBA,
         SETTINGS_MAIN = 0xB7,
         RACE_SETTINGS1 = 0xB8,
         MENU_SETTINGS1 = 0xB9,

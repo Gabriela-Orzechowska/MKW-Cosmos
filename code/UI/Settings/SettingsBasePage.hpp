@@ -46,6 +46,7 @@ namespace DXUI
 
         u32 currentPageId;
         bool wasLanguageChanged;
+        bool koreanChange;
 
         private:
         static void SaveSettings();
