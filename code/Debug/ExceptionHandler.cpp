@@ -19,6 +19,7 @@
 #include <Controller/MiscController.hpp>
 #include <core/System/SystemManager.hpp>
 #include <Debug/SymbolMap.hpp>
+#include <main.hpp>
 
 extern char gameID[4];
 
@@ -207,8 +208,6 @@ namespace DXDebug{
 
         bool ccp = (ret == 0 && (controllerType == 2 || controllerType == 7));
         
-
-       
         u32 controller = MenuData::sInstance->pad.padInfos[0].controllerSlotAndTypeActive;
         ControllerType type = ControllerType(controller & 0xFF);
         RealControllerHolder * holder = &InputData::sInstance->realControllerHolders[0];
@@ -301,4 +300,33 @@ namespace DXDebug{
         }
     }
     kmBranch(0x80226464 ,ExceptionCallBack_);
+
+#define DEBUG 1
+
+#ifdef DEBUG
+    void PPCHalt()
+    {
+        if(*(char *)0x80000003 != 'P'){ //TEMP
+            for(;;){}
+        }
+        /*
+        u32 tick0 = OSGetTick();
+        u32 tick1 = tick0;
+        while (OSTicksToMilliseconds(tick1-tick0) < 1000) tick1 = OSGetTick();
+        */
+
+        OSReport("canel all thread...\n");
+        EGG::Thread::kandoTestCancelAllThread();
+        OSReport("done\n");
+        
+        int a = 1;
+        for(int i =0; i < 110000000; i++) {a = a * i;a = a * i;a = a * i;;a = a * i;;a = a * i;;a = a * i;a = a * i;a = a * i;}
+        OSReport("%d",a);
+        while(true) 
+        {
+            IOS::IOCtl(*(s32 *)0x80386938, (IOS::IOCtlType)0x2003, (void *)0x80347ee0, 0x20, (void *)0x80347f00,0x20);
+        }
+    }
+    kmBranch(0x8012e5a4, PPCHalt);
+#endif
 }
