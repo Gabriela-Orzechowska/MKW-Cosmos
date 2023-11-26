@@ -42,6 +42,7 @@ namespace FAT
         bool WriteSectors(u32 sector, u32 sectorCount, const void * buffer);
 
         void Invalidate();
+        bool Flush();
 
         inline bool ReadSector(void * buffer, u32 sector)
         {
@@ -54,7 +55,6 @@ namespace FAT
         }
 
         private:
-        bool Flush();
         CacheEntry * GetPage(u32 sector);
        
     };

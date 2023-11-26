@@ -113,6 +113,7 @@ namespace DXFile
 
     s32 RiivoFileManager::CreateOpen(const char * filepath, u32 mode){
         s32 riivo_fd = this->GetDeviceFd();
+
         IOS::IOCtl(riivo_fd, (IOS::IOCtlType) RIIVO_IOCTL_CREATEFILE, (void*) filepath, strlen(filepath)+1, NULL, 0);
         IOS::Close(riivo_fd);
         return this->Open(filepath, mode);

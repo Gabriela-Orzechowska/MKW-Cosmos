@@ -295,5 +295,4 @@ void InitRPC()
     RichPresenceManager * instance = RichPresenceManager::GetStaticInstance();
     instance->Init();
 }
-
 static BootHook bhInitRPC(InitRPC, LOW);

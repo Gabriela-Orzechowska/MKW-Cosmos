@@ -23,4 +23,8 @@ namespace DXUI
     {
         DX::Restart();
     }
+    void MessagePageWindow::SetMessage(u32 id)
+    {
+        this->SetMessageWindowMessage(id,0x0);
+    }
 }

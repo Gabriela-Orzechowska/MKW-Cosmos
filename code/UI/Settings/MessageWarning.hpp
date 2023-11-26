@@ -10,5 +10,6 @@ namespace DXUI
         void OnInit() override;
         void OnBackPress(u32 hudSlotId);
         void OnClick(PushButton *button, u32 hudSlotId);
+        void SetMessage(u32 id);
     };
 }

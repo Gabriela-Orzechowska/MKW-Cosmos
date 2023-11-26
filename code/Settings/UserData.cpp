@@ -22,6 +22,7 @@ namespace DXData
         Settings * buffer = new (RKSystem::mInstance.EGGSystem, 0x20) Settings;
 
         DXFile::FileManager * manager = DXFile::FileManager::GetStaticInstance();
+        
         manager->CreateOpen(this->filepath, DXFile::FILE_MODE_READ_WRITE);
         manager->Read(buffer, sizeof(Settings));
         if(strcmp(buffer->signature, magic) != 0 || buffer->version != version)

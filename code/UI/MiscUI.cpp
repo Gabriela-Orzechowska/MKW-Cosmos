@@ -83,13 +83,13 @@ void UpdateLanguage()
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1], localization, 0x80);
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archiveSuffixes[0x1], localization, 0x80);
 
-        DXUI::SettingsBasePage * page = MenuData::sInstance->curScene->Get<DXUI::SettingsBasePage>((PageId)DX::SETTINGS_MAIN);
-        page->wasLanguageChanged = true;
+    DXUI::SettingsBasePage * page = MenuData::sInstance->curScene->Get<DXUI::SettingsBasePage>((PageId)DX::SETTINGS_MAIN);
     if((language == 12) == loadedAsKorean)
     {
         if(languageSettings != lastLanguage)
         {
             lastLanguage = languageSettings;
+            page->wasLanguageChanged = true;
             //MenuData::sInstance;
             //page->LoadPrevPageWithDelayById(page->lastPage, 100.0f);
             page->ChangeMenuWithDelayById(page->lastMenu, 0.0f);
@@ -142,8 +142,7 @@ kmWrite32(0x8000ad9c, 0x38000006); //System Dutch
 
 static SettingsUpdateHook UpdateSystemLanguage(UpdateLanguage);
 static SettingsUpdateHook FasterPages(FasterPageTransition);
-//static MenuLoadHook UpdateSystemLanguageMenuLoad(UpdateLanguage);
-//static StrapEndHook SetLanguageOnBoot(UpdateLanguage);
+
 kmBranch(0x8053fc98, UpdateArchiveHolderLanguageOnInit);
 
 void DisableBMGSizeOverride()
@@ -161,4 +160,4 @@ void WhiteStrapTransition()
     RKSystem::sInstance->sceneManager->colorFader->setColor(white);
 }
 
-static LeCodeLoadHook hWhiteStrapTransition(WhiteStrapTransition);
+//static LeCodeLoadHook hWhiteStrapTransition(WhiteStrapTransition);

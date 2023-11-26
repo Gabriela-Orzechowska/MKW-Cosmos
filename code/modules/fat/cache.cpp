@@ -97,8 +97,8 @@ namespace FAT
         switch(size)
         {
             case 1: *value = buffer[0]; break;
-            case 2: *value = (u16) (buffer[0] & buffer[1] << 8); break;
-            case 4: *value = (u32) (buffer[0] & buffer[1] << 8 & buffer[2] << 16 & buffer[3] << 24); break;
+            case 2: *value = (u16) (buffer[0] | buffer[1] << 8); break;
+            case 4: *value = (u32) (buffer[0] | buffer[1] << 8 | buffer[2] << 16 | buffer[3] << 24); break;
             default: return false;
         }
         return true;
