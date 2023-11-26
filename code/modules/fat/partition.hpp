@@ -26,13 +26,13 @@ namespace FAT
     typedef enum {FT_DIRECTORY, FT_FILE} FILE_TYPE; 
 
     typedef struct {
-        u32    fatStart;
+        u32 fatStart;
         u32 sectorsPerFat;
         u32 lastCluster;
         u32 firstFree;
         u32 numberFreeCluster;
         u32 numberLastAllocCluster;
-    } FAT_t;
+    } FAT_t;  
 
     typedef struct {
         u32 cluster;
@@ -95,6 +95,25 @@ namespace FAT
         void ReadFSInfo();
         void WriteFSInfo();
         bool GetPartition(const DISC_INTERFACE * disc, u8 * cacheSpace, size_t cacheSize, u32 startSector);
+
+        //FAT Libs
+        u32 NextCluster(u32 cluster);
+        u32 LinkFreeCluster(u32 cluster);
+        u32 LinkFreeClusterCleared(u32 cluster);
+        bool ClearLinks(u32 cluste);
+        u32 TrimChain(u32 startCluster, u32 length);
+        u32 LastCluster(u32 cluster);
+        u32 FreeClusterCount();
+
+        u32 ClusterToSector(u32 cluster){
+            return (cluster >= CLUSTER_FIRST) ? ((cluster - CLUSTER_FIRST) * this->sectorsPerCluster) + this->dataStart : this->rootDirStart;  
+        }
+        bool IsValidCluster(u32 cluster){
+            return (cluster >= CLUSTER_FIRST) && (cluster <= this->fat.lastCluster);
+        }
+
+        private:
+        bool WriteFatEntry(u32 cluster, u32 val);
     };
 
 } // namespace FAT
