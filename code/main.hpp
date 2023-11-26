@@ -32,7 +32,7 @@ namespace DX
     };  
 
     static TT_MODE TTMode;
-    static bool isDolphin;
+    static bool isDolphin = false;
 
 
     s32 Open(char *path, IOS::Mode mode);

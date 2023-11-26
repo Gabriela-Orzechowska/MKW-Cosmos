@@ -1,4 +1,4 @@
-#include "partition.hpp"
+#include <modules/fat/partition.hpp>
 
 namespace FAT
 {
@@ -10,6 +10,7 @@ namespace FAT
 
         u32 sector;
         s32 offset;
+        u32 nextCluster2 = 0;
         switch(this->filesysType)
         {
             case FS_UNKNOWN:
@@ -26,7 +27,6 @@ namespace FAT
                     offset = 0;
                     sector++;
                 }
-                u32 nextCluster2 = 0;
 
                 this->cache->ReadLittleEndianValue(&nextCluster2, sector, offset, sizeof(u8));
                 nextCluster |= (nextCluster2 << 8);

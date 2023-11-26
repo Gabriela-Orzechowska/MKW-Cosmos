@@ -14,6 +14,9 @@ __div2u = 0x80021604
 
 memcpy = 0x80005f34
 memset = 0x80006038
+memcmp = 0x8000f314
+
+msleep__7DXDebugFUi = 0x800f2510
 
 Run__FPFv_v = 0x801a31a8
 
@@ -193,7 +196,10 @@ __nw__FUl = 0x80229dcc
 __dl__FPv = 0x80229e14
 __dla__FPv = 0x80229ee0
 
-
+#OSMutex
+OSInitMutex__FP7OSMutex = 0x801a7eac
+OSLockMutex__FP7OSMutex = 0x801a7ee4
+OSUnlockMutex__FP7OSMutex = 0x801a7fc0
 
 ##Documented Classes
 #nw4r

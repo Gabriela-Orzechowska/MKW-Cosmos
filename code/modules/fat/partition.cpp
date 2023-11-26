@@ -1,5 +1,4 @@
-#include "partition.hpp"
-#include "bit_ops.hpp"
+#include <modules/fat/partition.hpp>
 
 enum BPB {
 	BPB_jmpBoot = 0x00,
@@ -62,12 +61,12 @@ static const u32 FS_INFO_SIG2 = 0x61417272; /* 'rrAa' in little endian */
 
 inline static u32 u8array_to_u32(const u8 * ptr, int offset)
 {
-    (u32) (ptr[offset] | ptr[1+offset] << 8 | ptr[2+offset] << 16 | ptr[3+offset] << 24);
+    return (u32) (ptr[offset] | ptr[1+offset] << 8 | ptr[2+offset] << 16 | ptr[3+offset] << 24);
 }
 
 inline static u16 u8array_to_u16(const u8 * ptr, int offset)
 {
-    (u16) (ptr[offset] | ptr[1+offset] << 8);
+    return (u16) (ptr[offset] | ptr[1+offset] << 8);
 }
 
 namespace FAT

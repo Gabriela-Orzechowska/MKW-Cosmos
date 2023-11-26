@@ -2,9 +2,12 @@
 #define _FAT_PARTITION_
 
 #include <kamek.hpp>
+#include <modules/fat/types.hpp>
+#include <modules/fat/directory.hpp>
 #include <modules/disc_io/disc_io.hpp>
-#include "lock.hpp"
-#include "cache.hpp"
+#include <modules/fat/lock.hpp>
+#include <modules/fat/cache.hpp>
+#include <modules/fat/stat.hpp>
 
 #define MIN_SECTOR_SIZE     512
 #define MAX_SECTOR_SIZE     4096
@@ -22,6 +25,8 @@
 
 namespace FAT
 {
+    class Directory;
+
     typedef enum {FS_UNKNOWN, FS_FAT12, FS_FAT16, FS_FAT32} FS_TYPE;
     typedef enum {FT_DIRECTORY, FT_FILE} FILE_TYPE; 
 
@@ -34,19 +39,12 @@ namespace FAT
         u32 numberLastAllocCluster;
     } FAT_t;  
 
+    class Partition;
     typedef struct {
         u32 cluster;
         u32 sector;
         s32 byte;
     } FILE_POSITION;
-
-    typedef struct {
-        u32 cluster;
-        u32    sector;
-        s32  offset;
-    } DIR_ENTRY_POSITION;
-
-    class Partition;
 
     struct _FILE_STRUCT {
         u32             filesize;
@@ -112,8 +110,23 @@ namespace FAT
             return (cluster >= CLUSTER_FIRST) && (cluster <= this->fat.lastCluster);
         }
 
+        //Directory
+
+        bool GetFirstEntry(Directory * dir, u32 dirCluster);
+        bool GetNextEntry(Directory * dir);
+        bool EntryFromPath(Directory * dir, const char * path, const char * pathEnd);
+        bool Chdir(const char * path);
+        bool RemoveEntry(Directory * dir);
+        bool AddEntry(Directory * dir, u32 dirCluster);
+        u32 EntryGetCluster(const u8 * entryData);
+        bool EntryFromPosition(Directory * dir);
+        void EntryStat(Directory * dir, stat * st);
+        bool GetVolumeLabel(char * label);
+
+
         private:
         bool WriteFatEntry(u32 cluster, u32 val);
+        
     };
 
 } // namespace FAT
