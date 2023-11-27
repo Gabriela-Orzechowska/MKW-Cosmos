@@ -9,6 +9,7 @@ extern "C" {
 void GXSetVtxDesc(GXAttr attr, GXAttrType type);
 void GXClearVtxDesc();
 void GXSetVtxAttrFmt(GXVtxFmt vtxfmt, GXAttr attr, GXCompCnt cnt, GXCompType type, u8 frac);
+void GXSetDrawSync(u32 val);
 void GXSetNumTexGens(u8 nr);
 void GXBegin(GXPrimitive type, GXVtxFmt vtxfmt, u16 nverts);
 void GXSetCullMode(GXCullMode mode);

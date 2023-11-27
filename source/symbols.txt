@@ -627,6 +627,9 @@ SetOnTextChangeHandler__22TextUpDownValueControlFP66PtmfHolder_2A<4Page,v,PQ222T
 func_vtable__12UnkTextClassFv = 0x80642a50
 
 AsyncDisplay_endRender__FPQ23EGG12AsyncDisplay = 0x8020ff9c
+AsyncDisplay_beginRender__FPQ23EGG12AsyncDisplay = 0x8020ff98
+AsyncDisplay_beginFrame__FPQ23EGG12AsyncDisplay = 0x8020fe24
+AsyncDisplay_getTickPerFrame__FPQ23EGG12AsyncDisplay = 0x80210124
 
 #UpDownDisplayedText
 __vt__19UpDownDisplayedText = 0x808bf3d8
@@ -640,6 +643,8 @@ Animate__22TextUpDownValueControlFUi = 0x80640e68
 Get3rdAnimStartFrame__22TextUpDownValueControlCFv = 0x80640f00
 SetBorderColours__22TextUpDownValueControlFP6RGBA16P6RGBA16 = 0x80640f74
 SetColor_BaseColours__22TextUpDownValueControlFP6RGBA16 = 0x80641028
+
+GXSetDrawSyncCallback__FUi = 0x8016ec88
 
 #UpDownControl
 __ct__13UpDownControlFv = 0x8063e960
