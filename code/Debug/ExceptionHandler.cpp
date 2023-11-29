@@ -103,7 +103,7 @@ namespace DXDebug{
         nw4r::db::Exception_Printf_("**** MKWDX EXCEPTION HANDLER ****\n");
         nw4r::db::Exception_Printf_("MKW Deluxe v9.0 (%s %s)\nPlatform: %s\n", __DATE__, __TIME__, DXDebug::GetPlatformString());
         nw4r::db::Exception_Printf_("*** Dearest Player\n*** I hope it finds you well. We seem to have\n*** found ourselves a crash in the game. Please\n*** consider taking a screenshot and sending it \n*** to #bug-reports\n");
-        // nw4r::db::Exception_Printf_("***\n");
+        nw4r::db::Exception_Printf_("***\n");
         // nw4r::db::Exception_Printf_("*** Sincerely, @VolcanoPiece1\n");
 
         return;
