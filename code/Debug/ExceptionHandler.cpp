@@ -102,6 +102,10 @@ namespace DXDebug{
     {
         nw4r::db::Exception_Printf_("**** MKWDX EXCEPTION HANDLER ****\n");
         nw4r::db::Exception_Printf_("MKW Deluxe v9.0 (%s %s)\nPlatform: %s\n", __DATE__, __TIME__, DXDebug::GetPlatformString());
+        nw4r::db::Exception_Printf_("*** Dearest Player\n*** I hope it finds you well. We seem to have\n*** found ourselves a crash in the game. Please\n*** consider taking a screenshot and sending it \n*** to #bug-reports\n");
+        // nw4r::db::Exception_Printf_("***\n");
+        // nw4r::db::Exception_Printf_("*** Sincerely, @VolcanoPiece1\n");
+
         return;
     }
 
@@ -109,8 +113,8 @@ namespace DXDebug{
 
     void PrintSRR(const char * format, u32 srr0, u32 srr1)
     {
-       nw4r::db::Exception_Printf_("SRR0:   %08XH   SRR1:%08XH\n", srr0, srr1);
-       nw4r::db::Exception_Printf_("%s\n",SymbolManager::GetSymbolName(srr0));
+        nw4r::db::Exception_Printf_("SRR0:   %08XH   SRR1:%08XH\n", srr0, srr1);
+        nw4r::db::Exception_Printf_("%s\n",SymbolManager::GetSymbolName(srr0));
 
     }
     kmCall(0x80023b8c, PrintSRR);
@@ -172,6 +176,7 @@ namespace DXDebug{
     void SetConsoleParams(){
         nw4r::db::detail::ConsoleHead *console = EGG::Exception::console;
         console->width = 0x70;
+        // console->height = 0x40;
     }
     BootHook ConsoleParams(SetConsoleParams, LOW);
 
