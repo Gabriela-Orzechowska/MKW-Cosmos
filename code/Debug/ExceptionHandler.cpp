@@ -176,7 +176,7 @@ namespace DXDebug{
     void SetConsoleParams(){
         nw4r::db::detail::ConsoleHead *console = EGG::Exception::console;
         console->width = 0x70;
-        // console->height = 0x40;
+        console->height = 0x40;
     }
     BootHook ConsoleParams(SetConsoleParams, LOW);
 
