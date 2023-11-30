@@ -41,7 +41,7 @@ also can be changed with minus on track selection)
   - Language Selector (All vanilla + ability to add more)
   - Fast Menus
 - Accesibility (menu to be added)
-  - Y/ZR to Wheelie
+  - Y/ZL to Wheelie
 
 ## In works
 - Independent SD Card/USB support
