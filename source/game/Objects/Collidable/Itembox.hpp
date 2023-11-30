@@ -1,11 +1,11 @@
 #ifndef _ITEMBOX_
 #define _ITEMBOX_
 #include <kamek.hpp>
-#include <game/Objects/Collidable/ObjectCollidable.hpp>
+#include <game/Objects/Collidable/GeoObjectCollidable.hpp>
 
 namespace Objects{
     
-class Itembox : public ObjectCollidable, public ObjectCycleManager{ //0x65 = 101
+class Itembox : public GeoObjectCollidable, public ObjectCycleManager{ //0x65 = 101
     explicit Itembox(KMP::GOBJHolder *gobjHolder); //808285b0
 
     ~Itembox() override; //806c4f74 vtable 808d7bc0

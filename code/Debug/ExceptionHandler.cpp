@@ -97,6 +97,20 @@ namespace DXDebug{
 
         return filepath;
     }
+    extern u32 SRR0_addr;
+    void PrintUnhandled()
+    {
+        char text[] = "Dearest Player\nI hope it finds you well.\nWe seem to have found ourselves a crash in the game.\nPlease consider taking a screenshot and sending it to #bug-reports\n\nSRR0: %08X";
+        char final[200];
+        snprintf(final, 200, text, SRR0_addr);
+
+        u32 black = 0;
+        u32 white = ~0;
+        OSFatal(&white,&black,final);
+
+    }
+
+    kmBranch(0x801a2ce8, PrintUnhandled);
 
     void PrintHeader()
     {
@@ -324,9 +338,22 @@ namespace DXDebug{
         EGG::Thread::kandoTestCancelAllThread();
         OSReport("done\n");
         
-        int a = 1;
-        for(int i =0; i < 110000000; i++) {a = a * i;a = a * i;a = a * i;;a = a * i;;a = a * i;;a = a * i;a = a * i;a = a * i;}
-        OSReport("%d",a);
+        register int tick1;
+        asm{
+            ASM(
+                mftb tick1;
+            )
+        };
+        
+        register int tick2 = tick1;
+        while(OSTicksToMilliseconds(tick2-tick1)<10000){
+            asm{
+                ASM(
+                    mftb tick2;
+                )
+            }
+        }
+        
         while(true) 
         {
             IOS::IOCtl(*(s32 *)0x80386938, (IOS::IOCtlType)0x2003, (void *)0x80347ee0, 0x20, (void *)0x80347f00,0x20);

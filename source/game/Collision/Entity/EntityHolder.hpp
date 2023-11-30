@@ -7,7 +7,7 @@ class Object;
 class ItemObj;
 class Kart;
 class ObjectKCL;
-class ObjectCollidable;
+class GeoObjectCollidable;
 
 //class that links karts/objects/items etc.. into a single trait
 
@@ -25,8 +25,8 @@ class Entity{
     /*
     0x1 = Kart
     0x2 = ItemObj
-    0x4 = some ObjectCollidable
-    0x8 = other ObjectCollidable woodbox for example
+    0x4 = some GeoObjectCollidable
+    0x8 = other GeoObjectCollidable woodbox for example
     0x10 = ObjectKCL
     0x200 = collision disabled
     */
@@ -44,12 +44,12 @@ class EntityManager : public EGG::Disposer{
 
     Kart *GetNextKart(); //80785d8c 
     ItemObj *GetNextItemEntity();  //80785df4
-    ObjectCollidable *GetNextObjectCollidable();  //80785e5c
+    GeoObjectCollidable *GetNextGeoObjectCollidable();  //80785e5c
     ObjectKCL *GetNextObjectKCL();  //80785ec4
 
     void InsetKart(Vec3 *position, u32 params, Kart *subject, float radius, float maxSpeed); //80786050
     void InsertItemEntity(Vec3 *position, u32 params, ItemObj *subject, float radius, float maxSpeed); //80786064
-    void InsertObjectCollidable(Vec3 *position, u32 params, ObjectCollidable *subject, float radius, float maxSpeed); //80786078
+    void InsertGeoObjectCollidable(Vec3 *position, u32 params, GeoObjectCollidable *subject, float radius, float maxSpeed); //80786078
     void InsertObjectKCL(Vec3 *position, u32 params, ObjectKCL *subject, float radius, float maxSpeed); //80786120
     void InsertEntity(Vec3 *position, u32 params, void *subject, float radius, float maxSpeed); //80786134
     

@@ -11,10 +11,10 @@ Contributors:
 -Melg
 */
 
-class ObjectCollidable : public Object{ //collision is added as there is no KCL, different shapes available cube/cylinder/sphere, depends on the obj
-    explicit ObjectCollidable(KMP::GOBJHolder *gobjHolder); //8081efec
-    ObjectCollidable(const char *name, Vec3 *position, Vec3 *rotation, Vec3 *scale, u32 r8); //8081f064
-    ~ObjectCollidable() override; //8067e384 vtable 808d6dd8
+class GeoObjectCollidable : public Object{ //collision is added as there is no KCL, different shapes available cube/cylinder/sphere, depends on the obj
+    explicit GeoObjectCollidable(KMP::GOBJHolder *gobjHolder); //8081efec
+    GeoObjectCollidable(const char *name, Vec3 *position, Vec3 *rotation, Vec3 *scale, u32 r8); //8081f064
+    ~GeoObjectCollidable() override; //8067e384 vtable 808d6dd8
     void Init() override; //0x20 8081f0a0 
     void LoadCollision() override; //0x60 8081f224
     void UpdateCollision() override; //0x74 8081f7c8
@@ -24,9 +24,9 @@ class ObjectCollidable : public Object{ //collision is added as there is no KCL,
     virtual ObjectCollision *GetCollision() const; //0xb4 80573518
     virtual void BeforeKartCollision(Kart *kart, ObjToKartHit *objToKart, KartToObjHit *kartToObj); //0xb8 8081f66c
     virtual void BeforeItemCollision(ItemObj *item, ObjToItemInteraction *objToItem, ItemToObjInteraction *itemToObj); //0xbc 8081f778
-    virtual ObjToKartHit OnCollision(Kart *kart, ObjToKartHit default, KartToObjHit kartToObj) const; //0xc0 8068179c
+    virtual ObjToKartHit OnCollision(Kart *kart, ObjToKartHit def, KartToObjHit kartToObj) const; //0xc0 8068179c
     //depends on factors like speed and obviously the kartToObj as a goomba does not do anything to a player in a mega
-    virtual ObjToItemInteraction GetItemCollisionType(Kart *kart, ObjToItemInteraction default, ItemToObjInteraction itemToObj) const; //0xc4 806817a4
+    virtual ObjToItemInteraction GetItemCollisionType(Kart *kart, ObjToItemInteraction def, ItemToObjInteraction itemToObj) const; //0xc4 806817a4
     //same as above but with items
     virtual void OnWallCollision(Kart *kart, Vec3ZeroInit position); //0xc8 8081f548 sound and playereffectsx
     //for objects that behave like walls such as goombas at low speeds
@@ -42,6 +42,6 @@ class ObjectCollidable : public Object{ //collision is added as there is no KCL,
 
     ObjectCollision *objCollision; //0xAC
 }; //0xb0
-static_assert(sizeof(ObjectCollidable) == 0xb0, "ObjectCollidable");
+static_assert(sizeof(GeoObjectCollidable) == 0xb0, "GeoObjectCollidable");
 
 #endif

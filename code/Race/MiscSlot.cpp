@@ -9,7 +9,7 @@ kmWrite32(0x8082a4fc,0x48000030); //Always create control group
 
 #pragma region MoonviewHighway
 
-void * TGECarManagerCreate(u32 size)
+void * HighwayManagerCreate(u32 size)
 {
     bool hasCar = false;
     bool hasTruck = false;
@@ -39,7 +39,7 @@ void * TGECarManagerCreate(u32 size)
 //Noop MH Check (Make Slot Independent)
 kmWrite32(0x808279a4, 0x60000000); 
 
-kmCall(0x808279ac, TGECarManagerCreate);
+kmCall(0x808279ac, HighwayManagerCreate);
 kmWrite32(0x808279b4, 0x41820018);
 
 u32 HighwayManagerCheck()

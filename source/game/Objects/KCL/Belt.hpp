@@ -75,7 +75,7 @@ public:
 class BeltCurveA : public Belt{ //0x25c = 604
     explicit BeltCurveA(KMP::GOBJHolder *gobjHolder); //807fc90c
     ~BeltCurveA() override; //807fd7bc vtable 808d43d8
-    void OnStart() override; //0xC 807fd1ac
+    void Setup() override; //0xC 807fd1ac
     void Update() override; //0x14 807fd1b4
     void LoadModels() override; //0x44 807fccfc
     void LoadAnimations() override; //0x5c 807fcde8

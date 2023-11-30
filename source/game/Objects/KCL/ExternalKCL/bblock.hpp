@@ -7,7 +7,7 @@ namespace Objects{
 class bblock : public VolcanoPiece{ //0x20d = 525
     explicit bblock(KMP::GOBJHolder *gobjHolder); //80803d40
     ~bblock() override; //80805a0c vtable 808d5150
-    void OnStart() override; //0xC 80803f74
+    void Setup() override; //0xC 80803f74
     char *GetBRRESName() const override; //0x34 808043c0
     void LoadModels() override; //0x44 80803de8
     void LoadAnimations() override; //0x5c 80804054

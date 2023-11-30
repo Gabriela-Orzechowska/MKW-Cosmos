@@ -8,7 +8,7 @@ class WLwallGC : public ObjectExternKCL{ //0xcb
     static u32 count; //0x809c4760, incremented by 1 at the end of the ctor
     explicit WLwallGC(KMP::GOBJHolder *gobjHolder); //8086bc1c
     ~WLwallGC() override; //8086bde4 vtable 808dbfe0
-    void OnStart() override; //0xC 8086be34
+    void Setup() override; //0xC 8086be34
     void Update() override; //0x14 8086c108
     bool HasLod() override; //0x2c 8086c640
     void InitItemEntity(void *unkItemObjSub, Vec &itemPosition) override; //0x110 8086c280  sets initial position

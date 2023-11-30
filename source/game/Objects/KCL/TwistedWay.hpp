@@ -9,7 +9,7 @@ namespace Objects{
 class TwistedWay : public ObjectKCL{ //0x1fe = 510
     explicit TwistedWay(GOBJ *gobj); //80813bd4
     ~TwistedWay(); //80814918 vtable 808d62f8
-    void OnStart() override; //0xC 80813c40
+    void Setup() override; //0xC 80813c40
     void Update() override; //0x14 80813cfc
     bool HasLod() override; //0x2c 80814910
     void LoadAnimations() override; //0x5c 80814900

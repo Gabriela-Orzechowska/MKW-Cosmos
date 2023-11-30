@@ -1,14 +1,14 @@
 #ifndef _WANWAN_
 #define _WANWAN_
 #include <kamek.hpp>
-#include <game/Objects/Collidable/ObjectCollidable.hpp>
+#include <game/Objects/Collidable/GeoObjectCollidable.hpp>
 
 //Chomp with a wedge (pile)
 namespace Objects{
-class Pile : public ObjectCollidable{
+class Pile : public GeoObjectCollidable{
     //ctor inlined
     ~Pile() override; //806e9568 vtable 808c73b8
-    void OnStart() override; //0xC 806e3e20
+    void Setup() override; //0xC 806e3e20
     void Update() override; //0x14 806e3edc
     const char *GetName() const override; //0x28 806e953c
     bool HasLod() override; //0x2c 806e9560
@@ -21,10 +21,10 @@ class Pile : public ObjectCollidable{
 }; //total size 0xfc
 static_assert(sizeof(Pile) == 0xfc, "Pile");
 
-class Wanwan_Chn : public ObjectCollidable{
+class Wanwan_Chn : public GeoObjectCollidable{
     //ctor inlined, takes wanwan's gobjholder as a param
     ~Wanwan_Chn() override; //806e94fc vtable 808c72cc
-    void OnStart() override; //0xC 806e4a64
+    void Setup() override; //0xC 806e4a64
     void Update() override; //0x14 806e4208
     const char *GetName() const override; //0x28 806e94dc
     bool HasLod() override; //0x2c 806e94f4
@@ -37,10 +37,10 @@ class Wanwan_Chn : public ObjectCollidable{
 }; //0xc0
 
 
-class Wanwan : public ObjectCollidable, public ObjectCycleManager{
+class Wanwan : public GeoObjectCollidable, public ObjectCycleManager{
     Wanwan(KMP::GOBJHolder *gobjHolder); //806e4224
     ~Wanwan() override; //806e4aec vtable 808c71c4
-    void OnStart() override; //0xC 806e4b9c
+    void Setup() override; //0xC 806e4b9c
     void vf_0x10() override; //0x10 806e4b98
     void Update() override; //0x14 806e4f2c
     bool HasLod() override; //0x2c 806e94bc

@@ -1,17 +1,17 @@
 #ifndef _KURIBO_
 #define _KURIBO_
 #include <kamek.hpp>
-#include <game/Objects/Collidable/ObjectCollidable.hpp>
+#include <game/Objects/Collidable/GeoObjectCollidable.hpp>
 
 //Goomba, just as an example
 namespace Objects{
     
-class Kuribo : public ObjectCollidable, public ObjectCycleManager{ //0x191 = 401
+class Kuribo : public GeoObjectCollidable, public ObjectCycleManager{ //0x191 = 401
     explicit Kuribo(KMP::GOBJHolder *gobjHolder); //806db184
 
-    //ObjectCollidable vtable 808c5e10
+    //GeoObjectCollidable vtable 808c5e10
     ~Kuribo() override; //806db3a0
-    void OnStart() override; //0xC 806db40c
+    void Setup() override; //0xC 806db40c
     void vf_0x10() override; //0x10 806db5ac
     void Update() override; //0x14 806db5b0
     void LoadAnimations() override; //0x5c 806dd278

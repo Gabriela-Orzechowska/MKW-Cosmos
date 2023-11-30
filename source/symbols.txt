@@ -12,6 +12,8 @@ p_geoHitTableLoad = 0x807f92ac
 
 __div2u = 0x80021604
 
+
+
 memcpy = 0x80005f34
 memset = 0x80006038
 memcmp = 0x8000f314
@@ -190,6 +192,8 @@ OSGetStackPointer = 0x801a2030
 OSIsTitleInstalled = 0x801ae4a0
 current__8OSThread = 0x800000e4
 OSRestart = 0x801a8688
+
+SRR0_addr__7DXDebug = 0x803868e8
 
 __nw__FUl = 0x80229dcc
  __nwa__FUl = 0x80229df0

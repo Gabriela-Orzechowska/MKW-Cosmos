@@ -1,10 +1,10 @@
 #ifndef _CANNON_OBJECT_
 #define _CANNON_OBJECT_
 #include <kamek.hpp>
-#include <game/Objects/Collidable/ObjectCollidable.hpp>
+#include <game/Objects/Collidable/GeoObjectCollidable.hpp>
 
 namespace Objects{
-class Cannon : public ObjectCollidable{ //378 StarRing, 601 DonkyCannonGC, 607 DonkyCannon_wii, 609 tree_cannon
+class Cannon : public GeoObjectCollidable{ //378 StarRing, 601 DonkyCannonGC, 607 DonkyCannon_wii, 609 tree_cannon
 public:
     enum Type{
         DonkyCannon_wii = 0,
@@ -15,7 +15,7 @@ public:
     static u8 cannonCount; //0x809c2248
     explicit Cannon(KMP::GOBJHolder *gobjHolder); //806bfb14
     ~Cannon() override; //806bfd90 vtable 808c2fa0
-    void OnStart() override; //0xC 806bfddc
+    void Setup() override; //0xC 806bfddc
     void Update() override; //0x14 806bfed0
     bool HasLod() override; //0x2c 806c04fc
     void LoadAnimations() override; //0x5c 806bfc48

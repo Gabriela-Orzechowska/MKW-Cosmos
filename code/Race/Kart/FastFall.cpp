@@ -11,7 +11,7 @@ void FastFallCalc(KartStatus * status, KartPhysics * physics)
             ControllerHolder * holder = status->base->GetControllerHolder();
             float y_input = holder->inputStates[0].stickY;
             if(y_input <= 0.0f) y_input = 0.0f;
-            // else y_input *= 2;
+            else y_input *= 2;
             physics->gravity -= y_input * 0.39f;
         }
     }

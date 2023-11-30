@@ -151,7 +151,7 @@ void DisableBMGSizeOverride()
     p_bmgSizeAddress = 0xa01d004c; //lhz r0,0x4c(r29)
 }
 
-static LeCodeLoadHook bmgFix(DisableBMGSizeOverride);
+static LeCodeLoadHook fuckingbmgFix(DisableBMGSizeOverride);
 
 void WhiteStrapTransition()
 {

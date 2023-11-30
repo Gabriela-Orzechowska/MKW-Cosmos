@@ -35,7 +35,7 @@ public:
     explicit Object(KMP::GOBJHolder *gobj); //8081f828
     Object(const char *name, Vec3 *position, Vec3 *rotation, Vec3 *scale, u32 r8); //8081fb04 used for sub objects
     virtual ~Object(); //8067e3c4 vtable 808d6ecc
-    virtual void OnStart(); //0xC 8081fc68
+    virtual void Setup(); //0xC 8081fc68
     virtual void vf_0x10(); //0x10 0x10 806807dc just a blr
     virtual void Update(); //0x14 806bf448
     virtual void vf_0x18(); //0x18 0x18 806807d8 just a blr
