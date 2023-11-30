@@ -10,15 +10,41 @@ Run `Build.bat`. Update `CC=` path inside `Build.bat` if needed.
 ### Requires
 [CodeWarrior for MPC55xx/MPC56xx v2.10 Special Edition](https://nxp.com/lgfiles/devsuites/PowerPC/CW55xx_v2_10_SE.exe) ([mirror](https://cache.nxp.com/lgfiles/devsuites/PowerPC/CW55xx_v2_10_SE.exe))
 
-## Currently Implemented Codes
-- Exception Handler (For debugging purposes)
-- Speedometer
-- All Items Can Land
-- Increase Item Limit
-- BRSAR Patch
-- Final Lap Music Speed Up
-- Fast Menus
-- Unlock Everything without Save
+## Current Features
+### General
+- LeCode Loader
+- Discord Rich Presence
+- Files loading from additional archives/bmg files
+- Auto BRSAR Patching
+- Full ghost support (saving, watching, racing)
+- Various debugging features
+
+### Gameplay
+- Time Trial CC mode selection
+- Mega TCs
+- All Items can Drop (+ Golden Pickup)
+- Brake Drifting & Fast Falling
+- FIB model from track's itembox.szs
+- Basic Zak's VR System
+- No multi channel music cut off
+- Many minor fixes and patches
+
+### Settings
+Settings Page, containing various settings:
+- Race
+  - Music Speed-Up
+  - Draggable Blues
+  - FPS Mode
+- Menu
+  - Track Layout chooser (basic vs alphabetical;
+also can be changed with minus on track selection)
+  - Language Selector (All vanilla + ability to add more)
+  - Fast Menus
+- Accesibility (menu to be added)
+  - Y/ZR to Wheelie
+
+## In works
+- Independent SD Card/USB support
 
 ## Credits
 Documentation by Melg: https://github.com/MelgMKW/Mario-Kart-Wii-Kamek-Documentation/tree/main
