@@ -10,8 +10,6 @@ static Vec3 cameraPos;
 static float fi = 0.0f;
 static float theta = 0.0f;
 
-static bool disablePlayer = false;
-
 void CustomCamera(KartMovement * movement)
 {
     KartBase * base = &movement->base;
@@ -21,19 +19,28 @@ void CustomCamera(KartMovement * movement)
     ControllerType type = ControllerType(controller & 0xFF);
     RealControllerHolder * holder = &InputData::sInstance->realControllerHolders[0];
 
-    if(DXController::isPressed(holder,type,DXController::BUTTON_Y, true))
+    bool isPressed = false;
+    u32 raw = (holder->inputStates[0].buttonRaw & ~holder->inputStates[1].buttonRaw);
+    if(type == GCN)
     {
-        if(disablePlayer)
+        if(raw & GCN_Y) isPressed = true;
+    }
+    else if(type == CLASSIC)
+    {
+        if(raw & CLASSIC_Y) isPressed = true;
+    }
+
+    if(isPressed)
+    {
+        if(camera->flags & 0x800)
         {
             camera->flags = 0;
             camera->enableFovEffects = 1;
-            disablePlayer = false;
         }
         else
         {
             camera->flags |= 0xFFFF;
             camera->enableFovEffects = 0;
-            disablePlayer = true;
 
             Vec3 relative;
 
@@ -45,9 +52,6 @@ void CustomCamera(KartMovement * movement)
             //theta = atan(relative.z/relative.x) / 0.01745329f;
             //fi = asin(relative.y/distance) / 0.01745329f;
 
-            theta = 0.0f;
-            fi = 0.0f;
-
             cameraPos = camera->position;
         }
     }
@@ -56,27 +60,40 @@ void CustomCamera(KartMovement * movement)
 
 kmCall(0x805792b0, CustomCamera);
 
-extern void ItemHolderPlayerb4_use(u32 param1, u32 param2);
-
 //80791910
 void UpdateCameraPos(RaceCamera * camera)
 {
-    if(disablePlayer)
+    if(camera->flags & 0x800)
     {
         u32 controller = MenuData::sInstance->pad.padInfos[0].controllerSlotAndTypeActive;
         ControllerType type = ControllerType(controller & 0xFF);
         RealControllerHolder * holder = &InputData::sInstance->realControllerHolders[0];
+        u32 raw = (holder->inputStates[0].buttonRaw);
 
         float stickX = holder->inputStates[0].stickX;
         float stickY = holder->inputStates[0].stickY;
 
         float rStickX = 0.0f;
         float rStickY = 0.0f;
+        bool isUpPressed = false;
+        bool isDownPressed = false;
+        bool isSpeedPressed = false;
 
         if(type == GCN)
         {
             rStickX = ((GCNController *)holder->controller)->cStickHorizontal;
             rStickY = ((GCNController *)holder->controller)->cStickVertical;
+            isUpPressed = (raw & GCN_R);
+            isDownPressed = (raw & GCN_L);
+            isSpeedPressed = (raw & GCN_Z);
+        }
+        else if(type == CLASSIC)
+        {
+            rStickX = ((WiiController *)holder->controller)->kpadStatus->cStickHorizontal;
+            rStickY = ((WiiController *)holder->controller)->kpadStatus->cStickVertical;
+            isUpPressed = (raw & CLASSIC_R);
+            isDownPressed = (raw & CLASSIC_L);
+            isSpeedPressed = (raw & CLASSIC_ZR);
         }
 
         theta += rStickY * ROTATION_MULT;
@@ -91,25 +108,29 @@ void UpdateCameraPos(RaceCamera * camera)
         float fi_rad = fi * 0.01745329f;
         float theta_rad = theta * 0.001745329f * 4;
 
-        float forwardspeed = MOVEMENT_SPEED * stickY;
-        float sidewaysSpeed = MOVEMENT_SPEED * stickX;
+        float speed = MOVEMENT_SPEED;
+        if(isSpeedPressed) speed *= 3;
+
+        float forwardspeed = speed * stickY;
+        float sidewaysSpeed = speed * stickX;
 
         Vec3 movementPos;
         movementPos.x = forwardspeed * cos(theta_rad) * cos(fi_rad);
         movementPos.z = forwardspeed * cos(theta_rad) * sin(fi_rad);
         movementPos.y = forwardspeed * sin(theta_rad);
 
-        movementPos.x += sidewaysSpeed * cos(theta_rad) * cos(fi_rad + (3.14/2));
-        movementPos.z += sidewaysSpeed * cos(theta_rad) * sin(fi_rad + (3.14/2));
+        movementPos.x += sidewaysSpeed * cos(theta_rad) * cos(fi_rad + (3.14f/2));
+        movementPos.z += sidewaysSpeed * cos(theta_rad) * sin(fi_rad + (3.14f/2));
 
         cameraPos.x += movementPos.x;
         cameraPos.y += movementPos.y;
         cameraPos.z += movementPos.z;
 
-        if(DXController::isPressed(holder, type, DXController::BUTTON_L))
-            cameraPos.y -= MOVEMENT_SPEED;
-        if(DXController::isPressed(holder, type, DXController::BUTTON_R))
-            cameraPos.y += MOVEMENT_SPEED;
+
+        if(isDownPressed)
+            cameraPos.y -= speed;
+        if(isUpPressed)
+            cameraPos.y += speed;
 
         Vec3 targetPos;
 
@@ -132,7 +153,7 @@ kmCall(0x805a2acc, UpdateCameraPos);
 void StopPlayerInput(KartStatus * status)
 {
     RaceCamera * camera = status->base->pointers->raceCamera;
-    if(camera->flags & 0x8)
+    if(camera->flags & 0x800)
     {
         status->stickX = 0.0f;
         status->stickY = 0.0f;
@@ -144,9 +165,16 @@ void StopPlayerInput(KartStatus * status)
 
 kmCall(0x805967a4, StopPlayerInput);
 
-void StopItem(u32 param_1, u32 param_2)
+
+struct ItemHolderPlayer
 {
-    if(disablePlayer) return;
+    KartPointers * pointers;
+};
+extern void ItemHolderPlayerb4_use(ItemHolderPlayer * param1, u32 param2);
+
+void StopItem(ItemHolderPlayer * param_1, u32 param_2)
+{
+    if(param_1->pointers->raceCamera->flags & 0x800) return;
     else ItemHolderPlayerb4_use(param_1, param_2);
 }
 
