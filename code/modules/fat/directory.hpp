@@ -1,7 +1,7 @@
 #pragma once
 
 #include <kamek.hpp>
-#include <modules/fat/types.hpp>
+#include <modules/fat/fat_types.hpp>
 #include <modules/fat/partition.hpp>
 
 #define MAX_LFN_LENGTH	256
@@ -27,22 +27,7 @@
 #define CASE_LOWER_EXT  0x10		// WinNT lowercase extension
 #define CASE_LOWER_BASE 0x08		// WinNT lowercase basename
 
-// Directory entry offsets
-enum DIR_ENTRY_offset {
-	DIR_ENTRY_name = 0x00,
-	DIR_ENTRY_extension = 0x08,
-	DIR_ENTRY_attributes = 0x0B,
-	DIR_ENTRY_caseInfo = 0x0C,
-	DIR_ENTRY_cTime_ms = 0x0D,
-	DIR_ENTRY_cTime = 0x0E,
-	DIR_ENTRY_cDate = 0x10,
-	DIR_ENTRY_aDate = 0x12,
-	DIR_ENTRY_clusterHigh = 0x14,
-	DIR_ENTRY_mTime = 0x16,
-	DIR_ENTRY_mDate = 0x18,
-	DIR_ENTRY_cluster = 0x1A,
-	DIR_ENTRY_fileSize = 0x1C
-};
+
 
 #define DIR_ENTRY_DATA_SIZE 0x20
 #define MAX_FILENAME_LENGTH 768		// 256 UCS-2 characters encoded into UTF-8 can use up to 768 UTF-8 chars
@@ -65,7 +50,7 @@ namespace FAT
         }
         bool IsWritable()
         {
-            return ((this->entryData[DIR_ENTRY_attributes] * ATTRIB_RO) == 0);
+            return ((this->entryData[DIR_ENTRY_attributes] & ATTRIB_RO) == 0);
         }
         bool IsDot()
         {
@@ -74,7 +59,6 @@ namespace FAT
         }
     };
 
-    
     typedef struct DIR_STATE_STRUCT {
         Partition * partition;
         Directory  currentEntry;

@@ -41,4 +41,78 @@ namespace FAT
     static const char ILLEGAL_LFN_CHARACTERS[] = "\\/:*?\"<>|";
 
     
+
+
+    s32 Partition::Stat(const char * path, stat * st)
+    {
+        if(this == nullptr) return -1;
+        if(strchr(path, ':') != NULL) path = strchr(path,':') + 1;
+        if(strchr(path, ':') != NULL) return -1;
+
+        Lock::Lock(&this->lock);
+
+        Directory dir;
+
+        if(!this->EntryFromPath(&dir, path, NULL)){
+            Lock::Unlock(&this->lock);
+            return -1;
+        }
+
+        this->EntryStat(&dir, st);
+        Lock::Unlock(&this->lock);
+        return 0;
+    }
+
+    s32 Partition::Unlink(const char * path)
+    {
+        if(this == nullptr) return -1;
+        if(this->readOnly) return -1;
+
+        if(strchr(path, ':') != NULL) path = strchr(path,':') + 1;
+        if(strchr(path, ':') != NULL) return -1;
+
+        Lock::Lock(&this->lock);
+        Directory dir;
+        if(!this->EntryFromPath(&dir, path, NULL)){
+            Lock::Unlock(&this->lock);
+            return -1;
+        }
+
+        u32 cluster = this->EntryGetCluster(dir.entryData);
+        if(dir.IsDirectory())
+        {
+            Directory content;
+            u32 nextEntry = this->GetFirstEntry(&content, cluster);
+
+            while(nextEntry)
+            {
+                if(!content.IsDot()){
+                    Lock::Unlock(&this->lock);
+                    return -1;
+                }
+                nextEntry = this->GetNextEntry(&content);
+            }
+        }
+        bool err = false;
+        if(!this->IsValidCluster(cluster)){
+            if(!this->ClearLinks(cluster))
+                err = true;
+        }
+        if(!this->RemoveEntry(&dir)) err = true;
+        if(!this->cache->Flush()) err = true;
+
+        Lock::Unlock(&this->lock);
+        return err ? 0 : -1;
+    }
+
+    bool Partition::Chdir(const char * path)
+    {
+        if(this == nullptr) return -1;
+
+        if(strchr(path, ':') != NULL) path = strchr(path,':') + 1;
+        if(strchr(path, ':') != NULL) return -1;
+
+
+
+    }
 } // namespace FAT

@@ -2,12 +2,12 @@
 #define _FAT_PARTITION_
 
 #include <kamek.hpp>
-#include <modules/fat/types.hpp>
 #include <modules/fat/directory.hpp>
 #include <modules/disc_io/disc_io.hpp>
 #include <modules/fat/lock.hpp>
 #include <modules/fat/cache.hpp>
 #include <modules/fat/stat.hpp>
+#include <modules/fat/fat_types.hpp>
 
 #define MIN_SECTOR_SIZE     512
 #define MAX_SECTOR_SIZE     4096
@@ -25,45 +25,6 @@
 
 namespace FAT
 {
-    class Directory;
-
-    typedef enum {FS_UNKNOWN, FS_FAT12, FS_FAT16, FS_FAT32} FS_TYPE;
-    typedef enum {FT_DIRECTORY, FT_FILE} FILE_TYPE; 
-
-    typedef struct {
-        u32 fatStart;
-        u32 sectorsPerFat;
-        u32 lastCluster;
-        u32 firstFree;
-        u32 numberFreeCluster;
-        u32 numberLastAllocCluster;
-    } FAT_t;  
-
-    class Partition;
-    typedef struct {
-        u32 cluster;
-        u32 sector;
-        s32 byte;
-    } FILE_POSITION;
-
-    struct _FILE_STRUCT {
-        u32             filesize;
-        u32             startCluster;
-        u32             currentPosition;
-        FILE_POSITION        rwPosition;
-        FILE_POSITION        appendPosition;
-        DIR_ENTRY_POSITION   dirEntryStart;		// Points to the start of the LFN entries of a file, or the alias for no LFN
-        DIR_ENTRY_POSITION   dirEntryEnd;		// Always points to the file's alias entry
-        Partition*           partition;
-        _FILE_STRUCT* prevOpenFile;		// The previous entry in a double-linked list of open files
-        _FILE_STRUCT* nextOpenFile;		// The next entry in a double-linked list of open files
-        bool                 read;
-        bool                 write;
-        bool                 append;
-        bool                 inUse;
-        bool                 modified;
-    };
-
     class Partition
     {
         public:
@@ -126,6 +87,8 @@ namespace FAT
 
         private:
         bool WriteFatEntry(u32 cluster, u32 val);
+        s32 Stat(const char * path, stat * st);
+        s32 Unlink(const char * path);
         
     };
 

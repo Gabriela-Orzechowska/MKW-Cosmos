@@ -27,13 +27,12 @@ namespace DX
     const char CourseArchive[14] = "/CourseDX.szs";
 
     enum TT_MODE{
-    DX_TT_150CC,
-    DX_TT_200CC,
+        DX_TT_150CC,
+        DX_TT_200CC,
     };  
 
     static TT_MODE TTMode;
     static bool isDolphin = false;
-
 
     s32 Open(char *path, IOS::Mode mode);
     void SetTTCC(TT_MODE mode);
