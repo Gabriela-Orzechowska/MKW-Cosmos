@@ -40,9 +40,7 @@ namespace FAT
     static const char ILLEGAL_ALIAS_CHARACTERS[] = "\\/:;*?\"<>|&+,=[] ";
     static const char ILLEGAL_LFN_CHARACTERS[] = "\\/:*?\"<>|";
 
-    
-
-
+    /*
     s32 Partition::Stat(const char * path, stat * st)
     {
         if(this == nullptr) return -1;
@@ -53,7 +51,9 @@ namespace FAT
 
         Directory dir;
 
-        if(!this->EntryFromPath(&dir, path, NULL)){
+        const char * end = (const char *) NULL;
+
+        if(!this->EntryFromPath(&dir, path, end)){
             Lock::Unlock(&this->lock);
             return -1;
         }
@@ -112,7 +112,8 @@ namespace FAT
         if(strchr(path, ':') != NULL) path = strchr(path,':') + 1;
         if(strchr(path, ':') != NULL) return -1;
 
-
+        return false;
 
     }
+    */
 } // namespace FAT

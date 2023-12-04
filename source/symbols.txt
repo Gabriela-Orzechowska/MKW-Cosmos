@@ -47,6 +47,7 @@ strncpy = 0x800131e0
 strtok = 0x800134cc
 strstr = 0x800135f0
 strlen = 0x80021254
+strchr = 0x800133F8
 swprintf = 0x80017814
 
 cos = 0x8001b590
