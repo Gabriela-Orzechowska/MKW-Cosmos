@@ -14,7 +14,7 @@ namespace DX{
 
     //Wiimmfi Stuff
     using IOS::Open2ndInst;
-    asm s32 Open(char *path, IOS::Mode mode){ 
+    asm IOS::IPCResult Open(char *path, IOS::Mode mode){ 
         ASM(
             nofralloc;
             stwu sp, -0x0020 (sp);

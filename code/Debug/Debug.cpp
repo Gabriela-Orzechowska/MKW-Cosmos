@@ -2,6 +2,7 @@
 
 #define vWIIMENU 0x0000000100000200
 
+
 namespace DXDebug
 {
     void DetectPlatform()
@@ -9,10 +10,27 @@ namespace DXDebug
         if(IOS::Dolphin::Open())
         {
             currentPlatform = DOLPHIN;
+            if(!IOS::Dolphin::GetVersion()) currentPlatform = DOLPHIN_OLD;
             return;
         }
-        s32 ret = DX::Open("/title/00000001/00000002/data/macaddr.bin", IOS::MODE_READ);
-        if(ret > -1)
+
+        register u32 cpuid;
+        asm{
+            ASM(
+                mfspr cpuid, 0x39c;
+            )
+        };
+        if(cpuid == DolphinECID_U){
+            currentPlatform = DOLPHIN_UNKNOWN;
+            return;
+        }
+        else if(cpuid == 0) {
+            currentPlatform = DOLPHIN_PREHISTORIC;
+            return;
+        }
+
+        IOS::IPCResult ret = DX::Open("/title/00000001/00000002/data/macaddr.bin", IOS::MODE_READ);
+        if(ret == IOS::IPC_OK)
         {
             IOS::Close(ret);
             currentPlatform = WII_MINI;

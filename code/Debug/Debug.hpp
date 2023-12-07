@@ -12,10 +12,15 @@ namespace DXDebug
     {
         DOLPHIN,
         DOLPHIN_OLD,
+        DOLPHIN_PREHISTORIC,
+        DOLPHIN_UNKNOWN,
         WII,
         WII_U,
         WII_MINI,
     };
+
+
+    const u32 DolphinECID_U = 0x0d96e200;
 
     static HOSTPLATFORM currentPlatform;
     static char platformName[0x20];

@@ -9,13 +9,16 @@
 namespace IOS{
     typedef char IPCFileName[IPCMAXFILENAME];
     typedef char IPCPath[IPCMAXPATH];
-    enum Error{
-        ERROR_PERMISSION_DENIED = -1,
-        ERROR_FILE_EXISTS = -2,
-        ERROR_INVALID_ARG = -4,
-        ERROR_FILE_NOT_FOUND = -6,
-        ERROR_BUSY = -8,
-    };
+
+    typedef enum {
+        IPC_OK = 0,
+        IPC_EACCES = -1,
+        IPC_EBUSY = -2,
+        IPC_EINVAL = -4,
+        IPC_ENOENT = -6,
+        IPC_EQUEUEFULL = -8,
+        IPC_ENOMEM = -22,
+    } IPCResult;
 
     enum Mode{
         MODE_NONE = 0x0,

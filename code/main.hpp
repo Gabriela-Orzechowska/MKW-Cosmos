@@ -34,7 +34,7 @@ namespace DX
     static TT_MODE TTMode;
     static bool isDolphin = false;
 
-    s32 Open(char *path, IOS::Mode mode);
+    IOS::IPCResult Open(char *path, IOS::Mode mode);
     void SetTTCC(TT_MODE mode);
     void SetCC();
 
