@@ -18,6 +18,8 @@ def clear_line(n=1):
 def build(path):
     base = os.path.basename(path);
     objectName = f"build/{base[:-4]}.o"
+    if(base.endswith(".c")):
+        objectName = f"build/{base[:-2]}.o"
     normalized = path.replace('\\','/');
 
     command = f"\"{CC}\" {CFLAGS} -c -o {objectName} {normalized}"
@@ -25,7 +27,7 @@ def build(path):
 
 def main():
 
-    result = list(Path("code/.").rglob("*.cpp"))
+    result = list(Path("code/.").rglob("*.c*"))
     i = 1;
     print("Building...")
     command = f"\"{CC}\" {CFLAGS} -c -o build/kamek.o engine/kamek.cpp"
@@ -38,8 +40,10 @@ def main():
         baseTime = os.path.getmtime(r)
 
         buildfile = f"build/{base[:-4]}.o"
+        
         buildfileTime = 0
-
+        if(base.endswith(".c")):
+            buildfile = f"build/{base[:-2]}.o"
         OBJECTS.append(buildfile)
 
         clear_line(1)
