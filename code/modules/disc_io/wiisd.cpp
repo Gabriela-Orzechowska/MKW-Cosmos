@@ -188,7 +188,7 @@ static int __sdio_gethcr(u8 reg, u8 size, u32 *val)
 	STACK_ALIGN(u32,hcr_value,1,32);
 	STACK_ALIGN(u32,hcr_query,6,32);
  
-	if(val==NULL) return IOS::ERROR_INVALID_ARG;
+	if(val==NULL) return IOS::IPC_EACCES;
  
  	*hcr_value = 0;
 	*val = 0;
@@ -232,7 +232,6 @@ static int __sdio_waithcr(u8 reg, u8 size, u8 unset, u32 mask)
 		ret = __sdio_gethcr(reg, size, &val);
 		if(ret < 0) return ret;
 		if((unset && !(val & mask)) || (!unset && (val & mask))) return 0;
-		VIWaitForRetrace(); /* delay a bit */
 	}
 
 	return -1;
@@ -383,7 +382,6 @@ static	bool __sd0_initio()
 			if(ret < 0) goto fail;
 			if(resp.rsp_fields[0] & (1 << 31)) break;
 
-			VIWaitForRetrace(); /* delay a bit */
 		}
 		if(tries < 0) goto fail;
 
