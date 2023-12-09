@@ -1,5 +1,4 @@
 #include <Storage/disc/SD.hpp>
-
 #define ALIGN_BUFFER  __attribute__ ((aligned(0x20)))
 
 static u8 tmpBuffer[TMP_SECTOR_COUNT * SECTOR_SIZE] ALIGN_BUFFER;
@@ -179,6 +178,7 @@ bool SD_Transfer(bool isWrite, u32 sector, u32 sectorCount, void * buffer)
         }
     }
     SD_Deselect();
+
     return true;
 }
 

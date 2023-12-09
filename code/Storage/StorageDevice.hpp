@@ -1,5 +1,7 @@
 #pragma once
 #include <kamek.hpp>
+#include <core/rvl/os/mutex.hpp>
+#include <vendor/ff/ff.h>
 
 class StorageDevice
 {
@@ -13,13 +15,8 @@ class StorageDevice
     virtual bool diskErase(u32 sector, u32 count) = 0;
     virtual bool diskSync() = 0;
     virtual u32 diskGetMessageId() = 0;
+
+    OSMutex m_mutex;
+    FATFS m_fs;
+    bool m_ok;
 };
-
-// For FatFs
-
-static u32 StorageDevice_SectorSize();
-static bool StorageDevice_Read(u32 sector, u32 count, void * buffer);
-static bool StorageDevice_Write(u32 sector, u32 count, const void * buffer);
-static bool StorageDevice_Erase(u32 sector, u32 count);
-static bool StorageDevice_Sync();
-static u32 StorageDevice_GetMessageId();

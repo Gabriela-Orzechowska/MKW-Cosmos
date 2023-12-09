@@ -11,7 +11,7 @@ p_objFlowLoad = 0x8082c140
 p_geoHitTableLoad = 0x807f92ac
 
 __div2u = 0x80021604
-
+__mod2u = 0x80021828
 
 
 memcpy = 0x80005f34
@@ -193,6 +193,7 @@ OSGetStackPointer = 0x801a2030
 OSIsTitleInstalled = 0x801ae4a0
 current__8OSThread = 0x800000e4
 OSRestart = 0x801a8688
+OSTicksToCalendarTime = 0x801aafa8
 
 SRR0_addr__7DXDebug = 0x803868e8
 

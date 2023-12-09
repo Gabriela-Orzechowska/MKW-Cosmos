@@ -1,5 +1,7 @@
 #include <Storage/SDStorage.hpp>
 #include <Storage/disc/SD.hpp>
+#include <vendor/ff/ff.h>
+
 
 u32 SDStorage::diskSectorSize()
 {
@@ -84,9 +86,27 @@ bool SDStorage::Init()
     }
 
     SD_Deselect();
-    StorageDevice::currentDevice = new SDStorage();
+    StorageDevice * device = new SDStorage();
+    StorageDevice::currentDevice = device;
 
     OSReport("[DX] Successfully initialized SD card\n");
+    
+    FRESULT result = f_mount(&device->m_fs, L"", 1);
+    
+    if(result != FR_OK)
+    {
+        OSReport("[DX] Couldn't initialize FAT, Error: %i\n", result);
+        StorageDevice::currentDevice = nullptr;
+        return false;
+    }
+    OSReport("[DX] Initialized FAT\n");
+
+    result = f_mkdir(L"/ITSFUCKINGWORKING");
+    if(result == FR_OK)
+    {
+        OSReport("[DX] Successfully created folder\n");
+    }
+
     return true;
 }
 
