@@ -15,7 +15,14 @@
 			"initializer_list": "cpp",
 			"functional": "cpp",
 			"cstdint": "cpp",
-			"compare": "cpp"
+			"compare": "cpp",
+			"diskio.h": "c",
+			"ff.h": "c",
+			"storagedevice.hpp": "c",
+			"c_stdlib.h": "c",
+			"string.h": "c",
+			"os.hpp": "c",
+			"c_string.h": "c"
 		}
 	}
 }
