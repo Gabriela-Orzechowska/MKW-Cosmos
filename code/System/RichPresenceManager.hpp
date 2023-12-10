@@ -8,14 +8,13 @@ class RichPresenceManager
     
     static RichPresenceManager * GetStaticInstance();
     static RichPresenceManager * CreateStaticInstance();
-
+    static s32 InitConnection();
 
     static char * applicationId;
     static IOS::Dolphin::DiscordRichPresence presence;
 
     bool rEnabled;
 
-    s32 InitConnection();
     void Init();
     void CloseConnection();
 

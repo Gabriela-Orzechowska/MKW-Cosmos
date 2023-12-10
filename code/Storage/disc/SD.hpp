@@ -72,9 +72,9 @@
 #define SDIO_ACMD_SENDSCR			0x33
 #define	SDIO_ACMD_SENDOPCOND		0x29
 
-#define	SDIO_STATUS_CARD_INSERTED		0x1
-#define	SDIO_STATUS_CARD_INITIALIZED	0x10000
-#define SDIO_STATUS_CARD_SDHC			0x100000
+#define	SDIO_STATUS_CARD_INSERTED		1 << 0
+#define	SDIO_STATUS_CARD_INITIALIZED	1 << 16
+#define SDIO_STATUS_CARD_SDHC			1 << 20
 
 #define READ_BL_LEN					((u8)(__sd0_csd[5]&0x0f))
 #define WRITE_BL_LEN				((u8)(((__sd0_csd[12]&0x03)<<2)|((__sd0_csd[13]>>6)&0x03)))
@@ -104,8 +104,6 @@ struct _sdioresponse
 };
 
 static s32 sdfd = -1;
-static u16 rca = 0;
-static bool sdhc;
 
 bool SD_Reset();
 bool SD_Reset(s32 fd);
@@ -115,12 +113,14 @@ bool SD_WriteHcr(u8 reg, u8 size, u32 val);
 bool SD_SetClock(u32 clock);
 bool SD_SendCommand(u32 command, u32 commandType, u32 responseType, u32 arg, u32 blockCount, u32 blockSize, void * buffer, u32 * response);
 bool SD_Enable4bitBus();
+s32 SD_WaitHCR(u8 reg, u8 size, u8 unset, u32 mask);
 bool SD_Select();
 bool SD_Deselect();
 bool SD_SetCardBlockSize(u32 blockSize);
 bool SD_EnableCard4BitBus();
 bool SD_TransferAligned(bool isWrite, u32 sector, u32 sectorCount, void * buffer);
 bool SD_Transfer(bool isWrite, u32 sector, u32 sectorCount, void * buffer);
+bool SD_Reinitialize();
 u32 SD_SectorSize();
 bool SD_Read(u32 sector, u32 sectorCount, void * buffer);
 bool SD_Write(u32 sector, u32 sectorCount, const void * buffer);

@@ -106,7 +106,7 @@ namespace IOS
         s32 DiscordSetClient(const char * client)
         {
             if(devDolphin < 0) Open();
-            if(devDolphin < 0) return 0;
+            if(devDolphin < 0) return -1;
 
             IOCtlvRequest request __attribute__ ((aligned(0x20)));
             request.address = (void *) client;

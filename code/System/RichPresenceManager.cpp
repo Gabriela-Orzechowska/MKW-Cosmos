@@ -83,6 +83,7 @@ s32 RichPresenceManager::UpdateStatus()
 
 u32 UpdateTrackImage(u32 param_1)
 {
+    
     static char finalLink[0x80];
     ArchiveFile * file = &ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COURSE]->archives[0];
     void * buffer = file->decompressedArchive;
@@ -106,9 +107,12 @@ kmBranch(0x80540914, UpdateTrackImage);
 void RPCSectionChange()
 {
     MenuId menuId = MenuData::sInstance->curScene->menuId;
-    DiscordRichPresence * presence = &RichPresenceManager::sInstance->presence;
+    RichPresenceManager * manager = RichPresenceManager::sInstance;
+    if(manager == nullptr) return;
+    DiscordRichPresence * presence = &manager->presence;
     char * message = presence->details;
     char * status = "";
+
 
     u32 trackId = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
 
@@ -116,8 +120,8 @@ void RPCSectionChange()
     {
         if(menuId < P1_WIFI_VS_GAMEPLAY || menuId > P2_WIFI_FRIEND_COIN_BT_GAMEPLAY)
         {
-            RichPresenceManager::sInstance->presence.largeImageKey = "icon1";
-            RichPresenceManager::sInstance->presence.smallImageKey = "";
+            manager->presence.largeImageKey = "icon1";
+            manager->presence.smallImageKey = "";
         }
     }
 
@@ -281,9 +285,9 @@ void RPCSectionChange()
             status = "";
             break;
     }
-    RichPresenceManager::sInstance->presence.details = message;
-    RichPresenceManager::sInstance->presence.state = status;
-    RichPresenceManager::sInstance->UpdateStatus();
+    manager->presence.details = message;
+    manager->presence.state = status;
+    manager->UpdateStatus();
     return;
 }
 
