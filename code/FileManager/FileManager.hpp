@@ -21,17 +21,12 @@ namespace DXFile
     };
 
     class FileManager{
-        protected:
-            s32 fd;
-            s32 fileSize;
-            char path[IPCMAXPATH];
-            bool isValid;
-
         public:
             static FileManager * sInstance;
             static void CreateStaticInstance();
             static FileManager * Create();
             static FileManager * GetStaticInstance();
+            
             FileManager() : fd(-1) {memset(&this->path, 0, IPCMAXPATH);}
             virtual s32 Open(const char * filepath, u32 mode);
             virtual s32 CreateOpen(const char * filepath, u32 mode);
@@ -46,6 +41,12 @@ namespace DXFile
             EGG::TaskThread * taskThread;
             static const char * modPath;
             IOS::IPCPath * folderFileNames;
+
+        protected:
+            s32 fd;
+            s32 fileSize;
+            char path[IPCMAXPATH];
+            bool isValid;
     };
 
     bool isRiivo();

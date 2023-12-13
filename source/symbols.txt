@@ -42,7 +42,6 @@ sscanf = 0x80013040
  
 strcat = 0x80013224
 strncat = 0x80013250
-
 strcmp = 0x8001329c
 strcpy = 0x80013120
 strncpy = 0x800131e0
@@ -1228,6 +1227,7 @@ isOnlineRace__13KartModelsMgr = 0x809c38b9
 sInstance__11CourseModel = 0x809c2F44
 ProcessCollision__11CourseModelFfP4Vec3P4Vec311KCLTypesBITPiR13KCLTypeHolderUi = 0x807907f8
 
+charNames = 0x808b3a90
 matNamesMH = 0x808d1860
 szsLanguageNames = 0x808b3188
 

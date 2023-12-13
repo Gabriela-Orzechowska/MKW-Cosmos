@@ -48,7 +48,7 @@ namespace LeCode{
 
     class LeCodeManager{
     private:
-        static LeCodeManager * sInstance; //0x80003FD8
+        static LeCodeManager * sInstance;
         const char * GetLeCodeFilepath();
         le_binary_header * loaderHeader;
         lpar_header * settingHeader;

@@ -23,6 +23,7 @@
 		<folder external="/DX/Extra" disc="/" create="true"/>
 		<folder external="/DX/Scene" disc="/Scene/UI/" create="true"/>
 		<folder external="/DX/Scene" disc="/Race/" create="true"/>
+		<folder external="/DX/strm" disc="/sound/strm" create="true"/>
 		<folder external="/DX/Course" disc="/Race/Course/" create="true"/>
 		<folder external="/DX/My Stuff" recursive="false"/>
 		<folder external="/DX/My Stuff" disc="/"/>
