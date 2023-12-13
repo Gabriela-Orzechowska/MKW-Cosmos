@@ -111,7 +111,6 @@ void RemoveEscapeSequences(wchar_t * msg, int len)
 
 char * GetTextFromMessage(u32 messageId)
 {
-    OSReport("[DX] Function (RemoveEscapeSequences): %p\n", &RemoveEscapeSequences);
     static char message[128];
     s32 slot = AdditionalHolder->GetMsgId(messageId);
     if(slot < 0)

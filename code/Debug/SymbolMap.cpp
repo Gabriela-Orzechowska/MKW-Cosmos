@@ -40,7 +40,7 @@ namespace DXDebug
                 {
                     if(DVDReadPrio(&fileHandle, manager->symNameTable, nameTableSize, manager->header.nameTableOffset, 2))
                     {
-                        OSReport("[DX] Symbol map loaded at: %p; %p\n", manager->symEntryArray, manager->symNameTable);
+                        DXLog("Symbol map loaded at: %p; %p\n", manager->symEntryArray, manager->symNameTable);
                         SymbolManager::sInstance = manager;
                     }
                 }
@@ -65,8 +65,8 @@ namespace DXDebug
                 {
                     if(DVDReadPrio(&fileHandleK, manager->kamekSymNameTable, nameTableSize, manager->kamekHeader.nameTableOffset, 2))
                     {
-                        OSReport("[DX] Kamek Symbol map loaded at: %p; %p\n", manager->kamekSymEntryArray, manager->kamekSymNameTable);
-                        OSReport("[DX] Kamek base address: %08x\n", manager->kamekBaseAddress);
+                        DXLog("Kamek Symbol map loaded at: %p; %p\n", manager->kamekSymEntryArray, manager->kamekSymNameTable);
+                        DXLog("Kamek base address: %08x\n", manager->kamekBaseAddress);
                     }
                 }
                 DVDClose(&fileHandleK);

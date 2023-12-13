@@ -29,7 +29,7 @@ bool SD_GetStatus(u32 * status)
     if(IOS::IOCtl(sdfd, (IOS::IOCtlType) IOCTL_SDIO_GETSTATUS, NULL, 0, &out, sizeof(out)) < 0) return false;
     *status = out;
     sdhc = !!(*status & SDIO_STATUS_CARD_SDHC);
-    OSReport("[DX] SD Card Status: %x\n", *status);
+    DXLog("SD Card Status: %x\n", *status);
     return true;
 }
 

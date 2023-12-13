@@ -52,31 +52,31 @@ bool SDStorage::Init()
     else fd = sdfd;
     if(fd < 0)
     {
-        OSReport("[DX] Failed to open /dev/sdio/slot0");
+        DXLog("Failed to open /dev/sdio/slot0");
         return false;
     }
 
-    OSReport("[DX] Opened SD interface, ID: %i\n", fd);
+    DXLog("Opened SD interface, ID: %i\n", fd);
 
     if(!SD_Reset(fd)) {
-        OSReport("[DX] Failed to reset SD Card\n");
+        DXLog("Failed to reset SD Card\n");
         return false;
     }
     u32 status;
     if(!SD_GetStatus(&status)) 
     {
-        OSReport("[DX] Unable to get status\n");
+        DXLog("Unable to get status\n");
         return false;
     }
 
     if(!(status & SDIO_STATUS_CARD_INSERTED)){
-        OSReport("[DX] SD card not inserted\n");
+        DXLog("SD card not inserted\n");
         return false;
     }
 
     if(!(status & SDIO_STATUS_CARD_INITIALIZED))
     {
-        OSReport("[DX] Could not initialize filesystem... Retrying...\n");
+        DXLog("Could not initialize filesystem... Retrying...\n");
         bool ret = SD_Reinitialize();
         SD_GetStatus(&status);
 
@@ -84,36 +84,36 @@ bool SDStorage::Init()
             QuickFatal("Retry initialization has failed...");
             return false;
         } 
-        OSReport("[DX] Success\n");
+        DXLog("Success\n");
     }
 
     //sdhc = !!(status & SDIO_STATUS_CARD_SDHC);
     if(!SD_Enable4bitBus()){
-        OSReport("[DX] Failed to enable 4-bit mode\n");
+        DXLog("Failed to enable 4-bit mode\n");
         return false;
     }
 
     if(!SD_SetClock(1))
     {
-        OSReport("[DX] Unable to set the clock\n");
+        DXLog("Unable to set the clock\n");
         return false;
     }
 
     if(!SD_Select())
     {
-        OSReport("[DX] Unable to select the sd card\n");
+        DXLog("Unable to select the sd card\n");
         return false;
     }
 
     if(!SD_SetCardBlockSize(SECTOR_SIZE)){
         SD_Deselect();
-        OSReport("[DX] Unable to set block size\n");
+        DXLog("Unable to set block size\n");
         return false;
     }
 
     if(!SD_EnableCard4BitBus){
         SD_Deselect();
-        OSReport("[DX] Unable to enable card 4 bit bus\n");
+        DXLog("Unable to enable card 4 bit bus\n");
         return false;
     }
 
@@ -121,19 +121,18 @@ bool SDStorage::Init()
     StorageDevice * device = new(RKSystem::mInstance.EGGSystem) SDStorage;
     StorageDevice::currentDevice = device;
 
-    OSReport("[DX] Successfully initialized SD card\n");
+    DXLog("Successfully initialized SD card\n");
     
     FRESULT result = f_mount(&device->m_fs, L"", 1);
     
     if(result != FR_OK)
     {
         char strbuffer[0x40];
-        snprintf(strbuffer, 0x40, "[DX] Couldn't initialize FAT\nError: %i\nStatus: %x", result, status);
-        OSReport(strbuffer);
+        DXLog("Couldn't initialize FAT\nError: %i\nStatus: %x", result, status);
         StorageDevice::currentDevice = nullptr;
         return false;
     }
-    OSReport("[DX] Initialized FAT\n");
+    DXLog("Initialized FAT\n");
 
     result = f_mkdir(L"/AAAAA");
 

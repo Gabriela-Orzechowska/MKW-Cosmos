@@ -55,7 +55,7 @@ namespace DX{
         //    path = DX::CourseArchive;
         //}
         file->Load(path, heap, isCompressed, align, fileHeap, fileInfo);
-        OSReport("[DX] Loading %s\n", path);
+        DXLog("Loading %s\n", path);
     }
 
     kmWrite32(0x8052a108, 0x38800003); //+1 for CommonDX.szs

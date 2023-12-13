@@ -21,6 +21,7 @@
 
 #include <game/Math/Matrix.hpp>
 #include <game/Math/Vector.hpp>
+#include <core/rvl/os/OS.hpp>
 //just for usability in other structs, so that you don't have to type EGG::type every time
 
 template <class Subject, typename Ret>
@@ -126,6 +127,8 @@ struct PtmfHolder_3A : PtmfHolderBase_3A<Ret, A1, A2, A3> {
 #endif
 
 #define DEBUG_DX
+#define DXLog(f, ...) OSReport("[DX:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
+#define DXError(f, ...) OSReport("[DX Error:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
 
 class MenuLoadHook {
 private:

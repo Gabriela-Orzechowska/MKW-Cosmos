@@ -23,7 +23,7 @@ public:
     nw4r::lyt::Pane *hilight_curr; //0x1a8
     nw4r::lyt::Pane *hilight_next; //0x1ac
     nw4r::lyt::Pane *item_curr_null; //0x1b0
-    nw4r::lyt::Pane *item_next_null; //0x1b0
+    nw4r::lyt::Pane *item_next_null; //0x1b4
     u32 framesSinceLastSpin; //0x1b8  
 }; //0x1bc
 #endif

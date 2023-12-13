@@ -202,11 +202,11 @@ namespace DXDebug{
 
         if(head == nullptr)
         {
-            OSReport("[DX ERROR] No Console Found\n");
+            DXError("No Console Found\n");
             return false;
         }
         VISetBlack(0);
-        OSReport("canel all thread...\n");
+        OSReport("cancel all thread...\n");
         EGG::Thread::kandoTestCancelAllThread();
         OSReport("done\n");
         
@@ -334,7 +334,7 @@ namespace DXDebug{
         while (OSTicksToMilliseconds(tick1-tick0) < 1000) tick1 = OSGetTick();
         */
 
-        OSReport("canel all thread...\n");
+        OSReport("cancel all thread...\n");
         EGG::Thread::kandoTestCancelAllThread();
         OSReport("done\n");
         
