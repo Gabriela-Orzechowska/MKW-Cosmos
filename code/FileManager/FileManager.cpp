@@ -142,4 +142,68 @@ namespace DXFile
         return error;
     }
 
+    void FatFileManager::GetPath(const char *path)
+    {
+        mbstowcs(this->realPath, path, strlen(path)+1);
+        return;
+    }
+
+    s32 FatFileManager::Open(const char * filepath, u32 mode)
+    {
+        if(StorageDevice::currentDevice == nullptr) return -1;
+        this->GetPath(filepath);
+        FRESULT ret = f_open(&this->currentFile, this->realPath, mode);
+        if(ret == FR_OK) this->fileSize = f_size(&this->currentFile);
+        return ret;
+    }
+
+    s32 FatFileManager::CreateOpen(const char * filepath, u32 mode)
+    {
+        return this->Open(filepath, mode | FA_CREATE_ALWAYS);
+    }
+
+    s32 FatFileManager::CreateFolder(const char * filepath)
+    {
+        if(StorageDevice::currentDevice == nullptr) return -1;
+        this->GetPath(filepath);
+        FRESULT ret = f_mkdir(this->realPath);
+        return ret;
+    }
+
+    s32 FatFileManager::Read(void * buffer, s32 size)
+    {
+        if(StorageDevice::currentDevice == nullptr) return -1;
+        UINT readSize;
+        FRESULT ret = f_read(&this->currentFile, buffer, size, &readSize);
+        if(ret != FR_OK) return -1;
+        return readSize;
+    }
+
+    s32 FatFileManager::Write(u32 size, void * buffer)
+    {
+        if(StorageDevice::currentDevice == nullptr) return -1;
+        UINT writtenSize;
+        f_lseek(&this->currentFile, this->fileSize);
+        FRESULT ret = f_write(&this->currentFile, buffer, size, &writtenSize);
+        if(ret != FR_OK) return -1;
+        return writtenSize;
+    }
+
+    s32 FatFileManager::Overwrite(u32 size, void * buffer)
+    {
+        if(StorageDevice::currentDevice == nullptr) return -1;
+        UINT writtenSize;
+        f_lseek(&this->currentFile, 0);
+        FRESULT ret = f_write(&this->currentFile, buffer, size, &writtenSize);
+        if(ret != FR_OK) return -1;
+        return writtenSize;
+    }
+
+    void FatFileManager::Close()
+    {
+        if(StorageDevice::currentDevice == nullptr) return;
+        f_close(&this->currentFile);
+        return;
+    }
+
 }

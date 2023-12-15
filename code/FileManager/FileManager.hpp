@@ -8,8 +8,10 @@
 #include <core/System/RKSystem.hpp>
 #include <core/rvl/ipc/ipc.hpp>
 #include <core/rvl/devfs/isfs.hpp>
+#include <Storage/StorageDevice.hpp>
 
 typedef char FileName[255];
+#define MAXFATFILEPATH 260
 
 namespace DXFile
 {
@@ -61,6 +63,22 @@ namespace DXFile
         private:
             void GetCorrectPath(char *realPath, const char *path) const override;
             RiivoMode GetRiivoMode(u32 mode) const;
+    };
+    
+    class FatFileManager : public FileManager{
+        public:
+            FatFileManager(){};
+            s32 Open(const char * filepath, u32 mode) override;
+            s32 CreateOpen(const char * filepath, u32 mode) override;
+            s32 CreateFolder(const char * filepath) override;
+            s32 Read(void * buffer = NULL, s32 size = 0);
+            s32 Write(u32 size, void * buffer);
+            s32 Overwrite(u32 size, void * buffer);
+            void Close();
+        private:
+            void GetPath(const char *path);
+            wchar_t realPath[MAXFATFILEPATH];
+            FIL currentFile;
     };
 
 }
