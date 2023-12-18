@@ -19,9 +19,17 @@ namespace DXData
     void SettingsHolder::Init(char * filepath, const char * magic, u32 version)
     {
         strncpy(this->filepath, filepath, IPCMAXPATH);
+
+
         Settings * buffer = new (RKSystem::mInstance.EGGSystem, 0x20) Settings;
 
         DXFile::FileManager * manager = DXFile::FileManager::GetStaticInstance();
+        
+        if(manager == nullptr)
+        {
+            DXError("Failed to get manager!!!\n");
+            return;
+        }
         
         manager->CreateOpen(this->filepath, DXFile::FILE_MODE_READ_WRITE);
         manager->Read(buffer, sizeof(Settings));

@@ -1,5 +1,6 @@
 #include <FileManager/FileManager.hpp>
 #include <main.hpp>
+#include <Storage/SDStorage.hpp>
 
 namespace DXFile
 {
@@ -16,10 +17,12 @@ namespace DXFile
             ret = DX::Open("/dev/dolphin", IOS::MODE_NONE);
             if(ret >= 0)
             {
-                valid = true;
+                
                 IOS::Close(ret);
             }
-            manager = new (heap) FileManager();
+            valid = true;
+            SDStorage::Init();
+            manager = new (heap) FatFileManager();
         }
         else
         {
@@ -35,7 +38,9 @@ namespace DXFile
             u32 white = 0xFFFFFFFF;
             OSFatal(&white, &black, "Could not create FileManager");
         }
+        DXLog("Created FileManager, creating task...\n");
         FileManager::sInstance->taskThread = EGG::TaskThread::Create(2, 30, 0x2000, NULL);
+        DXLog("Task Created\n");
     }
 
 
@@ -151,9 +156,22 @@ namespace DXFile
     s32 FatFileManager::Open(const char * filepath, u32 mode)
     {
         if(StorageDevice::currentDevice == nullptr) return -1;
+        u32 actualMode = 0x0;
+        if(mode & FILE_MODE_READ)
+            actualMode |= FA_READ;
+        if(mode & FILE_MODE_WRITE)
+            actualMode |= FA_WRITE;
+        if(mode & FA_CREATE_ALWAYS)
+            actualMode |= FA_OPEN_APPEND; // This is so bad lmao
+
         this->GetPath(filepath);
-        FRESULT ret = f_open(&this->currentFile, this->realPath, mode);
-        if(ret == FR_OK) this->fileSize = f_size(&this->currentFile);
+        FRESULT ret = f_open(&this->currentFile, this->realPath, actualMode);
+        if(ret == FR_OK) {
+            this->fileSize = f_size(&this->currentFile);
+            f_lseek(&this->currentFile, 0);
+            DXLog("Opened file: %s\n", filepath);
+        }
+        else DXError("Opening file failed: %s\n", filepath);
         return ret;
     }
 
@@ -172,30 +190,57 @@ namespace DXFile
 
     s32 FatFileManager::Read(void * buffer, s32 size)
     {
-        if(StorageDevice::currentDevice == nullptr) return -1;
+        if(StorageDevice::currentDevice == nullptr) 
+        {
+            DXLog("Current device is null?!\n");
+            return -1;
+        }
         UINT readSize;
+        DXLog("Trying to read opened file...\n");
         FRESULT ret = f_read(&this->currentFile, buffer, size, &readSize);
-        if(ret != FR_OK) return -1;
+        if(ret != FR_OK) 
+        {
+            DXLog("File read failed! Error: %i\n", ret);
+            return -1;
+        }
+        else
+        {
+            DXLog("File read: %i bytes, required: %i\n", readSize, size);
+        }
         return readSize;
     }
 
     s32 FatFileManager::Write(u32 size, void * buffer)
     {
         if(StorageDevice::currentDevice == nullptr) return -1;
+        DXLog("Trying to save opened file...\n");
         UINT writtenSize;
         f_lseek(&this->currentFile, this->fileSize);
         FRESULT ret = f_write(&this->currentFile, buffer, size, &writtenSize);
-        if(ret != FR_OK) return -1;
+        if(ret != FR_OK) 
+        {
+            DXLog("File save failed! Error: %i\n", ret);
+            return -1;
+        }
         return writtenSize;
     }
 
     s32 FatFileManager::Overwrite(u32 size, void * buffer)
     {
         if(StorageDevice::currentDevice == nullptr) return -1;
+        DXLog("Trying to save opened file...\n");
         UINT writtenSize;
         f_lseek(&this->currentFile, 0);
         FRESULT ret = f_write(&this->currentFile, buffer, size, &writtenSize);
-        if(ret != FR_OK) return -1;
+        if(ret != FR_OK) 
+        {
+            DXLog("File save failed! Error: %i\n", ret);
+            return -1;
+        }
+        else
+        {
+            DXLog("File saved: %i bytes\n", writtenSize);
+        }
         return writtenSize;
     }
 

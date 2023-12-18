@@ -29,7 +29,6 @@ bool SD_GetStatus(u32 * status)
     if(IOS::IOCtl(sdfd, (IOS::IOCtlType) IOCTL_SDIO_GETSTATUS, NULL, 0, &out, sizeof(out)) < 0) return false;
     *status = out;
     sdhc = !!(*status & SDIO_STATUS_CARD_SDHC);
-    DXLog("SD Card Status: %x\n", *status);
     return true;
 }
 
@@ -69,7 +68,7 @@ bool SD_Reinitialize()
     if(!SD_WriteHcr(SDIOHCR_TIMEOUTCONTROL, 1, SDIO_DEFAULT_TIMEOUT)) return SD_Fail();
     
     if(!SD_SendCommand(SDIO_CMD_GOIDLE, 0, 0, 0, 0, 0, NULL, NULL)) return SD_Fail();
-    _sdioresponse response;
+    _sdioresponse response ALIGN_BUFFER;
     if(!SD_SendCommand(SDIO_CMD_SENDIFCOND, 0, SDIO_RESPONSE_R6, 0x1aa, 0, 0, NULL, (u32*) &response)) return SD_Fail();
 
     int tries;

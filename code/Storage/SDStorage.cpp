@@ -81,7 +81,7 @@ bool SDStorage::Init()
         SD_GetStatus(&status);
 
         if(!(status & SDIO_STATUS_CARD_INITIALIZED) || !ret){
-            QuickFatal("Retry initialization has failed...");
+            DXLog("Retry initialization has failed...");
             return false;
         } 
         DXLog("Success\n");
@@ -128,21 +128,11 @@ bool SDStorage::Init()
     if(result != FR_OK)
     {
         char strbuffer[0x40];
-        DXLog("Couldn't initialize FAT\nError: %i\nStatus: %x", result, status);
+        DXLog("Couldn't initialize FAT\nError");
         StorageDevice::currentDevice = nullptr;
         return false;
     }
-    DXLog("Initialized FAT\n");
-
-    result = f_mkdir(L"/AAAAA");
+    DXLog("Mounted FAT\n");
 
     return true;
 }
-
-void InitSDCard()
-{
-    SDStorage::Init();
-    return;
-}
-
-static BootHook bhSDCard(InitSDCard, FIRST);

@@ -35,10 +35,10 @@ namespace DXFile
             virtual s32 CreateFolder(const char * filepath);
             virtual s32 GetDeviceFd() const;
             virtual void GetCorrectPath(char * realPath, const char * path) const;
-            s32 Read(void * buffer = NULL, s32 size = 0);
-            s32 Write(u32 size, void * buffer);
-            s32 Overwrite(u32 size, void * buffer);
-            void Close();
+            virtual s32 Read(void * buffer = NULL, s32 size = 0);
+            virtual s32 Write(u32 size, void * buffer);
+            virtual s32 Overwrite(u32 size, void * buffer);
+            virtual void Close();
             int GetFileSize() const{return this->fileSize;}
             EGG::TaskThread * taskThread;
             static const char * modPath;
@@ -71,10 +71,10 @@ namespace DXFile
             s32 Open(const char * filepath, u32 mode) override;
             s32 CreateOpen(const char * filepath, u32 mode) override;
             s32 CreateFolder(const char * filepath) override;
-            s32 Read(void * buffer = NULL, s32 size = 0);
-            s32 Write(u32 size, void * buffer);
-            s32 Overwrite(u32 size, void * buffer);
-            void Close();
+            s32 Read(void * buffer = NULL, s32 size = 0) override;
+            s32 Write(u32 size, void * buffer) override;
+            s32 Overwrite(u32 size, void * buffer) override;
+            void Close() override;
         private:
             void GetPath(const char *path);
             wchar_t realPath[MAXFATFILEPATH];

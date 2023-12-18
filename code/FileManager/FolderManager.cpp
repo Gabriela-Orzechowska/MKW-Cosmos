@@ -16,8 +16,8 @@ namespace DXFile
         EGG::Heap *heap = RKSystem::mInstance.EGGSystem;
         FolderManager * manager;
         if(riivo_fd < 0){
-            manager = new (heap) FolderManager();
-            manager->curFile = new (heap) FileManager();
+            manager = new (heap) FatFolderManager();
+            manager->curFile = new (heap) FatFileManager();
         } 
         else{ 
             IOS::Close(riivo_fd);
@@ -126,4 +126,9 @@ namespace DXFile
         IOS::Close(riivo_fd);
         return ret;
     }
+
+     s32 FatFolderManager::ReadFolder(const char * filepath)
+     {
+        return -1;
+     };
 }

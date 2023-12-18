@@ -32,4 +32,11 @@ namespace DXFile
             RiivoFolderManager(){}
             s32 ReadFolder(const char * filepath) override;
     };
+
+    class FatFolderManager : public FolderManager
+    {
+        public:
+            FatFolderManager(){}
+            s32 ReadFolder(const char * filepath) override;
+    };
 } // namespace DXFile

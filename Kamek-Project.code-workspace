@@ -22,7 +22,11 @@
 			"c_stdlib.h": "c",
 			"string.h": "c",
 			"os.hpp": "c",
-			"c_string.h": "c"
+			"c_string.h": "c",
+			"typeinfo": "cpp",
+			"tuple": "cpp",
+			"type_traits": "cpp",
+			"utility": "cpp"
 		}
 	}
 }

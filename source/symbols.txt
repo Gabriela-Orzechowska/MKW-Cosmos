@@ -29,7 +29,7 @@ RipFromDiscAsync__13SystemManagerFPcPvUiUiPv = 0x8000b308
 CloseGame__13SystemManagerFv = 0x8000b154
 GoToWiiMenu__13SystemManagerFv = 0x8000b188
 
-
+mbstowcs = 0x8000f078
 wcstombs = 0x8000f138
 wcslen = 0x80017998
 snprintf = 0x80011938

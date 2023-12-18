@@ -23,14 +23,13 @@
 
 extern char gameID[4];
 
-//#define FORCEOSFATAL
-
 namespace DXDebug{
 
     static char output[0x100];
 
     void HandlePanic( const char *file, int line, const char *fmt, va_list vlist, bool halt, u32 LR)
     {
+
         char format[0x100];
         snprintf(output, 0x100, "%s:%d Panic:\n", file, line);
         vsnprintf(format, 0x100, fmt, vlist);
@@ -100,9 +99,9 @@ namespace DXDebug{
     extern u32 SRR0_addr;
     void PrintUnhandled()
     {
-        char text[] = "Dearest Player\nI hope it finds you well.\nWe seem to have found ourselves a crash in the game.\nPlease consider taking a screenshot and sending it to #bug-reports\n\nSRR0: %08X";
+        char text[] = "Dearest Player\nI hope it finds you well.\nWe seem to have found ourselves a crash in the game.\nPlease consider taking a screenshot and sending\n it to #bug-reports\n\n";
         char final[200];
-        snprintf(final, 200, text, SRR0_addr);
+        snprintf(final, 200, text);
 
         u32 black = 0;
         u32 white = ~0;
@@ -320,45 +319,4 @@ namespace DXDebug{
     }
     kmBranch(0x80226464 ,ExceptionCallBack_);
 
-#define DEBUG 1
-
-#ifdef DEBUG
-    void PPCHalt()
-    {
-        if(*(char *)0x80000003 != 'P'){ //TEMP
-            for(;;){}
-        }
-        /*
-        u32 tick0 = OSGetTick();
-        u32 tick1 = tick0;
-        while (OSTicksToMilliseconds(tick1-tick0) < 1000) tick1 = OSGetTick();
-        */
-
-        OSReport("cancel all thread...\n");
-        EGG::Thread::kandoTestCancelAllThread();
-        OSReport("done\n");
-        
-        register int tick1;
-        asm{
-            ASM(
-                mftb tick1;
-            )
-        };
-        
-        register int tick2 = tick1;
-        while(OSTicksToMilliseconds(tick2-tick1)<10000){
-            asm{
-                ASM(
-                    mftb tick2;
-                )
-            }
-        }
-        
-        while(true) 
-        {
-            IOS::IOCtl(*(s32 *)0x80386938, (IOS::IOCtlType)0x2003, (void *)0x80347ee0, 0x20, (void *)0x80347f00,0x20);
-        }
-    }
-    kmBranch(0x8012e5a4, PPCHalt);
-#endif
 }
