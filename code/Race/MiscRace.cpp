@@ -53,4 +53,13 @@ kmWrite32(0x808b5cdc, 0x3f8ccccd); //150cc -> 1.1f => "200"cc
 kmWrite32(0x808b59f4, 0x43070000);
 
 
-// Team Invul
+// No Team Invincibility (From Melg)
+kmWrite32(0x8056fd24, 0x38000000); //KartCollision::CheckKartCollision()
+kmWrite32(0x80572618, 0x38000000); //KartCollision::CheckItemCollision()
+kmWrite32(0x80573290, 0x38000000); //KartCollision::HandleFIBCollision()
+kmWrite32(0x8068e2d0, 0x38000000); //PlayerEffects ctor
+kmWrite32(0x8068e314, 0x38000000); //PlayerEffects ctor
+kmWrite32(0x807a7f6c, 0x38c00000); //FIB are always red
+kmWrite32(0x807b0bd4, 0x38000000); //pass TC to teammate
+kmWrite32(0x807bd2bc, 0x38000000); //RaceGlobals
+kmWrite32(0x807f18c8, 0x38000000); //TC alert
