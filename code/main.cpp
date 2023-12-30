@@ -125,7 +125,26 @@ namespace DX{
             if(force) OSShutdownToSBY();
             else OSShutdownSystem();
         }
-        else SystemManager::sInstance->GoToWiiMenu();
+        else 
+        {
+            s32 ret;
+            ret = DX::Open("/title/00010001/52494956/content/title.tmd\0", IOS::MODE_NONE); 
+            if(ret >= 0){
+                ISFS::Close(ret);
+                OSLaunchTitle(0x00010001, 0x52494956);
+            }
+            ret = DX::Open("/title/00010001/4c554c5a/content/title.tmd\0", IOS::MODE_NONE);
+            if(ret >= 0){
+                ISFS::Close(ret);
+                OSLaunchTitle(0x00010001, 0x4c554c5a);
+            }
+            ret = DX::Open("/title/00010001/48424330/content/title.tmd\0", IOS::MODE_NONE); 
+            if(ret >= 0){
+                ISFS::Close(ret);
+                OSLaunchTitle(0x00010001, 0x48424330);
+            }
+            SystemManager::sInstance->GoToWiiMenu();
+        }
     }
 
     void Restart()
