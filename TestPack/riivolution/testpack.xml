@@ -11,6 +11,8 @@
 	</options>
 	
 	<patch id="dxpackloadfuck">
+		<folder external="/DX/My Stuff" recursive="false"/>
+		<folder external="/DX/My Stuff" disc="/"/>
 		<memory valuefile="/DX/sys/Loader.bin" offset="0x80004000"/>
 		<folder external="/DX/sys" disc="/kamek" create="true"/>
 		<folder external="/DX/sys" disc="/rel" create="true"/>

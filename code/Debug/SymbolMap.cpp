@@ -4,6 +4,7 @@
 #include <Debug/IOSDolphin.hpp>
 
 
+
 namespace DXDebug
 {
     SymbolManager * SymbolManager::sInstance = nullptr;

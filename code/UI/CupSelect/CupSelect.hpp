@@ -24,6 +24,8 @@ namespace DXUI
         private:
             void OnSwitchPress(u32 slotId);
             void OnActivate() override;
+            void OnInit() override;
+            void OnMoviesActivate(u32 param_2) override {};
             PtmfHolder_1A<CupSelectPlus, void, u32> onSwitchPressHandler;
     };
 }

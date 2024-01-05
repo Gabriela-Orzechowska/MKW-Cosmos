@@ -56,6 +56,7 @@ namespace IOS
             request.size = sizeof(cpuSpeed);
 
             s32 ret = IOS::IOCtlv(devDolphin, (IOS::IOCtlType)GET_CPU_SPEED, 0, 1, &request);
+            if(ret < 0) cpuSpeed = 0;
 
             return cpuSpeed;
         }

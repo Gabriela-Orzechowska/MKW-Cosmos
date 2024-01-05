@@ -1,11 +1,13 @@
 #include <UI/CupSelect/CupSelect.hpp>
+#include <game/UI/Ctrl/Menu/CtrlMenuCourse.hpp>
 #include <LeCode/LeCodeManager.hpp>
 
 namespace DXUI
 {
     CupSelectPlus * CreateCupPage()
     {
-        return new(CupSelectPlus);
+        CupSelectPlus * cup = new(CupSelectPlus);
+        return cup;
     };
 
     kmWrite32(0x80623d98, 0x60000000);
@@ -16,6 +18,25 @@ namespace DXUI
         onSwitchPressHandler.subject = this;
         onSwitchPressHandler.ptmf = &CupSelectPlus::OnSwitchPress;
         this->controlsManipulatorManager.SetGlobalHandler(SWITCH_PRESS, (PtmfHolder_1A<Page, void, u32>*)&onSwitchPressHandler, false, false);
+    }
+
+    void CupSelectPlus::OnInit()
+    {
+        Pages::CupSelect::OnInit();
+        for(int i = 0; i < 8; i++)
+        {
+            u32 id = i < 4 ? i * 2 : ((i-4) * 2) + 1;
+            this->ctrlMenuCupSelectCup.cupButtons[i].buttonId = id;
+        }
+        return;
+    }
+
+    asm int FuckingButtons()
+    {
+        ASM(
+            nofralloc;
+            
+        )
     }
 
     void CupSelectPlus::OnActivate()
@@ -67,4 +88,10 @@ namespace DXUI
             this->LoadPrevPageWithDelayById(CUP_SELECT, 0.0f);
         }
     }
+
+    //Disable THP
+    kmWrite32(0x808404f8, 0x60000000);
+
+    
+
 }

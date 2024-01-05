@@ -41,15 +41,15 @@ namespace IOS
 
         static s32 devDolphin = -1;
 
-        static s32 Open()
+        static inline s32 Open()
         {
             if(devDolphin < 0) devDolphin = DX::Open("/dev/dolphin", IOS::MODE_NONE);
             return devDolphin;
         }
 
-        static bool IsOpen() { return devDolphin >= 0; }
+        static inline bool IsOpen() { return devDolphin >= 0; }
 
-        static bool Close()
+        static inline bool Close()
         {
             if(devDolphin >= 0) IOS::Close(devDolphin);
             return true;

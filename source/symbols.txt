@@ -7,6 +7,12 @@ p_lecodeBlueDrag = 0x807ae8ac
 p_lecodeBluePmtf = 0x808a5b30
 p_lecodeBlueFunc = 0x807ae8a8
 
+p_lecodeCup1 = 0x80627a3c
+p_lecodeCup2 = 0x807e5c54
+p_lecodeCup3 = 0x80841614
+p_lecodeCup4 = 0x807e4740
+p_lecodeCupCount = 0x807e5c1c
+
 p_objFlowLoad = 0x8082c140
 p_geoHitTableLoad = 0x807f92ac
 

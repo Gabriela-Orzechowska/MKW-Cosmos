@@ -248,7 +248,8 @@ public:
   float someScale;
   float shockSpeedMultiplier;
   float megaScale;
-  u8 unknown_0x180[0x188-0x180];
+  float bulletHitboxScale;
+  float unknown_0x184;
   s16 mushroomBoost2; //0x188, another mushroom boost timer
   s16 starTimer; //0x18A, timer for Star
   s16 shockTimer; //0x18C, used when shocked by KC Zappers, TC, or Shock
