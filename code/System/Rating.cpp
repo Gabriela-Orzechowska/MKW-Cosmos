@@ -1,16 +1,11 @@
 #include <System/Rating.hpp>
 
-//
-//
-//
-
-#define DIFF_SCALE 3
+#define DIFF_SCALE (1/3)
 #define MINVR 0
 #define MAXVR 35000
 
 #define MINWIN 4
 #define MAXWIN 25
-
 #define MINLOSE 3
 #define MAXLOSE 10
 
@@ -24,7 +19,7 @@ s16 CalculatePoints(Rating * player, Rating * opponent, bool isWinning)
     if(diff < -MAXVR+1) diff = -MAXVR+1;
     if(diff > MAXVR-1) diff = MAXVR-1;
     if(isWinning) diff = -diff;
-    diff = diff / DIFF_SCALE;
+    diff = diff * DIFF_SCALE;
 
     diff = diff + 9998;
     diff = diff / 5000;
