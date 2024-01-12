@@ -53,11 +53,11 @@ namespace DXGhost
         DXFile::FolderManager * manager = this->folderManager;
 
         snprintf(folderPath, IPCMAXPATH, "%s/%03x", DX::ghostFolder, courseId);
-        DXFile::FileManager::sInstance->CreateFolder(folderPath);
+        DXFile::FileManager::GetStaticInstance()->CreateFolder(folderPath);
 
         char folderModePath[IPCMAXPATH];
         snprintf(folderModePath, IPCMAXPATH, "%s/%s", folderPath, ttFolders[DX::GetTTMode()]);
-        DXFile::FileManager::sInstance->CreateFolder(folderModePath);
+        DXFile::FileManager::GetStaticInstance()->CreateFolder(folderModePath);
 
         manager->ReadFolder(folderModePath);
 
@@ -139,7 +139,7 @@ namespace DXGhost
         GhostManager * manager = (GhostManager *) holder;
         RKG * rkg = &manager->rkg;
         snprintf(path, IPCMAXPATH, "%s/%01dm%02ds%03d.rkg", manager->folderManager->GetName(), rkg->header.minutes, rkg->header.seconds, rkg->header.milliseconds);
-        DXFile::FileManager * fileManager = DXFile::FileManager::sInstance;
+        DXFile::FileManager * fileManager = DXFile::FileManager::GetStaticInstance();
         fileManager->CreateOpen(path, DXFile::FILE_MODE_WRITE);
         u32 size = sizeof(RKG);
         if(rkg->header.compressed) size = ((CompressedRKG*)rkg)->dataLength + sizeof(RKGHeader) + 0x4 + 0x4;
@@ -167,7 +167,7 @@ namespace DXGhost
         char filePath[IPCMAXPATH];
         snprintf(filePath, IPCMAXPATH, "%s/ld.glm", folderPath);
         strncpy(this->folderPath, folderPath, IPCMAXPATH);
-        DXFile::FileManager * manager = DXFile::FileManager::sInstance;
+        DXFile::FileManager * manager = DXFile::FileManager::GetStaticInstance();
         s32 ret = manager->Open(filePath, DXFile::FILE_MODE_READ);
         if(ret > 0) ret = manager->Read(&this->file, sizeof(GhostLeaderboardFile));
         if(ret <= 0)
@@ -183,7 +183,7 @@ namespace DXGhost
     {
         char filePath[IPCMAXPATH];
         snprintf(filePath, IPCMAXPATH, "%s/ld.glm", GhostManager::folderPath);
-        DXFile::FileManager * manager = DXFile::FileManager::sInstance;
+        DXFile::FileManager * manager = DXFile::FileManager::GetStaticInstance();
         manager->CreateOpen(filePath, DXFile::FILE_MODE_READ_WRITE);
         GhostLeaderboardFile * file = new (RKSystem::mInstance.EGGSystem, 0x20) GhostLeaderboardFile;
         file->trackId = (u32) id;
@@ -235,7 +235,7 @@ namespace DXGhost
     {
         char filePath[IPCMAXPATH];
         snprintf(filePath, IPCMAXPATH, "%s/ld.glm", folderPath);
-        DXFile::FileManager * manager = DXFile::FileManager::sInstance;
+        DXFile::FileManager * manager = DXFile::FileManager::GetStaticInstance();
         manager->Open(filePath, DXFile::FILE_MODE_WRITE);
         manager->Overwrite(sizeof(GhostLeaderboardFile), &this->file);
         manager->Close();
@@ -469,7 +469,7 @@ namespace DXGhost
                 {
                     u32 trackId = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
                     if(leaderboardPosition > -1) manager->GetLeaderboard()->Update(leaderboardPosition, &entry, trackId);
-                    DXFile::FileManager::sInstance->taskThread->Request(&GhostManager::CreateAndSaveFiles, manager, NULL);
+                    DXFile::FileManager::GetStaticInstance()->taskThread->Request(&GhostManager::CreateAndSaveFiles, manager, NULL);
                 }
             }
         }

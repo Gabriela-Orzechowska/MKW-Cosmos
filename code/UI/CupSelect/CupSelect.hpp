@@ -1,6 +1,7 @@
 #include <kamek.hpp>
 #include <game/GlobalFunctions.hpp>
 #include <game/UI/Page/Menu/CupSelect.hpp>
+#include <game/UI/Page/Menu/CourseSelect.hpp>
 #include <game/UI/Text.hpp>
 #include <game/Race/RaceData.hpp>
 #include <main.hpp>
@@ -28,4 +29,5 @@ namespace DXUI
             void OnMoviesActivate(u32 param_2) override {};
             PtmfHolder_1A<CupSelectPlus, void, u32> onSwitchPressHandler;
     };
+
 }

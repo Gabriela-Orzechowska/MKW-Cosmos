@@ -17,7 +17,6 @@ namespace DXFile
             ret = DX::Open("/dev/dolphin", IOS::MODE_NONE);
             if(ret >= 0)
             {
-                
                 IOS::Close(ret);
             }
             valid = true;

@@ -13,6 +13,7 @@ namespace DXUI
     kmWrite32(0x80623d98, 0x60000000);
     kmCall(0x80623da4, CreateCupPage);
 
+
     CupSelectPlus::CupSelectPlus()
     {
         onSwitchPressHandler.subject = this;
@@ -29,14 +30,6 @@ namespace DXUI
             this->ctrlMenuCupSelectCup.cupButtons[i].buttonId = id;
         }
         return;
-    }
-
-    asm int FuckingButtons()
-    {
-        ASM(
-            nofralloc;
-            
-        )
     }
 
     void CupSelectPlus::OnActivate()
@@ -92,6 +85,38 @@ namespace DXUI
     //Disable THP
     kmWrite32(0x808404f8, 0x60000000);
 
-    
+    u32 CorrectCourseSelectCup(Pages::CupSelect * page)
+    {
+        u32 id = page->clickedCupId;
+        return (id & 1) > 0 ? (4 + (id-1)/2) : id >> 1; 
+    }
+
+    asm int asmCorrectCourseSelectCup()
+    {
+        ASM(
+        nofralloc;
+        stwu r1, -0x80 (r1);
+        stmw r3, 0x8 (r1);
+
+        mflr r12;
+        bl CorrectCourseSelectCup;
+        mr r0, r3;
+
+        mtlr r12;
+        lmw r3, 0x8 (r1);
+        addi r1, r1, 0x80;
+        mr r26, r0;
+        blr;
+        );
+    }
+
+    kmCall(0x807e45e4, asmCorrectCourseSelectCup);
+
+    void FixCourseSelectCup()
+    {
+        extern u32 p_courseSelectCupId;
+        DX::CreateCall((u32)&p_courseSelectCupId, asmCorrectCourseSelectCup);
+    }
+    static LeCodeLoadHook lclhFixCourseSelectCup(FixCourseSelectCup);
 
 }
