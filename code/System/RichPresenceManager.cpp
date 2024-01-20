@@ -55,7 +55,7 @@ void RichPresenceManager::Init()
         CreateStaticInstance();
     s32 ret = InitConnection();
     if(ret < 0) return;
-    rEnabled = true;
+    //rEnabled = true;
     DXLog("Rich Presence Enabled\n");
 
     u64 time = IOS::Dolphin::GetSystemTime();
