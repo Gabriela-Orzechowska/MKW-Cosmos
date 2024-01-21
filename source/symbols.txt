@@ -17,6 +17,16 @@ p_courseSelectCupId__4DXUI = 0x807e45e4
 p_objFlowLoad = 0x8082c140
 p_geoHitTableLoad = 0x807f92ac
 
+pr_patch1_r5 = 0x80653644
+pr_patch2_r6 = 0x806536B0
+pr_patch3_r7 = 0x8065920C
+pr_patch4_r7 = 0x80659260
+pr_patch5_r7 = 0x80659724
+pr_patch6_r7 = 0x80659778
+pr_patch7_r4 = 0x8065A034
+pr_patch8_r4 = 0x8065A080
+
+
 __div2u = 0x80021604
 __mod2u = 0x80021828
 
