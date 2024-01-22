@@ -8,6 +8,8 @@
 
 //#define NO_FAST_MENU
 
+#define CUP_COUNT 10
+
 namespace DX
 {
     enum CUSTOM_PAGE_IDS 

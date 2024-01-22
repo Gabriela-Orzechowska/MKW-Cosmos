@@ -13,12 +13,57 @@ namespace DXUI
     kmWrite32(0x80623d98, 0x60000000);
     kmCall(0x80623da4, CreateCupPage);
 
-
     CupSelectPlus::CupSelectPlus()
     {
+        internControlCount += 1;
+        onRightArrowSelectHandler.subject = this;
+        onRightArrowSelectHandler.ptmf = &CupSelectPlus::OnRightArrowSelect;
+        onLeftArrowSelectHandler.subject = this;
+        onLeftArrowSelectHandler.ptmf = &CupSelectPlus::OnLeftArrowSelect;
+        
+
         onSwitchPressHandler.subject = this;
         onSwitchPressHandler.ptmf = &CupSelectPlus::OnSwitchPress;
         this->controlsManipulatorManager.SetGlobalHandler(SWITCH_PRESS, (PtmfHolder_1A<Page, void, u32>*)&onSwitchPressHandler, false, false);
+    }
+    kmWrite32(0x80841244, 0x38800001);
+    
+    kmWrite32(0x808a85d1, 0x44584353);
+    
+    UIControl *  CupSelectPlus::CreateControl(u32 controlId)
+    {
+        switch(controlId){
+            case 2:
+                this->AddControl(2, &this->arrows, 0);
+                arrows.SetRightArrowHandler((PtmfHolder_2A<Page, void, SheetSelectControl *, u32>*)&this->onRightArrowSelectHandler);
+                arrows.SetLeftArrowHandler((PtmfHolder_2A<Page, void, SheetSelectControl *, u32>*)&this->onLeftArrowSelectHandler);
+                arrows.Load("button", "DXCupSelectRightArrow", "ButtonArrowRight", "DXCupSelectLeftArrow", "ButtonArrowLeft", 1, 0, false);
+                this->controlCount++;
+                return &this->arrows;
+            default:
+                return CupSelect::CreateControl(controlId);
+        }
+    }
+
+    void CupSelectPlus::OnRightArrowSelect(SheetSelectControl::SheetSelectButton * button, u32 slotId){
+        this->ScrollCups(1);
+    }
+
+    void CupSelectPlus::OnLeftArrowSelect(SheetSelectControl::SheetSelectButton * button, u32 slotId){
+        this->ScrollCups(-1);
+    }
+
+    void CupSelectPlus::ScrollCups(s32 direction)
+    {
+        CtrlMenuCupSelectCup *cupCtrl = &this->ctrlMenuCupSelectCup;
+        cupCtrl->curCupID = (cupCtrl->curCupID + (direction * 2) + CUP_COUNT) % CUP_COUNT;
+        for(int i = 0; i < 8; i++)
+        {
+            u32 id = this->ctrlMenuCupSelectCup.cupButtons[i].buttonId;
+            id = (id + (direction * 2) + CUP_COUNT) % CUP_COUNT;
+            this->ctrlMenuCupSelectCup.cupButtons[i].buttonId = id;
+        }
+        this->ctrlMenuCupSelectCourse.UpdateTrackList(cupCtrl->curCupID);
     }
 
     void CupSelectPlus::OnInit()
