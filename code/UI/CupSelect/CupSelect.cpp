@@ -53,15 +53,26 @@ namespace DXUI
         this->ScrollCups(-1);
     }
 
+    void CupSelectPlus::ChangeTPL(LayoutUIControl * ctrl, u32 id)
+    {
+        char tpl[0x20];
+        snprintf(tpl, 0x20, "icon_cup_%03d.tpl", id);
+        DXUI::ChangePaneImage(ctrl, "icon", tpl);
+        DXUI::ChangePaneImage(ctrl, "icon_light_01", tpl);
+        DXUI::ChangePaneImage(ctrl, "icon_light_02", tpl);
+    }
+
     void CupSelectPlus::ScrollCups(s32 direction)
     {
         CtrlMenuCupSelectCup *cupCtrl = &this->ctrlMenuCupSelectCup;
         cupCtrl->curCupID = (cupCtrl->curCupID + (direction * 2) + CUP_COUNT) % CUP_COUNT;
         for(int i = 0; i < 8; i++)
         {
-            u32 id = this->ctrlMenuCupSelectCup.cupButtons[i].buttonId;
+            PushButton * button = &this->ctrlMenuCupSelectCup.cupButtons[i];
+            u32 id = button->buttonId;
             id = (id + (direction * 2) + CUP_COUNT) % CUP_COUNT;
-            this->ctrlMenuCupSelectCup.cupButtons[i].buttonId = id;
+            button->buttonId = id;
+            this->ChangeTPL(button, id);
         }
         this->ctrlMenuCupSelectCourse.UpdateTrackList(cupCtrl->curCupID);
     }
@@ -127,12 +138,49 @@ namespace DXUI
         }
     }
 
+    void ExtendCupSelectCupInitSelf(CtrlMenuCupSelectCup * cups)
+    {
+        cups->curCupID = lastSelectedCup;
+        for(int i = 0; i < 8; i++)
+        {
+            PushButton * button = &cups->cupButtons[i];
+            u32 id = i < 4 ? i * 2 : ((i-4) * 2) + 1;
+            id = (id + lastLeftCup + CUP_COUNT) % CUP_COUNT;
+            button->buttonId = id;
+            button->SetMsgId(id + BMG_CUPS);
+            button->SetOnClickHandler((PtmfHolder_2A<Page, void, PushButton *, u32>*) &cups->onCupButtonClickHandler, 0);
+            button->SetOnSelectHandler((PtmfHolder_2A<Page, void, PushButton *, u32>*) &cups->onCupButtonSelectHandler);
+            button->SetPlayerBitfield(MenuData::sInstance->curScene->Get<Pages::CupSelect>(CUP_SELECT)->GetPlayerBitfield());
+            CupSelectPlus::ChangeTPL(button, id);
+        }
+        cups->cupButtons[lastSelectedButton].SelectInitialButton(0);
+    }
+    kmWritePointer(0x808d324c, ExtendCupSelectCupInitSelf);
+
+    void UpdateSelection(CupSelectPlus * page, CtrlMenuCupSelectCup * cups, PushButton *button, u32 slotId)
+    {
+        lastLeftCup = cups->cupButtons[0].buttonId;
+
+        for(int i = 0; i < 8; i++)
+        {
+            PushButton * cbutton = &cups->cupButtons[i];
+            if(button == cbutton){
+                lastSelectedButton = i;
+            }
+        }
+        page->LoadNextPage(cups, button, slotId);
+        RaceData::sInstance->menusScenario.settings.cupId = lastSelectedCup % 8;
+    }
+    kmCall(0x807e5da8, UpdateSelection);
+
     //Disable THP
     kmWrite32(0x808404f8, 0x60000000);
 
     u32 CorrectCourseSelectCup(Pages::CupSelect * page)
     {
-        u32 id = page->clickedCupId;
+        s32 offset = page->ctrlMenuCupSelectCup.cupButtons[0].buttonId;
+        s32 id = page->clickedCupId - offset;
+        if(id < 0) id + 8;
         return (id & 1) > 0 ? (4 + (id-1)/2) : id >> 1; 
     }
 

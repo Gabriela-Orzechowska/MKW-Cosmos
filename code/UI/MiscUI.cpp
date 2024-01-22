@@ -12,6 +12,14 @@
 
 using namespace DXData;
 
+namespace DXUI
+{
+    void ChangePaneImage(LayoutUIControl * ctrl, const char * pane, const char * tpl){
+        void * tplResource = ctrl->layout.resources->multiArcResourceAccessor.GetResource(res::RESOURCETYPE_TEXTURE, tpl);
+        ctrl->layout.GetPaneByName(pane)->GetMaterial()->GetTexMapAry()->ReplaceImage((TPLPalettePtr) tplResource);
+    }
+}
+
 void FasterMenusOnTransition(MenuData *menuData, u32 delay, u32 r5){
     if (SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_FAST_MENUS] == ENABLED) 
         delay = 0;
@@ -160,4 +168,5 @@ void WhiteStrapTransition()
     RKSystem::sInstance->sceneManager->colorFader->setColor(white);
 }
 
-//static LeCodeLoadHook hWhiteStrapTransition(WhiteStrapTransition);
+static LeCodeLoadHook hWhiteStrapTransition(WhiteStrapTransition);
+

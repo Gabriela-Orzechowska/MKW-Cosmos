@@ -1,3 +1,4 @@
+#pragma once
 #include <kamek.hpp>
 #include <game/GlobalFunctions.hpp>
 #include <game/UI/Page/Menu/CupSelect.hpp>
@@ -6,6 +7,8 @@
 #include <game/UI/Ctrl/SheetSelect.hpp>
 #include <game/Race/RaceData.hpp>
 #include <main.hpp>
+#include <UI/MiscUI.hpp>
+#include <UI/BMG/BMG.hpp>
 
 namespace DXUI
 {
@@ -17,14 +20,17 @@ namespace DXUI
     #define CUPFILE_SORT_OFFSET 0x1000
     #define CUPFILE_MODE_OFFSET 0x0
 
-
+    static s32 lastSelectedTrack;
+    static s32 lastSelectedCup;
+    static s32 lastSelectedButton;
+    static s32 lastLeftCup;
     static CUP_LAYOUT currentLayout = NORMAL;
 
     class CupSelectPlus : public Pages::CupSelect
     {
         public:
             CupSelectPlus();
-            //static void ChangeTPL(LayoutUIControl * ctrl, u32 id);
+            static void ChangeTPL(LayoutUIControl * ctrl, u32 id);
             UIControl * CreateControl(u32 controlId) override;
         private:
             void OnSwitchPress(u32 slotId);

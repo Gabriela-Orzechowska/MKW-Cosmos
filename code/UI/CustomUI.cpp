@@ -66,3 +66,4 @@ kmCall(0x8062d5bc, InjectPage); //From ChangeCourse
 kmCall(0x8062d640, InjectPage); //From Versus
 kmCall(0x8062d6c4, InjectPage); //From Battle
 kmCall(0x8062d808, InjectPage); //From Mission MOde
+

@@ -11,6 +11,8 @@ enum DX_BMG
     BMG_SETTING_OPTION = 0x3001, //
 
     BMG_SETTING_OPTION_BOTTOM = 0x3801,
+
+    BMG_CUPS = 0x6000,
 };
 
 
