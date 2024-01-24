@@ -1,3 +1,4 @@
+
 #ifndef _DX_SETTINGSPAGE_
 #define _DX_SETTINGSPAGE_
 

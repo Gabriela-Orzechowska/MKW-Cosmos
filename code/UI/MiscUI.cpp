@@ -7,8 +7,8 @@
 #include <game/UI/SectionMgr/SectionMgr.hpp>
 #include <game/System/FontManager.hpp>
 #include <core/rvl/os/OS.hpp>
-#include <UI/Settings/SettingsBasePage.hpp>
 #include <UI/MiscUI.hpp>
+#include <UI/Settings/SettingsBasePage.hpp>
 
 using namespace DXData;
 

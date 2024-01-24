@@ -71,6 +71,7 @@ namespace DXUI
             PushButton * button = &this->ctrlMenuCupSelectCup.cupButtons[i];
             u32 id = button->buttonId;
             id = (id + (direction * 2) + CUP_COUNT) % CUP_COUNT;
+            button->SetMsgId(id + BMG_CUPS);
             button->buttonId = id;
             this->ChangeTPL(button, id);
         }

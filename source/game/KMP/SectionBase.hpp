@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _KMP_SECTION_BASE_
 #define _KMP_SECTION_BASE_
 #include <kamek.hpp>

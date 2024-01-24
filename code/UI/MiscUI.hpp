@@ -1,6 +1,7 @@
-#pragma once
+#ifndef _MISCUI_
+#define _MISCUI_
 #include <kamek.hpp>
-#include <UI/CupSelect/CupSelect.hpp>
+
 
 static bool loadedAsKorean = false;
 
@@ -8,3 +9,4 @@ namespace DXUI
 {
     void ChangePaneImage(LayoutUIControl * ctrl, const char * pane, const char * tpl);
 }
+#endif

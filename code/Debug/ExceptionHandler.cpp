@@ -115,9 +115,18 @@ namespace DXDebug{
     {
         nw4r::db::Exception_Printf_("**** MKWDX EXCEPTION HANDLER ****\n");
         nw4r::db::Exception_Printf_("MKW Deluxe v9.0 (%s %s)\nPlatform: %s\n", __DATE__, __TIME__, DXDebug::GetPlatformString());
-        nw4r::db::Exception_Printf_("*** Dearest Player\n*** I hope it finds you well. We seem to have\n*** found ourselves a crash in the game. Please\n*** consider taking a screenshot and sending it \n*** to #bug-reports\n");
-        nw4r::db::Exception_Printf_("***\n");
-        nw4r::db::Exception_Printf_("*** Sincerely, @VolcanoPiece1\n");
+        
+        u32 tick0 = OSGetTick() & 0x3;
+
+        if(tick0 == 0){
+            nw4r::db::Exception_Printf_("*** Dearest Player\n*** I hope it finds you well. We seem to have\n*** found ourselves a crash in the game. Please\n*** consider taking a screenshot and sending it \n*** to #bug-reports\n");
+            nw4r::db::Exception_Printf_("***\n");
+            nw4r::db::Exception_Printf_("*** Sincerely, @VolcanoPiece1\n");
+        }
+        else if(tick0 == 1)
+        {
+            nw4r::db::Exception_Printf_("*** Lorem ipsum dolor sit amet,\n*** consectetur adipiscing elit.\n*** Nunc ipsum dui, aliquam in volutpat a,\n*** feugiat et justo.\n*** Duis commodo varius ex,\n*** ut viverra risus malesuada consectetur.");
+        }
 
         return;
     }
@@ -134,7 +143,7 @@ namespace DXDebug{
 
     void PrintStack(const char * format, u32 curStack, u32 nextStack, u32 curValue)
     {
-        nw4r::db::Exception_Printf_("%08x:  %08x    %08x: %s()",curStack,nextStack,curValue,SymbolManager::GetSymbolName(curValue));
+        nw4r::db::Exception_Printf_("%08x:  %08x    %08x: %s",curStack,nextStack,curValue,SymbolManager::GetSymbolName(curValue));
     }
 
     kmCall(0x80023930, PrintStack);
