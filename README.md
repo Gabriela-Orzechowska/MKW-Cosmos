@@ -1,8 +1,6 @@
-# MKWDX-Kamek
+# MKW-Cosmos
 
-In development Kamek-based Mario Kart Wii Deluxe version. (Replacing Gecko Codes)
-
-Currently working on reimplementing basic features. 
+Cosmos - Mario Kart Wii Code Extension for LE-Code based distributions, fixing and expanding many features.
 
 ## Building
 Run `Build.bat`. Update `CC=` path inside `Build.bat` if needed.
@@ -12,12 +10,14 @@ Run `Build.bat`. Update `CC=` path inside `Build.bat` if needed.
 
 ## Current Features
 ### General
-- LeCode Loader
+- LE-Code Loader
 - Discord Rich Presence
 - Files loading from additional archives/bmg files
 - Auto BRSAR Patching
 - Full ghost support (saving, watching, racing)
 - Various debugging features
+- SD Card Support
+- Custom Track Selection
 
 ### Gameplay
 - Time Trial CC mode selection
@@ -43,8 +43,6 @@ also can be changed with minus on track selection)
 - Accesibility (menu to be added)
   - Y/ZL to Wheelie
 
-## In works
-- Independent SD Card/USB support
 
 ## Credits
 Documentation by Melg: https://github.com/MelgMKW/Mario-Kart-Wii-Kamek-Documentation/tree/main
