@@ -1,5 +1,5 @@
-#ifndef _DX_AUTHOR_CREDITS_
-#define _DX_AUTHOR_CREDITS_
+#ifndef _COSMOS_AUTHOR_CREDITS_
+#define _COSMOS_AUTHOR_CREDITS_
 
 #include <kamek.hpp>
 #include <UI/RaceBase/ControlRaceBase.hpp>
@@ -7,7 +7,7 @@
 
 #define BMGOFFSET 0x13000
 
-namespace DXUI{
+namespace CosmosUI{
     class ControlAuthorCredits : public CtrlRaceWifiStartMessage
     {
     private:

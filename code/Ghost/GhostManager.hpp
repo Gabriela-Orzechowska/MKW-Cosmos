@@ -1,5 +1,5 @@
-#ifndef _DX_GHOST_MANAGER_
-#define _DX_GHOST_MANAGER_
+#ifndef _COSMOS_GHOST_MANAGER_
+#define _COSMOS_GHOST_MANAGER_
 
 #include <kamek.hpp>
 #include <main.hpp>
@@ -12,7 +12,7 @@
 #include <game/Race/RaceData.hpp>
 #include <game/UI/Page/Other/GhostSelect.hpp>
 
-namespace DXGhost
+namespace CosmosGhost
 {
 
     #define GAMEMODES 2
@@ -106,7 +106,7 @@ namespace DXGhost
             GhostLeaderboardManager leaderboard __attribute__ ((aligned( 0x20 )));
             u32 mainGhostIndex;
             static char folderPath[IPCMAXPATH];
-            DXFile::FolderManager * folderManager;
+            CosmosFile::FolderManager * folderManager;
             TimeEntry entry;
 
         private:

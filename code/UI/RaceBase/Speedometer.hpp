@@ -1,12 +1,12 @@
-#ifndef _DX_SPEEDOMETER_
-#define _DX_SPEEDOMETER_
+#ifndef _COSMOS_SPEEDOMETER_
+#define _COSMOS_SPEEDOMETER_
 
 #include <kamek.hpp>
 #include <game/Race/Kart/KartHolder.hpp>
 #include <game/UI/MenuData/Menudata.hpp>
 #include <UI/RaceBase/ControlRaceBase.hpp>
 
-namespace DXUI
+namespace CosmosUI
 {
     class ControlRaceSpeedometer : public CtrlRaceBase
     {

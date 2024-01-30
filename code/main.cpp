@@ -10,7 +10,7 @@
 
 extern char gameID[4];
 
-namespace DX{
+namespace Cosmos{
 
     //Wiimmfi Stuff
     using IOS::Open2ndInst;
@@ -31,7 +31,7 @@ namespace DX{
     void SetCC()
     {
         EngineClass cc = CC_100;
-        if(TTMode == DX_TT_200CC) cc = CC_150;
+        if(TTMode == COSMOS_TT_200cc) cc = CC_150;
         RaceData::sInstance->menusScenario.settings.engineClass = cc;
     }
 
@@ -46,16 +46,16 @@ namespace DX{
     void LoadAdditionalFiles(ArchiveFile * file, const char * path, EGG::Heap *heap, bool isCompressed, s32 align, EGG::Heap * fileHeap, EGG::Archive::FileInfo * fileInfo)
     {
         if(&ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archives[2] == file){
-            path = DX::UIArchive;
+            path = Cosmos::UIArchive;
         }
         else if(&ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archives[2] == file){
-            path = DX::CommonArchive;
+            path = Cosmos::CommonArchive;
         }
         //else if(&ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COURSE]->archives[4] == file){
         //    path = DX::CourseArchive;
         //}
         file->Load(path, heap, isCompressed, align, fileHeap, fileInfo);
-        DXLog("Loading %s\n", path);
+        CosmosLog("Loading %s\n", path);
     }
 
     kmWrite32(0x8052a108, 0x38800003); //+1 for CommonDX.szs
@@ -68,7 +68,7 @@ namespace DX{
 
     void CreateFolders()
     {
-        DXFile::FileManager * manager = DXFile::FileManager::GetStaticInstance();
+        CosmosFile::FileManager * manager = CosmosFile::FileManager::GetStaticInstance();
         manager->CreateFolder(packFolder);
         manager->CreateFolder(ghostFolder);
 
@@ -128,17 +128,17 @@ namespace DX{
         else 
         {
             s32 ret;
-            ret = DX::Open("/title/00010001/52494956/content/title.tmd\0", IOS::MODE_NONE); 
+            ret = Cosmos::Open("/title/00010001/52494956/content/title.tmd\0", IOS::MODE_NONE); 
             if(ret >= 0){
                 ISFS::Close(ret);
                 OSLaunchTitle(0x00010001, 0x52494956);
             }
-            ret = DX::Open("/title/00010001/4c554c5a/content/title.tmd\0", IOS::MODE_NONE);
+            ret = Cosmos::Open("/title/00010001/4c554c5a/content/title.tmd\0", IOS::MODE_NONE);
             if(ret >= 0){
                 ISFS::Close(ret);
                 OSLaunchTitle(0x00010001, 0x4c554c5a);
             }
-            ret = DX::Open("/title/00010001/48424330/content/title.tmd\0", IOS::MODE_NONE); 
+            ret = Cosmos::Open("/title/00010001/48424330/content/title.tmd\0", IOS::MODE_NONE); 
             if(ret >= 0){
                 ISFS::Close(ret);
                 OSLaunchTitle(0x00010001, 0x48424330);
@@ -180,7 +180,7 @@ namespace DX{
         {
             if(stackRegister == nullptr || stackRegister == (u32 *) -1) break;
             char buffer[0x80];
-            snprintf(buffer, 0x80, "%08X: %08X %08X: %s\n", stackRegister, *stackRegister, stackRegister[0x1], DXDebug::SymbolManager::GetSymbolName(stackRegister[0x1]));
+            snprintf(buffer, 0x80, "%08X: %08X %08X: %s\n", stackRegister, *stackRegister, stackRegister[0x1], CosmosDebug::SymbolManager::GetSymbolName(stackRegister[0x1]));
             strcat(stack,buffer);
             stackRegister = (u32 *) *stackRegister;
         }

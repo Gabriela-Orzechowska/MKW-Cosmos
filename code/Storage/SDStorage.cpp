@@ -47,73 +47,73 @@ bool SDStorage::Init()
     s32 fd;
 
     if(sdfd < 0){
-        fd = DX::Open((char *) sd_fd, IOS::MODE_NONE);
+        fd = Cosmos::Open((char *) sd_fd, IOS::MODE_NONE);
     }
     else fd = sdfd;
     if(fd < 0)
     {
-        DXLog("Failed to open /dev/sdio/slot0");
+        CosmosLog("Failed to open /dev/sdio/slot0");
         return false;
     }
 
-    DXLog("Opened SD interface, ID: %i\n", fd);
+    CosmosLog("Opened SD interface, ID: %i\n", fd);
 
     if(!SD_Reset(fd)) {
-        DXLog("Failed to reset SD Card\n");
+        CosmosLog("Failed to reset SD Card\n");
         return false;
     }
     u32 status;
     if(!SD_GetStatus(&status)) 
     {
-        DXLog("Unable to get status\n");
+        CosmosLog("Unable to get status\n");
         return false;
     }
 
     if(!(status & SDIO_STATUS_CARD_INSERTED)){
-        DXLog("SD card not inserted\n");
+        CosmosLog("SD card not inserted\n");
         return false;
     }
 
     if(!(status & SDIO_STATUS_CARD_INITIALIZED))
     {
-        DXLog("Could not initialize filesystem... Retrying...\n");
+        CosmosLog("Could not initialize filesystem... Retrying...\n");
         bool ret = SD_Reinitialize();
         SD_GetStatus(&status);
 
         if(!(status & SDIO_STATUS_CARD_INITIALIZED) || !ret){
-            DXLog("Retry initialization has failed...");
+            CosmosLog("Retry initialization has failed...");
             return false;
         } 
-        DXLog("Success\n");
+        CosmosLog("Success\n");
     }
 
     //sdhc = !!(status & SDIO_STATUS_CARD_SDHC);
     if(!SD_Enable4bitBus()){
-        DXLog("Failed to enable 4-bit mode\n");
+        CosmosLog("Failed to enable 4-bit mode\n");
         return false;
     }
 
     if(!SD_SetClock(1))
     {
-        DXLog("Unable to set the clock\n");
+        CosmosLog("Unable to set the clock\n");
         return false;
     }
 
     if(!SD_Select())
     {
-        DXLog("Unable to select the sd card\n");
+        CosmosLog("Unable to select the sd card\n");
         return false;
     }
 
     if(!SD_SetCardBlockSize(SECTOR_SIZE)){
         SD_Deselect();
-        DXLog("Unable to set block size\n");
+        CosmosLog("Unable to set block size\n");
         return false;
     }
 
     if(!SD_EnableCard4BitBus){
         SD_Deselect();
-        DXLog("Unable to enable card 4 bit bus\n");
+        CosmosLog("Unable to enable card 4 bit bus\n");
         return false;
     }
 
@@ -121,18 +121,18 @@ bool SDStorage::Init()
     StorageDevice * device = new(RKSystem::mInstance.EGGSystem) SDStorage;
     StorageDevice::currentDevice = device;
 
-    DXLog("Successfully initialized SD card\n");
+    CosmosLog("Successfully initialized SD card\n");
     
     FRESULT result = f_mount(&device->m_fs, L"", 1);
     
     if(result != FR_OK)
     {
         char strbuffer[0x40];
-        DXLog("Couldn't initialize FAT\nError");
+        CosmosLog("Couldn't initialize FAT\nError");
         StorageDevice::currentDevice = nullptr;
         return false;
     }
-    DXLog("Mounted FAT\n");
+    CosmosLog("Mounted FAT\n");
 
     return true;
 }

@@ -1,5 +1,5 @@
-#ifndef _DX_USER_DATA_
-#define _DX_USER_DATA_
+#ifndef _COSMOS_USER_DATA_
+#define _COSMOS_USER_DATA_
 
 #include <kamek.hpp>
 #include <FileManager/FileManager.hpp>
@@ -27,7 +27,7 @@ public:
     }
 };
 
-namespace DXData
+namespace CosmosData
 {
 
 #define PAGECOUNT 2
@@ -65,20 +65,20 @@ namespace DXData
     };
 
     enum SETTINGSPAGES{
-        DX_RACE_SETTINGS_1 = 0x0,
-        DX_MENU_SETTINGS_1 = 0x1,
+        COSMOS_RACE_SETTINGS_1 = 0x0,
+        COSMOS_MENU_SETTINGS_1 = 0x1,
     };
 
     enum RACE_SETTINGS_1_SETTINGS {
-        DX_MUSIC_CUTOFF = 0x0,
-        DX_DRAGGABLE_BLUES = 0x1,
-        DX_FRAME_MODE = 0x2,
+        COSMOS_MUSIC_CUTOFF = 0x0,
+        COSMOS_DRAGGABLE_BLUES = 0x1,
+        COSMOS_FRAME_MODE = 0x2,
     };
 
     enum MENU_SETTINGS_1_SETTINGS {
-        DX_LANGUAGE_SETTINGS = 0x0,
-        DX_FAST_MENUS = 0x1,
-        DX_LAYOUT = 0x2,
+        COSMOS_LANGUAGE_SETTINGS = 0x0,
+        COSMOS_FAST_MENUS = 0x1,
+        COSMOS_LAYOUT = 0x2,
     };
     
     enum MUSIC_CUTOFF_OPTIONS {

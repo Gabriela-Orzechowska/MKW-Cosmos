@@ -1,7 +1,7 @@
 #include <Controller/MiscController.hpp>
 #include <core/rvl/os/OS.hpp>
 
-namespace DXController
+namespace CosmosController
 {
 
     #define CASE_BUTTON(universal, specific) \

@@ -6,7 +6,7 @@ extern void AsyncDisplay_beginRender(EGG::AsyncDisplay * display);
 extern void AsyncDisplay_beginFrame(EGG::AsyncDisplay * display); //8020fe24
 extern OSTime AsyncDisplay_getTickPerFrame(EGG::AsyncDisplay * display); //8020fe24
 
-namespace DXDebug
+namespace CosmosDebug
 {
     DebugDrawHook * DebugDrawHook::sHooks = NULL;
 

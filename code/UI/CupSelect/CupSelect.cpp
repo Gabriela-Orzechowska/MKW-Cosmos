@@ -2,7 +2,7 @@
 #include <game/UI/Ctrl/Menu/CtrlMenuCourse.hpp>
 #include <LeCode/LeCodeManager.hpp>
 
-namespace DXUI
+namespace CosmosUI
 {
     CupSelectPlus * CreateCupPage()
     {
@@ -57,9 +57,9 @@ namespace DXUI
     {
         char tpl[0x20];
         snprintf(tpl, 0x20, "icon_cup_%03d.tpl", id);
-        DXUI::ChangePaneImage(ctrl, "icon", tpl);
-        DXUI::ChangePaneImage(ctrl, "icon_light_01", tpl);
-        DXUI::ChangePaneImage(ctrl, "icon_light_02", tpl);
+        CosmosUI::ChangePaneImage(ctrl, "icon", tpl);
+        CosmosUI::ChangePaneImage(ctrl, "icon_light_01", tpl);
+        CosmosUI::ChangePaneImage(ctrl, "icon_light_02", tpl);
     }
 
     void CupSelectPlus::ScrollCups(s32 direction)
@@ -209,7 +209,7 @@ namespace DXUI
     void FixCourseSelectCup()
     {
         extern u32 p_courseSelectCupId;
-        DX::CreateCall((u32)&p_courseSelectCupId, asmCorrectCourseSelectCup);
+        Cosmos::CreateCall((u32)&p_courseSelectCupId, asmCorrectCourseSelectCup);
     }
     static LeCodeLoadHook lclhFixCourseSelectCup(FixCourseSelectCup);
 

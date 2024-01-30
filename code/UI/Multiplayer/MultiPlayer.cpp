@@ -1,6 +1,6 @@
 #include <UI/Multiplayer/MultiPlayer.hpp>
 
-namespace DXUI
+namespace CosmosUI
 {
 
     bool isVotingScreen(MenuId menuId)

@@ -126,9 +126,9 @@ struct PtmfHolder_3A : PtmfHolderBase_3A<Ret, A1, A2, A3> {
 #else
 #endif
 
-#define DEBUG_DX
-#define DXLog(f, ...) OSReport("[DX:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
-#define DXError(f, ...) OSReport("[DX Error:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
+#define DEBUG_COSMOS
+#define CosmosLog(f, ...) OSReport("[Cosmos:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
+#define CosmosError(f, ...) OSReport("[Cosmos Error:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
 
 class MenuLoadHook {
 private:

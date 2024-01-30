@@ -1,6 +1,6 @@
 
-#ifndef _DX_SETTINGSPAGE_
-#define _DX_SETTINGSPAGE_
+#ifndef _COSMOS_SPEEDOMETER_
+#define _COSMOS_SPEEDOMETER_
 
 #include <kamek.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
@@ -15,7 +15,7 @@
 extern u32 VSSettings_sInstance;
 
 
-namespace DXUI
+namespace CosmosUI
 {
 
 #define MINPAGE 0xB8
@@ -69,7 +69,7 @@ namespace DXUI
     };
 
 
-} // namespace DXUI
+} // namespace CosmosUI
 
 
 #endif

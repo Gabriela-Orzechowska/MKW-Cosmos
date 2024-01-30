@@ -5,7 +5,7 @@
 #include <core/rvl/os/OS.hpp>
 #include <core/egg/Heap.hpp>
 
-namespace DXDebug
+namespace CosmosDebug
 {
     typedef struct SymbolMapHeader
     {

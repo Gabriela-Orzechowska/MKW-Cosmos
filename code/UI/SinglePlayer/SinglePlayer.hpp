@@ -1,5 +1,5 @@
-#ifndef _DX_UI_SP_
-#define _DX_UI_SP_
+#ifndef _COSMOS_UI_SINGLEPLAYER_
+#define _COSMOS_UI_SINGLEPLAYER_
 
 #include <kamek.hpp>
 #include <game/GlobalFunctions.hpp>
@@ -21,4 +21,4 @@ enum EXTRA_MAIN_SCREEN_IDX{
     SETTINGS = 5,
 };
 
-#endif //_DX_UI_SP_
+#endif //_COSMOS_UI_SINGLEPLAYER_

@@ -2,7 +2,7 @@
 #include <game/UI/Page/Other/Approve.hpp>
 #include <game/UI/Page/Page.hpp>
 
-namespace DXUI
+namespace CosmosUI
 {
     class MessagePageWindow : public Pages::Approve
     {

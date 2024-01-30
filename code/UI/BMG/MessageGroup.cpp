@@ -22,7 +22,7 @@ void InjectAdditionalHolder(BMGHolder * baseHolder, char * filename)
 {
     baseHolder->Load(filename);
 
-    using namespace DXData;
+    using namespace CosmosData;
 
     char baseName[] = "DXExtra";
     char finalName[0x10];

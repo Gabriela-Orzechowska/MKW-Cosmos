@@ -2,7 +2,7 @@
 
 #include <UI/RaceBase/ControlRaceBase.hpp>
 
-namespace DXUI
+namespace CosmosUI
 {
     CustomControlBuilder * CustomControlBuilder::sHooks = NULL;
 
@@ -16,4 +16,4 @@ namespace DXUI
 
     kmCall(0x808562d0, CustomControlBuilder::BuildCustomRaceControl);
 
-} // namespace DXUI
+} // namespace CosmosUI

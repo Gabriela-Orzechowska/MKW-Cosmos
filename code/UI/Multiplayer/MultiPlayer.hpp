@@ -1,5 +1,5 @@
-#ifndef _DX_MULTIPLAYER_UI_
-#define _DX_MULTIPLAYER_UI_
+#ifndef _COSMOS_MULTIPLAYER_UI_
+#define _COSMOS_MULTIPLAYER_UI_
 
 #include <kamek.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
@@ -13,7 +13,7 @@
 #include <game/UI/Page/Other/VR.hpp>
 #include <game/UI/Page/Other/CountDownTimer.hpp>
 
-namespace DXUI
+namespace CosmosUI
 {
     class VRPagePlus : public Pages::VR
     {

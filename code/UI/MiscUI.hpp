@@ -5,7 +5,7 @@
 
 static bool loadedAsKorean = false;
 
-namespace DXUI
+namespace CosmosUI
 {
     void ChangePaneImage(LayoutUIControl * ctrl, const char * pane, const char * tpl);
 }

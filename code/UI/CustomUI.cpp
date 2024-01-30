@@ -6,13 +6,13 @@
 
 void * CreatePage(Scene * scene, u32 pageId)
 {
-    if(pageId == (u32)DX::SETTINGS_MAIN)
+    if(pageId == (u32)Cosmos::SETTINGS_MAIN)
     {
-        return new(DXUI::SettingsBasePage)();
+        return new(CosmosUI::SettingsBasePage)();
     }
-    else if(pageId == (u32)DX::RACE_SETTINGS1)
+    else if(pageId == (u32)Cosmos::RACE_SETTINGS1)
     {
-        DXUI::SettingPageDefinition definition;
+        CosmosUI::SettingPageDefinition definition;
         definition.settingCount = 3;
         definition.settings[0].isBool = false;
         definition.settings[0].optionCount = 3;
@@ -20,26 +20,26 @@ void * CreatePage(Scene * scene, u32 pageId)
         definition.settings[1].optionCount = 2;
         definition.settings[2].isBool = false;
         definition.settings[2].optionCount = 3;
-        if(DX::isDolphin) definition.settings[2].optionCount = 2;
+        if(Cosmos::isDolphin) definition.settings[2].optionCount = 2;
 
-        return new(DXUI::SettingSubPage)(&definition, pageId);
+        return new(CosmosUI::SettingSubPage)(&definition, pageId);
     }
     
-    else if(pageId == (u32)DX::MENU_SETTINGS1)
+    else if(pageId == (u32)Cosmos::MENU_SETTINGS1)
     {
 
-        DXUI::SettingPageDefinition definition;
+        CosmosUI::SettingPageDefinition definition;
         definition.settingCount = 2;
         definition.settings[0].isBool = false;
         definition.settings[0].optionCount = 13;
         definition.settings[1].isBool = true;
         definition.settings[1].optionCount = 2;
 
-        return new(DXUI::SettingSubPage)(&definition ,pageId);
+        return new(CosmosUI::SettingSubPage)(&definition ,pageId);
     }
-    else if(pageId == (u32)DX::WARNING_PAGE)
+    else if(pageId == (u32)Cosmos::WARNING_PAGE)
     {
-        return new (DXUI::MessagePageWindow);
+        return new (CosmosUI::MessagePageWindow);
     }
 
     return scene->CreatePageById((PageId)pageId);
@@ -51,10 +51,10 @@ kmCall(0x80622d2c, CreatePage);
 void InjectPage(Scene *scene, PageId id)
 {
     scene->CreatePage(id);
-    scene->CreatePage((PageId)DX::SETTINGS_MAIN);
-    scene->CreatePage((PageId)DX::RACE_SETTINGS1);
-    scene->CreatePage((PageId)DX::MENU_SETTINGS1);
-    scene->CreatePage((PageId)DX::WARNING_PAGE);
+    scene->CreatePage((PageId)Cosmos::SETTINGS_MAIN);
+    scene->CreatePage((PageId)Cosmos::RACE_SETTINGS1);
+    scene->CreatePage((PageId)Cosmos::MENU_SETTINGS1);
+    scene->CreatePage((PageId)Cosmos::WARNING_PAGE);
     return;
 }
 kmCall(0x8062fe3c, InjectPage); //OPTIONS

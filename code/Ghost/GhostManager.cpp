@@ -10,14 +10,14 @@ void CorrectGhostTrackName(LayoutUIControl * control, const char *textBoxName, u
 
 kmCall(0x805e2a4c, CorrectGhostTrackName);
 
-namespace DXGhost
+namespace CosmosGhost
 {
     GhostManager * GhostManager::sInstance = NULL;
     char GhostManager::folderPath[IPCMAXPATH] = "";
 
     GhostManager::GhostManager() : courseId(-1)
     {
-        this->folderManager = DXFile::FolderManager::Create();
+        this->folderManager = CosmosFile::FolderManager::Create();
         this->files = NULL;
     }
 
@@ -50,14 +50,14 @@ namespace DXGhost
     {
         this->Reset();
         this->courseId = courseId;
-        DXFile::FolderManager * manager = this->folderManager;
+        CosmosFile::FolderManager * manager = this->folderManager;
 
-        snprintf(folderPath, IPCMAXPATH, "%s/%03x", DX::ghostFolder, courseId);
-        DXFile::FileManager::GetStaticInstance()->CreateFolder(folderPath);
+        snprintf(folderPath, IPCMAXPATH, "%s/%03x", Cosmos::ghostFolder, courseId);
+        CosmosFile::FileManager::GetStaticInstance()->CreateFolder(folderPath);
 
         char folderModePath[IPCMAXPATH];
-        snprintf(folderModePath, IPCMAXPATH, "%s/%s", folderPath, ttFolders[DX::GetTTMode()]);
-        DXFile::FileManager::GetStaticInstance()->CreateFolder(folderModePath);
+        snprintf(folderModePath, IPCMAXPATH, "%s/%s", folderPath, ttFolders[Cosmos::GetTTMode()]);
+        CosmosFile::FileManager::GetStaticInstance()->CreateFolder(folderModePath);
 
         manager->ReadFolder(folderModePath);
 
@@ -71,7 +71,7 @@ namespace DXGhost
             rkg->ClearBuffer();
             GhostData * header = &this->files[counter];
             header->isValid = false;
-            if(manager->ReadFile(rkg, i, DXFile::FILE_MODE_READ) > 0 && rkg->CheckValidity())
+            if(manager->ReadFile(rkg, i, CosmosFile::FILE_MODE_READ) > 0 && rkg->CheckValidity())
             {
                 header->Init(rkg);
                 counter++;
@@ -96,7 +96,7 @@ namespace DXGhost
     bool GhostManager::LoadGhost(RKG * rkg, u32 index)
     {
         rkg->ClearBuffer();
-        this->folderManager->ReadFile(rkg, index, DXFile::FILE_MODE_READ);
+        this->folderManager->ReadFile(rkg, index, CosmosFile::FILE_MODE_READ);
         return rkg->CheckValidity();
     }
 
@@ -139,15 +139,15 @@ namespace DXGhost
         GhostManager * manager = (GhostManager *) holder;
         RKG * rkg = &manager->rkg;
         snprintf(path, IPCMAXPATH, "%s/%01dm%02ds%03d.rkg", manager->folderManager->GetName(), rkg->header.minutes, rkg->header.seconds, rkg->header.milliseconds);
-        DXFile::FileManager * fileManager = DXFile::FileManager::GetStaticInstance();
-        fileManager->CreateOpen(path, DXFile::FILE_MODE_WRITE);
+        CosmosFile::FileManager * fileManager = CosmosFile::FileManager::GetStaticInstance();
+        fileManager->CreateOpen(path, CosmosFile::FILE_MODE_WRITE);
         u32 size = sizeof(RKG);
         if(rkg->header.compressed) size = ((CompressedRKG*)rkg)->dataLength + sizeof(RKGHeader) + 0x4 + 0x4;
         fileManager->Overwrite(size, rkg);
         fileManager->Close();
 
         char folderPath[IPCMAXPATH];
-        snprintf(folderPath, IPCMAXPATH, "%s/%03x", DX::ghostFolder, manager->courseId);
+        snprintf(folderPath, IPCMAXPATH, "%s/%03x", Cosmos::ghostFolder, manager->courseId);
         manager->GetLeaderboard()->Save(folderPath);
         manager->Init(LeCode::LeCodeManager::GetStaticInstance()->GetTrackID());
         MenuData::sInstance->menudata98->isNewTime = true;
@@ -167,8 +167,8 @@ namespace DXGhost
         char filePath[IPCMAXPATH];
         snprintf(filePath, IPCMAXPATH, "%s/ld.glm", folderPath);
         strncpy(this->folderPath, folderPath, IPCMAXPATH);
-        DXFile::FileManager * manager = DXFile::FileManager::GetStaticInstance();
-        s32 ret = manager->Open(filePath, DXFile::FILE_MODE_READ);
+        CosmosFile::FileManager * manager = CosmosFile::FileManager::GetStaticInstance();
+        s32 ret = manager->Open(filePath, CosmosFile::FILE_MODE_READ);
         if(ret > 0) ret = manager->Read(&this->file, sizeof(GhostLeaderboardFile));
         if(ret <= 0)
         {
@@ -183,8 +183,8 @@ namespace DXGhost
     {
         char filePath[IPCMAXPATH];
         snprintf(filePath, IPCMAXPATH, "%s/ld.glm", GhostManager::folderPath);
-        DXFile::FileManager * manager = DXFile::FileManager::GetStaticInstance();
-        manager->CreateOpen(filePath, DXFile::FILE_MODE_READ_WRITE);
+        CosmosFile::FileManager * manager = CosmosFile::FileManager::GetStaticInstance();
+        manager->CreateOpen(filePath, CosmosFile::FILE_MODE_READ_WRITE);
         GhostLeaderboardFile * file = new (RKSystem::mInstance.EGGSystem, 0x20) GhostLeaderboardFile;
         file->trackId = (u32) id;
         manager->Overwrite(sizeof(GhostLeaderboardFile), file);
@@ -194,7 +194,7 @@ namespace DXGhost
 
     void GhostLeaderboardManager::Update(s32 position, TimeEntry * entry, u32 id)
     {
-        DX::TT_MODE mode = DX::GetTTMode();
+        Cosmos::TT_MODE mode = Cosmos::GetTTMode();
         GhostLeaderboardFile * lfile = &this->file;
         GhostTimeEntry * tentry = &lfile->entry[mode][position];
         if(position != ENTRY_FLAP)
@@ -235,15 +235,15 @@ namespace DXGhost
     {
         char filePath[IPCMAXPATH];
         snprintf(filePath, IPCMAXPATH, "%s/ld.glm", folderPath);
-        DXFile::FileManager * manager = DXFile::FileManager::GetStaticInstance();
-        manager->Open(filePath, DXFile::FILE_MODE_WRITE);
+        CosmosFile::FileManager * manager = CosmosFile::FileManager::GetStaticInstance();
+        manager->Open(filePath, CosmosFile::FILE_MODE_WRITE);
         manager->Overwrite(sizeof(GhostLeaderboardFile), &this->file);
         manager->Close();
     }
 
     void GhostLeaderboardManager::GhostTimeEntryToTimer(Timer &timer, u32 index) const
     {
-        DX::TT_MODE mode = DX::GetTTMode();
+        Cosmos::TT_MODE mode = Cosmos::GetTTMode();
         timer.minutes = this->file.entry[mode][index].minutes;
         timer.seconds = this->file.entry[mode][index].seconds;
         timer.milliseconds = this->file.entry[mode][index].miliseconds;
@@ -253,7 +253,7 @@ namespace DXGhost
     void GhostLeaderboardManager::GhostTimeEntryToTimeEntry(TimeEntry &entry, u32 index)
     {
         this->GhostTimeEntryToTimer(entry.timer, index);
-        DX::TT_MODE mode = DX::GetTTMode();
+        Cosmos::TT_MODE mode = Cosmos::GetTTMode();
         memcpy(&entry.mii, &this->file.entry[mode][index].mii, sizeof(RawMii));
         entry.character = this->file.entry[mode][index].character;
         entry.kart = this->file.entry[mode][index].kart;
@@ -336,7 +336,7 @@ namespace DXGhost
     {
         GhostManager * manager = GhostManager::GetStaticInstance();
         if(ghostManager->state == SAVED_GHOST_RACE_FROM_MENU) ghostManager->state = STAFF_GHOST_RACE_FROM_MENU;
-        if(manager->mainGhostIndex == 0xFF) DX::Panic(__FILE__,__LINE__, "Ghost index is NULL");
+        if(manager->mainGhostIndex == 0xFF) Cosmos::Panic(__FILE__,__LINE__, "Ghost index is NULL");
         manager->LoadGhost(ghostManager->rkgPointer, manager->GetGhostData(manager->mainGhostIndex)->padding);
     }
     kmCall(0x805e158c, LoadCorrectGhost);
@@ -469,7 +469,7 @@ namespace DXGhost
                 {
                     u32 trackId = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
                     if(leaderboardPosition > -1) manager->GetLeaderboard()->Update(leaderboardPosition, &entry, trackId);
-                    DXFile::FileManager::GetStaticInstance()->taskThread->Request(&GhostManager::CreateAndSaveFiles, manager, NULL);
+                    CosmosFile::FileManager::GetStaticInstance()->taskThread->Request(&GhostManager::CreateAndSaveFiles, manager, NULL);
                 }
             }
         }

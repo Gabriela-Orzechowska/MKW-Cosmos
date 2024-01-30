@@ -56,7 +56,7 @@ void RichPresenceManager::Init()
     s32 ret = InitConnection();
     if(ret < 0) return;
     //rEnabled = true;
-    DXLog("Rich Presence Enabled\n");
+    CosmosLog("Rich Presence Enabled\n");
 
     u64 time = IOS::Dolphin::GetSystemTime();
     presence.startTimestamp = time / 1000;
@@ -64,7 +64,7 @@ void RichPresenceManager::Init()
     ret = UpdateStatus();
     if(ret < 0)
     {
-        DXLog("Rich Presence Update Failed\n");
+        CosmosLog("Rich Presence Update Failed\n");
     }
 }
 
@@ -91,7 +91,7 @@ u32 UpdateTrackImage(u32 param_1)
     char * trackSha = SHA1::GetFileSha1(buffer,fileSize);
 
     snprintf(finalLink, 0x80, "https://ct.wiimm.de/api/get-start-image?sha1=%s", trackSha);
-    DXLog("Setting image to:%s\n",finalLink);
+    CosmosLog("Setting image to:%s\n",finalLink);
     RichPresenceManager * manager = RichPresenceManager::sInstance;
     if(manager != nullptr)
     {

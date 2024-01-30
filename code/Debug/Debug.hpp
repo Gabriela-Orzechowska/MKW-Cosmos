@@ -1,12 +1,12 @@
-#ifndef _DX_DEBUG_
-#define _DX_DEBUG_
+#ifndef _COSMOS_DEBUG_
+#define _COSMOS_DEBUG_
 
 #include <kamek.hpp>
 #include <Debug/IOSDolphin.hpp>
 #include <core/rvl/os/Error.hpp>
 #include <core/rvl/os/OS.hpp>
 
-namespace DXDebug
+namespace CosmosDebug
 {
     enum HOSTPLATFORM
     {
@@ -27,7 +27,7 @@ namespace DXDebug
 
     static void DetectPlatform();
     char * GetPlatformString();
-} // namespace DX
+} // namespace Cosmos
 
 
 #endif

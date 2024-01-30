@@ -4,8 +4,8 @@
 typedef void (*GXDrawSyncCallback)(u16 token);
 
 extern void GXSetDrawSyncCallback(u32 ptr);
-namespace DXDebug
+namespace CosmosDebug
 {
 
 
-} // namespace DXDebug
+} // namespace CosmosDebug

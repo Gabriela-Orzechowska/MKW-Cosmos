@@ -5,13 +5,13 @@
 
 
 
-namespace DXDebug
+namespace CosmosDebug
 {
     SymbolManager * SymbolManager::sInstance = nullptr;
 
     void SymbolManager::CreateStaticInstance()
     {
-        #ifdef DEBUG_DX
+        #ifdef DEBUG_COSMOS
         if(IOS::Dolphin::GetVersion() == nullptr) return;
         if(gameID[3] != 'P') return;
 
@@ -41,7 +41,7 @@ namespace DXDebug
                 {
                     if(DVDReadPrio(&fileHandle, manager->symNameTable, nameTableSize, manager->header.nameTableOffset, 2))
                     {
-                        DXLog("Symbol map loaded at: %p; %p\n", manager->symEntryArray, manager->symNameTable);
+                        CosmosLog("Symbol map loaded at: %p; %p\n", manager->symEntryArray, manager->symNameTable);
                         SymbolManager::sInstance = manager;
                     }
                 }
@@ -66,8 +66,8 @@ namespace DXDebug
                 {
                     if(DVDReadPrio(&fileHandleK, manager->kamekSymNameTable, nameTableSize, manager->kamekHeader.nameTableOffset, 2))
                     {
-                        DXLog("Kamek Symbol map loaded at: %p; %p\n", manager->kamekSymEntryArray, manager->kamekSymNameTable);
-                        DXLog("Kamek base address: %08x\n", manager->kamekBaseAddress);
+                        CosmosLog("Kamek Symbol map loaded at: %p; %p\n", manager->kamekSymEntryArray, manager->kamekSymNameTable);
+                        CosmosLog("Kamek base address: %08x\n", manager->kamekBaseAddress);
                     }
                 }
                 DVDClose(&fileHandleK);

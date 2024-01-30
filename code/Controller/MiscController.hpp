@@ -2,7 +2,7 @@
 #include <game/Input/InputData.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
 
-namespace DXController
+namespace CosmosController
 {
     enum ButtonCommon{
         BUTTON_NONE             = 0,

@@ -1,5 +1,5 @@
-#ifndef _DX_SETTINGSSUBPAGE_
-#define _DX_SETTINGSSUBPAGE_
+#ifndef _COSMOS_SETTINGSSUBPAGE_
+#define _COSMOS_SETTINGSSUBPAGE_
 
 #include <kamek.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
@@ -16,7 +16,7 @@
 extern u32 VSSettings_sInstance;
 
 
-namespace DXUI
+namespace CosmosUI
 {
     typedef struct SettingPageOption{
         u8 optionCount;
@@ -96,7 +96,7 @@ namespace DXUI
     };
 
 
-} // namespace DXUI
+} // namespace CosmosUI
 
 
 #endif

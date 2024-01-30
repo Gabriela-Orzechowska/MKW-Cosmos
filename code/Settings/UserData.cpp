@@ -2,7 +2,7 @@
 
 SettingsUpdateHook * SettingsUpdateHook::sHooks = NULL;
 
-namespace DXData
+namespace CosmosData
 {
     SettingsHolder * SettingsHolder::sInstance = NULL;
     
@@ -23,15 +23,15 @@ namespace DXData
 
         Settings * buffer = new (RKSystem::mInstance.EGGSystem, 0x20) Settings;
 
-        DXFile::FileManager * manager = DXFile::FileManager::GetStaticInstance();
+        CosmosFile::FileManager * manager = CosmosFile::FileManager::GetStaticInstance();
         
         if(manager == nullptr)
         {
-            DXError("Failed to get manager!!!\n");
+            CosmosError("Failed to get manager!!!\n");
             return;
         }
         
-        manager->CreateOpen(this->filepath, DXFile::FILE_MODE_READ_WRITE);
+        manager->CreateOpen(this->filepath, CosmosFile::FILE_MODE_READ_WRITE);
         manager->Read(buffer, sizeof(Settings));
         if(strcmp(buffer->signature, magic) != 0 || buffer->version != version)
         {
@@ -46,12 +46,12 @@ namespace DXData
 
     void SettingsHolder::RequestSave()
     {
-        DXFile::FileManager::GetStaticInstance()->taskThread->Request(&SettingsHolder::SaveTask, NULL, 0);
+        CosmosFile::FileManager::GetStaticInstance()->taskThread->Request(&SettingsHolder::SaveTask, NULL, 0);
     }
 
     void SettingsHolder::Save(){
-        DXFile::FileManager * manager = DXFile::FileManager::GetStaticInstance();
-        manager->Open(this->filepath, DXFile::FILE_MODE_WRITE);
+        CosmosFile::FileManager * manager = CosmosFile::FileManager::GetStaticInstance();
+        manager->Open(this->filepath, CosmosFile::FILE_MODE_WRITE);
         manager->Overwrite(sizeof(Settings), this->settings);
         manager->Close();
     }
@@ -63,11 +63,11 @@ namespace DXData
     void SettingsHolder::Create(){
         SettingsHolder * holder = new (RKSystem::mInstance.EGGSystem) SettingsHolder();
         char path[IPCMAXPATH];
-        snprintf(path, IPCMAXPATH, "%s/%s", DX::packFolder, DX::SaveFile);
-        holder->Init(path, "DXSD", 0x01);
+        snprintf(path, IPCMAXPATH, "%s/%s", Cosmos::packFolder, Cosmos::SaveFile);
+        holder->Init(path, "CSSD", 0x01);
         SettingsHolder::sInstance = holder;
     }
 
     BootHook InitSettings(SettingsHolder::Create, MEDIUM);
 
-} // namespace DXData
+} // namespace CosmosData

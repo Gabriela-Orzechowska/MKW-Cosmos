@@ -20,7 +20,7 @@ void EnableBrakeDrifting()
         ControllerType type = ControllerType(controller & 0xFF);
         RealControllerHolder * holder = &InputData::sInstance->realControllerHolders[i];
 
-        using namespace DXController;
+        using namespace CosmosController;
 
         switch(type) {
             case CLASSIC:

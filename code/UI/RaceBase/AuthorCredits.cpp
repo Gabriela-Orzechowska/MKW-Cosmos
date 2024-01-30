@@ -2,7 +2,7 @@
 #include <LeCode/LeCodeManager.hpp>
 #include <core/rvl/os/OS.hpp>
 
-namespace DXUI{
+namespace CosmosUI{
 
     u32 ControlAuthorCredits::Count()
     {
@@ -25,7 +25,7 @@ namespace DXUI{
         loader.Load("game_image", "credits", "info_1", NULL);
         this->textBox_00 = this->layout.GetPaneByName("TextBox_00");
         u32 trackId = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
-        // DXLog("Trying to display credits. Message ID: %d\n", trackId + BMGOFFSET);
+        // CosmosLog("Trying to display credits. Message ID: %d\n", trackId + BMGOFFSET);
         this->SetMsgId(BMGOFFSET + trackId, 0);
     }
 

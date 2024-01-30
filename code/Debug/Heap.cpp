@@ -4,7 +4,7 @@
 void * CheckHeapAlloc(void * alloc)
 {
     if(alloc == nullptr)
-        DX::Panic(__FILE__, __LINE__, "Out of Memory!");
+        Cosmos::Panic(__FILE__, __LINE__, "Out of Memory!");
 
     return alloc;
 }

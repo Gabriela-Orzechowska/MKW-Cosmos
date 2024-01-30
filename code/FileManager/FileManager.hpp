@@ -1,5 +1,5 @@
-#ifndef _DX_FILE_MANAGER_
-#define _DX_FILE_MANAGER_
+#ifndef _COSMOS_FILE_MANAGER_
+#define _COSMOS_FILE_MANAGER_
 
 #include <FileManager/Riivolution.hpp>
 #include <kamek.hpp> 
@@ -13,7 +13,7 @@
 typedef char FileName[255];
 #define MAXFATFILEPATH 260
 
-namespace DXFile
+namespace CosmosFile
 {
     enum FILE_MODE{
         FILE_MODE_NONE,

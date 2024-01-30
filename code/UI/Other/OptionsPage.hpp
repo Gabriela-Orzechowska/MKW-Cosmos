@@ -1,11 +1,11 @@
-#ifndef _DX_EXTRAUI_OPTIONS_
-#define _DX_EXTRAUI_OPTIONS_
+#ifndef _COSMOS_EXTRAUI_OPTIONS_
+#define _COSMOS_EXTRAUI_OPTIONS_
 
 #include <kamek.hpp>
 #include <game/UI/Page/Other/Options.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
 
-namespace DXUI
+namespace CosmosUI
 {
     class OptionsPlus : public Pages::Options
     {

@@ -43,7 +43,7 @@ namespace IOS
 
         static inline s32 Open()
         {
-            if(devDolphin < 0) devDolphin = DX::Open("/dev/dolphin", IOS::MODE_NONE);
+            if(devDolphin < 0) devDolphin = Cosmos::Open("/dev/dolphin", IOS::MODE_NONE);
             return devDolphin;
         }
 

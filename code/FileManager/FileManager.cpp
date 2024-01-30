@@ -2,7 +2,7 @@
 #include <main.hpp>
 #include <Storage/SDStorage.hpp>
 
-namespace DXFile
+namespace CosmosFile
 {
     FileManager * FileManager::sInstance = NULL;
 
@@ -11,10 +11,10 @@ namespace DXFile
         FileManager * manager;
         bool valid = false;
         EGG::Heap * heap = RKSystem::mInstance.EGGSystem;
-        s32 ret = DX::Open("file", IOS::MODE_NONE); //Check if its riivo
+        s32 ret = Cosmos::Open("file", IOS::MODE_NONE); //Check if its riivo
         if(ret < 0) //If not, check if dolphin
         {
-            ret = DX::Open("/dev/dolphin", IOS::MODE_NONE);
+            ret = Cosmos::Open("/dev/dolphin", IOS::MODE_NONE);
             if(ret >= 0)
             {
                 IOS::Close(ret);
@@ -37,9 +37,9 @@ namespace DXFile
             u32 white = 0xFFFFFFFF;
             OSFatal(&white, &black, "Could not create FileManager");
         }
-        DXLog("Created FileManager, creating task...\n");
+        CosmosLog("Created FileManager, creating task...\n");
         FileManager::sInstance->taskThread = EGG::TaskThread::Create(2, 30, 0x2000, NULL);
-        DXLog("Task Created\n");
+        CosmosLog("Task Created\n");
     }
 
 
@@ -66,7 +66,7 @@ namespace DXFile
         this->GetCorrectPath(realPath, path);
         strcpy(this->path, realPath);
 
-        this->fd = DX::Open(realPath, (IOS::Mode) mode);
+        this->fd = Cosmos::Open(realPath, (IOS::Mode) mode);
         this->fileSize = IOS::Seek(this->fd, 0, IOS::SEEK_END);
 
         IOS::Seek(this->fd, 0, IOS::SEEK_START);
@@ -124,7 +124,7 @@ namespace DXFile
     }
 
     s32 RiivoFileManager::GetDeviceFd() const{
-        return DX::Open("file", IOS::MODE_NONE);
+        return Cosmos::Open("file", IOS::MODE_NONE);
     }
 
     void RiivoFileManager::GetCorrectPath(char * realPath, const char * path) const
@@ -168,9 +168,9 @@ namespace DXFile
         if(ret == FR_OK) {
             this->fileSize = f_size(&this->currentFile);
             f_lseek(&this->currentFile, 0);
-            DXLog("Opened file: %s\n", filepath);
+            CosmosLog("Opened file: %s\n", filepath);
         }
-        else DXError("Opening file failed: %s\n", filepath);
+        else CosmosError("Opening file failed: %s\n", filepath);
         return ret;
     }
 
@@ -191,20 +191,20 @@ namespace DXFile
     {
         if(StorageDevice::currentDevice == nullptr) 
         {
-            DXLog("Current device is null?!\n");
+            CosmosLog("Current device is null?!\n");
             return -1;
         }
         UINT readSize;
-        DXLog("Trying to read opened file...\n");
+        CosmosLog("Trying to read opened file...\n");
         FRESULT ret = f_read(&this->currentFile, buffer, size, &readSize);
         if(ret != FR_OK) 
         {
-            DXLog("File read failed! Error: %i\n", ret);
+            CosmosLog("File read failed! Error: %i\n", ret);
             return -1;
         }
         else
         {
-            DXLog("File read: %i bytes, required: %i\n", readSize, size);
+            CosmosLog("File read: %i bytes, required: %i\n", readSize, size);
         }
         return readSize;
     }
@@ -212,13 +212,13 @@ namespace DXFile
     s32 FatFileManager::Write(u32 size, void * buffer)
     {
         if(StorageDevice::currentDevice == nullptr) return -1;
-        DXLog("Trying to save opened file...\n");
+        CosmosLog("Trying to save opened file...\n");
         UINT writtenSize;
         f_lseek(&this->currentFile, this->fileSize);
         FRESULT ret = f_write(&this->currentFile, buffer, size, &writtenSize);
         if(ret != FR_OK) 
         {
-            DXLog("File save failed! Error: %i\n", ret);
+            CosmosLog("File save failed! Error: %i\n", ret);
             return -1;
         }
         return writtenSize;
@@ -227,18 +227,18 @@ namespace DXFile
     s32 FatFileManager::Overwrite(u32 size, void * buffer)
     {
         if(StorageDevice::currentDevice == nullptr) return -1;
-        DXLog("Trying to save opened file...\n");
+        CosmosLog("Trying to save opened file...\n");
         UINT writtenSize;
         f_lseek(&this->currentFile, 0);
         FRESULT ret = f_write(&this->currentFile, buffer, size, &writtenSize);
         if(ret != FR_OK) 
         {
-            DXLog("File save failed! Error: %i\n", ret);
+            CosmosLog("File save failed! Error: %i\n", ret);
             return -1;
         }
         else
         {
-            DXLog("File saved: %i bytes\n", writtenSize);
+            CosmosLog("File saved: %i bytes\n", writtenSize);
         }
         return writtenSize;
     }

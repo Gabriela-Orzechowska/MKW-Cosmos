@@ -3,7 +3,7 @@
 #define vWIIMENU 0x0000000100000200
 
 
-namespace DXDebug
+namespace CosmosDebug
 {
     void DetectPlatform()
     {
@@ -29,7 +29,7 @@ namespace DXDebug
             return;
         }
 
-        IOS::IPCResult ret = DX::Open("/title/00000001/00000002/data/macaddr.bin", IOS::MODE_READ);
+        IOS::IPCResult ret = Cosmos::Open("/title/00000001/00000002/data/macaddr.bin", IOS::MODE_READ);
         if(ret == IOS::IPC_OK)
         {
             IOS::Close(ret);
@@ -62,7 +62,7 @@ namespace DXDebug
             case WII:
                 return "Wii";
         }
-        DX::Panic(__FILE__, __LINE__, "Platform cannot be NULL.");
+        Cosmos::Panic(__FILE__, __LINE__, "Platform cannot be NULL.");
         return nullptr;
     }
     void UpdatePlatformString()

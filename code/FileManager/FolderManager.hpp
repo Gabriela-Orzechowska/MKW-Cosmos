@@ -3,7 +3,7 @@
 #include <kamek.hpp>
 #include <FileManager/FileManager.hpp>
 
-namespace DXFile
+namespace CosmosFile
 {
     class FolderManager
     {
@@ -39,4 +39,4 @@ namespace DXFile
             FatFolderManager(){}
             s32 ReadFolder(const char * filepath) override;
     };
-} // namespace DXFile
+} // namespace CosmosFile

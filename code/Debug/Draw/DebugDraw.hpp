@@ -6,7 +6,7 @@
 #include <core/egg/Display.hpp>
 #include <core/System/RKSystem.hpp>
 
-namespace DXDebug
+namespace CosmosDebug
 {   
     class DebugDrawHook {
     private:
@@ -30,4 +30,4 @@ namespace DXDebug
     };
     void DrawRect(s16 x, s16 y, s16 width, s16 height, GXColor color);
 
-} // namespace DXDebug
+} // namespace CosmosDebug

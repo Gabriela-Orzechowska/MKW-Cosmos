@@ -2,7 +2,7 @@ gameID = 0x80000000
 
 # extern
 p_bmgSizeAddress = 0x8007b37c
-p_lecodeBullshit1__7DXGhost = 0x805e1e94
+p_lecodeBullshit1__11CosmosGhost = 0x805e1e94
 p_lecodeBlueDrag = 0x807ae8ac
 p_lecodeBluePmtf = 0x808a5b30
 p_lecodeBlueFunc = 0x807ae8a8
@@ -12,7 +12,7 @@ p_lecodeCup2 = 0x807e5c54
 p_lecodeCup3 = 0x80841614
 p_lecodeCup4 = 0x807e4740
 p_lecodeCupCount = 0x807e5c1c
-p_courseSelectCupId__4DXUI = 0x807e45e4
+p_courseSelectCupId__8CosmosUI = 0x807e45e4
 
 p_objFlowLoad = 0x8082c140
 p_geoHitTableLoad = 0x807f92ac
@@ -35,7 +35,7 @@ memcpy = 0x80005f34
 memset = 0x80006038
 memcmp = 0x8000f314
 
-msleep__7DXDebugFUi = 0x800f2510
+msleep__11CosmosDebugFUi = 0x800f2510
 
 Run__FPFv_v = 0x801a31a8
 
@@ -213,7 +213,7 @@ current__8OSThread = 0x800000e4
 OSRestart = 0x801a8688
 OSTicksToCalendarTime = 0x801aafa8
 
-SRR0_addr__7DXDebug = 0x803868e8
+SRR0_addr__11CosmosDebug = 0x803868e8
 
 __nw__FUl = 0x80229dcc
  __nwa__FUl = 0x80229df0
@@ -878,7 +878,7 @@ Setup__4PageF6PageId = 0x80601a60
 transitionDelay__4Page = 0x80896830
 GetPageById__4PageF6PageId = 0x80842354
 Deactivate__4PageFv = 0x80601c08
-Page_Refocus__4DXUIFPQ25Pages4Menu = 0x80602390
+Page_Refocus__8CosmosUIFPQ25Pages4Menu = 0x80602390
 StartExit__4PageFv = 0x80602b04
 StartEntrance__4PageFv = 0x80602970
 

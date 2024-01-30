@@ -1,5 +1,5 @@
-#ifndef _DX_CTRLRACEBASE_
-#define _DX_CTRLRACEBASE_
+#ifndef _COSMOS_CTRLRACEBASE_
+#define _COSMOS_CTRLRACEBASE_
 
 #include <kamek.hpp>
 #include <game/UI/Page/Page.hpp>
@@ -8,7 +8,7 @@
 
 //Credits to Melg for SIP implementation
 
-namespace DXUI{
+namespace CosmosUI{
     class CustomControlBuilder{
     private:
         typedef u32 (Func)();
@@ -58,4 +58,4 @@ namespace DXUI{
 
 
 
-#endif //_DX_CTRLRACEBASE_
+#endif //_COSMOS_CTRLRACEBASE_

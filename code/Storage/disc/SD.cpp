@@ -38,7 +38,7 @@ bool SD_Fail()
     SD_WaitHCR(SDIOHCR_SOFTWARERESET, 1, 1, 7);
 
     IOS::Close(sdfd);
-    sdfd = DX::Open("/dev/sdio/slot0", IOS::MODE_READ);
+    sdfd = Cosmos::Open("/dev/sdio/slot0", IOS::MODE_READ);
 
     return false;
 }
@@ -46,7 +46,7 @@ bool SD_Fail()
 bool SD_Reinitialize()
 {
     IOS::Close(sdfd);
-    sdfd = DX::Open("/dev/sdio/slot0", IOS::MODE_NONE);
+    sdfd = Cosmos::Open("/dev/sdio/slot0", IOS::MODE_NONE);
     if(sdfd < 0) return false;
 
     if(!SD_WriteHcr(SDIOHCR_SOFTWARERESET, 1, 7)) return false;

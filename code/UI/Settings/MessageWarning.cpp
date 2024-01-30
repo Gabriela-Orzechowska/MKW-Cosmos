@@ -3,7 +3,7 @@
 #include <UI/Settings/SettingsBasePage.hpp>
 #include <main.hpp>
 
-namespace DXUI
+namespace CosmosUI
 {
     void MessagePageWindow::OnInit()
     {
@@ -15,13 +15,13 @@ namespace DXUI
 
     void MessagePageWindow::OnBackPress(u32 hudSlotId)
     {
-        this->nextPageId = (PageId) DX::SETTINGS_MAIN;
+        this->nextPageId = (PageId) Cosmos::SETTINGS_MAIN;
         this->EndStateAnimate(0.0f, 1);
     }
 
     void MessagePageWindow::OnClick(PushButton *button, u32 hudSlotId)
     {
-        DX::Restart();
+        Cosmos::Restart();
     }
     void MessagePageWindow::SetMessage(u32 id)
     {

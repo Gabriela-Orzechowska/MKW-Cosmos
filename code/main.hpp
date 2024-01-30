@@ -1,5 +1,5 @@
-#ifndef _MAIN_DX_
-#define _MAIN_DX_
+#ifndef _MAIN_COSMOS_
+#define _MAIN_COSMOS_
 
 #include <kamek.hpp>
 #include <game/System/Identifiers.hpp>
@@ -10,7 +10,7 @@
 
 #define CUP_COUNT 10
 
-namespace DX
+namespace Cosmos
 {
     enum CUSTOM_PAGE_IDS 
     {
@@ -29,8 +29,8 @@ namespace DX
     const char CourseArchive[14] = "/CourseDX.szs";
 
     enum TT_MODE{
-        DX_TT_150CC,
-        DX_TT_200CC,
+        COSMOS_TT_150cc,
+        COSMOS_TT_200cc,
     };  
 
     static TT_MODE TTMode;
@@ -53,4 +53,4 @@ namespace DX
 
 
 
-#endif //_MAIN_DX_
+#endif //_MAIN_COSMOS_

@@ -31,7 +31,7 @@ char * changeWinningMusic(char * dest, char * source, size_t num)
 
             snprintf(songBuffer, 0x100, winReplaceTable[i][1], charName);
             ret = songBuffer;
-            DXLog("Redirect: /sound/%s -> %s\n", source, ret);
+            CosmosLog("Redirect: /sound/%s -> %s\n", source, ret);
         }
     }
     if(ret == nullptr)
@@ -44,12 +44,12 @@ char * changeWinningMusic(char * dest, char * source, size_t num)
     {
         char * tmp = ret;
         ret = strncat(dest,saveSource,num);
-        DXLog("Redirect Failed: %s -> %s\n", tmp, ret);
+        CosmosLog("Redirect Failed: %s -> %s\n", tmp, ret);
     }
     else DVDClose(&fileInfo);
     
     strcpy(dest, ret);
-    DXLog("Sound Name: %s\n", dest);
+    CosmosLog("Sound Name: %s\n", dest);
     
     return ret;
 }

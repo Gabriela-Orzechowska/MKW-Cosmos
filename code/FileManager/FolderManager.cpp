@@ -1,7 +1,7 @@
 #include <FileManager/FolderManager.hpp>
 #include <main.hpp>
 
-namespace DXFile
+namespace CosmosFile
 {
 
     FolderManager::~FolderManager()
@@ -12,7 +12,7 @@ namespace DXFile
 
     FolderManager * FolderManager::Create()
     {
-        s32 riivo_fd = DX::Open("file", IOS::MODE_NONE);
+        s32 riivo_fd = Cosmos::Open("file", IOS::MODE_NONE);
         EGG::Heap *heap = RKSystem::mInstance.EGGSystem;
         FolderManager * manager;
         if(riivo_fd < 0){

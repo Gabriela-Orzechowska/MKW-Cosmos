@@ -10,9 +10,9 @@
 #include <UI/MiscUI.hpp>
 #include <UI/Settings/SettingsBasePage.hpp>
 
-using namespace DXData;
+using namespace CosmosData;
 
-namespace DXUI
+namespace CosmosUI
 {
     void ChangePaneImage(LayoutUIControl * ctrl, const char * pane, const char * tpl){
         void * tplResource = ctrl->layout.resources->multiArcResourceAccessor.GetResource(res::RESOURCETYPE_TEXTURE, tpl);
@@ -21,7 +21,7 @@ namespace DXUI
 }
 
 void FasterMenusOnTransition(MenuData *menuData, u32 delay, u32 r5){
-    if (SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_FAST_MENUS] == ENABLED) 
+    if (SettingsHolder::GetInstance()->GetSettings()->pages[COSMOS_MENU_SETTINGS_1].setting[COSMOS_FAST_MENUS] == ENABLED) 
         delay = 0;
     menuData->StartTransition(delay, r5);
 }
@@ -30,7 +30,7 @@ kmCall(0x80602510, FasterMenusOnTransition);
 void FasterPageTransition()
 {
     float delay = 176.0f;
-    if(SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_FAST_MENUS] == ENABLED) 
+    if(SettingsHolder::GetInstance()->GetSettings()->pages[COSMOS_MENU_SETTINGS_1].setting[COSMOS_FAST_MENUS] == ENABLED) 
         delay = 0.0f;
     Page::transitionDelay = delay;
 }
@@ -38,7 +38,7 @@ void FasterPageTransition()
 void FasterPageBoot()
 {
     float delay = 176.0f;
-    if(SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_FAST_MENUS] == ENABLED) 
+    if(SettingsHolder::GetInstance()->GetSettings()->pages[COSMOS_MENU_SETTINGS_1].setting[COSMOS_FAST_MENUS] == ENABLED) 
         delay = 0.0f;
     Page::transitionDelay = delay;
 }
@@ -82,7 +82,7 @@ void UpdateLanguage()
 {
     extern char * szsLanguageNames[7];
 
-    u32 language = SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_LANGUAGE_SETTINGS];
+    u32 language = SettingsHolder::GetInstance()->GetSettings()->pages[COSMOS_MENU_SETTINGS_1].setting[COSMOS_LANGUAGE_SETTINGS];
     u32 languageSettings = language;
     if(language == NO_CHANGE) language = defaultLanguage;
     SystemManager::sInstance->gameLanguage = language;
@@ -91,7 +91,7 @@ void UpdateLanguage()
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1], localization, 0x80);
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archiveSuffixes[0x1], localization, 0x80);
 
-    DXUI::SettingsBasePage * page = MenuData::sInstance->curScene->Get<DXUI::SettingsBasePage>((PageId)DX::SETTINGS_MAIN);
+    CosmosUI::SettingsBasePage * page = MenuData::sInstance->curScene->Get<CosmosUI::SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN);
     if((language == 12) == loadedAsKorean)
     {
         if(languageSettings != lastLanguage)
@@ -116,7 +116,7 @@ void UpdateArchiveHolderLanguageOnInit()
     extern char * szsLanguageNames[7];
 
     defaultLanguage = SystemManager::sInstance->strapPageLanguage; //To include Dutch
-    u32 language = SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_LANGUAGE_SETTINGS];
+    u32 language = SettingsHolder::GetInstance()->GetSettings()->pages[COSMOS_MENU_SETTINGS_1].setting[COSMOS_LANGUAGE_SETTINGS];
     lastLanguage = language;
     if(language == NO_CHANGE) {
         if(defaultLanguage == 0x6)
@@ -133,8 +133,8 @@ void UpdateArchiveHolderLanguageOnInit()
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1], localization, 0x80);
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archiveSuffixes[0x1], localization, 0x80);
 
-    fontFileName = DX::GetPortAddress(0x808b396c, 0x808af11c, 0x808b2acc, 0x808a1de4);
-    fontBRFNTName = DX::GetPortAddress(0x808b87ac, 0x808ced94, 0x808b78fc, 0x808a6c14);
+    fontFileName = Cosmos::GetPortAddress(0x808b396c, 0x808af11c, 0x808b2acc, 0x808a1de4);
+    fontBRFNTName = Cosmos::GetPortAddress(0x808b87ac, 0x808ced94, 0x808b78fc, 0x808a6c14);
 
     if(language == 12)
     {

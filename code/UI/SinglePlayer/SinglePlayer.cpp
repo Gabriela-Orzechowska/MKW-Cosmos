@@ -68,9 +68,9 @@ void OnButtonClick(Pages::SinglePlayer * page, PushButton * button, u32 slotId)
 
     if(button->buttonId == SETTINGS)
     {
-        MenuData::sInstance->curScene->Get<DXUI::SettingsBasePage>((PageId)DX::SETTINGS_MAIN)->lastPage = SINGLE_PLAYER_MENU;
-        MenuData::sInstance->curScene->Get<DXUI::SettingsBasePage>((PageId)DX::SETTINGS_MAIN)->lastMenu = SINGLE_PLAYER_FROM_MENU;
-        page->nextPageId = (PageId) DX::SETTINGS_MAIN;
+        MenuData::sInstance->curScene->Get<CosmosUI::SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN)->lastPage = SINGLE_PLAYER_MENU;
+        MenuData::sInstance->curScene->Get<CosmosUI::SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN)->lastMenu = SINGLE_PLAYER_FROM_MENU;
+        page->nextPageId = (PageId) Cosmos::SETTINGS_MAIN;
         page->EndStateAnimate(button->GetAnimationFrameSize(), 0);
     }
     else
@@ -78,10 +78,10 @@ void OnButtonClick(Pages::SinglePlayer * page, PushButton * button, u32 slotId)
         page->Pages::SinglePlayer::OnButtonClick(button, slotId);
         button->buttonId = buttonOriginalId;
         if(buttonOriginalId == TIME_TRIAL_200) 
-            DX::SetTTCC(DX::DX_TT_200CC);
+            Cosmos::SetTTCC(Cosmos::COSMOS_TT_200cc);
     
         else if(buttonOriginalId == TIME_TRIAL)
-            DX::SetTTCC(DX::DX_TT_150CC);    
+            Cosmos::SetTTCC(Cosmos::COSMOS_TT_150cc);    
     }
 
     return;

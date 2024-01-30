@@ -99,8 +99,8 @@ void PatchLeCode()
 {
     extern u32 p_objFlowLoad;
     extern u32 p_geoHitTableLoad;
-    DX::CreateCall((u32)&p_objFlowLoad, &LoadAdditionalBinaries);
-    DX::CreateCall((u32)&p_geoHitTableLoad, &LoadAdditionalBinaries);
+    Cosmos::CreateCall((u32)&p_objFlowLoad, &LoadAdditionalBinaries);
+    Cosmos::CreateCall((u32)&p_geoHitTableLoad, &LoadAdditionalBinaries);
 }
 
 static LeCodeLoadHook PatchBinaries(PatchLeCode);

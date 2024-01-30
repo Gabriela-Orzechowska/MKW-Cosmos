@@ -10,7 +10,7 @@
 #include <UI/MiscUI.hpp>
 #include <UI/BMG/BMG.hpp>
 
-namespace DXUI
+namespace CosmosUI
 {
     enum CUP_LAYOUT{
         NORMAL = 0,

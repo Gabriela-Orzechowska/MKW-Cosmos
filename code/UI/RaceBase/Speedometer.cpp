@@ -1,6 +1,6 @@
 #include <UI/RaceBase/Speedometer.hpp>
 
-namespace DXUI{
+namespace CosmosUI{
     u32 ControlRaceSpeedometer::Count()
     {
         u32 result = RaceData::sInstance->racesScenario.localPlayerCount;

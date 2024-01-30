@@ -23,7 +23,7 @@
 
 extern char gameID[4];
 
-namespace DXDebug{
+namespace CosmosDebug{
 
     static char output[0x100];
 
@@ -113,8 +113,8 @@ namespace DXDebug{
 
     void PrintHeader()
     {
-        nw4r::db::Exception_Printf_("**** MKWDX EXCEPTION HANDLER ****\n");
-        nw4r::db::Exception_Printf_("MKW Deluxe v9.0 (%s %s)\nPlatform: %s\n", __DATE__, __TIME__, DXDebug::GetPlatformString());
+        nw4r::db::Exception_Printf_("**** COSMOS EXCEPTION HANDLER ****\n");
+        nw4r::db::Exception_Printf_("Cosmos v0.1.2 (%s %s)\nPlatform: %s\n", __DATE__, __TIME__, CosmosDebug::GetPlatformString());
         
         u32 tick0 = OSGetTick() & 0x3;
 
@@ -158,8 +158,8 @@ namespace DXDebug{
         else if(error == 0x31)
             nw4r::db::Exception_Printf_("\n\n*** Mario Kart Wii Deluxe PANIC HANDLER ***\nRVL::OSPanic() has been called; (%s)\n<Symbol not found>\n\n", region_name);
         else if(error == 0x32)
-            nw4r::db::Exception_Printf_("\n\n*** Mario Kart Wii Deluxe PANIC HANDLER ***\nDX::Panic() has been called; (%s)\n<Symbol not found>\n\n", region_name);
-        nw4r::db::Exception_Printf_("MKW Deluxe v9.0 (%s %s)\nPlatform: %s\n", __DATE__, __TIME__, DXDebug::GetPlatformString());
+            nw4r::db::Exception_Printf_("\n\n*** Mario Kart Wii Deluxe PANIC HANDLER ***\nCosmos::Panic() has been called; (%s)\n<Symbol not found>\n\n", region_name);
+        nw4r::db::Exception_Printf_("MKW Deluxe v9.0 (%s %s)\nPlatform: %s\n", __DATE__, __TIME__, CosmosDebug::GetPlatformString());
         nw4r::db::Exception_Printf_("*** Message ***\n%s\n", (char *)dar );
     }
 
@@ -210,7 +210,7 @@ namespace DXDebug{
 
         if(head == nullptr)
         {
-            DXError("No Console Found\n");
+            CosmosError("No Console Found\n");
             return false;
         }
         VISetBlack(0);
@@ -272,12 +272,12 @@ namespace DXDebug{
 
             if(SystemManager::sInstance->doShutDown > 0)
             {
-                DX::Shutdown(true);
+                Cosmos::Shutdown(true);
             }
 
-            if(DXController::isPressed(holder, type, DXController::BUTTON_HOME) || DXController::isPressed(holder, type, DXController::BUTTON_PLUS))
+            if(CosmosController::isPressed(holder, type, CosmosController::BUTTON_HOME) || CosmosController::isPressed(holder, type, CosmosController::BUTTON_PLUS))
             {
-                DX::Shutdown(true);
+                Cosmos::Shutdown(true);
             }
 
 
@@ -291,10 +291,10 @@ namespace DXDebug{
             s32 prevXPos = xPos;
             s32 prevTopLine = currentTopLine;
 
-            bool down = DXController::isPressed(holder, type, DXController::BUTTON_DPAD_DOWN);
-            bool up = DXController::isPressed(holder, type, DXController::BUTTON_DPAD_UP);
-            bool left = DXController::isPressed(holder, type, DXController::BUTTON_DPAD_LEFT);
-            bool right = DXController::isPressed(holder, type, DXController::BUTTON_DPAD_RIGHT);
+            bool down = CosmosController::isPressed(holder, type, CosmosController::BUTTON_DPAD_DOWN);
+            bool up = CosmosController::isPressed(holder, type, CosmosController::BUTTON_DPAD_UP);
+            bool left = CosmosController::isPressed(holder, type, CosmosController::BUTTON_DPAD_LEFT);
+            bool right = CosmosController::isPressed(holder, type, CosmosController::BUTTON_DPAD_RIGHT);
 
             if(lock)
             {

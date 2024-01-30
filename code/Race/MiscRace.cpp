@@ -27,8 +27,8 @@ kmWrite32(0x805a252c, 0x70600500);
 
 void DraggableBlues(ItemPlayerSub *sub)
 {
-    using namespace DXData;
-    if(SettingsHolder::GetInstance()->GetSettings()->pages[DX_RACE_SETTINGS_1].setting[DX_DRAGGABLE_BLUES] == DISABLED) sub->isNotDragged = true;
+    using namespace CosmosData;
+    if(SettingsHolder::GetInstance()->GetSettings()->pages[COSMOS_RACE_SETTINGS_1].setting[COSMOS_DRAGGABLE_BLUES] == DISABLED) sub->isNotDragged = true;
 }
 
 void LeCodeItemPatches()
@@ -36,7 +36,7 @@ void LeCodeItemPatches()
     extern u32 p_lecodeBlueDrag;
     extern u32 p_lecodeBluePmtf;
     extern u32 p_lecodeBlueFunc;
-    DX::CreateBranch((u32)&p_lecodeBlueDrag, DraggableBlues);
+    Cosmos::CreateBranch((u32)&p_lecodeBlueDrag, DraggableBlues);
     p_lecodeBluePmtf = (u32) &p_lecodeBlueFunc;
 }
 static LeCodeLoadHook ItemLeCode(LeCodeItemPatches);

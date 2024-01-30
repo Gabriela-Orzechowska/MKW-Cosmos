@@ -3,7 +3,7 @@
 #include <kamek.hpp>
 #include <core/rvl/os/OS.hpp>
 
-namespace DXDebug
+namespace CosmosDebug
 {
 
-} // namespace DXDebug
+} // namespace CosmosDebug

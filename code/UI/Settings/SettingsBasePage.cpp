@@ -3,7 +3,7 @@
 #include <UI/BMG/BMG.hpp>
 #include <UI/MiscUI.hpp>
 
-namespace DXUI
+namespace CosmosUI
 {
     SettingsBasePage::SettingsBasePage()
     {
@@ -75,7 +75,7 @@ namespace DXUI
     {
         upDownControls = new UpDownControl();
         textUpDown = new TextUpDownValueControl();
-        currentPageId = (u32)DX::RACE_SETTINGS1;
+        currentPageId = (u32)Cosmos::RACE_SETTINGS1;
         Menu::OnInit();
         this->SetTransitionSound(0x0,0x0);
         this->koreanChange = false;
@@ -105,10 +105,10 @@ namespace DXUI
         {
             upDownControls->HandleRightPress(0, 0);
         }
-        if(currentPageId == (u32)DX::RACE_SETTINGS1)
-            currentPageId = (u32)DX::MENU_SETTINGS1;   
+        if(currentPageId == (u32)Cosmos::RACE_SETTINGS1)
+            currentPageId = (u32)Cosmos::MENU_SETTINGS1;   
         else
-            currentPageId = (u32)DX::RACE_SETTINGS1;          
+            currentPageId = (u32)Cosmos::RACE_SETTINGS1;          
 
         UpDownControl::Select(upDownControls, 0);
     }
@@ -192,9 +192,9 @@ namespace DXUI
     {
         this->SaveSettings();
         
-        using namespace DXData;
-        u32 language = SettingsHolder::GetInstance()->GetSettings()->pages[DX_MENU_SETTINGS_1].setting[DX_LANGUAGE_SETTINGS];
-        if(this->koreanChange) this->LoadPrevPageWithDelayById((PageId)DX::WARNING_PAGE, 0.0f);
+        using namespace CosmosData;
+        u32 language = SettingsHolder::GetInstance()->GetSettings()->pages[COSMOS_MENU_SETTINGS_1].setting[COSMOS_LANGUAGE_SETTINGS];
+        if(this->koreanChange) this->LoadPrevPageWithDelayById((PageId)Cosmos::WARNING_PAGE, 0.0f);
         else if(!this->wasLanguageChanged) this->LoadPrevPageWithDelayById(lastPage, 0.0f);
     }
 
@@ -202,7 +202,7 @@ namespace DXUI
     {
         Scene * scene = MenuData::sInstance->curScene;
 
-        using namespace DXData;
+        using namespace CosmosData;
 
         for(int i = 0; i < PAGECOUNT; i++)
         {
@@ -221,4 +221,4 @@ namespace DXUI
         this->LoadPrevPage(button);
     }
 
-} // namespace DXUI
+} // namespace CosmosUI

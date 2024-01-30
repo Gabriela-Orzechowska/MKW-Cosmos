@@ -1,7 +1,7 @@
 #include <UI/Settings/SettingsSubPage.hpp>
 #include <UI/BMG/BMG.hpp>
 
-namespace DXUI
+namespace CosmosUI
 {
     SettingSubPage::SettingSubPage(SettingPageDefinition * definition, u32 pageId)
     {
@@ -162,7 +162,7 @@ namespace DXUI
 
     UIControl * SettingSubPage::CreateControl(u32 id)
     {
-        DXData::SettingsHolder * settingsHolder = DXData::SettingsHolder::GetInstance();
+        CosmosData::SettingsHolder * settingsHolder = CosmosData::SettingsHolder::GetInstance();
         if(id < this->scrollersCount)
         {
             UpDownControl * upDownCtrl = &this->upDownControls[id];
@@ -249,9 +249,9 @@ namespace DXUI
 
     void SettingSubPage::OnActivate()
     {
-        DXData::SettingsPage * settingsPage = &DXData::SettingsHolder::GetInstance()->GetSettings()->pages[this->pageId - MINPAGE];
+        CosmosData::SettingsPage * settingsPage = &CosmosData::SettingsHolder::GetInstance()->GetSettings()->pages[this->pageId - MINPAGE];
         UpDownControl::Select(&this->upDownControls[this->mainControlId], 0);
-        basePage = MenuData::sInstance->curScene->Get<SettingsBasePage>((PageId)DX::SETTINGS_MAIN);
+        basePage = MenuData::sInstance->curScene->Get<SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN);
         //this->basePage->upDownControls->HandleButtonDeselect(0,0);
         nextPageId = PAGE_NONE;
         prevPageId = basePage->lastPage;
@@ -284,7 +284,7 @@ namespace DXUI
             return;
         }
         
-        SettingSubPage * basePage = ((DXUI::SettingSubPage *)this->parentGroup->parentPage);
+        SettingSubPage * basePage = ((CosmosUI::SettingSubPage *)this->parentGroup->parentPage);
 
         u32 bmgId = BMG_SETTING_OPTION + ((basePage->pageId-MINPAGE) << 8) + (id << 4) + optionId;
         if(basePage->pageDefinition.settings[id].isBool)
@@ -292,4 +292,4 @@ namespace DXUI
         text->SetMsgId(bmgId);
     }
 
-} // namespace DXUI
+} // namespace CosmosUI

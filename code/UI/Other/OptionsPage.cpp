@@ -2,7 +2,7 @@
 #include <UI/Settings/SettingsBasePage.hpp>
 #include <main.hpp>
 
-namespace DXUI
+namespace CosmosUI
 {
     OptionsPlus * CreateOptions()
     {
@@ -28,9 +28,9 @@ namespace DXUI
     {
         if(button->buttonId == 5)
         {
-            MenuData::sInstance->curScene->Get<SettingsBasePage>((PageId)DX::SETTINGS_MAIN)->lastPage = OPTIONS;
-            MenuData::sInstance->curScene->Get<SettingsBasePage>((PageId)DX::SETTINGS_MAIN)->lastMenu = OPTIONS_MENU;
-            this->nextPageId = (PageId) DX::SETTINGS_MAIN;
+            MenuData::sInstance->curScene->Get<SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN)->lastPage = OPTIONS;
+            MenuData::sInstance->curScene->Get<SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN)->lastMenu = OPTIONS_MENU;
+            this->nextPageId = (PageId) Cosmos::SETTINGS_MAIN;
             this->EndStateAnimate(button->GetAnimationFrameSize(), 0);
         }
         else
