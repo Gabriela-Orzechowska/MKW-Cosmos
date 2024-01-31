@@ -14,10 +14,10 @@ IOS::Dolphin::DiscordRichPresence RichPresenceManager::presence = {
     .details = "In Main Menu",
     .startTimestamp = 0,
     .endTimestamp = 0,
-    .largeImageKey = "icon1",
-    .largeImageText = "Mario Kart Wii Deluxe",
+    .largeImageKey = "",
+    .largeImageText = "Mario Kart Wii Cosmos",
     .smallImageKey = "",
-    .smallImageText = "MKW Deluxe",
+    .smallImageText = "MKW Cosmos",
     .partySize = 0,
     .partyMax = 0,
 };
@@ -55,7 +55,7 @@ void RichPresenceManager::Init()
         CreateStaticInstance();
     s32 ret = InitConnection();
     if(ret < 0) return;
-    //rEnabled = true;
+    rEnabled = true;
     CosmosLog("Rich Presence Enabled\n");
 
     u64 time = IOS::Dolphin::GetSystemTime();

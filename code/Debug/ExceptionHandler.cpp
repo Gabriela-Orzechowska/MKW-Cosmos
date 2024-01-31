@@ -97,6 +97,7 @@ namespace CosmosDebug{
         return filepath;
     }
     extern u32 SRR0_addr;
+    /*
     void PrintUnhandled()
     {
         char text[] = "Dearest Player\nI hope it finds you well.\nWe seem to have found ourselves a crash in the game.\nPlease consider taking a screenshot and sending\n it to #bug-reports\n\n";
@@ -110,14 +111,16 @@ namespace CosmosDebug{
     }
 
     kmBranch(0x801a2ce8, PrintUnhandled);
+    */
 
     void PrintHeader()
     {
         nw4r::db::Exception_Printf_("**** COSMOS EXCEPTION HANDLER ****\n");
-        nw4r::db::Exception_Printf_("Cosmos v0.1.2 (%s %s)\nPlatform: %s\n", __DATE__, __TIME__, CosmosDebug::GetPlatformString());
+        nw4r::db::Exception_Printf_("Platform: %s\nCosmos %s (%s %s)\n-------------------------------\n", CosmosDebug::GetPlatformString(), __COSMOS_VERSION__, __DATE__, __TIME__);
         
         u32 tick0 = OSGetTick() & 0x3;
 
+        /*
         if(tick0 == 0){
             nw4r::db::Exception_Printf_("*** Dearest Player\n*** I hope it finds you well. We seem to have\n*** found ourselves a crash in the game. Please\n*** consider taking a screenshot and sending it \n*** to #bug-reports\n");
             nw4r::db::Exception_Printf_("***\n");
@@ -127,7 +130,7 @@ namespace CosmosDebug{
         {
             nw4r::db::Exception_Printf_("*** Lorem ipsum dolor sit amet,\n*** consectetur adipiscing elit.\n*** Nunc ipsum dui, aliquam in volutpat a,\n*** feugiat et justo.\n*** Duis commodo varius ex,\n*** ut viverra risus malesuada consectetur.");
         }
-
+        */
         return;
     }
 
@@ -154,12 +157,12 @@ namespace CosmosDebug{
         char * region_name= GetRegionName();
 
         if(error == 0x30)
-            nw4r::db::Exception_Printf_("\n\n*** Mario Kart Wii Deluxe PANIC HANDLER ***\nnw4r::Panic() has been called at 0x%08x (%s)\n<Symbol not found>\n\n", dsisr-4, region_name);
+            nw4r::db::Exception_Printf_("\n\n*** COSMOS PANIC HANDLER ***\nnw4r::Panic() has been called at 0x%08x (%s)\n<Symbol not found>\n\n", dsisr-4, region_name);
         else if(error == 0x31)
-            nw4r::db::Exception_Printf_("\n\n*** Mario Kart Wii Deluxe PANIC HANDLER ***\nRVL::OSPanic() has been called; (%s)\n<Symbol not found>\n\n", region_name);
+            nw4r::db::Exception_Printf_("\n\n*** COSMOS PANIC HANDLER ***\nRVL::OSPanic() has been called; (%s)\n<Symbol not found>\n\n", region_name);
         else if(error == 0x32)
-            nw4r::db::Exception_Printf_("\n\n*** Mario Kart Wii Deluxe PANIC HANDLER ***\nCosmos::Panic() has been called; (%s)\n<Symbol not found>\n\n", region_name);
-        nw4r::db::Exception_Printf_("MKW Deluxe v9.0 (%s %s)\nPlatform: %s\n", __DATE__, __TIME__, CosmosDebug::GetPlatformString());
+            nw4r::db::Exception_Printf_("\n\n*** COSMOS PANIC HANDLER ***\nCosmos::Panic() has been called; (%s)\n<Symbol not found>\n\n", region_name);
+        nw4r::db::Exception_Printf_("Platform: %s\nCosmos %s (%s %s)\n-------------------------------\n", CosmosDebug::GetPlatformString(), __COSMOS_VERSION__, __DATE__, __TIME__);
         nw4r::db::Exception_Printf_("*** Message ***\n%s\n", (char *)dar );
     }
 

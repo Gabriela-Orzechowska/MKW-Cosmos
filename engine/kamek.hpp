@@ -130,6 +130,9 @@ struct PtmfHolder_3A : PtmfHolderBase_3A<Ret, A1, A2, A3> {
 #define CosmosLog(f, ...) OSReport("[Cosmos:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
 #define CosmosError(f, ...) OSReport("[Cosmos Error:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
 
+#define __COMPILER_VERSION__ "4305_224"
+#define __COSMOS_VERSION__ "v0.1.4"
+
 class MenuLoadHook {
 private:
     typedef void (Func)();
@@ -260,6 +263,10 @@ public:
     }
 
     static void exec() {
+
+        OSReport("[Cosmos] Cosmos %s Loaded (0x%s)\n", __COSMOS_VERSION__, __COMPILER_VERSION__);
+        OSReport("[Cosmos Module] FatFs R0.15\n");
+
         for (BootHook * p = sHooks; p; p = p->mNext)
             if(p->mPriority == FIRST) p->mFunc();
 
