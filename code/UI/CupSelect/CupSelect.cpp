@@ -1,9 +1,11 @@
 #include <UI/CupSelect/CupSelect.hpp>
 #include <game/UI/Ctrl/Menu/CtrlMenuCourse.hpp>
 #include <LeCode/LeCodeManager.hpp>
+#include <SlotExpansion/CupManager.hpp>
 
 namespace CosmosUI
 {
+
     CupSelectPlus * CreateCupPage()
     {
         CupSelectPlus * cup = new(CupSelectPlus);
@@ -64,13 +66,14 @@ namespace CosmosUI
 
     void CupSelectPlus::ScrollCups(s32 direction)
     {
+        u32 CupCount = Cosmos::CupManager::sInstance->GetCupCount();
         CtrlMenuCupSelectCup *cupCtrl = &this->ctrlMenuCupSelectCup;
-        cupCtrl->curCupID = (cupCtrl->curCupID + (direction * 2) + CUP_COUNT) % CUP_COUNT;
+        cupCtrl->curCupID = (cupCtrl->curCupID + (direction * 2) + CupCount) % CupCount;
         for(int i = 0; i < 8; i++)
         {
             PushButton * button = &this->ctrlMenuCupSelectCup.cupButtons[i];
             u32 id = button->buttonId;
-            id = (id + (direction * 2) + CUP_COUNT) % CUP_COUNT;
+            id = (id + (direction * 2) + CupCount) % CupCount;
             button->SetMsgId(id + BMG_CUPS);
             button->buttonId = id;
             this->ChangeTPL(button, id);
@@ -141,12 +144,13 @@ namespace CosmosUI
 
     void ExtendCupSelectCupInitSelf(CtrlMenuCupSelectCup * cups)
     {
+        u32 CupCount = Cosmos::CupManager::sInstance->GetCupCount();
         cups->curCupID = lastSelectedCup;
         for(int i = 0; i < 8; i++)
         {
             PushButton * button = &cups->cupButtons[i];
             u32 id = i < 4 ? i * 2 : ((i-4) * 2) + 1;
-            id = (id + lastLeftCup + CUP_COUNT) % CUP_COUNT;
+            id = (id + lastLeftCup + CupCount) % CupCount;
             button->buttonId = id;
             button->SetMsgId(id + BMG_CUPS);
             button->SetOnClickHandler((PtmfHolder_2A<Page, void, PushButton *, u32>*) &cups->onCupButtonClickHandler, 0);
@@ -158,6 +162,22 @@ namespace CosmosUI
     }
     kmWritePointer(0x808d324c, ExtendCupSelectCupInitSelf);
 
+    void ExtendCourseSelectCourseInitSelf(CtrlMenuCourseSelectCourse * course)
+    {
+        Cosmos::CupManager * manager = Cosmos::CupManager::sInstance;
+        Pages::CupSelect * cup = MenuData::sInstance->curScene->Get<Pages::CupSelect>(CUP_SELECT);
+        Pages::CourseSelect * coursePage = MenuData::sInstance->curScene->Get<Pages::CourseSelect>(COURSE_SELECT);
+
+        u32 cupId = lastSelectedCup;
+
+
+        for(int i = 0; i < 4; i++)
+        {
+            course->courseButtons[i].buttonId = manager->currentLayoutArray[cupId * 4 + i];
+        }
+    }
+    kmWritePointer(0x808d30d8, ExtendCourseSelectCourseInitSelf);
+
     void UpdateSelection(CupSelectPlus * page, CtrlMenuCupSelectCup * cups, PushButton *button, u32 slotId)
     {
         lastLeftCup = cups->cupButtons[0].buttonId;
@@ -167,10 +187,12 @@ namespace CosmosUI
             PushButton * cbutton = &cups->cupButtons[i];
             if(button == cbutton){
                 lastSelectedButton = i;
+                lastSelectedCup = cups->cupButtons[i].buttonId;
             }
         }
-        page->LoadNextPage(cups, button, slotId);
         RaceData::sInstance->menusScenario.settings.cupId = lastSelectedCup % 8;
+        page->LoadNextPage(cups, button, slotId);
+
     }
     kmCall(0x807e5da8, UpdateSelection);
 

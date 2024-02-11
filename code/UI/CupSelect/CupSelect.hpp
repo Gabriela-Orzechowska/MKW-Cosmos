@@ -26,6 +26,12 @@ namespace CosmosUI
     static s32 lastLeftCup;
     static CUP_LAYOUT currentLayout = NORMAL;
 
+    static inline int CorrectButtonToId(int id)
+    {
+        if(id < 0) id + 8;
+        return (id & 1) > 0 ? (4 + (id-1)/2) : id >> 1; 
+    }
+
     class CupSelectPlus : public Pages::CupSelect
     {
         public:

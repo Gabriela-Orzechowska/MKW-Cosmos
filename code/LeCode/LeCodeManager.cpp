@@ -82,6 +82,7 @@ namespace LeCode
 
     u32 LeCodeManager::GetTrackID()
     {
+        return 0;
         char * address = (char*)(this->settingHeader);
         address += this->settingHeader->off_eod;
         return *(u32*)(address);
@@ -102,7 +103,7 @@ namespace LeCode
 
     void InitLoader()
     {
-        LeCodeManager::GetStaticInstance()->LoadLeCode();
+        LeCodeManager::GetStaticInstance();
         return;
     }
 

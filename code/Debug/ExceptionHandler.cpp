@@ -116,7 +116,7 @@ namespace CosmosDebug{
     void PrintHeader()
     {
         nw4r::db::Exception_Printf_("**** COSMOS EXCEPTION HANDLER ****\n");
-        nw4r::db::Exception_Printf_("Platform: %s\nCosmos %s (%s %s)\n-------------------------------\n", CosmosDebug::GetPlatformString(), __COSMOS_VERSION__, __DATE__, __TIME__);
+        nw4r::db::Exception_Printf_("Platform: %s\nCosmos %s (%s, %s %s)\n-------------------------------\n", CosmosDebug::GetPlatformString(), __COSMOS_VERSION__, __COMPILER_VERSION__, __DATE__, __TIME__);
         
         u32 tick0 = OSGetTick() & 0x3;
 
