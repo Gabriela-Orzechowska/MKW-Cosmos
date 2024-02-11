@@ -30,7 +30,7 @@ def main():
     result = list(Path("code/.").rglob("*.c*"))
     i = 1;
     print("Building...")
-    os.remove("build/ExceptionHandler.o")
+    # os.remove("build/ExceptionHandler.o")
     command = f"\"{CC}\" {CFLAGS} -c -o build/kamek.o engine/kamek.cpp"
     subprocess.run(shlex.split(command))
     print("")

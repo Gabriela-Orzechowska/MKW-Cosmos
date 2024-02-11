@@ -172,21 +172,20 @@ namespace CosmosGhost
         if(ret > 0) ret = manager->Read(&this->file, sizeof(GhostLeaderboardFile));
         if(ret <= 0)
         {
-            manager->taskThread->Request(&GhostLeaderboardManager::CreateFile, (void*)id, NULL);
+            GhostLeaderboardManager::CreateFile(id);
         }
-
 
         manager->Close();
     }
 
-    void GhostLeaderboardManager::CreateFile(void * id)
+    void GhostLeaderboardManager::CreateFile(u32 id)
     {
         char filePath[IPCMAXPATH];
         snprintf(filePath, IPCMAXPATH, "%s/ld.glm", GhostManager::folderPath);
         CosmosFile::FileManager * manager = CosmosFile::FileManager::GetStaticInstance();
         manager->CreateOpen(filePath, CosmosFile::FILE_MODE_READ_WRITE);
         GhostLeaderboardFile * file = new (RKSystem::mInstance.EGGSystem, 0x20) GhostLeaderboardFile;
-        file->trackId = (u32) id;
+        file->trackId =  id;
         manager->Overwrite(sizeof(GhostLeaderboardFile), file);
         manager->Close();
         delete(file);

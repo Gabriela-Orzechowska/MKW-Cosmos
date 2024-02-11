@@ -171,7 +171,10 @@ namespace CosmosFile
             CosmosLog("Opened file: %s\n", filepath);
         }
         else CosmosError("Opening file failed: %s\n", filepath);
-        return ret;
+        
+        if(ret == FR_OK) return 1;
+        
+        return -ret;
     }
 
     s32 FatFileManager::CreateOpen(const char * filepath, u32 mode)
@@ -247,6 +250,8 @@ namespace CosmosFile
     {
         if(StorageDevice::currentDevice == nullptr) return;
         f_close(&this->currentFile);
+        CosmosLog("Closed file.\n");
+        
         return;
     }
 

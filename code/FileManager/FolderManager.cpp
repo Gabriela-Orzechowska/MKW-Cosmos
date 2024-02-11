@@ -127,8 +127,72 @@ namespace CosmosFile
         return ret;
     }
 
-     s32 FatFolderManager::ReadFolder(const char * filepath)
-     {
-        return -1;
-     };
+    void FatFolderManager::GetPath(const char *path)
+    {
+        mbstowcs(this->realPath, path, strlen(path)+1);
+        return;
+    }
+
+    s32 FatFolderManager::ReadFolder(const char * filepath)
+    {
+        DIR dir;
+        FILINFO fno;
+        
+        this->GetPath(filepath);
+        FRESULT res = f_opendir(&dir, this->realPath);
+
+        FATFs_Path * pathArray = new(RKSystem::mInstance.EGGSystem) FATFs_Path[30];
+
+        if(res == FR_OK)
+        {
+            s32 nfile = 0;
+            s32 ndir = 0;
+            strncpy(this->folderPathFat, filepath, strlen(filepath)+1);
+            CosmosLog("Trying to open folder: %ls\n", this->realPath);
+            for(;;)
+            {
+                res = f_readdir(&dir, &fno); 
+                if(res != FR_OK || fno.fname[0] == 0) {
+                    CosmosLog("End of folder or error!\n");
+                    break;
+                }
+
+                if(fno.fattrib & AM_DIR)
+                    continue;
+
+                char simplePath[MAXFATFILEPATH];
+                char fullpath[MAXFATFILEPATH];
+                wcstombs(simplePath, fno.fname, MAXFATFILEPATH);
+                snprintf(fullpath, MAXFATFILEPATH, "%s/%s", this->folderPathFat, simplePath);
+                strncpy(pathArray[nfile], fullpath, MAXFATFILEPATH);
+                nfile++;
+
+                CosmosLog("File found: %s\n", fullpath);
+            }
+
+            CosmosLog("Files found: %d\n", nfile);
+            
+
+            FATFs_Path * finalarray = new (RKSystem::mInstance.EGGSystem) FATFs_Path[nfile];
+            memcpy(finalarray, pathArray, sizeof(FATFs_Path) * nfile);
+            this->fileCount = nfile;
+            this->fatFileNames =  finalarray;
+            delete[](pathArray);
+
+            CosmosLog("Array pointer: %p", finalarray);
+
+            f_closedir(&dir);
+        }
+
+        else{
+            CosmosLog("Couldnt open the folder!\n");
+        }
+
+        return res;
+    }
+
+    void FatFolderManager::GetFilePath(char * filepath, u32 index) const {
+        snprintf(filepath, IPCMAXPATH, "%s/%s", &this->folderName, &this->fatFileNames[index]);
+        return;
+    }
 }

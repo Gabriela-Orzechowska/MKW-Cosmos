@@ -43,7 +43,6 @@ namespace Cosmos
     void CupManager::UpdateSelectedCourse(PushButton * button){
         this->lastSelectedCourse = button->buttonId;
         this->winningCourse = lastSelectedCourse;
-        CosmosLog("Selecting slot to: %2x", this->winningCourse);
     }
 
     int CupManager::GetCurrentTrackSlot()

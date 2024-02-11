@@ -76,7 +76,7 @@ namespace CosmosGhost
                 void GhostTimeEntryToTimer(Timer &timer, u32 index) const;
                 void GhostTimeEntryToTimeEntry(TimeEntry &entry, u32 index);
 
-                static void CreateFile(void * id);
+                static void CreateFile(u32 id);
 
             private:
                 GhostLeaderboardFile file __attribute__ ((aligned( 0x20 )));

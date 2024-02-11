@@ -11,7 +11,7 @@
 #include <Storage/StorageDevice.hpp>
 
 typedef char FileName[255];
-#define MAXFATFILEPATH 260
+#define MAXFATFILEPATH 130
 
 namespace CosmosFile
 {
