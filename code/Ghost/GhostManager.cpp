@@ -185,6 +185,7 @@ namespace CosmosGhost
         CosmosFile::FileManager * manager = CosmosFile::FileManager::GetStaticInstance();
         manager->CreateOpen(filePath, CosmosFile::FILE_MODE_READ_WRITE);
         GhostLeaderboardFile * file = new (RKSystem::mInstance.EGGSystem, 0x20) GhostLeaderboardFile;
+        memset(file, 0, sizeof(GhostLeaderboardFile));
         file->trackId =  id;
         manager->Overwrite(sizeof(GhostLeaderboardFile), file);
         manager->Close();
