@@ -76,14 +76,14 @@
  2820   = A solo race for the fastest record! (200cc)
  2830   = Change Combo
  2840   = Some changes require a restart
-  13044	= DS Test Circle \n\z{800,40}\c{blue1}Bruh de la Boi\c{off}
-  13045	= Castle Gorge \n\z{800,40}\c{blue1}Toadette Hack Fan, Mystora\c{off} 
-  13046	= KKW Prismatic Parkway \n\z{800,40}\c{blue1}Mystora\c{off} 
-  13047	= Ruinated Peach's Castle \n\z{800,40}\c{blue1}Gabriela_\c{off}
-  13048	= Blissful Block \n\z{800,40}\c{blue1}Strobenz\c{off}
-  13049	= Strobenz Desert Illusion \n\z{800,40}\c{blue1}Strobenz\c{off}
-  1304A	= The \c{red}Thing\c{off} You Can't Defeat \n\z{800,40}\c{blue1}Gabriela_\c{off}
-  1304B	= Fever \c{blue1}Factory\c{off} \n\z{800,40}\c{blue1}Gabriela_\c{off}
+  13100	= DS Test Circle \n\z{800,40}\c{blue1}Bruh de la Boi\c{off}
+  13101	= Castle Gorge \n\z{800,40}\c{blue1}Toadette Hack Fan, Mystora\c{off} 
+  13102	= KKW Prismatic Parkway \n\z{800,40}\c{blue1}Mystora\c{off} 
+  13103	= Ruinated Peach's Castle \n\z{800,40}\c{blue1}Gabriela_\c{off}
+  13104	= Blissful Block \n\z{800,40}\c{blue1}Strobenz\c{off}
+  13105	= Strobenz Desert Illusion \n\z{800,40}\c{blue1}Strobenz\c{off}
+  13106	= The \c{red}Thing\c{off} You Can't Defeat \n\z{800,40}\c{blue1}Gabriela_\c{off}
+  13107	= Fever \c{blue1}Factory\c{off} \n\z{800,40}\c{blue1}Gabriela_\c{off}
 
 6000    = Mushroom
 6001    = Shell
@@ -164,11 +164,11 @@
   7041	/
   7042	/
   7043	=  Wiimms SZS Toolset v2.25a r8443
-  7044	= DS Test Circle
-  7045	= Castle Gorge
-  7046	= KKW Prismatic Parkway
-  7047	= Ruinated Peach's Castle
-  7048	= Blissful Block
-  7049	= Strobenz Desert Illusion
-  704A	= The \c{red}Thing\c{off} You Can't Defeat
-  704B	= Fever \c{blue1}Factory\c{off}
+  7100	= DS Test Circle
+  7101	= Castle Gorge
+  7102	= KKW Prismatic Parkway
+  7103	= Ruinated Peach's Castle
+  7104	= Blissful Block
+  7105	= Strobenz Desert Illusion
+  7106	= The \c{red}Thing\c{off} You Can't Defeat
+  7107	= Fever \c{blue1}Factory\c{off}

@@ -29,6 +29,9 @@ pr_patch8_r4 = 0x8065A080
 p_tracklist1 = 0x807e6004
 p_tracklist2 = 0x807e6014
 
+p_tracklist1_2 = 0x807e60f0
+p_tracklist2_2 = 0x807e60f8
+
 __div2u = 0x80021604
 __mod2u = 0x80021828
 
