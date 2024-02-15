@@ -26,6 +26,8 @@ pr_patch6_r7 = 0x80659778
 pr_patch7_r4 = 0x8065A034
 pr_patch8_r4 = 0x8065A080
 
+p_tracklist1 = 0x807e6004
+p_tracklist2 = 0x807e6014
 
 __div2u = 0x80021604
 __mod2u = 0x80021828
@@ -1229,6 +1231,7 @@ PlayBRSARSound__16RaceSoundHandlerFUiUi = 0x80716608
 sInstance__12RaceAudioMgr = 0x809c27f8
 ChangeMusic__12RaceAudioMgrF9RaceState = 0x80711ac4
 trackToMusicIDTable__12RaceAudioMgr = 0x808a1d80
+GetCourseSoundId__12RaceAudioMgrFv = 0x807101f4
 
 #RSARSoundsPlayer
 sInstance__16RSARSoundsPlayer = 0x809c2850

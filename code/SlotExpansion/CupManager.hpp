@@ -6,6 +6,8 @@
 
 namespace Cosmos
 {
+    #define CT_OFFSET 0x100
+    
     #pragma pack(push, 1)
     struct Track{
         u8 slot;
@@ -24,14 +26,15 @@ namespace Cosmos
     {
         public:
         static CupManager * sInstance;
+        static CupManager * GetStaticInstance() {return sInstance; }
 
         CupManager();
 
         int GetCupCount() { return cupDef->cupCount; }
-        // int GetTrackID() const;
+        int GetTrackID() const { return winningCourse; };
 
         int GetCurrentTrackSlot();
-        // int GetCorrectMusicSlot() const;
+        int GetCurrentMusicSlot();
 
         void UpdateSelectedCourse(PushButton * button);
 

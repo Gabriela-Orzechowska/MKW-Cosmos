@@ -1,8 +1,9 @@
 #include <Ghost/GhostManager.hpp>
+#include <SlotExpansion/CupManager.hpp>
 
 void CorrectGhostTrackName(LayoutUIControl * control, const char *textBoxName, u32 bmgId, const TextInfo *text)
 {
-    u32 trackId = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
+    u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
     bmgId = trackId + 0x7000;
     control->SetTextBoxMsg(textBoxName, bmgId, text);
     return;
@@ -149,7 +150,7 @@ namespace CosmosGhost
         char folderPath[IPCMAXPATH];
         snprintf(folderPath, IPCMAXPATH, "%s/%03x", Cosmos::ghostFolder, manager->courseId);
         manager->GetLeaderboard()->Save(folderPath);
-        manager->Init(LeCode::LeCodeManager::GetStaticInstance()->GetTrackID());
+        manager->Init(Cosmos::CupManager::GetStaticInstance()->GetTrackID());
         MenuData::sInstance->menudata98->isNewTime = true;
     }
 
@@ -287,7 +288,7 @@ namespace CosmosGhost
 
     void CustomGhostGroup(GhostList * list, u32 id)
     {
-        u32 trackID = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
+        u32 trackID = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
         GhostManager * manager = GhostManager::GetStaticInstance();
         manager->Init(trackID);
         u32 index = 0;
@@ -467,7 +468,7 @@ namespace CosmosGhost
 
                 if(data.CreateRKG(&buffer) && buffer.CompressTo(rkg))
                 {
-                    u32 trackId = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
+                    u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
                     if(leaderboardPosition > -1) manager->GetLeaderboard()->Update(leaderboardPosition, &entry, trackId);
                     CosmosFile::FileManager::GetStaticInstance()->taskThread->Request(&GhostManager::CreateAndSaveFiles, manager, NULL);
                 }

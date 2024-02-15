@@ -2,6 +2,10 @@
 #include <core/RK/RKSystem.hpp>
 #include <FileManager/FileManager.hpp>
 #include <game/UI/Page/Menu/CourseSelect.hpp>
+#include <game/Sound/RaceAudioManager.hpp>
+
+extern u32 p_tracklist1;
+extern u32 p_tracklist2;
 
 namespace Cosmos
 {
@@ -35,6 +39,12 @@ namespace Cosmos
                 this->currentLayoutArray = new (RKSystem::mInstance.EGGSystem, 0x20) u32[this->cupDef->cupCount * 4];
                 if(DVDReadPrio(&fileHandle, (void *) this->currentLayoutArray, sizeof(u32) * this->cupDef->cupCount * 4, 0x0, 0x2)){
                     CosmosLog("Layout loaded to: %p\n", this->currentLayoutArray);
+
+                    //Apply patch to track list
+
+                    p_tracklist1 = 0x3ca00000 | (((u32)this->currentLayoutArray) >> 16);
+                    p_tracklist2 = 0x60a50000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
+
                 }
             }
         }
@@ -42,18 +52,27 @@ namespace Cosmos
 
     void CupManager::UpdateSelectedCourse(PushButton * button){
         this->lastSelectedCourse = button->buttonId;
-        this->winningCourse = lastSelectedCourse;
+        this->winningCourse = this->lastSelectedCourse;
+    }
+
+    int CupManager::GetCurrentMusicSlot()
+    {
+        if(this->winningCourse < CT_OFFSET) return RaceAudioMgr::sInstance->GetCourseSoundId();
+        return this->cupDef->tracks[this->winningCourse - CT_OFFSET].musicSlot;
     }
 
     int CupManager::GetCurrentTrackSlot()
     {
-        return this->cupDef->tracks[this->winningCourse].slot;
+        if(this->winningCourse < CT_OFFSET) return this->winningCourse;
+
+        return this->cupDef->tracks[this->winningCourse - CT_OFFSET].slot;
     }
 
     int PatchSlot(Pages::CourseSelect * page, CtrlMenuCourseSelectCourse * ctrl, PushButton * button)
     {
         CupManager * manager = CupManager::sInstance;
         manager->UpdateSelectedCourse(button);
+        CosmosLog("Setting slot to: 0x%02X for track ID: 0x%02X\n", manager->GetCurrentTrackSlot(), button->buttonId);
         return manager->GetCurrentTrackSlot();
     }
 

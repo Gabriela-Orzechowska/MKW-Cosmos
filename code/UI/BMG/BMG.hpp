@@ -13,6 +13,8 @@ enum DX_BMG
     BMG_SETTING_OPTION_BOTTOM = 0x3801,
 
     BMG_CUPS = 0x6000,
+
+    BMG_TRACKS = 0x7000,
 };
 
 

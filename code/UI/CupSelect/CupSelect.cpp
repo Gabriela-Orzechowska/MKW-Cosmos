@@ -69,6 +69,7 @@ namespace CosmosUI
         u32 CupCount = Cosmos::CupManager::sInstance->GetCupCount();
         CtrlMenuCupSelectCup *cupCtrl = &this->ctrlMenuCupSelectCup;
         cupCtrl->curCupID = (cupCtrl->curCupID + (direction * 2) + CupCount) % CupCount;
+        this->ctrlMenuCupSelectCourse.UpdateTrackList(cupCtrl->curCupID);
         for(int i = 0; i < 8; i++)
         {
             PushButton * button = &this->ctrlMenuCupSelectCup.cupButtons[i];
@@ -78,7 +79,6 @@ namespace CosmosUI
             button->buttonId = id;
             this->ChangeTPL(button, id);
         }
-        this->ctrlMenuCupSelectCourse.UpdateTrackList(cupCtrl->curCupID);
     }
 
     void CupSelectPlus::OnInit()

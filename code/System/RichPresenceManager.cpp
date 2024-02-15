@@ -1,7 +1,7 @@
 #include <System/RichPresenceManager.hpp>
 #include <core/System/RKSystem.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
-#include <LeCode/LeCodeManager.hpp>
+#include <SlotExpansion/CupManager.hpp>
 #include <UI/BMG/MessageGroup.hpp>
 #include <System/Sha1.hpp>
 
@@ -114,7 +114,7 @@ void RPCSectionChange()
     char * status = "";
 
 
-    u32 trackId = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
+    u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
 
     if(menuId < GRAND_PRIX_PANORAMA || menuId > GHOST_RACE_GAMEPLAY_2)
     {
