@@ -170,10 +170,24 @@ namespace CosmosUI
 
         u32 cupId = lastSelectedCup;
 
-
         for(int i = 0; i < 4; i++)
         {
-            course->courseButtons[i].buttonId = manager->currentLayoutArray[cupId * 4 + i];
+            int slot = manager->currentLayoutArray[cupId * 4 + i];
+            course->courseButtons[i].buttonId = slot;
+            if(slot >= CT_OFFSET)
+                course->courseButtons[i].SetMsgId(slot + BMG_TRACKS);
+            else
+                course->courseButtons[i].SetMsgId(slot + 9300);
+
+            if(i == 0){
+                if((cupId * 4 + 4) < manager->lastSelectedCourse || manager->lastSelectedCourse < (cupId * 4)){
+                    coursePage->SelectButton(&course->courseButtons[i]);
+                }
+            }
+
+            if(cupId * 4 + i == manager->lastSelectedCourse){
+                coursePage->SelectButton(&course->courseButtons[i]);
+            }
         }
     }
     kmWritePointer(0x808d30d8, ExtendCourseSelectCourseInitSelf);
@@ -190,7 +204,7 @@ namespace CosmosUI
                 lastSelectedCup = cups->cupButtons[i].buttonId;
             }
         }
-        RaceData::sInstance->menusScenario.settings.cupId = lastSelectedCup % 8;
+        RaceData::sInstance->menusScenario.settings.cupId = lastSelectedCup & 0x7;
         page->LoadNextPage(cups, button, slotId);
 
     }
@@ -201,8 +215,9 @@ namespace CosmosUI
 
     u32 CorrectCourseSelectCup(Pages::CupSelect * page)
     {
-        s32 offset = page->ctrlMenuCupSelectCup.cupButtons[0].buttonId;
-        s32 id = page->clickedCupId - offset;
+        u32 CupCount = Cosmos::CupManager::sInstance->GetCupCount();
+        u32 index = page->clickedCupId;
+        s32 id = (index - lastLeftCup + CupCount) % CupCount;
         if(id < 0) id + 8;
         return (id & 1) > 0 ? (4 + (id-1)/2) : id >> 1; 
     }
@@ -227,6 +242,51 @@ namespace CosmosUI
     }
 
     kmCall(0x807e45e4, asmCorrectCourseSelectCup);
+    
+    void ExtendCourseSelectCupInitSelf(CtrlMenuCourseSelectCup* course)
+    {
+        u32 CupCount = Cosmos::CupManager::sInstance->GetCupCount();
+        Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
+        for(int i = 0; i < 8; i++)
+        {
+            u32 id = i < 4 ? i * 2 : ((i-4) * 2) + 1;
+            id = (id + lastLeftCup + CupCount) % CupCount;
+
+            bool pressed = lastSelectedCup == id;
+
+            CtrlMenuCourseSelectCupSub * button = &course->cupIcons[i];
+            button->animator.GetAnimationGroupById(0)->PlayAnimationAtFrame(0,0.0f);
+            button->animator.GetAnimationGroupById(1)->PlayAnimationAtFrame(!pressed, 0.0f);
+            button->animator.GetAnimationGroupById(2)->PlayAnimationAtFrame(!pressed, 0.0f);
+            button->animator.GetAnimationGroupById(3)->PlayAnimationAtFrame(pressed, 0.0f);
+            button->selected = pressed;
+            button->SetRelativePosition(&course->positionAndscale[1]);
+        }
+        return;
+    }
+
+    //kmWritePointer(0x808d3190, ExtendCourseSelectCupInitSelf);
+
+    void PatchCourseSelectCup()
+    {
+        u32 CupCount = Cosmos::CupManager::sInstance->GetCupCount();
+        Pages::CourseSelect * coursePage = MenuData::sInstance->curScene->Get<Pages::CourseSelect>(COURSE_SELECT);
+        Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
+        for(int i = 0; i < 8; i++)
+        {
+            u32 id = i < 4 ? i * 2 : ((i-4) * 2) + 1;
+            id = (id + lastLeftCup + CupCount) % CupCount;
+            char tpl[0x20];
+            snprintf(tpl, 0x20, "icon_cup_%03d.tpl", id);
+            CosmosUI::ChangePaneImage(&coursePage->ctrlMenuCourseSelectCup.cupIcons[i], "icon", tpl);
+            CosmosUI::ChangePaneImage(&coursePage->ctrlMenuCourseSelectCup.cupIcons[i], "icon_light_01", tpl);
+            CosmosUI::ChangePaneImage(&coursePage->ctrlMenuCourseSelectCup.cupIcons[i], "icon_light_02", tpl);
+
+            coursePage->ctrlMenuCourseSelectCup.cupIcons[i].SetMsgId(BMG_CUPS + id);
+        }
+        return;
+    }
+    kmBranch(0x807e4740, PatchCourseSelectCup);
 
     void FixCourseSelectCup()
     {

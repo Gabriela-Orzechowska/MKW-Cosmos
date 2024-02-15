@@ -6,6 +6,8 @@
 
 extern u32 p_tracklist1;
 extern u32 p_tracklist2;
+extern u32 p_tracklist1_2;
+extern u32 p_tracklist2_2;
 
 namespace Cosmos
 {
@@ -45,6 +47,9 @@ namespace Cosmos
                     p_tracklist1 = 0x3ca00000 | (((u32)this->currentLayoutArray) >> 16);
                     p_tracklist2 = 0x60a50000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
 
+                    p_tracklist1_2 = 0x3fc00000 | (((u32)this->currentLayoutArray) >> 16);
+                    p_tracklist2_2 = 0x63de0000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
+
                 }
             }
         }
@@ -58,7 +63,7 @@ namespace Cosmos
     int CupManager::GetCurrentMusicSlot()
     {
         if(this->winningCourse < CT_OFFSET) return RaceAudioMgr::sInstance->GetCourseSoundId();
-        return this->cupDef->tracks[this->winningCourse - CT_OFFSET].musicSlot;
+        return RaceAudioMgr::sInstance->trackToMusicIDTable[this->cupDef->tracks[this->winningCourse - CT_OFFSET].musicSlot];
     }
 
     int CupManager::GetCurrentTrackSlot()
@@ -72,7 +77,6 @@ namespace Cosmos
     {
         CupManager * manager = CupManager::sInstance;
         manager->UpdateSelectedCourse(button);
-        CosmosLog("Setting slot to: 0x%02X for track ID: 0x%02X\n", manager->GetCurrentTrackSlot(), button->buttonId);
         return manager->GetCurrentTrackSlot();
     }
 
