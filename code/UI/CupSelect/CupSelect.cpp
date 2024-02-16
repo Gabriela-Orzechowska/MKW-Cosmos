@@ -168,7 +168,7 @@ namespace CosmosUI
         Pages::CupSelect * cup = MenuData::sInstance->curScene->Get<Pages::CupSelect>(CUP_SELECT);
         Pages::CourseSelect * coursePage = MenuData::sInstance->curScene->Get<Pages::CourseSelect>(COURSE_SELECT);
 
-        u32 cupId = lastSelectedCup;
+        u32 cupId = manager->lastSelectedCup;
 
         for(int i = 0; i < 4; i++)
         {
@@ -206,6 +206,7 @@ namespace CosmosUI
         }
         RaceData::sInstance->menusScenario.settings.cupId = lastSelectedCup & 0x7;
         page->LoadNextPage(cups, button, slotId);
+        Cosmos::CupManager::GetStaticInstance()->lastSelectedCup = lastSelectedCup;
 
     }
     kmCall(0x807e5da8, UpdateSelection);

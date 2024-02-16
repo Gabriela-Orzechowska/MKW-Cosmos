@@ -38,3 +38,30 @@ int SetCorrectMusic()
 kmCall(0x80711fd8, SetCorrectMusic);
 kmCall(0x8071206c, SetCorrectMusic);
 
+// Fix GP, as it uses raceScenario for getting current track
+
+RacedataScenario * GPCorrectNextTrack(RacedataScenario * scenario)
+{
+    Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
+
+    manager->winningCourse = manager->currentLayoutArray[manager->lastSelectedCup * 4 + scenario->settings.raceNumber]; 
+    scenario->settings.courseId = (CourseId) manager->GetCurrentTrackSlot();
+    return scenario;
+}
+
+asm int GPCorrectNextTrackWrapper()
+{
+    ASM(
+        nofralloc;
+        mflr r0;
+        stw r0, 0x8 (r1);
+        bl GPCorrectNextTrack;
+        lwz r0, 0x8 (r1);
+        mtlr r0;
+        blr;
+    )
+}
+
+kmWrite32(0x8052f224, 0x60000000);
+kmBranch(0x8052f220, GPCorrectNextTrackWrapper);
+kmPatchExitPoint(GPCorrectNextTrackWrapper, 0x8052f228);
