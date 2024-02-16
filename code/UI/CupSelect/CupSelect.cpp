@@ -276,13 +276,18 @@ namespace CosmosUI
         {
             u32 id = i < 4 ? i * 2 : ((i-4) * 2) + 1;
             id = (id + lastLeftCup + CupCount) % CupCount;
-            char tpl[0x20];
-            snprintf(tpl, 0x20, "icon_cup_%03d.tpl", id);
-            CosmosUI::ChangePaneImage(&coursePage->ctrlMenuCourseSelectCup.cupIcons[i], "icon", tpl);
-            CosmosUI::ChangePaneImage(&coursePage->ctrlMenuCourseSelectCup.cupIcons[i], "icon_light_01", tpl);
-            CosmosUI::ChangePaneImage(&coursePage->ctrlMenuCourseSelectCup.cupIcons[i], "icon_light_02", tpl);
+            char tpl[0x30];
+            snprintf(tpl, 0x30, "button/timg/icon_cup_%03d.tpl", id);
 
-            coursePage->ctrlMenuCourseSelectCup.cupIcons[i].SetMsgId(BMG_CUPS + id);
+            LayoutUIControl * button = &coursePage->ctrlMenuCourseSelectCup.cupIcons[i];
+
+            void * tplPointer = ArchiveRoot::sInstance->GetFile(ARCHIVE_HOLDER_UI, tpl, 0);
+
+            CosmosUI::ChangePaneImage(button, "icon", tplPointer);
+            CosmosUI::ChangePaneImage(button, "icon_light_01", tplPointer);
+            CosmosUI::ChangePaneImage(button, "icon_light_02", tplPointer);
+
+            button->SetMsgId(BMG_CUPS + id);
         }
         return;
     }

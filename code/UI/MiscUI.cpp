@@ -5,6 +5,7 @@
 #include <core/System/SystemManager.hpp>
 #include <game/System/Archive.hpp>
 #include <game/UI/SectionMgr/SectionMgr.hpp>
+
 #include <game/System/FontManager.hpp>
 #include <core/rvl/os/OS.hpp>
 #include <UI/MiscUI.hpp>
@@ -16,8 +17,16 @@ namespace CosmosUI
 {
     void ChangePaneImage(LayoutUIControl * ctrl, const char * pane, const char * tpl){
         void * tplResource = ctrl->layout.resources->multiArcResourceAccessor.GetResource(res::RESOURCETYPE_TEXTURE, tpl);
-        ctrl->layout.GetPaneByName(pane)->GetMaterial()->GetTexMapAry()->ReplaceImage((TPLPalettePtr) tplResource);
+        ChangePaneImage(ctrl, pane, tplResource);
+        return;
     }
+
+    void ChangePaneImage(LayoutUIControl * ctrl, const char * pane, const void * tplPointer)
+    {
+        ctrl->layout.GetPaneByName(pane)->GetMaterial()->GetTexMapAry()->ReplaceImage((TPLPalettePtr) tplPointer);
+        return;
+    }
+
 }
 
 void FasterMenusOnTransition(MenuData *menuData, u32 delay, u32 r5){
