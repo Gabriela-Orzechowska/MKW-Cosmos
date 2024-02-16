@@ -5,6 +5,7 @@
 #include <game/UI/MenuData/MenuData.hpp>
 #include <game/Race/RaceData.hpp>
 #include <Controller/MiscController.hpp>
+#include <game/KMP/STGI.hpp>
 
 void MegaTC(KartMovement * kartMovement)
 {
@@ -31,15 +32,6 @@ void DraggableBlues(ItemPlayerSub *sub)
     if(SettingsHolder::GetInstance()->GetSettings()->pages[COSMOS_RACE_SETTINGS_1].setting[COSMOS_DRAGGABLE_BLUES] == DISABLED) sub->isNotDragged = true;
 }
 
-void LeCodeItemPatches()
-{
-    extern u32 p_lecodeBlueDrag;
-    extern u32 p_lecodeBluePmtf;
-    extern u32 p_lecodeBlueFunc;
-    Cosmos::CreateBranch((u32)&p_lecodeBlueDrag, DraggableBlues);
-    p_lecodeBluePmtf = (u32) &p_lecodeBlueFunc;
-}
-static LeCodeLoadHook ItemLeCode(LeCodeItemPatches);
 kmBranch(0x807ae8ac, DraggableBlues);
 
 // Engine Class Speed Factors
@@ -63,3 +55,22 @@ kmWrite32(0x807a7f6c, 0x38c00000); //FIB are always red
 kmWrite32(0x807b0bd4, 0x38000000); //pass TC to teammate
 kmWrite32(0x807bd2bc, 0x38000000); //RaceGlobals
 kmWrite32(0x807f18c8, 0x38000000); //TC alert
+
+
+// Lap Modifier
+
+RaceinfoPlayer * LoadLapCountFromKMP(RaceinfoPlayer * info, u8 index)
+{
+    u8 lapCount = KMP::Controller::sInstance->stageInfo->pointArray[0]->raw->lapCount;
+    RaceData::sInstance->racesScenario.settings.lapCount = lapCount;
+    return new(info) RaceinfoPlayer(index, lapCount);
+}
+
+
+kmCall(0x805328d4, LoadLapCountFromKMP);
+
+kmWrite32(0x805336B8, 0x60000000);
+kmWrite32(0x80534350, 0x60000000);
+kmWrite32(0x80534BBC, 0x60000000);
+kmWrite32(0x80723D10, 0x281D0009);
+kmWrite32(0x80723D40, 0x3BA00009);
