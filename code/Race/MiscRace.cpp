@@ -76,4 +76,12 @@ kmWrite32(0x80723D10, 0x281D0009);
 kmWrite32(0x80723D40, 0x3BA00009);
 
 
-// Secondary 
+// Secondary KTPT
+KMP::KTPTHolder * GetLineKTPT(const KMP::Controller * controller, u32 idx)
+{
+    KMP::KTPTHolder * holder = controller->GetKTPTHolder(1);
+    if(!holder) holder = controller->GetKTPTHolder(0);
+    return holder;
+}
+
+kmCall(0x807ea670, GetLineKTPT);
