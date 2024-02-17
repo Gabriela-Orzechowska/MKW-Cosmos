@@ -94,15 +94,15 @@ namespace CosmosFile
         return IOS::Read(this->fd, buffer, size);
     }
 
-    s32 FileManager::Write(u32 size, void *buffer){
+    s32 FileManager::Write(u32 size, const void *buffer){
         if(this->fd < 0) return -1;
-        return IOS::Write(this->fd, buffer, size);
+        return IOS::Write(this->fd, (void *) buffer, size);
     }
 
-    s32 FileManager::Overwrite(u32 size, void *buffer){
+    s32 FileManager::Overwrite(u32 size, const void *buffer){
         if(this->fd < 0) return -1;
         IOS::Seek(this->fd, 0, IOS::SEEK_START);
-        return IOS::Write(this->fd, buffer, size);
+        return IOS::Write(this->fd, (void *) buffer, size);
     }
 
     void FileManager::Close(){
@@ -212,7 +212,7 @@ namespace CosmosFile
         return readSize;
     }
 
-    s32 FatFileManager::Write(u32 size, void * buffer)
+    s32 FatFileManager::Write(u32 size, const void * buffer)
     {
         if(StorageDevice::currentDevice == nullptr) return -1;
         CosmosLog("Trying to save opened file...\n");
@@ -227,7 +227,7 @@ namespace CosmosFile
         return writtenSize;
     }
 
-    s32 FatFileManager::Overwrite(u32 size, void * buffer)
+    s32 FatFileManager::Overwrite(u32 size, const void * buffer)
     {
         if(StorageDevice::currentDevice == nullptr) return -1;
         CosmosLog("Trying to save opened file...\n");

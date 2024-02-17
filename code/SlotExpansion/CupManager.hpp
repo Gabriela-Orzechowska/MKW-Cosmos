@@ -26,7 +26,7 @@ namespace Cosmos
     {
         public:
         static CupManager * sInstance;
-        static CupManager * GetStaticInstance() {return sInstance; }
+        static CupManager * GetStaticInstance() { return sInstance; }
 
         CupManager();
 

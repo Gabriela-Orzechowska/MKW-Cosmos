@@ -17,10 +17,10 @@ static char songBuffer[0x100];
 
 extern char * charNames[48]; //808b3a90
 
-char * changeWinningMusic(char * dest, char * source, size_t num)
+char * changeWinningMusic(char * dest, const char * source, size_t num)
 {
     char * test = dest;
-    char * saveSource = source;
+    const char * saveSource = source;
     char * ret = nullptr;
     for(int i = 0; i < 4; i++)
     {
