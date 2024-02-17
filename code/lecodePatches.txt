@@ -87,3 +87,73 @@ i give up here
 0x801d4efc => NHTTPi_SocSSLConnect
 0x800d1500 => DWC::DWC_LoginAsync
 
+LECODE CALL PATCHES // 808dd6f8
+80663dd4 + 00000158 -> 808e4798 
+8066c2e8 //RKNET Stuff
+
+// CUp screen stuff
+807e5b20 // Page something
+807e45e4 //
+805f1904 // Controller 
+
+805bd1d0 //Award screen
+
+808409d4// CourseSelectPage_onClick, update menuScenerio
+
+8083d0e8 // another slot things
+80609fa0
+8060a034
+80650eb4
+80841834
+8085ae8c
+
+806552ec
+
+805bd114
+
+
+//GHost replay fuckerty
+805e1e94
+8085a940
+
+805e3474
+8084e5cc //
+
+8085c134 // Results Page
+
+807e610c // CourseSelect 
+807e6004
+807e5148
+80841810
+80841810
+
+80710a28 // kart something?
+80553df8 //gamemode?
+
+808552b0 // match count
+
+80654ec0 //Another RKNET
+805407fc //Course Loading
+
+8063b200 // Random??
+
+80023680 //Exception Handler stuff
+807ba434 //Item stuff
+8052e9a8 // PointCalc
+80841614 //Message something
+
+8082c140 // OBJ Flowe
+807f92ac //Geohittbale
+80532b58 //minigame.kmg something
+80661dd8 //Onlinme random i think
+80661490
+80657f34//CRC
+
+808243e4 //Woodbox CT
+80512820 //KMP FILE?
+80512b34 //StartPoint count in KMP init
+807ea670 // Secondary KMP Line? to 808e11b0 might be useful
+80821e8c //Kuribo
+8079B658 // 
+80661dd8 // another random online?
+805BCA44 // Cup icon awards Page
