@@ -6,6 +6,7 @@
 #include <game/Race/RaceData.hpp>
 #include <Controller/MiscController.hpp>
 #include <game/KMP/STGI.hpp>
+#include <game/UI/Ctrl/CtrlRace/CtrlRace2DMap.hpp>
 
 void MegaTC(KartMovement * kartMovement)
 {
@@ -85,3 +86,14 @@ KMP::KTPTHolder * GetLineKTPT(const KMP::Controller * controller, u32 idx)
 }
 
 kmCall(0x807ea670, GetLineKTPT);
+
+void CorrectKTPTRotationMirror(CtrlRace2DMapObject * object, Vec3 * rotation)
+{
+    if(RaceData::sInstance->racesScenario.settings.modeFlags & 1){
+        rotation->y *= -1;
+    }
+
+    object->SetMapRotation(rotation);
+}
+
+kmCall(0x807ea6e0, CorrectKTPTRotationMirror);
