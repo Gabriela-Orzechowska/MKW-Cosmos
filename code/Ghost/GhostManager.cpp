@@ -139,7 +139,7 @@ namespace CosmosGhost
         char path[IPCMAXPATH];
         GhostManager * manager = (GhostManager *) holder;
         RKG * rkg = &manager->rkg;
-        snprintf(path, IPCMAXPATH, "%s/%01dm%02ds%03d.rkg", manager->folderManager->GetName(), rkg->header.minutes, rkg->header.seconds, rkg->header.milliseconds);
+        snprintf(path, IPCMAXPATH, "%s/%05d-%01dm%02ds%03d.rkg", manager->folderManager->GetName(), OSGetTime() ,rkg->header.minutes, rkg->header.seconds, rkg->header.milliseconds);
         CosmosFile::FileManager * fileManager = CosmosFile::FileManager::GetStaticInstance();
         fileManager->CreateOpen(path, CosmosFile::FILE_MODE_WRITE);
         u32 size = sizeof(RKG);
@@ -151,6 +151,8 @@ namespace CosmosGhost
         snprintf(folderPath, IPCMAXPATH, "%s/%03x", Cosmos::ghostFolder, manager->courseId);
         manager->GetLeaderboard()->Save(folderPath);
         manager->Init(Cosmos::CupManager::GetStaticInstance()->GetTrackID());
+
+        manager->mainGhostIndex = manager->rkgCount - 1;
         MenuData::sInstance->menudata98->isNewTime = true;
     }
 
