@@ -82,7 +82,7 @@
   13103	= Ruinated Peach's Castle \n\z{800,40}\c{blue1}Gabriela_\c{off}
   13104	= Blissful Block \n\z{800,40}\c{blue1}Strobenz\c{off}
   13105	= Strobenz Desert Illusion \n\z{800,40}\c{blue1}Strobenz\c{off}
-  13106	= Sanbo Desert \n\z{800,40}\c{blue1}JorisMKW\c{off}
+  13106	= Snabo Desert \n\z{800,40}\c{blue1}JorisMKW\c{off}
   13107	= Fever \c{blue1}Factory\c{off} \n\z{800,40}\c{blue1}Gabriela_\c{off}
 
 6000    = Mushroom
@@ -170,5 +170,5 @@
   7103	= Ruinated Peach's Castle
   7104	= Blissful Block
   7105	= Strobenz Desert Illusion
-  7106	= Sanbo Desert
+  7106	= Snabo Desert
   7107	= Fever \c{blue1}Factory\c{off}

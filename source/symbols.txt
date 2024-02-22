@@ -1212,6 +1212,8 @@ SSL_Initialised = 0x80386d4c
 loginRegion__3DWC = 0x80384fd0
 
 
+NHTTPGetBodyAll = 0x801D937C
+
 #Effects
 Reset__10EffectsMgrFv = 0x8067b8f0
 Update__10EffectsMgrFv = 0x8067cb88
