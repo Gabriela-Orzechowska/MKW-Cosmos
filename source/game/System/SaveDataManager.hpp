@@ -63,15 +63,27 @@ struct RKSYS{ //https://wiki.tockdom.com/wiki/Rksys.dat
 }; //total size 0x28000
 static_assert(sizeof(RKSYS) == 0x28000, "RKSYS");
 
+class Rating
+{
+    public:
+    Rating() { mPoints = 0; }
+    virtual ~Rating();
+
+    u16 mPoints;
+    u16 padding;
+};
+
 class LicenseManager{
 public:
     LicenseManager(); //8054400c
     TimeEntry *GetTimeEntry(u32 index, CourseId id); //80548e30
     void StoreTimeEntry(TimeEntry *entry, u32 index, CourseId id); //80548e90
+    Rating * GetVr(); //80547480
+    Rating * GetBr(); //805474a8
     wchar_t miiName[10];
     u8 unknown_0x14[2];
     u8 miiAvatarID1;
- 	u8 miiAvatarID2;
+ 	u8 miiAvatarID2; //9014
  	u8 miiAvatarID3;
  	u8 miiAvatarID4;
     u8 miiClientID0;
@@ -80,8 +92,12 @@ public:
 	u8 miiClientID3;
 
     u8 unknown_0x1e[0xE20-0x1e];
-    TimeEntry timentries[6][32]; //top 5 times + flap * 32 tracks
-    u8 unknwon_0x5920[0x93f0-0x5920];
+    TimeEntry timentries[6][32]; //top 5 times + flap * 32 tracks //0xE20
+    u8 unknwon_0x5920[0x9014-0x5920];
+    Rating vr;
+    Rating br;
+    u8 unknown_0x9024[0x93f0-0x9024];
+
 }; //total size 0x93F0
 static_assert(sizeof(LicenseManager) == 0x93f0, "LicenseManager");
 

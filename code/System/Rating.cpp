@@ -1,6 +1,6 @@
 #include <System/Rating.hpp>
 
-#define DIFF_SCALE (1/3)
+#define DIFF_SCALE
 #define MINVR 0
 #define MAXVR 35000
 
@@ -19,12 +19,12 @@ s16 CalculatePoints(Rating * player, Rating * opponent, bool isWinning)
     if(diff < -MAXVR+1) diff = -MAXVR+1;
     if(diff > MAXVR-1) diff = MAXVR-1;
     if(isWinning) diff = -diff;
-    diff = diff * DIFF_SCALE;
+    diff = diff / 3;
 
     diff = diff + 9998;
     diff = diff / 5000;
 
-    float val = CalcRating((float)((1.0f/4999)*diff));
+    float val = CalcRating((float)(diff*0.00020004001f));
 
     if(isWinning)
     {
@@ -37,7 +37,7 @@ s16 CalculatePoints(Rating * player, Rating * opponent, bool isWinning)
         if(val > MAXLOSE) val = MAXLOSE;
         val = -val;
     }
-    return val;
+    return (s16) val;
 }
 
 s32 CalcPosRating(Rating * player, Rating * opp)

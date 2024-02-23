@@ -43,6 +43,8 @@ namespace CosmosData
             char signature[4];
             u32 version;
             SettingsPage pages[PAGECOUNT];
+            u16 playerVr[4];
+            u16 playerBr[4];
     } __attribute__ ((aligned(0x20)));
 
     class SettingsHolder
