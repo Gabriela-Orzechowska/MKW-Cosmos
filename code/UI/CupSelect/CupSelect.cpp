@@ -5,6 +5,9 @@
 
 namespace CosmosUI
 {
+    void ExtendCupSelectCupInitSelf(CtrlMenuCupSelectCup * cups);
+    static s32 lefttemp = 0;
+
 
     CupSelectPlus * CreateCupPage()
     {
@@ -95,7 +98,9 @@ namespace CosmosUI
     void CupSelectPlus::OnActivate()
     {
         Pages::CupSelect::OnActivate();
+        lefttemp = 0;
         this->bottomText->SetMsgId(0x2810 + (u32)currentLayout);
+        //ExtendCupSelectCupInitSelf(&this->ctrlMenuCupSelectCup);
     }
 
     void CupSelectPlus::OnSwitchPress(u32 slotId)
@@ -142,10 +147,28 @@ namespace CosmosUI
         }
     }
 
+    s32 AddLastLeft(s32 l){
+        lastLeftCup += l;
+        return 0;
+
+
+        lefttemp += l;
+        if(lefttemp > 1) {
+            lastLeftCup += 2; lefttemp = 0;
+        }
+        if(lefttemp < -1){
+            lastLeftCup -= 2; lefttemp = 0;
+        }
+        return lefttemp;
+    }
+    s32 GetLastLeft(){
+        return lastLeftCup;
+     }
+
     void ExtendCupSelectCupInitSelf(CtrlMenuCupSelectCup * cups)
     {
         u32 CupCount = Cosmos::CupManager::sInstance->GetCupCount();
-        cups->curCupID = lastSelectedCup;
+        cups->curCupID = Cosmos::CupManager::sInstance->lastSelectedCup;
         for(int i = 0; i < 8; i++)
         {
             PushButton * button = &cups->cupButtons[i];
@@ -156,9 +179,11 @@ namespace CosmosUI
             button->SetOnClickHandler((PtmfHolder_2A<Page, void, PushButton *, u32>*) &cups->onCupButtonClickHandler, 0);
             button->SetOnSelectHandler((PtmfHolder_2A<Page, void, PushButton *, u32>*) &cups->onCupButtonSelectHandler);
             button->SetPlayerBitfield(MenuData::sInstance->curScene->Get<Pages::CupSelect>(CUP_SELECT)->GetPlayerBitfield());
+            if(id == cups->curCupID){
+                button->SelectInitialButton(0);
+            }
             CupSelectPlus::ChangeTPL(button, id);
         }
-        cups->cupButtons[lastSelectedButton].SelectInitialButton(0);
     }
     kmWritePointer(0x808d324c, ExtendCupSelectCupInitSelf);
 
@@ -179,23 +204,27 @@ namespace CosmosUI
             else
                 course->courseButtons[i].SetMsgId(slot + 9300);
 
-            if(i == 0){
-                if((cupId * 4 + 4) < manager->lastSelectedCourse || manager->lastSelectedCourse < (cupId * 4)){
+            if(manager->dontUpdateCourseSelectCourse == 0)
+            {
+                if(i == 0){
+                    if((cupId * 4 + 4) < manager->lastSelectedCourse || manager->lastSelectedCourse < (cupId * 4)){
+                        coursePage->SelectButton(&course->courseButtons[i]);
+                    }
+                }
+
+                if(cupId * 4 + i == manager->lastSelectedCourse){
                     coursePage->SelectButton(&course->courseButtons[i]);
                 }
             }
-
-            if(cupId * 4 + i == manager->lastSelectedCourse){
-                coursePage->SelectButton(&course->courseButtons[i]);
-            }
         }
+        manager->dontUpdateCourseSelectCourse = 0;
     }
     kmWritePointer(0x808d30d8, ExtendCourseSelectCourseInitSelf);
 
     void UpdateSelection(CupSelectPlus * page, CtrlMenuCupSelectCup * cups, PushButton *button, u32 slotId)
     {
         lastLeftCup = cups->cupButtons[0].buttonId;
-
+        lefttemp = 0;
         for(int i = 0; i < 8; i++)
         {
             PushButton * cbutton = &cups->cupButtons[i];

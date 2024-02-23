@@ -26,6 +26,12 @@ namespace CosmosUI
     static s32 lastLeftCup;
     static CUP_LAYOUT currentLayout = NORMAL;
 
+    void ExtendCourseSelectCourseInitSelf(CtrlMenuCourseSelectCourse * course);
+    void ExtendCupSelectCupInitSelf(CtrlMenuCupSelectCup * cups);
+    s32 AddLastLeft(s32 l);
+    s32 GetLastLeft();
+    void PatchCourseSelectCup();
+
     static inline int CorrectButtonToId(int id)
     {
         if(id < 0) id + 8;

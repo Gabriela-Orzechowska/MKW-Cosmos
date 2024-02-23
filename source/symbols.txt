@@ -619,6 +619,8 @@ __dt__27SheetSelectControlScaleFadeFv = 0x805dbfdc
 Load__18SheetSelectControlFPCcPCcPCcPcPCcUibb = 0x80636120
 SetRightArrowHandler__18SheetSelectControlFP47PtmfHolder_2A<4Page,v,P18SheetSelectControl,Ui> = 0x806361e8
 SetLeftArrowHandler__18SheetSelectControlFP47PtmfHolder_2A<4Page,v,P18SheetSelectControl,Ui> = 0x806361f0
+HandleRightArrowSelect__18SheetSelectControlFUi = 0x80636350
+HandleLeftArrowSelect__18SheetSelectControlFUi = 0x806363d8
 
 
 #TabControl
@@ -1018,6 +1020,24 @@ cupTPLs__Q25Pages9CupSelect = 0x808AF8E0
 UpdateBottomText__Q25Pages12CourseSelectFP26CtrlMenuCourseSelectCourseP10PushButtonUi = 0x80840728
 LoadNextPage__18CourseSelectPageFP26CtrlMenuCourseSelectCourseP10PushButtonUi = 0x80840830
 GetPageById__18CourseSelectPageF6PageId = 0x808401e4
+__ct__Q25Pages12CourseSelectFv = 0x80627bd8
+__dt__Q25Pages12CourseSelectFv = 0x80840ce0
+SetButtonHandlers__Q25Pages12CourseSelectFP10PushButton = 0x80840c84
+CreateControl__Q25Pages12CourseSelectFUi = 0x80840398
+CreateExternalControl__Q25Pages12CourseSelectFUi = 0x80840390
+GetManipulatorManager__Q25Pages12CourseSelectFv = 0x807e4f74
+GetPlayerBitfield__Q25Pages12CourseSelectCFv = 0x80840c74
+GetActivePlayerBitfield__Q25Pages12CourseSelectCFv = 0x80840c7c
+OnExternalButtonSelect__Q25Pages12CourseSelectFP10PushButtonUi = 0x80840aac
+GetRuntimeTypeInfo__Q25Pages12CourseSelectCFv = 0x80840dcc
+AfterControlUpdate__Q25Pages12CourseSelectFv = 0x8084060c
+BeforeExitAnimations__Q25Pages12CourseSelectFv = 0x80840b1c
+BeforeEntranceAnimations__Q25Pages12CourseSelectFv = 0x808405c0
+OnDeactivate__Q25Pages12CourseSelectFv = 0x80840b78
+OnActivate__Q25Pages12CourseSelectFv = 0x808404a0
+OnInit__Q25Pages12CourseSelectFv = 0x808402f4
+
+
 
 #BattleKartSelectPage
 __ct__Q25Pages16BattleKartSelectFv = 0x80628e3c 
@@ -1120,6 +1140,9 @@ OnInit__Q25Pages7WFCMainFv = 0x8064b910
 OnActivate__Q25Pages7WFCMainFv = 0x8064bc90
 GetRuntimeTypeInfo__Q25Pages7WFCMainCFv = 0x8064d690
 OnButtonSelect__Q25Pages7WFCMainFP10PushButtonUi = 0x8064bf4c
+
+#WFCModeSelect
+WFCModeSelect_OnActivate__10CosmosDataFPQ25Pages13WFCModeSelect = 0x8064c4f8
 
 #MessageWindowControl
 __ct__20MessageWindowControlFv = 0x805f9700

@@ -18,7 +18,7 @@ namespace Cosmos
         if(CupManager::sInstance != nullptr) return;
         CupManager::sInstance = this;
 
-        winningCourse = 0; lastSelectedCourse = 0; lastSelectedCup = 0; lastSelectedButton = 0;
+        winningCourse = 0; lastSelectedCourse = 0; lastSelectedCup = 0; lastSelectedButton = 0; dontUpdateCourseSelectCourse = 0;
 
         DVDFileInfo fileHandle;
         if(DVDOpen("/cup/def.bin", &fileHandle))

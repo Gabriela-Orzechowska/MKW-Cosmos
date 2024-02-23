@@ -45,6 +45,7 @@ namespace Cosmos
         u32 lastSelectedButton;
 
         u32 * currentLayoutArray;
+        u8 dontUpdateCourseSelectCourse;
         private:
         Cups * cupDef;
         
