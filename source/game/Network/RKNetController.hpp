@@ -43,6 +43,7 @@ public:
 class SplitRACEPointers {
     SplitRACEPointers(); //8065a3dc
     ~SplitRACEPointers(); //8065a474
+    void Reset(); //8065a30c
 
     PacketHolder *header;
     PacketHolder *raceHeader1;
