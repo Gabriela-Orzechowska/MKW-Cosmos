@@ -71,5 +71,5 @@ namespace CosmosDebug
         strncpy(platformName, GetPlatformString(), 0x20);
     }
 
-    static BootHook SetupDebug(UpdatePlatformString, HIGH);
+    static BootHook SetupDebug(UpdatePlatformString, MEDIUM);
 }

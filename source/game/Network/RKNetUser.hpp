@@ -25,11 +25,11 @@ struct USERPacket{
 #pragma pack(pop)
 size_assert(USERPacket, 0xc0);
 // setting vr 805d302c
-class RKNetUserHandler
+class RKNetUSERHandler
 {
     public:
-    static RKNetUserHandler * sInstance; // 809c2108
-    static RKNetUserHandler * GetStaticInstance() { return sInstance; }
+    static RKNetUSERHandler * sInstance; // 809c2108
+    static RKNetUSERHandler * GetStaticInstance() { return sInstance; }
     static void CreateStaticInstance(); // 80662778
     static void DestroyStaticInstance(); // 806627f8
 
@@ -49,5 +49,5 @@ class RKNetUserHandler
     USERPacket receivedPackets[12]; //c8
     u8 unknown[0x9f0-0x9c8]; //9c8
 };
-size_assert(RKNetUserHandler, 0x9f0);
+size_assert(RKNetUSERHandler, 0x9f0);
 //sInstance  //at 0x180 we have enemy VR

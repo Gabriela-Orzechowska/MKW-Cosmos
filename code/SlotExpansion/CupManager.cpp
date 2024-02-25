@@ -3,6 +3,7 @@
 #include <FileManager/FileManager.hpp>
 #include <game/UI/Page/Menu/CourseSelect.hpp>
 #include <game/Sound/RaceAudioManager.hpp>
+#include <main.hpp>
 
 extern u32 p_tracklist1;
 extern u32 p_tracklist2;
@@ -18,40 +19,53 @@ namespace Cosmos
         if(CupManager::sInstance != nullptr) return;
         CupManager::sInstance = this;
 
-        winningCourse = 0; lastSelectedCourse = 0; lastSelectedCup = 0; lastSelectedButton = 0; dontUpdateCourseSelectCourse = 0;
+        winningCourse = 0; lastSelectedCup = 0; lastSelectedButton = 0; 
+        lastSelectedCourse = 0;
+        dontUpdateCourseSelectCourse = 0;
 
         DVDFileInfo fileHandle;
         if(DVDOpen("/cup/def.bin", &fileHandle))
         {
+            //THIS WORKS
+            //this->currentLayoutArray = new (RKSystem::mInstance.EGGSystem, 0x20) u32[40];
+
             char buffer[0x20] __attribute__ ((aligned(0x20)));
             if(DVDReadPrio(&fileHandle, (void *) buffer, 0x20, 0x0, 0x2))
             {
                 Cups * tmp = (Cups *) buffer;
                 this->cupDef = (Cups *) new (RKSystem::mInstance.EGGSystem, 0x20) char[tmp->fileSize]; 
-
+                
                 if(DVDReadPrio(&fileHandle, (void *) this->cupDef, tmp->fileSize, 0x0, 0x2)){
                     CosmosLog("File loaded to: %p\n", this->cupDef);
                 }
-            }
+                DVDClose(&fileHandle);
 
-            DVDClose(&fileHandle);
+                if(DVDOpen("/cup/layout_def.bin", &fileHandle))
+                {
+                    //THIS DOES NOT
+                    this->currentLayoutArray = new (RKSystem::mInstance.EGGSystem, 0x20) u32[4 * this->cupDef->cupCount ]; //
 
-            if(DVDOpen("/cup/layout_def.bin", &fileHandle))
-            {
-                this->currentLayoutArray = new (RKSystem::mInstance.EGGSystem, 0x20) u32[this->cupDef->cupCount * 4];
-                if(DVDReadPrio(&fileHandle, (void *) this->currentLayoutArray, sizeof(u32) * this->cupDef->cupCount * 4, 0x0, 0x2)){
-                    CosmosLog("Layout loaded to: %p\n", this->currentLayoutArray);
+                    if(DVDReadPrio(&fileHandle, (void *) this->currentLayoutArray, sizeof(u32) * this->cupDef->cupCount * 4, 0x0, 0x2)){
+                        CosmosLog("Layout loaded to: %p\n", this->currentLayoutArray);
 
-                    //Apply patch to track list
+                        //Apply patch to track list
 
-                    p_tracklist1 = 0x3ca00000 | (((u32)this->currentLayoutArray) >> 16);
-                    p_tracklist2 = 0x60a50000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
+                        p_tracklist1 = 0x3ca00000 | (((u32)this->currentLayoutArray) >> 16);
+                        p_tracklist2 = 0x60a50000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
 
-                    p_tracklist1_2 = 0x3fc00000 | (((u32)this->currentLayoutArray) >> 16);
-                    p_tracklist2_2 = 0x63de0000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
+                        p_tracklist1_2 = 0x3fc00000 | (((u32)this->currentLayoutArray) >> 16);
+                        p_tracklist2_2 = 0x63de0000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
 
+                    }
+                    DVDClose(&fileHandle);
                 }
             }
+            else{
+                Cosmos::Panic(__FILE__, __LINE__, "Failed to read /cup/def.bin!\n");
+            }
+        }
+        else{
+            Cosmos::Panic(__FILE__, __LINE__, "Failed to open /cup/def.bin!\n");
         }
     }
 
@@ -97,7 +111,7 @@ namespace Cosmos
         new (RKSystem::mInstance.EGGSystem) CupManager();
     }
 
-    static BootHook bhInitCupDef(InitCupDefinition, FIRST);
+    static BootHook bhInitCupDef(InitCupDefinition, MEDIUM);
 
 
 } // namespace Cosmos

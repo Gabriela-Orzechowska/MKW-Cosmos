@@ -1235,6 +1235,9 @@ SSL_Initialised = 0x80386d4c
 loginRegion__3DWC = 0x80384fd0
 
 
+DWC_AddMatchKeyInt = 0x800d4258
+DWC_ReportLevel = 0x803862c0
+
 NHTTPGetBodyAll = 0x801D937C
 
 #Effects
@@ -1330,6 +1333,9 @@ DecideTeams__18RKNetSELECTHandlerFRUi = 0x80662588
 GetCourseVote__18RKNetSELECTHandlerCFUcUc = 0x80660574
 IsPrepared__18RKNetSELECTHandlerFv = 0x80660710
 AllocatePlayerIdsToAids__18RKNetSELECTHandlerFv = 0x80662034
+
+#RKNETUserHandler
+BuildUserPacket__16RKNetUSERHandlerFv = 0x8066300c
 
 #Objects
 Update__12ObjectHolderFv = 0x8082a8f4

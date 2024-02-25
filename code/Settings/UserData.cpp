@@ -43,7 +43,7 @@ namespace CosmosData
             buffer->version = version;
 
             for(int i = 0; i < 4; i++){
-                buffer->playerVr[i] = 5001;
+                buffer->playerVr[i] = 13000;
                 buffer->playerBr[i] = 2137;
             }
 
@@ -77,9 +77,19 @@ namespace CosmosData
         SettingsHolder::sInstance = holder;
     }
 
+    u32 SettingsHolder::GetUserVR(){
+        return GetUserVR(SaveDataManager::sInstance->curLicenseId);
+    }
+
+    u32 SettingsHolder::GetUserVR(u32 userId)
+    {
+        return this->settings->playerVr[userId];
+    }
+
     BootHook InitSettings(SettingsHolder::Create, MEDIUM);
 
     void SetBRAndVR(LicenseManager * license, u32 licenseId){
+        
         license->vr.mPoints = SettingsHolder::GetInstance()->GetSettings()->playerVr[licenseId];
         license->br.mPoints = SettingsHolder::GetInstance()->GetSettings()->playerBr[licenseId];
     }
@@ -95,10 +105,15 @@ namespace CosmosData
         u16 curLicenseId = SaveDataManager::sInstance->curLicenseId;
         LicenseManager * actualLicense = &SaveDataManager::sInstance->licenses[curLicenseId];
 
-        SettingsHolder::GetInstance()->GetSettings()->playerVr[curLicenseId] = actualLicense->vr.mPoints;
-        SettingsHolder::GetInstance()->GetSettings()->playerBr[curLicenseId] = actualLicense->br.mPoints;
-        SettingsHolder::GetInstance()->Update();
-        return &license->vr;
+        if(actualLicense == nullptr) return 0;
+
+        SettingsHolder * holder = SettingsHolder::GetInstance();
+        if(holder == nullptr) return 0;
+
+        holder->GetSettings()->playerVr[curLicenseId] = actualLicense->vr.mPoints;
+        holder->GetSettings()->playerBr[curLicenseId] = actualLicense->br.mPoints;
+        holder->Save();
+        return 0;
     }
 
     kmCall(0x80546998, SaveVR);
@@ -106,5 +121,6 @@ namespace CosmosData
     //Skip saving vr to saveFile
     kmWrite32(0x805469a8, 0x60000000);
     kmWrite32(0x805469c0, 0x60000000);
+
 
 } // namespace CosmosData

@@ -2,6 +2,9 @@
 #include <kamek.hpp>
 #include <System/Sha1.hpp>
 
+//#define NO_WIIMMFI
+#ifndef NO_WIIMMFI
+
 extern "C" {
     extern char Patch_LoginPrintHeader[], Patch_WiimmfiURLs[];
     extern const char* Patch_AuthserverHosts[3];
@@ -218,3 +221,5 @@ kmWrite32(0x800ecaac, 0x3bc00000);
 
 // Nop host header
 kmWrite32(0x800ed868, 0x60000000);
+
+#endif

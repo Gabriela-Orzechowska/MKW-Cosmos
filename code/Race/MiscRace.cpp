@@ -8,6 +8,9 @@
 #include <game/KMP/STGI.hpp>
 #include <game/UI/Ctrl/CtrlRace/CtrlRace2DMap.hpp>
 
+
+#ifndef WORLDWIDE_TEST
+
 void MegaTC(KartMovement * kartMovement)
 {
     kartMovement->ActivateMega();
@@ -57,6 +60,7 @@ kmWrite32(0x807b0bd4, 0x38000000); //pass TC to teammate
 kmWrite32(0x807bd2bc, 0x38000000); //RaceGlobals
 kmWrite32(0x807f18c8, 0x38000000); //TC alert
 
+#endif
 
 // Lap Modifier
 

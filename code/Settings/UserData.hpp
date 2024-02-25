@@ -6,6 +6,8 @@
 #include <core/rvl/os/OS.hpp>
 #include <main.hpp>
 
+static u32 settingsPageIds[] = {Cosmos::RACE_SETTINGS1, Cosmos::MENU_SETTINGS1, Cosmos::DEBUG_SETTINGS};
+
 class SettingsUpdateHook {
 private:
     typedef void (Func)();
@@ -30,7 +32,7 @@ public:
 namespace CosmosData
 {
 
-#define PAGECOUNT 2
+#define PAGECOUNT 3
 
     struct SettingsPage{
         u8 setting[8];
@@ -56,6 +58,8 @@ namespace CosmosData
             Settings * GetSettings(){return this->settings;};
             void Update();
             void Save();
+            u32 GetUserVR();
+            u32 GetUserVR(u32 id);
             static void SaveTask(void *);
             
         private:
