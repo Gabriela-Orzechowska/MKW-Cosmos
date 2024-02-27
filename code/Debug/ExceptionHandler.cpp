@@ -275,12 +275,12 @@ namespace CosmosDebug{
 
             if(SystemManager::sInstance->doShutDown > 0)
             {
-                Cosmos::Shutdown(true);
+                Cosmos::System::Shutdown(true);
             }
 
             if(CosmosController::isPressed(holder, type, CosmosController::BUTTON_HOME) || CosmosController::isPressed(holder, type, CosmosController::BUTTON_PLUS))
             {
-                Cosmos::Shutdown(true);
+                Cosmos::System::Shutdown(true);
             }
 
 

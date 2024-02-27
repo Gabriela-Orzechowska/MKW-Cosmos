@@ -57,7 +57,7 @@ namespace CosmosGhost
         CosmosFile::FileManager::GetStaticInstance()->CreateFolder(folderPath);
 
         char folderModePath[IPCMAXPATH];
-        snprintf(folderModePath, IPCMAXPATH, "%s/%s", folderPath, ttFolders[Cosmos::GetTTMode()]);
+        snprintf(folderModePath, IPCMAXPATH, "%s/%s", folderPath, ttFolders[Cosmos::System::GetStaticInstance()->GetTTMode()]);
         CosmosFile::FileManager::GetStaticInstance()->CreateFolder(folderModePath);
 
         manager->ReadFolder(folderModePath);
@@ -197,7 +197,7 @@ namespace CosmosGhost
 
     void GhostLeaderboardManager::Update(s32 position, TimeEntry * entry, u32 id)
     {
-        Cosmos::TT_MODE mode = Cosmos::GetTTMode();
+        Cosmos::TT_MODE mode = Cosmos::System::GetStaticInstance()->GetTTMode();
         GhostLeaderboardFile * lfile = &this->file;
         GhostTimeEntry * tentry = &lfile->entry[mode][position];
         if(position != ENTRY_FLAP)
@@ -246,7 +246,7 @@ namespace CosmosGhost
 
     void GhostLeaderboardManager::GhostTimeEntryToTimer(Timer &timer, u32 index) const
     {
-        Cosmos::TT_MODE mode = Cosmos::GetTTMode();
+        Cosmos::TT_MODE mode = Cosmos::System::GetStaticInstance()->GetTTMode();
         timer.minutes = this->file.entry[mode][index].minutes;
         timer.seconds = this->file.entry[mode][index].seconds;
         timer.milliseconds = this->file.entry[mode][index].miliseconds;
@@ -256,7 +256,7 @@ namespace CosmosGhost
     void GhostLeaderboardManager::GhostTimeEntryToTimeEntry(TimeEntry &entry, u32 index)
     {
         this->GhostTimeEntryToTimer(entry.timer, index);
-        Cosmos::TT_MODE mode = Cosmos::GetTTMode();
+        Cosmos::TT_MODE mode = Cosmos::System::GetStaticInstance()->GetTTMode();
         memcpy(&entry.mii, &this->file.entry[mode][index].mii, sizeof(RawMii));
         entry.character = this->file.entry[mode][index].character;
         entry.kart = this->file.entry[mode][index].kart;

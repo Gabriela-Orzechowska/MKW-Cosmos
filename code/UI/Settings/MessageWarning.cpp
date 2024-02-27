@@ -21,7 +21,7 @@ namespace CosmosUI
 
     void MessagePageWindow::OnClick(PushButton *button, u32 hudSlotId)
     {
-        Cosmos::Restart();
+        Cosmos::System::Restart();
     }
     void MessagePageWindow::SetMessage(u32 id)
     {
