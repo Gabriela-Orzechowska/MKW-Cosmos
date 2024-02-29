@@ -178,7 +178,7 @@ static void patchURL(u32 offset, const char* string)
 
 static int stringPatch()
 {
-    strcpy(Patch_LoginPrintHeader, "Pulsar"); // set patcher name
+    strcpy(Patch_LoginPrintHeader, "Cosmos"); // set patcher name
 
     Patch_AuthserverHosts[0] = "http://ca.nas.wiimmfi.de/ca";
     Patch_AuthserverHosts[1] = "http://naswii.wiimmfi.de/ac";

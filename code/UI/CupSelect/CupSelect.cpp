@@ -1,6 +1,5 @@
 #include <UI/CupSelect/CupSelect.hpp>
 #include <game/UI/Ctrl/Menu/CtrlMenuCourse.hpp>
-#include <LeCode/LeCodeManager.hpp>
 #include <SlotExpansion/CupManager.hpp>
 
 namespace CosmosUI
@@ -112,29 +111,7 @@ namespace CosmosUI
 
         char buffer[0x20] __attribute__ ((aligned(0x20)));
 
-        if(DVDOpen(filepath, &fileHandle))
-        {
-            u32 offset = ((u32)currentLayout) * CUPFILE_SORT_OFFSET;
-
-            if(DVDReadPrio(&fileHandle, buffer, 0x10, offset, 0x2))
-            {
-                LeCode::cup2_header * header = (LeCode::cup2_header * ) &buffer;
-
-                u32 num_bytes = 0x10 + 0x10 * (header->course_cups);
-                char actualBuffer[0x1000] __attribute__ ((aligned(0x20)));
-
-                char * address = (char *) LeCode::LeCodeManager::GetStaticInstance()->GetCupParamAddress();
-
-                DVDReadPrio(&fileHandle, actualBuffer, num_bytes, offset, 0x2);
-                DVDClose(&fileHandle);
-                memcpy(address, actualBuffer, num_bytes);
-            }
-            else {
-                return;
-            }
-        }
-        else return;
-
+        
         if(((u32)currentLayout) & 0x1)
         {
             PageId lastPage = this->prevPageId;

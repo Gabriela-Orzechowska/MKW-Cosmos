@@ -1279,7 +1279,7 @@ isOnlineRace__13KartModelsMgr = 0x809c38b9
 sInstance__11CourseModel = 0x809c2F44
 ProcessCollision__11CourseModelFfP4Vec3P4Vec311KCLTypesBITPiR13KCLTypeHolderUi = 0x807907f8
 
-charNames = 0x808b3a90
+charNames__2DX = 0x808b3a90
 matNamesMH = 0x808d1860
 szsLanguageNames = 0x808b3188
 
