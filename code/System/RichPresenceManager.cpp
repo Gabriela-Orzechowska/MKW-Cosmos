@@ -91,7 +91,7 @@ u32 UpdateTrackImage(u32 param_1)
     char * trackSha = SHA1::GetFileSha1(buffer,fileSize);
 
     snprintf(finalLink, 0x80, "https://ct.wiimm.de/api/get-start-image?sha1=%s", trackSha);
-    CosmosLog("Setting image to:%s\n",finalLink);
+    CosmosLog("Setting image to: %s\n",finalLink);
     RichPresenceManager * manager = RichPresenceManager::sInstance;
     if(manager != nullptr)
     {
@@ -111,7 +111,7 @@ void RPCSectionChange()
     if(manager == nullptr) return;
     DiscordRichPresence * presence = &manager->presence;
     char * message = presence->details;
-    char * status = "";
+    char status[128] = "";
 
 
     u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
@@ -278,11 +278,11 @@ void RPCSectionChange()
         case P2_WIFI_VS_LIVE_VIEW:
         case P1_WIFI_BT_LIVE_VIEW:
         case P2_WIFI_BT_LIVE_VIEW:
-            status = GetTextFromMessage(trackId + 0x7000);
+            GetTextFromMessage(status, trackId + 0x7000);
             //UpdateTrackImage(trackId);
             break;
         default:    
-            status = "";
+            memset(status, 0, 128);
             break;
     }
     manager->presence.details = message;
