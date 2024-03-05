@@ -7,10 +7,10 @@
 #include <game/UI/Page/Other/GhostManager.hpp>
 #include <FileManager/FileManager.hpp>
 #include <FileManager/FolderManager.hpp>
-#include <LeCode/LeCodeManager.hpp>
 #include <game/UI/Page/Other/TTSplits.hpp>
 #include <game/Race/RaceData.hpp>
 #include <game/UI/Page/Other/GhostSelect.hpp>
+#include <Debug/IOSDolphin.hpp>
 
 namespace CosmosGhost
 {
@@ -100,12 +100,16 @@ namespace CosmosGhost
             }
             bool LoadGhost(RKG * rkg, u32 index);
             void LoadGhostReplay(RKG * rkg, bool isGhostRace);
+            void UpdateStartTime(u64 time) {ttStartTime = time;}
+            bool IsValid() const {return isGhostValid; }
+            void VerifyTime();
+
             static void CreateAndSaveFiles(void * holder);
+            static char folderPath[IPCMAXPATH];
 
             RKG rkg  __attribute__ ((aligned( 0x20 )));
             GhostLeaderboardManager leaderboard __attribute__ ((aligned( 0x20 )));
             u32 mainGhostIndex;
-            static char folderPath[IPCMAXPATH];
             CosmosFile::FolderManager * folderManager;
             TimeEntry entry;
 
@@ -114,6 +118,8 @@ namespace CosmosGhost
             GhostData * files;
             u32 courseId;
             u32 rkgCount;
+            u64 ttStartTime;
+            bool isGhostValid;
             
     };
 }

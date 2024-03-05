@@ -16,9 +16,11 @@ namespace CosmosGhost
     GhostManager * GhostManager::sInstance = NULL;
     char GhostManager::folderPath[IPCMAXPATH] = "";
 
-    GhostManager::GhostManager() : courseId(-1)
+    GhostManager::GhostManager()
     {
         this->folderManager = CosmosFile::FolderManager::Create();
+        this->courseId = -1;
+        this->isGhostValid = true;
         this->files = NULL;
     }
 
@@ -90,6 +92,7 @@ namespace CosmosGhost
         mainGhostIndex = 0xFF;
         delete[] this->files;
         this->files = nullptr;
+        this->isGhostValid = true;
         RaceData * raceData = RaceData::sInstance;
         raceData->menusScenario.players[1].playerType = PLAYER_NONE;
     }
@@ -155,6 +158,25 @@ namespace CosmosGhost
         manager->mainGhostIndex = manager->rkgCount - 1;
         MenuData::sInstance->menudata98->isNewTime = true;
     }
+
+    void GhostManager::VerifyTime(){
+        this->isGhostValid = true;
+
+        u64 currentTime = IOS::Dolphin::GetSystemTime();
+        CosmosLog("Time delta: %llu, %llu, %llu\n", currentTime - this->ttStartTime, currentTime, this->ttStartTime);
+    }
+
+    void UpdateStartTime(Page * page, u32 soundIdx, u32 param_3){
+        GhostManager::GetStaticInstance()->UpdateStartTime(IOS::Dolphin::GetSystemTime());
+        page->PlaySound(soundIdx, param_3);
+        return;
+    }
+    kmCall(0x80857790, UpdateStartTime);
+
+    void UpdateEndTime(){
+        
+    }
+    kmBranch(0x80534930, UpdateEndTime);
 
     GhostLeaderboardManager::GhostLeaderboardManager()
     {
@@ -271,6 +293,7 @@ namespace CosmosGhost
     }
 
     s32 PlayCorrectMusic(LicenseManager *license, Timer *timer, u32 courseId){
+        GhostManager::GetStaticInstance()->VerifyTime();
         return GhostManager::GetStaticInstance()->GetLeaderboard()->GetLeaderboardPosition(timer);
     }
     kmCall(0x80856fec, PlayCorrectMusic);
@@ -439,7 +462,8 @@ namespace CosmosGhost
                 manager->GetLeaderboard()->Update(ENTRY_FLAP, &entry, -1);
             }
             entry.timer = splitsPage->timers[0];
-            s32 leaderboardPosition = manager->GetLeaderboard()->GetLeaderboardPosition(&splitsPage->timers[0]);
+            s32 leaderboardPosition = -1;
+            if(manager->IsValid()) leaderboardPosition = manager->GetLeaderboard()->GetLeaderboardPosition(&splitsPage->timers[0]);
             menu98->leaderboardPosition = leaderboardPosition;
             splitsPage->ctrlRaceCount.isHidden = true;
             if(leaderboardPosition > -1)
