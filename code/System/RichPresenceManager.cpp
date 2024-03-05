@@ -24,18 +24,19 @@ IOS::Dolphin::DiscordRichPresence RichPresenceManager::presence = {
 
 char * RichPresenceManager::applicationId = "1175707208042954773";
 
-RichPresenceManager * RichPresenceManager::CreateStaticInstance()
+void RichPresenceManager::CreateStaticInstance()
 {
     if(sInstance == NULL)
         sInstance = new(RKSystem::mInstance.EGGSystem) RichPresenceManager;
     sInstance->rEnabled = false;
-    return sInstance;
+    sInstance->Init();
+    return;
 }
 
 RichPresenceManager * RichPresenceManager::GetStaticInstance()
 {
     if(sInstance == NULL)
-        return CreateStaticInstance();
+        CreateStaticInstance();
     return sInstance;
 }
 
@@ -83,8 +84,8 @@ s32 RichPresenceManager::UpdateStatus()
 
 u32 UpdateTrackImage(u32 param_1)
 {
-    
     static char finalLink[0x80];
+    RichPresenceManager * manager = RichPresenceManager::sInstance;
     ArchiveFile * file = &ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COURSE]->archives[0];
     void * buffer = file->decompressedArchive;
     u32 fileSize = file->decompressedarchiveSize;
@@ -92,7 +93,6 @@ u32 UpdateTrackImage(u32 param_1)
 
     snprintf(finalLink, 0x80, "https://ct.wiimm.de/api/get-start-image?sha1=%s", trackSha);
     CosmosLog("Setting image to: %s\n",finalLink);
-    RichPresenceManager * manager = RichPresenceManager::sInstance;
     if(manager != nullptr)
     {
         manager->presence.largeImageKey = finalLink;
@@ -294,9 +294,4 @@ void RPCSectionChange()
 
 static MenuLoadHook mlhRPCSectionChange(RPCSectionChange);
 
-void InitRPC()
-{
-    RichPresenceManager * instance = RichPresenceManager::GetStaticInstance();
-    instance->Init();
-}
-static BootHook bhInitRPC(InitRPC, LOW);
+static BootHook bhInitRPC(RichPresenceManager::CreateStaticInstance, LOW);
