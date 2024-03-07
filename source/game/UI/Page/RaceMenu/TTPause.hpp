@@ -13,9 +13,9 @@ public:
     int GetRuntimeTypeInfo() const override; //0x60 80633504
     int GetMessageBMG() const override; //0x68 80633468
     u32 GetButtonCount() const override; //0x6c 80633490
-    const u32 *GetVariantsIdxArray() const override; //0x70 80633484
-    bool IsPausePage() const override; //0x74 80633470
-    const char *GetButtonsBRCTRName() const override; //0x78 80633478
+    u32 *GetVariantsIdxArray() const override; //0x70 80633484
+    bool IsPausePage() override; //0x74 80633470
+    char *GetButtonsBRCTRName() const override; //0x78 80633478
 }; //total size 0x344
 size_assert(TTPause, 0x344);
 }//namespace Pages

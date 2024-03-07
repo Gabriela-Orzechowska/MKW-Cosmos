@@ -89,6 +89,7 @@ __destroy_arr = 0x800210ec
 __destroy_new_array = 0x80021164
 __ptmf_scall = 0x80021450
 __cvt_fp2unsigned = 0x80021478
+__cvt_ull_flt = 0x80021A60
 _savefpr_14 = 0x800214d4
 _savefpr_15 = 0x800214d8
 _savefpr_16 = 0x800214dc

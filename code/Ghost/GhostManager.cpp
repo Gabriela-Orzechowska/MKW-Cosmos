@@ -1,5 +1,7 @@
 #include <Ghost/GhostManager.hpp>
 #include <SlotExpansion/CupManager.hpp>
+#include <game/UI/Page/RaceMenu/TTPause.hpp>
+#include <game/UI/Page/RaceHUD/RaceHUD.hpp>
 
 void CorrectGhostTrackName(LayoutUIControl * control, const char *textBoxName, u32 bmgId, const TextInfo *text)
 {
@@ -21,6 +23,7 @@ namespace CosmosGhost
         this->folderManager = CosmosFile::FolderManager::Create();
         this->courseId = -1;
         this->isGhostValid = true;
+        this->pauseFrames = 0;
         this->files = NULL;
     }
 
@@ -159,11 +162,28 @@ namespace CosmosGhost
         MenuData::sInstance->menudata98->isNewTime = true;
     }
 
+#define TIME_EPS 1000
+
     void GhostManager::VerifyTime(){
+        if(!this->isGhostValid) return;
+        if(this->ttStartTime == 0) return;
         this->isGhostValid = true;
 
         u64 currentTime = IOS::Dolphin::GetSystemTime();
-        CosmosLog("Time delta: %llu, %llu, %llu\n", currentTime - this->ttStartTime, currentTime, this->ttStartTime);
+        s64 timeDelta = (currentTime - this->ttStartTime - (this->pauseFrames * 1000 / 60));
+
+        u32 raceTime = (RaceInfo::sInstance->timer - 240) * 1000 / 60;
+        s32 raceRealTimeDelta = (s32)timeDelta - raceTime;
+
+        if(abs(raceRealTimeDelta) > TIME_EPS){
+            CosmosLog("Time delta: %llu, %llu, %llu, %d\nRace Time delta: %d\n", timeDelta, currentTime, this->ttStartTime, this->pauseFrames, raceRealTimeDelta);
+            Pages::RaceHUD * page = MenuData::sInstance->curScene->Get<Pages::RaceHUD>(TIME_TRIAL_INTERFACE);
+            if(page){
+                page->ghostMessage->isHidden = false;
+                page->ghostMessage->SetMsgId(0x2802);
+            }
+            this->isGhostValid = false;
+        }
     }
 
     void UpdateStartTime(Page * page, u32 soundIdx, u32 param_3){
@@ -173,10 +193,36 @@ namespace CosmosGhost
     }
     kmCall(0x80857790, UpdateStartTime);
 
-    void UpdateEndTime(){
-        
+    void VerifyTimeDuringRace(){
+        if(RaceInfo::sInstance->timer <= 260) return;
+
+        if(RaceData::sInstance->racesScenario.settings.gamemode == MODE_TIME_TRIAL){
+            GhostManager * manager = GhostManager::GetStaticInstance();
+            if(manager) {
+                if(RaceInfo::sInstance->timer & 63 == 63){
+                    manager->VerifyTime();
+                }
+            }
+        }
     }
-    kmBranch(0x80534930, UpdateEndTime);
+
+    static RaceFrameHook rfhVerify(VerifyTimeDuringRace);
+
+    void OnTTMenuUpdate(Pages::TTPause * page)
+    {
+        if(MenuData::sInstance->curScene->pauseGame){
+            GhostManager::GetStaticInstance()->pauseFrames += 1;
+        }
+    }
+    kmWritePointer(0x808bdebc, OnTTMenuUpdate);
+
+    void UpdatePauseDuringHBM(){
+        if(RaceData::sInstance->racesScenario.settings.gamemode == MODE_TIME_TRIAL){
+            GhostManager * manager = GhostManager::GetStaticInstance();
+            if(manager) manager->pauseFrames += 1;
+        }
+    }
+    kmBranch(0x801776fc, UpdatePauseDuringHBM);
 
     GhostLeaderboardManager::GhostLeaderboardManager()
     {
@@ -246,6 +292,7 @@ namespace CosmosGhost
 
     s32 GhostLeaderboardManager::GetLeaderboardPosition(Timer * timer) const
     {
+        if(!GhostManager::GetStaticInstance()->IsValid()) return -1;
         s32 position = -1;
         Timer t_timer;
         for(int i = ENTRY_5TH; i >= 0; i--)
@@ -294,6 +341,7 @@ namespace CosmosGhost
 
     s32 PlayCorrectMusic(LicenseManager *license, Timer *timer, u32 courseId){
         GhostManager::GetStaticInstance()->VerifyTime();
+        CosmosLog("\n");
         return GhostManager::GetStaticInstance()->GetLeaderboard()->GetLeaderboardPosition(timer);
     }
     kmCall(0x80856fec, PlayCorrectMusic);

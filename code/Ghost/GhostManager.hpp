@@ -100,7 +100,7 @@ namespace CosmosGhost
             }
             bool LoadGhost(RKG * rkg, u32 index);
             void LoadGhostReplay(RKG * rkg, bool isGhostRace);
-            void UpdateStartTime(u64 time) {ttStartTime = time;}
+            void UpdateStartTime(u64 time) {ttStartTime = time; pauseFrames = 0;}
             bool IsValid() const {return isGhostValid; }
             void VerifyTime();
 
@@ -112,6 +112,7 @@ namespace CosmosGhost
             u32 mainGhostIndex;
             CosmosFile::FolderManager * folderManager;
             TimeEntry entry;
+            u32 pauseFrames;
 
         private:
             static GhostManager * sInstance;

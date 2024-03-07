@@ -13,6 +13,7 @@
   beb	= A solo race for the fastest record! (150cc)
  2800   = Time Trials (150cc)
  2801   = Time Trials (200cc)
+ 2802   = Ghost can't be saved. Time delta too large.
 
  2810   = Track Layout: Normal
  2811   = Track Layout: Castle Gorge	
