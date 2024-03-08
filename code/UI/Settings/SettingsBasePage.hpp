@@ -1,6 +1,7 @@
 
-#ifndef _COSMOS_SPEEDOMETER_
-#define _COSMOS_SPEEDOMETER_
+#ifndef _COSMOS_SETTINGSBASEPAGE_
+#define _COSMOS_SETTINGSBASEPAGE_
+#pragma once
 
 #include <kamek.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
@@ -14,13 +15,8 @@
 
 extern u32 VSSettings_sInstance;
 
-
 namespace CosmosUI
 {
-
-#define MINPAGE 0xB8
-#define MAXPAGE 0xB9
-
     class SettingsBasePage : public Pages::Menu
     {
         public:

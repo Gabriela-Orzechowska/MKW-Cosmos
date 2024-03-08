@@ -22,7 +22,7 @@ void * CreatePage(Scene * scene, u32 pageId)
         definition.settings[2].optionCount = 3;
         if(Cosmos::isDolphin) definition.settings[2].optionCount = 2;
 
-        return new(CosmosUI::SettingSubPage)(&definition, pageId);
+        return new(CosmosUI::SettingSubPage)(&definition, pageId, 0);
     }
     
     else if(pageId == (u32)Cosmos::MENU_SETTINGS1)
@@ -35,7 +35,17 @@ void * CreatePage(Scene * scene, u32 pageId)
         definition.settings[1].isBool = true;
         definition.settings[1].optionCount = 2;
 
-        return new(CosmosUI::SettingSubPage)(&definition ,pageId);
+        return new(CosmosUI::SettingSubPage)(&definition ,pageId, 1);
+    }
+    else if(pageId == (u32)Cosmos::DEBUG_SETTINGS)
+    {
+
+        CosmosUI::SettingPageDefinition definition;
+        definition.settingCount = 1;
+        definition.settings[0].isBool = true;
+        definition.settings[0].optionCount = 2;
+
+        return new(CosmosUI::SettingSubPage)(&definition ,pageId, 2);
     }
     else if(pageId == (u32)Cosmos::WARNING_PAGE)
     {
@@ -54,6 +64,7 @@ void InjectPage(Scene *scene, PageId id)
     scene->CreatePage((PageId)Cosmos::SETTINGS_MAIN);
     scene->CreatePage((PageId)Cosmos::RACE_SETTINGS1);
     scene->CreatePage((PageId)Cosmos::MENU_SETTINGS1);
+    scene->CreatePage((PageId)Cosmos::DEBUG_SETTINGS);
     scene->CreatePage((PageId)Cosmos::WARNING_PAGE);
     return;
 }

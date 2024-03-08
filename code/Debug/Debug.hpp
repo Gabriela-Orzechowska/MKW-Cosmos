@@ -22,7 +22,7 @@ namespace CosmosDebug
 
     const u32 DolphinECID_U = 0x0d96e200;
 
-    static HOSTPLATFORM currentPlatform;
+    static HOSTPLATFORM currentPlatform = WII;
     static char platformName[0x20];
 
     static void DetectPlatform();

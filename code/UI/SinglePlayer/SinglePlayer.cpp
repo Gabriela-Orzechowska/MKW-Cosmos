@@ -78,10 +78,10 @@ void OnButtonClick(Pages::SinglePlayer * page, PushButton * button, u32 slotId)
         page->Pages::SinglePlayer::OnButtonClick(button, slotId);
         button->buttonId = buttonOriginalId;
         if(buttonOriginalId == TIME_TRIAL_200) 
-            Cosmos::SetTTCC(Cosmos::COSMOS_TT_200cc);
+            Cosmos::System::GetStaticInstance()->SetTTMode(Cosmos::COSMOS_TT_200cc);
     
         else if(buttonOriginalId == TIME_TRIAL)
-            Cosmos::SetTTCC(Cosmos::COSMOS_TT_150cc);    
+            Cosmos::System::GetStaticInstance()->SetTTMode(Cosmos::COSMOS_TT_150cc);
     }
 
     return;

@@ -10,20 +10,16 @@ namespace CosmosUI
         || menuId == P1_WIFI_FRIEND_ROOM_COIN_VOTING || menuId == P1_WIFI_FRIEND_ROOM_TEAM_VS_VOTING);
     }
 
+    kmWrite32(0x806240e0, 0x60000000);
     Pages::VR * AddVRPage()
     {
-        MenuId menuId = MenuData::sInstance->curScene->menuId;
-        if(isVotingScreen(menuId))
-        {
-            return new(VRPagePlus);
-        }
-        else
-            return new(Pages::VR);
+        return new(VRPagePlus);
     }
 
     kmCall(0x806240ec, AddVRPage);
 
-    VRPagePlus::VRPagePlus() : menuState(0) {
+    VRPagePlus::VRPagePlus() {
+        this->menuState = 0;
         this->onChangeComboButton.subject = this;
         this->onChangeComboButton.ptmf = &VRPagePlus::ChangeCombo;
     }
@@ -40,6 +36,7 @@ namespace CosmosUI
         button->manipulator.SetAction(START_PRESS, &button->onClickHandlerObj, 0);
     }
 
+
     void UpdateOKButton(PushButton * button, const char * folderName, const char * controlName, const char * variant, u32 localPlayerCount, u8 param_5, bool inaccesable)
     {
         MenuId menuId = MenuData::sInstance->curScene->menuId;
@@ -51,7 +48,7 @@ namespace CosmosUI
     }
 
     kmCall(0x8064a6e8, UpdateOKButton);
-
+    
     void VRPagePlus::ChangeCombo(PushButton * button, u32 slotId)
     {
         this->menuState = 1;
@@ -116,6 +113,7 @@ namespace CosmosUI
 
     kmCall(0x806509d0, AddCharacterSelectLayer);
 
+/*
     void DisableVotingControlLoading(Pages::VR * page, u32 controlCount)
     {
         MenuId menuId = MenuData::sInstance->curScene->menuId;
@@ -124,6 +122,7 @@ namespace CosmosUI
         return;
     }
     kmCall(0x8064a61c, DisableVotingControlLoading);
-
+    */
+   kmWrite32(0x8064a61c, 0x60000000);
 
 }

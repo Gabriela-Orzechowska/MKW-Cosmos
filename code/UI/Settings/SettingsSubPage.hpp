@@ -40,7 +40,7 @@ namespace CosmosUI
     class SettingSubPage : public Pages::Menu
     {
         public:
-        SettingSubPage::SettingSubPage(SettingPageDefinition * definition, u32 pageId);
+        SettingSubPage::SettingSubPage(SettingPageDefinition * definition, u32 pageId, u32 index);
         ~SettingSubPage() override;
         void OnInit() override;
         void OnActivate() override;

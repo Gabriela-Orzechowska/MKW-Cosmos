@@ -22,23 +22,83 @@ namespace Cosmos{
         )
     }
 
-    void SetTTCC(TT_MODE ttMode)
+    System * System::sInstance = nullptr;
+
+    void System::CreateStaticInstance(){
+        sInstance = new System();
+        sInstance->Init();
+        return;
+    }
+    static BootHook bhSystem(Cosmos::System::CreateStaticInstance, FIRST);
+
+    void System::Init(){
+        this->currentTTMode = COSMOS_TT_150cc;
+        this->CreateFolders();
+    }
+
+    void System::CreateFolders()
     {
-        TTMode = ttMode;
-        SetCC();
+        CosmosFile::FileManager * manager = CosmosFile::FileManager::GetStaticInstance();
+        manager->CreateFolder(packFolder);
+        manager->CreateFolder(ghostFolder);
+
+        s32 ret = IOS::Dolphin::Open();
+        if(ret > 0)
+        {
+            isDolphin = true;
+            IOS::Dolphin::Close();
+        }
+         
+    }
+
+    void System::SetTTMode(TT_MODE mode){
+        this->currentTTMode = mode;
+    }
+
+    void System::Shutdown(){
+        Shutdown(false);
+    }
+
+    void System::Shutdown(bool force)
+    {
+        if(isDolphin) {
+            if(force) OSShutdownToSBY();
+            else OSShutdownSystem();
+        }
+        else 
+        {
+            s32 ret;
+            ret = Cosmos::Open("/title/00010001/52494956/content/title.tmd\0", IOS::MODE_NONE); 
+            if(ret >= 0){
+                ISFS::Close(ret);
+                OSLaunchTitle(0x00010001, 0x52494956);
+            }
+            ret = Cosmos::Open("/title/00010001/4c554c5a/content/title.tmd\0", IOS::MODE_NONE);
+            if(ret >= 0){
+                ISFS::Close(ret);
+                OSLaunchTitle(0x00010001, 0x4c554c5a);
+            }
+            ret = Cosmos::Open("/title/00010001/48424330/content/title.tmd\0", IOS::MODE_NONE); 
+            if(ret >= 0){
+                ISFS::Close(ret);
+                OSLaunchTitle(0x00010001, 0x48424330);
+            }
+            SystemManager::sInstance->GoToWiiMenu();
+        }
+    }
+
+    void System::Restart()
+    {
+        SystemManager::sInstance->RestartGame();
     }
 
     void SetCC()
     {
         EngineClass cc = CC_100;
-        if(TTMode == COSMOS_TT_200cc) cc = CC_150;
+        if(System::GetStaticInstance()->GetTTMode() == COSMOS_TT_200cc) cc = CC_150;
         RaceData::sInstance->menusScenario.settings.engineClass = cc;
     }
 
-    TT_MODE GetTTMode()
-    {
-        return TTMode;
-    }
 
     kmBranch(0x805e1ef4, SetCC);
     kmBranch(0x805e1d58, SetCC);
@@ -65,23 +125,6 @@ namespace Cosmos{
 
     //Unlock Everything Without Save [_tZ]
     kmWrite32(0x80549974,0x38600001);
-
-    void CreateFolders()
-    {
-        CosmosFile::FileManager * manager = CosmosFile::FileManager::GetStaticInstance();
-        manager->CreateFolder(packFolder);
-        manager->CreateFolder(ghostFolder);
-
-        s32 ret = IOS::Dolphin::Open();
-        if(ret > 0)
-        {
-            isDolphin = true;
-            IOS::Dolphin::Close();
-        }
-                
-    }
-
-    BootHook InitFolders(CreateFolders, HIGH);
 
     void CreateBranch(u32 from, void * to)
     {
@@ -114,44 +157,6 @@ namespace Cosmos{
         return PAL;
     }
 
-    void Shutdown()
-    {
-        Shutdown(false);
-    }
-
-    void Shutdown(bool force)
-    {
-        if(isDolphin) {
-            if(force) OSShutdownToSBY();
-            else OSShutdownSystem();
-        }
-        else 
-        {
-            s32 ret;
-            ret = Cosmos::Open("/title/00010001/52494956/content/title.tmd\0", IOS::MODE_NONE); 
-            if(ret >= 0){
-                ISFS::Close(ret);
-                OSLaunchTitle(0x00010001, 0x52494956);
-            }
-            ret = Cosmos::Open("/title/00010001/4c554c5a/content/title.tmd\0", IOS::MODE_NONE);
-            if(ret >= 0){
-                ISFS::Close(ret);
-                OSLaunchTitle(0x00010001, 0x4c554c5a);
-            }
-            ret = Cosmos::Open("/title/00010001/48424330/content/title.tmd\0", IOS::MODE_NONE); 
-            if(ret >= 0){
-                ISFS::Close(ret);
-                OSLaunchTitle(0x00010001, 0x48424330);
-            }
-            SystemManager::sInstance->GoToWiiMenu();
-        }
-    }
-
-    void Restart()
-    {
-        SystemManager::sInstance->RestartGame();
-        
-    }
 
 //38600001
 //kmWrite32(0x80007c60, 0x4e800020);

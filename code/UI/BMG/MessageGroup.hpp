@@ -5,4 +5,4 @@
 #include <Settings/UserData.hpp>
 #include <core/System/SystemManager.hpp>
 
-char * GetTextFromMessage(u32 messageId);
+void GetTextFromMessage(char * out, u32 messageId);

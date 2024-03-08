@@ -6,6 +6,20 @@
 class MainLayout;
 using namespace nw4r;
 
+enum BASIC_ANIMATION_STATES{
+    ANM_LOOP = 0x0,
+    ANM_FREE,
+    ANM_FREE_TO_SELECT,
+    ANM_SELECT,
+    ANM_SELECT_TO_FREE,
+    ANM_SELECT_IN,
+    ANM_SELECT_STOP,
+    ANM_OK,
+    ANM_OK_STOP,
+    ANM_ACTIVE,
+    ANM_INACTIVE,
+};
+
 class Animation{
 public:
     Animation(); //8063c53c 

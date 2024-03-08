@@ -3,7 +3,7 @@
 
 namespace CosmosUI
 {
-    SettingSubPage::SettingSubPage(SettingPageDefinition * definition, u32 pageId)
+    SettingSubPage::SettingSubPage(SettingPageDefinition * definition, u32 pageId, u32 index)
     {
         nextPageId = PAGE_NONE;
         prevPageId = PAGE_NONE;
@@ -52,7 +52,7 @@ namespace CosmosUI
         onButtonClickHandler.subject = this;
         onButtonClickHandler.ptmf = static_cast<void (Menu::*)(PushButton *, u32)> (&SettingSubPage::OnSaveButtonClick);
 
-        pageIndex = pageId;
+        pageIndex = index;
         titleBmg = 0x00;
 
         this->controlsManipulatorManager.Init(1,false);
@@ -61,6 +61,7 @@ namespace CosmosUI
         this->controlsManipulatorManager.SetGlobalHandler(START_PRESS, (PtmfHolder_1A<Page, void, u32>*) &onStartPressHandler, false, false);
         activePlayerBitfield = 1;
         scrollersCount = definition->settingCount;
+        basePage = MenuData::sInstance->curScene->Get<SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN);
         
         memcpy(&pageDefinition, definition, sizeof(SettingPageDefinition));
     }
@@ -105,7 +106,7 @@ namespace CosmosUI
             return;
         }
 
-        u32 bmgId = BMG_SETTING_OPTION + ((pageIndex-MINPAGE) << 8) + (valueControl->id << 4) + optionId;
+        u32 bmgId = BMG_SETTING_OPTION + ((this->pageIndex) << 8) + (valueControl->id << 4) + optionId;
 
         u32 bottomBmgId = bmgId - BMG_SETTING_OPTION + BMG_SETTING_OPTION_BOTTOM;
 
@@ -119,7 +120,7 @@ namespace CosmosUI
     };
 
     void SettingSubPage::OnUpDownSelect(UpDownControl *upDownControl, u32 hudSlotId){
-        u32 bmgId = BMG_SETTING_OPTION_BOTTOM + ((pageIndex-MINPAGE) << 8) + (upDownControl->id << 4) + upDownControl->curSelectedOption;
+        u32 bmgId = BMG_SETTING_OPTION_BOTTOM + ((this->basePage->currentPageId) << 8) + (upDownControl->id << 4) + upDownControl->curSelectedOption;
 
         this->bottomText->SetMsgId(bmgId);
         return;
@@ -130,7 +131,7 @@ namespace CosmosUI
         UpDownControl * baseControl = this->basePage->upDownControls;
 
         baseControl->HandleSelect(hudSlotId, 0);
-        this->bottomText->SetMsgId(BMG_SETTINGS_PAGE_BOTTOM + MINPAGE + baseControl->curSelectedOption);
+        this->bottomText->SetMsgId(BMG_SETTINGS_PAGE_BOTTOM + 1 + baseControl->curSelectedOption);
 
         return;
     }
@@ -147,7 +148,7 @@ namespace CosmosUI
         
         this->basePage->HandleChange(optionId);
 
-        PageId id = (PageId)this->basePage->currentPageId;
+        PageId id = (PageId)settingsPageIds[this->basePage->currentPageId];
 
         if(optionId == 0)
             this->LoadPrevPageWithDelayById(id, 0.0f);
@@ -173,7 +174,7 @@ namespace CosmosUI
             char variant[0x20];
             snprintf(variant, 0x20, "UpDown%d", id);
 
-            upDownCtrl->Load(this->pageDefinition.settings[id].optionCount, settingsHolder->GetSettings()->pages[this->pageId - MINPAGE].setting[id], "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
+            upDownCtrl->Load(this->pageDefinition.settings[id].optionCount, settingsHolder->GetSettings()->pages[this->basePage->currentPageId].setting[id], "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
             "DXSettingsUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textUpDownPlus[id], 1, 0, false, true, true);
             upDownCtrl->SetOnClickHandler(&this->onUpDownClickHandler);
             upDownCtrl->SetOnSelectHandler(&this->onUpDownSelectHandler);
@@ -185,9 +186,9 @@ namespace CosmosUI
             valueCtrl->SetOnTextChangeHandler(&this->onTextChangeHandler);
             valueCtrl->id = id;
 
-            u32 bmgOption = BMG_SETTING_FIELD | ((pageIndex-MINPAGE) << 8) | (id << 4);
+            u32 bmgOption = BMG_SETTING_FIELD | ((this->pageIndex) << 8) | (id << 4);
 
-            u32 bmgId = BMG_SETTING_OPTION | ((pageIndex-MINPAGE) << 8) | (id << 4);
+            u32 bmgId = BMG_SETTING_OPTION | ((this->pageIndex) << 8) | (id << 4);
             if(this->pageDefinition.settings[id].isBool)
                 bmgId = BMG_ENABLED_DISABLED;
 
@@ -249,9 +250,8 @@ namespace CosmosUI
 
     void SettingSubPage::OnActivate()
     {
-        CosmosData::SettingsPage * settingsPage = &CosmosData::SettingsHolder::GetInstance()->GetSettings()->pages[this->pageId - MINPAGE];
+        CosmosData::SettingsPage * settingsPage = &CosmosData::SettingsHolder::GetInstance()->GetSettings()->pages[this->basePage->currentPageId];
         UpDownControl::Select(&this->upDownControls[this->mainControlId], 0);
-        basePage = MenuData::sInstance->curScene->Get<SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN);
         //this->basePage->upDownControls->HandleButtonDeselect(0,0);
         nextPageId = PAGE_NONE;
         prevPageId = basePage->lastPage;
@@ -286,7 +286,7 @@ namespace CosmosUI
         
         SettingSubPage * basePage = ((CosmosUI::SettingSubPage *)this->parentGroup->parentPage);
 
-        u32 bmgId = BMG_SETTING_OPTION + ((basePage->pageId-MINPAGE) << 8) + (id << 4) + optionId;
+        u32 bmgId = BMG_SETTING_OPTION + ((basePage->basePage->currentPageId) << 8) + (id << 4) + optionId;
         if(basePage->pageDefinition.settings[id].isBool)
            bmgId = BMG_ENABLED_DISABLED | optionId;
         text->SetMsgId(bmgId);

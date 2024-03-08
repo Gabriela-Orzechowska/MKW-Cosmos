@@ -124,7 +124,7 @@ namespace CupCreator
             
             // Create window, GraphicsDevice, and all resources necessary for the demo.
             VeldridStartup.CreateWindowAndGraphicsDevice(
-                new WindowCreateInfo(50, 50, 1200, 700, WindowState.Normal, "Cup Creator"),
+                new WindowCreateInfo(50, 50, 1600, 900, WindowState.Normal, "Cup Creator"),
                 new GraphicsDeviceOptions(true, null, true, ResourceBindingModel.Improved, true, true),
                 out _window,
                 out _gd);
@@ -175,6 +175,10 @@ namespace CupCreator
         }
 
         public static LayoutData layoutData = new LayoutData();
+
+        public static Int32[] trackSlots = { 0x08, 0x01, 0x02, 0x04, 0x00, 0x05, 0x06, 0x07, 0x09, 0x0F, 0x0B, 0x03, 0x0E, 0x0A, 0x0C, 0x0D, 0x10, 0x14, 0x19, 0x1A, 0x1B, 0x1F, 0x17, 0x12, 0x15, 0x1E, 0x1D, 0x11, 0x18, 0x16, 0x13, 0x1C };
+        public static Int32[] musicSlots = {  }
+
 
         [DllImport("comdlg32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         private static extern bool GetOpenFileName(ref OpenFileName ofn);
@@ -255,10 +259,12 @@ namespace CupCreator
                     ImGui.SameLine(207);
                     ImGui.Text("Author");
                     ImGui.SameLine(413);
-                    ImGui.Text("Slot");
+                    ImGui.Text("File");
                     ImGui.SameLine(624);
-                    ImGui.Text("Music Slot");
+                    ImGui.Text("Slot");
                     ImGui.SameLine(830);
+                    ImGui.Text("Music Slot");
+                    ImGui.SameLine(1036);
                     ImGui.Text("Is Retro");
                 }
 
@@ -269,6 +275,8 @@ namespace CupCreator
                     ImGui.InputText($"##name{t}{i}", ref trackdef.TrackName, 256);
                     ImGui.SameLine();
                     ImGui.InputText($"##author{t}{i}", ref trackdef.TrackAuthor, 256);
+                    ImGui.SameLine();
+                    ImGui.InputText($"##file{t}{i}", ref trackdef.FilePath, 256);
                     ImGui.SameLine();
                     ImGui.Combo($"##slot{t}{i}", ref trackdef.TrackSlot, slots);
                     ImGui.SameLine();
@@ -311,5 +319,28 @@ namespace CupCreator
             }
         }
 
+        private static void CreateConfigFile()
+        {
+            string fileName = @"workfile/config.txt";
+
+            if (File.Exists(fileName))
+                File.Delete(fileName);
+
+            using(StreamWriter sw = File.CreateText(fileName))
+            {
+                sw.WriteLine("#CT-CODE\n\n");
+                sw.WriteLine("[RACING-TRACK-LIST]\n");
+                sw.WriteLine("%LE-FLAGS = 1\n\n");
+                sw.WriteLine("%WIIMM-CUP = 0\n\n");
+                sw.WriteLine("N N$SWAP | N$F_WII\n\n");
+
+                for(int i = 0; i < layoutData.RaceCupCount; i++)
+                {
+                    sw.WriteLine($"T ")
+                }
+
+            }
+
+        }
     }
 }

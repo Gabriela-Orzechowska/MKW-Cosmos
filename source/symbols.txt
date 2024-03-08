@@ -26,6 +26,11 @@ pr_patch6_r7 = 0x80659778
 pr_patch7_r4 = 0x8065A034
 pr_patch8_r4 = 0x8065A080
 
+p_tracklist1 = 0x807e6004
+p_tracklist2 = 0x807e6014
+
+p_tracklist1_2 = 0x807e60f0
+p_tracklist2_2 = 0x807e60f8
 
 __div2u = 0x80021604
 __mod2u = 0x80021828
@@ -84,6 +89,7 @@ __destroy_arr = 0x800210ec
 __destroy_new_array = 0x80021164
 __ptmf_scall = 0x80021450
 __cvt_fp2unsigned = 0x80021478
+__cvt_ull_flt = 0x80021A60
 _savefpr_14 = 0x800214d4
 _savefpr_15 = 0x800214d8
 _savefpr_16 = 0x800214dc
@@ -286,6 +292,7 @@ sInstance__8RKSystem = 0x80385fc8
 
 #Math
 Mult__Q23EGG5QuatfFRCQ23EGG5QuatfRCQ23EGG8Vector3fRQ23EGG5Quatf = 0x8023a540
+SetRPY__Q23EGG5QuatfFfff = 0x80239f58
 
 #DVDRipper
 LoadToMainRam__Q23EGG9DvdRipperFPCcPvPQ23EGG4HeapUiUiPUiPUi = 0x802226d8
@@ -613,6 +620,8 @@ __dt__27SheetSelectControlScaleFadeFv = 0x805dbfdc
 Load__18SheetSelectControlFPCcPCcPCcPcPCcUibb = 0x80636120
 SetRightArrowHandler__18SheetSelectControlFP47PtmfHolder_2A<4Page,v,P18SheetSelectControl,Ui> = 0x806361e8
 SetLeftArrowHandler__18SheetSelectControlFP47PtmfHolder_2A<4Page,v,P18SheetSelectControl,Ui> = 0x806361f0
+HandleRightArrowSelect__18SheetSelectControlFUi = 0x80636350
+HandleLeftArrowSelect__18SheetSelectControlFUi = 0x806363d8
 
 
 #TabControl
@@ -1012,6 +1021,24 @@ cupTPLs__Q25Pages9CupSelect = 0x808AF8E0
 UpdateBottomText__Q25Pages12CourseSelectFP26CtrlMenuCourseSelectCourseP10PushButtonUi = 0x80840728
 LoadNextPage__18CourseSelectPageFP26CtrlMenuCourseSelectCourseP10PushButtonUi = 0x80840830
 GetPageById__18CourseSelectPageF6PageId = 0x808401e4
+__ct__Q25Pages12CourseSelectFv = 0x80627bd8
+__dt__Q25Pages12CourseSelectFv = 0x80840ce0
+SetButtonHandlers__Q25Pages12CourseSelectFP10PushButton = 0x80840c84
+CreateControl__Q25Pages12CourseSelectFUi = 0x80840398
+CreateExternalControl__Q25Pages12CourseSelectFUi = 0x80840390
+GetManipulatorManager__Q25Pages12CourseSelectFv = 0x807e4f74
+GetPlayerBitfield__Q25Pages12CourseSelectCFv = 0x80840c74
+GetActivePlayerBitfield__Q25Pages12CourseSelectCFv = 0x80840c7c
+OnExternalButtonSelect__Q25Pages12CourseSelectFP10PushButtonUi = 0x80840aac
+GetRuntimeTypeInfo__Q25Pages12CourseSelectCFv = 0x80840dcc
+AfterControlUpdate__Q25Pages12CourseSelectFv = 0x8084060c
+BeforeExitAnimations__Q25Pages12CourseSelectFv = 0x80840b1c
+BeforeEntranceAnimations__Q25Pages12CourseSelectFv = 0x808405c0
+OnDeactivate__Q25Pages12CourseSelectFv = 0x80840b78
+OnActivate__Q25Pages12CourseSelectFv = 0x808404a0
+OnInit__Q25Pages12CourseSelectFv = 0x808402f4
+
+
 
 #BattleKartSelectPage
 __ct__Q25Pages16BattleKartSelectFv = 0x80628e3c 
@@ -1115,6 +1142,9 @@ OnActivate__Q25Pages7WFCMainFv = 0x8064bc90
 GetRuntimeTypeInfo__Q25Pages7WFCMainCFv = 0x8064d690
 OnButtonSelect__Q25Pages7WFCMainFP10PushButtonUi = 0x8064bf4c
 
+#WFCModeSelect
+WFCModeSelect_OnActivate__10CosmosDataFPQ25Pages13WFCModeSelect = 0x8064c4f8
+
 #MessageWindowControl
 __ct__20MessageWindowControlFv = 0x805f9700
 Load__20MessageWindowControlFPCcPCcPCc = 0x805f9794
@@ -1206,6 +1236,11 @@ SSL_Initialised = 0x80386d4c
 loginRegion__3DWC = 0x80384fd0
 
 
+DWC_AddMatchKeyInt = 0x800d4258
+DWC_ReportLevel = 0x803862c0
+
+NHTTPGetBodyAll = 0x801D937C
+
 #Effects
 Reset__10EffectsMgrFv = 0x8067b8f0
 Update__10EffectsMgrFv = 0x8067cb88
@@ -1229,6 +1264,7 @@ PlayBRSARSound__16RaceSoundHandlerFUiUi = 0x80716608
 sInstance__12RaceAudioMgr = 0x809c27f8
 ChangeMusic__12RaceAudioMgrF9RaceState = 0x80711ac4
 trackToMusicIDTable__12RaceAudioMgr = 0x808a1d80
+GetCourseSoundId__12RaceAudioMgrFv = 0x807101f4
 
 #RSARSoundsPlayer
 sInstance__16RSARSoundsPlayer = 0x809c2850
@@ -1244,7 +1280,7 @@ isOnlineRace__13KartModelsMgr = 0x809c38b9
 sInstance__11CourseModel = 0x809c2F44
 ProcessCollision__11CourseModelFfP4Vec3P4Vec311KCLTypesBITPiR13KCLTypeHolderUi = 0x807907f8
 
-charNames = 0x808b3a90
+charNames__2DX = 0x808b3a90
 matNamesMH = 0x808d1860
 szsLanguageNames = 0x808b3188
 
@@ -1298,6 +1334,9 @@ DecideTeams__18RKNetSELECTHandlerFRUi = 0x80662588
 GetCourseVote__18RKNetSELECTHandlerCFUcUc = 0x80660574
 IsPrepared__18RKNetSELECTHandlerFv = 0x80660710
 AllocatePlayerIdsToAids__18RKNetSELECTHandlerFv = 0x80662034
+
+#RKNETUserHandler
+BuildUserPacket__16RKNetUSERHandlerFv = 0x8066300c
 
 #Objects
 Update__12ObjectHolderFv = 0x8082a8f4

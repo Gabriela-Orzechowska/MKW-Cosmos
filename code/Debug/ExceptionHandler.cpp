@@ -27,7 +27,7 @@ namespace CosmosDebug{
 
     static char output[0x100];
 
-    void HandlePanic( const char *file, int line, const char *fmt, va_list vlist, bool halt, u32 LR)
+    void HandlePanic(const char *file, int line, const char *fmt, va_list vlist, bool halt, u32 LR)
     {
 
         char format[0x100];
@@ -55,7 +55,7 @@ namespace CosmosDebug{
     kmWrite32(0x80026038, 0x7c080378);
     kmCall(0x8002603c, HandlePanic);
 
-    void HandleOSPanic(char * file, u32 line, char * message)
+    void HandleOSPanic(const char * file, u32 line, char * message)
     {
         snprintf(output, 0x100, "%s:%d Panic:\n%s", file, line, message);
         OSContext * context = OSGetCurrentContext();
@@ -116,7 +116,7 @@ namespace CosmosDebug{
     void PrintHeader()
     {
         nw4r::db::Exception_Printf_("**** COSMOS EXCEPTION HANDLER ****\n");
-        nw4r::db::Exception_Printf_("Platform: %s\nCosmos %s (%s %s)\n-------------------------------\n", CosmosDebug::GetPlatformString(), __COSMOS_VERSION__, __DATE__, __TIME__);
+        nw4r::db::Exception_Printf_("Platform: %s\nCosmos %s (%s, %s %s)\n-------------------------------\n", CosmosDebug::GetPlatformString(), __COSMOS_VERSION__, __COMPILER_VERSION__, __DATE__, __TIME__);
         
         u32 tick0 = OSGetTick() & 0x3;
 
@@ -275,12 +275,12 @@ namespace CosmosDebug{
 
             if(SystemManager::sInstance->doShutDown > 0)
             {
-                Cosmos::Shutdown(true);
+                Cosmos::System::Shutdown(true);
             }
 
             if(CosmosController::isPressed(holder, type, CosmosController::BUTTON_HOME) || CosmosController::isPressed(holder, type, CosmosController::BUTTON_PLUS))
             {
-                Cosmos::Shutdown(true);
+                Cosmos::System::Shutdown(true);
             }
 
 

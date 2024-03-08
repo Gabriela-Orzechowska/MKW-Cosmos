@@ -29,6 +29,7 @@
 		<folder external="/DX/Course" disc="/Race/Course/" create="true"/>
 		<folder external="/DX/My Stuff" recursive="false"/>
 		<folder external="/DX/My Stuff" disc="/"/>
+		<folder external="/DX/cup/" disc="/cup" create="true"/>
 	</patch>
 
 </wiidisc>

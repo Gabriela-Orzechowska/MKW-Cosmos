@@ -30,8 +30,8 @@ void * HighwayManagerCreate(u32 size)
 
     if(hasCar && hasTruck)
     {
-        return new u8[size];
         hasHighwayManager = true;
+        return new u8[size];
     }
 
    return NULL;
@@ -94,13 +94,3 @@ void * LoadAdditionalBinaries(ArchiveRoot * archive, ArchiveSource source, const
 
 kmCall(0x8082c140, LoadAdditionalBinaries);
 kmCall(0x807f92ac, LoadAdditionalBinaries);
-
-void PatchLeCode()
-{
-    extern u32 p_objFlowLoad;
-    extern u32 p_geoHitTableLoad;
-    Cosmos::CreateCall((u32)&p_objFlowLoad, &LoadAdditionalBinaries);
-    Cosmos::CreateCall((u32)&p_geoHitTableLoad, &LoadAdditionalBinaries);
-}
-
-static LeCodeLoadHook PatchBinaries(PatchLeCode);

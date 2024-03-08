@@ -39,5 +39,35 @@ public:
     PageId nextPageId; //when you press a button
 };//total size 0xf34
 static_assert(sizeof(WFCMain) == 0xf34, "WFCMain");
+
+class WFCModeSelect : public Page { //ID 0x8C
+public:
+    static const PageId id = WFC_VSBATTLE_SELECT;
+    WFCModeSelect(); //8064bfd8
+    ~WFCModeSelect() override; //8064c170 vtable 808bfec8
+    PageId GetNextPage() const override; //8064d674
+    void OnInit() override; //8064c220
+    void OnActivate() override; //8064c4f8
+    int GetRuntimeTypeInfo() const override; //8064d67c
+
+    void OnModeButtonClick(PushButton& modeButton, u32 hudSlotId); //8064c610
+    void OnModeButtonSelect(PushButton& modeButton, u32 hudSlotId); //8064c718
+    void OnBackButtonClick(CtrlMenuBackButton& backButton, u32 hudSlotId); //8064c75c
+    void OnBackPress(u32 hudSlotId); //8064c7b0
+
+    PtmfHolder_2A<WFCModeSelect, void, PushButton&, u32> onModeButtonClickHandler; //0x44 8064c610
+    PtmfHolder_2A<WFCModeSelect, void, PushButton&, u32> onBackButtonClickHandler; //0x58 8064c718
+    PtmfHolder_2A<WFCModeSelect, void, PushButton&, u32> onButtonSelectHandler; //0x6c 8064c75c
+    PtmfHolder_1A<WFCModeSelect, void, u32> onBackPressHandler; //0x80 8064c7b0
+    CtrlMenuPageTitleText titleText; //0x94
+    PushButton vsButton; //0x208
+    PushButton battleButton; //0x45c
+    CtrlMenuBackButton backButton; //0x6b0
+    CtrlMenuInstructionText bottomText; //0x914
+    ControlsManipulatorManager manipulatorManager; //0xa88
+    PageId nextPage; //0xCAC
+};//total size 0xf34
+size_assert(WFCModeSelect, 0xcb0);
+
 }//namespace Pages
 #endif

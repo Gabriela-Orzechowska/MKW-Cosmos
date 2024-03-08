@@ -3,7 +3,7 @@
 
 namespace SHA1
 {
-    char * GetFileSha1(void * buffer, u32 size)
+    char * GetFileSha1(const void * buffer, u32 size)
     {
         static u8 output[0x14];
         static char stringOutput[0x29];

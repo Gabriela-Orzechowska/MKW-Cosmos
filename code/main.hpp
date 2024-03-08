@@ -8,8 +8,6 @@
 
 //#define NO_FAST_MENU
 
-#define CUP_COUNT 10
-
 namespace Cosmos
 {
     enum CUSTOM_PAGE_IDS 
@@ -18,6 +16,7 @@ namespace Cosmos
         SETTINGS_MAIN = 0xB7,
         RACE_SETTINGS1 = 0xB8,
         MENU_SETTINGS1 = 0xB9,
+        DEBUG_SETTINGS = 0xBB,
     };
 
     const char packFolder[20] = "DX";
@@ -33,21 +32,35 @@ namespace Cosmos
         COSMOS_TT_200cc,
     };  
 
-    static TT_MODE TTMode;
+    class System{
+        public:
+        static void CreateStaticInstance();
+        static System * GetStaticInstance() { return sInstance; }
+
+        void Init();
+        void CreateFolders();
+        TT_MODE GetTTMode() { return this->currentTTMode; }
+        void SetTTMode(TT_MODE mode);
+
+        static void Shutdown();
+        static void Shutdown(bool force);
+        static void Restart();
+
+        private:
+        static System * sInstance;
+        TT_MODE currentTTMode;
+    };
+
     static bool isDolphin = false;
 
     IOS::IPCResult Open(char *path, IOS::Mode mode);
     void SetTTCC(TT_MODE mode);
     void SetCC();
 
-    TT_MODE GetTTMode();
 
     void CreateBranch(u32 from, void * to);
     void CreateCall(u32 from, void * to);
     u32 GetPortAddress(u32 PAL, u32 NTSCU, u32 NTSCJ, u32 NTSCK);
-    void Shutdown();
-    void Shutdown(bool force);
-    void Restart();
     void Panic(char * file, int line, char *fmt, ...);
 }
 
