@@ -1,7 +1,7 @@
 #include <System/RichPresenceManager.hpp>
 #include <core/System/RKSystem.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
-#include <LeCode/LeCodeManager.hpp>
+#include <SlotExpansion/CupManager.hpp>
 #include <UI/BMG/MessageGroup.hpp>
 #include <System/Sha1.hpp>
 
@@ -24,18 +24,19 @@ IOS::Dolphin::DiscordRichPresence RichPresenceManager::presence = {
 
 char * RichPresenceManager::applicationId = "1175707208042954773";
 
-RichPresenceManager * RichPresenceManager::CreateStaticInstance()
+void RichPresenceManager::CreateStaticInstance()
 {
     if(sInstance == NULL)
         sInstance = new(RKSystem::mInstance.EGGSystem) RichPresenceManager;
     sInstance->rEnabled = false;
-    return sInstance;
+    sInstance->Init();
+    return;
 }
 
 RichPresenceManager * RichPresenceManager::GetStaticInstance()
 {
     if(sInstance == NULL)
-        return CreateStaticInstance();
+        CreateStaticInstance();
     return sInstance;
 }
 
@@ -83,16 +84,15 @@ s32 RichPresenceManager::UpdateStatus()
 
 u32 UpdateTrackImage(u32 param_1)
 {
-    
     static char finalLink[0x80];
+    RichPresenceManager * manager = RichPresenceManager::sInstance;
     ArchiveFile * file = &ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COURSE]->archives[0];
     void * buffer = file->decompressedArchive;
     u32 fileSize = file->decompressedarchiveSize;
     char * trackSha = SHA1::GetFileSha1(buffer,fileSize);
 
     snprintf(finalLink, 0x80, "https://ct.wiimm.de/api/get-start-image?sha1=%s", trackSha);
-    CosmosLog("Setting image to:%s\n",finalLink);
-    RichPresenceManager * manager = RichPresenceManager::sInstance;
+    CosmosLog("Setting image to: %s\n",finalLink);
     if(manager != nullptr)
     {
         manager->presence.largeImageKey = finalLink;
@@ -111,10 +111,10 @@ void RPCSectionChange()
     if(manager == nullptr) return;
     DiscordRichPresence * presence = &manager->presence;
     char * message = presence->details;
-    char * status = "";
+    char status[128] = "";
 
 
-    u32 trackId = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
+    u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
 
     if(menuId < GRAND_PRIX_PANORAMA || menuId > GHOST_RACE_GAMEPLAY_2)
     {
@@ -278,11 +278,11 @@ void RPCSectionChange()
         case P2_WIFI_VS_LIVE_VIEW:
         case P1_WIFI_BT_LIVE_VIEW:
         case P2_WIFI_BT_LIVE_VIEW:
-            status = GetTextFromMessage(trackId + 0x7000);
+            GetTextFromMessage(status, trackId + 0x7000);
             //UpdateTrackImage(trackId);
             break;
         default:    
-            status = "";
+            memset(status, 0, 128);
             break;
     }
     manager->presence.details = message;
@@ -294,9 +294,4 @@ void RPCSectionChange()
 
 static MenuLoadHook mlhRPCSectionChange(RPCSectionChange);
 
-void InitRPC()
-{
-    RichPresenceManager * instance = RichPresenceManager::GetStaticInstance();
-    instance->Init();
-}
-static BootHook bhInitRPC(InitRPC, LOW);
+static BootHook bhInitRPC(RichPresenceManager::CreateStaticInstance, LOW);

@@ -5,6 +5,19 @@
 
 namespace CosmosDebug
 {
+    void * CheckHeapAlloc(void * alloc)
+    {
+        if(alloc == nullptr)
+            Cosmos::Panic(__FILE__, __LINE__, "Out of Memory!");
+
+        return alloc;
+    }
+
+    kmBranch(0x80229ad0, CheckHeapAlloc);
+    kmBranch(0x80198e34, CheckHeapAlloc);
+    kmBranch(0x80199600, CheckHeapAlloc);
+    kmBranch(0x80199ac0, CheckHeapAlloc);
+
     void DetectPlatform()
     {
         if(IOS::Dolphin::Open())
@@ -71,5 +84,5 @@ namespace CosmosDebug
         strncpy(platformName, GetPlatformString(), 0x20);
     }
 
-    static BootHook SetupDebug(UpdatePlatformString, HIGH);
+    static BootHook SetupDebug(UpdatePlatformString, MEDIUM);
 }

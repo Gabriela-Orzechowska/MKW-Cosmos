@@ -127,8 +127,62 @@ namespace CosmosFile
         return ret;
     }
 
-     s32 FatFolderManager::ReadFolder(const char * filepath)
-     {
-        return -1;
-     };
+    void FatFolderManager::GetPath(const char *path)
+    {
+        mbstowcs(this->realPath, path, strlen(path)+1);
+        return;
+    }
+
+    s32 FatFolderManager::ReadFolder(const char * filepath)
+    {
+        DIR dir;
+        FILINFO fno;
+        
+        this->GetPath(filepath);
+        FRESULT res = f_opendir(&dir, this->realPath);
+
+        FATFs_Path * pathArray = new(RKSystem::mInstance.EGGSystem) FATFs_Path[30];
+
+        if(res == FR_OK)
+        {
+            s32 count = 0;
+            strncpy(this->folderPathFat, filepath, strlen(filepath)+1);
+            CosmosLog("Trying to open folder: %ls\n", this->realPath);
+            for(;;)
+            {
+                res = f_readdir(&dir, &fno); 
+                if(res != FR_OK || fno.fname[0] == 0)
+                    break;
+
+                if(fno.fattrib & AM_DIR)
+                    continue;
+
+                char simplePath[MAXFATFILEPATH];
+                char fullpath[MAXFATFILEPATH];
+                wcstombs(simplePath, fno.fname, MAXFATFILEPATH);
+                snprintf(fullpath, MAXFATFILEPATH, "%s/%s", this->folderPathFat, simplePath);
+                strncpy(pathArray[count], fullpath, MAXFATFILEPATH);
+                count++;
+            }            
+
+            FATFs_Path * finalarray = new (RKSystem::mInstance.EGGSystem) FATFs_Path[count];
+            memcpy(finalarray, pathArray, sizeof(FATFs_Path) * count);
+            this->fileCount = count;
+            this->fatFileNames =  finalarray;
+            delete[](pathArray);
+
+            f_closedir(&dir);
+        }
+
+        else{
+            CosmosLog("Couldnt open the folder!\n");
+        }
+
+        return res;
+    }
+
+    void FatFolderManager::GetFilePath(char * filepath, u32 index) const {
+        snprintf(filepath, IPCMAXPATH, "%s/%s", &this->folderName, &this->fatFileNames[index]);
+        return;
+    }
 }

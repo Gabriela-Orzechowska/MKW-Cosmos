@@ -1,5 +1,5 @@
 #include <UI/RaceBase/AuthorCredits.hpp>
-#include <LeCode/LeCodeManager.hpp>
+#include <SlotExpansion/CupManager.hpp>
 #include <core/rvl/os/OS.hpp>
 
 namespace CosmosUI{
@@ -24,7 +24,7 @@ namespace CosmosUI{
         ControlLoader loader(this);
         loader.Load("game_image", "credits", "info_1", NULL);
         this->textBox_00 = this->layout.GetPaneByName("TextBox_00");
-        u32 trackId = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
+        u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
         // CosmosLog("Trying to display credits. Message ID: %d\n", trackId + BMGOFFSET);
         this->SetMsgId(BMGOFFSET + trackId, 0);
     }

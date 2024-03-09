@@ -128,7 +128,7 @@ bool SDStorage::Init()
     if(result != FR_OK)
     {
         char strbuffer[0x40];
-        CosmosLog("Couldn't initialize FAT\nError");
+        CosmosLog("Couldn't initialize FAT\n");
         StorageDevice::currentDevice = nullptr;
         return false;
     }

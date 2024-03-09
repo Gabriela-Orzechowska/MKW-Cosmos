@@ -5,25 +5,8 @@
 #include <game/UI/MenuData/MenuData.hpp>
 #include <game/Race/RaceData.hpp>
 #include <Controller/MiscController.hpp>
-
-void MegaTC(KartMovement * kartMovement)
-{
-    kartMovement->ActivateMega();
-}
-kmCall(0x80580630, MegaTC);
-
-void MegaFov(KartMovement * kartMovement)
-{
-    kartMovement->UpdatePow();
-    RaceCamera * camera = kartMovement->base.pointers->raceCamera;
-    if(camera != NULL)
-    {
-        if(kartMovement->base.pointers->kartStatus->bitfield2 & BITFIELD2::IN_MEGA)
-            camera->additionalFov = 30.0;
-    }
-}
-kmCall(0x805795d8, MegaFov); 
-kmWrite32(0x805a252c, 0x70600500);
+#include <game/KMP/STGI.hpp>
+#include <game/UI/Ctrl/CtrlRace/CtrlRace2DMap.hpp>
 
 void DraggableBlues(ItemPlayerSub *sub)
 {
@@ -31,27 +14,7 @@ void DraggableBlues(ItemPlayerSub *sub)
     if(SettingsHolder::GetInstance()->GetSettings()->pages[COSMOS_RACE_SETTINGS_1].setting[COSMOS_DRAGGABLE_BLUES] == DISABLED) sub->isNotDragged = true;
 }
 
-void LeCodeItemPatches()
-{
-    extern u32 p_lecodeBlueDrag;
-    extern u32 p_lecodeBluePmtf;
-    extern u32 p_lecodeBlueFunc;
-    Cosmos::CreateBranch((u32)&p_lecodeBlueDrag, DraggableBlues);
-    p_lecodeBluePmtf = (u32) &p_lecodeBlueFunc;
-}
-static LeCodeLoadHook ItemLeCode(LeCodeItemPatches);
 kmBranch(0x807ae8ac, DraggableBlues);
-
-// Engine Class Speed Factors
-
-kmWrite32(0x808b5cd4, 0x3f666666); //50cc -> 0.9f => 100cc
-kmWrite32(0x808b5cd8, 0x3f800000); //100cc -> 1.0f => 150cc
-kmWrite32(0x808b5cdc, 0x3f8ccccd); //150cc -> 1.1f => "200"cc
-
-// Max Speed -> 145 u/f
-
-kmWrite32(0x808b59f4, 0x43070000);
-
 
 // No Team Invincibility (From Melg)
 kmWrite32(0x8056fd24, 0x38000000); //KartCollision::CheckKartCollision()
@@ -63,3 +26,43 @@ kmWrite32(0x807a7f6c, 0x38c00000); //FIB are always red
 kmWrite32(0x807b0bd4, 0x38000000); //pass TC to teammate
 kmWrite32(0x807bd2bc, 0x38000000); //RaceGlobals
 kmWrite32(0x807f18c8, 0x38000000); //TC alert
+
+// Lap Modifier
+
+RaceinfoPlayer * LoadLapCountFromKMP(RaceinfoPlayer * info, u8 index)
+{
+    u8 lapCount = KMP::Controller::sInstance->stageInfo->pointArray[0]->raw->lapCount;
+    RaceData::sInstance->racesScenario.settings.lapCount = lapCount;
+    return new(info) RaceinfoPlayer(index, lapCount);
+}
+
+
+kmCall(0x805328d4, LoadLapCountFromKMP);
+
+kmWrite32(0x805336B8, 0x60000000);
+kmWrite32(0x80534350, 0x60000000);
+kmWrite32(0x80534BBC, 0x60000000);
+kmWrite32(0x80723D10, 0x281D0009);
+kmWrite32(0x80723D40, 0x3BA00009);
+
+
+// Secondary KTPT
+KMP::KTPTHolder * GetLineKTPT(const KMP::Controller * controller, u32 idx)
+{
+    KMP::KTPTHolder * holder = controller->GetKTPTHolder(1);
+    if(!holder) holder = controller->GetKTPTHolder(0);
+    return holder;
+}
+
+kmCall(0x807ea670, GetLineKTPT);
+
+void CorrectKTPTRotationMirror(CtrlRace2DMapObject * object, Vec3 * rotation)
+{
+    if(RaceData::sInstance->racesScenario.settings.modeFlags & 1){
+        rotation->y *= -1;
+    }
+
+    object->SetMapRotation(rotation);
+}
+
+kmCall(0x807ea6e0, CorrectKTPTRotationMirror);

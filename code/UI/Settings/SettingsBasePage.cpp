@@ -55,7 +55,7 @@ namespace CosmosUI
         activePlayerBitfield = 1;
         scrollersCount = 1;
         
-        this->optionsPerScroller[0] = 2; 
+        this->optionsPerScroller[0] = 3; 
     }
 
     void SettingsBasePage::SetPrevPage(PageId pageId)
@@ -75,7 +75,7 @@ namespace CosmosUI
     {
         upDownControls = new UpDownControl();
         textUpDown = new TextUpDownValueControl();
-        currentPageId = (u32)Cosmos::RACE_SETTINGS1;
+        currentPageId = 0;
         Menu::OnInit();
         this->SetTransitionSound(0x0,0x0);
         this->koreanChange = false;
@@ -105,10 +105,9 @@ namespace CosmosUI
         {
             upDownControls->HandleRightPress(0, 0);
         }
-        if(currentPageId == (u32)Cosmos::RACE_SETTINGS1)
-            currentPageId = (u32)Cosmos::MENU_SETTINGS1;   
-        else
-            currentPageId = (u32)Cosmos::RACE_SETTINGS1;          
+
+        currentPageId = (currentPageId + (direction-1) + PAGECOUNT) % PAGECOUNT;
+        CosmosLog("Current Page ID: %d", currentPageId);
 
         UpDownControl::Select(upDownControls, 0);
     }
@@ -140,7 +139,7 @@ namespace CosmosUI
             this->AddControl(this->controlCount, upDownCtrl, 0);
             this->controlCount++;
 
-            upDownCtrl->Load(2, 0, "control", "DXSettingPageUpDownBase", "UpDown4", "DXSettingPageUpDownButtonR", "RightButton",
+            upDownCtrl->Load(PAGECOUNT, 0, "control", "DXSettingPageUpDownBase", "UpDown4", "DXSettingPageUpDownButtonR", "RightButton",
             "DXSettingPageUpDownButtonL", "LeftButton", (UpDownDisplayedText*) this->textUpDown, 1, 0, false, true, true);
             upDownCtrl->SetOnClickHandler(&this->onUpDownClickHandler);
             upDownCtrl->SetOnSelectHandler(&this->onUpDownSelectHandler);
@@ -185,7 +184,7 @@ namespace CosmosUI
         this->koreanChange = false;
         Menu::OnActivate();
         Page::transitionDelay = 176.0f;
-        this->AddPageLayer((PageId)currentPageId, 0);
+        this->AddPageLayer((PageId)settingsPageIds[currentPageId] , 0);
     }
 
     void SettingsBasePage::OnBackPress(u32 slotId)
@@ -206,7 +205,7 @@ namespace CosmosUI
 
         for(int i = 0; i < PAGECOUNT; i++)
         {
-            SettingSubPage * page = scene->Get<SettingSubPage>((PageId)(MINPAGE + i));
+            SettingSubPage * page = scene->Get<SettingSubPage>((PageId)(settingsPageIds[i]));
             SettingsPage * settings = &SettingsHolder::GetInstance()->GetSettings()->pages[i];
             for(UpDownControl * control = page->upDownControls; control < &page->upDownControls[page->scrollersCount]; control++)
             {

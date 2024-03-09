@@ -24,6 +24,8 @@
 #include <core/rvl/os/OS.hpp>
 //just for usability in other structs, so that you don't have to type EGG::type every time
 
+//#define WORLDWIDE_TEST
+
 template <class Subject, typename Ret>
 struct Ptmf_0A{
     int this_delta;

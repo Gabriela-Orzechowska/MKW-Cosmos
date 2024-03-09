@@ -109,12 +109,11 @@ void RemoveEscapeSequences(wchar_t * msg, int len)
     }
 }
 
-char * GetTextFromMessage(u32 messageId)
+void GetTextFromMessage(char * out, u32 messageId)
 {
-    static char message[128];
     s32 slot = AdditionalHolder->GetMsgId(messageId);
     if(slot < 0)
-        return "";
+        return;
     wchar_t * msg = AdditionalHolder->GetMsgByMsgId(slot);
 
     for(wchar_t * i = (wchar_t *) msg; *i != 0x0; i++)
@@ -131,8 +130,8 @@ char * GetTextFromMessage(u32 messageId)
     u32 mLen = wcslen(msg);
     RemoveEscapeSequences(msg,mLen);
 
-    memset(message, 0x0, 128);
-    wcstombs(message, msg, mLen+1);
+    memset(out, 0x0, 128);
+    wcstombs(out, msg, mLen+1);
 
-    return message;
+    return;
 }

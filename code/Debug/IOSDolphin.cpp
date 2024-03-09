@@ -99,8 +99,8 @@ namespace IOS
             request.address = &time;
             request.size = sizeof(time);
 
-            s32 ret = IOS::IOCtlv(devDolphin, (IOS::IOCtlType)GET_SPEED_LIMIT, 0, 1, &request);
-
+            s32 ret = IOS::IOCtlv(devDolphin, (IOS::IOCtlType)GET_SYSTEM_TIME, 0, 1, &request);
+            if(ret < 0) CosmosError("Failed to obtain SystemTime!\n");
             return time;
         }
 

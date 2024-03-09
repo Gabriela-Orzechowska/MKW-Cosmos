@@ -1,8 +1,11 @@
 #include <Ghost/GhostManager.hpp>
+#include <SlotExpansion/CupManager.hpp>
+#include <game/UI/Page/RaceMenu/TTPause.hpp>
+#include <game/UI/Page/RaceHUD/RaceHUD.hpp>
 
 void CorrectGhostTrackName(LayoutUIControl * control, const char *textBoxName, u32 bmgId, const TextInfo *text)
 {
-    u32 trackId = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
+    u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
     bmgId = trackId + 0x7000;
     control->SetTextBoxMsg(textBoxName, bmgId, text);
     return;
@@ -15,9 +18,12 @@ namespace CosmosGhost
     GhostManager * GhostManager::sInstance = NULL;
     char GhostManager::folderPath[IPCMAXPATH] = "";
 
-    GhostManager::GhostManager() : courseId(-1)
+    GhostManager::GhostManager()
     {
         this->folderManager = CosmosFile::FolderManager::Create();
+        this->courseId = -1;
+        this->isGhostValid = true;
+        this->pauseFrames = 0;
         this->files = NULL;
     }
 
@@ -56,7 +62,7 @@ namespace CosmosGhost
         CosmosFile::FileManager::GetStaticInstance()->CreateFolder(folderPath);
 
         char folderModePath[IPCMAXPATH];
-        snprintf(folderModePath, IPCMAXPATH, "%s/%s", folderPath, ttFolders[Cosmos::GetTTMode()]);
+        snprintf(folderModePath, IPCMAXPATH, "%s/%s", folderPath, ttFolders[Cosmos::System::GetStaticInstance()->GetTTMode()]);
         CosmosFile::FileManager::GetStaticInstance()->CreateFolder(folderModePath);
 
         manager->ReadFolder(folderModePath);
@@ -89,6 +95,7 @@ namespace CosmosGhost
         mainGhostIndex = 0xFF;
         delete[] this->files;
         this->files = nullptr;
+        this->isGhostValid = true;
         RaceData * raceData = RaceData::sInstance;
         raceData->menusScenario.players[1].playerType = PLAYER_NONE;
     }
@@ -138,7 +145,7 @@ namespace CosmosGhost
         char path[IPCMAXPATH];
         GhostManager * manager = (GhostManager *) holder;
         RKG * rkg = &manager->rkg;
-        snprintf(path, IPCMAXPATH, "%s/%01dm%02ds%03d.rkg", manager->folderManager->GetName(), rkg->header.minutes, rkg->header.seconds, rkg->header.milliseconds);
+        snprintf(path, IPCMAXPATH, "%s/%05d-%01dm%02ds%03d.rkg", manager->folderManager->GetName(), OSGetTime() ,rkg->header.minutes, rkg->header.seconds, rkg->header.milliseconds);
         CosmosFile::FileManager * fileManager = CosmosFile::FileManager::GetStaticInstance();
         fileManager->CreateOpen(path, CosmosFile::FILE_MODE_WRITE);
         u32 size = sizeof(RKG);
@@ -149,9 +156,73 @@ namespace CosmosGhost
         char folderPath[IPCMAXPATH];
         snprintf(folderPath, IPCMAXPATH, "%s/%03x", Cosmos::ghostFolder, manager->courseId);
         manager->GetLeaderboard()->Save(folderPath);
-        manager->Init(LeCode::LeCodeManager::GetStaticInstance()->GetTrackID());
+        manager->Init(Cosmos::CupManager::GetStaticInstance()->GetTrackID());
+
+        manager->mainGhostIndex = manager->rkgCount - 1;
         MenuData::sInstance->menudata98->isNewTime = true;
     }
+
+#define TIME_EPS 1000
+
+    void GhostManager::VerifyTime(){
+        if(!this->isGhostValid) return;
+        if(this->ttStartTime == 0) return;
+        this->isGhostValid = true;
+
+        u64 currentTime = IOS::Dolphin::GetSystemTime();
+        s64 timeDelta = (currentTime - this->ttStartTime - (this->pauseFrames * 1000 / 60));
+
+        u32 raceTime = (RaceInfo::sInstance->timer - 240) * 1000 / 60;
+        s32 raceRealTimeDelta = (s32)timeDelta - raceTime;
+
+        if(abs(raceRealTimeDelta) > TIME_EPS){
+            CosmosLog("Time delta: %llu, %llu, %llu, %d\nRace Time delta: %d\n", timeDelta, currentTime, this->ttStartTime, this->pauseFrames, raceRealTimeDelta);
+            Pages::RaceHUD * page = MenuData::sInstance->curScene->Get<Pages::RaceHUD>(TIME_TRIAL_INTERFACE);
+            if(page){
+                page->ghostMessage->isHidden = false;
+                page->ghostMessage->SetMsgId(0x2802);
+            }
+            this->isGhostValid = false;
+        }
+    }
+
+    void UpdateStartTime(Page * page, u32 soundIdx, u32 param_3){
+        GhostManager::GetStaticInstance()->UpdateStartTime(IOS::Dolphin::GetSystemTime());
+        page->PlaySound(soundIdx, param_3);
+        return;
+    }
+    kmCall(0x80857790, UpdateStartTime);
+
+    void VerifyTimeDuringRace(){
+        if(RaceInfo::sInstance->timer <= 260) return;
+
+        if(RaceData::sInstance->racesScenario.settings.gamemode == MODE_TIME_TRIAL){
+            GhostManager * manager = GhostManager::GetStaticInstance();
+            if(manager) {
+                if(RaceInfo::sInstance->timer & 63 == 63){
+                    manager->VerifyTime();
+                }
+            }
+        }
+    }
+
+    static RaceFrameHook rfhVerify(VerifyTimeDuringRace);
+
+    void OnTTMenuUpdate(Pages::TTPause * page)
+    {
+        if(MenuData::sInstance->curScene->pauseGame){
+            GhostManager::GetStaticInstance()->pauseFrames += 1;
+        }
+    }
+    kmWritePointer(0x808bdebc, OnTTMenuUpdate);
+
+    void UpdatePauseDuringHBM(){
+        if(RaceData::sInstance->racesScenario.settings.gamemode == MODE_TIME_TRIAL){
+            GhostManager * manager = GhostManager::GetStaticInstance();
+            if(manager) manager->pauseFrames += 1;
+        }
+    }
+    kmBranch(0x801776fc, UpdatePauseDuringHBM);
 
     GhostLeaderboardManager::GhostLeaderboardManager()
     {
@@ -172,21 +243,21 @@ namespace CosmosGhost
         if(ret > 0) ret = manager->Read(&this->file, sizeof(GhostLeaderboardFile));
         if(ret <= 0)
         {
-            manager->taskThread->Request(&GhostLeaderboardManager::CreateFile, (void*)id, NULL);
+            GhostLeaderboardManager::CreateFile(id);
         }
-
 
         manager->Close();
     }
 
-    void GhostLeaderboardManager::CreateFile(void * id)
+    void GhostLeaderboardManager::CreateFile(u32 id)
     {
         char filePath[IPCMAXPATH];
         snprintf(filePath, IPCMAXPATH, "%s/ld.glm", GhostManager::folderPath);
         CosmosFile::FileManager * manager = CosmosFile::FileManager::GetStaticInstance();
         manager->CreateOpen(filePath, CosmosFile::FILE_MODE_READ_WRITE);
         GhostLeaderboardFile * file = new (RKSystem::mInstance.EGGSystem, 0x20) GhostLeaderboardFile;
-        file->trackId = (u32) id;
+        memset(file, 0, sizeof(GhostLeaderboardFile));
+        file->trackId =  id;
         manager->Overwrite(sizeof(GhostLeaderboardFile), file);
         manager->Close();
         delete(file);
@@ -194,7 +265,7 @@ namespace CosmosGhost
 
     void GhostLeaderboardManager::Update(s32 position, TimeEntry * entry, u32 id)
     {
-        Cosmos::TT_MODE mode = Cosmos::GetTTMode();
+        Cosmos::TT_MODE mode = Cosmos::System::GetStaticInstance()->GetTTMode();
         GhostLeaderboardFile * lfile = &this->file;
         GhostTimeEntry * tentry = &lfile->entry[mode][position];
         if(position != ENTRY_FLAP)
@@ -221,6 +292,7 @@ namespace CosmosGhost
 
     s32 GhostLeaderboardManager::GetLeaderboardPosition(Timer * timer) const
     {
+        if(!GhostManager::GetStaticInstance()->IsValid()) return -1;
         s32 position = -1;
         Timer t_timer;
         for(int i = ENTRY_5TH; i >= 0; i--)
@@ -243,7 +315,7 @@ namespace CosmosGhost
 
     void GhostLeaderboardManager::GhostTimeEntryToTimer(Timer &timer, u32 index) const
     {
-        Cosmos::TT_MODE mode = Cosmos::GetTTMode();
+        Cosmos::TT_MODE mode = Cosmos::System::GetStaticInstance()->GetTTMode();
         timer.minutes = this->file.entry[mode][index].minutes;
         timer.seconds = this->file.entry[mode][index].seconds;
         timer.milliseconds = this->file.entry[mode][index].miliseconds;
@@ -253,7 +325,7 @@ namespace CosmosGhost
     void GhostLeaderboardManager::GhostTimeEntryToTimeEntry(TimeEntry &entry, u32 index)
     {
         this->GhostTimeEntryToTimer(entry.timer, index);
-        Cosmos::TT_MODE mode = Cosmos::GetTTMode();
+        Cosmos::TT_MODE mode = Cosmos::System::GetStaticInstance()->GetTTMode();
         memcpy(&entry.mii, &this->file.entry[mode][index].mii, sizeof(RawMii));
         entry.character = this->file.entry[mode][index].character;
         entry.kart = this->file.entry[mode][index].kart;
@@ -268,6 +340,8 @@ namespace CosmosGhost
     }
 
     s32 PlayCorrectMusic(LicenseManager *license, Timer *timer, u32 courseId){
+        GhostManager::GetStaticInstance()->VerifyTime();
+        CosmosLog("\n");
         return GhostManager::GetStaticInstance()->GetLeaderboard()->GetLeaderboardPosition(timer);
     }
     kmCall(0x80856fec, PlayCorrectMusic);
@@ -287,7 +361,7 @@ namespace CosmosGhost
 
     void CustomGhostGroup(GhostList * list, u32 id)
     {
-        u32 trackID = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
+        u32 trackID = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
         GhostManager * manager = GhostManager::GetStaticInstance();
         manager->Init(trackID);
         u32 index = 0;
@@ -436,7 +510,8 @@ namespace CosmosGhost
                 manager->GetLeaderboard()->Update(ENTRY_FLAP, &entry, -1);
             }
             entry.timer = splitsPage->timers[0];
-            s32 leaderboardPosition = manager->GetLeaderboard()->GetLeaderboardPosition(&splitsPage->timers[0]);
+            s32 leaderboardPosition = -1;
+            if(manager->IsValid()) leaderboardPosition = manager->GetLeaderboard()->GetLeaderboardPosition(&splitsPage->timers[0]);
             menu98->leaderboardPosition = leaderboardPosition;
             splitsPage->ctrlRaceCount.isHidden = true;
             if(leaderboardPosition > -1)
@@ -467,7 +542,7 @@ namespace CosmosGhost
 
                 if(data.CreateRKG(&buffer) && buffer.CompressTo(rkg))
                 {
-                    u32 trackId = LeCode::LeCodeManager::GetStaticInstance()->GetTrackID();
+                    u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
                     if(leaderboardPosition > -1) manager->GetLeaderboard()->Update(leaderboardPosition, &entry, trackId);
                     CosmosFile::FileManager::GetStaticInstance()->taskThread->Request(&GhostManager::CreateAndSaveFiles, manager, NULL);
                 }
