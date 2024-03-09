@@ -45,15 +45,7 @@ namespace Kamek.Hooks
             if (word.Type != WordType.AbsoluteAddr)
             {
                 if (word.Type == WordType.Value)
-                {
-                    uint val = mapper.Remap(word.Value, out bool wasPorted);
-                    if (wasPorted)
-                    {
-                        Console.Write($"{val:X8} ");
-                    }
-                    return new Word(WordType.AbsoluteAddr, val);
-                }
-                    
+                    return new Word(WordType.AbsoluteAddr, mapper.Remap(word.Value));
                 else
                     throw new InvalidDataException(string.Format("hook {0} requested an absolute address argument, but got {1}", this, word));
             }
@@ -66,7 +58,7 @@ namespace Kamek.Hooks
             switch (word.Type)
             {
                 case WordType.Value:
-                    return new Word(WordType.AbsoluteAddr, mapper.Remap(word.Value, out bool wasPorted));
+                    return new Word(WordType.AbsoluteAddr, mapper.Remap(word.Value));
                 case WordType.AbsoluteAddr:
                 case WordType.RelativeAddr:
                     return word;

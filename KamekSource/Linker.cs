@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kamek
 {
@@ -30,16 +28,16 @@ namespace Kamek
 
         public void LinkStatic(uint baseAddress, Dictionary<string, uint> externalSymbols)
         {
-            _baseAddress = new Word(WordType.AbsoluteAddr, Mapper.Remap(baseAddress, out bool inwasported));
+            _baseAddress = new Word(WordType.AbsoluteAddr, Mapper.Remap(baseAddress));
             DoLink(externalSymbols);
         }
-        public void LinkDynamic(Dictionary<String, uint> externalSymbols, bool createSMAP = false)
+        public void LinkDynamic(Dictionary<String, uint> externalSymbols)
         {
             _baseAddress = new Word(WordType.RelativeAddr, 0);
-            DoLink(externalSymbols, createSMAP);
+            DoLink(externalSymbols);
         }
 
-        private void DoLink(Dictionary<String, uint> externalSymbols, bool createSMAP = false)
+        private void DoLink(Dictionary<String, uint> externalSymbols)
         {
             if (_linked)
                 throw new InvalidOperationException("This linker has already been linked");
@@ -47,26 +45,21 @@ namespace Kamek
 
             _externalSymbols = new Dictionary<string, uint>();
             foreach (var pair in externalSymbols)
-            {
-                _externalSymbols.Add(pair.Key, Mapper.Remap(pair.Value, out bool wasPorted));
-                if(wasPorted)
-                {
-                    Console.Write($"{pair.Value:X8} ");
-                    //Console.WriteLine($"Could not port the address at {pair.Value:X8} for {pair.Key}");
-                }
-            }
-                
+                _externalSymbols.Add(pair.Key, Mapper.Remap(pair.Value));
 
             CollectSections();
             BuildSymbolTables();
-            ProcessRelocations(createSMAP);
+            ProcessRelocations();
             ProcessHooks();
         }
 
-
-
         private Word _baseAddress;
+        private Word _initStart, _initEnd;
+        private Word _textStart, _textEnd;
         private Word _ctorStart, _ctorEnd;
+        private Word _dtorStart, _dtorEnd;
+        private Word _rodataStart, _rodataEnd;
+        private Word _dataStart, _dataEnd;
         private Word _outputStart, _outputEnd;
         private Word _bssStart, _bssEnd;
         private Word _kamekStart, _kamekEnd;
@@ -88,9 +81,10 @@ namespace Kamek
         private Word _location;
 
         private void ImportSections(string prefix)
-        {
+        {            
             foreach (var elf in _modules)
             {
+                
                 foreach (var s in (from s in elf.Sections
                                    where s.name.StartsWith(prefix)
                                    select s))
@@ -117,17 +111,34 @@ namespace Kamek
         private void CollectSections()
         {
             _location = _baseAddress;
-
             _outputStart = _location;
+
+            _initStart = _location;
             ImportSections(".init");
+            _initEnd = _location;
+
             ImportSections(".fini");
+
+            _textStart = _location;
             ImportSections(".text");
+            _textEnd = _location;
+
             _ctorStart = _location;
             ImportSections(".ctors");
             _ctorEnd = _location;
+
+            _dtorStart = _location;
             ImportSections(".dtors");
+            _dtorEnd = _location;
+
+            _rodataStart = _location;
             ImportSections(".rodata");
+            _rodataEnd = _location;
+
+            _dataStart = _location;
             ImportSections(".data");
+            _dataEnd = _location;
+
             _outputEnd = _location;
 
             // TODO: maybe should align to 0x20 here?
@@ -178,9 +189,14 @@ namespace Kamek
             public uint size;
             public bool isWeak;
         }
+        private struct SymbolName
+        {
+            public string name;
+            public ushort shndx;
+        }
         private Dictionary<string, Symbol> _globalSymbols = null;
         private Dictionary<Elf, Dictionary<string, Symbol>> _localSymbols = null;
-        private Dictionary<Elf.ElfSection, string[]> _symbolTableContents = null;
+        private Dictionary<Elf.ElfSection, SymbolName[]> _symbolTableContents = null;
         private Dictionary<string, uint> _externalSymbols = null;
         private Dictionary<Word, uint> _symbolSizes = null;
         public IReadOnlyDictionary<Word, uint> SymbolSizes { get { return _symbolSizes; } }
@@ -189,11 +205,29 @@ namespace Kamek
         {
             _globalSymbols = new Dictionary<string, Symbol>();
             _localSymbols = new Dictionary<Elf, Dictionary<string, Symbol>>();
-            _symbolTableContents = new Dictionary<Elf.ElfSection, string[]>();
+            _symbolTableContents = new Dictionary<Elf.ElfSection, SymbolName[]>();
             _symbolSizes = new Dictionary<Word, uint>();
 
             _globalSymbols["__ctor_loc"] = new Symbol { address = _ctorStart };
             _globalSymbols["__ctor_end"] = new Symbol { address = _ctorEnd };
+
+            _globalSymbols["_f_init"] = new Symbol { address = _initStart };
+            _globalSymbols["_e_init"] = new Symbol { address = _initEnd };
+
+            _globalSymbols["_f_text"] = new Symbol { address = _textStart };
+            _globalSymbols["_e_text"] = new Symbol { address = _textEnd };
+
+            _globalSymbols["_f_ctors"] = new Symbol { address = _ctorStart };
+            _globalSymbols["_e_ctors"] = new Symbol { address = _ctorEnd };
+
+            _globalSymbols["_f_dtors"] = new Symbol { address = _dtorStart };
+            _globalSymbols["_e_dtors"] = new Symbol { address = _dtorEnd };
+
+            _globalSymbols["_f_rodata"] = new Symbol { address = _rodataStart };
+            _globalSymbols["_e_rodata"] = new Symbol { address = _rodataEnd };
+
+            _globalSymbols["_f_data"] = new Symbol { address = _dataStart };
+            _globalSymbols["_e_data"] = new Symbol { address = _dataEnd };
 
             foreach (Elf elf in _modules)
             {
@@ -216,19 +250,19 @@ namespace Kamek
             }
         }
 
-        private string[] ParseSymbolTable(Elf elf, Elf.ElfSection symtab, Elf.ElfSection strtab, Dictionary<string, Symbol> locals)
+        private SymbolName[] ParseSymbolTable(Elf elf, Elf.ElfSection symtab, Elf.ElfSection strtab, Dictionary<string, Symbol> locals)
         {
             if (symtab.sh_entsize != 16)
                 throw new InvalidDataException("Invalid symbol table format (sh_entsize != 16)");
             if (strtab.sh_type != Elf.ElfSection.Type.SHT_STRTAB)
                 throw new InvalidDataException("String table does not have type SHT_STRTAB");
 
-            var symbolNames = new List<string>();
+            var symbolNames = new List<SymbolName>();
             var reader = new BinaryReader(new MemoryStream(symtab.data));
             int count = symtab.data.Length / 16;
 
             // always ignore the first symbol
-            symbolNames.Add(null);
+            symbolNames.Add(new SymbolName());
             reader.BaseStream.Seek(16, SeekOrigin.Begin);
 
             for (int i = 1; i < count; i++)
@@ -246,18 +280,9 @@ namespace Kamek
 
                 string name = Util.ExtractNullTerminatedString(strtab.data, (int)st_name);
 
-                symbolNames.Add(name);
+                symbolNames.Add(new SymbolName { name = name, shndx = st_shndx });
                 if (name.Length == 0 || st_shndx == 0)
                     continue;
-
-                // What location is this referencing?
-                Elf.ElfSection refSection;
-                if (st_shndx < 0xFF00)
-                    refSection = elf.Sections[st_shndx];
-                else if (st_shndx == 0xFFF1) // absolute symbol
-                    refSection = null;
-                else
-                    throw new InvalidDataException("unknown section index found in symbol table");
 
                 Word addr;
                 if (st_shndx == 0xFFF1)
@@ -316,20 +341,31 @@ namespace Kamek
                 return _globalSymbols[name];
             if (_externalSymbols.ContainsKey(name))
                 return new Symbol { address = new Word(WordType.AbsoluteAddr, _externalSymbols[name]) };
-            if (name.StartsWith("__kAutoMap_")) {
+            if (name.StartsWith("__kAutoMap_"))
+            {
                 var addr = name.Substring(11);
                 if (addr.StartsWith("0x") || addr.StartsWith("0X"))
                     addr = addr.Substring(2);
                 var parsedAddr = uint.Parse(addr, System.Globalization.NumberStyles.AllowHexSpecifier);
-                var mappedAddr = Mapper.Remap(parsedAddr, out bool inwasported);
-                if(inwasported)
-                { 
-                    Console.Write($"{mappedAddr:X8} ");
-                }
+                var mappedAddr = Mapper.Remap(parsedAddr);
                 return new Symbol { address = new Word(WordType.AbsoluteAddr, mappedAddr) };
             }
 
             throw new InvalidDataException("undefined symbol " + name);
+        }
+
+        public void WriteSymbolMap(string path)
+        {
+            using StreamWriter file = new StreamWriter(path, false);
+            file.WriteLine("Kamek Binary Map");
+            file.WriteLine("  Offset   Size   Name");
+
+            foreach (var s in _globalSymbols.OrderBy(x => x.Value.address.Value))
+            {
+                String name = s.Key;
+                Symbol sym = s.Value;
+                file.WriteLine(String.Format("  {0:X8} {1:X6} {2}", sym.address.Value, sym.size, name));
+            }
         }
         #endregion
 
@@ -343,7 +379,7 @@ namespace Kamek
         private List<Fixup> _fixups = new List<Fixup>();
         public IReadOnlyList<Fixup> Fixups { get { return _fixups; } }
 
-        private void ProcessRelocations(bool createSMAP = false)
+        private void ProcessRelocations()
         {
             foreach (Elf elf in _modules)
             {
@@ -367,13 +403,13 @@ namespace Kamek
                     var affected = elf.Sections[(int)s.sh_info];
                     var symtab = elf.Sections[(int)s.sh_link];
 
-                    ProcessRelaSection(elf, s, affected, symtab, createSMAP);
+                    ProcessRelaSection(elf, s, affected, symtab);
                 }
             }
         }
 
 
-        private void ProcessRelaSection(Elf elf, Elf.ElfSection relocs, Elf.ElfSection section, Elf.ElfSection symtab, bool createSMAP = false)
+        private void ProcessRelaSection(Elf elf, Elf.ElfSection relocs, Elf.ElfSection section, Elf.ElfSection symtab)
         {
             if (relocs.sh_entsize != 12)
                 throw new InvalidDataException("Invalid relocs format (sh_entsize != 12)");
@@ -397,34 +433,14 @@ namespace Kamek
                 if (!_sectionBases.ContainsKey(section))
                     continue; // we don't care about this
 
-                string symName = _symbolTableContents[symtab][symIndex];
+                SymbolName symbol = _symbolTableContents[symtab][symIndex];
+                string symName = symbol.name;
                 //Console.WriteLine("{0,-30} {1}", symName, reloc);
 
                 Word source = _sectionBases[section] + r_offset;
-                Word dest = ResolveSymbol(elf, symName).address + r_addend;
+                Word dest = (String.IsNullOrEmpty(symName) ? _sectionBases[elf.Sections[symbol.shndx]] : ResolveSymbol(elf, symName).address) + r_addend;
 
-                if(createSMAP)
-                {
-                    if (dest.Type == WordType.RelativeAddr)
-                    {
-                        if (!File.Exists("KamekM.SMAP"))
-                        {
-                            using (FileStream fs = File.Create("KamekM.SMAP"))
-                            {
-                                byte[] info = new UTF8Encoding(true).GetBytes("KAMEK SMAP\n");
-                                fs.Write(info, 0, info.Length);
-                            }
-
-                        }
-
-                        using (StreamWriter stream = File.AppendText("KamekM.SMAP"))
-                        {
-                            stream.WriteLine($"{dest.Value:X08} {symName}");
-                        }
-                    }
-                }
-
-                //Console.WriteLine("Linking from {0} to {1}", source, dest);
+                //Console.WriteLine("Linking from 0x{0:X8} to 0x{1:X8}", source.Value, dest.Value);
 
                 if (!KamekUseReloc(reloc, source, dest))
                     _fixups.Add(new Fixup { type = reloc, source = source, dest = dest });

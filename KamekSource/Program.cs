@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace Kamek
 {
     class Program
     {
+
+        
         static void Main(string[] args)
         {
             Console.WriteLine("Kamek 2.0 by Ninji/Ash Wolf - https://github.com/Treeki/Kamek");
@@ -18,14 +21,29 @@ namespace Kamek
             // Parse the command line arguments and do cool things!
             var modules = new List<Elf>();
             uint? baseAddress = null;
-            string outputKamekPath = null, outputRiivPath = null, outputDolphinPath = null, outputGeckoPath = null, outputARPath = null, outputCodePath = null;
+            string outputKamekPath = null, outputRiivPath = null, outputDolphinPath = null, outputGeckoPath = null, outputARPath = null, outputCodePath = null, outputCombinedPath = null;
             string inputDolPath = null, outputDolPath = null;
+            string outputMapPath = null;
+            List<byte> combined = new List<byte>();
             var externals = new Dictionary<string, uint>();
             VersionInfo versions = null;
+            Debug debug = null;
             var selectedVersions = new List<String>();
 
+            if (args.Contains("-debug"))
+            {
+
+                string mapPath = args.First(x => x.StartsWith("-map=")).Substring(5);
+                string readElfPath = args.First(x => x.StartsWith("-readelf=")).Substring(9);
+                if(mapPath != null && readElfPath != null)
+                {
+                    debug = new Debug(mapPath, readElfPath);
+                }                  
+
+            }
             foreach (var arg in args)
             {
+                
                 if (arg.StartsWith("-"))
                 {
                     if (arg == "-h" || arg == "-help" || arg == "--help")
@@ -33,8 +51,10 @@ namespace Kamek
                         ShowHelp();
                         return;
                     }
+
                     if (arg == "-dynamic")
                         baseAddress = null;
+                    else if (arg == "-debug" || arg.StartsWith("-map=") || arg.StartsWith("-readelf=")) { }
                     else if (arg.StartsWith("-static=0x"))
                         baseAddress = uint.Parse(arg.Substring(10), System.Globalization.NumberStyles.HexNumber);
                     else if (arg.StartsWith("-output-kamek="))
@@ -49,10 +69,16 @@ namespace Kamek
                         outputARPath = arg.Substring(11);
                     else if (arg.StartsWith("-output-code="))
                         outputCodePath = arg.Substring(13);
+                    else if (arg.StartsWith("-output-combined="))
+                    {
+                        outputCombinedPath = arg.Substring(17);
+                    }
                     else if (arg.StartsWith("-input-dol="))
                         inputDolPath = arg.Substring(11);
                     else if (arg.StartsWith("-output-dol="))
                         outputDolPath = arg.Substring(12);
+                    else if (arg.StartsWith("-output-map="))
+                        outputMapPath = arg.Substring(12);
                     else if (arg.StartsWith("-externals="))
                         ReadExternals(externals, arg.Substring(11));
                     else if (arg.StartsWith("-versions="))
@@ -65,13 +91,19 @@ namespace Kamek
                 else
                 {
                     Console.WriteLine("adding {0} as object..", arg);
-                    using (var stream = new FileStream(arg, FileMode.Open))
+                    
+                    if (debug != null)
+                    {
+                        //debug.AnalyzeFile(arg);
+                    }
+                    using (var stream = new FileStream(arg, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                     {
                         modules.Add(new Elf(stream));
                     }
+                    
                 }
             }
-
+            if (debug != null) debug.Save();
 
             // We need a default VersionList for the loop later
             if (versions == null)
@@ -84,7 +116,8 @@ namespace Kamek
                 Console.WriteLine("no input files specified");
                 return;
             }
-            if (outputKamekPath == null && outputRiivPath == null && outputDolphinPath == null && outputGeckoPath == null && outputARPath == null && outputCodePath == null && outputDolPath == null)
+            if (outputKamekPath == null && outputRiivPath == null && outputDolphinPath == null && outputGeckoPath == null && outputARPath == null 
+                && outputCodePath == null && outputDolPath == null && outputCombinedPath == null)
             {
                 Console.WriteLine("no output path(s) specified");
                 return;
@@ -115,12 +148,11 @@ namespace Kamek
                 }
             }
 
+            
+
 
             foreach (var version in versions.Mappers)
             {
-                bool createSMAP = false;
-                if(version.Key == "P") createSMAP = true;
-
                 if (selectedVersions.Count > 0 && !selectedVersions.Contains(version.Key))
                 {
                     Console.WriteLine("(skipping version {0} as it's not selected)", version.Key);
@@ -135,7 +167,7 @@ namespace Kamek
                 if (baseAddress.HasValue)
                     linker.LinkStatic(baseAddress.Value, externals);
                 else
-                    linker.LinkDynamic(externals, createSMAP);
+                    linker.LinkDynamic(externals);
 
                 var kf = new KamekFile();
                 kf.LoadFromLinker(linker);
@@ -151,10 +183,12 @@ namespace Kamek
                     File.WriteAllText(outputARPath.Replace("$KV$", version.Key), kf.PackActionReplayCodes());
                 if (outputCodePath != null)
                     File.WriteAllBytes(outputCodePath.Replace("$KV$", version.Key), kf.CodeBlob);
+                if (outputCombinedPath != null)
+                    combined.AddRange(kf.Pack());
 
                 if (outputDolPath != null)
                 {
-                    var dol = new Dol(new FileStream(inputDolPath.Replace("$KV$", version.Key), FileMode.Open));
+                    var dol = new Dol(new FileStream(inputDolPath.Replace("$KV$", version.Key), FileMode.Open, FileAccess.ReadWrite, FileShare.None));
                     kf.InjectIntoDol(dol);
 
                     var outpath = outputDolPath.Replace("$KV$", version.Key);
@@ -163,7 +197,18 @@ namespace Kamek
                         dol.Write(outStream);
                     }
                 }
+
+                if (outputMapPath != null)
+                {
+                    linker.WriteSymbolMap(outputMapPath.Replace("$KV$", version.Key));
+                }
+
+                if(outputCombinedPath != null)
+                {
+                    File.WriteAllBytes(outputCombinedPath, combined.ToArray());
+                }
             }
+            
         }
 
         private static void ReadExternals(Dictionary<string, uint> dict, string path)
@@ -227,6 +272,8 @@ namespace Kamek
             Console.WriteLine("      apply these patches and generate a modified DOL (-static only)");
             Console.WriteLine("    -output-code=file.$KV$.bin");
             Console.WriteLine("      write the combined code+data segment to file.bin (for manual injection or debugging)");
+            Console.WriteLine("    -output-map=file.$KV$.map");
+            Console.WriteLine("      write a list of symbols and their relative offsets (for debugging)");
         }
     }
 }

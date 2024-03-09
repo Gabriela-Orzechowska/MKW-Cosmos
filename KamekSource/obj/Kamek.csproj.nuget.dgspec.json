@@ -1,36 +1,36 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Kamek\\MKWDX-Kamek\\KamekSource\\Kamek.csproj": {}
+    "C:\\Modding\\Coding\\Kamek\\Common\\KamekLinker\\Kamek.csproj": {}
   },
   "projects": {
-    "D:\\Kamek\\MKWDX-Kamek\\KamekSource\\Kamek.csproj": {
+    "C:\\Modding\\Coding\\Kamek\\Common\\KamekLinker\\Kamek.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Kamek\\MKWDX-Kamek\\KamekSource\\Kamek.csproj",
+        "projectUniqueName": "C:\\Modding\\Coding\\Kamek\\Common\\KamekLinker\\Kamek.csproj",
         "projectName": "Kamek",
-        "projectPath": "D:\\Kamek\\MKWDX-Kamek\\KamekSource\\Kamek.csproj",
-        "packagesPath": "C:\\Users\\Gabi\\.nuget\\packages\\",
-        "outputPath": "D:\\Kamek\\MKWDX-Kamek\\KamekSource\\obj\\",
+        "projectPath": "C:\\Modding\\Coding\\Kamek\\Common\\KamekLinker\\Kamek.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Modding\\Coding\\Kamek\\Common\\KamekLinker\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Gabi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -38,11 +38,24 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.NET.ILLink.Tasks": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.2, )",
+              "autoReferenced": true
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -59,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

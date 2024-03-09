@@ -5,7 +5,7 @@ import subprocess, shlex
 
 CC="C:\Program Files (x86)\Freescale\CW for MPC55xx and MPC56xx 2.10\PowerPC_EABI_Tools\Command_Line_Tools\mwcceppc.exe"
 CFLAGS="""-I- -i "engine" -i "source" -i "source/game" -i code -gcc_extensions on -Cpp_exceptions off -enum int -O4,s -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0 -maxerrors 1 -func_align 4 -rtti off"""
-LD = "KamekSource/bin/Debug/net6.0/Kamek"
+LD = "KamekSource/bin/Debug/net8.0/Kamek"
 
 OBJECTS = []
 
@@ -63,7 +63,7 @@ def main():
     print("Linking...")
     link = " ".join(OBJECTS)
 
-    kamek = f"{LD} build/kamek.o {link} -dynamic -externals=\"source/symbols.txt\" -versions=\"source/versions.txt\" -output-kamek=out/$KV$.bin"
+    kamek = f"{LD} build/kamek.o {link} -dynamic -debug -map=\"D:\Kamek\MKWDX-Kamek\KamekMap.map\" -readelf=\"C:\cygnus\cygwin-b20\H-i586-cygwin32\bin\readelf.exe\" -externals=\"source/symbols.txt\" -versions=\"source/versions.txt\" -output-kamek=out/$KV$.bin"
     subprocess.run(shlex.split(kamek))
 
     print("Linking done")
