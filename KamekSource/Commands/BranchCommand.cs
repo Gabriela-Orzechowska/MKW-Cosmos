@@ -36,7 +36,7 @@ namespace Kamek.Commands
             Address.Value.AssertAbsolute();
             Target.AssertAbsolute();
 
-            return string.Format("0x{0:X8}:dword:0x{1:X8}", Address.Value.Value, GenerateInstruction());
+            return string.Format("0x{0:X8}:dword:0x{1:X8}", Address.Value, GenerateInstruction());
         }
 
         public override IEnumerable<ulong> PackGeckoCodes()
@@ -63,9 +63,7 @@ namespace Kamek.Commands
 
         public override bool Apply(KamekFile file)
         {
-            if (Address.Value.Type == file.BaseAddress.Type
-                    && file.Contains(Address.Value)
-                    && Address.Value.Type == Target.Type)
+            if (Address.Value.IsAbsolute && Target.IsAbsolute && file.Contains(Address.Value))
             {
                 file.WriteUInt32(Address.Value, GenerateInstruction());
                 return true;

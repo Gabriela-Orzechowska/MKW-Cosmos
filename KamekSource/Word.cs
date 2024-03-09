@@ -111,4 +111,14 @@ namespace Kamek
             throw new NotImplementedException();
         }
     }
+
+
+    public static class WordUtils
+    {
+        public static void WriteBE(this BinaryWriter bw, Word word)
+        {
+            bw.Write((byte)word.Type);
+            bw.WriteBE((uint)word.Value);
+        }
+    }
 }

@@ -18,7 +18,7 @@ public class AddressMapper
 
         public override string ToString()
         {
-            return string.Format("{0:8X}-{1:8X}: {2}0x{3:X}", start, end, (delta >= 0) ? '+' : '-', Math.Abs(delta));
+            return string.Format("{0:X8}-{1:X8}: {2}0x{3:X}", start, end, (delta >= 0) ? '+' : '-', Math.Abs(delta));
         }
     }
 
@@ -41,17 +41,22 @@ public class AddressMapper
     }
 
 
-    public uint Remap(uint input)
+    public uint Remap(uint input, out bool wasPorted)
     {
+        wasPorted = false;
         if (Base != null)
-            input = Base.Remap(input);
+            input = Base.Remap(input, out bool inwasported);
 
         foreach (var mapping in _mappings)
         {
             if (input >= mapping.start && input <= mapping.end)
+            {
                 return (uint)(input + mapping.delta);
+            }
+                
         }
-
+        wasPorted = true;
+        //Console.WriteLine($"Could not find mapping for: {input:X8}");
         return input;
     }
 }

@@ -1,0 +1,55 @@
+D:\Modding\Coding\Kamek\Kamek\bin\Debug\net6.0\Kamek.exe
+D:\Modding\Coding\Kamek\Kamek\bin\Debug\net6.0\Kamek.dll.config
+D:\Modding\Coding\Kamek\Kamek\bin\Debug\net6.0\Kamek.deps.json
+D:\Modding\Coding\Kamek\Kamek\bin\Debug\net6.0\Kamek.runtimeconfig.json
+D:\Modding\Coding\Kamek\Kamek\bin\Debug\net6.0\Kamek.dll
+D:\Modding\Coding\Kamek\Kamek\bin\Debug\net6.0\Kamek.pdb
+D:\Modding\Coding\Kamek\Kamek\obj\Debug\net6.0\Kamek.csproj.AssemblyReference.cache
+D:\Modding\Coding\Kamek\Kamek\obj\Debug\net6.0\Kamek.GeneratedMSBuildEditorConfig.editorconfig
+D:\Modding\Coding\Kamek\Kamek\obj\Debug\net6.0\Kamek.csproj.CoreCompileInputs.cache
+D:\Modding\Coding\Kamek\Kamek\obj\Debug\net6.0\Kamek.dll
+D:\Modding\Coding\Kamek\Kamek\obj\Debug\net6.0\refint\Kamek.dll
+D:\Modding\Coding\Kamek\Kamek\obj\Debug\net6.0\Kamek.pdb
+D:\Modding\Coding\Kamek\Kamek\obj\Debug\net6.0\Kamek.genruntimeconfig.cache
+D:\Modding\Coding\Kamek\Kamek\obj\Debug\net6.0\ref\Kamek.dll
+D:\Mario Kart Wii\Kamek-Project\KamekSource\bin\Debug\net6.0\Kamek.exe
+D:\Mario Kart Wii\Kamek-Project\KamekSource\bin\Debug\net6.0\Kamek.dll.config
+D:\Mario Kart Wii\Kamek-Project\KamekSource\bin\Debug\net6.0\Kamek.deps.json
+D:\Mario Kart Wii\Kamek-Project\KamekSource\bin\Debug\net6.0\Kamek.runtimeconfig.json
+D:\Mario Kart Wii\Kamek-Project\KamekSource\bin\Debug\net6.0\Kamek.dll
+D:\Mario Kart Wii\Kamek-Project\KamekSource\bin\Debug\net6.0\Kamek.pdb
+D:\Mario Kart Wii\Kamek-Project\KamekSource\obj\Debug\net6.0\Kamek.csproj.AssemblyReference.cache
+D:\Mario Kart Wii\Kamek-Project\KamekSource\obj\Debug\net6.0\Kamek.GeneratedMSBuildEditorConfig.editorconfig
+D:\Mario Kart Wii\Kamek-Project\KamekSource\obj\Debug\net6.0\Kamek.csproj.CoreCompileInputs.cache
+D:\Mario Kart Wii\Kamek-Project\KamekSource\obj\Debug\net6.0\Kamek.dll
+D:\Mario Kart Wii\Kamek-Project\KamekSource\obj\Debug\net6.0\refint\Kamek.dll
+D:\Mario Kart Wii\Kamek-Project\KamekSource\obj\Debug\net6.0\Kamek.pdb
+D:\Mario Kart Wii\Kamek-Project\KamekSource\obj\Debug\net6.0\Kamek.genruntimeconfig.cache
+D:\Mario Kart Wii\Kamek-Project\KamekSource\obj\Debug\net6.0\ref\Kamek.dll
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.exe
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.dll.config
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.deps.json
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.runtimeconfig.json
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.dll
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.pdb
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.csproj.CoreCompileInputs.cache
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.dll
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\refint\Kamek.dll
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.pdb
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.genruntimeconfig.cache
+C:\Users\janor\Documents\GitHub\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\ref\Kamek.dll
+D:\Kamek\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.exe
+D:\Kamek\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.dll.config
+D:\Kamek\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.deps.json
+D:\Kamek\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.runtimeconfig.json
+D:\Kamek\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.dll
+D:\Kamek\MKWDX-Kamek\KamekSource\bin\Debug\net6.0\Kamek.pdb
+D:\Kamek\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.csproj.AssemblyReference.cache
+D:\Kamek\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.GeneratedMSBuildEditorConfig.editorconfig
+D:\Kamek\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.csproj.CoreCompileInputs.cache
+D:\Kamek\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.dll
+D:\Kamek\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\refint\Kamek.dll
+D:\Kamek\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.pdb
+D:\Kamek\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.genruntimeconfig.cache
+D:\Kamek\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\ref\Kamek.dll
