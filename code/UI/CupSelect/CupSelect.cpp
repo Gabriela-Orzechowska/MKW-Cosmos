@@ -25,7 +25,7 @@ namespace CosmosUI
         onLeftArrowSelectHandler.subject = this;
         onLeftArrowSelectHandler.ptmf = &CupSelectPlus::OnLeftArrowSelect;
         
-
+        this->ctrlMenuCupSelectCup.curCupID = Cosmos::CupManager::sInstance->lastSelectedCup;
         onSwitchPressHandler.subject = this;
         onSwitchPressHandler.ptmf = &CupSelectPlus::OnSwitchPress;
         this->controlsManipulatorManager.SetGlobalHandler(SWITCH_PRESS, (PtmfHolder_1A<Page, void, u32>*)&onSwitchPressHandler, false, false);
@@ -219,6 +219,12 @@ namespace CosmosUI
 
     //Disable THP
     kmWrite32(0x808404f8, 0x60000000);
+
+    u32 ReturnCorrectCup(Page * page){
+        return Cosmos::CupManager::sInstance->lastSelectedCup;
+    }
+
+    kmCall(0x807e6104, ReturnCorrectCup);
 
     u32 CorrectCourseSelectCup(Pages::CupSelect * page)
     {

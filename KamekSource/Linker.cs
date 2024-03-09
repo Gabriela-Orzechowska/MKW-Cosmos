@@ -409,6 +409,7 @@ namespace Kamek
                     {
                         if (!File.Exists("KamekM.SMAP"))
                         {
+                            //File.Delete("KamekM.SMAP");
                             using (FileStream fs = File.Create("KamekM.SMAP"))
                             {
                                 byte[] info = new UTF8Encoding(true).GetBytes("KAMEK SMAP\n");
@@ -419,7 +420,7 @@ namespace Kamek
 
                         using (StreamWriter stream = File.AppendText("KamekM.SMAP"))
                         {
-                            stream.WriteLine($"{dest.Value:X08} {symName}");
+                            stream.WriteLine($"{dest.Value + 0x8042ea00:X08} {symName}");
                         }
                     }
                 }

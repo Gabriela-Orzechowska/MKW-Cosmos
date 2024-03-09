@@ -119,7 +119,7 @@ namespace Kamek
             foreach (var version in versions.Mappers)
             {
                 bool createSMAP = false;
-                if(version.Key == "P") createSMAP = true;
+                // if(version.Key == "P") createSMAP = true;
 
                 if (selectedVersions.Count > 0 && !selectedVersions.Contains(version.Key))
                 {
