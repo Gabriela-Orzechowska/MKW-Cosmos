@@ -78,6 +78,8 @@
 
  3200   = DWC Logs
  3A00   = Enable/Disable DWC Logs in Console.
+ 3210   = Performance Monitor
+
 
  2820   = A solo race for the fastest record! (200cc)
  2830   = Change Combo

@@ -19,7 +19,9 @@ namespace CosmosDebug
         EGG::CpuMonitor objectBar;
         EGG::CpuMonitor physicsBar;
         EGG::CpuMonitor effectBar;
-
+        bool visible;
+        bool enabled;
+        bool inRace;
     };
 
 } // namespace CosmosDebug

@@ -41,9 +41,11 @@ void * CreatePage(Scene * scene, u32 pageId)
     {
 
         CosmosUI::SettingPageDefinition definition;
-        definition.settingCount = 1;
+        definition.settingCount = 2;
         definition.settings[0].isBool = true;
         definition.settings[0].optionCount = 2;
+        definition.settings[1].isBool = true;
+        definition.settings[1].optionCount = 2;
 
         return new(CosmosUI::SettingSubPage)(&definition ,pageId, 2);
     }

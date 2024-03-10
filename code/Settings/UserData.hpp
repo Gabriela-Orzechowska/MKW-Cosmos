@@ -73,6 +73,7 @@ namespace CosmosData
     enum SETTINGSPAGES{
         COSMOS_RACE_SETTINGS_1 = 0x0,
         COSMOS_MENU_SETTINGS_1 = 0x1,
+        COSMOS_DEBUG_SETTINGS = 0x2,
     };
 
     enum RACE_SETTINGS_1_SETTINGS {
@@ -87,6 +88,11 @@ namespace CosmosData
         COSMOS_LAYOUT = 0x2,
     };
     
+    enum DEBUG_SETTINGS {
+        COSMOS_DWC_LOGS = 0x0,
+        COSMOS_PERFORMANCE_MONITOR = 0x1,
+    };
+
     enum MUSIC_CUTOFF_OPTIONS {
         SPEEDUP = 0x0,
         NO_CUTOFF = 0x1,
@@ -107,6 +113,12 @@ namespace CosmosData
     enum SETTINGS_BOOL {
         ENABLED = 0x0,
         DISABLED = 0x1,
+    };
+
+    enum PERFORMANCE_MONITOR_MODE{
+        PM_DISABLED = 0x0,
+        PM_INRACE = 0x1,
+        OM_ALWAYS = 0x2,
     };
 
 

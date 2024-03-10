@@ -48,7 +48,9 @@ namespace CosmosDebug
     kmCall(0x800097a4, measureEndCPU);
 
     void measureEndGPU(EGG::PerformanceView* view) {
-        view->setVisible(true);
+        PerformanceMonitor * meter = (PerformanceMonitor *) RKSystem::mInstance.processMeter;
+
+        view->setVisible(meter->visible);
         view->draw();
         view->measureEndRender();
     }
@@ -77,5 +79,6 @@ namespace CosmosDebug
         monitor->measureEnd();
     }
     kmCall(0x80554ce8, EffectMeasurement);
+
 
 } // namespace CosmosDebug

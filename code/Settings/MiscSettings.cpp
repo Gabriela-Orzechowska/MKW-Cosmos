@@ -1,6 +1,7 @@
 #include <kamek.hpp>
 #include <Settings/UserData.hpp>
 #include <game/Scene/BaseScene.hpp>
+#include <Debug/Draw/PerformanceMonitor.hpp>
 
 using namespace CosmosData;
 
@@ -16,3 +17,10 @@ void SetFrameRate(GameScene * scene, u8 mode)
 
 kmCall(0x80554270, SetFrameRate);
 kmCall(0x80554abc, SetFrameRate);
+
+void SetPerfMonitorVisibility()
+{
+    ((CosmosDebug::PerformanceMonitor *) RKSystem::mInstance.processMeter)->visible = (SettingsHolder::GetInstance()->GetSettings()->pages[COSMOS_DEBUG_SETTINGS].setting[COSMOS_PERFORMANCE_MONITOR] == 0);
+}
+static SettingsUpdateHook suhSetPerfMonitorVisibility(SetPerfMonitorVisibility);
+static BootHook bhSetPerfMonitorVisibility(SetPerfMonitorVisibility, LOW);
