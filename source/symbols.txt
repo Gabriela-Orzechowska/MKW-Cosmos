@@ -329,7 +329,7 @@ __vt__Q23EGG10CpuMonitor = 0x802a3d60
 show__Q23EGG10CpuMonitorFv = 0x80238750 
 hide__Q23EGG10CpuMonitorFv = 0x80238760
 measureBegin__Q23EGG10CpuMonitorFv = 0x802386dc
-measureEnd__Q23EGG10CpuMonitorFv = 0x80238750
+measureEnd__Q23EGG10CpuMonitorFv = 0x80238714
 
 #Thread
 OnEnter__Q23EGG6ThreadFv = 0x80008e80

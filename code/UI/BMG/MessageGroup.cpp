@@ -1,6 +1,6 @@
 #include <UI/BMG/MessageGroup.hpp>
 
-static BMGHolder * AdditionalHolder = new(BMGHolder);
+static BMGHolder * AdditionalHolder = nullptr;
 
 static char * suffixes[13] = {
     "",
@@ -17,6 +17,11 @@ static char * suffixes[13] = {
     "_J",
     "_K",
 };
+
+void CreateAdditionalHolder(){
+    AdditionalHolder = new (BMGHolder);
+}
+static BootHook bhCreateAdditionalHolder(CreateAdditionalHolder, LOW);
 
 void InjectAdditionalHolder(BMGHolder * baseHolder, char * filename)
 {

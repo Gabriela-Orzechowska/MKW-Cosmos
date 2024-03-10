@@ -18,7 +18,7 @@ public:
     virtual void vf_0x1c();             //0x1c 80234a00
     virtual void draw();                //0x20
     virtual void setVisible(bool isVisible);          //0x24
-    virtual void isVisible();           //0x28
+    virtual bool isVisible();           //0x28
 };
 
 class ProcessBar {
@@ -87,7 +87,7 @@ public:
     void callbackDrawSync(u16 token) override;  //0x18 thunk 80239698 func 80238d40
     void draw() override;                       //0x20 thunk 80239690 func 80239338
     void setVisible(bool isVisible) override;   //0x24 thunk 80239688 func 80238f14
-    void isVisible() override;                  //0x28 thunk 80239680 func 80238f3c
+    bool isVisible() override;                  //0x28 thunk 80239680 func 80238f3c
 
     void append(CpuMonitor *cpuMonitor); //80238f48
     void append(CpuGpMonitor *cpuGpMonitor); //80238f54
@@ -97,7 +97,10 @@ public:
     void draw(u32 videoTicks, float width, float height);
 
     nw4r::ut::Color lineColor; //0x4c
-    float unknown_0x50[4];
+    float xOrigin;
+    float yOrigin;
+    float xSize;
+    float ySize;
     nw4r::ut::List processBarList; //0x60
     CpuGpMonitor::Next *beginNext;
     CpuGpMonitor::Next *endNext;

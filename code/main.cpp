@@ -34,6 +34,14 @@ namespace Cosmos{
     void System::Init(){
         this->currentTTMode = COSMOS_TT_150cc;
         this->CreateFolders();
+
+        EGG::ProcessMeter * meter = RKSystem::mInstance.processMeter;
+
+        meter->xOrigin = 20.0f;
+        meter->yOrigin = 1.0f;
+        meter->xSize = 50.0f;
+        meter->ySize = 0.75f;
+
     }
 
     void System::CreateFolders()

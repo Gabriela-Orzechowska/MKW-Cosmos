@@ -251,6 +251,7 @@ public:
     void Init(u32 sceneId); //8067b580
     void CreatePlayerEffects(); //8067c4f4
     void Reset(); //8067b8f0
+    void Update(); //8067cb88
     EGG::Effect *GetMenuEffectByIdx(u32 idx); //8067daa8
     u32 playerCount; //from racedata 8067b580
     u32 localPlayerCount; //0x4
