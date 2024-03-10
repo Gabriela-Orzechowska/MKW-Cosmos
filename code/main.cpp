@@ -61,6 +61,7 @@ namespace Cosmos{
 
     void System::SetTTMode(TT_MODE mode){
         this->currentTTMode = mode;
+        CosmosLog("Setting TT gamemode to: %s\n", mode == COSMOS_TT_200cc ? "200cc" : "150cc");
     }
 
     void System::Shutdown(){

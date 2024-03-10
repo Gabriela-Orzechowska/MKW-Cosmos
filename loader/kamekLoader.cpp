@@ -142,8 +142,9 @@ inline void cacheInvalidateAddress(u32 address) {
 }
 
 
-void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLength)
+void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLength, bool isDol)
 {
+    static u32 text = 0;
     const KBHeader *header = (const KBHeader *)binary;
     if (header->magic1 != 'Kame' || header->magic2 != 'k\0')
         kamekError(funcs, "FATAL ERROR: Corrupted file, please check your game's Kamek files");
@@ -159,8 +160,7 @@ void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLengt
     u32 textSize = header->codeSize + header->bssSize;
 
     EGG::ExpHeap *heap = funcs->rkSystem->EGGSystem;
-    u32 text = (u32)heap->alloc(textSize, 0x20);
-
+    if(isDol) text = (u32)heap->alloc(textSize, 0x20);
 
 
     if (!text)
@@ -172,16 +172,19 @@ void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLengt
 
     *(u32 *)0x80003FFC = (u32)text;
 
-    // Create text + bss sections
-    for (u32 i = 0; i < header->codeSize; i++) {
-        *output = *(input++);
-        cacheInvalidateAddress((u32)(output++));
-    }
-    for (u32 i = 0; i < header->bssSize; i++) {
-        *output = 0;
-        cacheInvalidateAddress((u32)(output++));
-    }
 
+    if(isDol)
+    {
+        // Create text + bss sections
+        for (u32 i = 0; i < header->codeSize; i++) {
+            *output = *(input++);
+            cacheInvalidateAddress((u32)(output++));
+        }
+        for (u32 i = 0; i < header->bssSize; i++) {
+            *output = 0;
+            cacheInvalidateAddress((u32)(output++));
+        }
+    }
     while (input < inputEnd) {
         u32 cmdHeader = *((u32 *)input);
         input += 4;
@@ -191,10 +194,13 @@ void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLengt
         if (address == 0xFFFFFE) {
             // Absolute address
             address = *((u32 *)input);
+            if(address < 0x80510238 && !isDol) continue;
+            else if(address >= 0x80510238 && isDol) continue;
             input += 4;
         }
         else {
             // Relative address
+            if(!isDol) continue;
             address += text;
         }
 
@@ -223,40 +229,52 @@ void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLengt
     __isync();
 
     typedef void (*Func)(void);
-    for (Func *f = (Func *)(text + header->ctorStart); f < (Func *)(text + header->ctorEnd); f++) {
-        (*f)();
+    if(!isDol)
+    {
+        for (Func *f = (Func *)(text + header->ctorStart); f < (Func *)(text + header->ctorEnd); f++) {
+            (*f)();
+        }
     }
 }
 
-
+static void * codeBuf = nullptr;
 void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path)
 {
-    funcs->OSReport("{Kamek by Treeki}\nLoading Kamek binary '%s'...\n", path);
 
-    int entrynum = funcs->DVDConvertPathToEntrynum(path);
-    if (entrynum < 0) {
-        char err[512];
-        funcs->sprintf(err, "FATAL ERROR: Failed to locate file on the disc: %s", path);
-        kamekError(funcs, err);
+    static u32 fileLength = 0;
+    funcs->OSReport("{Kamek by Treeki}\nLoading Kamek binary '%s'...\n", path);
+    bool isDol = false;
+
+    EGG::ExpHeap *heap = funcs->rkSystem->EGGSystem;
+    if(codeBuf == nullptr){
+
+        int entrynum = funcs->DVDConvertPathToEntrynum(path);
+        if (entrynum < 0) {
+            char err[512];
+            funcs->sprintf(err, "FATAL ERROR: Failed to locate file on the disc: %s", path);
+            kamekError(funcs, err);
+        }
+
+        DVDFileInfo fileInfo;
+        if (!funcs->DVDFastOpen(entrynum, &fileInfo))
+            kamekError(funcs, "FATAL ERROR: Failed to open file!");
+
+        funcs->OSReport("DVD file located: addr=%p, size=%d\n", fileInfo.startAddr, fileInfo.length);
+
+        u32 length = fileInfo.length;
+        u32 roundedLength = (fileInfo.length + 0x1F) & ~0x1F;
+        codeBuf = heap->alloc(roundedLength, -0x20);
+
+        if (!codeBuf)
+            kamekError(funcs, "FATAL ERROR: Out of file memory");
+
+        funcs->DVDReadPrio(&fileInfo, codeBuf, roundedLength, 0, 2);
+        funcs->DVDClose(&fileInfo);
+        isDol = true;
+        fileLength = fileInfo.length;
+
     }
 
-    DVDFileInfo fileInfo;
-    if (!funcs->DVDFastOpen(entrynum, &fileInfo))
-        kamekError(funcs, "FATAL ERROR: Failed to open file!");
-
-    funcs->OSReport("DVD file located: addr=%p, size=%d\n", fileInfo.startAddr, fileInfo.length);
-
-    u32 length = fileInfo.length;
-    u32 roundedLength = (fileInfo.length + 0x1F) & ~0x1F;
-    EGG::ExpHeap *heap = funcs->rkSystem->EGGSystem;
-    void *buffer = heap->alloc(roundedLength, -0x20);
-
-    if (!buffer)
-        kamekError(funcs, "FATAL ERROR: Out of file memory");
-
-    funcs->DVDReadPrio(&fileInfo, buffer, roundedLength, 0, 2);
-    funcs->DVDClose(&fileInfo);
-
-    loadKamekBinary(funcs, buffer, fileInfo.length);
-    heap->free(buffer);
+    loadKamekBinary(funcs, codeBuf, fileLength, isDol);
+    if(!isDol) heap->free(codeBuf);
 }
