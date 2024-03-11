@@ -257,10 +257,10 @@ namespace CosmosUI
         prevPageId = basePage->lastPage;
         backButton.isHidden = true;  
 
-        //for(UpDownControl * control = this->upDownControls; control < &this->upDownControls[this->scrollersCount]; control++)
-        //{
-        //    control->curSelectedOption = settingsPage->setting[control->id];
-        //}
+        for(UpDownControl * control = this->upDownControls; control < &this->upDownControls[this->scrollersCount]; control++)
+        {
+            control->curSelectedOption = settingsPage->setting[control->id];
+        }
 
         Menu::OnActivate();
     }

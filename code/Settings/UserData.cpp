@@ -44,8 +44,13 @@ namespace CosmosData
 
             for(int i = 0; i < 4; i++){
                 buffer->playerVr[i] = 13000;
-                buffer->playerBr[i] = 2137;
+                buffer->playerBr[i] = 5400;
             }
+
+            //Defaulty Disabled
+            buffer->pages[COSMOS_DEBUG_SETTINGS].setting[COSMOS_DWC_LOGS] = DISABLED;
+            buffer->pages[COSMOS_DEBUG_SETTINGS].setting[COSMOS_PERFORMANCE_MONITOR] = DISABLED;
+
 
         }
         this->settings = buffer;
@@ -73,7 +78,7 @@ namespace CosmosData
         SettingsHolder * holder = new (RKSystem::mInstance.EGGSystem) SettingsHolder();
         char path[IPCMAXPATH];
         snprintf(path, IPCMAXPATH, "%s/%s", Cosmos::packFolder, Cosmos::SaveFile);
-        holder->Init(path, "CSSD", 0x02);
+        holder->Init(path, "CSSE", 0x03);
         SettingsHolder::sInstance = holder;
     }
 

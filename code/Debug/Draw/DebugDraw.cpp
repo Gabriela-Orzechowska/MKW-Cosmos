@@ -52,11 +52,8 @@ namespace CosmosDebug
 
         DebugDrawHook::exec();
 
-        //PerformanceMonitor::GetStaticInstance()->MeasureEndRender();
-
         AsyncDisplay_endRender(display);
 
-        //PerformanceMonitor::GetStaticInstance()->MeasureBeginCalc();
         return;
     }
 

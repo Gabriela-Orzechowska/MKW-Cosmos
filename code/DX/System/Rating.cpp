@@ -56,6 +56,7 @@ namespace DX
     }
     kmCall(0x8052eb5c, CalcNegRating);
 
+
     void RKNetUSERHandler_SendVrViaCity(RKNetUSERHandler * handler)
     {
         handler->BuildUserPacket();
@@ -65,8 +66,6 @@ namespace DX
         handler->toSendPacket.vr = 5000;
         handler->toSendPacket.br = 5000;
         handler->toSendPacket.city = license->vr.mPoints;
-
-        CosmosLog("USER Packet data: %p Handler at: %p\n", &handler->toSendPacket, handler);
 
         return;
     }
@@ -81,7 +80,7 @@ namespace DX
         handler->toSendPacket.br = 5000;
         handler->toSendPacket.city = license->vr.mPoints;
 
-        CosmosLog("USER Packet data: %p Handler at %p\n", &handler->toSendPacket, handler);
+        return;
     }
 
     kmCall(0x806602d0, RKNetUSERHandler_UpdateVrViaCity);
@@ -91,17 +90,13 @@ namespace DX
     kmWrite32(0x8065fcdc, 0xa0a3017a); //lhz r5,0x17a(r3) receivedPackets[i]->city;
     kmWrite32(0x805d302c, 0xa063017a); //lhz r3,0x17a(r3) receivedPackets[param_2]->city;
     kmWrite32(0x80651a30, 0xa003017A); //lhz r0,0x17a(r3) receivedPackets[i]->city;
-    kmWrite32(0x80661b24, 0xa006017A); //lhz r0,0x17a(r3) receivedPackets[1]->city;
-    kmWrite32(0x80661b94, 0xa006023A); //lhz r0,0x23a(r3) receivedPackets[2]->city;
+    kmWrite32(0x80661b24, 0xa006017A); //lhz r0,0x17a(r3) receivedPackets[0]->city;
+    kmWrite32(0x80661b94, 0xa006023A); //lhz r0,0x23a(r3) receivedPackets[1]->city;
+
     kmWrite16(0x805d3032, 0x88B8); //Bump Max to 35000
     kmWrite16(0x805d303A, 0x88B8); //Bump Max to 35000
     kmWrite16(0x80659342, 0x88B8); //Bump Max to 35000
     kmWrite16(0x8065934A, 0x88B8); //Bump Max to 35000
-
-
-    extern "C"{
-        int DWC_AddMatchKeyInt(u32 id, char * param_2, u32 * valuePointer);
-    }
 
     s32 PatchDWCVR(u32 id, char * param_2, u32 * valuePointer)
     {

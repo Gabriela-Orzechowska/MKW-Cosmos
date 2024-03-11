@@ -87,6 +87,11 @@ namespace CosmosGhost
         }
         this->rkgCount = counter;
 
+
+        //Set correct CC mode
+        EngineClass cc = CC_100;
+        if(Cosmos::System::GetStaticInstance()->GetTTMode() == Cosmos::COSMOS_TT_200cc) cc = CC_150;
+        RaceData::sInstance->menusScenario.settings.engineClass = cc;
     }
 
     void GhostManager::Reset()
@@ -421,18 +426,12 @@ namespace CosmosGhost
         ghostManager->SetupGhostReplay(true);
         GhostManager * manager = GhostManager::GetStaticInstance();
         manager->LoadGhostReplay(ghostManager->rkgPointer, false);
+
+
     }
     kmCall(0x805e144c, ExtendGhostReplay);
     kmCall(0x805e1518, ExtendGhostReplay);
 
-
-    void PatchLecodeBullshit()
-    {
-        extern u32 p_lecodeBullshit1;
-        p_lecodeBullshit1 = 0x90031758;
-    }
-
-    static LeCodeLoadHook bruh(PatchLecodeBullshit);
 
     void PatchOnWatchPress(Pages::GhostSelect * select ,PushButton * button, u32 slotId)
     {

@@ -14,10 +14,8 @@
 
 namespace CosmosGhost
 {
-
     #define GAMEMODES 2
 
-    
     enum LEADERBOARDENTRY
     {
         ENTRY_1ST,

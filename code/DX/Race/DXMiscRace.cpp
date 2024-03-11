@@ -36,8 +36,8 @@ namespace DX
     kmWrite32(0x808b5cdc, 0x3f8ccccd); //150cc -> 1.1f => "200"cc
 
     // Max Speed -> 145 u/f
-
     kmWrite32(0x808b59f4, 0x43070000);
+    
 } // namespace DX
 
 

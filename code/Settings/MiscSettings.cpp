@@ -24,3 +24,14 @@ void SetPerfMonitorVisibility()
 }
 static SettingsUpdateHook suhSetPerfMonitorVisibility(SetPerfMonitorVisibility);
 static BootHook bhSetPerfMonitorVisibility(SetPerfMonitorVisibility, LOW);
+
+extern u32 DWC_ReportLevel;
+void SetDWCLogs(){
+    DWC_ReportLevel = 0x0;
+    if(SettingsHolder::GetInstance()->GetSettings()->pages[COSMOS_DEBUG_SETTINGS].setting[COSMOS_DWC_LOGS] == ENABLED) {
+        DWC_ReportLevel = ~0x0;
+    }
+}
+static SettingsUpdateHook suhDWCLogs(SetDWCLogs);
+static BootHook bhDWCLogs(SetDWCLogs, LOW);
+kmWrite32(0x80658be8, 0x60000000);
