@@ -9,7 +9,6 @@ Run `Build.bat`. Update `CC=` path inside `Build.bat` if needed.
 
 ## Current Features
 ### General
-- LE-Code Loader
 - Discord Rich Presence
 - Files loading from additional archives/bmg files
 - Auto BRSAR Patching
@@ -17,16 +16,22 @@ Run `Build.bat`. Update `CC=` path inside `Build.bat` if needed.
 - Various debugging features
 - SD Card Support
 - Custom Track Selection
+- Performance Monitor
 
 ### Gameplay
 - Time Trial CC mode selection
+- No multi channel music cut off
+- Many minor fixes and patches
+- Speed-o-meter
+- Extended Presence Flags
+
+### DX Features
+Cosmos was originally created for Mario Kart Wii Deluxe, because of that this repo contains some of their features. They won't be in the pack on standalone release.
 - Mega TCs
 - All Items can Drop (+ Golden Pickup)
 - Brake Drifting & Fast Falling
 - FIB model from track's itembox.szs
 - Basic Zak's VR System
-- No multi channel music cut off
-- Many minor fixes and patches
 
 ### Settings
 Settings Page, containing various settings:
@@ -39,6 +44,9 @@ Settings Page, containing various settings:
 also can be changed with minus on track selection)
   - Language Selector (All vanilla + ability to add more)
   - Fast Menus
+- Debug (during developement)
+  - DWC Logs
+  - Performance Monitor
 - Accesibility (menu to be added)
   - Y/ZL to Wheelie
 
