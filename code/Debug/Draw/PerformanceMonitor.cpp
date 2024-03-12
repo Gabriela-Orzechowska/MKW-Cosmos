@@ -1,6 +1,6 @@
 #include <Debug/Draw/DebugDraw.hpp>
 #include <Debug/Draw/PerformanceMonitor.hpp>
-#include <game/Objects/ObjetHolder.hpp>
+#include <game/Objects/ObjectHolder.hpp>
 #include <game/Race/Kart/KartHolder.hpp>
 #include <game/Visual/Effect/EffectMgr.hpp>
 

@@ -1,6 +1,6 @@
 #include <kamek.hpp>
 #include <game/System/Archive.hpp>
-#include <game/Objects/ObjetHolder.hpp>
+#include <game/Objects/ObjectHolder.hpp>
 #include <main.hpp>
 
 static bool hasHighwayManager = false;

@@ -5,7 +5,7 @@
 
 struct GOBJ{
     u16 objID; //0
-    u8 padding[2];
+    u16 padding;
     Vec3 position; //4
     Vec3 rotation; //10
     Vec3 scale; //1c

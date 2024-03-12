@@ -1,7 +1,12 @@
-#include <DX/System/Rating.hpp>
+#include <kamek.hpp>
 #include <game/Network/RKNetUser.hpp>
 #include <game/Network/RKNetController.hpp>
 #include <Debug/IOSDolphin.hpp>
+
+extern "C"{
+    int DWC_AddMatchKeyInt(u32 id, char * param_2, u32 * valuePointer);
+    float CalcRating(float x);
+}
 
 #define DIFF_SCALE
 #define MINVR 0

@@ -81,7 +81,7 @@ NETSHA1Init__FP14NETSHA1Context = 0x801d24f4
 NETSHA1Update__FP14NETSHA1ContextPCvUi = 0x801d2544
 NETSHA1GetDigest__FP14NETSHA1ContextPv = 0x801d25f8
 
-CalcRating__Ff = 0x8052cef8
+CalcRating = 0x8052cef8
 
 __construct_array = 0x80020ff4
 __construct_new_array = 0x80020e34
@@ -353,6 +353,9 @@ EndStrapScene__FUi = 0x80007f2c
 #KMP
 sInstance__Q23KMP10Controller = 0x809BD6E8
 GetKTPTHolder__Q23KMP10ControllerCFUi = 0x80514b30
+GetGOBJHolder__Q23KMP10ControllerCFUi = 0x80514148
+
+isOnline__Fv = 0x807396ec
 
 #Archive
 sInstance__11ArchiveRoot = 0x809bd738
@@ -1343,6 +1346,7 @@ Update__12ObjectHolderFv = 0x8082a8f4
 sInstance__12ObjectHolder = 0x809c4330
 GetControlledCount__12ObjectHolderFv = 0x8082b3b8
 GetControlledObjectByID__12ObjectHolderFi = 0x8082b3a8
+CreateAllObjects__12ObjectHolderFb = 0x80826e8c
 
 ##Rel
 

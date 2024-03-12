@@ -96,6 +96,7 @@ namespace CosmosUI
 
     void CupSelectPlus::OnActivate()
     {
+        this->ctrlMenuCupSelectCup.curCupID = Cosmos::CupManager::sInstance->lastSelectedCup;
         Pages::CupSelect::OnActivate();
         lefttemp = 0;
         this->bottomText->SetMsgId(0x2810 + (u32)currentLayout);
