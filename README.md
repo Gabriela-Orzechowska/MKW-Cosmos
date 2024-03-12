@@ -1,6 +1,5 @@
 # MKW-Cosmos
-
-Cosmos - Mario Kart Wii Code Extension for LE-Code based distributions, fixing and expanding many features.
+Mario Kart Wii code extension for CT distributions.
 
 ## Building
 Run `Build.bat`. Update `CC=` path inside `Build.bat` if needed.
