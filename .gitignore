@@ -45,3 +45,4 @@ out/K.bin
 out/P.bin
 TestPack/*
 TestPack
+*.code-workspace
