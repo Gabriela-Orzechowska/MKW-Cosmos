@@ -37,10 +37,11 @@ build/*.bin
 *.app
 engine/.editorconfig
 source/.editorconfig
-TestPack/riivolution/config/RMCJ.xml
 build/P.bin
 *.brstm
 out/E.bin
 out/J.bin
 out/K.bin
 out/P.bin
+TestPack/*
+TestPack
