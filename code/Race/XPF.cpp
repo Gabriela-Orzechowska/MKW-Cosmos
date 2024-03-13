@@ -42,7 +42,10 @@ namespace Cosmos
                 enabled = CalcDefinitionObjectCondition(GetDefinitionObject(gobj->padding), (gobj->padding & 0x1000));
             }
 
-            if(!enabled) gobj->presenceFlags = 0x0;
+            if(!enabled) {
+                gobj->presenceFlags = 0x0;
+                gobj->objID = 0x0; //This ensure any object that ignore presence flags (eg. EnvFire) also get disabled
+            }
             else gobj->presenceFlags = 0x3f;
 
             gobj->objID &= 0x3ff;
@@ -70,7 +73,7 @@ namespace Cosmos
         switch(mode){
             case DEF_OBJ_BITS:
                 GameMode mode = scenario->settings.gamemode;
-                if(mode == MODE_BATTLE || mode == MODE_PUBLIC_BATTLE || mode == MODE_PRIVATE_BATTLE){
+                if(isBattle()){
                     if(scenario->settings.battleType == BATTLE_BALLOON){
                         ret = CalcConditionBits(gobj->settings[0],0);
                     }
@@ -118,7 +121,7 @@ namespace Cosmos
             u8 range = playerCount > 6 ? (playerCount-3) / 3 : 0;
             if(val & ((1 << (4 + (range*2) + (localPlayerCount-1))))) ret = true;
         }
-        if((val & 0x4000) && field == 2 && scenario->settings.gamemode == MODE_TIME_TRIAL) ret = true; 
+        if((val & 0x4000) && field == 2 && isTT()) ret = true; 
         return ret;
     }
 
@@ -172,15 +175,15 @@ namespace Cosmos
                 case 0x1004:
                     ret = !isOnline(); break;
                 case 0x101a:
-                    ret = scenario->settings.gamemode == MODE_TIME_TRIAL; break;
+                    ret = isTT(); break;
                 case 0x101c:
-                    ret = scenario->settings.gamemode == MODE_BATTLE || scenario->settings.gamemode == MODE_PRIVATE_BATTLE || scenario->settings.gamemode == MODE_PUBLIC_BATTLE; break;
+                    ret = isBattle(); break;
                 case 0x101e:
-                    ret = (scenario->settings.gamemode == MODE_BATTLE || scenario->settings.gamemode == MODE_PRIVATE_BATTLE || scenario->settings.gamemode == MODE_PUBLIC_BATTLE) && scenario->settings.battleType == BATTLE_BALLOON; break;
+                    ret = isBattle() && scenario->settings.battleType == BATTLE_BALLOON; break;
                 case 0x1020:
-                    ret = (scenario->settings.gamemode == MODE_BATTLE || scenario->settings.gamemode == MODE_PRIVATE_BATTLE || scenario->settings.gamemode == MODE_PUBLIC_BATTLE) &&  scenario->settings.battleType == BATTLE_COIN; break;
+                    ret = isBattle() && scenario->settings.battleType == BATTLE_COIN; break;
                 case 0x1022:
-                    ret = scenario->settings.gamemode == MODE_VS_RACE || scenario->settings.gamemode == MODE_PRIVATE_VS || scenario->settings.gamemode == MODE_PUBLIC_VS || scenario->settings.gamemode == MODE_TIME_TRIAL; break;
+                    ret = isVS(); break;
                 case 0x1024:
                     ret = false; break; //Item rain, implement your own check
                 default:
