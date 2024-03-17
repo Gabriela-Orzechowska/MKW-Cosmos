@@ -1,6 +1,7 @@
 #ifndef _OSTHREAD_
 #define _OSTHREAD_
 #include "types.hpp"
+#include "core/rvl/os/mutex.hpp"    
 
 struct OSContext{
     u32 gpr[32]; //from 0 to c8
@@ -19,24 +20,9 @@ struct OSContext{
     f64 pairedSinglesRegisters[32];
 }; //total size 0x2C8
 
-class OSThread{ //priority between 0 and 31
-    //no ctor
-    OSContext context; //arg from ctor stored at C
-    u16 unknown_0x2C8;
-    u16 detached;
-    u32 unknown_0x2CC;
-    u32 priority;
-    u32 priority2;
-    u32 unknown_0x2D8[0x2FC-0x2D8];
-    OSThread *next; //0x2fc
-    OSThread *prev;
-    void *stackStart; //0x304 higher value
-    void *stackEnd; //lower value
-    u32 unknown_0x30C[3];
-    static void OSCreateThread(OSThread *thread, void (*runFunc)(void *arg), void *arg, void *stack, u32 stackSize, u32 priority, u16 detached); //801a9e84
-}; 
-
 typedef void* OSMessage;
+
+class OSThread;
 
 struct OSThreadQueue {
 	OSThread *head;
@@ -51,6 +37,32 @@ struct OSMessageQueue{
     s32 messageIndex; //0x18
     s32 used; //0x1C
 }; //total size 0x20
+
+
+class OSThread{ //priority between 0 and 31
+    //no ctor
+    OSContext context; //arg from ctor stored at C
+    u16 unknown_0x2C8;
+    u16 detached;
+    u32 unknown_0x2CC;
+    u32 priority;
+    u32 priority2;
+    u32 unknown_0x2D8;
+    OSThreadQueue * threadQueue;
+    OSThread *next;
+    OSThread *prev;
+    OSThreadQueue joinAndDetachQueue;
+    OSMutex * mutexToLock;
+    OSMutex * mutexHead;
+    OSMutex * mutexTail;
+    OSThread *activeNext;
+    OSThread *activePrev;
+    void *stackStart; //0x304 higher value
+    void *stackEnd; //lower value
+    u32 unknown_0x30C[3];
+    static void OSCreateThread(OSThread *thread, void (*runFunc)(void *arg), void *arg, void *stack, u32 stackSize, u32 priority, u16 detached); //801a9e84
+}; 
+size_assert(OSThread, 0x318);
 
 extern "C"{
     OSContext *OSGetCurrentContext(); //801a1ecc

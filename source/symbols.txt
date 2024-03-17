@@ -218,8 +218,13 @@ OSIsTitleInstalled = 0x801ae4a0
 current__8OSThread = 0x800000e4
 OSRestart = 0x801a8688
 OSTicksToCalendarTime = 0x801aafa8
+OSGetPhysicalMem1Size = 0x801a75d0
+OSGetPhysicalMem2Size = 0x801a75dc
 
 SRR0_addr__11CosmosDebug = 0x803868e8
+exceptionData = 0x802A70B8
+ExceptionNameTable__Q24nw4r2db = 0x80271cac
+ShowFloat___Q24nw4r2dbFPC9OSContext = 0x80023c70
 
 __nw__FUl = 0x80229dcc
  __nwa__FUl = 0x80229df0

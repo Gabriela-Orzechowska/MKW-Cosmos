@@ -31,6 +31,8 @@ class ConsoleHead{
     ConsoleHead *next; //0x28
 };
 
+typedef detail::ConsoleHead *ConsoleHandle;
+
 }//namespace detail
 }//namespace db
 }//namespace nw4r

@@ -22,6 +22,8 @@
 #include <main.hpp>
 
 extern char gameID[4];
+extern nw4r::db::ExceptionInfo exceptionData; // 0x802A70B8
+
 
 namespace CosmosDebug{
 
@@ -97,60 +99,6 @@ namespace CosmosDebug{
         return filepath;
     }
     extern u32 SRR0_addr;
-    /*
-    void PrintUnhandled()
-    {
-        char text[] = "Dearest Player\nI hope it finds you well.\nWe seem to have found ourselves a crash in the game.\nPlease consider taking a screenshot and sending\n it to #bug-reports\n\n";
-        char final[200];
-        snprintf(final, 200, text);
-
-        u32 black = 0;
-        u32 white = ~0;
-        OSFatal(&white,&black,final);
-
-    }
-
-    kmBranch(0x801a2ce8, PrintUnhandled);
-    */
-
-    void PrintHeader()
-    {
-        nw4r::db::Exception_Printf_("**** COSMOS EXCEPTION HANDLER ****\n");
-        nw4r::db::Exception_Printf_("Platform: %s\nCosmos %s (%s, %s %s)\n-------------------------------\n", CosmosDebug::GetPlatformString(), __COSMOS_VERSION__, __COMPILER_VERSION__, __DATE__, __TIME__);
-        
-        u32 tick0 = OSGetTick() & 0x3;
-
-        /*
-        if(tick0 == 0){
-            nw4r::db::Exception_Printf_("*** Dearest Player\n*** I hope it finds you well. We seem to have\n*** found ourselves a crash in the game. Please\n*** consider taking a screenshot and sending it \n*** to #bug-reports\n");
-            nw4r::db::Exception_Printf_("***\n");
-            nw4r::db::Exception_Printf_("*** Sincerely, @VolcanoPiece1\n");
-        }
-        else if(tick0 == 1)
-        {
-            nw4r::db::Exception_Printf_("*** Lorem ipsum dolor sit amet,\n*** consectetur adipiscing elit.\n*** Nunc ipsum dui, aliquam in volutpat a,\n*** feugiat et justo.\n*** Duis commodo varius ex,\n*** ut viverra risus malesuada consectetur.");
-        }
-        */
-        return;
-    }
-
-    kmCall(0x800236c8, PrintHeader);
-
-    void PrintSRR(const char * format, u32 srr0, u32 srr1)
-    {
-        nw4r::db::Exception_Printf_("SRR0:   %08XH   SRR1:%08XH\n", srr0, srr1);
-        nw4r::db::Exception_Printf_("%s\n",SymbolManager::GetSymbolName(srr0));
-
-    }
-    kmCall(0x80023b8c, PrintSRR);
-
-    void PrintStack(const char * format, u32 curStack, u32 nextStack, u32 curValue)
-    {
-        nw4r::db::Exception_Printf_("%08x:  %08x    %08x: %s",curStack,nextStack,curValue,SymbolManager::GetSymbolName(curValue));
-    }
-
-    kmCall(0x80023930, PrintStack);
-    
 
     void PrintPanic(u16 error, const OSContext * context, u32 dsisr, u32 dar)
     {
@@ -165,6 +113,84 @@ namespace CosmosDebug{
         nw4r::db::Exception_Printf_("Platform: %s\nCosmos %s (%s %s)\n-------------------------------\n", CosmosDebug::GetPlatformString(), __COSMOS_VERSION__, __DATE__, __TIME__);
         nw4r::db::Exception_Printf_("*** Message ***\n%s\n", (char *)dar );
     }
+
+    static void PrintStackTrace_(u32 spStart){
+        using namespace nw4r::db;
+        Exception_Printf_("-------------------------------- TRACE\n");
+        Exception_Printf_("Address:   Back Chain   LR Save\n");
+
+        u32 * sp = (u32 *) spStart;
+        u32 spAddr = spStart;
+        for(int i = 0; i < 0x10; i++){
+            if(spAddr == 0 || spAddr == ~0x0) break;
+
+            if((spAddr & 0x30000000) == 0){
+                u32 mem1Size = OSGetPhysicalMem1Size();
+                if((spAddr & 0xfffffff) > mem1Size) break;
+            }
+            else if((spAddr & 0x30000000) == 1){
+                u32 mem2Size = OSGetPhysicalMem2Size();
+                if((spAddr & 0xfffffff) > mem2Size) break;
+            }
+            else break;
+            
+            Exception_Printf_("%08X:  %08X    %08X: %s\n",spAddr,sp[0], sp[1], SymbolManager::GetSymbolName(sp[1]));
+            sp = (u32 *) *sp;
+            spAddr = (u32) sp;
+        }
+    }
+
+    static void PrintContext_(u32 error, const OSContext * context, u32 dsisr, u32 dar){
+        using namespace nw4r::db;
+        if(error >= 0x30) {
+            PrintPanic(error, context, dsisr, dar);
+            return;
+        }
+        OSReport("Size of ExceptionInfo: %d\nExceptionInfo addr: %p\n", sizeof(ExceptionInfo), &exceptionData);
+        Exception_Printf_("**** COSMOS %s ****\n", error < 0x11 ? "EXCEPTION HANDLER" : "USER HALT");
+        Exception_Printf_("Platform: %s\nCosmos %s (%s, %s %s)\n", CosmosDebug::GetPlatformString(), __COSMOS_VERSION__, __COMPILER_VERSION__, __DATE__, __TIME__);
+        Exception_Printf_("Framebuffer: %08XH\n", (u32) exceptionData.framebuffer);
+        Exception_Printf_("--------------------------------\n");
+
+        if(exceptionData.displayInfo & EXCEPTION_INFO_MAIN){
+            Exception_Printf_("---EXCEPTION_INFO_MAIN---\n");
+            Exception_Printf_("CONTEXT:%08XH  (%s EXCEPTION)\n", context, error < 0x11 ? ExceptionNameTable[error] : "UNKNOWN");
+            Exception_Printf_("SRR0:   %08XH   SRR1:%08XH\n", context->srr0, context->srr1);
+            Exception_Printf_("%s\n",SymbolManager::GetSymbolName(context->srr0));
+            Exception_Printf_("DSISR:  %08XH   DAR:  %08XH\n", dsisr, dar);
+        }
+        if(exceptionData.displayInfo & EXCEPTION_INFO_GPR){
+            Exception_Printf_("\n---EXCEPTION_INFO_GRP---\n");
+            Exception_Printf_("--------------------------------\n");
+            for(int i = 0; i < 10; i++){
+                Exception_Printf_("R%02d:%08XH R%02d:%08XH R%02d:%08XH\n", i, context->gpr[i], i + 0xb, context->gpr[i + 0xb], i + 0x16, context->gpr[i+0x16]);
+            }
+            Exception_Printf_("R%02d:%08XH R%02d:%08XH\n", 10, context->gpr[10], 21, context->gpr[21]);
+        }
+        if(exceptionData.displayInfo & EXCEPTION_INFO_FPR){
+            Exception_Printf_("\n---EXCEPTION_INFO_FPR---\n");
+            ShowFloat_(context);
+        }
+        if(exceptionData.displayInfo & EXCEPTION_INFO_TRACE){
+            Exception_Printf_("\n---EXCEPTION_INFO_TRACE---\n");
+            PrintStackTrace_(exceptionData.sp);
+        }
+        Exception_Printf_("--------------------------------\n");
+    }
+
+    kmCall(0x80023484, PrintContext_);
+
+    /*
+
+
+            nw4r::db::Exception_Printf_("*** Dearest Player\n*** I hope it finds you well. We seem to have\n*** found ourselves a crash in the game. Please\n*** consider taking a screenshot and sending it \n*** to #bug-reports\n");
+            nw4r::db::Exception_Printf_("***\n");
+            nw4r::db::Exception_Printf_("*** Sincerely, @VolcanoPiece1\n");
+
+
+    kmCall(0x800236c8, PrintHeader);
+    
+    */
 
 
     #ifdef FORCEOSFATAL
@@ -185,25 +211,21 @@ namespace CosmosDebug{
     #else
     
 
-    void PrintContext(u16 error, const OSContext * context, u32 dsisr, u32 dar)
-    {
-        if(error < 0x30)
-            nw4r::db::PrintContext_(error, context, dsisr, dar);
-        else
-            PrintPanic(error, context, dsisr, dar);
-        return;
-    }
-
-    kmCall(0x80023484, PrintContext);
-
     #endif
 
-    void SetConsoleParams(){
+    void SetExceptionParams(){
+        using namespace nw4r::db;
+
         nw4r::db::detail::ConsoleHead *console = EGG::Exception::console;
         console->width = 0x70;
         console->height = 0x40;
+
+        exceptionData.displayInfo |= EXCEPTION_INFO_GPR;
+        exceptionData.displayInfo |= EXCEPTION_INFO_FPR;
+
+
     }
-    BootHook ConsoleParams(SetConsoleParams, LOW);
+    BootHook ConsoleParams(SetExceptionParams, LOW);
 
     bool ExceptionCallBack_(nw4r::db::detail::ConsoleHead * head, void * )
     {
