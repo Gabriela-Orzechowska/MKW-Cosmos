@@ -10,6 +10,10 @@
 
 namespace DX
 {
+    
+    // No Drift Threshold
+    kmWrite32(0x808b5b1c, 0x00);
+
     void MegaTC(KartMovement * kartMovement)
     {
         kartMovement->ActivateMega();

@@ -104,7 +104,7 @@ public:
 class RaceInfo {
 public:
   static RaceInfo *sInstance; //809bd730
-  static RaceInfo *GetStaticInstance(); //80532084
+  static RaceInfo *GetStaticInstance() { return sInstance; } //80532084
   static void GestroyStaticInstance(); //805320d4
   static RaceinfoRandom *GetRandom(); //807bd718
   RaceInfo(); //805327a0

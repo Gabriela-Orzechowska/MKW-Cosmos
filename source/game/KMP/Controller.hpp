@@ -151,7 +151,7 @@ public:
     GOBJHolder *GetGOBJHolder(u32 idx) const; //80514148
     AREAHolder *GetAREAHolder(u32 idx) const; //80516768
     KTPTHolder *GetKTPTHolder(u32 idx) const; //80514b30
-
+    s32 GetAreaAtPosition(const Vec3 * pos, u32 firstId, u8 type) const;
 
     Header *header; //4
     SectionHolder<KTPTHolder, KTPT> *kartPoint;     //8

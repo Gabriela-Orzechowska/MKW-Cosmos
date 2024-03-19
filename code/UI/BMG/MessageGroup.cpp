@@ -102,7 +102,7 @@ int deleteElements(wchar_t * msg, int index, int size, int len)
 void RemoveEscapeSequences(wchar_t * msg, int len)
 {
     u8 index = 0;
-    for(wchar_t * i = (wchar_t *) msg; *i != 0x0; i++)
+    for(wchar_t * i = msg; *i; i++)
     {
         if(*i == L'\x1a')
         {
