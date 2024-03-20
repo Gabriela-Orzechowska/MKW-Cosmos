@@ -19,13 +19,9 @@ void * HighwayManagerCreate(u32 size)
         Object * object = ObjectHolder::sInstance->GetControlledObjectByID(i);
         const char * objectName = object->GetName();
         if(strcmp(objectName, "car_body") == 0x0)
-        {
             hasCar = true;
-        }
         if(strcmp(objectName, "kart_truck") == 0x0)
-        {
             hasTruck = true;
-        }
     }
 
     if(hasCar && hasTruck)
@@ -44,8 +40,7 @@ kmWrite32(0x808279b4, 0x41820018);
 
 u32 HighwayManagerCheck()
 {
-    if(hasHighwayManager) return 0x1;
-    else return 0x0;
+    return (u32) hasHighwayManager;
 }
 
 kmCall(0x80827f3c, HighwayManagerCheck);
