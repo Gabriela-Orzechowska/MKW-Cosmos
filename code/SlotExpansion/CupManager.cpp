@@ -26,9 +26,6 @@ namespace Cosmos
         DVDFileInfo fileHandle;
         if(DVDOpen("/cup/def.bin", &fileHandle))
         {
-            //THIS WORKS
-            //this->currentLayoutArray = new (RKSystem::mInstance.EGGSystem, 0x20) u32[40];
-
             char buffer[0x20] __attribute__ ((aligned(0x20)));
             if(DVDReadPrio(&fileHandle, (void *) buffer, 0x20, 0x0, 0x2))
             {
@@ -42,7 +39,6 @@ namespace Cosmos
 
                 if(DVDOpen("/cup/layout_def.bin", &fileHandle))
                 {
-                    //THIS DOES NOT
                     this->currentLayoutArray = new (RKSystem::mInstance.EGGSystem, 0x20) u32[4 * this->cupDef->cupCount ]; //
 
                     if(DVDReadPrio(&fileHandle, (void *) this->currentLayoutArray, sizeof(u32) * this->cupDef->cupCount * 4, 0x0, 0x2)){
