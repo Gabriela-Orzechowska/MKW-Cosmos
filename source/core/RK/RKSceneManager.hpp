@@ -28,6 +28,7 @@ public:
     void calc() override;             //0x8  80009984 vtable 80270c68
     void draw() override;             //0xc  80009988
     void calcCurrentFader() override; //0x14 8000984c
+    void calcCurrentFaderGL();
     virtual void calcCurrentFaderImpl(); //0x24 8000999c non-official
     virtual void drawCurrentFaderImpl(); //0x28 8000998c
     bool ChangeSceneByCreatorAfterFadeOut(u32 sceneId, RKSceneCreator *creator); //80009844, non-official

@@ -20,6 +20,13 @@ enum BASIC_ANIMATION_STATES{
     ANM_INACTIVE,
 };
 
+enum ANIMATION_GROUPS {
+    GRP_LOOP,
+    GRP_SELECT,
+    GRP_SELECT_IN,
+    GRP_OK,
+};
+
 class Animation{
 public:
     Animation(); //8063c53c 

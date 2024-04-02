@@ -20,7 +20,7 @@ namespace CosmosDebug
 
     void DetectPlatform()
     {
-        if(IOS::Dolphin::Open())
+        if(IOS::Dolphin::Open() >= 0)
         {
             currentPlatform = DOLPHIN;
             if(!IOS::Dolphin::GetVersion()) currentPlatform = DOLPHIN_OLD;

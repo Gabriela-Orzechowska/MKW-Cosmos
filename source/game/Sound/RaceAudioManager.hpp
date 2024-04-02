@@ -35,7 +35,7 @@ public:
 	static u32 trackToMusicIDTable[42]; //808a1d80 battle
 	RaceAudioMgr(); //0x80710688
 	~RaceAudioMgr(); //807108e8
-	void ChangeMusic(RaceState raceState);
+	void ChangeMusic(RaceState raceState); 
 	void SetKartSound(KartSound *sound); //80713754
 	void Init(); //80710a00
 	void Calc(); //80710ca0

@@ -71,10 +71,10 @@ def main():
     print("Linking done")
     print("Copying...")
 
-    shutil.copy("out\P.bin", "TestPack\DX\sys")
-    shutil.copy("out\E.bin", "TestPack\DX\sys")
-    shutil.copy("out\J.bin", "TestPack\DX\sys")
-    shutil.copy("out\K.bin", "TestPack\DX\sys")
+    shutil.copy("out\P.bin", "TestPack\Cosmos\sys")
+    shutil.copy("out\E.bin", "TestPack\Cosmos\sys")
+    shutil.copy("out\J.bin", "TestPack\Cosmos\sys")
+    shutil.copy("out\K.bin", "TestPack\Cosmos\sys")
 
     print("Done")
 

@@ -100,6 +100,10 @@ namespace Cosmos{
     {
         SystemManager::sInstance->RestartGame();
     }
+    void System::HardRestart()
+    {
+        OSRestart(0);
+    }
 
     void SetCC()
     {
@@ -188,6 +192,7 @@ namespace Cosmos{
 
         snprintf(output, 0x130, "%s:%d: %s\n", file, line, output2);
 
+    /*
         char stack[0x400] = "\nSTACK TRACE:\n";
         u32 * stackRegister = OSGetStackPointer();
         for(int i = 0; i < 10; i++)
@@ -198,9 +203,9 @@ namespace Cosmos{
             strcat(stack,buffer);
             stackRegister = (u32 *) *stackRegister;
         }
-
+  
         strcat(output, stack);
-
+  */
         nw4r::db::ExceptionCallbackParam exc;
         exc.error = 0x32; 
         exc.context = context;

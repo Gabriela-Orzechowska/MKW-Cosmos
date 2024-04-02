@@ -66,6 +66,10 @@ namespace CosmosUI
         memcpy(&pageDefinition, definition, sizeof(SettingPageDefinition));
     }
 
+    void SettingSubPage::EmptySelect(UpDownControl * control, u32 u){
+        return;
+    }
+
     SettingSubPage::~SettingSubPage()
     {
         delete[] upDownControls;
@@ -77,7 +81,10 @@ namespace CosmosUI
         upDownControls = new UpDownControl[this->scrollersCount+1];
         textUpDownPlus = new TextUpDownValueControlPlus[this->scrollersCount+1];
         Menu::OnInit();
+        this->disableControl = false;
         this->SetTransitionSound(0x0,0x0);
+
+
         //UpDownControl::Select(&this->upDownControls[0], 0);
     }
 
@@ -120,7 +127,7 @@ namespace CosmosUI
     };
 
     void SettingSubPage::OnUpDownSelect(UpDownControl *upDownControl, u32 hudSlotId){
-        u32 bmgId = BMG_SETTING_OPTION_BOTTOM + ((this->basePage->currentPageId) << 8) + (upDownControl->id << 4) + upDownControl->curSelectedOption;
+        u32 bmgId = BMG_SETTING_OPTION_BOTTOM + ((pageIndex) << 8) + (upDownControl->id << 4) + upDownControl->curSelectedOption;
 
         this->bottomText->SetMsgId(bmgId);
         return;
@@ -129,6 +136,9 @@ namespace CosmosUI
 
     void SettingSubPage::OnMainUpDownSelect(UpDownControl *upDownControl, u32 hudSlotId){
         UpDownControl * baseControl = this->basePage->upDownControls;
+
+        if(baseControl->animator.GetAnimationGroupById(0)->curAnimation == 2)
+        return;
 
         baseControl->HandleSelect(hudSlotId, 0);
         this->bottomText->SetMsgId(BMG_SETTINGS_PAGE_BOTTOM + 1 + baseControl->curSelectedOption);
@@ -144,13 +154,13 @@ namespace CosmosUI
         return;
     }
 
+
     void SettingSubPage::OnMainUpDownChange(UpDownControl *upDownControl, u32 hudSlotId, u32 optionId){
-        
         this->basePage->HandleChange(optionId);
 
         PageId id = (PageId)settingsPageIds[this->basePage->currentPageId];
-
-        if(optionId == 0)
+        //|| CosmosData::SettingsHolder::GetInstance()->GetSettings()->pages[CosmosData::COSMOS_MENU_SETTINGS_1].setting[CosmosData::COSMOS_FAST_MENUS] == CosmosData::ENABLED
+        if(optionId == 0 )
             this->LoadPrevPageWithDelayById(id, 0.0f);
         else
             this->LoadNextPageWithDelayById(id, 0.0f);
@@ -160,8 +170,7 @@ namespace CosmosUI
         return;
     }
 
-
-    UIControl * SettingSubPage::CreateControl(u32 id)
+    UIControl *SettingSubPage::CreateControl(u32 id)
     {
         CosmosData::SettingsHolder * settingsHolder = CosmosData::SettingsHolder::GetInstance();
         if(id < this->scrollersCount)
@@ -174,7 +183,7 @@ namespace CosmosUI
             char variant[0x20];
             snprintf(variant, 0x20, "UpDown%d", id);
 
-            upDownCtrl->Load(this->pageDefinition.settings[id].optionCount, settingsHolder->GetSettings()->pages[this->basePage->currentPageId].setting[id], "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
+            upDownCtrl->Load(this->pageDefinition.settings[id].optionCount, settingsHolder->GetSettings()->pages[pageIndex].setting[id], "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
             "DXSettingsUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textUpDownPlus[id], 1, 0, false, true, true);
             upDownCtrl->SetOnClickHandler(&this->onUpDownClickHandler);
             upDownCtrl->SetOnSelectHandler(&this->onUpDownSelectHandler);
@@ -196,9 +205,11 @@ namespace CosmosUI
             valueCtrl->activeTextValueControl->SetMsgId(bmgId);
             nw4r::ut::Color col;
             col.rgba = 0xFF00FFFF;
+            CosmosData::SettingsPage * settingsPage = &CosmosData::SettingsHolder::GetInstance()->GetSettings()->pages[pageIndex];
+            upDownCtrl->curSelectedOption = settingsPage->setting[id];
         }
 
-        else if(id = this->scrollersCount)
+        else if(id == this->scrollersCount)
         {
             UpDownControl * upDownCtrl = &this->upDownControls[id];
             this->mainControlId = id;
@@ -212,7 +223,7 @@ namespace CosmosUI
             upDownCtrl->SetOnDeselectHandler(&this->onMainUpDownDeselectHandler);
             upDownCtrl->SetOnChangeHandler(&this->onMainUpDownChangeHandler);
             upDownCtrl->id = 99;
-
+            upDownCtrl->soundID= 0;
             TextUpDownValueControlPlus * valueCtrl = &this->textUpDownPlus[id];
 
             valueCtrl->Load("control", "DXSettingPageUpDownValue", "ValueTrans", "DXSettingPageUpDownText", "TextTrans");
@@ -230,9 +241,14 @@ namespace CosmosUI
         button->SetOnClickHandler(onClickHandler, 0);
         button->SetOnSelectHandler((PtmfHolder_2A<Page, void, PushButton *, u32>*)&this->onButtonSelectHandler);
         button->SetOnDeselectHandler((PtmfHolder_2A<Page, void, PushButton *, u32>*)&this->onButtonDeselectHandler);
-    }   
+    }
 
-    int SettingSubPage::GetActivePlayerBitfield() const{
+    void SettingSubPage::OnUpdate()
+    {
+        
+    }
+    int SettingSubPage::GetActivePlayerBitfield() const
+    {
         return this->activePlayerBitfield;
     }
 
@@ -250,19 +266,27 @@ namespace CosmosUI
 
     void SettingSubPage::OnActivate()
     {
-        CosmosData::SettingsPage * settingsPage = &CosmosData::SettingsHolder::GetInstance()->GetSettings()->pages[this->basePage->currentPageId];
-        UpDownControl::Select(&this->upDownControls[this->mainControlId], 0);
+        CosmosData::SettingsPage * settingsPage = &CosmosData::SettingsHolder::GetInstance()->GetSettings()->pages[pageIndex];
+        //this->controlsManipulatorManager.holders[0].info.unknown_0x50 = -1;
+        this->controlsManipulatorManager.holders[0].info.childManipulator = &upDownControls[this->mainControlId].manipulator;
+        this->upDownControls->animator.GetAnimationGroupById(3)->curFrame = 1000.f;
         //this->basePage->upDownControls->HandleButtonDeselect(0,0);
         nextPageId = PAGE_NONE;
         prevPageId = basePage->lastPage;
         backButton.isHidden = true;  
 
-        for(UpDownControl * control = this->upDownControls; control < &this->upDownControls[this->scrollersCount]; control++)
-        {
-            control->curSelectedOption = settingsPage->setting[control->id];
-        }
-
         Menu::OnActivate();
+        //this->curSelect = (PushButton *) &this->upDownControls[this->mainControlId];
+        for(int i = 0; i < 9; i++){
+            this->controlsManipulatorManager.repeatable[i] = false;
+        }
+        u32 controller = MenuData::sInstance->pad.padInfos[0].controllerSlotAndTypeMenu;
+        ControllerType type = ControllerType(controller & 0xFF);
+        RealControllerHolder * holder = &InputData::sInstance->realControllerHolders[0];
+        if(CosmosController::isPressed(holder, type, CosmosController::BUTTON_DPAD_LEFT) || CosmosController::isPressed(holder, type, CosmosController::BUTTON_DPAD_RIGHT)){
+            disableControl = true;  
+        }
+        
     }
 
     void SettingSubPage::OnBackPress(u32 slotId)
@@ -286,7 +310,7 @@ namespace CosmosUI
         
         SettingSubPage * basePage = ((CosmosUI::SettingSubPage *)this->parentGroup->parentPage);
 
-        u32 bmgId = BMG_SETTING_OPTION + ((basePage->basePage->currentPageId) << 8) + (id << 4) + optionId;
+        u32 bmgId = BMG_SETTING_OPTION + ((basePage->pageIndex) << 8) + (id << 4) + optionId;
         if(basePage->pageDefinition.settings[id].isBool)
            bmgId = BMG_ENABLED_DISABLED | optionId;
         text->SetMsgId(bmgId);

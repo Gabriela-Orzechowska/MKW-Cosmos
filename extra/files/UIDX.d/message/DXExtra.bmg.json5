@@ -11,6 +11,10 @@
         "font": "regular",
         "string": "Time Trials (200cc)",
     },
+    "10242": {
+        "font": "regular",
+        "string": "Ghost can't be saved. Time delta too large.",
+    },
     "10256": {
         "font": "regular",
         "string": "Track Layout: Normal",
@@ -43,6 +47,10 @@
         "font": "regular",
         "string": "Menu (1/1)",
     },
+    "10755": {
+        "font": "regular",
+        "string": "Debug",
+    },
     "10784": {
         "font": "regular",
         "string": "Manager your settings!",
@@ -54,6 +62,10 @@
     "10786": {
         "font": "regular",
         "string": "Manage your Menu settings!",
+    },
+    "10787": {
+        "font": "regular",
+        "string": "Manage your Debug settings!",
     },
     "12288": {
         "font": "regular",
@@ -151,6 +163,14 @@
         "font": "regular",
         "string": "Fast Menus",
     },
+    "12800": {
+        "font": "regular",
+        "string": "DWC Logs",
+    },
+    "12816": {
+        "font": "regular",
+        "string": "Performance Monitor",
+    },
     "14080": {
         "font": "regular",
         "string": "Enabled",
@@ -198,6 +218,50 @@
     "14610": {
         "font": "regular",
         "string": "Menu transitions will be normal.",
+    },
+    "14848": {
+        "font": "regular",
+        "string": "Enable/Disable DWC Logs in Console.",
+    },
+    "24576": {
+        "font": "regular",
+        "string": "Mushroom",
+    },
+    "24577": {
+        "font": "regular",
+        "string": "Shell",
+    },
+    "24578": {
+        "font": "regular",
+        "string": "Flower",
+    },
+    "24579": {
+        "font": "regular",
+        "string": "Banana",
+    },
+    "24580": {
+        "font": "regular",
+        "string": "Star",
+    },
+    "24581": {
+        "font": "regular",
+        "string": "Leaf",
+    },
+    "24582": {
+        "font": "regular",
+        "string": "Special",
+    },
+    "24583": {
+        "font": "regular",
+        "string": "Lighting",
+    },
+    "24584": {
+        "font": "regular",
+        "string": "Bubble",
+    },
+    "24585": {
+        "font": "regular",
+        "string": "Drill",
     },
     "28672": {
         "font": "regular",
@@ -471,67 +535,67 @@
         "font": "regular",
         "string": " Wiimms SZS Toolset v2.25a r8443",
     },
-    "28740": {
+    "28928": {
         "font": "regular",
         "string": "DS Test Circle",
     },
-    "28741": {
+    "28929": {
         "font": "regular",
         "string": "Castle Gorge",
     },
-    "28742": {
+    "28930": {
         "font": "regular",
         "string": "KKW Prismatic Parkway",
     },
-    "28743": {
+    "28931": {
         "font": "regular",
         "string": "Ruinated Peach's Castle",
     },
-    "28744": {
+    "28932": {
         "font": "regular",
         "string": "Blissful Block",
     },
-    "28745": {
+    "28933": {
         "font": "regular",
         "string": "Strobenz Desert Illusion",
     },
-    "28746": {
+    "28934": {
         "font": "regular",
-        "string": "The {color|red}Thing{color|unspecified} You Can't Defeat",
+        "string": "Snabo Desert",
     },
-    "28747": {
+    "28935": {
         "font": "regular",
         "string": "Fever {color|team blue}Factory{color|unspecified}",
     },
-    "77892": {
+    "78080": {
         "font": "regular",
         "string": "DS Test Circle \n{font scale|64}{color|team blue}Bruh de la Boi{color|unspecified}",
     },
-    "77893": {
+    "78081": {
         "font": "regular",
         "string": "Castle Gorge \n{font scale|64}{color|team blue}Toadette Hack Fan, Mystora{color|unspecified} ",
     },
-    "77894": {
+    "78082": {
         "font": "regular",
         "string": "KKW Prismatic Parkway \n{font scale|64}{color|team blue}Mystora{color|unspecified} ",
     },
-    "77895": {
+    "78083": {
         "font": "regular",
         "string": "Ruinated Peach's Castle \n{font scale|64}{color|team blue}Gabriela_{color|unspecified}",
     },
-    "77896": {
+    "78084": {
         "font": "regular",
         "string": "Blissful Block \n{font scale|64}{color|team blue}Strobenz{color|unspecified}",
     },
-    "77897": {
+    "78085": {
         "font": "regular",
         "string": "Strobenz Desert Illusion \n{font scale|64}{color|team blue}Strobenz{color|unspecified}",
     },
-    "77898": {
+    "78086": {
         "font": "regular",
-        "string": "The {color|red}Thing{color|unspecified} You Can't Defeat \n{font scale|64}{color|team blue}Gabriela_{color|unspecified}",
+        "string": "Snabo Desert \n{font scale|64}{color|team blue}JorisMKW{color|unspecified}",
     },
-    "77899": {
+    "78087": {
         "font": "regular",
         "string": "Fever {color|team blue}Factory{color|unspecified} \n{font scale|64}{color|team blue}Gabriela_{color|unspecified}",
     },

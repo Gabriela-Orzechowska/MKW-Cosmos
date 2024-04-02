@@ -57,7 +57,7 @@ namespace CosmosDebug
         return;
     }
 
-    kmWritePointer(0x802a26f0, AsyncDisplayInjectCustomRender);
+    //kmWritePointer(0x802a26f0, AsyncDisplayInjectCustomRender);
 
     void AsyncDisplayBeginRenderMeasure(EGG::AsyncDisplay * display)
     {
@@ -65,7 +65,7 @@ namespace CosmosDebug
         //PerformanceMonitor::GetStaticInstance()->MeasureBeginRender();
     }
 
-    kmWritePointer(0x802a26ec, AsyncDisplayBeginRenderMeasure);
+    //kmWritePointer(0x802a26ec, AsyncDisplayBeginRenderMeasure);
 
     void AsyncDisplayBeginFrameMeasure(EGG::AsyncDisplay * display)
     {
@@ -73,5 +73,5 @@ namespace CosmosDebug
         //PerformanceMonitor::GetStaticInstance()->MeasureBeginFrame(AsyncDisplay_getTickPerFrame(display));
     }
 
-    kmWritePointer(0x802a26e8, AsyncDisplayBeginFrameMeasure);
+    //kmWritePointer(0x802a26e8, AsyncDisplayBeginFrameMeasure);
 }

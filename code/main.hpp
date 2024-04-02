@@ -45,6 +45,7 @@ namespace Cosmos
         static void Shutdown();
         static void Shutdown(bool force);
         static void Restart();
+        static void HardRestart();
 
         private:
         static System * sInstance;

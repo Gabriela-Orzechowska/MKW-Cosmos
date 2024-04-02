@@ -51,12 +51,12 @@ public:
     u32 framesToNextAction; //0x34, almost certainly wrong
     u32 framesOnCurControl; //0x38
     bool isPointerActive; //0x3c
-    u8 unknown_0x3D[3]; //padding?
-    Vec2 pointerPosition;
-    bool enabled; //if this control button info is taking inputs
+    u8 unknown_0x3D[3]; //padding? 
+    Vec2 pointerPosition; // 40
+    u8 enabled; //if this control button info is taking inputs //48
     u8 unknown_0x49[3]; //padding?
     ControlManipulator *childManipulator; //set by controls that have children like RadioControl or TabControl
-    u8 unknown_0x50[0x54-0x50];
+    s32 unknown_0x50;
 };//0x54
 static_assert(sizeof(ControlButtonInfo) == 0x54,"ControlButtonInfo");
 

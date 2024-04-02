@@ -11,7 +11,7 @@ enum ControllerType {
 };
 
 struct PadInfo {
-    u32 controllerSlotAndType;
+    u32 controllerSlotAndTypeMenu;
     u32 controllerSlotAndTypeActive;
     u32 wantsController; //if it's 1, controllerHolder will be held at 0 until input is pressed
     ControllerHolder *controllerHolder; // see inputdata.h

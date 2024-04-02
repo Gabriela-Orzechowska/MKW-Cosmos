@@ -136,6 +136,7 @@ public:
     ~AudioHandleHolder(); //806f8934
     EGG::TDisposer<AudioHandleHolder> disposer; //806f84a8 vtable 808c78ec
     void Calc(); //806f8a64
+    void Play(u32 soundId, u16 r5);
     bool canCancel; //checked on a music switch then reset
     u8 padding[3];
     AudioHandle handles[2]; //0x14

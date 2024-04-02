@@ -14,7 +14,7 @@ Melg
 #include <game/UI/MenuData/SystemBMGHolder.hpp>
 #include <game/UI/MenuData/MenuData98.hpp>
 
-
+typedef u32 SectionId;
 class Page;
 
 enum MenuState {
@@ -31,21 +31,22 @@ public:
     static MenuData *CreateStaticInstance(); //80634c90
     static void DestroyStaticInstance(); //80634cc8
     static Pages::System *CreateSystemPages(u8 idx, MenuId id); //80634a64
-    
+    void RequestSceneChange(u32 delay, u32 fadeOutColor); //80635ac8
+    void SetNextSection(SectionId id, u32 animDirection);  //80635a3c only if new priority > old priority
     MenuData(); //80634d40
     ~MenuData(); //80634dc4
     void Init(); //80634e44
     void StartTransition(u32 delay, u32 r5);
     void LoadNextMenu();
-    Scene* curScene; /* http://wiki.tockdom.com/wiki/List_of_Identifiers#Menu_Identifiers */
-    MenuId menuType[2];
-    MenuId nextMenuId;
-    MenuId prevMenuId;
-    u32 openingTransitionAnimIdx;
-    u32 transitionAnimIdx;
-    u32 transitionDelay;
-    bool firstLoad;
-	u8 unknown_0x21[3];
+    Scene* curScene; /* http://wiki.tockdom.com/wiki/List_of_Identifiers#Menu_Identifiers */ //0x0
+    MenuId menuType[2]; //0x4
+    MenuId nextMenuId; //0xC
+    MenuId prevMenuId; //0x10
+    u32 openingTransitionAnimIdx; //0x14
+    u32 transitionAnimIdx; //0x18
+    u32 transitionDelay; //0x1c
+    u32 firstLoad; //0x20
+	u8 unknown_0x21[3]; 
 
     u32 homeMenuAction;
     u32 transitionParam;

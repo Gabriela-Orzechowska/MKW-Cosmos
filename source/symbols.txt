@@ -1,5 +1,8 @@
 gameID = 0x80000000
 
+OSUnhandledException2nd__FUcP9OSContextUiUi = 0x801a2a18
+Run__8RKSystemFv = 0x8000951c
+
 # extern
 p_bmgSizeAddress = 0x8007b37c
 p_lecodeBullshit1__11CosmosGhost = 0x805e1e94
@@ -202,6 +205,7 @@ OSDisableInterrupts = 0x801a65ac
 OSRestoreInterrupts = 0x801a65d4
 OSEnableInterrupts = 0x801a65c0
 OSGetCurrentContext = 0x801a1ecc
+OSSaveContext__FP9OSContext = 0x801A1ED8
 OSDisableScheduler = 0x801a98ec
 OSSendMessage = 0x801a735c
 OSYieldThread = 0x801a9e48
@@ -294,6 +298,9 @@ sInstance__15AudioStreamsMgr = 0x809c2330
 #System
 mInstance__8RKSystem = 0x802a4080
 sInstance__8RKSystem = 0x80385fc8
+
+calcCurrentFaderGL__14RKSceneManagerFv = 0x8000984c
+changeSiblingScene__Q23EGG15EggSceneManagerFUi = 0x8023afe0
 
 #Math
 Mult__Q23EGG5QuatfFRCQ23EGG5QuatfRCQ23EGG8Vector3fRQ23EGG5Quatf = 0x8023a540
@@ -574,9 +581,10 @@ PlayAnimationAtPercent__14AnimationGroupFUif = 0x8063ca98
 sInstance__10SectionMgr = 0x809c1e38
 SetupSectionLoad = 0x805b9344
 LoadSection__10SectionMgrFv = 0x80634fbc
-RequestSceneChange__10SectionMgrFUiUi = 0x80635ac8
+RequestSceneChange__8MenuDataFUiUi = 0x80635ac8
 CreatePageById__5SceneF6PageId = 0x80623390
 RequestGoToWiiMenu__10SectionMgrFv = 0x80635c0c
+SetNextSection__8MenuDataFUiUi = 0x80635a3c
 
 #SectionMgrPad
 GetCurrentSlotAndType__10SectionPadFUi = 0x8061b358
@@ -608,6 +616,7 @@ CheckLicenseMagic__15SaveDataManagerFUc = 0x80544d10
 __ct__10PushButtonFv = 0x805bd3a8
 __dt__10PushButtonFv  = 0x805bd4b0
 __vt__10PushButton = 0x808b776c
+IsSelected__10PushButtonFv = 0x805bdf44
 HandleSelect__10PushButtonFUiUi = 0x805bdffc
 HandleDeselect__10PushButtonFUiUi = 0x805be130
 HandleClick__10PushButtonFUiUi = 0x805be358
@@ -702,6 +711,7 @@ HandleLeftPress__13UpDownControlFUiUi = 0x8063fc90
 HandleClick__13UpDownControlFUiUi = 0x8063f8f8
 Select__13UpDownControlFP13UpDownControlUi = 0x8063f0ac
 HandleSelect__13UpDownControlFUiUi = 0x8063f694
+HandleButtonSelect__13UpDownControlFUiUi = 0x80606568
 HandleButtonDeselect__13UpDownControlFUiUi = 0x8063f7c4
 HandleRightPress__13UpDownControlFUiUi = 0x8063fb64
 HandleLeftPress__13UpDownControlFUiUi = 0x8063fc90
@@ -723,6 +733,7 @@ GetHudSlotIdColorSingle__18ControlManipulatorFUcP6RGBA16 = 0x805f04d8
 CalcDistanceBothWrapping__18ControlManipulatorFP18ControlManipulator17DirectionsAllowed = 0x805f0d38
 CalcDistanceVerticalWrappingOnly__18ControlManipulatorFP18ControlManipulator17DirectionsAllowed = 0x805f0e18
 CalcDistanceNoWrapping__18ControlManipulatorFP18ControlManipulator17DirectionsAllowed = 0x805f0e24
+CalcDistanceNoWrapping__18ControlManipulatorFP18ControlManipulator10Directions = 0x805f0e24
 CalcDistance__18ControlManipulatorFP18ControlManipulator17DirectionsAllowedbb = 0x805f2384
 CalcDistanceLinear__18ControlManipulatorFP26ControlsManipulatorManager17DirectionsAllowed = 0x805f2948
 CalcDistanceBothWrapping__18ControlManipulatorFP18ControlManipulator10Directions = 0x805f0d38
@@ -899,6 +910,8 @@ Deactivate__4PageFv = 0x80601c08
 Page_Refocus__8CosmosUIFPQ25Pages4Menu = 0x80602390
 StartExit__4PageFv = 0x80602b04
 StartEntrance__4PageFv = 0x80602970
+
+Stop__Q44nw4r3snd6detail10BasicSoundFi = 0x8008e330
 
 #FriendRoomPage
 __ct__Q25Pages10FriendRoomFv = 0x805d7f78

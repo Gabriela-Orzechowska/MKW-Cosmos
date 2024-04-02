@@ -198,7 +198,6 @@ namespace CosmosFile
             return -1;
         }
         UINT readSize;
-        CosmosLog("Trying to read opened file...\n");
         FRESULT ret = f_read(&this->currentFile, buffer, size, &readSize);
         if(ret != FR_OK) 
         {
@@ -207,7 +206,7 @@ namespace CosmosFile
         }
         else
         {
-            CosmosLog("File read: %i bytes, required: %i\n", readSize, size);
+            CosmosLog("File read: %i/%i\n", readSize, size);
         }
         return readSize;
     }
@@ -215,7 +214,6 @@ namespace CosmosFile
     s32 FatFileManager::Write(u32 size, const void * buffer)
     {
         if(StorageDevice::currentDevice == nullptr) return -1;
-        CosmosLog("Trying to save opened file...\n");
         UINT writtenSize;
         f_lseek(&this->currentFile, this->fileSize);
         FRESULT ret = f_write(&this->currentFile, buffer, size, &writtenSize);
@@ -224,13 +222,13 @@ namespace CosmosFile
             CosmosLog("File save failed! Error: %i\n", ret);
             return -1;
         }
+        CosmosLog("File saved: %i/%i", writtenSize, size);
         return writtenSize;
     }
 
     s32 FatFileManager::Overwrite(u32 size, const void * buffer)
     {
         if(StorageDevice::currentDevice == nullptr) return -1;
-        CosmosLog("Trying to save opened file...\n");
         UINT writtenSize;
         f_lseek(&this->currentFile, 0);
         FRESULT ret = f_write(&this->currentFile, buffer, size, &writtenSize);
@@ -241,7 +239,7 @@ namespace CosmosFile
         }
         else
         {
-            CosmosLog("File saved: %i bytes\n", writtenSize);
+            CosmosLog("File saved: %i/%i\n", writtenSize, size);
         }
         return writtenSize;
     }

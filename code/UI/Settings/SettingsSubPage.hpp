@@ -9,6 +9,7 @@
 #include <game/UI/Ctrl/Menu/CtrlMenuText.hpp>
 #include <UI/Settings/SettingsBasePage.hpp>
 #include <Settings/UserData.hpp>
+#include <Controller/MiscController.hpp>
 #include <main.hpp>
 
 #define SUBPAGECOUNT 2
@@ -41,6 +42,7 @@ namespace CosmosUI
     {
         public:
         SettingSubPage::SettingSubPage(SettingPageDefinition * definition, u32 pageId, u32 index);
+        void EmptySelect(UpDownControl *control, u32 u);
         ~SettingSubPage() override;
         void OnInit() override;
         void OnActivate() override;
@@ -52,6 +54,7 @@ namespace CosmosUI
         void OnExternalButtonSelect(PushButton  *button, u32 param_2) override;
         UIControl *CreateControl(u32 id) override;
         void SetButtonHandlers(PushButton *pushButton) override;
+        void OnUpdate() override;
         u32 pageIndex;
         u32 scrollersCount;
 
@@ -92,6 +95,7 @@ namespace CosmosUI
 
         UpDownControl * menuUpDownControls;
         TextUpDownValueControlPlus * menuTextUpDownPlus;
+        bool disableControl;
 
     };
 

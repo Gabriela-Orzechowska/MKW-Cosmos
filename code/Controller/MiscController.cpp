@@ -1,12 +1,11 @@
 #include <Controller/MiscController.hpp>
-#include <core/rvl/os/OS.hpp>
 
 namespace CosmosController
 {
-
+    
     #define CASE_BUTTON(universal, specific) \
     case universal: return (raw & specific) != 0;
-
+        
     bool isPressed(const RealControllerHolder * holder, ControllerType type, u32 button)
     {
         return isPressed(holder,type,button,false);
@@ -50,7 +49,7 @@ namespace CosmosController
                 CASE_BUTTON(BUTTON_DPAD_UP, NUNCHUCK_DPAD_UP)
                 CASE_BUTTON(BUTTON_DPAD_DOWN, NUNCHUCK_DPAD_DOWN)
                 CASE_BUTTON(BUTTON_DPAD_LEFT, NUNCHUCK_DPAD_LEFT)
-                CASE_BUTTON(BUTTON_DPAD_RIGHT,  BUTTON_DPAD_RIGHT)
+                CASE_BUTTON(BUTTON_DPAD_RIGHT,  NUNCHUCK_DPAD_RIGHT)
                 default:
                     return false;
             }

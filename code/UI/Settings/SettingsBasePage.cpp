@@ -99,15 +99,17 @@ namespace CosmosUI
         //this->SaveSettings();
         if(direction == 0)
         {
-            upDownControls->HandleLeftPress(0, 0);
+            upDownControls->arrowButtons[1].animator.GetAnimationGroupById(ANM_SELECT)->PlayAnimationAtFrame(0.0f, 0);
+            // upDownControls->HandleLeftPress(0, 0);
         }
         else if(direction == 2)
         {
-            upDownControls->HandleRightPress(0, 0);
+            upDownControls->arrowButtons[0].animator.GetAnimationGroupById(ANM_SELECT)->PlayAnimationAtFrame(0.0f, 0);
+            // upDownControls->HandleRightPress(0, 0);
         }
-
+        
         currentPageId = (currentPageId + (direction-1) + PAGECOUNT) % PAGECOUNT;
-        CosmosLog("Current Page ID: %d", currentPageId);
+        this->upDownControls->text->SetMessage(currentPageId);
 
         UpDownControl::Select(upDownControls, 0);
     }
@@ -133,7 +135,7 @@ namespace CosmosUI
 
     UIControl * SettingsBasePage::CreateControl(u32 id)
     {
-        if(id < this->scrollersCount)
+        if(id == 0)
         {
             UpDownControl * upDownCtrl = this->upDownControls;
             this->AddControl(this->controlCount, upDownCtrl, 0);

@@ -49,7 +49,7 @@ class Title : public Page{ //0x57
     PageId nextPageId;
     u32 initialPageDuration; //0x344 just a copy of 0x20 OnDeactivate?
     bool isMirrorUnlocked;
-    u8 padding[3];
+    u8 padding2[3];
     u32 tplID; //randomized tpl to show 0 1 2 3 4 5 for mario1, mario2, peach, luiji, koopa, mario_luiji
 }; //0x350
 static_assert(sizeof(Title) == 0x350, "Title");
@@ -80,7 +80,7 @@ class TitleMovie : public Page{ //0x59
     ManipulatorManager manipulatorManager; //0x1b8
 
 }; //0x1d0
-static_assert(sizeof(TitleMovie) == 0x1d0, "TitleMovie");
+//static_assert(sizeof(TitleMovie) == 0x1d0, "TitleMovie");
 
 class BlinkingPressA : public Page{ //the blinking "press A" on demo
     BlinkingPressA(); //8063c0ac

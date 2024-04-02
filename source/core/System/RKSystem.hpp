@@ -28,6 +28,7 @@ public:
     virtual void *GetProcessMeter(); //0x18
     virtual SceneManager *GetSceneManager(); //0x1C
     virtual EGG::ExpAudioMgr *GetAudioManager(); //0x20
+    void Run();
     void *MEM1ArenaLo;
     void *MEM1ArenaHi;
     void *MEM2ArenaLo;
@@ -55,7 +56,7 @@ public:
     EGG::ExpHeap *heapSystem2; //the one I use 0x64
     u8 frameClock;
     u8 unknown_0x68;
-    bool drawFrame;
+    u8 drawFrame;
     u8 unknown_0x6b[0x74-0x6b];
 }; //total size 0x74
 #endif
