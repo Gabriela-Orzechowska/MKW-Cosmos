@@ -29,6 +29,7 @@ class MenuData {
 public:
     static MenuData *sInstance;
     static MenuData *CreateStaticInstance(); //80634c90
+    static MenuData * GetStaticInstance() { return sInstance; }
     static void DestroyStaticInstance(); //80634cc8
     static Pages::System *CreateSystemPages(u8 idx, MenuId id); //80634a64
     void RequestSceneChange(u32 delay, u32 fadeOutColor); //80635ac8
