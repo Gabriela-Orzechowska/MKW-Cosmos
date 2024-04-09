@@ -9,6 +9,7 @@ Run `Build.bat`. Update `CC=` path inside `Build.bat` if needed.
 
 ## Current Features
 ### General
+- Slot Expansion (indev)
 - Discord Rich Presence
 - Files loading from additional archives/bmg files
 - Auto BRSAR Patching
@@ -26,7 +27,7 @@ Run `Build.bat`. Update `CC=` path inside `Build.bat` if needed.
 - Extended Presence Flags
 
 ### DX Features
-Cosmos was originally created for Mario Kart Wii Deluxe, because of that this repo contains some of their features. They won't be in the pack on standalone release.
+Cosmos was originally created for Mario Kart Wii Deluxe, because of that this repo contains some of their features. They won't be in the engine on standalone release.
 - Mega TCs
 - All Items can Drop (+ Golden Pickup)
 - Brake Drifting & Fast Falling
