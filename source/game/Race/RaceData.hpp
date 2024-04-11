@@ -164,7 +164,7 @@ public:
 class RaceData : public EmptyRaceDataParent, public RKParameterFile{
 public: 
     static RaceData *sInstance; //0x809bd728 presumably private 
-    static RaceData *GetStaticInstance(); //8052fe58
+    static RaceData *GetStaticInstance() { return sInstance; }
     static void DestroyStaticInstance(); //8052ffe8
     RaceData(); //8053015c inlined
     ~RaceData() override; //80530038 vtable 808b3268  for RKParemeterFile and 808b3260 for RaceData itself

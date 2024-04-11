@@ -39,14 +39,14 @@ namespace CosmosUI
         }, { 
             .settingCount = 2,
             .settings = {{ .optionCount = 2, .isBool = true },
-            { .optionCount = 2, .isBool = truee }}
+            { .optionCount = 2, .isBool = true }}
         }
     } ;
 
     class NewSettings : public Page {
         public:
-        NewSettings() = default;
-        ~NewSettings() = default;
+        NewSettings();
+        ~NewSettings();
 
         void OnInit() override;
         void OnActivate() override;

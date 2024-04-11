@@ -41,12 +41,18 @@ namespace CosmosData
 
     class Settings : SettingBase{
         public:
-            Settings(){};
-            char signature[4];
-            u32 version;
+        Settings(){};
+        u8 GetSettingValue(GLOBAL_SETTING setting) const { return this->settings.rawSettings[setting]; }
+        u8 GetSettingValue(u8 page, u8 setting) const { return this->settings.pages[page].setting[setting]; }
+
+        char signature[4];
+        u32 version;
+        union {
             SettingsPage pages[PAGECOUNT];
-            u16 playerVr[4];
-            u16 playerBr[4];
+            u8 rawSettings[PAGECOUNT * 8];
+        } settings;
+        u16 playerVr[4];
+        u16 playerBr[4];
     } __attribute__ ((aligned(0x20)));
 
     class SettingsHolder
@@ -121,7 +127,16 @@ namespace CosmosData
         OM_ALWAYS = 0x2,
     };
 
-
+    enum GLOBAL_SETTING {
+        COSMOS_SETTING_MUSIC_CUTOFF = 0x0 + (COSMOS_RACE_SETTINGS_1 * 8),
+        COSMOS_SETTING_DRAGGABLE_BLUES = 0x1 + (COSMOS_RACE_SETTINGS_1 * 8),
+        COSMOS_SETTING_FRAME_MODE = 0x2 + (COSMOS_RACE_SETTINGS_1 * 8),
+        COSMOS_SETTING_LANGUAGE_SETTINGS = 0x0 + (COSMOS_MENU_SETTINGS_1 * 8),
+        COSMOS_SETTING_FAST_MENUS = 0x1 + (COSMOS_MENU_SETTINGS_1 * 8),
+        COSMOS_SETTING_LAYOUT = 0x2 + (COSMOS_MENU_SETTINGS_1 * 8),
+        COSMOS_SETTING_DWC_LOGS = 0x0 + (COSMOS_DEBUG_SETTINGS_1 * 8),
+        COSMOS_SETTING_PERFORMANCE_MONITOR = 0x1 + (COSMOS_DEBUG_SETTINGS_1 * 8),
+    };
 }
 
 #endif

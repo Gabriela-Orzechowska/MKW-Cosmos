@@ -36,15 +36,17 @@ namespace CosmosUI {
             "DXSettingsUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &textSettingSelector[i], 1, 0, false, true, true);
         }
 
-        if(Scene::GetType(MenuData::GetStaticInstance()->curScene->menuId) == MenuCategory::CATEGORY_GAMEPLAY){
+        if(Scene::GetType(MenuData::GetStaticInstance()->curScene->menuId) == CATEGORY_GAMEPLAY){
             backButton.Load("message_window", "Back", "ButtonBack", 1, false, true);
         } else {
             backButton.Load("button", "Back", "ButtonBack", 1, false, true);
         }
         bottomText.Load();
 
-        
-
     }   
+
+    void NewSettings::OnActivate() {
+        return;
+    }
 
 }

@@ -355,6 +355,8 @@ Request__Q23EGG10TaskThreadFPFPv_vPvUi = 0x80242c18
 #Scene
 GetCurrent__9GameSceneFv = 0x8051bed0
 SetFramerate__9GameSceneFUc = 0x8051af84
+GetType__5SceneF6MenuId = 0x80631588
+
 
 #ScnManager
 pageCount__10ScnManager = 0x808b4bf0
@@ -813,6 +815,8 @@ __vt__18CtrlMenuBackButton = 0x808d374c
 
 #Title
 SetMsgId__21CtrlMenuPageTitleTextFUiPC8TextInfo = 0x807e987c
+Load__21CtrlMenuPageTitleTextFb =  0x807e947c
+
 
 #Instruction
 SetMsgId__23CtrlMenuInstructionTextFUiPC8TextInfo = 0x807e9a38

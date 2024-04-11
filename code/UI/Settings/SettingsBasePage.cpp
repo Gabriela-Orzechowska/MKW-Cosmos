@@ -194,7 +194,7 @@ namespace CosmosUI
         this->SaveSettings();
         
         using namespace CosmosData;
-        u32 language = SettingsHolder::GetInstance()->GetSettings()->pages[COSMOS_MENU_SETTINGS_1].setting[COSMOS_LANGUAGE_SETTINGS];
+        u32 language = SettingsHolder::GetInstance()->GetSettings()->GetSettingValue(COSMOS_SETTING_LANGUAGE_SETTINGS);
         if(this->koreanChange) this->LoadPrevPageWithDelayById((PageId)Cosmos::WARNING_PAGE, 0.0f);
         else if(!this->wasLanguageChanged) this->LoadPrevPageWithDelayById(lastPage, 0.0f);
     }
@@ -208,7 +208,7 @@ namespace CosmosUI
         for(int i = 0; i < PAGECOUNT; i++)
         {
             SettingSubPage * page = scene->Get<SettingSubPage>((PageId)(settingsPageIds[i]));
-            SettingsPage * settings = &SettingsHolder::GetInstance()->GetSettings()->pages[i];
+            SettingsPage * settings = &SettingsHolder::GetInstance()->GetSettings()->settings.pages[i];
             for(UpDownControl * control = page->upDownControls; control < &page->upDownControls[page->scrollersCount]; control++)
             {
                 settings->setting[control->id] = control->curSelectedOption;

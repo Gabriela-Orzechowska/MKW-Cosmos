@@ -159,7 +159,6 @@ namespace CosmosUI
         this->basePage->HandleChange(optionId);
 
         PageId id = (PageId)settingsPageIds[this->basePage->currentPageId];
-        //|| CosmosData::SettingsHolder::GetInstance()->GetSettings()->pages[CosmosData::COSMOS_MENU_SETTINGS_1].setting[CosmosData::COSMOS_FAST_MENUS] == CosmosData::ENABLED
         if(optionId == 0 )
             this->LoadPrevPageWithDelayById(id, 0.0f);
         else
@@ -183,7 +182,7 @@ namespace CosmosUI
             char variant[0x20];
             snprintf(variant, 0x20, "UpDown%d", id);
 
-            upDownCtrl->Load(this->pageDefinition.settings[id].optionCount, settingsHolder->GetSettings()->pages[pageIndex].setting[id], "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
+            upDownCtrl->Load(this->pageDefinition.settings[id].optionCount, settingsHolder->GetSettings()->GetSettingValue(pageIndex, id), "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
             "DXSettingsUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textUpDownPlus[id], 1, 0, false, true, true);
             upDownCtrl->SetOnClickHandler(&this->onUpDownClickHandler);
             upDownCtrl->SetOnSelectHandler(&this->onUpDownSelectHandler);
@@ -205,8 +204,7 @@ namespace CosmosUI
             valueCtrl->activeTextValueControl->SetMsgId(bmgId);
             nw4r::ut::Color col;
             col.rgba = 0xFF00FFFF;
-            CosmosData::SettingsPage * settingsPage = &CosmosData::SettingsHolder::GetInstance()->GetSettings()->pages[pageIndex];
-            upDownCtrl->curSelectedOption = settingsPage->setting[id];
+            upDownCtrl->curSelectedOption = CosmosData::SettingsHolder::GetInstance()->GetSettings()->GetSettingValue(pageIndex, id);
         }
 
         else if(id == this->scrollersCount)
@@ -266,7 +264,6 @@ namespace CosmosUI
 
     void SettingSubPage::OnActivate()
     {
-        CosmosData::SettingsPage * settingsPage = &CosmosData::SettingsHolder::GetInstance()->GetSettings()->pages[pageIndex];
         //this->controlsManipulatorManager.holders[0].info.unknown_0x50 = -1;
         this->controlsManipulatorManager.holders[0].info.childManipulator = &upDownControls[this->mainControlId].manipulator;
         this->upDownControls->animator.GetAnimationGroupById(3)->curFrame = 1000.f;
