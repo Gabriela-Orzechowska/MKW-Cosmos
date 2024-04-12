@@ -43,6 +43,39 @@ namespace CosmosUI {
         }
         bottomText.Load();
 
+        onBackPressHandler.subject = this;
+        onBackPressHandler.ptmf = static_cast<void (Page::*)(u32)> (&NewSettings::OnBack);
+        onBackButtonPress.subject = this;
+        onBackButtonPress.ptmf = static_cast<void (Page::*)(PushButton*,u32)> (&NewSettings::OnBackButtonClick);
+
+
+        onPageChangeHandler.subject = this;
+        onPageChangeHandler.ptmf = static_cast<void (Page::*)(TextUpDownValueControl::TextControl*, u32)> (&NewSettings::OnSettingsPageControlChange);
+        onPageClickHandler.subject = this;
+        onPageClickHandler.ptmf = static_cast<void (Page::*)(UpDownControl*, u32)> (&NewSettings::OnSettingsPageControlClick);
+        onPageSelectHandler.subject = this;
+        onPageSelectHandler.ptmf = static_cast<void (Page::*)(UpDownControl*,u32)> (&NewSettings::OnSettingsPageControlSelect);
+
+        onValueSettingChangeHandler.subject = this;
+        onValueSettingChangeHandler.ptmf = static_cast<void (Page::*)(TextUpDownValueControl::TextControl*, u32)> (&NewSettings::OnValueControlChange);
+        onValueSettingClickHandler.subject = this;
+        onValueSettingClickHandler.ptmf = static_cast<void (Page::*)(UpDownControl*,u32)> (&NewSettings::OnValueControlClick);
+        onValueSettingSelectHandler.subject = this;
+        onValueSettingSelectHandler.ptmf = static_cast<void (Page::*)(UpDownControl*,u32)> (&NewSettings::OnValueControlSelect);
+
+        controlsManipulatorManager.SetGlobalHandler(BACK_PRESS, &onBackPressHandler, false, false);
+        backButton.SetOnClickHandler(&onBackButtonPress, 0);
+
+        pageSelector.SetOnClickHandler(&onPageClickHandler);
+        pageSelector.SetOnSelectHandler(&onPageSelectHandler);
+        textPageSelector.SetOnTextChangeHandler(&onPageChangeHandler);
+
+        for(int i = 0; i < SETTINGCONTROLCOUNT; i++){
+            settingSelectors[i].SetOnClickHandler(&onValueSettingClickHandler);
+            settingSelectors[i].SetOnSelectHandler(&onValueSettingSelectHandler);
+            textSettingSelector[i].SetOnTextChangeHandler(&onValueSettingChangeHandler);
+        }
+
     }   
 
     void NewSettings::OnActivate() {
