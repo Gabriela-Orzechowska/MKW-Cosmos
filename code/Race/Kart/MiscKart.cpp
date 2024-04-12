@@ -6,10 +6,10 @@
 #include <game/Race/Kart/KartPointers.hpp>
 
 // Patch Offroad Glitch [vabold]
-void EndJumpPad(KartStatus * status)
+void EndJumpPad(KartStatus& status)
 {
-    status->bitfield0 &= ~BITFIELD0::JUMP_PAD;
-    status->bitfield2 &= ~BITFIELD2::JUMP_PAD_FIXED_SPEED;
+    status.bitfield0 &= ~BITFIELD0::JUMP_PAD;
+    status.bitfield2 &= ~BITFIELD2::JUMP_PAD_FIXED_SPEED;
     return;
 }
 
@@ -17,15 +17,15 @@ kmCall(0x8058267c, EndJumpPad);
 
 // Coob
 kmWrite32(0x8057186c, 0x7fe6fb78); //mr r6, r31
-s32 CalcCoob(KMP::Controller * controller, const Vec3 * position, u32 firstId, KartCollision * col){
-    s32 ret = controller->GetAreaAtPosition(position, firstId, 0xA);
+s32 CalcCoob(KMP::Controller& controller, const Vec3 * position, u32 firstId, const KartCollision& col){
+    s32 ret = controller.GetAreaAtPosition(position, firstId, 0xA);
     if(ret < 0) return -1;
 
-    AREA * curArea = controller->area->pointArray[ret]->rawData;
+    AREA * curArea = controller.area->pointArray[ret]->rawData;
     u16 set1 = curArea->setting1;
     u16 set2 = curArea->setting2;
 
-    RaceinfoPlayer * player = RaceInfo::GetStaticInstance()->players[col->base.pointers->values->playerIdx];   
+    RaceinfoPlayer * player = RaceInfo::GetStaticInstance()->players[col.base.pointers->values->playerIdx];   
     
     if(curArea->routeId == 1) {
         u8 kcp = player->currentKCP;

@@ -104,13 +104,13 @@ int BrakeDriftParticlesBike(PlayerEffects * effects)
 kmWrite32(0x80698f88, 0x60000000);
 kmCall(0x80698f8c, BrakeDriftParticlesBike);
 
-int BrakeDriftParticlesKart(PlayerEffects * effects)
+int BrakeDriftParticlesKart(PlayerEffects& effects)
 {
-    Kart * kart = effects->kart;
+    Kart * kart = effects.kart;
     if(IsHoldingBrakeDrift(kart->base.pointers->kartStatus))
-        effects->DisplayEffects2(effects->kartDriftEffects, 34, 36, true);
+        effects.DisplayEffects2(effects.kartDriftEffects, 34, 36, true);
     else    
-        effects->FadeEffects2(effects->kartDriftEffects, 34, 36, true);
+        effects.FadeEffects2(effects.kartDriftEffects, 34, 36, true);
 
     return kart->GetDriftState();
 }
