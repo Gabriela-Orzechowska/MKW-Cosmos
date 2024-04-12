@@ -6,7 +6,7 @@
 #include <game/UI/Ctrl/CtrlRace/CtrlRaceGhostDiffTime.hpp>
 #include <Settings/UserData.hpp>
 
-void FinalLapSpeedUp(RaceRSARSoundsPlayer *soundPlayer, u32 lapSoundId, u32 playerId)
+void FinalLapSpeedUp(RaceRSARSoundsPlayer& soundPlayer, u32 lapSoundId, u32 playerId)
 {
     static u8 hudIdFinalLap;
 
@@ -39,7 +39,7 @@ void FinalLapSpeedUp(RaceRSARSoundsPlayer *soundPlayer, u32 lapSoundId, u32 play
 
             if(maxLap != currentLap) 
             {
-                soundPlayer->PlaySound(0x74, playerId);
+                soundPlayer.PlaySound(0x74, playerId);
             }
         }
         else if ((maxLap != currentLap) && (audioMgr->raceState == 0x4 || audioMgr->raceState == 0x6)) 
@@ -50,7 +50,7 @@ void FinalLapSpeedUp(RaceRSARSoundsPlayer *soundPlayer, u32 lapSoundId, u32 play
     else if(currentLap != maxLap)
     {
         hudIdFinalLap = audioMgr->playerIdFirstLocalPlayer;
-        soundPlayer->PlaySound(lapSoundId, playerId);
+        soundPlayer.PlaySound(lapSoundId, playerId);
     }
 }
 

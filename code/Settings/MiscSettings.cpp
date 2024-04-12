@@ -5,14 +5,14 @@
 
 using namespace CosmosData;
 
-void SetFrameRate(GameScene * scene, u8 mode)
+void SetFrameRate(GameScene& scene, u8 mode)
 {
     FRAME_MODE frameMode = (FRAME_MODE) SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_FRAME_MODE);
 
     if(frameMode == FORCE_30) mode = 1;
     else if(frameMode == FORCE_60) mode = 0;
 
-    scene->SetFramerate(mode);
+    scene.SetFramerate(mode);
 }
 
 kmCall(0x80554270, SetFrameRate);

@@ -87,10 +87,10 @@ namespace CosmosData
 
     BootHook InitSettings(SettingsHolder::Create, MEDIUM);
 
-    void SetBRAndVR(LicenseManager * license, u32 licenseId){
+    void SetBRAndVR(LicenseManager& license, u32 licenseId){
         
-        license->vr.mPoints = SettingsHolder::GetInstance()->GetUserVR(licenseId);
-        license->br.mPoints = SettingsHolder::GetInstance()->GetUserBR(licenseId);
+        license.vr.mPoints = SettingsHolder::GetInstance()->GetUserVR(licenseId);
+        license.br.mPoints = SettingsHolder::GetInstance()->GetUserBR(licenseId);
     }
 
     kmWrite32(0x80544f7c, 0x7fe3fb78);
@@ -99,18 +99,16 @@ namespace CosmosData
     kmCall(0x80544f84, SetBRAndVR);
 
     u32 currentLicense = 0; // the only thing saving me is the fact save is always done in a for loop
-    Rating * SaveVR(LicenseManager * license){
+    Rating * SaveVR(LicenseManager& license){
 
         u16 curLicenseId = SaveDataManager::sInstance->curLicenseId;
-        LicenseManager * actualLicense = &SaveDataManager::sInstance->licenses[curLicenseId];
-
-        if(actualLicense == nullptr) return 0;
+        LicenseManager& actualLicense = SaveDataManager::sInstance->licenses[curLicenseId];
 
         SettingsHolder * holder = SettingsHolder::GetInstance();
         if(holder == nullptr) return 0;
 
-        holder->SetUserVR(actualLicense->vr.mPoints, curLicenseId);
-        holder->SetUserBR(actualLicense->br.mPoints, curLicenseId);
+        holder->SetUserVR(actualLicense.vr.mPoints, curLicenseId);
+        holder->SetUserBR(actualLicense.br.mPoints, curLicenseId);
 
         holder->Save();
         return 0;
