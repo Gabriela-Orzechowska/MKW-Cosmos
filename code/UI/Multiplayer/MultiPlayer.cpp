@@ -37,41 +37,41 @@ namespace CosmosUI
     }
 
 
-    void UpdateOKButton(PushButton * button, const char * folderName, const char * controlName, const char * variant, u32 localPlayerCount, u8 param_5, bool inaccesable)
+    void UpdateOKButton(PushButton& button, const char * folderName, const char * controlName, const char * variant, u32 localPlayerCount, u8 param_5, bool inaccesable)
     {
         MenuId menuId = MenuData::sInstance->curScene->menuId;
         if(isVotingScreen(menuId))
         {
             controlName = "DXVRScreen";
         }
-        button->Load(folderName, controlName, variant, localPlayerCount, param_5, inaccesable);
+        button.Load(folderName, controlName, variant, localPlayerCount, param_5, inaccesable);
     }
 
     kmCall(0x8064a6e8, UpdateOKButton);
     
-    void VRPagePlus::ChangeCombo(PushButton * button, u32 slotId)
+    void VRPagePlus::ChangeCombo(const PushButton& button, u32 slotId)
     {
         this->menuState = 1;
-        this->EndStateAnimate(button->GetAnimationFrameSize(), 0);
+        this->EndStateAnimate(button.GetAnimationFrameSize(), 0);
     }
 
-    void AddChangeComboPage(Scene * scene, PageId id)
+    void AddChangeComboPage(Scene& scene, PageId id)
     {
-        scene->CreatePage(id);
-        scene->CreatePage(CHARACTER_SELECT);
-        switch (scene->menuId)
+        scene.CreatePage(id);
+        scene.CreatePage(CHARACTER_SELECT);
+        switch (scene.menuId)
         {
             case(P1_WIFI_VS_VOTING):
             case(P1_WIFI_FRIEND_ROOM_VS_VOTING):
             case(P1_WIFI_FRIEND_ROOM_TEAM_VS_VOTING):
-                scene->CreatePage(KART_SELECT);
-                scene->CreatePage(DRIFT_SELECT);
+                scene.CreatePage(KART_SELECT);
+                scene.CreatePage(DRIFT_SELECT);
                 break;
             case(P1_WIFI_BATTLE_VOTING):
             case(P1_WIFI_FRIEND_ROOM_BALLOON_VOTING):
             case(P1_WIFI_FRIEND_ROOM_COIN_VOTING):
-                scene->CreatePage(BATTLE_KART_SELECT);
-                scene->CreatePage(DRIFT_SELECT);
+                scene.CreatePage(BATTLE_KART_SELECT);
+                scene.CreatePage(DRIFT_SELECT);
                 break;
             case(P2_WIFI_VS_VOTING):
             case(P2_WIFI_FRIEND_ROOM_VS_VOTING):
@@ -79,8 +79,8 @@ namespace CosmosUI
             case(P2_WIFI_BATTLE_VOTING):
             case(P2_WIFI_FRIEND_ROOM_BALLOON_VOTING):
             case(P2_WIFI_FRIEND_ROOM_COIN_VOTING):
-                scene->CreatePage(MULTIPLAYER_KART_SELECT);
-                scene->CreatePage(MULTIPLAYER_DRIFT_SELECT);
+                scene.CreatePage(MULTIPLAYER_KART_SELECT);
+                scene.CreatePage(MULTIPLAYER_DRIFT_SELECT);
                 break;
         }
         return;

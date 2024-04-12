@@ -14,7 +14,7 @@ namespace CosmosUI{
         void Load();
     public:
         static u32 Count();
-        static void Create(Page * page, u32 index);
+        static void Create(Page* page, u32 index);
     };
 }
 

@@ -6,7 +6,7 @@
 const char * ttButtonBrctr = "DX_TT";
 const char * normalBrctr = "DXSingleTop";
 
-void LoadCorrectControlFile(PushButton * button, const char * folderName, const char * controlName, const char * variantName, u32 param_5, u32 param_6, u32 idx)
+void LoadCorrectControlFile(PushButton& button, const char * folderName, const char * controlName, const char * variantName, u32 param_5, u32 param_6, u32 idx)
 {
     controlName = normalBrctr;
     if(idx == TIME_TRIAL || idx == TIME_TRIAL_200)
@@ -21,8 +21,8 @@ void LoadCorrectControlFile(PushButton * button, const char * folderName, const 
         variantName = "ButtonSettings";
     }
     
-    button->Load(folderName, controlName, variantName, param_5, param_6, false);
-    ((Pages::SinglePlayer*)(button->parentGroup->parentPage))->curMovieCount = 0;
+    button.Load(folderName, controlName, variantName, param_5, param_6, false);
+    ((Pages::SinglePlayer*)(button.parentGroup->parentPage))->curMovieCount = 0;
 }
 
 kmWrite16(0x806266c2, 0x6); 
@@ -52,16 +52,16 @@ void FixMenuNagivation(ControlsManipulatorManager *mgr){
 }
 kmCall(0x8084ef68, FixMenuNagivation);
 
-void OnButtonSelect(Pages::SinglePlayer * page, PushButton * button, u32 slotId)
+void OnButtonSelect(Pages::SinglePlayer& page, PushButton * button, u32 slotId)
 {
-    if(button->buttonId == TIME_TRIAL_200) page->bottomText->SetMsgId(0x2820);
-    else if(button->buttonId == TIME_TRIAL_200) page->bottomText->SetMsgId(0x2a20);
-    else page->Pages::SinglePlayer::OnExternalButtonSelect(button, slotId);
+    if(button->buttonId == TIME_TRIAL_200) page.bottomText->SetMsgId(0x2820);
+    else if(button->buttonId == TIME_TRIAL_200) page.bottomText->SetMsgId(0x2a20);
+    else page.Pages::SinglePlayer::OnExternalButtonSelect(button, slotId);
 }
 
 kmWritePointer(0x808D9F64, OnButtonSelect);
 
-void OnButtonClick(Pages::SinglePlayer * page, PushButton * button, u32 slotId)
+void OnButtonClick(Pages::SinglePlayer& page, PushButton * button, u32 slotId)
 {
     u32 buttonOriginalId = button->buttonId;
     if(buttonOriginalId == TIME_TRIAL_200) button->buttonId = TIME_TRIAL;
@@ -70,12 +70,12 @@ void OnButtonClick(Pages::SinglePlayer * page, PushButton * button, u32 slotId)
     {
         MenuData::sInstance->curScene->Get<CosmosUI::SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN)->lastPage = SINGLE_PLAYER_MENU;
         MenuData::sInstance->curScene->Get<CosmosUI::SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN)->lastMenu = SINGLE_PLAYER_FROM_MENU;
-        page->nextPageId = (PageId) Cosmos::SETTINGS_MAIN;
-        page->EndStateAnimate(button->GetAnimationFrameSize(), 0);
+        page.nextPageId = (PageId) Cosmos::SETTINGS_MAIN;
+        page.EndStateAnimate(button->GetAnimationFrameSize(), 0);
     }
     else
     {
-        page->Pages::SinglePlayer::OnButtonClick(button, slotId);
+        page.Pages::SinglePlayer::OnButtonClick(button, slotId);
         button->buttonId = buttonOriginalId;
         if(buttonOriginalId == TIME_TRIAL_200) 
             Cosmos::System::GetStaticInstance()->SetTTMode(Cosmos::COSMOS_TT_200cc);

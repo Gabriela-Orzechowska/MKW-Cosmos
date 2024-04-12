@@ -91,7 +91,7 @@ namespace CosmosGhost
             static void DestroyStaticInstance();
             void Reset();
             void Init(u32 courseId);
-            bool EnableGhost(const GhostListEntry& entry) const;
+            bool EnableGhost(const GhostListEntry& entry);
             GhostLeaderboardManager& GetLeaderboard() {return this->leaderboard; }
             const GhostData * GetGhostData(u32 idx) const {
                 return &this->files[idx];

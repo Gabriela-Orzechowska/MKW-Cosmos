@@ -38,8 +38,8 @@ namespace CosmosUI
             this->OnButtonClick(button, slotId);
         }
     }
-    void PatchBRCTR(PushButton *button, const char*folderName, const char*ctrName, const char*variant, u32 playerCount, u32 param_6, bool inaccessible){
-        button->Load(folderName, "DXOptions", variant, playerCount, param_6, inaccessible);
+    void PatchBRCTR(PushButton& button, const char*folderName, const char*ctrName, const char*variant, u32 playerCount, u32 param_6, bool inaccessible){
+        button.Load(folderName, "DXOptions", variant, playerCount, param_6, inaccessible);
     }
     kmCall(0x805fd7bc, PatchBRCTR);
     kmCall(0x805fd80c, PatchBRCTR);

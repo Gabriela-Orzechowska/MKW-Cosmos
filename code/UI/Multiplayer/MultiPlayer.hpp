@@ -22,8 +22,8 @@ namespace CosmosUI
             void OnInit() override;
             u8 menuState;
         private:
-            void ChangeCombo(PushButton * button, u32 slotId);
-            PtmfHolder_2A<VRPagePlus, void, PushButton *, u32> onChangeComboButton;
+            void ChangeCombo(const PushButton& button, u32 slotId);
+            PtmfHolder_2A<VRPagePlus, void, const PushButton&, u32> onChangeComboButton;
             PushButton changeComboButton;
     };
 }

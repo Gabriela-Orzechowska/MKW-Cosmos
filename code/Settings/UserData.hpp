@@ -3,6 +3,7 @@
 
 #include <kamek.hpp>
 #include <FileManager/FileManager.hpp>
+#include <game/System/SaveDataManager.hpp>
 #include <core/rvl/os/OS.hpp>
 #include <main.hpp>
 

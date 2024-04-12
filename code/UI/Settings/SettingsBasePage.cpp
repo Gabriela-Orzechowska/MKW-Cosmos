@@ -157,7 +157,7 @@ namespace CosmosUI
         return NULL;
     }
 
-    void SettingsBasePage::SetButtonHandlers(PushButton *button){
+    void SettingsBasePage::SetButtonHandlers(PushButton * button){
         PtmfHolder_2A<Page, void, PushButton *, u32> *onClickHandler = (PtmfHolder_2A<Page, void, PushButton *, u32>*) &this->onButtonClickHandler;
         button->SetOnClickHandler(onClickHandler, 0);
         button->SetOnSelectHandler((PtmfHolder_2A<Page, void, PushButton *, u32>*)&this->onButtonSelectHandler);

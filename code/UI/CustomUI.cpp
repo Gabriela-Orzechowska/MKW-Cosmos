@@ -4,7 +4,7 @@
 #include <UI/Settings/SettingsSubPage.hpp>
 #include <UI/Settings/MessageWarning.hpp>
 
-void * CreatePage(Scene * scene, u32 pageId)
+void * CreatePage(Scene& scene, u32 pageId)
 {
     if(pageId == (u32)Cosmos::SETTINGS_MAIN)
     {
@@ -28,20 +28,20 @@ void * CreatePage(Scene * scene, u32 pageId)
         return new (CosmosUI::MessagePageWindow);
     }
 
-    return scene->CreatePageById((PageId)pageId);
+    return scene.CreatePageById((PageId)pageId);
 }
 
 kmCall(0x80622d2c, CreatePage);
 
 
-void InjectPage(Scene *scene, PageId id)
+void InjectPage(Scene& scene, PageId id)
 {
-    scene->CreatePage(id);
-    scene->CreatePage((PageId)Cosmos::SETTINGS_MAIN);
-    scene->CreatePage((PageId)Cosmos::RACE_SETTINGS1);
-    scene->CreatePage((PageId)Cosmos::MENU_SETTINGS1);
-    scene->CreatePage((PageId)Cosmos::DEBUG_SETTINGS);
-    scene->CreatePage((PageId)Cosmos::WARNING_PAGE);
+    scene.CreatePage(id);
+    scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
+    scene.CreatePage((PageId)Cosmos::RACE_SETTINGS1);
+    scene.CreatePage((PageId)Cosmos::MENU_SETTINGS1);
+    scene.CreatePage((PageId)Cosmos::DEBUG_SETTINGS);
+    scene.CreatePage((PageId)Cosmos::WARNING_PAGE);
     return;
 }
 kmCall(0x8062fe3c, InjectPage); //OPTIONS
