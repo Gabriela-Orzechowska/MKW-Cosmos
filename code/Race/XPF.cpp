@@ -10,7 +10,7 @@ namespace Cosmos
     }
     static BootHook bhCreateXPFManager(XPFManager::CreateStaticInstance, LOW);
 
-    GOBJ * XPFManager::GetDefinitionObject(u16 id){
+    GOBJ * XPFManager::GetDefinitionObject(u16 id) const {
         s32 objectCount = KMP::Controller::sInstance->gobj->pointCount;
         id = id & ~0x1000;
         for(int i = 0; i < objectCount; i++)

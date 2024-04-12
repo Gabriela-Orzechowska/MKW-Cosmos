@@ -6,15 +6,15 @@ namespace CosmosController
     #define CASE_BUTTON(universal, specific) \
     case universal: return (raw & specific) != 0;
         
-    bool isPressed(const RealControllerHolder * holder, ControllerType type, u32 button)
+    bool isPressed(const RealControllerHolder& holder, ControllerType type, u32 button)
     {
         return isPressed(holder,type,button,false);
     }
 
-    bool isPressed(const RealControllerHolder * holder, ControllerType type, u32 button, bool checkNew)
+    bool isPressed(const RealControllerHolder& holder, ControllerType type, u32 button, bool checkNew)
     {
-        u16 raw = holder->inputStates[0].buttonRaw;
-        if(checkNew) raw &= ~holder->inputStates[1].buttonRaw;
+        u16 raw = holder.inputStates[0].buttonRaw;
+        if(checkNew) raw &= ~holder.inputStates[1].buttonRaw;
 
         if(type == WHEEL)
         {
@@ -99,12 +99,12 @@ namespace CosmosController
         return false;
     }
 
-    bool arePressed(const RealControllerHolder * holder, ControllerType type, ButtonCommon buttons)
+    bool arePressed(const RealControllerHolder& holder, ControllerType type, ButtonCommon buttons)
     {
         return arePressed(holder, type, buttons, false);
     }
 
-    bool arePressed(const RealControllerHolder * holder, ControllerType type, ButtonCommon buttons, bool checkNew)
+    bool arePressed(const RealControllerHolder& holder, ControllerType type, ButtonCommon buttons, bool checkNew)
     {
         bool result = true;
         for(int i = 0; i < 32; i++)

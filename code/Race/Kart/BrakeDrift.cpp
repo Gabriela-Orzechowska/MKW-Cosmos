@@ -18,7 +18,7 @@ void EnableBrakeDrifting()
 
         u32 controller = MenuData::sInstance->pad.padInfos[i].controllerSlotAndTypeActive;
         ControllerType type = ControllerType(controller & 0xFF);
-        RealControllerHolder * holder = &InputData::sInstance->realControllerHolders[i];
+        RealControllerHolder& holder = InputData::sInstance->realControllerHolders[i];
 
         using namespace CosmosController;
 
@@ -37,7 +37,7 @@ void EnableBrakeDrifting()
                 brakeDrift = false;
         }
 
-        if(brakeDrift) holder->inputStates[0].buttonActions |= 0x10;
+        if(brakeDrift) holder.inputStates[0].buttonActions |= 0x10;
     }
 }
 

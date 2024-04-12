@@ -282,7 +282,7 @@ namespace CosmosUI
         }
         u32 controller = MenuData::sInstance->pad.padInfos[0].controllerSlotAndTypeMenu;
         ControllerType type = ControllerType(controller & 0xFF);
-        RealControllerHolder * holder = &InputData::sInstance->realControllerHolders[0];
+        RealControllerHolder& holder = InputData::sInstance->realControllerHolders[0];
         if(CosmosController::isPressed(holder, type, CosmosController::BUTTON_DPAD_LEFT) || CosmosController::isPressed(holder, type, CosmosController::BUTTON_DPAD_RIGHT)){
             disableControl = true;  
         }

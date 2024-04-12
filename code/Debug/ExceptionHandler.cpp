@@ -262,7 +262,7 @@ namespace CosmosDebug{
         
         u32 controller = MenuData::sInstance->pad.padInfos[0].controllerSlotAndTypeActive;
         ControllerType type = ControllerType(controller & 0xFF);
-        RealControllerHolder * holder = &InputData::sInstance->realControllerHolders[0];
+        RealControllerHolder& holder = InputData::sInstance->realControllerHolders[0];
 
         bool lock = true;
 
@@ -279,18 +279,18 @@ namespace CosmosDebug{
             {
                 KPADGetUnifiedWpadStatus(0, &clStatus, 1);
             }
-            holder->inputStates[1] = holder->inputStates[0];
+            holder.inputStates[1] = holder.inputStates[0];
             switch(type)
             {
                 case(CLASSIC):
-                    holder->inputStates[0].buttonRaw = clStatus.buttons;
+                    holder.inputStates[0].buttonRaw = clStatus.buttons;
                     break;
                 case(NUNCHUCK):
                 case(WHEEL):
-                    holder->inputStates[0].buttonRaw = wStatus.buttons;
+                    holder.inputStates[0].buttonRaw = wStatus.buttons;
                     break;
                 case(GCN):
-                    holder->inputStates[0].buttonRaw = gcStatus[0].buttons;
+                    holder.inputStates[0].buttonRaw = gcStatus[0].buttons;
                 default:
                     break;
             }

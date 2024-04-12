@@ -50,7 +50,7 @@ namespace Cosmos
         void EvaluateConditions(ObjectHolder * holder);
 
         private:
-        GOBJ * GetDefinitionObject(u16 id);
+        GOBJ * GetDefinitionObject(u16 id) const;
         bool CalcDefinitionObjectCondition(GOBJ * gobj, bool neg);
         bool CalcPredefinedCondition(u16 value);
         bool CalcConditionBits(u16 val, u8 field);
