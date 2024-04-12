@@ -23,9 +23,9 @@ void CreateAdditionalHolder(){
 }
 static BootHook bhCreateAdditionalHolder(CreateAdditionalHolder, LOW);
 
-void InjectAdditionalHolder(BMGHolder * baseHolder, char * filename)
+void InjectAdditionalHolder(BMGHolder& baseHolder, char * filename)
 {
-    baseHolder->Load(filename);
+    baseHolder.Load(filename);
 
     using namespace CosmosData;
 

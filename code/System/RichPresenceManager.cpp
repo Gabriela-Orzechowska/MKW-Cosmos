@@ -109,8 +109,8 @@ void RPCSectionChange()
     MenuId menuId = MenuData::sInstance->curScene->menuId;
     RichPresenceManager * manager = RichPresenceManager::sInstance;
     if(manager == nullptr) return;
-    DiscordRichPresence * presence = &manager->presence;
-    char * message = presence->details;
+    DiscordRichPresence& presence = manager->presence;
+    char * message = presence.details;
     char status[128] = "";
 
 
@@ -120,8 +120,8 @@ void RPCSectionChange()
     {
         if(menuId < P1_WIFI_VS_GAMEPLAY || menuId > P2_WIFI_FRIEND_COIN_BT_GAMEPLAY)
         {
-            manager->presence.largeImageKey = "icon1";
-            manager->presence.smallImageKey = "";
+            presence.largeImageKey = "icon1";
+            presence.smallImageKey = "";
         }
     }
 
@@ -285,8 +285,8 @@ void RPCSectionChange()
             memset(status, 0, 128);
             break;
     }
-    manager->presence.details = message;
-    manager->presence.state = status;
+    presence.details = message;
+    presence.state = status;
     manager->UpdateStatus();
     return;
 }
