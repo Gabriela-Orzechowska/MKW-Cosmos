@@ -47,7 +47,7 @@ namespace Cosmos
         static XPFManager * GetStaticInstance() {return sInstance;} 
         static void CreateStaticInstance();
 
-        void EvaluateConditions(ObjectHolder * holder);
+        void EvaluateConditions(ObjectHolder& holder);
 
         private:
         GOBJ * GetDefinitionObject(u16 id) const;
