@@ -67,7 +67,7 @@ namespace CosmosGhost
 
         manager->ReadFolder(folderModePath);
 
-        new (this->GetLeaderboard()) GhostLeaderboardManager(folderPath, courseId);
+        new (&this->GetLeaderboard()) GhostLeaderboardManager(folderPath, courseId);
 
         this->files = new (RKSystem::mInstance.EGGSystem) GhostData[manager->GetFileCount()];
         RKG * rkg = &this->rkg;
@@ -130,12 +130,12 @@ namespace CosmosGhost
         }
     }
 
-    bool GhostManager::EnableGhost(GhostListEntry * entry)
+    bool GhostManager::EnableGhost(const GhostListEntry& entry)
     {
         bool ret = false;
         for(int i = 0; i < this->rkgCount; i++)
         {
-            if(&this->files[i] == entry->data)
+            if(&this->files[i] == entry.data)
             {
                 this->mainGhostIndex = i;
                 ret = true;
@@ -160,7 +160,7 @@ namespace CosmosGhost
 
         char folderPath[IPCMAXPATH];
         snprintf(folderPath, IPCMAXPATH, "%s/%03x", Cosmos::ghostFolder, manager->courseId);
-        manager->GetLeaderboard()->Save(folderPath);
+        manager->GetLeaderboard().Save(folderPath);
         manager->Init(Cosmos::CupManager::GetStaticInstance()->GetTrackID());
 
         manager->mainGhostIndex = manager->rkgCount - 1;
@@ -191,9 +191,9 @@ namespace CosmosGhost
         }
     }
 
-    void UpdateStartTime(Page * page, u32 soundIdx, u32 param_3){
+    void UpdateStartTime(Page& page, u32 soundIdx, u32 param_3){
         GhostManager::GetStaticInstance()->UpdateStartTime(IOS::Dolphin::GetSystemTime());
-        page->PlaySound(soundIdx, param_3);
+        page.PlaySound(soundIdx, param_3);
         return;
     }
     kmCall(0x80857790, UpdateStartTime);
@@ -213,7 +213,7 @@ namespace CosmosGhost
 
     static RaceFrameHook rfhVerify(VerifyTimeDuringRace);
 
-    void OnTTMenuUpdate(Pages::TTPause * page)
+    void OnTTMenuUpdate(Pages::TTPause& page)
     {
         if(MenuData::sInstance->curScene->pauseGame){
             GhostManager::GetStaticInstance()->pauseFrames += 1;
@@ -268,26 +268,26 @@ namespace CosmosGhost
         delete(file);
     }
 
-    void GhostLeaderboardManager::Update(s32 position, TimeEntry * entry, u32 id)
+    void GhostLeaderboardManager::Update(s32 position, TimeEntry& entry, u32 id)
     {
         Cosmos::TT_MODE mode = Cosmos::System::GetStaticInstance()->GetTTMode();
-        GhostLeaderboardFile * lfile = &this->file;
-        GhostTimeEntry * tentry = &lfile->entry[mode][position];
+        GhostLeaderboardFile& lfile = this->file;
+        GhostTimeEntry& tentry = lfile.entry[mode][position];
         if(position != ENTRY_FLAP)
         {
             for(int i = ENTRY_5TH; i > position; i--)
             {
-                memcpy(&lfile->entry[mode][i], &lfile->entry[mode][i-1], sizeof(GhostTimeEntry));
+                memcpy(&lfile.entry[mode][i], &lfile.entry[mode][i-1], sizeof(GhostTimeEntry));
             }
         }
-        memcpy(&tentry->mii, &entry->mii, sizeof(RawMii));
-        tentry->minutes = entry->timer.minutes;
-        tentry->seconds = entry->timer.seconds;
-        tentry->miliseconds = entry->timer.milliseconds;
-        tentry->isActive = entry->timer.isActive;
-        tentry->controllerType = entry->controllerType;
-        tentry->kart = entry->kart;
-        tentry->character = entry->character;
+        memcpy(&tentry.mii, &entry.mii, sizeof(RawMii));
+        tentry.minutes = entry.timer.minutes;
+        tentry.seconds = entry.timer.seconds;
+        tentry.miliseconds = entry.timer.milliseconds;
+        tentry.isActive = entry.timer.isActive;
+        tentry.controllerType = entry.controllerType;
+        tentry.kart = entry.kart;
+        tentry.character = entry.character;
     }
 
     void GhostLeaderboardManager::Save()
@@ -295,7 +295,7 @@ namespace CosmosGhost
         GhostLeaderboardManager::Save(this->folderPath);
     }
 
-    s32 GhostLeaderboardManager::GetLeaderboardPosition(Timer * timer) const
+    s32 GhostLeaderboardManager::GetLeaderboardPosition(const Timer& timer) const
     {
         if(!GhostManager::GetStaticInstance()->IsValid()) return -1;
         s32 position = -1;
@@ -303,7 +303,7 @@ namespace CosmosGhost
         for(int i = ENTRY_5TH; i >= 0; i--)
         {
             this->GhostTimeEntryToTimer(t_timer, i);
-            if(t_timer > (*timer)) position = i;
+            if(t_timer > timer) position = i;
         }
         return position;
     }
@@ -344,17 +344,17 @@ namespace CosmosGhost
         for(int i = 0; i < GAMEMODES; i++) this->ghostStatus[i] = 0x0;
     }
 
-    s32 PlayCorrectMusic(LicenseManager *license, Timer *timer, u32 courseId){
+    s32 PlayCorrectMusic(LicenseManager& license, Timer& timer, u32 courseId){
         GhostManager::GetStaticInstance()->VerifyTime();
         CosmosLog("\n");
-        return GhostManager::GetStaticInstance()->GetLeaderboard()->GetLeaderboardPosition(timer);
+        return GhostManager::GetStaticInstance()->GetLeaderboard().GetLeaderboardPosition(timer);
     }
     kmCall(0x80856fec, PlayCorrectMusic);
 
     TimeEntry * GetTimeEntry(u32 param_1, u32 index)
     {
         GhostManager * manager = GhostManager::GetStaticInstance();
-        manager->GetLeaderboard()->GhostTimeEntryToTimeEntry(manager->entry, index);
+        manager->GetLeaderboard().GhostTimeEntryToTimeEntry(manager->entry, index);
         return &manager->entry;
     }
 
@@ -436,7 +436,7 @@ namespace CosmosGhost
     void PatchOnWatchPress(Pages::GhostSelect * select ,PushButton * button, u32 slotId)
     {
         select->OnWatchReplayPress(button, slotId);
-        GhostListEntry * entry = &select->ghostList->entries[select->page];
+        GhostListEntry& entry = select->ghostList->entries[select->page];
         GhostManager::GetStaticInstance()->EnableGhost(entry);
     }
     kmWritePointer(0x808bec04, PatchOnWatchPress);
@@ -444,7 +444,7 @@ namespace CosmosGhost
     void PatchOnRunPress(Pages::GhostSelect * select ,PushButton * button, u32 slotId)
     {
         select->OnChallengeGhostPress(button, slotId);
-        GhostListEntry * entry = &select->ghostList->entries[select->page];
+        GhostListEntry& entry = select->ghostList->entries[select->page];
         GhostManager::GetStaticInstance()->EnableGhost(entry);
     }
     kmWritePointer(0x808bebf8, PatchOnRunPress);
@@ -499,18 +499,18 @@ namespace CosmosGhost
         {
             GhostManager * manager = GhostManager::GetStaticInstance();
             bool save = false;
-            manager->GetLeaderboard()->GhostTimeEntryToTimer(manager->entry.timer, ENTRY_FLAP);
+            manager->GetLeaderboard().GhostTimeEntryToTimer(manager->entry.timer, ENTRY_FLAP);
             if(manager->entry.timer > (*fLap))
             {
                 entry.timer = *fLap;
                 save = true;
                 splitsPage->ctrlRaceTimeArray[flapIndex]->EnableFlashingAnimation();
                 menu98->fastestLapId = flapIndex;
-                manager->GetLeaderboard()->Update(ENTRY_FLAP, &entry, -1);
+                manager->GetLeaderboard().Update(ENTRY_FLAP, entry, -1);
             }
             entry.timer = splitsPage->timers[0];
             s32 leaderboardPosition = -1;
-            if(manager->IsValid()) leaderboardPosition = manager->GetLeaderboard()->GetLeaderboardPosition(&splitsPage->timers[0]);
+            if(manager->IsValid()) leaderboardPosition = manager->GetLeaderboard().GetLeaderboardPosition(splitsPage->timers[0]);
             menu98->leaderboardPosition = leaderboardPosition;
             splitsPage->ctrlRaceCount.isHidden = true;
             if(leaderboardPosition > -1)
@@ -542,7 +542,7 @@ namespace CosmosGhost
                 if(data.CreateRKG(&buffer) && buffer.CompressTo(rkg))
                 {
                     u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
-                    if(leaderboardPosition > -1) manager->GetLeaderboard()->Update(leaderboardPosition, &entry, trackId);
+                    if(leaderboardPosition > -1) manager->GetLeaderboard().Update(leaderboardPosition, entry, trackId);
                     CosmosFile::FileManager::GetStaticInstance()->taskThread->Request(&GhostManager::CreateAndSaveFiles, manager, NULL);
                 }
             }

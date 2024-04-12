@@ -27,9 +27,9 @@ namespace CosmosController
         BUTTON_ZR               = 1 << 18,
     };
 
-    bool isPressed(const RealControllerHolder * holder, ControllerType type, u32 button, bool checkNew);
-    bool isPressed(const RealControllerHolder * holder, ControllerType type, u32 button);
+    bool isPressed(const RealControllerHolder& holder, ControllerType type, u32 button, bool checkNew);
+    bool isPressed(const RealControllerHolder& holder, ControllerType type, u32 button);
 
-    bool arePressed(const RealControllerHolder * holder, ControllerType type, ButtonCommon buttons, bool checkNew);
-    bool arePressed(const RealControllerHolder * holder, ControllerType type, ButtonCommon buttons);
+    bool arePressed(const RealControllerHolder& holder, ControllerType type, ButtonCommon buttons, bool checkNew);
+    bool arePressed(const RealControllerHolder& holder, ControllerType type, ButtonCommon buttons);
 }

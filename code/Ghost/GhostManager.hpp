@@ -66,8 +66,8 @@ namespace CosmosGhost
                 GhostLeaderboardManager();
                 GhostLeaderboardManager(const char * folderPath, u32 id);
                 //~GhostLeaderboardManager();
-                s32 GetLeaderboardPosition(Timer * timer) const;
-                void Update(s32 position, TimeEntry * entry, u32 id);
+                s32 GetLeaderboardPosition(const Timer& timer) const;
+                void Update(s32 position, TimeEntry& entry, u32 id);
                 void Save();
                 void Save(const char * folderPath);
 
@@ -91,15 +91,15 @@ namespace CosmosGhost
             static void DestroyStaticInstance();
             void Reset();
             void Init(u32 courseId);
-            bool EnableGhost(GhostListEntry * entry);
-            GhostLeaderboardManager * GetLeaderboard() {return &this->leaderboard; }
+            bool EnableGhost(const GhostListEntry& entry) const;
+            GhostLeaderboardManager& GetLeaderboard() {return this->leaderboard; }
             const GhostData * GetGhostData(u32 idx) const {
                 return &this->files[idx];
             }
             bool LoadGhost(RKG * rkg, u32 index);
             void LoadGhostReplay(RKG * rkg, bool isGhostRace);
             void UpdateStartTime(u64 time) {ttStartTime = time; pauseFrames = 0;}
-            bool IsValid() const {return isGhostValid; }
+            bool IsValid() const { return isGhostValid; }
             void VerifyTime();
 
             static void CreateAndSaveFiles(void * holder);
