@@ -30,7 +30,7 @@ namespace CosmosUI
 }
 
 void FasterMenusOnTransition(MenuData *menuData, u32 delay, u32 r5){
-    if (SettingsHolder::GetInstance()->GetSettings()->GetSettingValue(COSMOS_SETTING_FAST_MENUS) == ENABLED) 
+    if (SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_FAST_MENUS) == ENABLED) 
         delay = 0;
     menuData->StartTransition(delay, r5);
 }
@@ -39,7 +39,7 @@ kmCall(0x80602510, FasterMenusOnTransition);
 void FasterPageTransition()
 {
     float delay = 176.0f;
-    if(SettingsHolder::GetInstance()->GetSettings()->GetSettingValue(COSMOS_SETTING_FAST_MENUS) == ENABLED) 
+    if(SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_FAST_MENUS) == ENABLED) 
         delay = 0.0f;
     Page::transitionDelay = delay;
 }
@@ -47,7 +47,7 @@ void FasterPageTransition()
 void FasterPageBoot()
 {
     float delay = 176.0f;
-    if(SettingsHolder::GetInstance()->GetSettings()->GetSettingValue(COSMOS_SETTING_FAST_MENUS) == ENABLED) 
+    if(SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_FAST_MENUS) == ENABLED) 
         delay = 0.0f;
     Page::transitionDelay = delay;
 }
@@ -91,7 +91,7 @@ void UpdateLanguage()
 {
     extern char * szsLanguageNames[7];
 
-    u32 language = SettingsHolder::GetInstance()->GetSettings()->GetSettingValue(COSMOS_SETTING_LANGUAGE_SETTINGS);
+    u32 language = SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_LANGUAGE_SETTINGS);
     u32 languageSettings = language;
     if(language == NO_CHANGE) language = defaultLanguage;
     SystemManager::sInstance->gameLanguage = language;
@@ -125,7 +125,7 @@ void UpdateArchiveHolderLanguageOnInit()
     extern char * szsLanguageNames[7];
 
     defaultLanguage = SystemManager::sInstance->strapPageLanguage; //To include Dutch
-    u32 language = SettingsHolder::GetInstance()->GetSettings()->GetSettingValue(COSMOS_SETTING_LANGUAGE_SETTINGS);
+    u32 language = SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_LANGUAGE_SETTINGS);
     lastLanguage = language;
     if(language == NO_CHANGE) {
         if(defaultLanguage == 0x6)

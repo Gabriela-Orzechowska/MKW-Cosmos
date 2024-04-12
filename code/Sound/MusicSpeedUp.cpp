@@ -21,7 +21,7 @@ void FinalLapSpeedUp(RaceRSARSoundsPlayer *soundPlayer, u32 lapSoundId, u32 play
     if (maxLap == RaceData::sInstance->racesScenario.settings.lapCount)
     {
         using namespace CosmosData;
-        if(SettingsHolder::GetInstance()->GetSettings()->GetSettingValue(COSMOS_SETTING_MUSIC_CUTOFF) != CUTOFF_DISABLED)
+        if(SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_MUSIC_CUTOFF) != CUTOFF_DISABLED)
         {
             RaceInfo * raceInfo = RaceInfo::sInstance;
             Timer * raceTimer = &raceInfo->timerManager->timers[0];
@@ -29,7 +29,7 @@ void FinalLapSpeedUp(RaceRSARSoundsPlayer *soundPlayer, u32 lapSoundId, u32 play
             Timer difference;
             CtrlRaceGhostDiffTime::SubtractTimers(difference, raceTimer, playerTimer);
 
-            if(SettingsHolder::GetInstance()->GetSettings()->GetSettingValue(COSMOS_SETTING_MUSIC_CUTOFF) == SPEEDUP)
+            if(SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_MUSIC_CUTOFF) == SPEEDUP)
             {
                 if(difference.minutes < 1 && difference.seconds < 5)
                 {

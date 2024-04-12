@@ -108,7 +108,7 @@ namespace CosmosUI
             // upDownControls->HandleRightPress(0, 0);
         }
         
-        currentPageId = (currentPageId + (direction-1) + PAGECOUNT) % PAGECOUNT;
+        currentPageId = (currentPageId + (direction-1) + PAGE_COUNT) % PAGE_COUNT;
         this->upDownControls->text->SetMessage(currentPageId);
 
         UpDownControl::Select(upDownControls, 0);
@@ -141,7 +141,7 @@ namespace CosmosUI
             this->AddControl(this->controlCount, upDownCtrl, 0);
             this->controlCount++;
 
-            upDownCtrl->Load(PAGECOUNT, 0, "control", "DXSettingPageUpDownBase", "UpDown4", "DXSettingPageUpDownButtonR", "RightButton",
+            upDownCtrl->Load(PAGE_COUNT, 0, "control", "DXSettingPageUpDownBase", "UpDown4", "DXSettingPageUpDownButtonR", "RightButton",
             "DXSettingPageUpDownButtonL", "LeftButton", (UpDownDisplayedText*) this->textUpDown, 1, 0, false, true, true);
             upDownCtrl->SetOnClickHandler(&this->onUpDownClickHandler);
             upDownCtrl->SetOnSelectHandler(&this->onUpDownSelectHandler);
@@ -194,7 +194,7 @@ namespace CosmosUI
         this->SaveSettings();
         
         using namespace CosmosData;
-        u32 language = SettingsHolder::GetInstance()->GetSettings()->GetSettingValue(COSMOS_SETTING_LANGUAGE_SETTINGS);
+        u32 language = SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_LANGUAGE_SETTINGS);
         if(this->koreanChange) this->LoadPrevPageWithDelayById((PageId)Cosmos::WARNING_PAGE, 0.0f);
         else if(!this->wasLanguageChanged) this->LoadPrevPageWithDelayById(lastPage, 0.0f);
     }
@@ -205,13 +205,12 @@ namespace CosmosUI
 
         using namespace CosmosData;
 
-        for(int i = 0; i < PAGECOUNT; i++)
+        for(int i = 0; i < PAGE_COUNT; i++)
         {
             SettingSubPage * page = scene->Get<SettingSubPage>((PageId)(settingsPageIds[i]));
-            SettingsPage * settings = &SettingsHolder::GetInstance()->GetSettings()->settings.pages[i];
             for(UpDownControl * control = page->upDownControls; control < &page->upDownControls[page->scrollersCount]; control++)
             {
-                settings->setting[control->id] = control->curSelectedOption;
+                SettingsHolder::GetInstance()->SetSettingValue(control->curSelectedOption, i, control->id);
             }
         }
         SettingsHolder::GetInstance()->Update();

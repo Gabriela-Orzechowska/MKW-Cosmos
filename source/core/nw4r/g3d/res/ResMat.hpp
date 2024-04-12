@@ -54,25 +54,25 @@ struct ResChanData{
 };
 
 struct ResMatData{ //this is very wrong, but too lazy to fix it for v11
-    u32 size;      
-    s32 offsetToMdlData;      
-    s32 offsetToName;      
-    u32 id;        
-    u32 flags;      
-    u32 genMode; //tex gens, etc...
-    u32 cullMode;
-    u8 alphaFunction;
-    u8 lightSet;
-    u8 fogSet;
-    u8 padding;
-    u8 indirectMethods[4];
-    u8 normalMapRef[4];
-    s32 offsetToShader;
-    u32 texCount;
-    s32 offsetToLayer;
-    s32 offsetToFurData;
-    s32 offsetToDisplayList;
-    s32 offsetToDisplayList2; 
+    u32 size;      // 0x00
+    s32 offsetToMdlData; //0x04     
+    s32 offsetToName;    //0x08  
+    u32 id;        //0x0C
+    u32 flags;      //0x10
+    u32 genMode; //tex gens, etc... //0x14
+    u32 cullMode; //0x18
+    u8 alphaFunction; //0x1C
+    u8 lightSet; //0x1D
+    u8 fogSet; //0x1E
+    u8 padding;  //0x1F
+    u8 indirectMethods[4]; //0x20
+    u8 normalMapRef[4];  //0x24
+    s32 toResTevData; //0x28
+    u32 numResTexPlttInfo; //0x2C
+    s32 toResTexPlttInfo;  //0x30
+    s32 toResMatFurData;  //0x34
+    s32 toResUserData;  //0x38
+    s32 toResMatDLData;  //0x3C
     
     u32 texSrtData;  
     ResChanData chan; //0x3F0

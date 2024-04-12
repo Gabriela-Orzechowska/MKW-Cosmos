@@ -23,7 +23,7 @@ namespace CosmosUI {
 
     // Load UI Elements
         title.Load(false);
-        pageSelector.Load(PAGECOUNT, 0, "control", "DXSettingPageUpDownBase", "UpDown4", "DXSettingPageUpDownButtonR", "RightButton",
+        pageSelector.Load(PAGE_COUNT, 0, "control", "DXSettingPageUpDownBase", "UpDown4", "DXSettingPageUpDownButtonR", "RightButton",
             "DXSettingPageUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &textPageSelector, 1, 0, false, true, true);
 
         textPageSelector.Load("control", "DXSettingPageUpDownValue", "Value", "DXSettingPageUpDownText", "Text");

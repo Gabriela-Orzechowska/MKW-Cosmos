@@ -3,8 +3,11 @@
 
 namespace CosmosUI
 {
-    SettingSubPage::SettingSubPage(SettingPageDefinition * definition, u32 pageId, u32 index)
+    SettingSubPage::SettingSubPage(u32 pageId, u32 index)
     {
+
+        CosmosData::SettingPageDefinition * definition = &CosmosData::GlobalSettingDefinitions[index];
+
         nextPageId = PAGE_NONE;
         prevPageId = PAGE_NONE;
 
@@ -63,7 +66,7 @@ namespace CosmosUI
         scrollersCount = definition->settingCount;
         basePage = MenuData::sInstance->curScene->Get<SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN);
         
-        memcpy(&pageDefinition, definition, sizeof(SettingPageDefinition));
+        memcpy(&pageDefinition, definition, sizeof(CosmosData::SettingPageDefinition));
     }
 
     void SettingSubPage::EmptySelect(UpDownControl * control, u32 u){
@@ -182,7 +185,7 @@ namespace CosmosUI
             char variant[0x20];
             snprintf(variant, 0x20, "UpDown%d", id);
 
-            upDownCtrl->Load(this->pageDefinition.settings[id].optionCount, settingsHolder->GetSettings()->GetSettingValue(pageIndex, id), "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
+            upDownCtrl->Load(this->pageDefinition.settings[id].optionCount, settingsHolder->GetSettingValue(pageIndex, id), "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
             "DXSettingsUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textUpDownPlus[id], 1, 0, false, true, true);
             upDownCtrl->SetOnClickHandler(&this->onUpDownClickHandler);
             upDownCtrl->SetOnSelectHandler(&this->onUpDownSelectHandler);
@@ -204,7 +207,7 @@ namespace CosmosUI
             valueCtrl->activeTextValueControl->SetMsgId(bmgId);
             nw4r::ut::Color col;
             col.rgba = 0xFF00FFFF;
-            upDownCtrl->curSelectedOption = CosmosData::SettingsHolder::GetInstance()->GetSettings()->GetSettingValue(pageIndex, id);
+            upDownCtrl->curSelectedOption = CosmosData::SettingsHolder::GetInstance()->GetSettingValue(pageIndex, id);
         }
 
         else if(id == this->scrollersCount)

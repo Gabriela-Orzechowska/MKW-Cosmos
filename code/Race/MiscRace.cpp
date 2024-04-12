@@ -11,7 +11,7 @@
 void DraggableBlues(ItemPlayerSub *sub)
 {
     using namespace CosmosData;
-    if(SettingsHolder::GetInstance()->GetSettings()->GetSettingValue(COSMOS_SETTING_DRAGGABLE_BLUES) == DISABLED) sub->isNotDragged = true;
+    if(SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_DRAGGABLE_BLUES) == DISABLED) sub->isNotDragged = true;
 }
 
 kmBranch(0x807ae8ac, DraggableBlues);

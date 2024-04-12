@@ -48,10 +48,12 @@ namespace CosmosData
             }
 
             //Defaulty Disabled
-            buffer->pages[COSMOS_DEBUG_SETTINGS].setting[COSMOS_DWC_LOGS] = DISABLED;
-            buffer->pages[COSMOS_DEBUG_SETTINGS].setting[COSMOS_PERFORMANCE_MONITOR] = DISABLED;
 
-
+            for(int i = 0; i < PAGE_COUNT; i++){
+                for(int j = 0; i < GlobalSettingDefinitions[i].settingCount; j++){
+                    buffer->data.pages[i].setting[j] = GlobalSettingDefinitions[i].settings[j].defaultValue;
+                }
+            }
         }
         this->settings = buffer;
         manager->Overwrite(sizeof(Settings), buffer);
@@ -82,21 +84,13 @@ namespace CosmosData
         SettingsHolder::sInstance = holder;
     }
 
-    u32 SettingsHolder::GetUserVR(){
-        return GetUserVR(SaveDataManager::sInstance->curLicenseId);
-    }
-
-    u32 SettingsHolder::GetUserVR(u32 userId)
-    {
-        return this->settings->playerVr[userId];
-    }
 
     BootHook InitSettings(SettingsHolder::Create, MEDIUM);
 
     void SetBRAndVR(LicenseManager * license, u32 licenseId){
         
-        license->vr.mPoints = SettingsHolder::GetInstance()->GetSettings()->playerVr[licenseId];
-        license->br.mPoints = SettingsHolder::GetInstance()->GetSettings()->playerBr[licenseId];
+        license->vr.mPoints = SettingsHolder::GetInstance()->GetUserVR(licenseId);
+        license->br.mPoints = SettingsHolder::GetInstance()->GetUserBR(licenseId);
     }
 
     kmWrite32(0x80544f7c, 0x7fe3fb78);
@@ -115,8 +109,9 @@ namespace CosmosData
         SettingsHolder * holder = SettingsHolder::GetInstance();
         if(holder == nullptr) return 0;
 
-        holder->GetSettings()->playerVr[curLicenseId] = actualLicense->vr.mPoints;
-        holder->GetSettings()->playerBr[curLicenseId] = actualLicense->br.mPoints;
+        holder->SetUserVR(actualLicense->vr.mPoints, curLicenseId);
+        holder->SetUserBR(actualLicense->br.mPoints, curLicenseId);
+
         holder->Save();
         return 0;
     }

@@ -12,42 +12,16 @@ void * CreatePage(Scene * scene, u32 pageId)
     }
     else if(pageId == (u32)Cosmos::RACE_SETTINGS1)
     {
-        CosmosUI::SettingPageDefinition definition;
-        definition.settingCount = 3;
-        definition.settings[0].isBool = false;
-        definition.settings[0].optionCount = 3;
-        definition.settings[1].isBool = true;
-        definition.settings[1].optionCount = 2;
-        definition.settings[2].isBool = false;
-        definition.settings[2].optionCount = 3;
-        if(Cosmos::isDolphin) definition.settings[2].optionCount = 2;
-
-        return new(CosmosUI::SettingSubPage)(&definition, pageId, 0);
+        return new(CosmosUI::SettingSubPage)(pageId, 0);
     }
     
     else if(pageId == (u32)Cosmos::MENU_SETTINGS1)
     {
-
-        CosmosUI::SettingPageDefinition definition;
-        definition.settingCount = 2;
-        definition.settings[0].isBool = false;
-        definition.settings[0].optionCount = 13;
-        definition.settings[1].isBool = true;
-        definition.settings[1].optionCount = 2;
-
-        return new(CosmosUI::SettingSubPage)(&definition ,pageId, 1);
+        return new(CosmosUI::SettingSubPage)(pageId, 1);
     }
     else if(pageId == (u32)Cosmos::DEBUG_SETTINGS)
     {
-
-        CosmosUI::SettingPageDefinition definition;
-        definition.settingCount = 2;
-        definition.settings[0].isBool = true;
-        definition.settings[0].optionCount = 2;
-        definition.settings[1].isBool = true;
-        definition.settings[1].optionCount = 2;
-
-        return new(CosmosUI::SettingSubPage)(&definition ,pageId, 2);
+        return new(CosmosUI::SettingSubPage)(pageId, 2);
     }
     else if(pageId == (u32)Cosmos::WARNING_PAGE)
     {

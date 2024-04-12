@@ -1,5 +1,6 @@
 #include <main.hpp>
 #include <game/System/Archive.hpp>
+#include <core/nw4r/g3d/res/ResMat.hpp>
 #include <game/Race/RaceData.hpp>
 #include <FileManager/FileManager.hpp>
 #include <core/System/SystemManager.hpp>
@@ -112,9 +113,9 @@ namespace Cosmos{
         RaceData::sInstance->menusScenario.settings.engineClass = cc;
     }
 
-
     kmBranch(0x805e1ef4, SetCC);
     kmBranch(0x805e1d58, SetCC);
+
 
     void LoadAdditionalFiles(ArchiveFile * file, const char * path, EGG::Heap *heap, bool isCompressed, s32 align, EGG::Heap * fileHeap, EGG::Archive::FileInfo * fileInfo)
     {
@@ -222,7 +223,5 @@ namespace Cosmos{
 
         OSFatal(&white, &black, final);
         #endif
-
     }
-
 }

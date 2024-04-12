@@ -10,25 +10,16 @@
 #include <UI/Settings/SettingsBasePage.hpp>
 #include <Settings/UserData.hpp>
 #include <Controller/MiscController.hpp>
+#include <Settings/UserData.hpp>
 #include <main.hpp>
 
-#define SUBPAGECOUNT 2
+#define SUBPAGE_COUNT 2
 
 extern u32 VSSettings_sInstance;
 
 
 namespace CosmosUI
 {
-    typedef struct SettingPageOption{
-        u8 optionCount;
-        bool isBool;
-    } SettingPageOption;
-
-    typedef struct SettingPageDefinition{
-        u8 settingCount;
-        SettingPageOption settings[8];
-    } SettingPageDefinition;
-
     void Page_Refocus(Pages::Menu * page);
 
     class TextUpDownValueControlPlus : public TextUpDownValueControl
@@ -41,7 +32,7 @@ namespace CosmosUI
     class SettingSubPage : public Pages::Menu
     {
         public:
-        SettingSubPage::SettingSubPage(SettingPageDefinition * definition, u32 pageId, u32 index);
+        SettingSubPage::SettingSubPage(u32 pageId, u32 index);
         void EmptySelect(UpDownControl *control, u32 u);
         ~SettingSubPage() override;
         void OnInit() override;
@@ -58,7 +49,7 @@ namespace CosmosUI
         u32 pageIndex;
         u32 scrollersCount;
 
-        SettingPageDefinition pageDefinition;
+        CosmosData::SettingPageDefinition pageDefinition;
 
         SettingsBasePage * basePage;
         UpDownControl * upDownControls;

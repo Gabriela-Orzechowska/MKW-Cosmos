@@ -47,7 +47,7 @@ kmCall(0x800ee39c, WiimmfiInject1);
 
 static asm int wiimmfiAsm1() {
     ASM(
-        nofralloc;
+    nofralloc;
 
     // Original instruction
     cmpwi r3, 0;
