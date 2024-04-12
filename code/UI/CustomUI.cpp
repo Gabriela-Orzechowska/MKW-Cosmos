@@ -2,13 +2,14 @@
 #include <main.hpp>
 #include <UI/Settings/SettingsBasePage.hpp>
 #include <UI/Settings/SettingsSubPage.hpp>
+#include <UI/Settings/NewSettingsPage.hpp>
 #include <UI/Settings/MessageWarning.hpp>
 
 void * CreatePage(Scene& scene, u32 pageId)
 {
     if(pageId == (u32)Cosmos::SETTINGS_MAIN)
     {
-        return new(CosmosUI::SettingsBasePage)();
+        return new(CosmosUI::NewSettings)();
     }
     else if(pageId == (u32)Cosmos::RACE_SETTINGS1)
     {
@@ -38,9 +39,9 @@ void InjectPage(Scene& scene, PageId id)
 {
     scene.CreatePage(id);
     scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
-    scene.CreatePage((PageId)Cosmos::RACE_SETTINGS1);
-    scene.CreatePage((PageId)Cosmos::MENU_SETTINGS1);
-    scene.CreatePage((PageId)Cosmos::DEBUG_SETTINGS);
+   // scene.CreatePage((PageId)Cosmos::RACE_SETTINGS1);
+   // scene.CreatePage((PageId)Cosmos::MENU_SETTINGS1);
+   // scene.CreatePage((PageId)Cosmos::DEBUG_SETTINGS);
     scene.CreatePage((PageId)Cosmos::WARNING_PAGE);
     return;
 }

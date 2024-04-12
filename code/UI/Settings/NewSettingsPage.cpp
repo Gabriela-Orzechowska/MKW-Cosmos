@@ -2,8 +2,8 @@
 
 #define SETTINGCONTROLCOUNT 5
 
-namespace CosmosUI {
 
+namespace CosmosUI {
     void NewSettings::OnInit() {
 
     // Init Manipulator
@@ -43,26 +43,6 @@ namespace CosmosUI {
         }
         bottomText.Load();
 
-        onBackPressHandler.subject = this;
-        onBackPressHandler.ptmf = static_cast<void (Page::*)(u32)> (&NewSettings::OnBack);
-        onBackButtonPress.subject = this;
-        onBackButtonPress.ptmf = static_cast<void (Page::*)(PushButton*,u32)> (&NewSettings::OnBackButtonClick);
-
-
-        onPageChangeHandler.subject = this;
-        onPageChangeHandler.ptmf = static_cast<void (Page::*)(TextUpDownValueControl::TextControl*, u32)> (&NewSettings::OnSettingsPageControlChange);
-        onPageClickHandler.subject = this;
-        onPageClickHandler.ptmf = static_cast<void (Page::*)(UpDownControl*, u32)> (&NewSettings::OnSettingsPageControlClick);
-        onPageSelectHandler.subject = this;
-        onPageSelectHandler.ptmf = static_cast<void (Page::*)(UpDownControl*,u32)> (&NewSettings::OnSettingsPageControlSelect);
-
-        onValueSettingChangeHandler.subject = this;
-        onValueSettingChangeHandler.ptmf = static_cast<void (Page::*)(TextUpDownValueControl::TextControl*, u32)> (&NewSettings::OnValueControlChange);
-        onValueSettingClickHandler.subject = this;
-        onValueSettingClickHandler.ptmf = static_cast<void (Page::*)(UpDownControl*,u32)> (&NewSettings::OnValueControlClick);
-        onValueSettingSelectHandler.subject = this;
-        onValueSettingSelectHandler.ptmf = static_cast<void (Page::*)(UpDownControl*,u32)> (&NewSettings::OnValueControlSelect);
-
         controlsManipulatorManager.SetGlobalHandler(BACK_PRESS, &onBackPressHandler, false, false);
         backButton.SetOnClickHandler(&onBackButtonPress, 0);
 
@@ -79,7 +59,24 @@ namespace CosmosUI {
     }   
 
     void NewSettings::OnActivate() {
-        return;
+        // UpDownControl::Select(&pageSelector, 0);
     }
+
+    void NewSettings::OnBack(u32 hudSlotId) {
+        EndStateAnimate(0.0f, 0);
+    }
+
+    void NewSettings::OnBackButtonClick(PushButton*,u32){
+        EndStateAnimate(0.0f,0);
+    }
+
+    void NewSettings::OnSettingsPageControlChange(TextUpDownValueControl::TextControl* valueControl, u32 hudSlotId) {}
+    void NewSettings::OnSettingsPageControlClick(UpDownControl* upDownControl, u32 hudSlotId) {}
+    void NewSettings::OnSettingsPageControlSelect(UpDownControl* upDownControl, u32 hudSlotId) {}
+
+    void NewSettings::OnValueControlChange(TextUpDownValueControl::TextControl* valueControl, u32 hudSlotId) {}
+    void NewSettings::OnValueControlClick(UpDownControl* upDownControl, u32 hudSlotId) {}
+    void NewSettings::OnValueControlSelect(UpDownControl* upDownControl, u32 hudSlotId) {}
+
 
 }

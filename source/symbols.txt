@@ -812,10 +812,13 @@ SetTransparencyPane__15LayoutUIControlFPcdddd = 0x8063e5c4
 #CtrlMenu
 #BackButton
 __vt__18CtrlMenuBackButton = 0x808d374c
+__dt__18CtrlMenuBackButtonFv = 0x805be7f4
 
 #Title
 SetMsgId__21CtrlMenuPageTitleTextFUiPC8TextInfo = 0x807e987c
 Load__21CtrlMenuPageTitleTextFb =  0x807e947c
+__vt__21CtrlMenuPageTitleText = 0x808d36d4
+__dt__21CtrlMenuPageTitleTextFv = 0x805baf10
 
 
 #Instruction
@@ -878,6 +881,7 @@ SetVotedCourseId__Q25Pages4VoteF8CourseId = 0x80643f48
 
 #Page
 __ct__4PageFv = 0x8060197c
+__dt__4PageFv = 0x80601a04
 Activate__4PageFv = 0x80601aec
 GetClassName__4PageCFv = 0x805bb25c
 GetNextPage__4PageCFv = 0x805bb278

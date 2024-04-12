@@ -26,6 +26,8 @@
 
 //#define WORLDWIDE_TEST
 
+#define SetupHandler(handler, c, function) handler.subject = this; handler.ptmf = static_cast<c> (function);
+
 template <class Subject, typename Ret>
 struct Ptmf_0A{
     int this_delta;
@@ -90,6 +92,7 @@ template <class Subject, typename Ret, typename A1, typename A2>
 struct PtmfHolder_2A : PtmfHolderBase_2A<Ret, A1, A2> {
     Subject * subject;
     Ret (Subject::*ptmf)(A1, A2);
+    
     virtual Ret operator()(A1 a1, A2 a2) {
         return (subject->*ptmf)(a1, a2);
     }
