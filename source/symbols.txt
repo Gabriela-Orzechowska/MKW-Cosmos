@@ -707,6 +707,7 @@ SetOnChangeHandler__13UpDownControlFP45PtmfHolder_3A<4Page,v,P13UpDownControl,Ui
 SetOnClickHandler__13UpDownControlFP42PtmfHolder_2A<4Page,v,P13UpDownControl,Ui> = 0x8063f028
 SetOnSelectHandler__13UpDownControlFP42PtmfHolder_2A<4Page,v,P13UpDownControl,Ui> = 0x8063f030
 SetOnDeselectHandler__13UpDownControlFP42PtmfHolder_2A<4Page,v,P13UpDownControl,Ui> = 0x8063f038
+SetPlayerBitfield__13UpDownControlFUi = 0x8063f160
 SelectInitial__13UpDownControlFUiUi = 0x8063f0c0
 HandleRightPress__13UpDownControlFUiUi = 0x8063fb64
 HandleLeftPress__13UpDownControlFUiUi = 0x8063fc90

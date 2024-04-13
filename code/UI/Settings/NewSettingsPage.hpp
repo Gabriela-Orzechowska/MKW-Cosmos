@@ -4,6 +4,7 @@
 #include <game/UI/Ctrl/UpDown.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
 #include <Settings/UserData.hpp>
+#include <UI/BMG/BMG.hpp>
 
 
 namespace CosmosUI
@@ -11,29 +12,35 @@ namespace CosmosUI
     class NewSettings : public Page {
     public:
         NewSettings();
-        // ~NewSettings();
+        ~NewSettings() override {}
 
         void OnInit() override;
         void OnActivate() override;
+        void BeforeEntranceAnimations() override;
+        PageId GetNextPage() const override { return this->returnPage; }
+
+        void SetPreviousPage(PageId id, MenuId menu) { this->returnPage = id; this->returnMenu = menu; }
+        MenuId GetPreviousMenu() const { return this->returnMenu; }
 
     private:
         void OnBack(u32 hudSlotId);
         void OnBackButtonClick(PushButton * button, u32 hudSlotId);
 
-        void OnSettingsPageControlChange(TextUpDownValueControl::TextControl* valueControl, u32 hudSlotId);
+        void OnSettingsPageControlChange(TextUpDownValueControl::TextControl* valueControl, u32 optionId);
         void OnSettingsPageControlClick(UpDownControl* upDownControl, u32 hudSlotId);
         void OnSettingsPageControlSelect(UpDownControl* upDownControl, u32 hudSlotId);
 
-        void OnValueControlChange(TextUpDownValueControl::TextControl* valueControl, u32 hudSlotId);
+        void OnValueControlChange(UpDownControl* upDownControl, u32 hudSlotId, u32 index);
         void OnValueControlClick(UpDownControl* upDownControl, u32 hudSlotId);
         void OnValueControlSelect(UpDownControl* upDownControl, u32 hudSlotId);
 
         void OnDummyDeselect(UpDownControl*,u32) {}
 
+        void ChangePage(u8 page);
+
         ControlsManipulatorManager controlsManipulatorManager;
         CtrlMenuBackButton backButton;
-        
-        u8 currentPage;
+    
         UpDownControl pageSelector;
         TextUpDownValueControl textPageSelector;
         UpDownControl settingSelectors[6];
@@ -50,7 +57,11 @@ namespace CosmosUI
 
         PtmfHolder_2A<Page, void, UpDownControl*, u32> onValueSettingClickHandler;
         PtmfHolder_2A<Page, void, UpDownControl*, u32> onValueSettingSelectHandler;
-        PtmfHolder_2A<Page, void, TextUpDownValueControl::TextControl*, u32> onValueSettingChangeHandler;
+        PtmfHolder_3A<Page, void, UpDownControl*, u32, u32> onValueSettingChangeHandler;
         PtmfHolder_2A<Page, void, UpDownControl*, u32> onDeselectHandler;
+
+        u8 currentPage;
+        PageId returnPage;
+        MenuId returnMenu;
     };
 } // namespace CosmosUI

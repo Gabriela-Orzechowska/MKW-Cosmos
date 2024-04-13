@@ -10,6 +10,7 @@
 #include <core/rvl/os/OS.hpp>
 #include <UI/MiscUI.hpp>
 #include <UI/Settings/SettingsBasePage.hpp>
+#include <UI/Settings/NewSettingsPage.hpp>
 
 using namespace CosmosData;
 
@@ -99,7 +100,7 @@ void UpdateLanguage()
     if(language == NO_CHANGE) localization = szsLanguageNames[language];
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1], localization, 0x80);
     strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archiveSuffixes[0x1], localization, 0x80);
-
+/*
     CosmosUI::SettingsBasePage * page = MenuData::sInstance->curScene->Get<CosmosUI::SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN);
     if((language == 12) == loadedAsKorean)
     {
@@ -109,15 +110,19 @@ void UpdateLanguage()
             page->wasLanguageChanged = true;
             //MenuData::sInstance;
             //page->LoadPrevPageWithDelayById(page->lastPage, 100.0f);
-            page->ChangeMenuWithDelayById(page->lastMenu, 0.0f);
+            
         }
     }
     else
     {
         page->koreanChange = true;
     }
-
-    lastLanguage = languageSettings;
+*/
+    if(languageSettings != lastLanguage){
+        lastLanguage = languageSettings;
+        CosmosUI::NewSettings * page = MenuData::sInstance->curScene->Get<CosmosUI::NewSettings>((PageId)Cosmos::SETTINGS_MAIN);
+        page->ChangeMenu(page->GetPreviousMenu(),0,0.0f);
+    }
 }
 
 void UpdateArchiveHolderLanguageOnInit()
@@ -157,7 +162,7 @@ void UpdateArchiveHolderLanguageOnInit()
 
 kmWrite32(0x8000ad9c, 0x38000006); //System Dutch
 
-// static SettingsUpdateHook UpdateSystemLanguage(UpdateLanguage);
+static SettingsUpdateHook UpdateSystemLanguage(UpdateLanguage);
 static SettingsUpdateHook FasterPages(FasterPageTransition);
 
 kmBranch(0x8053fc98, UpdateArchiveHolderLanguageOnInit);

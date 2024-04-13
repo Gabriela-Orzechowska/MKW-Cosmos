@@ -193,7 +193,7 @@ namespace Cosmos{
 
         snprintf(output, 0x130, "%s:%d: %s\n", file, line, output2);
 
-    /*
+    
         char stack[0x400] = "\nSTACK TRACE:\n";
         u32 * stackRegister = OSGetStackPointer();
         for(int i = 0; i < 10; i++)
@@ -206,7 +206,7 @@ namespace Cosmos{
         }
   
         strcat(output, stack);
-  */
+  
         nw4r::db::ExceptionCallbackParam exc;
         exc.error = 0x32; 
         exc.context = context;

@@ -1,5 +1,6 @@
 #include <UI/SinglePlayer/SinglePlayer.hpp>
 #include <UI/Settings/SettingsBasePage.hpp>
+#include <UI/Settings/NewSettingsPage.hpp>
 
 #pragma region SingleMenuPage
 
@@ -68,8 +69,7 @@ void OnButtonClick(Pages::SinglePlayer& page, PushButton * button, u32 slotId)
 
     if(button->buttonId == SETTINGS)
     {
-        // MenuData::sInstance->curScene->Get<CosmosUI::SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN)->lastPage = SINGLE_PLAYER_MENU;
-        // MenuData::sInstance->curScene->Get<CosmosUI::SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN)->lastMenu = SINGLE_PLAYER_FROM_MENU;
+        MenuData::sInstance->curScene->Get<CosmosUI::NewSettings>((PageId)Cosmos::SETTINGS_MAIN)->SetPreviousPage(SINGLE_PLAYER_MENU, SINGLE_PLAYER_FROM_MENU);
         page.nextPageId = (PageId) Cosmos::SETTINGS_MAIN;
         page.EndStateAnimate(button->GetAnimationFrameSize(), 0);
     }

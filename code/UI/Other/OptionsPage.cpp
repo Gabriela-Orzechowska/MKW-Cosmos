@@ -1,5 +1,6 @@
 #include <UI/Other/OptionsPage.hpp>
 #include <UI/Settings/SettingsBasePage.hpp>
+#include <UI/Settings/NewSettingsPage.hpp>
 #include <main.hpp>
 
 namespace CosmosUI
@@ -28,8 +29,7 @@ namespace CosmosUI
     {
         if(button->buttonId == 5)
         {
-            // MenuData::sInstance->curScene->Get<SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN)->lastPage = OPTIONS;
-           //  MenuData::sInstance->curScene->Get<SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN)->lastMenu = OPTIONS_MENU;
+            MenuData::sInstance->curScene->Get<NewSettings>((PageId)Cosmos::SETTINGS_MAIN)->SetPreviousPage(OPTIONS, OPTIONS_MENU);
             this->nextPageId = (PageId) Cosmos::SETTINGS_MAIN;
 
             this->EndStateAnimate(button->GetAnimationFrameSize(), 0);
