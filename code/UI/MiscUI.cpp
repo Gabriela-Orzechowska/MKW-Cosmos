@@ -157,7 +157,7 @@ void UpdateArchiveHolderLanguageOnInit()
 
 kmWrite32(0x8000ad9c, 0x38000006); //System Dutch
 
-static SettingsUpdateHook UpdateSystemLanguage(UpdateLanguage);
+// static SettingsUpdateHook UpdateSystemLanguage(UpdateLanguage);
 static SettingsUpdateHook FasterPages(FasterPageTransition);
 
 kmBranch(0x8053fc98, UpdateArchiveHolderLanguageOnInit);

@@ -712,6 +712,7 @@ HandleRightPress__13UpDownControlFUiUi = 0x8063fb64
 HandleLeftPress__13UpDownControlFUiUi = 0x8063fc90
 HandleClick__13UpDownControlFUiUi = 0x8063f8f8
 Select__13UpDownControlFP13UpDownControlUi = 0x8063f0ac
+SelectDefault__13UpDownControlFUi = 0x8063f040
 HandleSelect__13UpDownControlFUiUi = 0x8063f694
 HandleButtonSelect__13UpDownControlFUiUi = 0x80606568
 HandleButtonDeselect__13UpDownControlFUiUi = 0x8063f7c4
@@ -740,17 +741,22 @@ CalcDistance__18ControlManipulatorFP18ControlManipulator17DirectionsAllowedbb = 
 CalcDistanceLinear__18ControlManipulatorFP26ControlsManipulatorManager17DirectionsAllowed = 0x805f2948
 CalcDistanceBothWrapping__18ControlManipulatorFP18ControlManipulator10Directions = 0x805f0d38
 #ManipulatorManager
+__vt__18ManipulatorManager = 0x808b9a98
 UpdatePlayerBitfield2__18ManipulatorManagerFUi = 0x805eec50
 Load__18ManipulatorManagerFv = 0x805eece8
 GetControllerHolder__18ManipulatorManagerFUc = 0x805eee0c
 
+#EGGList
+__vt__Q23EGG4List = 0x802a31bc
 
 #PageManipulatorManager
 SetGlobalHandler__22PageManipulatorManagerF6ActionP25PtmfHolder_1A<4Page,v,Ui>b = 0x805ef768
 
 #ControlsManipulatorManager
+
 __ct__26ControlsManipulatorManagerFv = 0x805f09a8
 __dt__26ControlsManipulatorManagerFv = 0x805f0bd4
+__vt__26ControlsManipulatorManager = 0x808b99e8
 AddControlManipulator__26ControlsManipulatorManagerFP18ControlManipulator = 0x805f0d44
 SetGlobalHandler__26ControlsManipulatorManagerF6ActionP25PtmfHolder_1A<4Page,v,Ui>bb = 0x805f0d84
 SetControlManipulator__26ControlsManipulatorManagerFUiP18ControlManipulatorUi = 0x805f0da0
@@ -770,6 +776,10 @@ func_805f21e4__26ControlsManipulatorManagerFUc = 0x805f21e4
 func_805f226c__26ControlsManipulatorManagerFUcUc = 0x805f226c
 CheckPlayerPointer__26ControlsManipulatorManager = 0x805f22d4
 GetRuntimeTypeInfo__26ControlsManipulatorManager = 0x805f2cdc
+
+#ControlButtonInfo
+__vt__17ControlButtonInfo = 0x808b9a30
+__vt__10ButtonInfo = 0x808b9a80
 
 #ControlBoundingBox
 CalculateBounds__18ControlBoundingBoxFv = 0x805f0618
@@ -918,6 +928,7 @@ Deactivate__4PageFv = 0x80601c08
 Page_Refocus__8CosmosUIFPQ25Pages4Menu = 0x80602390
 StartExit__4PageFv = 0x80602b04
 StartEntrance__4PageFv = 0x80602970
+OnInit__4PageFv = 0x80601ad8
 
 Stop__Q44nw4r3snd6detail10BasicSoundFi = 0x8008e330
 

@@ -1,65 +1,84 @@
 #include <UI/Settings/NewSettingsPage.hpp>
 
-#define SETTINGCONTROLCOUNT 5
-
+#define SETTINGCONTROLCOUNT 6
 
 namespace CosmosUI {
+
+    NewSettings::NewSettings() {
+        CosmosLog("This address: %p\n", this);
+
+        SetupHandler(onBackPressHandler, void (Page::*)(u32), &NewSettings::OnBack);
+        SetupHandler(onBackButtonPress, void (Page::*)(PushButton*,u32), &NewSettings::OnBackButtonClick);
+
+        SetupHandler(onPageChangeHandler, void (Page::*)(TextUpDownValueControl::TextControl*, u32), &NewSettings::OnSettingsPageControlChange);
+        SetupHandler(onPageClickHandler, void (Page::*)(UpDownControl*,u32), &NewSettings::OnSettingsPageControlClick);
+        SetupHandler(onPageSelectHandler, void (Page::*)(UpDownControl*,u32), &NewSettings::OnSettingsPageControlSelect);
+        
+        SetupHandler(onValueSettingChangeHandler, void (Page::*)(TextUpDownValueControl::TextControl*,u32), &NewSettings::OnValueControlChange);
+        SetupHandler(onValueSettingClickHandler, void (Page::*)(UpDownControl*,u32), &NewSettings::OnValueControlClick);
+        SetupHandler(onValueSettingSelectHandler, void (Page::*)(UpDownControl*,u32), &NewSettings::OnValueControlSelect);
+        SetupHandler(onDeselectHandler, void (Page::*)(UpDownControl*,u32), &NewSettings::OnDummyDeselect);
+    }
+
     void NewSettings::OnInit() {
-
     // Init Manipulator
-        controlsManipulatorManager.Init(1, false);
-        this->SetManipulatorManager(&controlsManipulatorManager);
-        controlsManipulatorManager.SetDistanceFunc(2);
-
+        this->controlsManipulatorManager.Init(0x1, false);
+        this->controlsManipulatorManager.SetDistanceFunc(2);
+        this->SetManipulatorManager(&this->controlsManipulatorManager);
+        
     // Init Controls
         this->InitControlGroup(4 + SETTINGCONTROLCOUNT);
-        this->AddControl(0, &title, false);
-        this->AddControl(1, &bottomText, false);
-        this->AddControl(2, &backButton, false);
-        this->AddControl(3, &pageSelector, false);
+        this->AddControl(0, &this->backButton, false);
+        this->AddControl(1, &this->bottomText, false);
+        this->AddControl(2, &this->title, false);
+        this->AddControl(3, &this->pageSelector, false);
         for(int i = 0; i < SETTINGCONTROLCOUNT; i++){
-            this->AddControl(4 + i, &settingSelectors[i], false);
+            this->AddControl(4 + i, &this->settingSelectors[i], false);
         }
 
     // Load UI Elements
-        title.Load(false);
-        pageSelector.Load(PAGE_COUNT, 0, "control", "DXSettingPageUpDownBase", "UpDown4", "DXSettingPageUpDownButtonR", "RightButton",
-            "DXSettingPageUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &textPageSelector, 1, 0, false, true, true);
+        this->title.Load(false);
+        this->bottomText.Load();
+        this->pageSelector.Load(PAGE_COUNT, 0, "control", "DXSettingPageUpDownBase", "UpDown4", "DXSettingPageUpDownButtonR", "RightButton",
+            "DXSettingPageUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textPageSelector, 1, 0, false, true, true);
 
-        textPageSelector.Load("control", "DXSettingPageUpDownValue", "Value", "DXSettingPageUpDownText", "Text");
+        this->textPageSelector.Load("control", "DXSettingPageUpDownValue", "Value", "DXSettingPageUpDownText", "Text");
 
         for(int i = 0; i < SETTINGCONTROLCOUNT; i++){
             char variant[0x20];
             snprintf(variant, 0x20, "UpDown%d", i);
 
-            settingSelectors[i].Load(1, 0, "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
-            "DXSettingsUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &textSettingSelector[i], 1, 0, false, true, true);
+            this->settingSelectors[i].Load(1, 0, "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
+            "DXSettingsUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textSettingSelector[i], 1, 0, false, true, true);
+            this->settingSelectors[i].id = i;
+
+            this->textSettingSelector[i].Load("control", "DXSettingsUpDownValue", "Value", "DXSettingsUpDownText", "Text");
         }
 
-        if(Scene::GetType(MenuData::GetStaticInstance()->curScene->menuId) == CATEGORY_GAMEPLAY){
-            backButton.Load("message_window", "Back", "ButtonBack", 1, false, true);
-        } else {
-            backButton.Load("button", "Back", "ButtonBack", 1, false, true);
-        }
-        bottomText.Load();
+        this->backButton.Load("button", "Back", "ButtonBack", 1, false, true);
 
-        controlsManipulatorManager.SetGlobalHandler(BACK_PRESS, &onBackPressHandler, false, false);
-        backButton.SetOnClickHandler(&onBackButtonPress, 0);
+        this->controlsManipulatorManager.SetGlobalHandler(BACK_PRESS, &this->onBackPressHandler, false, false);
+        this->backButton.SetOnClickHandler(&this->onBackButtonPress, 0);
 
-        pageSelector.SetOnClickHandler(&onPageClickHandler);
-        pageSelector.SetOnSelectHandler(&onPageSelectHandler);
-        textPageSelector.SetOnTextChangeHandler(&onPageChangeHandler);
+        this->pageSelector.SetOnClickHandler(&this->onPageClickHandler);
+        this->pageSelector.SetOnSelectHandler(&this->onPageSelectHandler);
+        this->pageSelector.SetOnDeselectHandler(&this->onDeselectHandler);
+        this->textPageSelector.SetOnTextChangeHandler(&this->onPageChangeHandler);
 
         for(int i = 0; i < SETTINGCONTROLCOUNT; i++){
-            settingSelectors[i].SetOnClickHandler(&onValueSettingClickHandler);
-            settingSelectors[i].SetOnSelectHandler(&onValueSettingSelectHandler);
-            textSettingSelector[i].SetOnTextChangeHandler(&onValueSettingChangeHandler);
+            this->settingSelectors[i].SetOnClickHandler(&this->onValueSettingClickHandler);
+            this->settingSelectors[i].SetOnSelectHandler(&this->onValueSettingSelectHandler);
+            this->settingSelectors[i].SetOnDeselectHandler(&this->onDeselectHandler);
+            this->textSettingSelector[i].SetOnTextChangeHandler(&this->onValueSettingChangeHandler);
         }
 
+        this->title.SetMsgId(0x0);
+        this->pageSelector.SelectDefault(0);
     }   
 
     void NewSettings::OnActivate() {
-        // UpDownControl::Select(&pageSelector, 0);
+        CosmosLog("I tried so hard, and got so far");
+        this->bottomText.SetMsgId(0x0);
     }
 
     void NewSettings::OnBack(u32 hudSlotId) {

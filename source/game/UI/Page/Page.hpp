@@ -78,7 +78,7 @@ public:
     u32 curStateDuration; //0x1C
     u32 duration; //0x20
     ControlGroup controlGroup; //0x24
-    ManipulatorManager *manipulatorManager; //0x38
+    ControlsManipulatorManager *manipulatorManager; //0x38
     u32 entranceSoundId;
     u32 exitSoundId;
 

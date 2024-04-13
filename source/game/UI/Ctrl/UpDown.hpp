@@ -120,6 +120,7 @@ public:
     void SelectInitial(u32 optionsCount, u32 initialButton); //8063f0c0
     void SetPlayerBitfield(u32 playerBitfield); //8063f160
     void SetSound(u32 soundId); //806405b8
+    void SelectDefault(u32 hudSlotId); //8063f040
     static void Select(UpDownControl * control, u32 hudSlotId);
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> onSelectHandlerObj; //0x174 vtable 808bf4ec 8063f694
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> onDeselectHandlerObj; //0x188 vtable 808bf4ec 8063f7c4

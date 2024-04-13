@@ -10,23 +10,13 @@ namespace CosmosUI
 {
     class NewSettings : public Page {
     public:
-        NewSettings() {
-            SetupHandler(onBackPressHandler, void (Page::*)(u32), &NewSettings::OnBack);
-            SetupHandler(onBackButtonPress, void (Page::*)(PushButton*,u32), &NewSettings::OnBackButtonClick);
+        NewSettings();
+        // ~NewSettings();
 
-            SetupHandler(onPageChangeHandler, void (Page::*)(TextUpDownValueControl::TextControl*, u32), &NewSettings::OnSettingsPageControlChange);
-            SetupHandler(onPageClickHandler, void (Page::*)(UpDownControl*,u32), &NewSettings::OnSettingsPageControlClick);
-            SetupHandler(onPageSelectHandler, void (Page::*)(UpDownControl*,u32), &NewSettings::OnSettingsPageControlSelect);
-            
-            SetupHandler(onValueSettingChangeHandler, void (Page::*)(TextUpDownValueControl::TextControl*,u32), &NewSettings::OnValueControlChange);
-            SetupHandler(onValueSettingClickHandler, void (Page::*)(UpDownControl*,u32), &NewSettings::OnValueControlClick);
-            SetupHandler(onValueSettingSelectHandler, void (Page::*)(UpDownControl*,u32), &NewSettings::OnValueControlSelect);
-        }
         void OnInit() override;
         void OnActivate() override;
 
     private:
-        u8 currentPage;
         void OnBack(u32 hudSlotId);
         void OnBackButtonClick(PushButton * button, u32 hudSlotId);
 
@@ -38,9 +28,12 @@ namespace CosmosUI
         void OnValueControlClick(UpDownControl* upDownControl, u32 hudSlotId);
         void OnValueControlSelect(UpDownControl* upDownControl, u32 hudSlotId);
 
-        CtrlMenuBackButton backButton;
-        ControlsManipulatorManager controlsManipulatorManager;
+        void OnDummyDeselect(UpDownControl*,u32) {}
 
+        ControlsManipulatorManager controlsManipulatorManager;
+        CtrlMenuBackButton backButton;
+        
+        u8 currentPage;
         UpDownControl pageSelector;
         TextUpDownValueControl textPageSelector;
         UpDownControl settingSelectors[6];
@@ -58,5 +51,6 @@ namespace CosmosUI
         PtmfHolder_2A<Page, void, UpDownControl*, u32> onValueSettingClickHandler;
         PtmfHolder_2A<Page, void, UpDownControl*, u32> onValueSettingSelectHandler;
         PtmfHolder_2A<Page, void, TextUpDownValueControl::TextControl*, u32> onValueSettingChangeHandler;
+        PtmfHolder_2A<Page, void, UpDownControl*, u32> onDeselectHandler;
     };
 } // namespace CosmosUI
