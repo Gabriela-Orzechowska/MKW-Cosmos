@@ -30,6 +30,30 @@ public:
     }
 };
 
+class SettingsValueUpdateHook {
+private:
+    typedef void (Func)();
+    Func *mFunc;
+    SettingsValueUpdateHook * mNext;
+    u32 setting;
+
+    static SettingsValueUpdateHook * sHooks;
+
+public:
+    SettingsValueUpdateHook(Func * f, u32 settingIndex) {
+        mNext = sHooks;
+        sHooks = this;
+        mFunc = f;
+        setting = settingIndex;
+    }
+
+    static void exec(u32 settingIndex) {
+        for (SettingsValueUpdateHook * p = sHooks; p; p = p->mNext)
+            if(p->setting == settingIndex)
+                p->mFunc();
+    }
+};
+
 namespace CosmosData
 {
     enum SETTINGSPAGES{

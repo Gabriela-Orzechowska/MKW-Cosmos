@@ -29,7 +29,7 @@ void InjectAdditionalHolder(BMGHolder& baseHolder, char * filename)
 
     using namespace CosmosData;
 
-    char baseName[] = "DXExtra";
+    char baseName[] = "CosmosExtra";
     char finalName[0x10];
     char testName[0x30];
     char suffix[0x6];
@@ -45,7 +45,7 @@ void InjectAdditionalHolder(BMGHolder& baseHolder, char * filename)
     if(file != nullptr)
         AdditionalHolder->Load(finalName);
     else
-        AdditionalHolder->Load("DXExtra");
+        AdditionalHolder->Load("CosmosExtra");
     return;
 }
 

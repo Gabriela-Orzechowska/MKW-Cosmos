@@ -23,11 +23,11 @@ def decode_all():
         os.system(f"python {wuj5_path} decode {r}")
 
 def pack():
-    dst = os.path.abspath(os.path.join( os.path.dirname( __file__ ), "../..", "TestPack/DX/Extra"))
+    dst = os.path.abspath(os.path.join( os.path.dirname( __file__ ), "../..", "TestPack/Cosmos/Extra"))
     
-    os.system("wszst c UIDX.d -o")
+    os.system("wszst c UICosmos.d -o")
 
-    shutil.copy("UIDX.szs", dst+'/UIDX.szs')
+    shutil.copy("UICosmos.szs", dst+'/UICosmos.szs')
 
 operations = {
     'decode_all': decode_all,

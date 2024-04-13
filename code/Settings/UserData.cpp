@@ -4,6 +4,7 @@
 #include <game/Network/RKNetUser.hpp>
 
 SettingsUpdateHook * SettingsUpdateHook::sHooks = NULL;
+SettingsValueUpdateHook * SettingsValueUpdateHook::sHooks = NULL;
 
 namespace CosmosData
 {

@@ -23,6 +23,7 @@ void SetPerfMonitorVisibility()
     ((CosmosDebug::PerformanceMonitor *) RKSystem::mInstance.processMeter)->visible = (SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_PERFORMANCE_MONITOR) == ENABLED);
 }
 static SettingsUpdateHook suhSetPerfMonitorVisibility(SetPerfMonitorVisibility);
+static SettingsValueUpdateHook svuhSetPerfMonitorVisibility(SetPerfMonitorVisibility, CosmosData::COSMOS_SETTING_PERFORMANCE_MONITOR);
 static BootHook bhSetPerfMonitorVisibility(SetPerfMonitorVisibility, LOW);
 
 extern u32 DWC_ReportLevel;

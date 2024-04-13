@@ -13,7 +13,7 @@
   beb	= A solo race for the fastest record! (150cc)
  2800   = Time Trials (150cc)
  2801   = Time Trials (200cc)
- 2802   = Ghost can't be saved. Time delta too large.
+ 2802   = Time invalidated. Delta too large.
 
  2810   = Track Layout: Normal
  2811   = Track Layout: Castle Gorge	
@@ -23,7 +23,7 @@
  2A02   = Menu (1/1)
  2A03   = Debug
 
- 2A20   = Manager your settings!
+ 2A20   = Manage your settings!
  2A21   = Manage your Race settings!
  2A22   = Manage your Menu settings!
  2A23   = Manage your Debug settings!
@@ -77,8 +77,11 @@
  310D   = Korean
 
  3200   = DWC Logs
- 3A00   = Enable/Disable DWC Logs in Console.
+ 3A01   = Logs will be printed to console.
+ 3A02   = No logs will be printed.
  3210   = Performance Monitor
+ 3A11   = Monitor will be displayed at the bottom.
+ 3A12   = Monitor will be hidden.
 
 
  2820   = A solo race for the fastest record! (200cc)

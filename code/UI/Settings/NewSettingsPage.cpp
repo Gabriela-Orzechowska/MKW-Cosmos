@@ -65,11 +65,12 @@ namespace CosmosUI {
         this->textPageSelector.SetOnTextChangeHandler(&this->onPageChangeHandler);
 
         for(int i = 0; i < SETTINGCONTROLCOUNT; i++){
-            this->settingSelectors[i].SetOnClickHandler(&this->onValueSettingClickHandler);
-            this->settingSelectors[i].SetOnSelectHandler(&this->onValueSettingSelectHandler);
-            this->settingSelectors[i].SetOnDeselectHandler(&this->onDeselectHandler);
-            this->settingSelectors[i].SetOnChangeHandler(&this->onValueSettingChangeHandler);
-            this->settingSelectors[i].id = i;
+            UpDownControl& settingSelector = this->settingSelectors[i];
+            settingSelector.SetOnClickHandler(&this->onValueSettingClickHandler);
+            settingSelector.SetOnSelectHandler(&this->onValueSettingSelectHandler);
+            settingSelector.SetOnDeselectHandler(&this->onDeselectHandler);
+            settingSelector.SetOnChangeHandler(&this->onValueSettingChangeHandler);
+            settingSelector.id = i;
         }
 
         this->title.SetMsgId(0x0);
@@ -153,6 +154,7 @@ namespace CosmosUI {
         
 
         CosmosData::SettingsHolder::GetInstance()->SetSettingValue(option, this->currentPage, id); 
+        SettingsValueUpdateHook::exec(this->currentPage * 8 + id);
         this->bottomText.SetMsgId(bottomBmg);
 
     }

@@ -24,7 +24,7 @@ namespace Cosmos
     
     const char SaveFile[11] = "DXData.bin";
     const char CommonArchive[14] = "/CommonDX.szs";
-    const char UIArchive[10] = "/UIDX.szs";
+    const char UIArchive[] = "/UICosmos.szs";
     const char CourseArchive[14] = "/CourseDX.szs";
 
     enum TT_MODE{

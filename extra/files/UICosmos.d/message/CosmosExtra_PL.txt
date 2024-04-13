@@ -1,0 +1,185 @@
+#BMG  <<<  The first 4 characters '#BMG' are the magic for a BMG text file.
+#     <<<  Don't remove them!
+#
+# Details about BMG text files are available in the Web:
+#  * Syntax and Semantics: https://szs.wiimm.de/doc/bmg/text
+#  * The BMG file format:  https://szs.wiimm.de/r/wiki/BMG
+#
+#
+
+#------------------------------------------------------------------------------
+
+
+  beb	= Pojedynczy wyścig o jak naljepszy czas! (150cc)
+ 2800   = Czasówka (150cc)
+ 2801   = Czasówka (200cc)
+ 2802   = Czas unieważniony. Delta zbyt wielka.
+
+ 2810   = Track Layout: Normal
+ 2811   = Track Layout: Castle Gorge	
+
+ 2A00   = Ustawienia
+ 2A01   = Wyścig (1/1)
+ 2A02   = Menu (1/1)
+ 2A03   = Debug
+
+ 2A20   = Zarządzaj swoimi ustawieniami!
+ 2A21   = Zarządzaj swoimi ustawieniami w Wyścigu!
+ 2A22   = Zarządzaj swoimi ustawieniami W Menu!
+ 2A23   = Zarządzaj swoimi ustawieniami debagującymi!
+
+ 3700   = Włączone
+ 3701   = Wyłączone
+
+ 3000   = Muzyka na finałowym
+ 
+ 3001   = Przyspiesz
+ 3002   = Nie ucinaj
+ 3003   = Domyślnie
+
+ 3801   = Muzyka zacznie przyszpieszać przy wejściu na ostatnie okrążenie.
+ 3802   = Muzyka będzie grać dalej przy wejściu na ostatnie okrążenie.
+ 3803   = Muzyka zmieni się jak normalnie
+
+ 3010   = Trzymaj Niebieskie Skorupy
+
+ 3811   = Będziecie mogli trzymać niebieskie skorupy za sobą jak pozostałe.
+ 3812   = Nie będziecie mogli trzymać niebieskie skorupy za sobą jak pozostałe.
+
+ 3020   = Tryb FPS
+
+ 3021   = Normalnie
+ 3022   = Wymuś 30FPS
+ 3023   = Wymuś 60FPS
+
+ 3821   = Użyj domyślnych ustawień FPS.
+ 3822   = Użyj gdy gra za bardzo zacina się.
+ 3823   = Używaj tylko dla lepszych systemów (Tylko Dolphin)
+
+ 3110   = Szybkie Menu
+
+ 3911   = Przejścia menu będą natychmiastowe.
+ 3912   = Przejścia menu będą animowane normalnie.
+
+ 3100   = Język
+ 3101   = Default
+ 3102   = English (PAL)
+ 3103   = English (NTSC)
+ 3104   = Deutsch
+ 3105   = Français (PAL)
+ 3106   = Français (NTSC)
+ 3107   = Español (PAL)
+ 3108   = Español (NTSC)
+ 3109   = Italiano
+ 310A   = Nederlands
+ 310B   = Polski
+ 310C   = Japanese
+ 310D   = Korean
+
+ 3200   = Logi DWC
+ 3A01   = Logs będą wyświetlane w konsoli.
+ 3A02   = Żadne logi nie będą wyświetlane.
+ 3210   = Monitor Wydajności
+ 3A11   = Monitor będzie wyświetlany na dole ekranu.
+ 3A12   = Monitor będzie schowany.
+
+
+ 2820   = Pojedynczy wyścig o jak naljepszy czas! (200cc)
+ 2830   = Zmień Kombo
+ 2840   = Niektóre zmiany wymagają restartu.
+  13100	= DS Test Circle \n\z{800,40}\c{blue1}Bruh de la Boi\c{off}
+  13101	= Castle Gorge \n\z{800,40}\c{blue1}Toadette Hack Fan, Mystora\c{off} 
+  13102	= KKW Prismatic Parkway \n\z{800,40}\c{blue1}Mystora\c{off} 
+  13103	= Ruinated Peach's Castle \n\z{800,40}\c{blue1}Gabriela_\c{off}
+  13104	= Blissful Block \n\z{800,40}\c{blue1}Strobenz\c{off}
+  13105	= Strobenz Desert Illusion \n\z{800,40}\c{blue1}Strobenz\c{off}
+  13106	= Snabo Desert \n\z{800,40}\c{blue1}JorisMKW\c{off}
+  13107	= Fever \c{blue1}Factory\c{off} \n\z{800,40}\c{blue1}Gabriela_\c{off}
+
+6000    = Mushroom
+6001    = Shell
+6002    = Flower
+6003    = Banana
+6004    = Star
+6005    = Leaf
+6006    = Special
+6007    = Lighting
+6008    = Bubble
+6009    = Drill
+
+7000	= \c{blue1}Wii \c{off}Mario Circuit
+  7001	= \c{blue1}Wii \c{off}Moo Moo Meadows
+  7002	= \c{blue1}Wii \c{off}Mushroom Gorge
+  7003	= \c{blue1}Wii \c{off}Grumble Volcano
+  7004	= \c{blue1}Wii \c{off}Toad's Factory
+  7005	= \c{blue1}Wii \c{off}Coconut Mall
+  7006	= \c{blue1}Wii \c{off}DK's Snowboard Cross
+  7007	= \c{blue1}Wii \c{off}Wario's Gold Mine
+  7008	= \c{blue1}Wii \c{off}Luigi Circuit
+  7009	= \c{blue1}Wii \c{off}Daisy Circuit
+  700a	= \c{blue1}Wii \c{off}Moonview Highway
+  700b	= \c{blue1}Wii \c{off}Maple Treeway
+  700c	= \c{blue1}Wii \c{off}Bowser's Castle
+  700d	= \c{blue1}Wii \c{off}Rainbow Road
+  700e	= \c{blue1}Wii \c{off}Dry Dry Ruins
+  700f	= \c{blue1}Wii \c{off}Koopa Cape
+  7010	= \c{blue1}GCN \c{off}Peach Beach
+  7011	= \c{blue1}GCN \c{off}Mario Circuit
+  7012	= \c{blue1}GCN \c{off}Waluigi Stadium
+  7013	= \c{blue1}GCN \c{off}DK Mountain
+  7014	= \c{blue1}DS \c{off}Yoshi Falls
+  7015	= \c{blue1}DS \c{off}Desert Hills
+  7016	= \c{blue1}DS \c{off}Peach Gardens
+  7017	= \c{blue1}DS \c{off}Delfino Square
+  7018	= \c{blue1}SNES \c{off}Mario Circuit 3
+  7019	= \c{blue1}SNES \c{off}Ghost Valley 2
+  701a	= \c{blue1}N64 \c{off}Mario Raceway
+  701b	= \c{blue1}N64 \c{off}Sherbet Land
+  701c	= \c{blue1}N64 \c{off}Bowser's Castle
+  701d	= \c{blue1}N64 \c{off}DK's Jungle Parkway
+  701e	= \c{blue1}GBA \c{off}Bowser Castle 3
+  701f	= \c{blue1}GBA \c{off}Shy Guy Beach
+  7020	= \c{yor7}-----\c{off}
+  7021	= \c{yor7}-----\c{off}
+  7022	= \c{yor7}-----\c{off}
+  7023	= \c{yor7}-----\c{off}
+  7024	= \c{yor7}-----\c{off}
+  7025	= \c{yor7}-----\c{off}
+  7026	= \c{yor7}-----\c{off}
+  7027	= \c{yor7}-----\c{off}
+  7028	= \c{yor7}-----\c{off}
+  7029	= \c{yor7}-----\c{off}
+  702a	/
+  702b	/
+  702c	/
+  702d	/
+  702e	/
+  702f	/
+  7030	/
+  7031	/
+  7032	/
+  7033	/
+  7034	/
+  7035	/
+  7036	= Ring Mission
+  7037	= Winningrun Demo
+  7038	= Loser Demo
+  7039	= Draw Demo
+  703a	= Ending Demo
+  703b	/
+  703c	/
+  703d	/
+  703e	/
+  703f	/
+  7040	/
+  7041	/
+  7042	/
+  7043	=  Wiimms SZS Toolset v2.25a r8443
+  7100	= DS Test Circle
+  7101	= Castle Gorge
+  7102	= KKW Prismatic Parkway
+  7103	= Ruinated Peach's Castle
+  7104	= Blissful Block
+  7105	= Strobenz Desert Illusion
+  7106	= Snabo Desert
+  7107	= Fever \c{blue1}Factory\c{off}
