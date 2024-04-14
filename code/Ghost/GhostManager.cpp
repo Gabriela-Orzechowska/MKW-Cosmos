@@ -167,7 +167,7 @@ namespace CosmosGhost
         MenuData::sInstance->menudata98->isNewTime = true;
     }
 
-#define TIME_EPS 1000
+#define TIME_EPS 1750
 
     void GhostManager::VerifyTime(){
         if(!this->isGhostValid) return;
