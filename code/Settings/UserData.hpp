@@ -56,6 +56,8 @@ public:
 
 namespace CosmosData
 {
+    #define SettingsVersion 5
+
     enum SETTINGSPAGES{
         COSMOS_RACE_SETTINGS_1 = 0x0,
         COSMOS_MENU_SETTINGS_1 = 0x1,
@@ -65,7 +67,8 @@ namespace CosmosData
     enum RACE_SETTINGS_1_SETTINGS {
         COSMOS_MUSIC_CUTOFF = 0x0,
         COSMOS_DRAGGABLE_BLUES = 0x1,
-        COSMOS_FRAME_MODE = 0x2,
+        COSMOS_SPEEDOMETER = 0x2,
+        COSMOS_FRAME_MODE = 0x3,
     };
 
     enum MENU_SETTINGS_1_SETTINGS {
@@ -83,6 +86,13 @@ namespace CosmosData
         SPEEDUP = 0x0,
         NO_CUTOFF = 0x1,
         CUTOFF_DISABLED = 0x2,
+    };
+
+    enum SPEEDOMETER_OPTIONS {
+        SPEEDO_DISABLED = 0x0,
+        SPEEDO_0_DIGIT,
+        SPEEDO_1_DIGIT,
+        SPEEDO_2_DIGIT,
     };
 
 
@@ -109,14 +119,15 @@ namespace CosmosData
 
         
     enum GLOBAL_SETTING {
-        COSMOS_SETTING_MUSIC_CUTOFF = 0x0 + (COSMOS_RACE_SETTINGS_1 * 8),
-        COSMOS_SETTING_DRAGGABLE_BLUES = 0x1 + (COSMOS_RACE_SETTINGS_1 * 8),
-        COSMOS_SETTING_FRAME_MODE = 0x2 + (COSMOS_RACE_SETTINGS_1 * 8),
-        COSMOS_SETTING_LANGUAGE_SETTINGS = 0x0 + (COSMOS_MENU_SETTINGS_1 * 8),
-        COSMOS_SETTING_FAST_MENUS = 0x1 + (COSMOS_MENU_SETTINGS_1 * 8),
-        COSMOS_SETTING_LAYOUT = 0x2 + (COSMOS_MENU_SETTINGS_1 * 8),
-        COSMOS_SETTING_DWC_LOGS = 0x0 + (COSMOS_DEBUG_SETTINGS * 8),
-        COSMOS_SETTING_PERFORMANCE_MONITOR = 0x1 + (COSMOS_DEBUG_SETTINGS * 8),
+        COSMOS_SETTING_MUSIC_CUTOFF = COSMOS_MUSIC_CUTOFF + (COSMOS_RACE_SETTINGS_1 * 8),
+        COSMOS_SETTING_DRAGGABLE_BLUES = COSMOS_DRAGGABLE_BLUES + (COSMOS_RACE_SETTINGS_1 * 8),
+        COSMOS_SETTING_SPEEDOMETER = COSMOS_SPEEDOMETER + (COSMOS_RACE_SETTINGS_1 * 8),
+        COSMOS_SETTING_FRAME_MODE = COSMOS_FRAME_MODE + (COSMOS_RACE_SETTINGS_1 * 8),
+        COSMOS_SETTING_LANGUAGE_SETTINGS = COSMOS_LANGUAGE_SETTINGS + (COSMOS_MENU_SETTINGS_1 * 8),
+        COSMOS_SETTING_FAST_MENUS = COSMOS_FAST_MENUS + (COSMOS_MENU_SETTINGS_1 * 8),
+        COSMOS_SETTING_LAYOUT = COSMOS_LAYOUT + (COSMOS_MENU_SETTINGS_1 * 8),
+        COSMOS_SETTING_DWC_LOGS = COSMOS_DWC_LOGS + (COSMOS_DEBUG_SETTINGS * 8),
+        COSMOS_SETTING_PERFORMANCE_MONITOR = COSMOS_PERFORMANCE_MONITOR + (COSMOS_DEBUG_SETTINGS * 8),
     };
 
 
@@ -135,19 +146,20 @@ namespace CosmosData
     } SettingPageDefinition;
 
     static SettingPageDefinition GlobalSettingDefinitions[PAGE_COUNT] = {
-        {
-            .settingCount = 3,
-            .settings = { { .optionCount = 3, .isBool = false, .defaultValue = 0 }, 
-            { .optionCount = 2, .isBool = true, .defaultValue = 0 },
-            { .optionCount = 3, .isBool = false, .defaultValue = 0}  }
-        }, {
+        { //Race
+            .settingCount = 4, 
+            .settings = { { .optionCount = 3, .isBool = false, .defaultValue = 0 },  // Music Cutoff
+            { .optionCount = 2, .isBool = true, .defaultValue = 0 }, //Draggable Blues 
+            { .optionCount = 4, .isBool = false, .defaultValue = 2 }, //Speedometer
+            { .optionCount = 3, .isBool = false, .defaultValue = 0}  } //Frame Mode
+        }, { //Menu
+            .settingCount = 2, 
+            .settings = { { .optionCount = 13, .isBool = false, .defaultValue = 0 }, // Language
+            { .optionCount = 2, .isBool = true, .defaultValue = 0 }} //Fast Menus
+        }, { //Debug
             .settingCount = 2,
-            .settings = { { .optionCount = 13, .isBool = false, .defaultValue = 0 }, 
-            { .optionCount = 2, .isBool = true, .defaultValue = 0 }}
-        }, { 
-            .settingCount = 2,
-            .settings = {{ .optionCount = 2, .isBool = true, .defaultValue = 1 },
-            { .optionCount = 2, .isBool = true, .defaultValue = 1 }}
+            .settings = {{ .optionCount = 2, .isBool = true, .defaultValue = 1 }, //DWC Logs
+            { .optionCount = 2, .isBool = true, .defaultValue = 1 }} //Performance Monitor
         }
     } ;
 

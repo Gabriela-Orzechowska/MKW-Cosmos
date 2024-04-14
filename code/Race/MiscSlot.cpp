@@ -3,6 +3,7 @@
 #include <game/Objects/ObjectHolder.hpp>
 #include <main.hpp>
 
+
 static bool hasHighwayManager = false;
 
 kmWrite32(0x8082a4fc,0x48000030); //Always create control group
@@ -20,7 +21,7 @@ void * HighwayManagerCreate(u32 size)
         const char * objectName = object->GetName();
         if(strcmp(objectName, "car_body") == 0x0)
             hasCar = true;
-        if(strcmp(objectName, "kart_truck") == 0x0)
+        else if(strcmp(objectName, "kart_truck") == 0x0)
             hasTruck = true;
     }
 
@@ -48,7 +49,7 @@ kmWrite32(0x80827f40, 0x2c030000);
 
 kmCall(0x806d686c, HighwayManagerCheck);
 kmWrite32(0x806d6870, 0x2c030000);
-
+/*
 kmWrite32(0x8078df44, 0x48000070); //Mat Fix
 
 #pragma endregion
@@ -71,7 +72,7 @@ kmCall(0x80827a34, HeyhoShipManagerCreate);
 kmWrite32(0x80827a3c, 0x41820018);
 
 kmWrite32(0x80827a2c, 0x60000000);
-
+*/
 
 void * LoadAdditionalBinaries(ArchiveRoot& archive, ArchiveSource source, const char * name)
 {

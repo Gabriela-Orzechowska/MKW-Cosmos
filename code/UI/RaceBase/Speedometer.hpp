@@ -5,6 +5,7 @@
 #include <game/Race/Kart/KartHolder.hpp>
 #include <game/UI/MenuData/Menudata.hpp>
 #include <UI/RaceBase/ControlRaceBase.hpp>
+#include <Settings/UserData.hpp>
 
 namespace CosmosUI
 {
@@ -13,6 +14,7 @@ namespace CosmosUI
     private:
 
         void Load(const char* variant, u8 id);
+        void SetSpeedoVariant(u8 variant);
 
     public:
 
@@ -20,6 +22,9 @@ namespace CosmosUI
         void OnUpdate() override;
         static u32 Count();
         static void Create(Page * page, u32 index);
+    private:
+        s8 places[5];
+        
 
     };
 }

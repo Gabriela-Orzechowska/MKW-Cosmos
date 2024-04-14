@@ -1,8 +1,11 @@
 #include <UI/RaceBase/Speedometer.hpp>
 
 namespace CosmosUI{
+
     u32 ControlRaceSpeedometer::Count()
     {
+        if(CosmosData::SettingsHolder::GetInstance()->GetSettingValue(CosmosData::COSMOS_SETTING_SPEEDOMETER) == CosmosData::SPEEDO_DISABLED) return 0;
+
         u32 result = RaceData::sInstance->racesScenario.localPlayerCount;
         MenuId menuId = MenuData::sInstance->curScene->menuId;
 
@@ -10,10 +13,12 @@ namespace CosmosUI{
 
         return result;
     }
+    
 
     void ControlRaceSpeedometer::Create(Page * page, u32 index)
     {
         u32 screens = Count();
+
         u8 type = (screens == 3) ? 4 : screens;
         for(int i = 0; i < screens; i++)
         {
@@ -33,20 +38,47 @@ namespace CosmosUI{
 
         ControlLoader loader(this);
 
-        const char* anims[16] = {"eHundreds", "texture_pattern_0_9_0", NULL,
+        const char* anims[] = {"eHundreds", "texture_pattern_0_9_0", NULL,
         "eTens", "texture_pattern_0_9_1", NULL,
         "eUnits", "texture_pattern_0_9_2", NULL,
         "eDot", "texture_pattern_0_9_3",NULL,
-        "eDecimals", "texture_pattern_0_9_4",NULL, NULL};
+        "eDecimals", "texture_pattern_0_9_4",NULL, 
+        "eDecimals2", "texture_pattern_0_9_5",NULL,
+        NULL};
 
         loader.Load("game_image", "speedometer", variant, anims);
         
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 6; i++)
         {
             this->animator.GetAnimationGroupById(i)->PlayAnimationAtFrameAndDisable(0, 0.0f);
         }
-        this->animator.GetAnimationGroupById(4)->PlayAnimationAtFrameAndDisable(0, 11.0f);
+
+        u8 speedosetting = CosmosData::SettingsHolder::GetInstance()->GetSettingValue(CosmosData::COSMOS_SETTING_SPEEDOMETER);
+        this->SetSpeedoVariant(speedosetting);
         return;
+    }
+
+    void ControlRaceSpeedometer::SetSpeedoVariant(u8 variant){
+        this->places[0] = -1; this->places[1] = -1; this->places[2] = -1; this->places[3] = -1; this->places[4] = -1;
+
+        switch(variant){
+            case CosmosData::SPEEDO_0_DIGIT:
+                this->places[0] = 3; this->places[1] = 4; this->places[2] = 5;
+                this->animator.GetAnimationGroupById(0)->PlayAnimationAtFrameAndDisable(0, 10.0f);
+                this->animator.GetAnimationGroupById(1)->PlayAnimationAtFrameAndDisable(0, 10.0f);
+                this->animator.GetAnimationGroupById(2)->PlayAnimationAtFrameAndDisable(0, 10.0f);
+                break;
+            case CosmosData::SPEEDO_1_DIGIT:
+                this->places[0] = 1; this->places[1] = 2; this->places[2] = 3; this->places[4] = 5;
+                this->animator.GetAnimationGroupById(4)->PlayAnimationAtFrameAndDisable(0, 11.0f);
+                this->animator.GetAnimationGroupById(0)->PlayAnimationAtFrameAndDisable(0, 10.0f);
+                break;
+            case CosmosData::SPEEDO_2_DIGIT:
+                this->places[0] = 0; this->places[1] = 1; this->places[2] = 2; this->places[3] = 4; this->places[4] = 5;
+                this->animator.GetAnimationGroupById(3)->PlayAnimationAtFrameAndDisable(0, 11.0f);
+                break;
+
+        }
     }
 
     void ControlRaceSpeedometer::Init()
@@ -57,6 +89,7 @@ namespace CosmosUI{
         this->HudSlotColorEnable("speed2", true);
         this->HudSlotColorEnable("speed3", true);
         this->HudSlotColorEnable("speed4", true);
+        this->HudSlotColorEnable("speed5", true);
 
         LayoutUIControl::Init();
         return;
@@ -81,12 +114,13 @@ namespace CosmosUI{
 
         if(speed > maxSpeed) speed = maxSpeed;
 
-        u32 splitSpeed = (u32) (speed * 10.0f);
+        u32 splitSpeed = (u32) (speed * 100.0f);
 
-        float decimal = (float) (splitSpeed % 10 / 1);
-        float digit_1 = (float) (splitSpeed % 100 / 10);
-        float digit_2 = (float) (splitSpeed % 1000 / 100);
-        float digit_3 = (float) (splitSpeed % 10000 / 1000);
+        float decimal2 = (float )(splitSpeed % 10 / 1);
+        float decimal = (float) (splitSpeed % 100 / 10);
+        float digit_1 = (float) (splitSpeed % 1000 / 100);
+        float digit_2 = (float) (splitSpeed % 10000 / 1000);
+        float digit_3 = (float) (splitSpeed % 100000 / 10000);
 
         if(digit_3 < 0.1f) 
         {
@@ -95,12 +129,19 @@ namespace CosmosUI{
                 digit_2 = 10.0f;
         }
 
+        float numbers[] = { digit_3, digit_2, digit_1, decimal, decimal2 };
+        for(int i = 0; i < 5; i++){
+            if(this->places[i] == -1) continue;
+            this->animator.GetAnimationGroupById(this->places[i])->PlayAnimationAtFrameAndDisable(0, numbers[i]);
+        }
+
+    /*
         this->animator.GetAnimationGroupById(0)->PlayAnimationAtFrameAndDisable(0, digit_3);
         this->animator.GetAnimationGroupById(1)->PlayAnimationAtFrameAndDisable(0, digit_2);
         this->animator.GetAnimationGroupById(2)->PlayAnimationAtFrameAndDisable(0, digit_1);
 
         this->animator.GetAnimationGroupById(3)->PlayAnimationAtFrameAndDisable(0, decimal);
-
+    */
         return;
     }
 

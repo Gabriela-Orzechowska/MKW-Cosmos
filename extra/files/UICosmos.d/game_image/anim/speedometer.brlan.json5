@@ -359,6 +359,72 @@
                         },
                     ],
                 },
+                {
+                    "name": "speed5",
+                    "kind": "material",
+                    "animations": [
+                        {
+                            "magic": "RLTP",
+                            "targets": [
+                                {
+                                    "id": 0,
+                                    "kind": "image",
+                                    "curve type": "step",
+                                    "keys": [
+                                        {
+                                            "frame": 0.0,
+                                            "value": 0,
+                                        },
+                                        {
+                                            "frame": 1.0,
+                                            "value": 1,
+                                        },
+                                        {
+                                            "frame": 2.0,
+                                            "value": 2,
+                                        },
+                                        {
+                                            "frame": 3.0,
+                                            "value": 3,
+                                        },
+                                        {
+                                            "frame": 4.0,
+                                            "value": 4,
+                                        },
+                                        {
+                                            "frame": 5.0,
+                                            "value": 5,
+                                        },
+                                        {
+                                            "frame": 6.0,
+                                            "value": 6,
+                                        },
+                                        {
+                                            "frame": 7.0,
+                                            "value": 7,
+                                        },
+                                        {
+                                            "frame": 8.0,
+                                            "value": 8,
+                                        },
+                                        {
+                                            "frame": 9.0,
+                                            "value": 9,
+                                        },
+                                        {
+                                            "frame": 10.0,
+                                            "value": 10,
+                                        },
+                                        {
+                                            "frame": 11.0,
+                                            "value": 11,
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
             ],
         },
     ],

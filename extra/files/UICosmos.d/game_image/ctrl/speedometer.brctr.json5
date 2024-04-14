@@ -1,4 +1,4 @@
-{
+ {
     "main brlyt": "speedometer",
     "bmg": "",
     "picture source brlyt": "",
@@ -31,6 +31,12 @@
             "name": "eDecimals",
             "pane": "Group_04",
             "first animation": 4,
+            "animation count": 1,
+        },        
+        {
+            "name": "eDecimals2",
+            "pane": "Group_05",
+            "first animation": 5,
             "animation count": 1,
         },
     ],
@@ -70,6 +76,13 @@
             "reversed": false,
             "speed": 1.0,
         },
+        {
+            "name": "texture_pattern_0_9_5",
+            "brlan": "speedometer.brlan",
+            "next": "",
+            "reversed": false,
+            "speed": 1.0,
+        },
     ],
     "variants": [
         {
@@ -77,12 +90,12 @@
             "opacity": 255,
             "animated": true,
             "animation delay": 0.0,
-            "translation x 4:3": 180.0,
+            "translation x 4:3": 160.0,
             "translation y 4:3": -200.0,
             "translation z 4:3": 0.0,
             "scale x 4:3": 0.4,
             "scale y 4:3": 0.4,
-            "translation x 16:9": 205.0,
+            "translation x 16:9": 185.0,
             "translation y 16:9": -195.0,
             "translation z 16:9": 0.0,
             "scale x 16:9": 0.40625,

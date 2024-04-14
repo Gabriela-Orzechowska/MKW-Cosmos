@@ -46,7 +46,7 @@ public:
     u32 openingTransitionAnimIdx; //0x14
     u32 transitionAnimIdx; //0x18
     u32 transitionDelay; //0x1c
-    u32 firstLoad; //0x20
+    u8 firstLoad; //0x20
 	u8 unknown_0x21[3]; 
 
     u32 homeMenuAction;
@@ -59,6 +59,7 @@ public:
     MenuData98 *menudata98;
 
 }; //Total Size 0x9C
+size_assert(MenuData, 0x9C);
 
 
 extern "C"{

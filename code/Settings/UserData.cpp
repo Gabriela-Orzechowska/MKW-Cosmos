@@ -44,14 +44,12 @@ namespace CosmosData
             buffer->version = version;
 
             for(int i = 0; i < 4; i++){
-                buffer->playerVr[i] = 13000;
-                buffer->playerBr[i] = 5400;
+                buffer->playerVr[i] = 5000;
+                buffer->playerBr[i] = 5000;
             }
-
-            //Defaulty Disabled
-
+            
             for(int i = 0; i < PAGE_COUNT; i++){
-                for(int j = 0; i < GlobalSettingDefinitions[i].settingCount; j++){
+                for(int j = 0; j < GlobalSettingDefinitions[i].settingCount; j++){
                     buffer->data.pages[i].setting[j] = GlobalSettingDefinitions[i].settings[j].defaultValue;
                 }
             }
@@ -81,7 +79,7 @@ namespace CosmosData
         SettingsHolder * holder = new (RKSystem::mInstance.EGGSystem) SettingsHolder();
         char path[IPCMAXPATH];
         snprintf(path, IPCMAXPATH, "%s/%s", Cosmos::packFolder, Cosmos::SaveFile);
-        holder->Init(path, "CSSE", 0x03);
+        holder->Init(path, "CSSE", SettingsVersion);
         SettingsHolder::sInstance = holder;
     }
 

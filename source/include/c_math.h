@@ -21,6 +21,7 @@ double exp(double); // not in nsmbw
 
 double floor(double);
 double fmod(double, double);
+
 double frexp(double, int *);
 double ldexp(double, int);
 double log(double); // not in nsmbw?
