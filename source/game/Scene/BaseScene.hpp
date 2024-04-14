@@ -43,7 +43,7 @@ class ArchiveLink {
 
 class GameScene : public BaseScene {
 public:
-    static const GameScene *GetCurrent(); //8051bed0, gets current scene from SceneManager and if id != 0 and != 5, returns it
+    static GameScene *GetCurrent(); //8051bed0, gets current scene from SceneManager and if id != 0 and != 5, returns it
     GameScene(); //8051a1e0
     ~GameScene() override; //8051a3c0 vtable 808b2c98
     void calc() override;   //0xc  8051b3c8

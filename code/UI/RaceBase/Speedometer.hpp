@@ -8,25 +8,26 @@
 #include <Settings/UserData.hpp>
 
 namespace CosmosUI
-{
+{    
     class ControlRaceSpeedometer : public CtrlRaceBase
     {
     private:
 
         void Load(const char* variant, u8 id);
-        void SetSpeedoVariant(u8 variant);
 
     public:
 
         void Init() override;
         void OnUpdate() override;
+        void SetSpeedoVariant(u8 variant);
         static u32 Count();
         static void Create(Page * page, u32 index);
+        
     private:
         s8 places[5];
-        
-
     };
+
+    static ControlRaceSpeedometer* speedos[4] = {nullptr, nullptr, nullptr, nullptr};
 }
 
 #endif

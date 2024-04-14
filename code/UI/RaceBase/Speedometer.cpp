@@ -4,7 +4,7 @@ namespace CosmosUI{
 
     u32 ControlRaceSpeedometer::Count()
     {
-        if(CosmosData::SettingsHolder::GetInstance()->GetSettingValue(CosmosData::COSMOS_SETTING_SPEEDOMETER) == CosmosData::SPEEDO_DISABLED) return 0;
+        memset(speedos, 0, sizeof(speedos));
 
         u32 result = RaceData::sInstance->racesScenario.localPlayerCount;
         MenuId menuId = MenuData::sInstance->curScene->menuId;
@@ -26,6 +26,7 @@ namespace CosmosUI{
             page->AddControl(index + i, speedometer, 0);
             char speedoVariant[0x30];
             snprintf(speedoVariant, 0x30, "CtrlRaceSpeedo_%1d_%1d", type, i);
+            speedos[i] = speedometer;
             speedometer->Load(speedoVariant, i);
         }
     }
@@ -61,7 +62,11 @@ namespace CosmosUI{
     void ControlRaceSpeedometer::SetSpeedoVariant(u8 variant){
         this->places[0] = -1; this->places[1] = -1; this->places[2] = -1; this->places[3] = -1; this->places[4] = -1;
 
+        this->isHidden = false;
         switch(variant){
+            case CosmosData::SPEEDO_DISABLED:
+                this->isHidden = true;
+                break;
             case CosmosData::SPEEDO_0_DIGIT:
                 this->places[0] = 3; this->places[1] = 4; this->places[2] = 5;
                 this->animator.GetAnimationGroupById(0)->PlayAnimationAtFrameAndDisable(0, 10.0f);
@@ -134,15 +139,20 @@ namespace CosmosUI{
             if(this->places[i] == -1) continue;
             this->animator.GetAnimationGroupById(this->places[i])->PlayAnimationAtFrameAndDisable(0, numbers[i]);
         }
-
-    /*
-        this->animator.GetAnimationGroupById(0)->PlayAnimationAtFrameAndDisable(0, digit_3);
-        this->animator.GetAnimationGroupById(1)->PlayAnimationAtFrameAndDisable(0, digit_2);
-        this->animator.GetAnimationGroupById(2)->PlayAnimationAtFrameAndDisable(0, digit_1);
-
-        this->animator.GetAnimationGroupById(3)->PlayAnimationAtFrameAndDisable(0, decimal);
-    */
         return;
     }
+
+
+    void UpdateSpeedoDigits(){
+        u8 variant = CosmosData::SettingsHolder::GetInstance()->GetSettingValue(CosmosData::COSMOS_SETTING_SPEEDOMETER);
+
+        for(int i = 0; i < 4; i++){
+            if(speedos[i] == nullptr) break;
+            speedos[i]->SetSpeedoVariant(variant);
+        }
+
+    }
+
+    static SettingsValueUpdateHook svuhSpeedo(UpdateSpeedoDigits, CosmosData::COSMOS_SETTING_SPEEDOMETER);
 
 }

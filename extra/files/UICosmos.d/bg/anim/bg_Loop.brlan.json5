@@ -1,0 +1,50 @@
+{
+    "version": 10,
+    "sections": [
+        {
+            "magic": "pat1",
+            "id": 0,
+            "groups": [],
+            "name": "Loop",
+            "start frame": 0,
+            "end frame": 3500,
+            "descending bind": true,
+        },
+        {
+            "magic": "pai1",
+            "frame count": 3500,
+            "loop": true,
+            "tpls": [],
+            "contents": [
+                {
+                    "name": "line0",
+                    "kind": "material",
+                    "animations": [
+                        {
+                            "magic": "RLTS",
+                            "targets": [
+                                {
+                                    "id": 0,
+                                    "kind": "translate t",
+                                    "curve type": "hermite",
+                                    "keys": [
+                                        {
+                                            "frame": 0.0,
+                                            "value": 0.0,
+                                            "slope": 0.028571,
+                                        },
+                                        {
+                                            "frame": 3500.0,
+                                            "value": 100.0,
+                                            "slope": 0.028571,
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        },
+    ],
+}

@@ -120,8 +120,11 @@ void UpdateLanguage()
 */
     if(languageSettings != lastLanguage){
         lastLanguage = languageSettings;
-        CosmosUI::NewSettings * page = MenuData::sInstance->curScene->Get<CosmosUI::NewSettings>((PageId)Cosmos::SETTINGS_MAIN);
-        page->ChangeMenu(page->GetPreviousMenu(),0,0.0f);
+        if(Scene::GetType(MenuData::GetStaticInstance()->curScene->menuId) != CATEGORY_GAMEPLAY)
+        {
+            CosmosUI::NewSettings * page = MenuData::sInstance->curScene->Get<CosmosUI::NewSettings>((PageId)Cosmos::SETTINGS_MAIN);
+            page->ChangeMenu(page->GetPreviousMenu(),0,0.0f);
+        }
     }
 }
 

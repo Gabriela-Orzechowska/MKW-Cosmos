@@ -69,7 +69,8 @@ void OnButtonClick(Pages::SinglePlayer& page, PushButton * button, u32 slotId)
 
     if(button->buttonId == SETTINGS)
     {
-        MenuData::sInstance->curScene->Get<CosmosUI::NewSettings>((PageId)Cosmos::SETTINGS_MAIN)->SetPreviousPage(SINGLE_PLAYER_MENU, SINGLE_PLAYER_FROM_MENU);
+        CosmosUI::NewSettings::SetPreviousPageGlobal(SINGLE_PLAYER_MENU, SINGLE_PLAYER_FROM_MENU);
+        //MenuData::sInstance->curScene->Get<CosmosUI::NewSettings>((PageId)Cosmos::SETTINGS_MAIN)->SetPreviousPage(SINGLE_PLAYER_MENU, SINGLE_PLAYER_FROM_MENU);
         page.nextPageId = (PageId) Cosmos::SETTINGS_MAIN;
         page.EndStateAnimate(button->GetAnimationFrameSize(), 0);
     }

@@ -2,6 +2,7 @@
 #include <Settings/UserData.hpp>
 #include <game/Scene/BaseScene.hpp>
 #include <Debug/Draw/PerformanceMonitor.hpp>
+#include <game/UI/MenuData/MenuData.hpp>
 
 using namespace CosmosData;
 
@@ -17,6 +18,22 @@ void SetFrameRate(GameScene& scene, u8 mode)
 
 kmCall(0x80554270, SetFrameRate);
 kmCall(0x80554abc, SetFrameRate);
+
+void SetFrameRateMidGame()
+{
+    FRAME_MODE frameMode = (FRAME_MODE) SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_FRAME_MODE);
+    Scene * currentScene = MenuData::GetStaticInstance()->curScene;
+    if(Scene::GetType(currentScene->menuId) == CATEGORY_GAMEPLAY){
+        GameScene * scene = GameScene::GetCurrent();
+        if(frameMode == FORCE_30)
+            scene->SetFramerate(1);
+        else scene->SetFramerate(0);
+    }
+    //Scene* currentScene = Scene::GetType(MenuData::GetStaticInstance()->curScene->menuId;
+
+}
+
+static SettingsValueUpdateHook svuhFramerate(SetFrameRateMidGame, CosmosData::COSMOS_SETTING_FRAME_MODE);
 
 void SetPerfMonitorVisibility()
 {

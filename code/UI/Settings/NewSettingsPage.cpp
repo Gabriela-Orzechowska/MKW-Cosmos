@@ -1,8 +1,14 @@
 #include <UI/Settings/NewSettingsPage.hpp>
+#include <Ghost/GhostManager.hpp>
 
 #define SETTINGCONTROLCOUNT 6
 
 namespace CosmosUI {
+
+    void LoadInstructionText(CtrlMenuInstructionText* text, const char * folder, const char * ctrl, const char * variant){
+        ControlLoader loader = ControlLoader(text);
+        loader.Load(folder, ctrl,variant,nullptr);
+    }
 
     NewSettings::NewSettings() {
         SetupHandler(onBackPressHandler, void (Page::*)(u32), &NewSettings::OnBack);
@@ -16,6 +22,16 @@ namespace CosmosUI {
         SetupHandler(onValueSettingClickHandler, void (Page::*)(UpDownControl*,u32), &NewSettings::OnValueControlClick);
         SetupHandler(onValueSettingSelectHandler, void (Page::*)(UpDownControl*,u32), &NewSettings::OnValueControlSelect);
         SetupHandler(onDeselectHandler, void (Page::*)(UpDownControl*,u32), &NewSettings::OnDummyDeselect);
+    }
+
+    void NewSettings::OnUpdate() {
+        if(MenuData::GetStaticInstance()->curScene->menuId == TIME_TRIAL_GAMEPLAY)
+        {
+            if(MenuData::sInstance->curScene->pauseGame){
+                CosmosGhost::GhostManager::GetStaticInstance()->pauseFrames += 1;
+            }
+        }
+
     }
 
     void NewSettings::OnInit() {
@@ -36,7 +52,7 @@ namespace CosmosUI {
 
     // Load UI Elements
         this->title.Load(false);
-        this->bottomText.Load();
+        
         this->pageSelector.Load(PAGE_COUNT, 0, "control", "DXSettingPageUpDownBase", "UpDown4", "DXSettingPageUpDownButtonR", "RightButton",
             "DXSettingPageUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textPageSelector, 1, 0, false, true, true);
 
@@ -53,7 +69,13 @@ namespace CosmosUI {
             this->textSettingSelector[i].Load("control", "DXSettingsUpDownValue", "Value", "DXSettingsUpDownText", "Text");
         }
 
-        this->backButton.Load("button", "Back", "ButtonBack", 1, false, true);
+        if(Scene::GetType(MenuData::GetStaticInstance()->curScene->menuId) == CATEGORY_GAMEPLAY){
+            this->backButton.Load("message_window", "Back", "ButtonBack", 1, false, true);
+            LoadInstructionText(&this->bottomText, "bg", "RaceMenuObiInstructionText", "MenuObiInstructionText");
+        } else {
+            this->backButton.Load("button", "Back", "ButtonBack", 1, false, true);
+            LoadInstructionText(&this->bottomText, "bg", "MenuObiInstructionText", "MenuObiInstructionText");
+        }
 
         this->controlsManipulatorManager.SetGlobalHandler(BACK_PRESS, &this->onBackPressHandler, false, false);
         this->backButton.SetOnClickHandler(&this->onBackButtonPress, 0);
@@ -163,8 +185,6 @@ namespace CosmosUI {
         u32 bmg = BMG_SETTING_OPTION_BOTTOM + ((this->currentPage << 8) + (upDownControl->id << 4) + upDownControl->curSelectedOption);
         this->bottomText.SetMsgId(bmg);
     }
-
-
 
 
 }

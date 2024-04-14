@@ -181,7 +181,6 @@ namespace CosmosGhost
         s32 raceRealTimeDelta = (s32)timeDelta - raceTime;
 
         if(abs(raceRealTimeDelta) > TIME_EPS){
-            CosmosLog("Time delta: %llu, %llu, %llu, %d\nRace Time delta: %d\n", timeDelta, currentTime, this->ttStartTime, this->pauseFrames, raceRealTimeDelta);
             Pages::RaceHUD * page = MenuData::sInstance->curScene->Get<Pages::RaceHUD>(TIME_TRIAL_INTERFACE);
             if(page){
                 page->ghostMessage->isHidden = false;
@@ -189,6 +188,7 @@ namespace CosmosGhost
             }
             this->isGhostValid = false;
         }
+        CosmosLog("Time delta: %llu, %llu, %llu, %d\nRace Time delta: %d\n", timeDelta, currentTime, this->ttStartTime, this->pauseFrames, raceRealTimeDelta);
     }
 
     void UpdateStartTime(Page& page, u32 soundIdx, u32 param_3){

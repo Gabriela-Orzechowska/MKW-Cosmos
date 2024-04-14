@@ -17,8 +17,15 @@ namespace CosmosUI
         void OnInit() override;
         void OnActivate() override;
         void BeforeEntranceAnimations() override;
+        void OnUpdate() override;
         PageId GetNextPage() const override { return this->returnPage; }
 
+        static void SetPreviousPageGlobal(PageId id, MenuId menu){
+            NewSettings* page = MenuData::sInstance->curScene->Get<NewSettings>((PageId)Cosmos::SETTINGS_MAIN);
+            if(page != nullptr){
+                page->SetPreviousPage(id, menu);
+            }
+        }
         void SetPreviousPage(PageId id, MenuId menu) { this->returnPage = id; this->returnMenu = menu; }
         MenuId GetPreviousMenu() const { return this->returnMenu; }
 

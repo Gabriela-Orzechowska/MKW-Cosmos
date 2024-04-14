@@ -1,4 +1,4 @@
- {
+{
     "main brlyt": "speedometer",
     "bmg": "",
     "picture source brlyt": "",
@@ -32,7 +32,7 @@
             "pane": "Group_04",
             "first animation": 4,
             "animation count": 1,
-        },        
+        },
         {
             "name": "eDecimals2",
             "pane": "Group_05",
