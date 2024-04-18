@@ -9,7 +9,6 @@
 #include <game/System/FontManager.hpp>
 #include <core/rvl/os/OS.hpp>
 #include <UI/MiscUI.hpp>
-#include <UI/Settings/SettingsBasePage.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>
 
 using namespace CosmosData;

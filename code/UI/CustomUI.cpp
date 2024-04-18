@@ -1,7 +1,5 @@
 #include <kamek.hpp>
 #include <main.hpp>
-#include <UI/Settings/SettingsBasePage.hpp>
-#include <UI/Settings/SettingsSubPage.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>
 #include <UI/Settings/MessageWarning.hpp>
 #include <game/UI/Page/RaceMenu/TTPause.hpp>
@@ -11,19 +9,6 @@ void * CreatePage(u32 pageId)
     if(pageId == (u32)Cosmos::SETTINGS_MAIN)
     {
         return new(CosmosUI::NewSettings)();
-    }
-    else if(pageId == (u32)Cosmos::RACE_SETTINGS1)
-    {
-        return new(CosmosUI::SettingSubPage)(pageId, 0);
-    }
-    
-    else if(pageId == (u32)Cosmos::MENU_SETTINGS1)
-    {
-        return new(CosmosUI::SettingSubPage)(pageId, 1);
-    }
-    else if(pageId == (u32)Cosmos::DEBUG_SETTINGS)
-    {
-        return new(CosmosUI::SettingSubPage)(pageId, 2);
     }
     else if(pageId == (u32)Cosmos::WARNING_PAGE)
     {

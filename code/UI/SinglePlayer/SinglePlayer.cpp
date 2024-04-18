@@ -1,5 +1,4 @@
 #include <UI/SinglePlayer/SinglePlayer.hpp>
-#include <UI/Settings/SettingsBasePage.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>
 
 #pragma region SingleMenuPage

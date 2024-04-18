@@ -1,6 +1,5 @@
 #include <UI/Settings/MessageWarning.hpp>
 #include <UI/BMG/BMG.hpp>
-#include <UI/Settings/SettingsBasePage.hpp>
 #include <main.hpp>
 
 namespace CosmosUI

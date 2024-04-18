@@ -1,5 +1,4 @@
 #include <UI/Other/OptionsPage.hpp>
-#include <UI/Settings/SettingsBasePage.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>
 #include <main.hpp>
 
