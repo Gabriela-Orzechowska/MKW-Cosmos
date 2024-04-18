@@ -997,13 +997,21 @@ BeforeExitAnimations__Q25Pages8RaceMenuFv = 0x80859f34
 AfterControlUpdate__Q25Pages8RaceMenuFv = 0x80859e98
 GetRuntimeTypeInfo__Q25Pages8RaceMenuCFv = 0x8085bd58
 SetNextPage__Q25Pages8RaceMenuF6PageId = 0x8063240c
+OnButtonClick__Q25Pages8RaceMenuFP10PushButtonUi = 0x8085a0f4
 
 OnActivate__Q25Pages8RaceMenuFv = 0x80859a2c
 
+buttonVariants__Q25Pages8RaceMenu = 0x808da7a8 
 
 #CustomSettingsPanel
 VSSettings_sInstance = 0x809c4618
 
+#TTPause
+__ct__Q25Pages7TTPauseFv = 0x80624be4
+__dt__Q25Pages7TTPauseFv = 0x80633498
+IsPausePage__Q25Pages7TTPauseFv = 0x80633470
+GetMessageBMG__Q25Pages7TTPauseCFv = 0x80633468
+GetRuntimeTypeInfo__Q25Pages7TTPauseCFv = 0x80633504
 
 #RacePage
 sInstance__Q25Pages7RaceHUD = 0x809c4680

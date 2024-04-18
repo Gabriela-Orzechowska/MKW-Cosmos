@@ -114,7 +114,7 @@
             "first picture": 0,
             "picture count": 0,
         },
-		{
+        {
             "name": "LeftButton_race",
             "opacity": 255,
             "animated": true,

@@ -114,7 +114,7 @@
             "first picture": 0,
             "picture count": 0,
         },
-		{
+        {
             "name": "RightButton_race",
             "opacity": 255,
             "animated": true,

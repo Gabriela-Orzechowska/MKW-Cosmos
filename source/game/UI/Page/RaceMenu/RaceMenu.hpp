@@ -9,6 +9,46 @@
 namespace Pages{
 class RaceMenu : public Page{ //also used for end of races
 public:
+    enum ButtonsId {
+        ButtonContinue,
+        ButtonQuit,
+        ButtonRestart1,
+        ButtonRestart2,
+        ButtonReplay,
+        ButtonChangeCourse,
+        ButtonChangeCharacter,
+        ButtonNext,
+        ButtonRanking,
+        ButtonContinueRanking,
+        ButtonRestartReplay,
+        ButtonQuitReplay,
+        ButtonContinue2,
+        ButtonQuit2,
+        ButtonBattleGhost,
+        ButtonRestart3,
+        ButtonContinue3,
+        ButtonQuit3,
+        ButtonChangeMission,
+        ButtonSend,
+        ButtonNoSend,
+        ButtonGoRanking,
+        ButtonNotGoRanking,
+        ButtonConfirmContinue,
+        ButtonConfirmQuit,
+        ButtonSendRecord,
+        ButtonSend2,
+        ButtonNoSend2,
+        ButtonFriendGhostBattle,
+        ButtonGoFriendRoom,
+        ButtonNotGoFriendRoom,
+        ButtonNextGhost,
+        ButtonYes,
+        ButtonNo,
+        ButtonQuit4,
+        ButtonYes2,
+        ButtonNo2,
+    };
+
     RaceMenu(); //80858ca4
     ~RaceMenu() override; //80624b38 vtable 808da928
     PageId GetNextPage() const override; //0x10 80632414
