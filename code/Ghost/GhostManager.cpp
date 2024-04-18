@@ -23,7 +23,6 @@ namespace CosmosGhost
         this->folderManager = CosmosFile::FolderManager::Create();
         this->courseId = -1;
         this->isGhostValid = true;
-        this->pauseFrames = 0;
         this->files = NULL;
     }
 
@@ -167,7 +166,7 @@ namespace CosmosGhost
         MenuData::sInstance->menudata98->isNewTime = true;
     }
 
-#define TIME_EPS 1750
+#define TIME_EPS 1000
 
     void GhostManager::VerifyTime(){
         if(!this->isGhostValid) return;
@@ -175,9 +174,9 @@ namespace CosmosGhost
         this->isGhostValid = true;
 
         u64 currentTime = IOS::Dolphin::GetSystemTime();
-        s64 timeDelta = (currentTime - this->ttStartTime - (this->pauseFrames * 1000 / 60));
+        s64 timeDelta = (currentTime - this->ttStartTime);
 
-        u32 raceTime = (RaceInfo::sInstance->timer - 240) * 1000 / 60;
+        u32 raceTime = gameSceneFrames * 1000 / 59.94f;
         s32 raceRealTimeDelta = (s32)timeDelta - raceTime;
 
         if(abs(raceRealTimeDelta) > TIME_EPS){
@@ -187,8 +186,9 @@ namespace CosmosGhost
                 page->ghostMessage->SetMsgId(0x2802);
             }
             this->isGhostValid = false;
+            CosmosLog("Time delta: %llu, %llu, %llu\nRace Time delta: %d\n", timeDelta, currentTime, this->ttStartTime, raceRealTimeDelta);
         }
-        CosmosLog("Time delta: %llu, %llu, %llu, %d\nRace Time delta: %d\n", timeDelta, currentTime, this->ttStartTime, this->pauseFrames, raceRealTimeDelta);
+        
     }
 
     void UpdateStartTime(Page& page, u32 soundIdx, u32 param_3){
@@ -212,22 +212,6 @@ namespace CosmosGhost
     }
 
     static RaceFrameHook rfhVerify(VerifyTimeDuringRace);
-
-    void OnTTMenuUpdate(Pages::TTPause& page)
-    {
-        if(MenuData::sInstance->curScene->pauseGame){
-            GhostManager::GetStaticInstance()->pauseFrames += 1;
-        }
-    }
-    kmWritePointer(0x808bdebc, OnTTMenuUpdate);
-
-    void UpdatePauseDuringHBM(){
-        if(RaceData::sInstance->racesScenario.settings.gamemode == MODE_TIME_TRIAL){
-            GhostManager * manager = GhostManager::GetStaticInstance();
-            if(manager) manager->pauseFrames += 1;
-        }
-    }
-    kmBranch(0x801776fc, UpdatePauseDuringHBM);
 
     GhostLeaderboardManager::GhostLeaderboardManager()
     {
@@ -362,6 +346,14 @@ namespace CosmosGhost
     kmCall(0x8085d8d0, GetTimeEntry);
     kmCall(0x8085d5c8, GetTimeEntry);
     kmCall(0x8085da54, GetTimeEntry);
+
+    void CountFrames() {
+        if(MenuData::GetStaticInstance()->curScene->menuId == TIME_TRIAL_GAMEPLAY)
+        {
+            CosmosGhost::GhostManager::GetStaticInstance()->gameSceneFrames += 1;
+        }
+    }
+    kmBranch(0x8051b78c, CountFrames);
 
 
     void CustomGhostGroup(GhostList * list, u32 id)
