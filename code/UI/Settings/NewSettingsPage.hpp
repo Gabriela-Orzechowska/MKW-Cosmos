@@ -45,13 +45,13 @@ namespace CosmosUI
 
         void ChangePage(u8 page);
 
-        ControlsManipulatorManager controlsManipulatorManager;
-        CtrlMenuBackButton backButton;
+        ControlsManipulatorManager controlsManipulatorManager; //0x48
+        CtrlMenuBackButton backButton; //0x268
     
-        UpDownControl pageSelector;
-        TextUpDownValueControl textPageSelector;
-        UpDownControl settingSelectors[6];
-        TextUpDownValueControl textSettingSelector[6];
+        UpDownControl pageSelector; //0x4CC
+        TextUpDownValueControl textPageSelector; //0xA94
+        UpDownControl settingSelectors[6]; // 0xF08
+        TextUpDownValueControl textSettingSelector[6]; //0x31B8
 
         CtrlMenuPageTitleText title;
         CtrlMenuInstructionText bottomText;

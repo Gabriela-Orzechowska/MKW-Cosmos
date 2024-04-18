@@ -25,12 +25,7 @@ namespace CosmosUI {
     }
 
     void NewSettings::OnUpdate() {
-        if(MenuData::GetStaticInstance()->curScene->menuId == TIME_TRIAL_GAMEPLAY)
-        {
-            if(MenuData::sInstance->curScene->pauseGame){
-                CosmosGhost::GhostManager::GetStaticInstance()->pauseFrames += 1;
-            }
-        }
+
 
     }
 
@@ -50,31 +45,41 @@ namespace CosmosUI {
             this->AddControl(4 + i, &this->settingSelectors[i], false);
         }
 
+        bool isRaceMenu = Scene::GetType(MenuData::GetStaticInstance()->curScene->menuId) == CATEGORY_GAMEPLAY;
+
     // Load UI Elements
         this->title.Load(false);
         
         this->pageSelector.Load(PAGE_COUNT, 0, "control", "DXSettingPageUpDownBase", "UpDown4", "DXSettingPageUpDownButtonR", "RightButton",
-            "DXSettingPageUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textPageSelector, 1, 0, false, true, true);
+        "DXSettingPageUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textPageSelector, 1, 0, false, true, true);
+        this->textPageSelector.Load("control", "DXSettingPageUpDownValue", "Value_race", "DXSettingPageUpDownText", "Text_race");
 
-        this->textPageSelector.Load("control", "DXSettingPageUpDownValue", "Value", "DXSettingPageUpDownText", "Text");
+        if(isRaceMenu)
+        {
+            this->backButton.Load("message_window", "Back", "ButtonBack", 1, false, true);
+            LoadInstructionText(&this->bottomText, "bg", "RaceMenuObiInstructionText", "MenuObiInstructionText");
+        }
+        else {
+            this->backButton.Load("button", "Back", "ButtonBack", 1, false, true);
+            LoadInstructionText(&this->bottomText, "bg", "MenuObiInstructionText", "MenuObiInstructionText");
+
+            this->textPageSelector.Load("control", "DXSettingPageUpDownValue", "Value", "DXSettingPageUpDownText", "Text");
+        }
 
         for(int i = 0; i < SETTINGCONTROLCOUNT; i++){
             char variant[0x20];
-            snprintf(variant, 0x20, "UpDown%d", i);
+            snprintf(variant, 0x20, "UpDown%d%s", i, isRaceMenu ? "_race" : "");
 
-            this->settingSelectors[i].Load(1, 0, "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", "RightButton",
-            "DXSettingsUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textSettingSelector[i], 1, 0, false, true, true);
+
+
+            this->settingSelectors[i].Load(1, 0, "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", isRaceMenu ? "RightButton_race" : "RightButton",
+            "DXSettingsUpDownButtonL", isRaceMenu ? "LeftButton_race" : "LeftButton", (UpDownDisplayedText*) &this->textSettingSelector[i], 1, 0, false, true, true);
             this->settingSelectors[i].id = i;
 
-            this->textSettingSelector[i].Load("control", "DXSettingsUpDownValue", "Value", "DXSettingsUpDownText", "Text");
-        }
-
-        if(Scene::GetType(MenuData::GetStaticInstance()->curScene->menuId) == CATEGORY_GAMEPLAY){
-            this->backButton.Load("message_window", "Back", "ButtonBack", 1, false, true);
-            LoadInstructionText(&this->bottomText, "bg", "RaceMenuObiInstructionText", "MenuObiInstructionText");
-        } else {
-            this->backButton.Load("button", "Back", "ButtonBack", 1, false, true);
-            LoadInstructionText(&this->bottomText, "bg", "MenuObiInstructionText", "MenuObiInstructionText");
+            if(isRaceMenu)
+                this->textSettingSelector[i].Load("control", "DXSettingsUpDownValue", "Value_race", "DXSettingsUpDownText", "Text");
+            else
+                this->textSettingSelector[i].Load("control", "DXSettingsUpDownValue", "Value", "DXSettingsUpDownText", "Text");
         }
 
         this->controlsManipulatorManager.SetGlobalHandler(BACK_PRESS, &this->onBackPressHandler, false, false);

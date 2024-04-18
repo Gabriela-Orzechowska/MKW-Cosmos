@@ -142,7 +142,7 @@ public:
     PtmfHolder_2A<Page, void, UpDownControl*, u32> *onDeselectHandler; //0x2a8
     nw4r::lyt::Pane *fuchi_pattern; //0x2ac
     nw4r::lyt::Pane *color_base; //0x2b0
-    UpDownButton arrowButtons[2];
+    UpDownButton arrowButtons[2]; //2b4
     u32 soundID; //init at 0x13, sound to play when the arrows are pressed
 };  //0x5C8
 static_assert(sizeof(UpDownControl) == 0x5C8,"UpDownControl");

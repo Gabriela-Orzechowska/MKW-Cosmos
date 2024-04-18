@@ -6,7 +6,7 @@
 #include <UI/Settings/MessageWarning.hpp>
 #include <game/UI/Page/RaceMenu/TTPause.hpp>
 
-void * CreatePage(Scene& scene, u32 pageId)
+void * CreatePage(u32 pageId)
 {
     if(pageId == (u32)Cosmos::SETTINGS_MAIN)
     {
@@ -30,7 +30,7 @@ void * CreatePage(Scene& scene, u32 pageId)
         return new (CosmosUI::MessagePageWindow);
     }
 
-    return scene.CreatePageById((PageId)pageId);
+    return Scene::CreatePageById((PageId)pageId);
 }
 
 kmCall(0x80622d2c, CreatePage);
