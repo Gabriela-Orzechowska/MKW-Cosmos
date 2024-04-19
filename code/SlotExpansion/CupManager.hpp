@@ -30,13 +30,18 @@ namespace Cosmos
 
         CupManager();
 
-        int GetCupCount() { return cupDef->cupCount; }
+        int GetCupCount() const { return cupDef->cupCount; }
+        int GetTrackCount() const { return cupDef->cupCount * 4; } //TODO Make it a separate field
         int GetTrackID() const { return winningCourse; };
 
         int GetCurrentTrackSlot();
         int GetCurrentMusicSlot();
 
+        int GetRandomTrack() const { return 1; } //TODO
+
         void UpdateSelectedCourse(PushButton * button);
+        void SetWinningTrack(u32 course) { winningCourse = course; }
+        
 
 
         u32 winningCourse;

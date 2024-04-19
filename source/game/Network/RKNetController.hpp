@@ -96,7 +96,7 @@ enum RKNetSearchType{
 class RKNetController {
 public:
     static RKNetController *sInstance; //809c20d8
-    static RKNetController *GetStaticInstance(); //80655b24
+    static RKNetController *GetStaticInstance() { return sInstance; } ; //80655b24
     static void DestroyStaticInstance(); //80655bac
     explicit RKNetController(EGG::ExpHeap *heap); //80657004
     virtual ~RKNetController(); //8065741c vtable 808c097c

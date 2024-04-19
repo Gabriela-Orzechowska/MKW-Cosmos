@@ -2,14 +2,27 @@
 #include <kamek.hpp>
 #include <game/Network/RKNetSelect.hpp>
 #include <game/Network/RKNetController.hpp>
+#include <SlotExpansion/CupManager.hpp>
+#include <game/System/Random.hpp>
+#include <Settings/UserData.hpp>
+#include <game/System/Archive.hpp>
 
 
 namespace CosmosNetwork
 {
+    struct CosmosSELECTPlayerData{
+        u16 cCourseVote;
+        u16 sumPoints;
+        u8 character;
+        u8 kart;
+        u8 cPrevRank;
+        u8 starRank;
+    }; //total size 0x8
+
     struct CosmosSELECTPacket { // Based on lecode one
         u64 timeSender;
         u64 timeReceived;
-        SELECTPlayerData playersData[2]; //0x10
+        CosmosSELECTPlayerData playersData[2]; //0x10
         u32 selectId; //0x20
         u8 battleType;
         u32 teams : 24; //0x25
