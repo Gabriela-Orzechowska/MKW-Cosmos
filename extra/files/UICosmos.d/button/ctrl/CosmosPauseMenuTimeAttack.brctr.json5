@@ -194,7 +194,7 @@
             "first picture": 0,
             "picture count": 0,
         },
-		{
+        {
             "name": "ButtonSettings",
             "opacity": 255,
             "animated": true,
@@ -241,7 +241,7 @@
             "name": "",
             "message id": 1007,
         },
-		{
+        {
             "pane": "",
             "name": "",
             "message id": 10752,
