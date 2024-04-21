@@ -43,7 +43,10 @@ struct FriendData{
 static_assert(sizeof(FriendData) == 0x1c0, "FriendData");
 
 struct RKPD{ //licenses
-    char magic[4]; //RKPD
+    union{
+        char str[4]; //RKPD
+        u32 raw;
+    } magic;
     u8 unknown_0x4[0x56d0 - 0x4];
     FriendData friends[30]; //0x56d0
     DWC::Friend dwcFriends[30]; //0x8b50
@@ -93,7 +96,10 @@ public:
 
     u8 unknown_0x1e[0xE20-0x1e];
     TimeEntry timentries[6][32]; //top 5 times + flap * 32 tracks //0xE20
-    u8 unknwon_0x5920[0x9014-0x5920];
+    u8 unknwon_0x5920[0x8fb8-0x5920];
+    u32 friendCodeThing;
+    u8 unknown_0x8bfc[0x9014-0x8fbc];
+
     Rating vr;
     Rating br;
     u8 unknown_0x9024[0x93f0-0x9024];
@@ -104,6 +110,7 @@ static_assert(sizeof(LicenseManager) == 0x93f0, "LicenseManager");
 class SaveDataManager{
 public:
     static SaveDataManager *sInstance; //809bd748
+    static inline SaveDataManager* GetStaticInstance() { return sInstance; }
     void SaveLicenses(); //80544c2c
     bool CheckLicenseMagic(u8 licenseId); //80544d10
     EGG::TDisposer<SaveDataManager> disposer; //80543d18 vtable 808b3c98

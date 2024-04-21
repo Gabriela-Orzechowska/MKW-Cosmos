@@ -132,8 +132,8 @@ namespace Cosmos{
         CosmosLog("Loading %s\n", path);
     }
 
-    kmWrite32(0x8052a108, 0x38800003); //+1 for CommonDX.szs
-    kmWrite32(0x8052a188, 0x38800003); //+1 for UIDX.szs
+    kmWrite32(0x8052a108, 0x38800003); //+1 for CommonCosmos.szs
+    kmWrite32(0x8052a188, 0x38800003); //+1 for UICosmos.szs
     //kmWrite32(0x8052a148, 0x38800005); //+1 for CourseDX.szs
     kmCall(0x8052aa2c, LoadAdditionalFiles);
 
@@ -217,7 +217,7 @@ namespace Cosmos{
         nw4r::db::DumpException_(&exc);
         #else
         char final[0x300];
-        snprintf(final, 0x140, "%s\n\n%s", "DX::Panic() has been called", output);
+        snprintf(final, 0x140, "%s\n\n%s", "Cosmos::Panic() has been called", output);
         u32 black = 0x000000FF;
         u32 white = 0xc2659dFF;
 

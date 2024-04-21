@@ -58,32 +58,33 @@ namespace CosmosData
 
     enum SETTINGSPAGES{
         COSMOS_RACE_SETTINGS_1 = 0x0,
-        COSMOS_MENU_SETTINGS_1 = 0x1,
-        COSMOS_DEBUG_SETTINGS = 0x2,
+        COSMOS_MENU_SETTINGS_1,
+        COSMOS_DEBUG_SETTINGS,
     };
 
     enum RACE_SETTINGS_1_SETTINGS {
         COSMOS_MUSIC_CUTOFF = 0x0,
-        COSMOS_DRAGGABLE_BLUES = 0x1,
-        COSMOS_SPEEDOMETER = 0x2,
-        COSMOS_FRAME_MODE = 0x3,
+        COSMOS_DRAGGABLE_BLUES,
+        COSMOS_MII_HEADS,
+        COSMOS_SPEEDOMETER,
+        COSMOS_FRAME_MODE,
     };
 
     enum MENU_SETTINGS_1_SETTINGS {
         COSMOS_LANGUAGE_SETTINGS = 0x0,
-        COSMOS_FAST_MENUS = 0x1,
-        COSMOS_LAYOUT = 0x2,
+        COSMOS_FAST_MENUS,
+        COSMOS_LAYOUT,
     };
     
     enum DEBUG_SETTINGS {
         COSMOS_DWC_LOGS = 0x0,
-        COSMOS_PERFORMANCE_MONITOR = 0x1,
+        COSMOS_PERFORMANCE_MONITOR,
     };
 
     enum MUSIC_CUTOFF_OPTIONS {
         SPEEDUP = 0x0,
-        NO_CUTOFF = 0x1,
-        CUTOFF_DISABLED = 0x2,
+        NO_CUTOFF,
+        CUTOFF_DISABLED,
     };
 
     enum SPEEDOMETER_OPTIONS {
@@ -119,6 +120,7 @@ namespace CosmosData
     enum GLOBAL_SETTING {
         COSMOS_SETTING_MUSIC_CUTOFF = COSMOS_MUSIC_CUTOFF + (COSMOS_RACE_SETTINGS_1 * 8),
         COSMOS_SETTING_DRAGGABLE_BLUES = COSMOS_DRAGGABLE_BLUES + (COSMOS_RACE_SETTINGS_1 * 8),
+        COSMOS_SETTING_MII_HEADS = COSMOS_MII_HEADS + (COSMOS_RACE_SETTINGS_1 * 8),
         COSMOS_SETTING_SPEEDOMETER = COSMOS_SPEEDOMETER + (COSMOS_RACE_SETTINGS_1 * 8),
         COSMOS_SETTING_FRAME_MODE = COSMOS_FRAME_MODE + (COSMOS_RACE_SETTINGS_1 * 8),
         COSMOS_SETTING_LANGUAGE_SETTINGS = COSMOS_LANGUAGE_SETTINGS + (COSMOS_MENU_SETTINGS_1 * 8),
@@ -145,9 +147,10 @@ namespace CosmosData
 
     static SettingPageDefinition GlobalSettingDefinitions[PAGE_COUNT] = {
         { //Race
-            .settingCount = 4, 
+            .settingCount = 5, 
             .settings = { { .optionCount = 3, .isBool = false, .defaultValue = 0 },  // Music Cutoff
             { .optionCount = 2, .isBool = true, .defaultValue = 0 }, //Draggable Blues 
+            { .optionCount = 2, .isBool = true, .defaultValue = 1 }, //Mii Heads
             { .optionCount = 4, .isBool = false, .defaultValue = 2 }, //Speedometer
             { .optionCount = 3, .isBool = false, .defaultValue = 0}  } //Frame Mode
         }, { //Menu

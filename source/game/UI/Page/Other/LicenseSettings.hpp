@@ -58,6 +58,8 @@ class LicenseSelect : public Page{ //0x65
 }; //total size 0x130c
 static_assert(sizeof(LicenseSelect) == 0x130c, "LicenseSelect");
 
+class LicenseSettings;
+
 class LicenseChangeMii : public Page{ //0x66 comes after choose mii
     LicenseChangeMii(); //805ebdac
     ~LicenseChangeMii() override; //805ebf68 vtable 808b97b8

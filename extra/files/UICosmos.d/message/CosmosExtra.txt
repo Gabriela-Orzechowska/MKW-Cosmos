@@ -46,27 +46,31 @@
  3811   = You can hold Blue-Shells behind like other shells.
  3812   = You won't be able hold Blue-Shells behind like other shells.
 
- 3020   = Speed-o-meter
+ 3020   = Mii Heads
+ 3821   = Players' Miis will be displayed on the minimap.
+ 3822   = Player's character will be displayed on the minimap.
 
- 3021   = Disabled
- 3022   = No decimals
- 3023   = 1 decimal
- 3024   = 2 decimals
+ 3030   = Speed-o-meter
+
+ 3031   = Disabled
+ 3032   = No decimals
+ 3033   = 1 decimal
+ 3034   = 2 decimals
 
  3831   = Speed-o-meter will be disabled.
  3832   = Speed-o-meter won't display any decimals.
  3833   = Speed-o-meter will display 1 decimal.
  3834   = Speed-o-meter will display 2 decimals.
 
- 3030   = FPS Mode
+ 3040   = FPS Mode
 
- 3031   = Normal
- 3032   = Force 30FPS
- 3033   = Force 60FPS
+ 3041   = Normal
+ 3042   = Force 30FPS
+ 3043   = Force 60FPS
 
- 3831   = Use the default FPS mode.
- 3832   = Use when the game is too laggy.
- 3833   = Use for better systems (Dolphin only).
+ 3841   = Use the default FPS mode.
+ 3842   = Use when the game is too laggy.
+ 3843   = Use for better systems (Dolphin only).
 
  3110   = Fast Menus
 

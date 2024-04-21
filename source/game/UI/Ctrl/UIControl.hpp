@@ -89,6 +89,7 @@ public:
     void SetRootPane(const char *paneName); //8063da00
     void SetPicturePane(const char *mainPane, const char *picturePane);
     void SetMiiPane(const char *pane, MiiGroup *miiGroup, u32 miiIdx, u8 texMapIdx); //8063e3dc
+    void SetPaneVisible(const char* pane, bool visible); //8063e54c
     bool PicturePaneExists(const char *paneName); //8063e328
     void CropMovie(const char *paneName, nw4r::ut::Rect *rect); //8063e58c
     void CropMovie(const char *paneName, float left, float top, float right, float bottom); //8063e5c0

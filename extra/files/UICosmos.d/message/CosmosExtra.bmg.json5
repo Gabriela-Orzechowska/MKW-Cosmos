@@ -89,37 +89,41 @@
     },
     "12320": {
         "font": "regular",
-        "string": "Speed-o-meter",
-    },
-    "12321": {
-        "font": "regular",
-        "string": "Disabled",
-    },
-    "12322": {
-        "font": "regular",
-        "string": "No decimals",
-    },
-    "12323": {
-        "font": "regular",
-        "string": "1 decimal",
-    },
-    "12324": {
-        "font": "regular",
-        "string": "2 decimals",
+        "string": "Mii Heads",
     },
     "12336": {
         "font": "regular",
-        "string": "FPS Mode",
+        "string": "Speed-o-meter",
     },
     "12337": {
         "font": "regular",
-        "string": "Normal",
+        "string": "Disabled",
     },
     "12338": {
         "font": "regular",
-        "string": "Force 30FPS",
+        "string": "No decimals",
     },
     "12339": {
+        "font": "regular",
+        "string": "1 decimal",
+    },
+    "12340": {
+        "font": "regular",
+        "string": "2 decimals",
+    },
+    "12352": {
+        "font": "regular",
+        "string": "FPS Mode",
+    },
+    "12353": {
+        "font": "regular",
+        "string": "Normal",
+    },
+    "12354": {
+        "font": "regular",
+        "string": "Force 30FPS",
+    },
+    "12355": {
         "font": "regular",
         "string": "Force 60FPS",
     },
@@ -219,21 +223,41 @@
         "font": "regular",
         "string": "You won't be able hold Blue-Shells behind like other shells.",
     },
+    "14369": {
+        "font": "regular",
+        "string": "Players' Miis will be displayed on the minimap.",
+    },
+    "14370": {
+        "font": "regular",
+        "string": "Player's character will be displayed on the minimap.",
+    },
     "14385": {
         "font": "regular",
-        "string": "Use the default FPS mode.",
+        "string": "Speed-o-meter will be disabled.",
     },
     "14386": {
         "font": "regular",
-        "string": "Use when the game is too laggy.",
+        "string": "Speed-o-meter won't display any decimals.",
     },
     "14387": {
         "font": "regular",
-        "string": "Use for better systems (Dolphin only).",
+        "string": "Speed-o-meter will display 1 decimal.",
     },
     "14388": {
         "font": "regular",
         "string": "Speed-o-meter will display 2 decimals.",
+    },
+    "14401": {
+        "font": "regular",
+        "string": "Use the default FPS mode.",
+    },
+    "14402": {
+        "font": "regular",
+        "string": "Use when the game is too laggy.",
+    },
+    "14403": {
+        "font": "regular",
+        "string": "Use for better systems (Dolphin only).",
     },
     "14609": {
         "font": "regular",

@@ -19,13 +19,13 @@ namespace Cosmos
         DEBUG_SETTINGS = 0xBB,
     };
 
-    const char packFolder[20] = "DX";
-    const char ghostFolder[20] = "DX/RKG";
+    const char packFolder[] = "/Cosmos";
+    const char ghostFolder[] = "/Cosmos/RKG";
     
-    const char SaveFile[11] = "DXData.bin";
-    const char CommonArchive[14] = "/CommonDX.szs";
+    const char SaveFile[] = "CosmosData.bin";
+    const char CommonArchive[] = "/CommonCosmos.szs";
     const char UIArchive[] = "/UICosmos.szs";
-    const char CourseArchive[14] = "/CourseDX.szs";
+    const char CourseArchive[] = "/CourseCosmos.szs";
 
     enum TT_MODE{
         COSMOS_TT_150cc,
