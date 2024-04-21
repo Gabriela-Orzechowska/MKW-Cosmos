@@ -148,7 +148,7 @@ namespace CosmosFile
 
     void FatFileManager::GetPath(const char *path)
     {
-        mbstowcs(this->realPath, path, strlen(path)+1);
+        mbstowcs(this->realPath, path + 1, strlen(path));
         return;
     }
 
