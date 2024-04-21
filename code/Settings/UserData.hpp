@@ -7,8 +7,6 @@
 #include <core/rvl/os/OS.hpp>
 #include <main.hpp>
 
-static u32 settingsPageIds[] = {Cosmos::RACE_SETTINGS1, Cosmos::MENU_SETTINGS1, Cosmos::DEBUG_SETTINGS};
-
 class SettingsUpdateHook {
 private:
     typedef void (Func)();
@@ -162,6 +160,8 @@ namespace CosmosData
             { .optionCount = 2, .isBool = true, .defaultValue = 1 }} //Performance Monitor
         }
     } ;
+
+    static u8 GlobalSettingsPageOrder[PAGE_COUNT] = { COSMOS_RACE_SETTINGS_1, COSMOS_MENU_SETTINGS_1, COSMOS_DEBUG_SETTINGS };
 
     struct SettingsPage{
         u8 setting[SETTINGS_PER_PAGE];

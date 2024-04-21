@@ -70,8 +70,6 @@ namespace CosmosUI {
             char variant[0x20];
             snprintf(variant, 0x20, "UpDown%d%s", i, isRaceMenu ? "_race" : "");
 
-
-
             this->settingSelectors[i].Load(1, 0, "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", isRaceMenu ? "RightButton_race" : "RightButton",
             "DXSettingsUpDownButtonL", isRaceMenu ? "LeftButton_race" : "LeftButton", (UpDownDisplayedText*) &this->textSettingSelector[i], 1, 0, false, true, true);
             this->settingSelectors[i].id = i;
@@ -126,14 +124,16 @@ namespace CosmosUI {
         EndStateAnimate(0.0f, 1);
     }
 
-    void NewSettings::ChangePage(u8 page) {
+    void NewSettings::ChangePage(u8 pageId) {
         
+        u8 page = CosmosData::GlobalSettingsPageOrder[pageId];
+
         this->currentPage = page;
 
         CosmosData::SettingPageDefinition& definition = CosmosData::GlobalSettingDefinitions[page];
 
         this->textPageSelector.activeTextValueControl->SetMsgId(BMG_SETTING_CATEGORY + page);
-        this->pageSelector.curSelectedOption = page;
+        this->pageSelector.curSelectedOption = pageId;
 
         u32 settingCount = definition.settingCount;
         for(int i = 0; i < SETTINGCONTROLCOUNT; i++){
