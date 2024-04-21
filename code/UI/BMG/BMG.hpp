@@ -1,7 +1,7 @@
-#ifndef _DX_BMG_SET_
-#define _DX_BMG_SET_
+#ifndef _COSMOS_BMG_SET_
+#define _COSMOS_BMG_SET_
 
-enum DX_BMG
+enum COSMOS_BMG
 {
     BMG_ENABLED_DISABLED = 0x3700,
     BMG_SETTINGS_PAGE = 0x2949, // + PAGE ID 0xB7
