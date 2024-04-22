@@ -860,6 +860,11 @@ HasStarted__12CtrlRaceBaseFv = 0x807ec3c4
 GetPlayerId__12CtrlRaceBaseCFv = 0x807ec7f8
 HudSlotColorEnable__12CtrlRaceBaseFPcb = 0x807ebf20
 
+#CtrlRace2D
+Load__13CtrlRace2DMapFPCc = 0x807ea27c
+
+CharacterIDToChar = 0x80860acc
+
 #RaceBalloons
 maxDistanceNames__12RaceBalloons = 0x808d3e14
 

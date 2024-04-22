@@ -47,6 +47,7 @@ class CtrlRace2DMapBossObj : public CtrlRace2DMapObject{
 }; //total size 0x1bc
 
 class CtrlRace2DMap : public CtrlRaceBase{ //has children controls such as start line
+public:
     ~CtrlRace2DMap() override; //807ebe84 vtable 808d3960
     void InitSelf() override; //807eaac0
     void OnUpdate() override; //807eab3c

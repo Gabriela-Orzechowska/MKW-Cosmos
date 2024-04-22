@@ -3,6 +3,7 @@
 BootHook *BootHook::sHooks = NULL;
 MenuLoadHook *MenuLoadHook::sHooks = NULL;
 RaceLoadHook *RaceLoadHook::sHooks = NULL;
+RacePostLoadHook *RacePostLoadHook::sHooks = NULL;
 RaceFrameHook *RaceFrameHook::sHooks = NULL;
 LeCodeLoadHook *LeCodeLoadHook::sHooks = NULL;
 StrapEndHook *StrapEndHook::sHooks = NULL;

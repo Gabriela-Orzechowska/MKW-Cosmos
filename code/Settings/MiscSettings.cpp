@@ -4,6 +4,8 @@
 #include <Debug/Draw/PerformanceMonitor.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
 #include <game/UI/Page/Other/LicenseSettings.hpp>
+#include <game/UI/Ctrl/CtrlRace/CtrlRace2DMap.hpp>
+#include <game/Network/RKNetController.hpp>
 
 using namespace CosmosData;
 
@@ -62,7 +64,7 @@ kmWrite32(0x80658be8, 0x60000000);
 extern "C" {
     u64 DWC_CreateFriendKey(void * val);
 }
-
+//805eae94
 void SetupLicenseButton(u32 unknown, LicenseButton& button, int licenseIndex, MiiGroup* group, int buttonIndex){
     button.SetMiiPane("mii", group, buttonIndex, 0);
     RKPD& curLicense = SaveDataManager::GetStaticInstance()->rksysRaw->licenses[licenseIndex];
@@ -102,3 +104,52 @@ void PatchLicenseButtonFile(PushButton& button, const char* folder, const char* 
 //kmCall(0x805eacf0, PatchLicenseButtonFile);
 
 kmBranch(0x805eae94, SetupLicenseButton);
+
+static CtrlRace2DMap* mainMinimap = nullptr;
+void SaveMinimap(CtrlRace2DMap& map, const char* name){
+    map.Load(name);
+    mainMinimap = &map;
+}
+kmCall(0x80858204, SaveMinimap);
+
+void PatchMiiHeads() {
+    if(mainMinimap == nullptr) return;
+    u8 setting = SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_MII_HEADS);
+
+    for(int i = 0; i < RaceData::GetStaticInstance()->racesScenario.playerCount; i++){
+        CtrlRace2DMapCharacter& curChar = mainMinimap->characters[i];
+
+        bool isMii = false;
+        CharacterId characterUsed = RaceData::GetStaticInstance()->racesScenario.players[i].characterId;
+        if(characterUsed >= MII_S_A_MALE){
+            isMii = true;
+        }
+
+        if(setting == ENABLED){ // Mii heads enabled
+            if(i == 0 || RKNetController::sInstance->connectionState != 0){
+                isMii = true;
+            }
+        } 
+
+        if(isMii){
+            MiiGroup& group = MenuData::GetStaticInstance()->menudata98->playerMiis;
+            curChar.SetMiiPane("chara_0_0", &group, i, 5);
+            curChar.SetMiiPane("chara_shadow_0_0", &group, i, 5);
+            curChar.SetMiiPane("chara_shadow_0_1", &group, i, 5);
+        }
+
+        else{
+            char* charTplName = CharacterIDToChar(characterUsed);
+            curChar.SetPicturePane("chara_0_0", charTplName);
+            curChar.SetPicturePane("chara_shadow_0_0", charTplName);
+            curChar.SetPicturePane("chara_shadow_0_1", charTplName);
+        }
+    }
+}
+
+void RacePageOnActivate(){
+    PatchMiiHeads();
+}
+kmBranch(0x807eb24c, PatchMiiHeads);
+//kmWritePointer(0x808da748, PatchMiiHeads); // I NEED A HOOK
+static SettingsValueUpdateHook svuhMiiHeads(PatchMiiHeads, COSMOS_SETTING_MII_HEADS);

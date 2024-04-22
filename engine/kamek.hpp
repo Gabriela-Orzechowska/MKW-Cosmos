@@ -224,6 +224,27 @@ public:
     }
 };
 
+class RacePostLoadHook {
+private:
+    typedef void (Func)();
+    Func *mFunc;
+    RacePostLoadHook * mNext;
+
+    static RacePostLoadHook * sHooks;
+
+public:
+    RacePostLoadHook(Func * f) {
+        mNext = sHooks;
+        sHooks = this;
+        mFunc = f;
+    }
+
+    static void exec() {
+        for (RacePostLoadHook * p = sHooks; p; p = p->mNext)
+            p->mFunc();
+    }
+};
+
 class RaceFrameHook {
 private:
     typedef void (Func)();
