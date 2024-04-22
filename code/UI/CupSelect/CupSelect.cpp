@@ -185,7 +185,7 @@ namespace CosmosUI
             if(manager->dontUpdateCourseSelectCourse == 0)
             {
                 if(i == 0){
-                    if((cupId * 4 + 4) < manager->lastSelectedCourse || manager->lastSelectedCourse < (cupId * 4)){
+                    if((cupId * 4 + 4) > manager->lastSelectedCourse || manager->lastSelectedCourse > (cupId * 4)){
                         coursePage->SelectButton(&course->courseButtons[i]);
                     }
                 }
