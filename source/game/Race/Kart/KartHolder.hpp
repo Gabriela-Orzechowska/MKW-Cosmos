@@ -28,12 +28,12 @@ public:
 class KartHolder : public KartHolderSub { //vtable override 808b6408
 public:
   static KartHolder *sInstance; //809c18f8
-  static KartHolder *GetStaticInstance(); //8058faa8
+  static KartHolder *GetStaticInstance() { return sInstance; } //8058faa8
   static nw4r::ut::List kartObjects; //809c1900 list of all kart objects offset = 4
   static void destroyStaticInstance(); //8058faf8
   
   KartHolder(); //8058fb2c
-  Kart *GetKart(u32 idx); //80590100
+  inline Kart *GetKart(u32 idx) { return karts[idx]; } //80590100
   void Init(); //8058fee0
   void Update(); //8058ffe8
   void SetupKart(KartId kart, CharacterId character, bool isBike); //8058f5b4  

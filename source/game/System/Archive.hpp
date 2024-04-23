@@ -126,7 +126,7 @@ class ArchiveRoot{
 public:
     ArchiveRoot(); //0x8053fcec
     static ArchiveRoot *sInstance; //809bd738
-    static ArchiveRoot *GetStaticInstance(); //8053fc4c
+    static ArchiveRoot *GetStaticInstance() { return sInstance; } ; //8053fc4c
     static void DestroyStaticInstance(); //8053fc9c
     virtual ~ArchiveRoot(); //8053ff1c vtable 808b3bfc
     ArchivesHolder *LoadArchive(ArchiveSource type, EGG::Heap *heap, const char *name = NULL); //80540450 
@@ -149,6 +149,8 @@ public:
     void AttachLayoutDIR(nw4r::lyt::MultiArcResourceAccessor *resourceAccessor, const char *dir, LayoutResources *resources); //80541878
     void Unmount(ArchivesHolder *holder); //805411e4
     
+    inline ArchivesHolder* GetHolder(int index) { return archivesHolders[index]; }
+
     ArchivesHolder **archivesHolders; //use enum for array idx
     ArchivesHolder kartModelsHolders[12]; //0x8 mr-allkart.szs, mdf_kart-mr.szs etc... in races
     ArchivesHolder unknown_Holders[12]; //0x158

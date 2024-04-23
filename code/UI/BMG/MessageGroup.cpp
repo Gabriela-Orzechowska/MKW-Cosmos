@@ -34,14 +34,14 @@ void InjectAdditionalHolder(BMGHolder& baseHolder, char * filename)
     char testName[0x30];
     char suffix[0x6];
 
-    char * localization = ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1];
+    char * localization = ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archiveSuffixes[0x1];
 
     memset(suffix, 0, 0x6);
     strncpy(suffix, localization, strlen(localization)-4);
     snprintf(finalName, 0x10, "%s%s", baseName, suffix);
     snprintf(testName, 0x30, "message/%s%s", finalName, ".bmg");
 
-    void * file = ArchiveRoot::sInstance->GetFile(ARCHIVE_HOLDER_UI, testName, 0x0);
+    void * file = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, testName, 0x0);
     if(file != nullptr)
         AdditionalHolder->Load(finalName);
     else

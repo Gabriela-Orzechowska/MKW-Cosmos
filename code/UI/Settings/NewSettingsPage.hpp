@@ -21,7 +21,7 @@ namespace CosmosUI
         PageId GetNextPage() const override { return this->returnPage; }
 
         static void SetPreviousPageGlobal(PageId id, MenuId menu){
-            NewSettings* page = MenuData::sInstance->curScene->Get<NewSettings>((PageId)Cosmos::SETTINGS_MAIN);
+            NewSettings* page = MenuData::GetStaticInstance()->curScene->Get<NewSettings>((PageId)Cosmos::SETTINGS_MAIN);
             if(page != nullptr){
                 page->SetPreviousPage(id, menu);
             }

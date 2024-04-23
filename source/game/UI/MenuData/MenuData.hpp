@@ -30,6 +30,8 @@ public:
     static MenuData *sInstance;
     static MenuData *CreateStaticInstance(); //80634c90
     static MenuData * GetStaticInstance() { return sInstance; }
+    inline Scene* GetCurrentScene() { return curScene; } 
+    inline GlobalContext* GetCurrentContext() { return globalContext; }
     static void DestroyStaticInstance(); //80634cc8
     static Pages::System *CreateSystemPages(u8 idx, MenuId id); //80634a64
     void RequestSceneChange(u32 delay, u32 fadeOutColor); //80635ac8
@@ -56,7 +58,7 @@ public:
     MenuDataPad pad; //0x34
     SavedGhostsHandler *savedGhostsHandler; //0x90
     SystemBMGHolder *systemBMG; //0x94
-    MenuData98 *menudata98;
+    GlobalContext *globalContext;
 
 }; //Total Size 0x9C
 size_assert(MenuData, 0x9C);

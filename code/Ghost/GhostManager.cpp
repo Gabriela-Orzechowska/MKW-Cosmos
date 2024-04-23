@@ -90,7 +90,7 @@ namespace CosmosGhost
         //Set correct CC mode
         EngineClass cc = CC_100;
         if(Cosmos::System::GetStaticInstance()->GetTTMode() == Cosmos::COSMOS_TT_200cc) cc = CC_150;
-        RaceData::sInstance->menusScenario.settings.engineClass = cc;
+        RaceData::GetStaticInstance()->menusScenario.GetSettings().engineClass = cc;
     }
 
     void GhostManager::Reset()
@@ -100,8 +100,7 @@ namespace CosmosGhost
         delete[] this->files;
         this->files = nullptr;
         this->isGhostValid = true;
-        RaceData * raceData = RaceData::sInstance;
-        raceData->menusScenario.players[1].playerType = PLAYER_NONE;
+        RaceData::GetStaticInstance()->menusScenario.GetPlayer(1).playerType = PLAYER_NONE;
     }
 
     bool GhostManager::LoadGhost(RKG * rkg, u32 index)
@@ -113,18 +112,17 @@ namespace CosmosGhost
 
     void GhostManager::LoadGhostReplay(RKG * buffer, bool isGhostRace)
     {
-        u8 position = 0;
         if(this->mainGhostIndex != 0xFF)
         {
             if(this->LoadGhost(buffer, this->GetGhostData(this->mainGhostIndex)->padding))
             {
-                RaceData *raceData = RaceData::sInstance;
-                RKG * dest = &raceData->ghosts[position];
+                RaceData* raceData = RaceData::GetStaticInstance();
+                RKG * dest = &raceData->GetGhost(0);
                 if(buffer->header.compressed) buffer->DecompressTo(dest);
                 else memcpy(dest, buffer, sizeof(RKG));
-                raceData->menusScenario.players[position + isGhostRace].playerType = PLAYER_GHOST;
+                raceData->menusScenario.GetPlayer(isGhostRace).playerType = PLAYER_GHOST;
                 GhostData data(dest);
-                MenuData::sInstance->menudata98->playerMiis.AddMii(position + isGhostRace, &data.miiData);
+                MenuData::GetStaticInstance()->GetCurrentContext()->playerMiis.AddMii(isGhostRace, &data.miiData);
             }
         }
     }
@@ -163,7 +161,7 @@ namespace CosmosGhost
         manager->Init(Cosmos::CupManager::GetStaticInstance()->GetTrackID());
 
         manager->mainGhostIndex = manager->rkgCount - 1;
-        MenuData::sInstance->menudata98->isNewTime = true;
+        MenuData::GetStaticInstance()->GetCurrentContext()->isNewTime = true;
     }
 
 #define TIME_EPS 1000
@@ -180,7 +178,7 @@ namespace CosmosGhost
         s32 raceRealTimeDelta = (s32)timeDelta - raceTime;
 
         if(abs(raceRealTimeDelta) > TIME_EPS){
-            Pages::RaceHUD * page = MenuData::sInstance->curScene->Get<Pages::RaceHUD>(TIME_TRIAL_INTERFACE);
+            Pages::RaceHUD * page = MenuData::GetStaticInstance()->curScene->Get<Pages::RaceHUD>(TIME_TRIAL_INTERFACE);
             if(page){
                 page->ghostMessage->isHidden = false;
                 page->ghostMessage->SetMsgId(0x2802);
@@ -199,12 +197,12 @@ namespace CosmosGhost
     kmCall(0x80857790, UpdateStartTime);
 
     void VerifyTimeDuringRace(){
-        if(RaceInfo::sInstance->timer <= 260) return;
+        if(RaceInfo::GetStaticInstance()->timer <= 260) return;
 
-        if(RaceData::sInstance->racesScenario.settings.gamemode == MODE_TIME_TRIAL){
+        if(RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode == MODE_TIME_TRIAL){
             GhostManager * manager = GhostManager::GetStaticInstance();
             if(manager) {
-                if(RaceInfo::sInstance->timer & 63 == 63){
+                if((RaceInfo::GetStaticInstance()->timer & 63) == 0){
                     manager->VerifyTime();
                 }
             }
@@ -443,8 +441,8 @@ namespace CosmosGhost
 
     void PatchBeforeInAnim(Pages::TTSplits * splitsPage)
     {
-        MenuData * menuData = MenuData::sInstance;
-        MenuData98 * menu98 = menuData->menudata98;
+        MenuData* menuData = MenuData::GetStaticInstance();
+        GlobalContext* menu98 = menuData->GetCurrentContext();
 
         int lap = 0x0;
 
@@ -453,8 +451,8 @@ namespace CosmosGhost
         menu98->fastestLapId = -1;
         
         TimeEntry entry;
-        RaceinfoPlayer * iPlayer = RaceInfo::sInstance->players[0];
-        RacedataPlayer * dPlayer = &RaceData::sInstance->racesScenario.players[0];
+        RaceinfoPlayer * iPlayer = RaceInfo::GetStaticInstance()->players[0];
+        RacedataPlayer * dPlayer = &RaceData::GetStaticInstance()->racesScenario.GetPlayer(0);
 
         splitsPage->timers[0] = *iPlayer->raceFinishTime;
         splitsPage->ctrlRaceTimeArray[0]->SetTimer(&splitsPage->timers[0]);
@@ -466,7 +464,7 @@ namespace CosmosGhost
 
         for(int i = 1; i < splitsPage->splitsRowCount; i++)
         {
-            RaceInfo::sInstance->players[0]->FillTimerWithSplits(i, &splitsPage->timers[i]);
+            RaceInfo::GetStaticInstance()->players[0]->FillTimerWithSplits(i, &splitsPage->timers[i]);
             if((*fLap) > splitsPage->timers[i])
             {
                 fLap = &splitsPage->timers[i];
@@ -516,7 +514,7 @@ namespace CosmosGhost
                     splitsPage->ctrlRaceTimeArray[0]->EnableFlashingAnimation();
                     splitsPage->savedGhostMessage.SetMsgId(0x45b, NULL);
                     menu98->isNewBest = true;
-                    if(InputData::sInstance->realControllerHolders[0].ghostWriter->state != 3)
+                    if(InputData::GetStaticInstance()->GetController(0).ghostWriter->state != 3)
                     {
                         if(splitsPage->timers[0].minutes < 6) menu98->isNewTime = true;
                     }

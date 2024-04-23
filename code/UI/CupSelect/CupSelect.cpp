@@ -25,7 +25,7 @@ namespace CosmosUI
         onLeftArrowSelectHandler.subject = this;
         onLeftArrowSelectHandler.ptmf = &CupSelectPlus::OnLeftArrowSelect;
         
-        this->ctrlMenuCupSelectCup.curCupID = Cosmos::CupManager::sInstance->lastSelectedCup;
+        this->ctrlMenuCupSelectCup.curCupID = Cosmos::CupManager::GetStaticInstance()->lastSelectedCup;
         onSwitchPressHandler.subject = this;
         onSwitchPressHandler.ptmf = &CupSelectPlus::OnSwitchPress;
         this->controlsManipulatorManager.SetGlobalHandler(SWITCH_PRESS, (PtmfHolder_1A<Page, void, u32>*)&onSwitchPressHandler, false, false);
@@ -68,7 +68,7 @@ namespace CosmosUI
 
     void CupSelectPlus::ScrollCups(s32 direction)
     {
-        u32 CupCount = Cosmos::CupManager::sInstance->GetCupCount();
+        u32 CupCount = Cosmos::CupManager::GetStaticInstance()->GetCupCount();
         CtrlMenuCupSelectCup *cupCtrl = &this->ctrlMenuCupSelectCup;
         cupCtrl->curCupID = (cupCtrl->curCupID + (direction * 2) + CupCount) % CupCount;
         this->ctrlMenuCupSelectCourse.UpdateTrackList(cupCtrl->curCupID);
@@ -96,7 +96,7 @@ namespace CosmosUI
 
     void CupSelectPlus::OnActivate()
     {
-        this->ctrlMenuCupSelectCup.curCupID = Cosmos::CupManager::sInstance->lastSelectedCup;
+        this->ctrlMenuCupSelectCup.curCupID = Cosmos::CupManager::GetStaticInstance()->lastSelectedCup;
         Pages::CupSelect::OnActivate();
         lefttemp = 0;
         this->bottomText->SetMsgId(0x2810 + (u32)currentLayout);
@@ -145,8 +145,8 @@ namespace CosmosUI
 
     void ExtendCupSelectCupInitSelf(CtrlMenuCupSelectCup * cups)
     {
-        u32 CupCount = Cosmos::CupManager::sInstance->GetCupCount();
-        cups->curCupID = Cosmos::CupManager::sInstance->lastSelectedCup;
+        u32 CupCount = Cosmos::CupManager::GetStaticInstance()->GetCupCount();
+        cups->curCupID = Cosmos::CupManager::GetStaticInstance()->lastSelectedCup;
         for(int i = 0; i < 8; i++)
         {
             PushButton * button = &cups->cupButtons[i];
@@ -156,7 +156,7 @@ namespace CosmosUI
             button->SetMsgId(id + BMG_CUPS);
             button->SetOnClickHandler((PtmfHolder_2A<Page, void, PushButton *, u32>*) &cups->onCupButtonClickHandler, 0);
             button->SetOnSelectHandler((PtmfHolder_2A<Page, void, PushButton *, u32>*) &cups->onCupButtonSelectHandler);
-            button->SetPlayerBitfield(MenuData::sInstance->curScene->Get<Pages::CupSelect>(CUP_SELECT)->GetPlayerBitfield());
+            button->SetPlayerBitfield(MenuData::GetStaticInstance()->curScene->Get<Pages::CupSelect>(CUP_SELECT)->GetPlayerBitfield());
             if(id == cups->curCupID){
                 button->SelectInitialButton(0);
             }
@@ -167,9 +167,9 @@ namespace CosmosUI
 
     void ExtendCourseSelectCourseInitSelf(CtrlMenuCourseSelectCourse* course)
     {
-        Cosmos::CupManager * manager = Cosmos::CupManager::sInstance;
-        Pages::CupSelect * cup = MenuData::sInstance->curScene->Get<Pages::CupSelect>(CUP_SELECT);
-        Pages::CourseSelect * coursePage = MenuData::sInstance->curScene->Get<Pages::CourseSelect>(COURSE_SELECT);
+        Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
+        Pages::CupSelect * cup = MenuData::GetStaticInstance()->curScene->Get<Pages::CupSelect>(CUP_SELECT);
+        Pages::CourseSelect * coursePage = MenuData::GetStaticInstance()->curScene->Get<Pages::CourseSelect>(COURSE_SELECT);
 
         u32 cupId = manager->lastSelectedCup;
 
@@ -211,7 +211,7 @@ namespace CosmosUI
                 lastSelectedCup = cups->cupButtons[i].buttonId;
             }
         }
-        RaceData::sInstance->menusScenario.settings.cupId = lastSelectedCup & 0x7;
+        RaceData::GetStaticInstance()->menusScenario.GetSettings().cupId = lastSelectedCup & 0x7;
         page.LoadNextPage(cups, button, slotId);
         Cosmos::CupManager::GetStaticInstance()->lastSelectedCup = lastSelectedCup;
 
@@ -222,14 +222,14 @@ namespace CosmosUI
     kmWrite32(0x808404f8, 0x60000000);
 
     u32 ReturnCorrectCup(Page * page){
-        return Cosmos::CupManager::sInstance->lastSelectedCup;
+        return Cosmos::CupManager::GetStaticInstance()->lastSelectedCup;
     }
 
     kmCall(0x807e6104, ReturnCorrectCup);
 
     u32 CorrectCourseSelectCup(const Pages::CupSelect& page)
     {
-        u32 CupCount = Cosmos::CupManager::sInstance->GetCupCount();
+        u32 CupCount = Cosmos::CupManager::GetStaticInstance()->GetCupCount();
         u32 index = page.clickedCupId;
         s32 id = (index - lastLeftCup + CupCount) % CupCount;
         if(id < 0) id + 8;
@@ -259,7 +259,7 @@ namespace CosmosUI
     
     void ExtendCourseSelectCupInitSelf(CtrlMenuCourseSelectCup* course)
     {
-        u32 CupCount = Cosmos::CupManager::sInstance->GetCupCount();
+        u32 CupCount = Cosmos::CupManager::GetStaticInstance()->GetCupCount();
         Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
         for(int i = 0; i < 8; i++)
         {
@@ -283,8 +283,8 @@ namespace CosmosUI
 
     void PatchCourseSelectCup()
     {
-        u32 CupCount = Cosmos::CupManager::sInstance->GetCupCount();
-        Pages::CourseSelect * coursePage = MenuData::sInstance->curScene->Get<Pages::CourseSelect>(COURSE_SELECT);
+        u32 CupCount = Cosmos::CupManager::GetStaticInstance()->GetCupCount();
+        Pages::CourseSelect * coursePage = MenuData::GetStaticInstance()->curScene->Get<Pages::CourseSelect>(COURSE_SELECT);
         Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
         for(int i = 0; i < 8; i++)
         {
@@ -295,7 +295,7 @@ namespace CosmosUI
 
             LayoutUIControl * button = &coursePage->ctrlMenuCourseSelectCup.cupIcons[i];
 
-            void * tplPointer = ArchiveRoot::sInstance->GetFile(ARCHIVE_HOLDER_UI, tpl, 0);
+            void * tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, tpl, 0);
 
             CosmosUI::ChangePaneImage(button, "icon", tplPointer);
             CosmosUI::ChangePaneImage(button, "icon_light_01", tplPointer);

@@ -201,14 +201,14 @@ namespace CosmosData
             void Update();
             void Save();
 
-            u32 GetUserVR() const { return GetUserVR(SaveDataManager::sInstance->curLicenseId); }
+            u32 GetUserVR() const { return GetUserVR(SaveDataManager::GetStaticInstance()->curLicenseId); }
             u32 GetUserVR(u32 id) const { return this->settings->playerVr[id]; }
-            u32 GetUserBR() const { return GetUserBR(SaveDataManager::sInstance->curLicenseId); }
+            u32 GetUserBR() const { return GetUserBR(SaveDataManager::GetStaticInstance()->curLicenseId); }
             u32 GetUserBR(u32 id) const { return this->settings->playerBr[id]; }
 
-            void SetUserVR(u32 value) { SetUserVR(value, SaveDataManager::sInstance->curLicenseId); }
+            void SetUserVR(u32 value) { SetUserVR(value, SaveDataManager::GetStaticInstance()->curLicenseId); }
             void SetUserVR(u32 value, u32 id) { this->settings->playerVr[id] = value; }
-            void SetUserBR(u32 value) { SetUserVR(value, SaveDataManager::sInstance->curLicenseId); }
+            void SetUserBR(u32 value) { SetUserVR(value, SaveDataManager::GetStaticInstance()->curLicenseId); }
             void SetUserBR(u32 value, u32 id) { this->settings->playerBr[id] = value; }
 
             static void SaveTask(void *);

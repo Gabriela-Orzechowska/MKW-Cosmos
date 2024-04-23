@@ -10,15 +10,15 @@
 
 void EnableBrakeDrifting()
 {
-    for(int i = 0; i < RaceData::sInstance->racesScenario.localPlayerCount; i++)
+    for(int i = 0; i < RaceData::GetStaticInstance()->racesScenario.localPlayerCount; i++)
     {
         bool brakeDrift = false;
 
-        u8 playerId = RaceData::sInstance->racesScenario.settings.hudPlayerIds[i];
+        u8 playerId = RaceData::GetStaticInstance()->racesScenario.GetSettings().hudPlayerIds[i];
 
-        u32 controller = MenuData::sInstance->pad.padInfos[i].controllerSlotAndTypeActive;
+        u32 controller = MenuData::GetStaticInstance()->pad.padInfos[i].controllerSlotAndTypeActive;
         ControllerType type = ControllerType(controller & 0xFF);
-        RealControllerHolder& holder = InputData::sInstance->realControllerHolders[i];
+        RealControllerHolder& holder = InputData::GetStaticInstance()->GetController(i);
 
         using namespace CosmosController;
 

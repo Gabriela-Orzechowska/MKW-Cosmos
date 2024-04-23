@@ -48,7 +48,7 @@ def main():
             buildfile = f"build/{base[:-2]}.o"
         OBJECTS.append(buildfile)
 
-        clear_line(1)
+        # clear_line(1)
         print(f"[{i}/{len(result)}] Building {base}...");
         
 

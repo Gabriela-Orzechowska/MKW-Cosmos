@@ -62,28 +62,28 @@ namespace DX
     kmCall(0x8052eb5c, CalcNegRating);
 
 
-    void RKNetUSERHandler_SendVrViaCity(RKNetUSERHandler * handler)
+    void RKNetUSERHandler_SendVrViaCity(RKNetUSERHandler& handler)
     {
-        handler->BuildUserPacket();
+        handler.BuildUserPacket();
 
-        LicenseManager * license = &SaveDataManager::sInstance->licenses[SaveDataManager::sInstance->curLicenseId];
+        LicenseManager& license = SaveDataManager::GetStaticInstance()->GetCurrentLicense();
 
-        handler->toSendPacket.vr = 5000;
-        handler->toSendPacket.br = 5000;
-        handler->toSendPacket.city = license->vr.mPoints;
+        handler.toSendPacket.vr = 5000;
+        handler.toSendPacket.br = 5000;
+        handler.toSendPacket.city = license.vr.mPoints;
 
         return;
     }
 
     kmCall(0x806628b0, RKNetUSERHandler_SendVrViaCity);
 
-    void RKNetUSERHandler_UpdateVrViaCity(RKNetUSERHandler * handler)
+    void RKNetUSERHandler_UpdateVrViaCity(RKNetUSERHandler& handler)
     {
-        LicenseManager * license = &SaveDataManager::sInstance->licenses[SaveDataManager::sInstance->curLicenseId];
+        LicenseManager& license = SaveDataManager::GetStaticInstance()->GetCurrentLicense();
 
-        handler->toSendPacket.vr = 5000;
-        handler->toSendPacket.br = 5000;
-        handler->toSendPacket.city = license->vr.mPoints;
+        handler.toSendPacket.vr = 5000;
+        handler.toSendPacket.br = 5000;
+        handler.toSendPacket.city = license.vr.mPoints;
 
         return;
     }
@@ -105,8 +105,8 @@ namespace DX
 
     s32 PatchDWCVR(u32 id, char * param_2, u32 * valuePointer)
     {
-        RKNetController::sInstance->vr = 5000;
-        RKNetController::sInstance->br = 5000;
+        RKNetController::GetStaticInstance()->vr = 5000;
+        RKNetController::GetStaticInstance()->br = 5000;
         return DWC_AddMatchKeyInt(id, param_2, valuePointer);
     }
     kmCall(0x80659524, PatchDWCVR);

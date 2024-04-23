@@ -11,11 +11,11 @@ namespace Cosmos
     static BootHook bhCreateXPFManager(XPFManager::CreateStaticInstance, LOW);
 
     GOBJ * XPFManager::GetDefinitionObject(u16 id) const {
-        s32 objectCount = KMP::Controller::sInstance->gobj->pointCount;
+        s32 objectCount = KMP::Controller::GetStaticInstance()->gobj->pointCount;
         id = id & ~0x1000;
         for(int i = 0; i < objectCount; i++)
         {
-            GOBJ * gobj = KMP::Controller::sInstance->GetGOBJHolder(i)->raw;
+            GOBJ * gobj = KMP::Controller::GetStaticInstance()->GetGOBJHolder(i)->raw;
             if(gobj->objID == id) return gobj;
         }
         
@@ -28,10 +28,10 @@ namespace Cosmos
         if(isTT()) this->randScenario = 0;
         CosmosLog("XPF Scenario: %d\n", this->randScenario);
 
-        s32 objectCount = KMP::Controller::sInstance->gobj->pointCount;
+        s32 objectCount = KMP::Controller::GetStaticInstance()->gobj->pointCount;
         for(int i = 0; i < objectCount; i++)
         {
-            GOBJ * gobj = KMP::Controller::sInstance->GetGOBJHolder(i)->raw;
+            GOBJ * gobj = KMP::Controller::GetStaticInstance()->GetGOBJHolder(i)->raw;
             if(gobj->presenceFlags < 0x1000) continue; //Not a LeCode XPF
             if(gobj->objID >= 0x2000) continue; //We dont calc definition objects
 
@@ -61,7 +61,7 @@ namespace Cosmos
 
         bool ret = false;
 
-        RacedataScenario * scenario = &RaceData::sInstance->racesScenario;
+        RacedataScenario * scenario = &RaceData::GetStaticInstance()->racesScenario;
         DEF_OBJ_MODE mode = DEF_OBJ_BITS;
         if(gobj->objID >= 0x4000) mode = DEF_OBJ_OR;
         if(gobj->objID >= 0x6000) mode = DEF_OBJ_AND;
@@ -111,7 +111,7 @@ namespace Cosmos
 
     bool XPFManager::CalcConditionBits(u16 val, u8 field){
         bool ret = false;
-        RacedataScenario * scenario = &RaceData::sInstance->racesScenario;
+        RacedataScenario * scenario = &RaceData::GetStaticInstance()->racesScenario;
         u8 localPlayerCount = scenario->localPlayerCount;
         u8 playerCount = scenario->playerCount;
 
@@ -129,7 +129,7 @@ namespace Cosmos
     bool XPFManager::CalcPredefinedCondition(u16 val)
     {
         bool ret = false;
-        RacedataScenario * scenario = &RaceData::sInstance->racesScenario;
+        RacedataScenario * scenario = &RaceData::GetStaticInstance()->racesScenario;
         u8 localPlayerCount = scenario->localPlayerCount;
         u8 playerCount = scenario->playerCount;
 

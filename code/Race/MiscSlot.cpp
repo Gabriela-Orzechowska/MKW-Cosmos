@@ -5,7 +5,7 @@
 
 
 static bool hasHighwayManager = false;
-
+// TODO WE SHOULD CHECK IF WE CAN MAKE AS IT ONLY HAS LIMITED SPACE: EG PUSHY PENGUINS CRASHES BECAUSE OF THIS
 kmWrite32(0x8082a4fc,0x48000030); //Always create control group
 
 #pragma region MoonviewHighway
@@ -14,10 +14,10 @@ void * HighwayManagerCreate(u32 size)
 {
     bool hasCar = false;
     bool hasTruck = false;
-    u32 carCount = ObjectHolder::sInstance->GetControlledCount();
+    u32 carCount = ObjectHolder::GetStaticInstance()->GetControlledCount();
     for(int i = 0; i < carCount; i++)
     {
-        Object * object = ObjectHolder::sInstance->GetControlledObjectByID(i);
+        Object * object = ObjectHolder::GetStaticInstance()->GetControlledObjectByID(i);
         const char * objectName = object->GetName();
         if(strcmp(objectName, "car_body") == 0x0)
             hasCar = true;
@@ -49,17 +49,17 @@ kmWrite32(0x80827f40, 0x2c030000);
 
 kmCall(0x806d686c, HighwayManagerCheck);
 kmWrite32(0x806d6870, 0x2c030000);
-/*
+
 kmWrite32(0x8078df44, 0x48000070); //Mat Fix
 
 #pragma endregion
 
 void * HeyhoShipManagerCreate(u32 size)
 {
-    u32 controlledCount = ObjectHolder::sInstance->GetControlledCount();
+    u32 controlledCount = ObjectHolder::GetStaticInstance()->GetControlledCount();
     for(int i = 0; i < controlledCount; i++)
     {
-        Object * object = ObjectHolder::sInstance->GetControlledObjectByID(i);
+        Object * object = ObjectHolder::GetStaticInstance()->GetControlledObjectByID(i);
         const char * objectName = object->GetName();
         if(strcmp(objectName, "HeyhoShipGBA") == 0x0)
         {
@@ -72,7 +72,7 @@ kmCall(0x80827a34, HeyhoShipManagerCreate);
 kmWrite32(0x80827a3c, 0x41820018);
 
 kmWrite32(0x80827a2c, 0x60000000);
-*/
+
 
 void * LoadAdditionalBinaries(ArchiveRoot& archive, ArchiveSource source, const char * name)
 {

@@ -110,7 +110,7 @@ namespace Cosmos{
     {
         EngineClass cc = CC_100;
         if(System::GetStaticInstance()->GetTTMode() == COSMOS_TT_200cc) cc = CC_150;
-        RaceData::sInstance->menusScenario.settings.engineClass = cc;
+        RaceData::GetStaticInstance()->menusScenario.GetSettings().engineClass = cc;
     }
 
     kmBranch(0x805e1ef4, SetCC);
@@ -119,13 +119,13 @@ namespace Cosmos{
 
     void LoadAdditionalFiles(ArchiveFile * file, const char * path, EGG::Heap *heap, bool isCompressed, s32 align, EGG::Heap * fileHeap, EGG::Archive::FileInfo * fileInfo)
     {
-        if(&ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archives[2] == file){
+        if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archives[2] == file){
             path = Cosmos::UIArchive;
         }
-        else if(&ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archives[2] == file){
+        else if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COMMON)->archives[2] == file){
             path = Cosmos::CommonArchive;
         }
-        //else if(&ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COURSE]->archives[4] == file){
+        //else if(&ArchiveRoot::GetStaticInstance()->archivesHolders[ARCHIVE_HOLDER_COURSE]->archives[4] == file){
         //    path = DX::CourseArchive;
         //}
         file->Load(path, heap, isCompressed, align, fileHeap, fileInfo);

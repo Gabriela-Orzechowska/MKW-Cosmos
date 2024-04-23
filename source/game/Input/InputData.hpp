@@ -323,7 +323,7 @@ class RumbleManager{ //name based on RequestRumble extensively loading class fie
 class InputData {
 public:
     static InputData * sInstance; // 809bd70c
-    static InputData * getStaticInstance(); // 8052313c
+    static InputData * GetStaticInstance() { return sInstance; } // 8052313c
     static void destroyStaticInstance(); // 8052318c
     InputData(); // 805232f0
     virtual ~InputData(); // 805231dc vtable 808b2fc8
@@ -333,6 +333,7 @@ public:
     void ResetDummyController(); //80523eac
     void InitGhostController(u8 id, RKGInputData *data, bool isAuto); //8052453c
     void UpdateGCNInputs(u8 id, PADStatus *status);
+    inline RealControllerHolder& GetController(int index) { return realControllerHolders[index]; }
     RealControllerHolder realControllerHolders[4]; //0x4 Stores inputs from a real controller at the same console
     VirtualControllerHolder virtualControllerHolders[12]; //0x3b4 Stores inputs for all the other players in a race (I think the ones with a matching realControllerHolder go unused)
     ControllerHolder controllerHolder; //0x15b4 dummy?

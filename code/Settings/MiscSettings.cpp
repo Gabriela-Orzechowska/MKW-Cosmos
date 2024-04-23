@@ -84,7 +84,7 @@ void SetupLicenseButton(u32 unknown, LicenseButton& button, int licenseIndex, Mi
         button.SetTextBoxMsg("player", 0x251d, &miiInfo);
 
         TextInfo friendCodeInfo;
-        LicenseManager& currentLicense = SaveDataManager::GetStaticInstance()->licenses[licenseIndex];
+        LicenseManager& currentLicense = SaveDataManager::GetStaticInstance()->GetLicense(licenseIndex);
         u64 val = DWC_CreateFriendKey(&currentLicense.friendCodeThing);
         if((val >> 32) != 0){
             friendCodeInfo.intToPass[2] = val % 10000;
@@ -126,13 +126,13 @@ void PatchMiiHeads() {
         }
 
         if(setting == ENABLED){ // Mii heads enabled
-            if(i == 0 || RKNetController::sInstance->connectionState != 0){
+            if(i == 0 || RKNetController::GetStaticInstance()->connectionState != 0){
                 isMii = true;
             }
         } 
 
         if(isMii){
-            MiiGroup& group = MenuData::GetStaticInstance()->menudata98->playerMiis;
+            MiiGroup& group = MenuData::GetStaticInstance()->GetCurrentContext()->playerMiis;
             curChar.SetMiiPane("chara_0_0", &group, i, 5);
             curChar.SetMiiPane("chara_shadow_0_0", &group, i, 5);
             curChar.SetMiiPane("chara_shadow_0_1", &group, i, 5);

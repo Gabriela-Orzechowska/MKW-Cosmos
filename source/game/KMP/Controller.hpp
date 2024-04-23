@@ -23,6 +23,8 @@ struct SectionHolder{
     u16 pointCount;
     u16 unknown_0x6;
     Section *rawSection;
+
+    inline T* GetPoint(int idx) { return pointArray[idx]; }
 };
 
 struct Header{
@@ -142,7 +144,7 @@ struct GOBJHolder : EntryHolder<GOBJ>{
 class Controller{ 
 public:
     static Controller *sInstance;
-    static Controller *GetStaticInstance(); //80512694
+    static Controller *GetStaticInstance() { return sInstance; } ; //80512694
     static void DestroyStaticInstance(); //8051271c
     Controller(); //8051276c inlined
     virtual ~Controller(); //805127ac vtable 808B2C30

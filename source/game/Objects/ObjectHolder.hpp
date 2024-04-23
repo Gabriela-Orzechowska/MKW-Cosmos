@@ -61,10 +61,22 @@ struct ObjectArray{
     Object **array;
 }; //0x8
 
+class ObjectGroup {
+public:
+    void AddObject(Object& object); //806c4ed4
+    inline u32 GetCount() { return count; }
+    inline Object* GetObject(int idx) { return objects[idx]; }
+private:
+    Object* objects[60];
+    u32 count; //0xf0
+};
+static_assert(sizeof(ObjectGroup) == 0xf4, "ObjectGroup");
+
+
 class ObjectHolder{
     public:
     static ObjectHolder *sInstance; //0x809c4330
-    static ObjectHolder *GetStaticInstance(); //8082a784 also inits
+    static ObjectHolder *GetStaticInstance() {  return sInstance;} //8082a784 also inits
     static void DestroyStaticInstance(); //8082a824
     static char *objectsNamesList; //808abb2c
 
@@ -77,11 +89,9 @@ class ObjectHolder{
     void HandleDroppedItem(ItemObj *itemEntity, Vec3 *position, float unknown); //8082adbc
     void AddObject(Object *object); //8082b0e8
     void CheckCollision(Kart *kart, ObjectCollisionPolyhedra *collision); //8082ab04
-    u32 GetControlledCount(); //8082b3b8
-    Object * GetControlledObjectByID(s32 id); //8082b3a8
+    inline u32 GetControlledCount() { return managedObjects == nullptr ? 0 : managedObjects->GetCount(); }
+    inline Object* GetControlledObjectByID(s32 id) { return managedObjects->GetObject(id); } 
     
-
-    u32 unknown_0x00; //0x0
     ObjFlowHolder *objFlow; //0x4
     GeoHitTableItemHolder *geoHitTableItem; //0x8
     GeoHitTableItemObjHolder *geoHitTableItemObj; //0xC
@@ -96,13 +106,13 @@ class ObjectHolder{
     u8 padding5;
     bool isNotTT; //0x55
     u8 padding6[2];
-    Object *managedObjects; //0x58 only for MH, DC, rSGB, rDH, galaxy colosseum ie objects with a object that is managed
+    ObjectGroup *managedObjects; //0x58 only for MH, DC, rSGB, rDH, galaxy colosseum ie objects with a object that is managed
     u8 unknown_0x5c[4];
     bool unknown_0x60; 
     u8 padding7[3];
     Mtx34 transformationMatrixes[4]; //0x64
     float angles[4]; //0x124 0 45 90 135
-    u8 unknown_0x134[0x26];
+    u8 unknown_0x134[0x2A];
     //ObjectCollisionManager droppedItemManager; //0x134
 }; //total size 0x160
 static_assert(sizeof(ObjectHolder) == 0x160, "ObjectHolder");

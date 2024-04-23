@@ -101,7 +101,7 @@ public:
     BMGHolder curFileBmgs; //0x144
     BMGHolder commonBmgs; //0x158
     PictureLayout *pictureLayout; //0x16c
-    nw4r::lyt::Pane *rootPane;
+    nw4r::lyt::Pane *rootPane; //0x170
 
     class MessageRequester : PaneAction{
     //ctor inlined

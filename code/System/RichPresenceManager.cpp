@@ -33,13 +33,6 @@ void RichPresenceManager::CreateStaticInstance()
     return;
 }
 
-RichPresenceManager * RichPresenceManager::GetStaticInstance()
-{
-    if(sInstance == NULL)
-        CreateStaticInstance();
-    return sInstance;
-}
-
 s32 RichPresenceManager::InitConnection()
 {
     if(sInstance == NULL)
@@ -85,8 +78,8 @@ s32 RichPresenceManager::UpdateStatus()
 u32 UpdateTrackImage(u32 param_1)
 {
     static char finalLink[0x80];
-    RichPresenceManager * manager = RichPresenceManager::sInstance;
-    ArchiveFile * file = &ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COURSE]->archives[0];
+    RichPresenceManager * manager = RichPresenceManager::GetStaticInstance();
+    ArchiveFile * file = &ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COURSE)->archives[0];
     void * buffer = file->decompressedArchive;
     u32 fileSize = file->decompressedarchiveSize;
     char * trackSha = SHA1::GetFileSha1(buffer,fileSize);
@@ -106,8 +99,8 @@ kmBranch(0x80540914, UpdateTrackImage);
 
 void RPCSectionChange()
 {
-    MenuId menuId = MenuData::sInstance->curScene->menuId;
-    RichPresenceManager * manager = RichPresenceManager::sInstance;
+    MenuId menuId = MenuData::GetStaticInstance()->GetCurrentScene()->menuId;
+    RichPresenceManager * manager = RichPresenceManager::GetStaticInstance();
     if(manager == nullptr) return;
     DiscordRichPresence& presence = manager->presence;
     char * message = presence.details;

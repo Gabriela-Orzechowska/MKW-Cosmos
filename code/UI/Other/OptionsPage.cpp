@@ -29,7 +29,7 @@ namespace CosmosUI
         if(button->buttonId == 5)
         {
             NewSettings::SetPreviousPageGlobal(OPTIONS, OPTIONS_MENU);
-            // MenuData::sInstance->curScene->Get<NewSettings>((PageId)Cosmos::SETTINGS_MAIN)->SetPreviousPage(OPTIONS, OPTIONS_MENU);
+            // MenuData::GetStaticInstance()->curScene->Get<NewSettings>((PageId)Cosmos::SETTINGS_MAIN)->SetPreviousPage(OPTIONS, OPTIONS_MENU);
             this->nextPageId = (PageId) Cosmos::SETTINGS_MAIN;
 
             this->EndStateAnimate(button->GetAnimationFrameSize(), 0);

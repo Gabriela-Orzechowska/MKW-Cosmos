@@ -12,11 +12,11 @@ namespace DX
     {
         
         fibSource = ARCHIVE_HOLDER_COURSE;
-        g3d::ResFile * file = (g3d::ResFile *) ArchiveRoot::sInstance->GetFile(ARCHIVE_HOLDER_COURSE, "itembox.brres", 0x0);
+        g3d::ResFile * file = (g3d::ResFile *) ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_COURSE, "itembox.brres", 0x0);
         if(file == nullptr) 
         {
             fibSource = ARCHIVE_HOLDER_COMMON;
-            file = (g3d::ResFile *) ArchiveRoot::sInstance->GetFile(ARCHIVE_HOLDER_COMMON, "itembox.brres", 0x0);
+            file = (g3d::ResFile *) ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_COMMON, "itembox.brres", 0x0);
         }
 
         char animName[] = "itembox";

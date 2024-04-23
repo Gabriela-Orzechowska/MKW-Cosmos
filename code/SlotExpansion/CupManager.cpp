@@ -72,8 +72,8 @@ namespace Cosmos
 
     int CupManager::GetCurrentMusicSlot()
     {
-        if(this->winningCourse < CT_OFFSET) return RaceAudioMgr::sInstance->GetCourseSoundId();
-        return RaceAudioMgr::sInstance->trackToMusicIDTable[this->cupDef->tracks[this->winningCourse - CT_OFFSET].musicSlot];
+        if(this->winningCourse < CT_OFFSET) return RaceAudioMgr::GetStaticInstance()->GetCourseSoundId();
+        return RaceAudioMgr::GetStaticInstance()->trackToMusicIDTable[this->cupDef->tracks[this->winningCourse - CT_OFFSET].musicSlot];
     }
 
     int CupManager::GetCurrentTrackSlot()
@@ -85,7 +85,7 @@ namespace Cosmos
 
     int PatchSlot(Pages::CourseSelect * page, CtrlMenuCourseSelectCourse * ctrl, PushButton * button)
     {
-        CupManager * manager = CupManager::sInstance;
+        CupManager * manager = CupManager::GetStaticInstance();
         manager->UpdateSelectedCourse(button);
         return manager->GetCurrentTrackSlot();
     }

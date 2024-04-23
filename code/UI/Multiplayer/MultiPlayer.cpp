@@ -39,7 +39,7 @@ namespace CosmosUI
 
     void UpdateOKButton(PushButton& button, const char * folderName, const char * controlName, const char * variant, u32 localPlayerCount, u8 param_5, bool inaccesable)
     {
-        MenuId menuId = MenuData::sInstance->curScene->menuId;
+        MenuId menuId = MenuData::GetStaticInstance()->curScene->menuId;
         if(isVotingScreen(menuId))
         {
             controlName = "DXVRScreen";
@@ -101,7 +101,7 @@ namespace CosmosUI
 
     void AddCharacterSelectLayer(Pages::CountDownTimer * page, PageId pageId, s32 animationDirection)
     {
-        Scene * scene = MenuData::sInstance->curScene;
+        Scene * scene = MenuData::GetStaticInstance()->curScene;
         MenuId menuId = scene->menuId;
         if(isVotingScreen(menuId))
         {
@@ -116,7 +116,7 @@ namespace CosmosUI
 /*
     void DisableVotingControlLoading(Pages::VR * page, u32 controlCount)
     {
-        MenuId menuId = MenuData::sInstance->curScene->menuId;
+        MenuId menuId = MenuData::GetStaticInstance()->curScene->menuId;
         if(isVotingScreen(menuId)) return;
         else page->InitControlGroup(controlCount);
         return;

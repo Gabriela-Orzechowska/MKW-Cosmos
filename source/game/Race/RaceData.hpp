@@ -90,6 +90,9 @@ enum ItemMode{
 
 struct RacedataSettings{
 public:
+
+    inline bool isMirror() { return modeFlags & 1; }
+
     CourseId courseId; //http://wiki.tockdom.com/wiki/List_of_Identifiers#Courses
     EngineClass engineClass;
     GameMode gamemode;
@@ -143,6 +146,8 @@ class RacedataScenario {
 public:
     explicit RacedataScenario(RKG *rkg); //8052dbc8, never used - racedata's constructor does it inline
     virtual ~RacedataScenario(); //805300f4 vtable 808b3288
+    inline RacedataPlayer& GetPlayer(int index) { return players[index]; }
+    inline RacedataSettings& GetSettings() { return settings; }
     u8 playerCount; //0x4
     u8 pageCount; //0x5 equal to player count except for 3P where it's 4
     u8 localPlayerCount; //0x6
@@ -164,7 +169,7 @@ public:
 class RaceData : public EmptyRaceDataParent, public RKParameterFile{
 public: 
     static RaceData *sInstance; //0x809bd728 presumably private 
-    static RaceData *GetStaticInstance() { return sInstance; }
+    static inline RaceData *GetStaticInstance() { return sInstance; }
     static void DestroyStaticInstance(); //8052ffe8
     RaceData(); //8053015c inlined
     ~RaceData() override; //80530038 vtable 808b3268  for RKParemeterFile and 808b3260 for RaceData itself
@@ -174,6 +179,8 @@ public:
 
     u8 GetLocalPlayerNum(u8 id); //80531f18
     u8 GetHudSlotBytId(u8 id);
+    inline RKG& GetGhost(int index) { return ghosts[index]; }
+
     RacedataScenario racesScenario; //0x20
     RacedataScenario menusScenario; //0xc10
     RacedataScenario unknown_scenario; //0x1800

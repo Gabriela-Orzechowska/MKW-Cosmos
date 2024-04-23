@@ -31,8 +31,8 @@ kmWrite32(0x807f18c8, 0x38000000); //TC alert
 
 RaceinfoPlayer * LoadLapCountFromKMP(RaceinfoPlayer * info, u8 index)
 {
-    u8 lapCount = KMP::Controller::sInstance->stageInfo->pointArray[0]->raw->lapCount;
-    RaceData::sInstance->racesScenario.settings.lapCount = lapCount;
+    u8 lapCount = KMP::Controller::GetStaticInstance()->stageInfo->GetPoint(0)->raw->lapCount;
+    RaceData::GetStaticInstance()->racesScenario.GetSettings().lapCount = lapCount;
     return new(info) RaceinfoPlayer(index, lapCount);
 }
 
@@ -58,7 +58,7 @@ kmCall(0x807ea670, GetLineKTPT);
 
 void CorrectKTPTRotationMirror(CtrlRace2DMapObject& object, Vec3 * rotation)
 {
-    if(RaceData::sInstance->racesScenario.settings.modeFlags & 1){
+    if(RaceData::GetStaticInstance()->racesScenario.GetSettings().isMirror()){
         rotation->y *= -1;
     }
 

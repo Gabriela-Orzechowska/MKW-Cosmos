@@ -6,8 +6,8 @@ namespace CosmosUI{
     {
         memset(speedos, 0, sizeof(speedos));
 
-        u32 result = RaceData::sInstance->racesScenario.localPlayerCount;
-        MenuId menuId = MenuData::sInstance->curScene->menuId;
+        u32 result = RaceData::GetStaticInstance()->racesScenario.localPlayerCount;
+        MenuId menuId = MenuData::GetStaticInstance()->curScene->menuId;
 
         if(menuId >= WATCH_GHOST_FROM_CHANNEL && menuId <= WATCH_GHOST_FROM_MENU) result++;
 
@@ -106,8 +106,8 @@ namespace CosmosUI{
 
         u8 playerId = this->GetPlayerId();
 
-        KartPointers * pointers = &KartHolder::sInstance->karts[playerId]->pointers;
-        KartPhysics * kartPhysics = pointers->kartBody->kartPhysicsHolder->kartPhysics;
+        KartPointers* pointers = &KartHolder::GetStaticInstance()->GetKart(playerId)->pointers;
+        KartPhysics* kartPhysics = pointers->kartBody->kartPhysicsHolder->kartPhysics;
 
         float maxSpeed = pointers->kartMovement->hardSpeedLimit;
 

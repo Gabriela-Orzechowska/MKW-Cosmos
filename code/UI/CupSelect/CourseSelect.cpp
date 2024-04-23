@@ -46,7 +46,7 @@ namespace CosmosUI
         CtrlMenuCourseSelectCup * courseCup = &coursePage->ctrlMenuCourseSelectCup;
         Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
         u32 cupCount = manager->GetCupCount();
-        Pages::CupSelect * cup = MenuData::sInstance->curScene->Get<Pages::CupSelect>(CUP_SELECT);
+        Pages::CupSelect * cup = MenuData::GetStaticInstance()->curScene->Get<Pages::CupSelect>(CUP_SELECT);
         manager->lastSelectedCup = (manager->lastSelectedCup + offset + cupCount) % cupCount;
         lastSelectedCup = manager->lastSelectedCup;
         cup->clickedCupId = lastSelectedCup;
@@ -75,7 +75,7 @@ namespace CosmosUI
                 char tpl[0x30];
                 snprintf(tpl, 0x30, "button/timg/icon_cup_%03d.tpl", id);
 
-                void * tplPointer = ArchiveRoot::sInstance->GetFile(ARCHIVE_HOLDER_UI, tpl, 0);
+                void * tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, tpl, 0);
 
                 CosmosUI::ChangePaneImage(button, "icon", tplPointer);
                 CosmosUI::ChangePaneImage(button, "icon_light_01", tplPointer);

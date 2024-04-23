@@ -29,7 +29,7 @@ struct CourseIDToMusicID{
 class RaceAudioMgr{
 public:
 	static RaceAudioMgr *sInstance; //0x809c27f8
-	static RaceAudioMgr *GetStaticInstance(); //807104d0
+	static RaceAudioMgr *GetStaticInstance() { return sInstance; } //807104d0
 	static void *DestroyStaticInstance(); //80710520
 	static u32 GetCourseSoundId(); //807101f4
 	static u32 trackToMusicIDTable[42]; //808a1d80 battle

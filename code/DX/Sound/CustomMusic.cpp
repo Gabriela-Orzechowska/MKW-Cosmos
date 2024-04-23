@@ -28,8 +28,8 @@ namespace DX
         {
             if(strcmp(source, winReplaceTable[i][0]) == 0)
             {
-                RacedataPlayer * dPlayer = &RaceData::sInstance->racesScenario.players[RaceInfo::sInstance->playerIdInEachPosition[0]];
-                char * charName = charNames[(int)dPlayer->characterId];
+                const RacedataPlayer& dPlayer = RaceData::GetStaticInstance()->racesScenario.GetPlayer(RaceInfo::GetStaticInstance()->playerIdInEachPosition[0]);
+                char * charName = charNames[(int)dPlayer.characterId];
 
                 snprintf(songBuffer, 0x100, winReplaceTable[i][1], charName);
                 ret = songBuffer;

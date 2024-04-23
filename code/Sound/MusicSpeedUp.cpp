@@ -18,12 +18,12 @@ void FinalLapSpeedUp(RaceRSARSoundsPlayer& soundPlayer, u32 lapSoundId, u32 play
 
     if(maxLap == 1) return; //We dont want to do that when track is 1 lap
 
-    if (maxLap == RaceData::sInstance->racesScenario.settings.lapCount)
+    if (maxLap == RaceData::GetStaticInstance()->racesScenario.GetSettings().lapCount)
     {
         using namespace CosmosData;
         if(SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_MUSIC_CUTOFF) != CUTOFF_DISABLED)
         {
-            RaceInfo * raceInfo = RaceInfo::sInstance;
+            RaceInfo * raceInfo = RaceInfo::GetStaticInstance();
             Timer * raceTimer = &raceInfo->timerManager->timers[0];
             Timer * playerTimer = &raceInfo->players[firstPlayerId]->lapSplits[maxLap-2];
             Timer difference;
@@ -33,7 +33,7 @@ void FinalLapSpeedUp(RaceRSARSoundsPlayer& soundPlayer, u32 lapSoundId, u32 play
             {
                 if(difference.minutes < 1 && difference.seconds < 5)
                 {
-                    KartHolder::sInstance->GetKart(hudIdFinalLap)->pointers.kartSound->soundArchivePlayer->soundPlayerArray->soundList.GetFirst()->ambientParam.pitch += 0.0002f;
+                    KartHolder::GetStaticInstance()->GetKart(hudIdFinalLap)->pointers.kartSound->soundArchivePlayer->soundPlayerArray->soundList.GetFirst()->ambientParam.pitch += 0.0002f;
                 }
             }
 

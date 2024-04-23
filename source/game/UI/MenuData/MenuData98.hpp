@@ -11,10 +11,10 @@ struct PlayerCombo{
     u8 unknown_0x9[0xC-0x9]; //passing most likely
 }; //total size 0xC
 
-class MenuData98{
+class GlobalContext{
 public:
-    MenuData98(); //805e2f60
-    ~MenuData98(); //805e2ff8
+    GlobalContext(); //805e2f60
+    ~GlobalContext(); //805e2ff8
     void RandomizeVSTracks(); //805e32ec
 	u8 unknown_0x0[0x60];
 	u32 raceNumber; //0x60
@@ -48,6 +48,6 @@ public:
 	u8 licenseNum;
 	u8 unknown_0x4e9[0x510 - 0x4E9];
 }; //Total Size 0x510
-static_assert(sizeof(MenuData98) == 0x510, "MenuData98");
+static_assert(sizeof(GlobalContext) == 0x510, "MenuData98");
 
 #endif

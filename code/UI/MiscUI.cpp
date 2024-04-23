@@ -97,17 +97,17 @@ void UpdateLanguage()
     SystemManager::sInstance->gameLanguage = language;
     char * localization = suffixes[language];
     if(language == NO_CHANGE) localization = szsLanguageNames[language];
-    strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1], localization, 0x80);
-    strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archiveSuffixes[0x1], localization, 0x80);
+    strncpy(ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archiveSuffixes[0x1], localization, 0x80);
+    strncpy(ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COMMON)->archiveSuffixes[0x1], localization, 0x80);
 /*
-    CosmosUI::SettingsBasePage * page = MenuData::sInstance->curScene->Get<CosmosUI::SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN);
+    CosmosUI::SettingsBasePage * page = MenuData::GetStaticInstance()->curScene->Get<CosmosUI::SettingsBasePage>((PageId)Cosmos::SETTINGS_MAIN);
     if((language == 12) == loadedAsKorean)
     {
         if(languageSettings != lastLanguage)
         {
             lastLanguage = languageSettings;
             page->wasLanguageChanged = true;
-            //MenuData::sInstance;
+            //MenuData::GetStaticInstance();
             //page->LoadPrevPageWithDelayById(page->lastPage, 100.0f);
             
         }
@@ -121,7 +121,7 @@ void UpdateLanguage()
         lastLanguage = languageSettings;
         if(Scene::GetType(MenuData::GetStaticInstance()->curScene->menuId) != CATEGORY_GAMEPLAY)
         {
-            CosmosUI::NewSettings * page = MenuData::sInstance->curScene->Get<CosmosUI::NewSettings>((PageId)Cosmos::SETTINGS_MAIN);
+            CosmosUI::NewSettings * page = MenuData::GetStaticInstance()->curScene->Get<CosmosUI::NewSettings>((PageId)Cosmos::SETTINGS_MAIN);
             page->ChangeMenu(page->GetPreviousMenu(),0,0.0f);
         }
     }
@@ -146,8 +146,8 @@ void UpdateArchiveHolderLanguageOnInit()
     
     SystemManager::sInstance->gameLanguage = language;
     char * localization = suffixes[language];
-    strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_UI]->archiveSuffixes[0x1], localization, 0x80);
-    strncpy(ArchiveRoot::sInstance->archivesHolders[ARCHIVE_HOLDER_COMMON]->archiveSuffixes[0x1], localization, 0x80);
+    strncpy(ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archiveSuffixes[0x1], localization, 0x80);
+    strncpy(ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COMMON)->archiveSuffixes[0x1], localization, 0x80);
 
     fontFileName = Cosmos::GetPortAddress(0x808b396c, 0x808af11c, 0x808b2acc, 0x808a1de4);
     fontBRFNTName = Cosmos::GetPortAddress(0x808b87ac, 0x808ced94, 0x808b78fc, 0x808a6c14);

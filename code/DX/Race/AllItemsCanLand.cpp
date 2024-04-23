@@ -10,7 +10,7 @@ namespace DX
 {
     ItemPlayer * GetItemPlayer(KartCollision * kartCollision)
     {
-        ItemPlayer * itemPlayer = ItemManager::sInstance->players;
+        ItemPlayer * itemPlayer = ItemManager::GetStaticInstance()->players;
         u8 playerId = kartCollision->base.GetPlayerIdx();
 
         return &itemPlayer[playerId];

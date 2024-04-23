@@ -260,9 +260,9 @@ namespace CosmosDebug{
 
         bool ccp = (ret == 0 && (controllerType == 2 || controllerType == 7));
         
-        u32 controller = MenuData::sInstance->pad.padInfos[0].controllerSlotAndTypeActive;
+        u32 controller = MenuData::GetStaticInstance()->pad.padInfos[0].controllerSlotAndTypeActive;
         ControllerType type = ControllerType(controller & 0xFF);
-        RealControllerHolder& holder = InputData::sInstance->realControllerHolders[0];
+        RealControllerHolder& holder = InputData::GetStaticInstance()->GetController(0);
 
         bool lock = true;
 

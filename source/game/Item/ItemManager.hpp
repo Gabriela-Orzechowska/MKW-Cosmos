@@ -19,7 +19,7 @@ class KartModel;
 class ItemManager {
 public:
     static ItemManager *sInstance; //809c3618
-    static ItemManager *GetStaticInstance(); //80799138
+    static ItemManager *GetStaticInstance() { return sInstance; } //80799138
     static void DestroyStaticInstance(); //80799188
     ItemManager(); //807992d8 inlined
     ~ItemManager(); //80799670 inlined

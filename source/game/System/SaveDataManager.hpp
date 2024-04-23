@@ -115,6 +115,8 @@ public:
     bool CheckLicenseMagic(u8 licenseId); //80544d10
     EGG::TDisposer<SaveDataManager> disposer; //80543d18 vtable 808b3c98
     virtual ~SaveDataManager(); //8054460c vtable 808b3c80
+    inline LicenseManager& GetCurrentLicense() { return licenses[curLicenseId]; }
+    inline LicenseManager& GetLicense(int idx) { return licenses[idx]; }
     RKSYS *rksysRaw; //0x14
     RKG *rkgBuffer;
     u8 unknown_0x1C[0x36-0x1C];

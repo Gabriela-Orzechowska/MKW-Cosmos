@@ -6,7 +6,7 @@ class RichPresenceManager
     public:
     static RichPresenceManager * sInstance;
     
-    static RichPresenceManager * GetStaticInstance();
+    static RichPresenceManager * GetStaticInstance() { return sInstance; }
     static void CreateStaticInstance();
     static s32 InitConnection();
 

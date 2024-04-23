@@ -97,11 +97,10 @@ namespace CosmosData
     kmWrite32(0x80544f88, 0x48000028);
     kmCall(0x80544f84, SetBRAndVR);
 
-    u32 currentLicense = 0; // the only thing saving me is the fact save is always done in a for loop
     Rating * SaveVR(LicenseManager& license){
 
-        u16 curLicenseId = SaveDataManager::sInstance->curLicenseId;
-        LicenseManager& actualLicense = SaveDataManager::sInstance->licenses[curLicenseId];
+        u16 curLicenseId = SaveDataManager::GetStaticInstance()->curLicenseId;
+        LicenseManager& actualLicense = SaveDataManager::GetStaticInstance()->GetCurrentLicense();
 
         SettingsHolder * holder = SettingsHolder::GetInstance();
         if(holder == nullptr) return 0;
