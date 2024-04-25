@@ -248,7 +248,7 @@ namespace CosmosData
             void SetUserBR(u32 value, u32 id) { this->settings->playerBr[id] = value; }
 
             inline bool AreMiiHeadsAllowed() { return miiHeadsEnabled; }
-            inline bool SetMiiHeadSettings(bool setting) { miiHeadsEnabled = setting; }
+            inline void SetMiiHeadSettings(bool setting) { miiHeadsEnabled = setting; }
 
             static void SaveTask(void *);
             

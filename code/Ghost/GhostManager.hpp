@@ -98,7 +98,7 @@ namespace CosmosGhost
             }
             bool LoadGhost(RKG * rkg, u32 index);
             void LoadGhostReplay(RKG * rkg, bool isGhostRace);
-            void UpdateStartTime(u64 time) {ttStartTime = time; gameSceneFrames = 0;}
+            void UpdateStartTime(u64 time) {ttStartTime = time; gameSceneFrames = 0; this->isGhostValid = true; }
             bool IsValid() const { return isGhostValid; }
             void VerifyTime();
 

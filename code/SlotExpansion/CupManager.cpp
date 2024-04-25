@@ -4,7 +4,6 @@
 #include <game/UI/Page/Menu/CourseSelect.hpp>
 #include <game/Sound/RaceAudioManager.hpp>
 #include <main.hpp>
-#include "CupManager.hpp"
 
 extern u32 p_tracklist1;
 extern u32 p_tracklist2;
