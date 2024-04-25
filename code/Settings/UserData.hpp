@@ -60,6 +60,7 @@ namespace CosmosData
         COSMOS_RACE_SETTINGS_1 = 0x0,
         COSMOS_MENU_SETTINGS_1,
         COSMOS_DEBUG_SETTINGS,
+        COSMOS_HOST_SETTINGS_1,
     };
 
     enum RACE_SETTINGS_1_SETTINGS {
@@ -79,6 +80,13 @@ namespace CosmosData
     enum DEBUG_SETTINGS {
         COSMOS_DWC_LOGS = 0x0,
         COSMOS_PERFORMANCE_MONITOR,
+    };
+    
+    enum HOST_SETTINGS_1 {
+        COSMOS_HAW = 0x0,
+        COSMOS_ALLOW_MII_HEADS,
+        COSMOS_FORCE_CC,
+        COSMOS_RACE_COUNT,
     };
 
     enum MUSIC_CUTOFF_OPTIONS {
@@ -116,6 +124,21 @@ namespace CosmosData
         OM_ALWAYS = 0x2,
     };
 
+    enum FORCE_CC {
+        DEFAULT = 0x0,
+        FORCE_150CC,
+        FORCE_200CC,
+    };  
+    enum RACE_COUNTS {
+        RACE_COUNT_2 = 0x0,
+        RACE_COUNT_4,
+        RACE_COUNT_8,
+        RACE_COUNT_12,
+        RACE_COUNT_16,
+        RACE_COUNT_24,
+        RACE_COUNT_32,
+        RACE_COUNT_64,
+    };
         
     enum GLOBAL_SETTING {
         COSMOS_SETTING_MUSIC_CUTOFF = COSMOS_MUSIC_CUTOFF + (COSMOS_RACE_SETTINGS_1 * 8),
@@ -123,15 +146,22 @@ namespace CosmosData
         COSMOS_SETTING_MII_HEADS = COSMOS_MII_HEADS + (COSMOS_RACE_SETTINGS_1 * 8),
         COSMOS_SETTING_SPEEDOMETER = COSMOS_SPEEDOMETER + (COSMOS_RACE_SETTINGS_1 * 8),
         COSMOS_SETTING_FRAME_MODE = COSMOS_FRAME_MODE + (COSMOS_RACE_SETTINGS_1 * 8),
+
         COSMOS_SETTING_LANGUAGE_SETTINGS = COSMOS_LANGUAGE_SETTINGS + (COSMOS_MENU_SETTINGS_1 * 8),
         COSMOS_SETTING_FAST_MENUS = COSMOS_FAST_MENUS + (COSMOS_MENU_SETTINGS_1 * 8),
         COSMOS_SETTING_LAYOUT = COSMOS_LAYOUT + (COSMOS_MENU_SETTINGS_1 * 8),
+
         COSMOS_SETTING_DWC_LOGS = COSMOS_DWC_LOGS + (COSMOS_DEBUG_SETTINGS * 8),
         COSMOS_SETTING_PERFORMANCE_MONITOR = COSMOS_PERFORMANCE_MONITOR + (COSMOS_DEBUG_SETTINGS * 8),
+
+        COSMOS_SETTING_HAW = COSMOS_HAW + (COSMOS_HOST_SETTINGS_1 * 8),
+        COSMOS_SETTING_ALLOW_MII_HEADS = COSMOS_ALLOW_MII_HEADS + (COSMOS_HOST_SETTINGS_1 * 8),
+        COSMOS_SETTING_FORCE_CC = COSMOS_FORCE_CC + (COSMOS_HOST_SETTINGS_1 * 8),
+        COSMOS_SETTING_RACE_COUNT = COSMOS_RACE_COUNT + (COSMOS_HOST_SETTINGS_1 * 8),
     };
 
 
-#define PAGE_COUNT 3
+#define PAGE_COUNT 4
 #define SETTINGS_PER_PAGE 8
 
     typedef struct SettingPageOption{
@@ -161,10 +191,16 @@ namespace CosmosData
             .settingCount = 2,
             .settings = {{ .optionCount = 2, .isBool = true, .defaultValue = 1 }, //DWC Logs
             { .optionCount = 2, .isBool = true, .defaultValue = 1 }} //Performance Monitor
+        }, { // Host
+            .settingCount = 4,
+            .settings = { { .optionCount = 2, .isBool = true, .defaultValue = 1 },
+            { .optionCount = 2, .isBool = true, .defaultValue = 1 },
+            { .optionCount = 3, .isBool = false, .defaultValue = 0 },
+            { .optionCount = 8, .isBool = false, .defaultValue = 0 }}
         }
     } ;
 
-    static u8 GlobalSettingsPageOrder[PAGE_COUNT] = { COSMOS_RACE_SETTINGS_1, COSMOS_MENU_SETTINGS_1, COSMOS_DEBUG_SETTINGS };
+    static u8 GlobalSettingsPageOrder[PAGE_COUNT] = { COSMOS_RACE_SETTINGS_1, COSMOS_MENU_SETTINGS_1, COSMOS_HOST_SETTINGS_1, COSMOS_DEBUG_SETTINGS };
 
     struct SettingsPage{
         u8 setting[SETTINGS_PER_PAGE];
@@ -211,6 +247,9 @@ namespace CosmosData
             void SetUserBR(u32 value) { SetUserVR(value, SaveDataManager::GetStaticInstance()->curLicenseId); }
             void SetUserBR(u32 value, u32 id) { this->settings->playerBr[id] = value; }
 
+            inline bool AreMiiHeadsAllowed() { return miiHeadsEnabled; }
+            inline bool SetMiiHeadSettings(bool setting) { miiHeadsEnabled = setting; }
+
             static void SaveTask(void *);
             
         private:
@@ -219,6 +258,8 @@ namespace CosmosData
             void Init(char * filepath, const char * magic, u32 version);
             void RequestSave();
             char filepath[IPCMAXPATH];
+
+            bool miiHeadsEnabled;
     };
 }
 

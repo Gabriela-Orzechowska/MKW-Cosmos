@@ -147,6 +147,7 @@ public:
     explicit RacedataScenario(RKG *rkg); //8052dbc8, never used - racedata's constructor does it inline
     virtual ~RacedataScenario(); //805300f4 vtable 808b3288
     inline RacedataPlayer& GetPlayer(int index) { return players[index]; }
+    inline u32 GetPlayerCount() { return playerCount; }
     inline RacedataSettings& GetSettings() { return settings; }
     u8 playerCount; //0x4
     u8 pageCount; //0x5 equal to player count except for 3P where it's 4

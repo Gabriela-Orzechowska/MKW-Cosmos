@@ -116,17 +116,17 @@ void PatchMiiHeads() {
     if(mainMinimap == nullptr) return;
     u8 setting = SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_MII_HEADS);
 
-    for(int i = 0; i < RaceData::GetStaticInstance()->racesScenario.playerCount; i++){
+    for(int i = 0; i < RaceData::GetStaticInstance()->racesScenario.GetPlayerCount(); i++){
         CtrlRace2DMapCharacter& curChar = mainMinimap->characters[i];
 
         bool isMii = false;
-        CharacterId characterUsed = RaceData::GetStaticInstance()->racesScenario.players[i].characterId;
+        CharacterId characterUsed = RaceData::GetStaticInstance()->racesScenario.GetPlayer(i).characterId;
         if(characterUsed >= MII_S_A_MALE){
             isMii = true;
         }
 
         if(setting == ENABLED){ // Mii heads enabled
-            if(i == 0 || RKNetController::GetStaticInstance()->connectionState != 0){
+            if(i == 0 || (RKNetController::GetStaticInstance()->connectionState != 0 && SettingsHolder::GetInstance()->AreMiiHeadsAllowed())){
                 isMii = true;
             }
         } 
@@ -147,9 +147,5 @@ void PatchMiiHeads() {
     }
 }
 
-void RacePageOnActivate(){
-    PatchMiiHeads();
-}
 kmBranch(0x807eb24c, PatchMiiHeads);
-//kmWritePointer(0x808da748, PatchMiiHeads); // I NEED A HOOK
 static SettingsValueUpdateHook svuhMiiHeads(PatchMiiHeads, COSMOS_SETTING_MII_HEADS);

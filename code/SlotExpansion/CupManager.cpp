@@ -4,6 +4,7 @@
 #include <game/UI/Page/Menu/CourseSelect.hpp>
 #include <game/Sound/RaceAudioManager.hpp>
 #include <main.hpp>
+#include "CupManager.hpp"
 
 extern u32 p_tracklist1;
 extern u32 p_tracklist2;
@@ -14,14 +15,13 @@ namespace Cosmos
 {
     CupManager * CupManager::sInstance = nullptr;
 
-    CupManager::CupManager()
+    CupManager::CupManager() : winningCourse(0), lastSelectedButton(0), lastSelectedCourse(0), lastSelectedCup(0), dontUpdateCourseSelectCourse(0),
+    currentTrackBlockIndex(0)
     {
         if(CupManager::sInstance != nullptr) return;
         CupManager::sInstance = this;
 
-        winningCourse = 0; lastSelectedCup = 0; lastSelectedButton = 0; 
-        lastSelectedCourse = 0;
-        dontUpdateCourseSelectCourse = 0;
+        memset(this->trackBlocking, ~0x0, 0x10 * sizeof(u32));
 
         DVDFileInfo fileHandle;
         if(DVDOpen("/cup/def.bin", &fileHandle))
@@ -43,15 +43,7 @@ namespace Cosmos
 
                     if(DVDReadPrio(&fileHandle, (void *) this->currentLayoutArray, sizeof(u32) * this->cupDef->cupCount * 4, 0x0, 0x2)){
                         CosmosLog("Layout loaded to: %p\n", this->currentLayoutArray);
-
-                        //Apply patch to track list
-
-                        p_tracklist1 = 0x3ca00000 | (((u32)this->currentLayoutArray) >> 16);
-                        p_tracklist2 = 0x60a50000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
-
-                        p_tracklist1_2 = 0x3fc00000 | (((u32)this->currentLayoutArray) >> 16);
-                        p_tracklist2_2 = 0x63de0000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
-
+                        SetTrackLayout(DEFAULT);
                     }
                     DVDClose(&fileHandle);
                 }
@@ -70,12 +62,29 @@ namespace Cosmos
         this->winningCourse = this->lastSelectedCourse;
     }
 
+    void CupManager::SetTrackLayout(TrackLayout layout)
+    {
+        //TODO Apply actually changing array pointer
+        p_tracklist1 = 0x3ca00000 | (((u32)this->currentLayoutArray) >> 16);
+        p_tracklist2 = 0x60a50000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
+
+        p_tracklist1_2 = 0x3fc00000 | (((u32)this->currentLayoutArray) >> 16);
+        p_tracklist2_2 = 0x63de0000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
+    }
+
     int CupManager::GetCurrentMusicSlot()
     {
         if(this->winningCourse < CT_OFFSET) return RaceAudioMgr::GetStaticInstance()->GetCourseSoundId();
         return RaceAudioMgr::GetStaticInstance()->trackToMusicIDTable[this->cupDef->tracks[this->winningCourse - CT_OFFSET].musicSlot];
     }
 
+    int CupManager::GetRandomTrack() const
+    {
+        Random rand;
+        int trackIndex = rand.NextLimited(this->GetTrackCount());
+        // TODO Include track blocking
+        return currentLayoutArray[trackIndex];
+    }
     int CupManager::GetCurrentTrackSlot()
     {
         if(this->winningCourse < CT_OFFSET) return this->winningCourse;

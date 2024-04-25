@@ -10,7 +10,7 @@ namespace CosmosData
 {
     SettingsHolder * SettingsHolder::sInstance = NULL;
     
-    SettingsHolder::SettingsHolder() { settings = NULL; }
+    SettingsHolder::SettingsHolder() : miiHeadsEnabled(true) { settings = NULL; }
 
     SettingsHolder * SettingsHolder::GetInstance() { return SettingsHolder::sInstance; }
 

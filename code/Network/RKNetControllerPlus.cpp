@@ -51,8 +51,18 @@ namespace CosmosNetwork
                 if(((1 << i) & availableAids) == 0x0) continue; //aid not found
                 
                 playerAids[playerCount++] = i;
-                //TODO add track blocking, just dont add the player to aids
-                nonRepeatPlayerAids[nonRepeatPlayerCount++] = i;
+                u32 playerVote = i == rkControllerSub.localAid ? handler.toSendPacket.playersData[0].cCourseVote : handler.receivedPackets[i].playersData[0].cCourseVote;
+
+                bool repeatVote = false;
+                for(int i = 0; i < TRACK_BLOCK_COUNT; i++){
+                    u32 track = manager->GetTrackBlockByIndex(i);
+                    if(track == ~0x0) continue;
+                    if(track == playerVote) {
+                        repeatVote = true; break;
+                    }
+                }
+                if(!repeatVote)
+                    nonRepeatPlayerAids[nonRepeatPlayerCount++] = i;
             }
             u8 winnerAid = 0;
             if (nonRepeatPlayerCount > 0) winnerAid = nonRepeatPlayerAids[random.NextLimited(nonRepeatPlayerCount)];
@@ -62,6 +72,7 @@ namespace CosmosNetwork
             if(actualVote == 0xFF) actualVote = manager->GetRandomTrack();
             handler.toSendPacket.winningCourse = actualVote;
             handler.toSendPacket.winningVoterAid = winnerAid;
+            manager->AddTrackToBlocking(actualVote);
         }
         else ((RKNetSELECTHandler*)&handler)->DecideTrack();
     }
@@ -255,19 +266,18 @@ namespace CosmosNetwork
     asm int CheckCorrectEngineClass() {
         ASM (
             nofralloc;
-            lbz r12, 0x3F (r28);
+            lbz r12, 0x3F (r24);
             lbz r0, 0x77 (r28);
             rlwimi r12, r0, 0, 28, 31;
-            stb r12, 0x3F (r24);
             rlwinm. r0, r0, 28, 28, 31;
-            beq end;
+            beq skip;
             rlwimi r12, r30, 4, 24, 27;
-            stb r12, 0x3F (r3);
-        end:
+        skip:
+            stb r12, 0x3F (r24);
             li r0, 0;
             blr;
         )
     }
-    
+    kmCall(0x806617e8, CheckCorrectEngineClass);
 
 } // namespace CosmosNetwork    
