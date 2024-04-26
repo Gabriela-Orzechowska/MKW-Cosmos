@@ -10,6 +10,7 @@ using Veldrid.ImageSharp;
 using ImPlotNET;
 using ImGuiNET;
 using System.Runtime.InteropServices;
+using Newtonsoft.Json;
 
 namespace CupCreator
 {
@@ -63,6 +64,7 @@ namespace CupCreator
     {
         public string CupName;
         public string ImageFilePath;
+        [JsonIgnore]
         public Texture image;
         public TrackDefinition[] trackDefs;
 
@@ -177,13 +179,16 @@ namespace CupCreator
         public static LayoutData layoutData = new LayoutData();
 
         public static Int32[] trackSlots = { 0x08, 0x01, 0x02, 0x04, 0x00, 0x05, 0x06, 0x07, 0x09, 0x0F, 0x0B, 0x03, 0x0E, 0x0A, 0x0C, 0x0D, 0x10, 0x14, 0x19, 0x1A, 0x1B, 0x1F, 0x17, 0x12, 0x15, 0x1E, 0x1D, 0x11, 0x18, 0x16, 0x13, 0x1C };
-        public static Int32[] musicSlots = {  }
+        // public static Int32[] musicSlots = {  }
 
 
         [DllImport("comdlg32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         private static extern bool GetOpenFileName(ref OpenFileName ofn);
 
-        private static string ShowDialog()
+        [DllImport("comdlg32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        private static extern bool GetSaveFileName(ref OpenFileName ofn);
+
+        private static string ShowImageSelectDialog()
         {
             var ofn = new OpenFileName();
             ofn.lStructSize = Marshal.SizeOf(ofn);
@@ -243,10 +248,14 @@ namespace CupCreator
 
                 if (ImGui.ImageButton($"Button##{i}", id, new Vector2(128.0f, 128.0f)))
                 {
-                    cupdef.ImageFilePath = ShowDialog();
-                    var img = new ImageSharpTexture(cupdef.ImageFilePath);
-                    var dimg = img.CreateDeviceTexture(_gd, _gd.ResourceFactory);
-                    cupdef.image = dimg;
+                    string path = ShowImageSelectDialog();
+                    if(path != string.Empty)
+                    {
+                        cupdef.ImageFilePath = path;
+                        var img = new ImageSharpTexture(cupdef.ImageFilePath);
+                        var dimg = img.CreateDeviceTexture(_gd, _gd.ResourceFactory);
+                        cupdef.image = dimg;
+                    }
                 }
                 ImGui.SameLine();
                 ImGui.BeginGroup();
@@ -309,7 +318,10 @@ namespace CupCreator
                         }
                     }
                     ImGui.Button("Open Project", new Vector2(ImGui.GetWindowSize().X * 0.9f,0.0f));
-                    ImGui.Button("Save Project", new Vector2(ImGui.GetWindowSize().X * 0.9f, 0.0f));
+                    if(ImGui.Button("Save Project", new Vector2(ImGui.GetWindowSize().X * 0.9f, 0.0f)))
+                    {
+                        SaveConfigFile();
+                    }
                     ImGui.Separator();
                     ImGui.Button("Export Binaries", new Vector2(ImGui.GetWindowSize().X * 0.9f, 0.0f));
                     ImGui.EndMenu();
@@ -321,26 +333,26 @@ namespace CupCreator
 
         private static void CreateConfigFile()
         {
-            string fileName = @"workfile/config.txt";
+            
 
-            if (File.Exists(fileName))
-                File.Delete(fileName);
+        }
+        private static void SaveConfigFile()
+        {
+            string path = "";
+            var ofn = new OpenFileName();
+            ofn.lStructSize = Marshal.SizeOf(ofn);
+            // Define Filter for your extensions (Excel, ...)
+            ofn.lpstrFilter = "Json Files (*.json)\0*.json\0";
+            ofn.lpstrFile = new string(new char[256]);
+            ofn.nMaxFile = ofn.lpstrFile.Length;
+            ofn.lpstrFileTitle = new string(new char[64]);
+            ofn.nMaxFileTitle = ofn.lpstrFileTitle.Length;
+            ofn.lpstrTitle = "Save File Dialog...";
+            if (GetSaveFileName(ref ofn))
+                path = ofn.lpstrFile;
 
-            using(StreamWriter sw = File.CreateText(fileName))
-            {
-                sw.WriteLine("#CT-CODE\n\n");
-                sw.WriteLine("[RACING-TRACK-LIST]\n");
-                sw.WriteLine("%LE-FLAGS = 1\n\n");
-                sw.WriteLine("%WIIMM-CUP = 0\n\n");
-                sw.WriteLine("N N$SWAP | N$F_WII\n\n");
-
-                for(int i = 0; i < layoutData.RaceCupCount; i++)
-                {
-                    sw.WriteLine($"T ")
-                }
-
-            }
-
+            string output = JsonConvert.SerializeObject(layoutData);
+            Console.WriteLine(output);
         }
     }
 }

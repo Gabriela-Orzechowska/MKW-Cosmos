@@ -58,4 +58,20 @@ public:
     ModelDirector *driverModel;
     u8 unknown_0x54[0x70-0x54];
 }; //total size 0x70
+
+class MiiGXThing : public EGG::Disposer {
+public:
+    MiiGXThing(); //8077ef84 
+    virtual ~MiiGXThing(); // 8077ee80 vtable 808d1630
+    static MiiGXThing* GetStaticInstance()  { return sInstance; }
+    void SetMiiRotation(int variant); //80780ab8
+
+private:
+    static MiiGXThing* sInstance;
+    void* currentHeap;
+
+};
+//static_assert(sizeof(MiiGXThing) == 0x1bc, "MiiGXThing");
+
+
 #endif

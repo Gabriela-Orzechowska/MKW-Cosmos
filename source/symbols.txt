@@ -79,6 +79,8 @@ swprintf = 0x80017814
 cos = 0x8001b590
 sin = 0x8001ba98
 pow = 0x8001bbf0
+sin__Fd = 0x8001ba98
+cos__Fd = 0x8001b590
 
 NETSHA1Init__FP14NETSHA1Context = 0x801d24f4
 NETSHA1Update__FP14NETSHA1ContextPCvUi = 0x801d2544
@@ -451,6 +453,9 @@ InitModel__13MiiHeadsModelFP3MiiP13ModelDirectorUiUiUiUi =0x8055c580
 #MiiGroup
 AddMii__8MiiGroupFUcP6RawMii= 0x805fa610
 GetMii__8MiiGroupFUc = 0x805fa930
+LoadMii__8MiiGroupFUcP3Mii = 0x805fa3fc
+MiiXthing = 0x808a460c
+MiiZthing = 0x808a4608
 
 #Mii
 ComputeRawMii__3MiiFP6RawMiiP9MiiTexMap = 0x8052758c

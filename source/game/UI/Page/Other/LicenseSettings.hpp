@@ -24,6 +24,7 @@ class LicenseButton : public PushButton{
 
 namespace Pages{
 class LicenseSelect : public Page{ //0x65
+public:
     LicenseSelect(); //805ea834
     ~LicenseSelect() override; //805eab00 vtable 808b984c
     PageId GetNextPage() const override; //0x10 805ee658
