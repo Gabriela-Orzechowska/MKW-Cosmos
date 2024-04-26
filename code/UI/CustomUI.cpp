@@ -39,12 +39,5 @@ kmCall(0x8062d6c4, InjectPage); //From Battle
 kmCall(0x8062d808, InjectPage); //From Mission MOde
 
 kmCall(0x8062c644, InjectPage); // TTs
-/*
-void TestSettings(Pages::TTPause& pauseMenu){
-    CosmosUI::NewSettings::SetPreviousPageGlobal(TIME_TRIAL_PAUSE_MENU, TIME_TRIAL_GAMEPLAY);
-    pauseMenu.nextPage = (PageId) Cosmos::SETTINGS_MAIN;
-    pauseMenu.EndStateAnimate(0.0f,0);
-}
-kmCall(0x8085a5d8, TestSettings);
 
-*/
+

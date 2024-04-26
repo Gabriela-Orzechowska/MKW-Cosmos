@@ -27,6 +27,12 @@ extern nw4r::db::ExceptionInfo exceptionData; // 0x802A70B8
 
 namespace CosmosDebug{
 
+    enum PanicType {
+        NW4R_PANIC = 0x30,
+        OS_PANIC,
+        COSMOS_PANIC,
+    };
+
     static char output[0x100];
 
     void HandlePanic(const char *file, int line, const char *fmt, va_list vlist, bool halt, u32 LR)
@@ -38,7 +44,7 @@ namespace CosmosDebug{
         snprintf(output, 0x100, "%s%s", output, format);
         OSContext * context = OSGetCurrentContext();
         nw4r::db::ExceptionCallbackParam exc;
-        exc.error = 0x30; 
+        exc.error = NW4R_PANIC; 
         exc.context = context;
         exc.dar = 0x0;
         exc.dsisr = LR;
@@ -62,7 +68,7 @@ namespace CosmosDebug{
         snprintf(output, 0x100, "%s:%d Panic:\n%s", file, line, message);
         OSContext * context = OSGetCurrentContext();
         nw4r::db::ExceptionCallbackParam exc;
-        exc.error = 0x31; 
+        exc.error = OS_PANIC; 
         exc.context = context;
         exc.dar = (u32) output;
         exc.dsisr = 0x0;
@@ -104,12 +110,14 @@ namespace CosmosDebug{
     {
         char * region_name= GetRegionName();
 
+        nw4r::db::Exception_Printf_("*** COSMOS PANIC HANDLER ***\n");
         if(error == 0x30)
-            nw4r::db::Exception_Printf_("\n\n*** COSMOS PANIC HANDLER ***\nnw4r::Panic() has been called at 0x%08x (%s)\n<Symbol not found>\n\n", dsisr-4, region_name);
+            nw4r::db::Exception_Printf_("nw4r::Panic()");
         else if(error == 0x31)
-            nw4r::db::Exception_Printf_("\n\n*** COSMOS PANIC HANDLER ***\nRVL::OSPanic() has been called; (%s)\n<Symbol not found>\n\n", region_name);
+            nw4r::db::Exception_Printf_("RVL::OSPanic()", region_name);
         else if(error == 0x32)
-            nw4r::db::Exception_Printf_("\n\n*** COSMOS PANIC HANDLER ***\nCosmos::Panic() has been called; (%s)\n<Symbol not found>\n\n", region_name);
+            nw4r::db::Exception_Printf_("Cosmos::Panic()", region_name);
+        nw4r::db::Exception_Printf_("has been called at 0x%08x (%s)\n<Symbol not found>\n\n", dsisr-4, region_name);
         nw4r::db::Exception_Printf_("Platform: %s\nCosmos %s (%s %s)\n-------------------------------\n", CosmosDebug::GetPlatformString(), __COSMOS_VERSION__, __DATE__, __TIME__);
         nw4r::db::Exception_Printf_("*** Message ***\n%s\n", (char *)dar );
     }
@@ -156,7 +164,10 @@ namespace CosmosDebug{
             Exception_Printf_("---EXCEPTION_INFO_MAIN---\n");
             Exception_Printf_("CONTEXT:%08XH  (%s EXCEPTION)\n", context, error < 0x11 ? ExceptionNameTable[error] : "UNKNOWN");
             Exception_Printf_("SRR0:   %08XH   SRR1:%08XH\n", context->srr0, context->srr1);
-            Exception_Printf_("%s\n",SymbolManager::GetSymbolName(context->srr0));
+            if(context->srr0 == 0)
+            Exception_Printf_("Missing SRR0! Submit Invalid Read/Write");
+            else
+                Exception_Printf_("%s\n",SymbolManager::GetSymbolName(context->srr0));
             Exception_Printf_("DSISR:  %08XH   DAR:  %08XH\n", dsisr, dar);
         }
         if(exceptionData.displayInfo & EXCEPTION_INFO_GPR){
@@ -284,13 +295,19 @@ namespace CosmosDebug{
             {
                 case(CLASSIC):
                     holder.inputStates[0].buttonRaw = clStatus.buttons;
+                    holder.inputStates[0].stickX = clStatus.lStickX / 128.0f;
+                    holder.inputStates[0].stickY = clStatus.lStickY / 128.0f;
                     break;
                 case(NUNCHUCK):
                 case(WHEEL):
                     holder.inputStates[0].buttonRaw = wStatus.buttons;
+                    holder.inputStates[0].stickX = wStatus.cStickHorizontal;
+                    holder.inputStates[0].stickY = wStatus.cStickVertical;
                     break;
                 case(GCN):
                     holder.inputStates[0].buttonRaw = gcStatus[0].buttons;
+                    holder.inputStates[0].stickX = gcStatus[0].horizontalStickU8 / 62.0f;
+                    holder.inputStates[0].stickY = gcStatus[0].verticalStickU8 / 62.0f;
                 default:
                     break;
             }
