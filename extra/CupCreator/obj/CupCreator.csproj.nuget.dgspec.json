@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\janor\\Documents\\GitHub\\MKWDX-Kamek\\extra\\CupCreator\\CupCreator.csproj": {}
+    "D:\\Kamek\\MKWDX-Kamek\\extra\\CupCreator\\CupCreator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\janor\\Documents\\GitHub\\MKWDX-Kamek\\extra\\CupCreator\\CupCreator.csproj": {
+    "D:\\Kamek\\MKWDX-Kamek\\extra\\CupCreator\\CupCreator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\janor\\Documents\\GitHub\\MKWDX-Kamek\\extra\\CupCreator\\CupCreator.csproj",
+        "projectUniqueName": "D:\\Kamek\\MKWDX-Kamek\\extra\\CupCreator\\CupCreator.csproj",
         "projectName": "CupCreator",
-        "projectPath": "C:\\Users\\janor\\Documents\\GitHub\\MKWDX-Kamek\\extra\\CupCreator\\CupCreator.csproj",
-        "packagesPath": "C:\\Users\\janor\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\janor\\Documents\\GitHub\\MKWDX-Kamek\\extra\\CupCreator\\obj\\",
+        "projectPath": "D:\\Kamek\\MKWDX-Kamek\\extra\\CupCreator\\CupCreator.csproj",
+        "packagesPath": "C:\\Users\\Gabi\\.nuget\\packages\\",
+        "outputPath": "D:\\Kamek\\MKWDX-Kamek\\extra\\CupCreator\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\janor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Gabi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -89,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }

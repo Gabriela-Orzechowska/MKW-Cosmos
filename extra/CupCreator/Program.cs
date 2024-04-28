@@ -246,6 +246,7 @@ namespace CupCreator
 
                 var id = _controller.GetOrCreateImGuiBinding(_gd.ResourceFactory, cupdef.image);
 
+
                 if (ImGui.ImageButton($"Button##{i}", id, new Vector2(128.0f, 128.0f)))
                 {
                     string path = ShowImageSelectDialog();
@@ -317,7 +318,10 @@ namespace CupCreator
                             layoutData = new LayoutData();
                         }
                     }
-                    ImGui.Button("Open Project", new Vector2(ImGui.GetWindowSize().X * 0.9f,0.0f));
+                    if(ImGui.Button("Open Project", new Vector2(ImGui.GetWindowSize().X * 0.9f, 0.0f)))
+                    {
+                        LoadConfigFile();
+                    }
                     if(ImGui.Button("Save Project", new Vector2(ImGui.GetWindowSize().X * 0.9f, 0.0f)))
                     {
                         SaveConfigFile();
@@ -351,8 +355,39 @@ namespace CupCreator
             if (GetSaveFileName(ref ofn))
                 path = ofn.lpstrFile;
 
+            if (path == string.Empty || path == "") return;
+
             string output = JsonConvert.SerializeObject(layoutData);
-            Console.WriteLine(output);
+            File.WriteAllText(path, output);
+        }
+
+        private static void LoadConfigFile()
+        {
+            string path = "";
+            var ofn = new OpenFileName();
+            ofn.lStructSize = Marshal.SizeOf(ofn);
+            // Define Filter for your extensions (Excel, ...)
+            ofn.lpstrFilter = "Json Files (*.json)\0*.json\0";
+            ofn.lpstrFile = new string(new char[256]);
+            ofn.nMaxFile = ofn.lpstrFile.Length;
+            ofn.lpstrFileTitle = new string(new char[64]);
+            ofn.nMaxFileTitle = ofn.lpstrFileTitle.Length;
+            ofn.lpstrTitle = "Open File Dialog...";
+            if (GetOpenFileName(ref ofn))
+                path = ofn.lpstrFile;
+
+            if (path == string.Empty || path == "") return; 
+
+            string input = File.ReadAllText(path);
+            layoutData = JsonConvert.DeserializeObject<LayoutData>(input);
+
+            for(int i = 0; i < layoutData.RaceCupCount; i++)
+            {
+                var img = new ImageSharpTexture(layoutData.RaceCupDefs[i].ImageFilePath);
+                var dimg = img.CreateDeviceTexture(_gd, _gd.ResourceFactory);
+                layoutData.RaceCupDefs[i].image = dimg;
+            }
+
         }
     }
 }

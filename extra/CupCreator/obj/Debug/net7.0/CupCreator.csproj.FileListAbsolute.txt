@@ -1,6 +1,4 @@
 D:\Kamek\MKWDX-Kamek\extra\CupCreator\bin\Debug\net7.0\cimgui.dll
-D:\Kamek\MKWDX-Kamek\extra\CupCreator\bin\Debug\net7.0\cimgui.dylib
-D:\Kamek\MKWDX-Kamek\extra\CupCreator\bin\Debug\net7.0\cimgui.so
 D:\Kamek\MKWDX-Kamek\extra\CupCreator\bin\Debug\net7.0\CupCreator.exe
 D:\Kamek\MKWDX-Kamek\extra\CupCreator\bin\Debug\net7.0\CupCreator.deps.json
 D:\Kamek\MKWDX-Kamek\extra\CupCreator\bin\Debug\net7.0\CupCreator.runtimeconfig.json
