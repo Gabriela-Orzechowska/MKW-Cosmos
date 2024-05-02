@@ -130,7 +130,7 @@ namespace CosmosDebug{
         u32 * sp = (u32 *) spStart;
         u32 spAddr = spStart;
         for(int i = 0; i < 0x10; i++){
-            if(spAddr == 0 || spAddr == ~0x0) break;
+            if(spAddr == 0 || spAddr == 0xFFFFFFFF) break;
 
             if((spAddr & 0x30000000) == 0){
                 u32 mem1Size = OSGetPhysicalMem1Size();
@@ -156,7 +156,7 @@ namespace CosmosDebug{
         }
         OSReport("Size of ExceptionInfo: %d\nExceptionInfo addr: %p\n", sizeof(ExceptionInfo), &exceptionData);
         Exception_Printf_("**** COSMOS %s ****\n", error < 0x11 ? "EXCEPTION HANDLER" : "USER HALT");
-        Exception_Printf_("Platform: %s\nCosmos %s (%s, %s %s)\n", CosmosDebug::GetPlatformString(), __COSMOS_VERSION__, __COMPILER_VERSION__, __DATE__, __TIME__);
+        Exception_Printf_("Platform: %s (%s)\nCosmos %s (%s, %s %s)\n", CosmosDebug::GetPlatformString(), GetRegionName(), __COSMOS_VERSION__, __COMPILER_VERSION__, __DATE__, __TIME__);
         Exception_Printf_("Framebuffer: %08XH\n", (u32) exceptionData.framebuffer);
         Exception_Printf_("--------------------------------\n");
 
@@ -165,7 +165,7 @@ namespace CosmosDebug{
             Exception_Printf_("CONTEXT:%08XH  (%s EXCEPTION)\n", context, error < 0x11 ? ExceptionNameTable[error] : "UNKNOWN");
             Exception_Printf_("SRR0:   %08XH   SRR1:%08XH\n", context->srr0, context->srr1);
             if(context->srr0 == 0)
-            Exception_Printf_("Missing SRR0! Submit Invalid Read/Write");
+                Exception_Printf_("Missing SRR0! Submit Invalid Read/Write\n");
             else
                 Exception_Printf_("%s\n",SymbolManager::GetSymbolName(context->srr0));
             Exception_Printf_("DSISR:  %08XH   DAR:  %08XH\n", dsisr, dar);
@@ -238,13 +238,13 @@ namespace CosmosDebug{
     }
     BootHook ConsoleParams(SetExceptionParams, LOW);
 
-    bool ExceptionCallBack_(nw4r::db::detail::ConsoleHead * head, void * )
+    bool ExceptionCallBack_(nw4r::db::detail::ConsoleHead& head, void * )
     {
         s32 scrollCooldown = 200;
 
         OSReport("CALLBACK...\n");
 
-        if(head == nullptr)
+        if(&head == nullptr)
         {
             CosmosError("No Console Found\n");
             return false;
@@ -258,12 +258,12 @@ namespace CosmosDebug{
         OSDisableScheduler();
         OSEnableInterrupts();
 
-        s32 lineCount = head->ringTopLineCnt;
-        s32 totalLineCount = head->GetLineCount();
+        s32 lineCount = head.ringTopLineCnt;
+        s32 totalLineCount = head.GetLineCount();
 
-        head->viewTopLine = lineCount;
-        head->isVisible = true;
-        head->DrawDirect();
+        head.viewTopLine = lineCount;
+        head.isVisible = true;
+        head.DrawDirect();
 
         
         u32 controllerType;
@@ -327,8 +327,8 @@ namespace CosmosDebug{
             u32 tick1 = tick0;
             while (OSTicksToMilliseconds(tick1-tick0) < scrollCooldown) tick1 = OSGetTick();
 
-            s32 xPos = head->viewPosX;
-            s32 currentTopLine = head->viewTopLine;
+            s32 xPos = head.viewPosX;
+            s32 currentTopLine = head.viewTopLine;
 
             s32 prevXPos = xPos;
             s32 prevTopLine = currentTopLine;
@@ -341,7 +341,7 @@ namespace CosmosDebug{
             if(lock)
             {
                 currentTopLine++;
-                if(currentTopLine == totalLineCount - (head->viewLines / 2))
+                if(currentTopLine == totalLineCount - (head.viewLines / 2))
                 {
                     lock = false;
                     scrollCooldown = 100;
@@ -356,15 +356,15 @@ namespace CosmosDebug{
                     xPos = Min(xPos + 5, 10);
 
                 if(down)
-                    currentTopLine = Min(currentTopLine + 1, totalLineCount - head->viewLines);
+                    currentTopLine = Min(currentTopLine + 1, totalLineCount - head.viewLines);
                 else if(up)
                     currentTopLine = Max(currentTopLine - 1, lineCount);
             }
 
             if (currentTopLine != prevTopLine || xPos != prevXPos) {
-                head->viewPosX = xPos;
-                head->viewTopLine = currentTopLine;
-                head->DrawDirect();
+                head.viewPosX = xPos;
+                head.viewTopLine = currentTopLine;
+                head.DrawDirect();
             }
         }
     }

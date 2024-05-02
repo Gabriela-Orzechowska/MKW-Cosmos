@@ -383,9 +383,14 @@ namespace CupCreator
 
             for(int i = 0; i < layoutData.RaceCupCount; i++)
             {
-                var img = new ImageSharpTexture(layoutData.RaceCupDefs[i].ImageFilePath);
-                var dimg = img.CreateDeviceTexture(_gd, _gd.ResourceFactory);
-                layoutData.RaceCupDefs[i].image = dimg;
+                if (Path.Exists(layoutData.RaceCupDefs[i].ImageFilePath))
+                {
+                    var img = new ImageSharpTexture(layoutData.RaceCupDefs[i].ImageFilePath);
+                    var dimg = img.CreateDeviceTexture(_gd, _gd.ResourceFactory);
+                    layoutData.RaceCupDefs[i].image = dimg;
+                }
+                else
+                   layoutData.RaceCupDefs[i].image = _gd.ResourceFactory.CreateTexture(TextureDescription.Texture2D(256, 256, 1, 1, PixelFormat.B8_G8_R8_A8_UNorm, TextureUsage.Sampled));
             }
 
         }

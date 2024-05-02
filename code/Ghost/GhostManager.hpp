@@ -31,13 +31,7 @@ namespace CosmosGhost
     class GhostTimeEntry
     {
         public:
-            GhostTimeEntry()
-            {
-                minutes =0;
-                seconds =0;
-                miliseconds = 0;
-            }
-
+            GhostTimeEntry() : minutes(0), seconds(0), miliseconds(0), character(MARIO), kart(STANDARD_KART_M) {};
             u16 minutes;
             u8 seconds;
             u16 miliseconds;

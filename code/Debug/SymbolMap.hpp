@@ -43,6 +43,7 @@ namespace CosmosDebug
             char * symNameTable;
             char * kamekSymNameTable;
         private:
+            bool isFromDVD;
             
     };
 }
