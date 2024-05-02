@@ -172,7 +172,7 @@ namespace CosmosUI
         Pages::CourseSelect * coursePage = MenuData::GetStaticInstance()->curScene->Get<Pages::CourseSelect>(COURSE_SELECT);
 
         u32 cupId = manager->lastSelectedCup;
-
+        bool selected = false;
         for(int i = 0; i < 4; i++)
         {
             int slot = manager->currentLayoutArray[cupId * 4 + i];
@@ -184,16 +184,14 @@ namespace CosmosUI
 
             if(manager->dontUpdateCourseSelectCourse == 0)
             {
-                if(i == 0){
-                    if((cupId * 4 + 4) > manager->lastSelectedCourse || manager->lastSelectedCourse > (cupId * 4)){
-                        coursePage->SelectButton(&course->courseButtons[i]);
-                    }
-                }
-
-                if(cupId * 4 + i == manager->lastSelectedCourse){
+                if(slot == manager->lastSelectedCourse){
                     coursePage->SelectButton(&course->courseButtons[i]);
+                    selected = true;
                 }
             }
+        }
+        if(!selected){
+            coursePage->SelectButton(&course->courseButtons[0]);
         }
         manager->dontUpdateCourseSelectCourse = 0;
     }
