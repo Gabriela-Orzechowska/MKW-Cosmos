@@ -111,6 +111,9 @@ namespace CosmosDebug
     }
 
     int DebugMessage::Print(int x, int y) {
+        if(curTime > 0) curTime -= 1;
+        else this->hasTimer = false;
+
         if(!isDisplayed && !hasTimer) return 0;
         int lineCount = 1;
         
@@ -120,8 +123,6 @@ namespace CosmosDebug
         y -= (lineCount - 1) * 10;
         nw4r::db::DirectPrint_DrawString(x,y,1,message);
 
-        if(curTime > 0) curTime -= 1;
-        else this->hasTimer = false;
         return lineCount;
     }
 }
