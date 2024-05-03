@@ -31,8 +31,14 @@ namespace Cosmos {
         };
 
         class HIPT : public Section { 
-            
+            struct HideSettings {
+                u8 condition;
+                s8 lap;
+                u8 from;
+                u8 to;
+                u8 show;
+            };
+            HideSettings settings[1];
         };
-
     }
 }

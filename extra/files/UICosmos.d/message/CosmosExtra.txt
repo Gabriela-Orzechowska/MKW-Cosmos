@@ -95,9 +95,14 @@
  3200   = DWC Logs
  3A01   = Logs will be printed to console.
  3A02   = No logs will be printed.
+
  3210   = Performance Monitor
  3A11   = Monitor will be displayed at the bottom.
  3A12   = Monitor will be hidden.
+
+ 3220   = Debug Messages on Screen
+ 3A21   = Displays messages on screen (buggy on Dolphin).
+ 3A22   = Hide messages on screen.
 
 
  2820   = A solo race for the fastest record! (200cc)

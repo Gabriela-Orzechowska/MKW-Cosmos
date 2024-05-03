@@ -246,7 +246,7 @@ OSUnlockMutex__FP7OSMutex = 0x801a7fc0
 #nw4r
 #db
 DirectPrint_ChangeXfb__Q24nw4r2dbFPvUsUs = 0x80021e30
-DirectPrint_DrawString__Q24nw4r2dbFUiUibPc  = 0x80021E90
+DirectPrint_DrawString__Q24nw4r2dbFUiUibPCc  = 0x80021E90
 DirectPrint_StoreCache__Q24nw4r2dbFv = 0x80021e70
 DumpException___Q24nw4r2dbFPCQ34nw4r2db22ExceptionCallbackParam = 0x80023410
 PrintContext___Q24nw4r2dbFUsPC9OSContextUiUi = 0x80023680
@@ -255,6 +255,7 @@ Exception_Printf___Q24nw4r2dbFPCce = 0x800235a0
 GetLineCount__Q44nw4r2db6detail11ConsoleHeadFv = 0x800230e0
 DrawDirect__Q44nw4r2db6detail11ConsoleHeadFv = 0x80022ab0
 
+sFontData2 = 0x80247248
 
 #g3d
 GetResMdl__Q34nw4r3g3d7ResFileCFPCc = 0x8004c240
@@ -1458,7 +1459,7 @@ OnActivate__27CharacterSelectPageLECODEFv = 0x808e2bbc
 
 
 #debug
-console = 0x802A73FC
+mainConsole__Q24nw4r2db = 0x802A73FC
 VIGetNextFrameBuffer = 0x801bab24
 VIWaitForRetrace = 0x801b99ec
 VIConfigure = 0x801bab2c

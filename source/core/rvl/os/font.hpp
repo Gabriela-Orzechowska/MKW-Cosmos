@@ -24,5 +24,6 @@ struct OSFontHeader {
     u32 sheetFullSize;
     u8 unknown[4];
 };
+char* OSGetFontTexture( const char* string, void** image, s32 *x, s32 *y, s32* width ); // 
 
 #endif

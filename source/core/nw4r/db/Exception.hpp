@@ -24,6 +24,8 @@ struct GXRenderModeObj {
     u8 vert_filter[7];
 };
 
+extern GXRenderModeObj* mainConsole;
+
 typedef bool (*ExceptionUserCallback)(nw4r::db::detail::ConsoleHandle consoleHandle, void *arg);
 
 struct ExceptionInfo {

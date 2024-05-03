@@ -80,6 +80,7 @@ namespace CosmosData
     enum DEBUG_SETTINGS {
         COSMOS_DWC_LOGS = 0x0,
         COSMOS_PERFORMANCE_MONITOR,
+        COSMOS_DEBUG_MSGS,
     };
     
     enum HOST_SETTINGS_1 {
@@ -153,6 +154,7 @@ namespace CosmosData
 
         COSMOS_SETTING_DWC_LOGS = COSMOS_DWC_LOGS + (COSMOS_DEBUG_SETTINGS * 8),
         COSMOS_SETTING_PERFORMANCE_MONITOR = COSMOS_PERFORMANCE_MONITOR + (COSMOS_DEBUG_SETTINGS * 8),
+        COSMOS_SETTING_DEBUG_MSGS = COSMOS_DEBUG_MSGS + (COSMOS_DEBUG_SETTINGS * 8),
 
         COSMOS_SETTING_HAW = COSMOS_HAW + (COSMOS_HOST_SETTINGS_1 * 8),
         COSMOS_SETTING_ALLOW_MII_HEADS = COSMOS_ALLOW_MII_HEADS + (COSMOS_HOST_SETTINGS_1 * 8),
@@ -188,8 +190,9 @@ namespace CosmosData
             .settings = { { .optionCount = 13, .isBool = false, .defaultValue = 0 }, // Language
             { .optionCount = 2, .isBool = true, .defaultValue = 0 }} //Fast Menus
         }, { //Debug
-            .settingCount = 2,
+            .settingCount = 3,
             .settings = {{ .optionCount = 2, .isBool = true, .defaultValue = 1 }, //DWC Logs
+            { .optionCount = 2, .isBool = true, .defaultValue = 1 },
             { .optionCount = 2, .isBool = true, .defaultValue = 1 }} //Performance Monitor
         }, { // Host
             .settingCount = 4,
@@ -197,7 +200,7 @@ namespace CosmosData
             { .optionCount = 2, .isBool = true, .defaultValue = 1 },
             { .optionCount = 3, .isBool = false, .defaultValue = 0 },
             { .optionCount = 8, .isBool = false, .defaultValue = 0 }}
-        }
+        },
     } ;
 
     static u8 GlobalSettingsPageOrder[PAGE_COUNT] = { COSMOS_RACE_SETTINGS_1, COSMOS_MENU_SETTINGS_1, COSMOS_HOST_SETTINGS_1, COSMOS_DEBUG_SETTINGS };

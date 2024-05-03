@@ -1,14 +1,22 @@
 #include <Debug/Draw/DebugDraw.hpp>
 #include <Debug/Draw/PerformanceMonitor.hpp>
+#include <core/nw4r/ut/RomFont.hpp>
+#include <core/rvl/gx/GX.hpp>
+#include <core/rvl/gx/GXTexture.hpp>
+#include <core/rvl/vi.hpp>
+#include <core/nw4r/db/Exception.hpp>
+#include <Settings/UserData.hpp>
 
 extern void AsyncDisplay_endRender(EGG::AsyncDisplay * display);
 extern void AsyncDisplay_beginRender(EGG::AsyncDisplay * display);
 extern void AsyncDisplay_beginFrame(EGG::AsyncDisplay * display); //8020fe24
 extern OSTime AsyncDisplay_getTickPerFrame(EGG::AsyncDisplay * display); //8020fe24
 
+
 namespace CosmosDebug
 {
     DebugDrawHook * DebugDrawHook::sHooks = NULL;
+    DebugMessage* DebugMessage::sHook = nullptr;
 
     void DrawRect(s16 x, s16 y, s16 width, s16 height, GXColor color)
     {
@@ -50,28 +58,70 @@ namespace CosmosDebug
         GXClearVtxDesc();
         GXSetVtxAttrFmt(GX_VTXFMT0, GX_VA_POS, GX_POS_XY, GX_S16, 0);
 
+        DebugMessage::RenderAll();
+
         DebugDrawHook::exec();
+        
 
         AsyncDisplay_endRender(display);
 
         return;
     }
 
-    //kmWritePointer(0x802a26f0, AsyncDisplayInjectCustomRender);
+    kmWritePointer(0x802a26f0, AsyncDisplayInjectCustomRender);
 
-    void AsyncDisplayBeginRenderMeasure(EGG::AsyncDisplay * display)
-    {
-        AsyncDisplay_beginRender(display);
-        //PerformanceMonitor::GetStaticInstance()->MeasureBeginRender();
+    static DebugMessage GeckoDisplay(false, "Dolphin Cheats Enabled.\nErrors might occur");
+
+    void DisplayTestMsg(){
+        if((*(u32*)0x80001804) == 1)
+            GeckoDisplay.DisplayForX(240);
+    }
+    static BootHook bhDisplayTestMsg(DisplayTestMsg, FIRST);
+
+    void DebugMessage::RenderAll(){
+        CosmosData::SettingsHolder* holder = CosmosData::SettingsHolder::GetInstance();
+
+        if(!holder) return;
+
+        if(holder->GetSettingValue(CosmosData::COSMOS_SETTING_DEBUG_MSGS) == CosmosData::DISABLED) return;
+
+        bool display = false;
+        for (DebugMessage * p = sHook; p; p = p->mNext){
+            if(p->isDisplayed || p->hasTimer) {
+                display = true;
+                break;
+            }
+        }
+        if(!display) return;
+
+        void* buffer = VIGetNextFrameBuffer();
+
+        nw4r::db::DirectPrint_ChangeXfb(buffer, 608, 456);
+
+        int x = 0;
+        int y = 215;
+        int z = 0;
+        for (DebugMessage * p = sHook; p; p = p->mNext){
+            y -= p->Print(x,y) * 10;
+        }
+            
+
+        nw4r::db::DirectPrint_StoreCache();
+
     }
 
-    //kmWritePointer(0x802a26ec, AsyncDisplayBeginRenderMeasure);
+    int DebugMessage::Print(int x, int y) {
+        if(!isDisplayed && !hasTimer) return 0;
+        int lineCount = 1;
+        
+        for(char* msg = message; *msg; msg++){
+            if(*msg == '\n') lineCount++;
+        }
+        y -= (lineCount - 1) * 10;
+        nw4r::db::DirectPrint_DrawString(x,y,1,message);
 
-    void AsyncDisplayBeginFrameMeasure(EGG::AsyncDisplay * display)
-    {
-        AsyncDisplay_beginFrame(display);
-        //PerformanceMonitor::GetStaticInstance()->MeasureBeginFrame(AsyncDisplay_getTickPerFrame(display));
+        if(curTime > 0) curTime -= 1;
+        else this->hasTimer = false;
+        return lineCount;
     }
-
-    //kmWritePointer(0x802a26e8, AsyncDisplayBeginFrameMeasure);
 }
