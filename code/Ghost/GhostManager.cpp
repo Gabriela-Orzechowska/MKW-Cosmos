@@ -2,6 +2,7 @@
 #include <SlotExpansion/CupManager.hpp>
 #include <game/UI/Page/RaceMenu/TTPause.hpp>
 #include <game/UI/Page/RaceHUD/RaceHUD.hpp>
+#include <Debug/Draw/DebugDraw.hpp>
 
 void CorrectGhostTrackName(LayoutUIControl * control, const char *textBoxName, u32 bmgId, const TextInfo *text)
 {
@@ -166,8 +167,11 @@ namespace CosmosGhost
 
 #define TIME_EPS 1000
 
+    static CosmosDebug::DebugMessage ghVerifyMessage(false);
+
     void GhostManager::VerifyTime(){
         if(!this->isGhostValid) return;
+        if(MenuData::GetStaticInstance()->curScene->menuId >= WATCH_GHOST_FROM_CHANNEL && MenuData::GetStaticInstance()->curScene->menuId <= WATCH_GHOST_FROM_MENU) return;
         if(this->ttStartTime == 0) return;
         this->isGhostValid = true;
 
@@ -185,6 +189,11 @@ namespace CosmosGhost
             }
             this->isGhostValid = false;
             CosmosLog("Time delta: %llu, %llu, %llu\nRace Time delta: %d\n", timeDelta, currentTime, this->ttStartTime, raceRealTimeDelta);
+            
+            char msg[0x40];
+            snprintf(msg, 0x40, "Delta:%dms", raceRealTimeDelta);
+            ghVerifyMessage.SetMessage(msg);
+            ghVerifyMessage.DisplayForX(120);
         }
         
     }
@@ -520,6 +529,7 @@ namespace CosmosGhost
                     }
                 }
             }
+            if(!manager->IsValid()) save = false;
             if(save)
             {
                 GhostData data;
