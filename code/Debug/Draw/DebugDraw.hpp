@@ -45,6 +45,12 @@ namespace nw4r
 } // namespace nw4r
 
 
+extern "C"{
+    extern u32 sFontData2[77];
+    extern u8 asciiTable[0x60]; //802470c8
+}
+
+
 namespace CosmosDebug
 {   
     class DebugDrawHook {
@@ -106,6 +112,16 @@ namespace CosmosDebug
         static void RenderAll();
 
 
+        static void Init(){
+            asciiTable[0x20] = 0x7a;
+            sFontData2[28] = 0x60000000;
+            sFontData2[29] = 0x110002a0;
+            sFontData2[30] = 0x12a00ae0;
+            sFontData2[31] = 0x084012a0;
+            sFontData2[32] = 0x10003e1c;
+            sFontData2[33] = 0x10001008;
+            sFontData2[34] = 0x60000808;
+        }
 
         static DebugMessage* sHook;
 
@@ -119,9 +135,5 @@ namespace CosmosDebug
     };
 
     void DrawRect(s16 x, s16 y, s16 width, s16 height, GXColor color);
-
-    extern "C"{
-        extern u32 sFontData2[77];
-    }
 
 } // namespace CosmosDebug

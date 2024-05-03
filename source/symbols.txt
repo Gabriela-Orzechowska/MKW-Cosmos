@@ -256,6 +256,7 @@ GetLineCount__Q44nw4r2db6detail11ConsoleHeadFv = 0x800230e0
 DrawDirect__Q44nw4r2db6detail11ConsoleHeadFv = 0x80022ab0
 
 sFontData2 = 0x80247248
+asciiTable = 0x802470c8
 
 #g3d
 GetResMdl__Q34nw4r3g3d7ResFileCFPCc = 0x8004c240

@@ -8,6 +8,7 @@
 #include <core/nw4r/db/Exception.hpp>
 #include <Debug/IOSDolphin.hpp>
 #include <Debug/SymbolMap.hpp>
+#include <Debug/Draw/DebugDraw.hpp>
 
 extern char gameID[4];
 
@@ -25,9 +26,14 @@ namespace Cosmos{
 
     System * System::sInstance = nullptr;
 
+    static CosmosDebug::DebugMessage systemMessage(false, "Cosmos " __COSMOS_VERSION__ " (" __COMPILER_VERSION__ " "  __DATE__ ") Loaded");
+
     void System::CreateStaticInstance(){
         sInstance = new System();
         sInstance->Init();
+
+        CosmosDebug::DebugMessage::Init();
+        systemMessage.DisplayForX(180);
         return;
     }
     static BootHook bhSystem(Cosmos::System::CreateStaticInstance, FIRST);

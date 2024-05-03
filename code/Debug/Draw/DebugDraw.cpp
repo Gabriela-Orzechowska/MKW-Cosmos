@@ -33,6 +33,8 @@ namespace CosmosDebug
 
     void AsyncDisplayInjectCustomRender(EGG::AsyncDisplay * display)
     {
+        DebugMessage::RenderAll();
+/*
         GXSetViewport(0.0f,0.0f,608.0f,456.0f,0.0f,1.0f);
         GXSetScissor(0,0, 608, 456);
         float mtx[4][4];
@@ -58,8 +60,6 @@ namespace CosmosDebug
         GXClearVtxDesc();
         GXSetVtxAttrFmt(GX_VTXFMT0, GX_VA_POS, GX_POS_XY, GX_S16, 0);
 
-        DebugMessage::RenderAll();
-
         DebugDrawHook::exec();
         
 
@@ -80,9 +80,7 @@ namespace CosmosDebug
 
     void DebugMessage::RenderAll(){
         CosmosData::SettingsHolder* holder = CosmosData::SettingsHolder::GetInstance();
-
         if(!holder) return;
-
         if(holder->GetSettingValue(CosmosData::COSMOS_SETTING_DEBUG_MSGS) == CosmosData::DISABLED) return;
 
         bool display = false;
@@ -93,7 +91,6 @@ namespace CosmosDebug
             }
         }
         if(!display) return;
-
         void* buffer = VIGetNextFrameBuffer();
 
         nw4r::db::DirectPrint_ChangeXfb(buffer, 608, 456);
