@@ -42,9 +42,9 @@ namespace Cosmos
                 GhostManager::sInstance = holder;
             }
             holder->Reset();
-
+#ifdef COSMOS_ANTI_CHEAT
             AntiCheat::CreateStaticInstance();
-
+#endif
             return holder;
         }
 
@@ -53,8 +53,9 @@ namespace Cosmos
             if (GhostManager::sInstance != nullptr)
                 delete (GhostManager::sInstance);
             GhostManager::sInstance = nullptr;
-
+#ifdef COSMOS_ANTI_CHEAT
             AntiCheat::DestroyStaticInstance();
+#endif
         }
 
         const char *ttFolders[2] = {
