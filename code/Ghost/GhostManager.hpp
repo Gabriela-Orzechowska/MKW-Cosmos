@@ -11,6 +11,7 @@
 #include <game/Race/RaceData.hpp>
 #include <game/UI/Page/Other/GhostSelect.hpp>
 #include <Debug/IOSDolphin.hpp>
+#include <Ghost/AntiCheat.hpp>
 
 namespace Cosmos
 {
@@ -94,13 +95,6 @@ namespace Cosmos
             }
             bool LoadGhost(RKG *rkg, u32 index);
             void LoadGhostReplay(RKG *rkg, bool isGhostRace);
-            void UpdateStartTime(u64 time)
-            {
-                ttStartTime = time;
-                gameSceneFrames = 0;
-                this->isGhostValid = true;
-            }
-            bool IsValid() const { return isGhostValid; }
             void VerifyTime();
 
             static void CreateAndSaveFiles(void *holder);
@@ -119,7 +113,6 @@ namespace Cosmos
             u32 courseId;
             u32 rkgCount;
             u64 ttStartTime;
-            bool isGhostValid;
         };
     }
 }

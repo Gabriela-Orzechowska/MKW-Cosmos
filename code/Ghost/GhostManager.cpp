@@ -25,7 +25,6 @@ namespace Cosmos
         {
             this->folderManager = CosmosFile::FolderManager::Create();
             this->courseId = -1;
-            this->isGhostValid = true;
             this->files = NULL;
         }
 
@@ -43,6 +42,9 @@ namespace Cosmos
                 GhostManager::sInstance = holder;
             }
             holder->Reset();
+
+            AntiCheat::CreateStaticInstance();
+
             return holder;
         }
 
@@ -51,6 +53,8 @@ namespace Cosmos
             if (GhostManager::sInstance != nullptr)
                 delete (GhostManager::sInstance);
             GhostManager::sInstance = nullptr;
+
+            AntiCheat::DestroyStaticInstance();
         }
 
         const char *ttFolders[2] = {
@@ -106,7 +110,6 @@ namespace Cosmos
             mainGhostIndex = 0xFF;
             delete[] this->files;
             this->files = nullptr;
-            this->isGhostValid = true;
             RaceData::GetStaticInstance()->menusScenario.GetPlayer(1).playerType = PLAYER_NONE;
         }
 
@@ -173,28 +176,14 @@ namespace Cosmos
             manager->mainGhostIndex = manager->rkgCount - 1;
             MenuData::GetStaticInstance()->GetCurrentContext()->isNewTime = true;
         }
-
-#define TIME_EPS 1000
-
         static CosmosDebug::DebugMessage ghVerifyMessage(false);
 
         void GhostManager::VerifyTime()
         {
-            if (!this->isGhostValid)
-                return;
-            if (MenuData::GetStaticInstance()->curScene->menuId >= WATCH_GHOST_FROM_CHANNEL && MenuData::GetStaticInstance()->curScene->menuId <= WATCH_GHOST_FROM_MENU)
-                return;
-            if (this->ttStartTime == 0)
-                return;
-            this->isGhostValid = true;
+#ifdef COSMOS_ANTI_CHEAT
+            AntiCheat::GetStaticInstance()->Update(RaceInfo::GetStaticInstance()->timer);
 
-            u64 currentTime = IOS::Dolphin::GetSystemTime();
-            s64 timeDelta = (currentTime - this->ttStartTime);
-
-            u32 raceTime = gameSceneFrames * 1000 / 59.94f;
-            s32 raceRealTimeDelta = (s32)timeDelta - raceTime;
-
-            if (abs(raceRealTimeDelta) > TIME_EPS)
+            if (!AntiCheat::GetStaticInstance()->IsRunValid())
             {
                 Pages::RaceHUD *page = MenuData::GetStaticInstance()->curScene->Get<Pages::RaceHUD>(TIME_TRIAL_INTERFACE);
                 if (page)
@@ -202,19 +191,19 @@ namespace Cosmos
                     page->ghostMessage->isHidden = false;
                     page->ghostMessage->SetMsgId(0x2802);
                 }
-                this->isGhostValid = false;
-                CosmosLog("Time delta: %llu, %llu, %llu\nRace Time delta: %d\n", timeDelta, currentTime, this->ttStartTime, raceRealTimeDelta);
-
+                s32 delta = AntiCheat::GetStaticInstance()->GetTimeDelta();
                 char msg[0x40];
-                snprintf(msg, 0x40, "Delta:%dms", raceRealTimeDelta);
+                snprintf(msg, 0x40, "Delta:%dms", delta);
                 ghVerifyMessage.SetMessage(msg);
                 ghVerifyMessage.DisplayForX(120);
             }
+#endif
         }
+#ifdef COSMOS_ANTI_CHEAT
 
         void UpdateStartTime(Page &page, u32 soundIdx, u32 param_3)
         {
-            GhostManager::GetStaticInstance()->UpdateStartTime(IOS::Dolphin::GetSystemTime());
+            AntiCheat::GetStaticInstance()->Reset(IOS::Dolphin::GetSystemTime());
             page.PlaySound(soundIdx, param_3);
             return;
         }
@@ -222,23 +211,16 @@ namespace Cosmos
 
         void VerifyTimeDuringRace()
         {
-            if (RaceInfo::GetStaticInstance()->timer <= 260)
-                return;
-
-            if (RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode == MODE_TIME_TRIAL)
-            {
-                GhostManager *manager = GhostManager::GetStaticInstance();
-                if (manager)
-                {
-                    if ((RaceInfo::GetStaticInstance()->timer & 63) == 0)
-                    {
-                        manager->VerifyTime();
-                    }
-                }
+            if(RaceInfo::GetStaticInstance()->timer < 250) return;
+            if (RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode == MODE_TIME_TRIAL) {
+                GhostManager::GetStaticInstance()->VerifyTime();
             }
+            
         }
 
         static RaceFrameHook rfhVerify(VerifyTimeDuringRace);
+
+#endif
 
         GhostLeaderboardManager::GhostLeaderboardManager()
         {
@@ -310,8 +292,13 @@ namespace Cosmos
 
         s32 GhostLeaderboardManager::GetLeaderboardPosition(const Timer &timer) const
         {
-            if (!GhostManager::GetStaticInstance()->IsValid())
+#ifdef COSMOS_ANTI_CHEAT
+
+            if (!AntiCheat::GetStaticInstance()->IsRunValid())
                 return -1;
+
+#endif
+
             s32 position = -1;
             Timer t_timer;
             for (int i = ENTRY_5TH; i >= 0; i--)
@@ -362,8 +349,12 @@ namespace Cosmos
 
         s32 PlayCorrectMusic(LicenseManager &license, Timer &timer, u32 courseId)
         {
-            GhostManager::GetStaticInstance()->VerifyTime();
-            CosmosLog("\n");
+#ifdef COSMOS_ANTI_CHEAT
+
+            AntiCheat::GetStaticInstance()->CheckValidness();
+
+#endif
+
             return GhostManager::GetStaticInstance()->GetLeaderboard().GetLeaderboardPosition(timer);
         }
         kmCall(0x80856fec, PlayCorrectMusic);
@@ -378,15 +369,6 @@ namespace Cosmos
         kmCall(0x8085d8d0, GetTimeEntry);
         kmCall(0x8085d5c8, GetTimeEntry);
         kmCall(0x8085da54, GetTimeEntry);
-
-        void CountFrames()
-        {
-            if (MenuData::GetStaticInstance()->curScene->menuId == TIME_TRIAL_GAMEPLAY)
-            {
-                Cosmos::Ghost::GhostManager::GetStaticInstance()->gameSceneFrames += 1;
-            }
-        }
-        kmBranch(0x8051b78c, CountFrames);
 
         void CustomGhostGroup(GhostList *list, u32 id)
         {
@@ -533,8 +515,12 @@ namespace Cosmos
                 }
                 entry.timer = splitsPage->timers[0];
                 s32 leaderboardPosition = -1;
-                if (manager->IsValid())
+
+#ifdef COSMOS_ANTI_CHEAT
+                if (AntiCheat::GetStaticInstance()->IsRunValid())
+#endif
                     leaderboardPosition = manager->GetLeaderboard().GetLeaderboardPosition(splitsPage->timers[0]);
+
                 menu98->leaderboardPosition = leaderboardPosition;
                 splitsPage->ctrlRaceCount.isHidden = true;
                 if (leaderboardPosition > -1)
@@ -555,8 +541,10 @@ namespace Cosmos
                         }
                     }
                 }
-                if (!manager->IsValid())
+#ifdef COSMOS_ANTI_CHEAT
+                if (!AntiCheat::GetStaticInstance()->IsRunValid())
                     save = false;
+#endif
                 if (save)
                 {
                     GhostData data;

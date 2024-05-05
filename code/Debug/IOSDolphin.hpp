@@ -47,7 +47,7 @@ namespace IOS
             return devDolphin;
         }
 
-        static inline bool IsOpen() { return devDolphin >= 0; }
+        static inline bool IsOpen() { return Open() >= 0; }
 
         static inline bool Close()
         {
