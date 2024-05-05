@@ -153,6 +153,7 @@ void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLengt
         funcs->sprintf(err, "FATAL ERROR: Incompatible file (version %d), please upgrade your Kamek Loader", header->version);
         kamekError(funcs, err);
     }
+    funcs->OSReport("addr: %p\n", header);
 
     funcs->OSReport("header: bssSize=%u, codeSize=%u, ctors=%u-%u\n",
         header->bssSize, header->codeSize, header->ctorStart, header->ctorEnd);
@@ -171,6 +172,9 @@ void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLengt
     u8 *output = (u8 *)text;
 
     *(u32 *)0x80003FFC = (u32)text;
+    *(u32 *)0x80003FF8 = (u32)textSize;
+    *(u32 *)0x80003FF4 = (u32)header->codeSize;
+    *(u32 *)0x80003FF0 = (u32)header->ctorStart;
 
 
     if(isDol)
@@ -219,8 +223,6 @@ void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLengt
             kDispatchCommand(CondWrite8);
             kDispatchCommand(Branch);
             kDispatchCommand(BranchLink);
-        default:
-            funcs->OSReport("Unknown command: %d\n", cmd);
         }
 
         cacheInvalidateAddress(address);
