@@ -111,13 +111,13 @@ namespace CosmosDebug{
         char * region_name= GetRegionName();
 
         nw4r::db::Exception_Printf_("*** COSMOS PANIC HANDLER ***\n");
-        if(error == 0x30)
+        if(error == NW4R_PANIC)
             nw4r::db::Exception_Printf_("nw4r::Panic()");
-        else if(error == 0x31)
+        else if(error == OS_PANIC)
             nw4r::db::Exception_Printf_("RVL::OSPanic()", region_name);
-        else if(error == 0x32)
+        else if(error == COSMOS_PANIC)
             nw4r::db::Exception_Printf_("Cosmos::Panic()", region_name);
-        nw4r::db::Exception_Printf_("has been called at 0x%08x (%s)\n<Symbol not found>\n\n", dsisr-4, region_name);
+        nw4r::db::Exception_Printf_(" has been called at 0x%08x (%s)\n<Symbol not found>\n\n", dsisr-4, region_name);
         nw4r::db::Exception_Printf_("Platform: %s\nCosmos %s (%s %s)\n-------------------------------\n", CosmosDebug::GetPlatformString(), __COSMOS_VERSION__, __DATE__, __TIME__);
         nw4r::db::Exception_Printf_("*** Message ***\n%s\n", (char *)dar );
     }

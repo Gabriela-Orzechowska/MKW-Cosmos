@@ -62,7 +62,7 @@ namespace CosmosDebug
 
         DebugDrawHook::exec();
         
-
+*/
         AsyncDisplay_endRender(display);
 
         return;
@@ -79,17 +79,20 @@ namespace CosmosDebug
     static BootHook bhDisplayTestMsg(DisplayTestMsg, FIRST);
 
     void DebugMessage::RenderAll(){
-        CosmosData::SettingsHolder* holder = CosmosData::SettingsHolder::GetInstance();
+        Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetInstance();
         if(!holder) return;
-        if(holder->GetSettingValue(CosmosData::COSMOS_SETTING_DEBUG_MSGS) == CosmosData::DISABLED) return;
 
         bool display = false;
         for (DebugMessage * p = sHook; p; p = p->mNext){
             if(p->isDisplayed || p->hasTimer) {
                 display = true;
+                if(p->curTime > 0) p->curTime--;
                 break;
             }
         }
+
+        if(holder->GetSettingValue(Cosmos::Data::COSMOS_SETTING_DEBUG_MSGS) == Cosmos::Data::DISABLED) return;
+
         if(!display) return;
         void* buffer = VIGetNextFrameBuffer();
 
@@ -108,8 +111,7 @@ namespace CosmosDebug
     }
 
     int DebugMessage::Print(int x, int y) {
-        if(curTime > 0) curTime -= 1;
-        else this->hasTimer = false;
+        if(curTime <= 0) this->hasTimer = false;
 
         if(!isDisplayed && !hasTimer) return 0;
         int lineCount = 1;

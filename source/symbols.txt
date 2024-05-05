@@ -5,7 +5,7 @@ Run__8RKSystemFv = 0x8000951c
 
 # extern
 p_bmgSizeAddress = 0x8007b37c
-p_lecodeBullshit1__11CosmosGhost = 0x805e1e94
+p_lecodeBullshit1__11Cosmos::Ghost = 0x805e1e94
 p_lecodeBlueDrag = 0x807ae8ac
 p_lecodeBluePmtf = 0x808a5b30
 p_lecodeBlueFunc = 0x807ae8a8
@@ -1207,7 +1207,7 @@ GetRuntimeTypeInfo__Q25Pages7WFCMainCFv = 0x8064d690
 OnButtonSelect__Q25Pages7WFCMainFP10PushButtonUi = 0x8064bf4c
 
 #WFCModeSelect
-WFCModeSelect_OnActivate__10CosmosDataFPQ25Pages13WFCModeSelect = 0x8064c4f8
+WFCModeSelect_OnActivate__10Cosmos::DataFPQ25Pages13WFCModeSelect = 0x8064c4f8
 
 #MessageWindowControl
 __ct__20MessageWindowControlFv = 0x805f9700

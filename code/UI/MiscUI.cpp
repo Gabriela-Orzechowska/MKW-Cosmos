@@ -11,7 +11,7 @@
 #include <UI/MiscUI.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>
 
-using namespace CosmosData;
+using namespace Cosmos::Data;
 
 namespace CosmosUI
 {

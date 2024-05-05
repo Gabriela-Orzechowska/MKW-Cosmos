@@ -115,22 +115,22 @@ namespace CosmosUI {
     }
 
     void NewSettings::OnBack(u32 hudSlotId) {
-        CosmosData::SettingsHolder::GetInstance()->Update();
+        Cosmos::Data::SettingsHolder::GetInstance()->Update();
         EndStateAnimate(0.0f, 1);
     }
 
     void NewSettings::OnBackButtonClick(PushButton*,u32){
-        CosmosData::SettingsHolder::GetInstance()->Update();
+        Cosmos::Data::SettingsHolder::GetInstance()->Update();
         EndStateAnimate(0.0f, 1);
     }
 
     void NewSettings::ChangePage(u8 pageId) {
         
-        u8 page = CosmosData::GlobalSettingsPageOrder[pageId];
+        u8 page = Cosmos::Data::GlobalSettingsPageOrder[pageId];
 
         this->currentPage = page;
 
-        CosmosData::SettingPageDefinition& definition = CosmosData::GlobalSettingDefinitions[page];
+        Cosmos::Data::SettingPageDefinition& definition = Cosmos::Data::GlobalSettingDefinitions[page];
 
         this->textPageSelector.activeTextValueControl->SetMsgId(BMG_SETTING_CATEGORY + page);
         this->pageSelector.curSelectedOption = pageId;
@@ -140,7 +140,7 @@ namespace CosmosUI {
             UpDownControl& selector = this->settingSelectors[i];
             TextUpDownValueControl& textControl = this->textSettingSelector[i];
         
-            u8 setting = CosmosData::SettingsHolder::GetInstance()->GetSettingValue(page, i);
+            u8 setting = Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(page, i);
             selector.SetPlayerBitfield(i < settingCount ? 1 : 0);
             selector.isHidden = i >= settingCount;
             selector.SelectInitial(settingCount, setting);
@@ -174,13 +174,13 @@ namespace CosmosUI {
 
         u32 bmg = BMG_SETTING_OPTION + ((this->currentPage << 8) + (id << 4) + option);
         u32 bottomBmg = bmg - BMG_SETTING_OPTION + BMG_SETTING_OPTION_BOTTOM;
-        if(CosmosData::GlobalSettingDefinitions[this->currentPage].settings[id].isBool)
+        if(Cosmos::Data::GlobalSettingDefinitions[this->currentPage].settings[id].isBool)
             bmg = BMG_ENABLED_DISABLED + option;
         textControl.activeTextValueControl->SetMsgId(bmg);
 
         
 
-        CosmosData::SettingsHolder::GetInstance()->SetSettingValue(option, this->currentPage, id); 
+        Cosmos::Data::SettingsHolder::GetInstance()->SetSettingValue(option, this->currentPage, id); 
         SettingsValueUpdateHook::exec(this->currentPage * 8 + id);
         this->bottomText.SetMsgId(bottomBmg);
 

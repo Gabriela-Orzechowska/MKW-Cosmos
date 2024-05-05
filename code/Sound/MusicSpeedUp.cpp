@@ -20,7 +20,7 @@ void FinalLapSpeedUp(RaceRSARSoundsPlayer& soundPlayer, u32 lapSoundId, u32 play
 
     if (maxLap == RaceData::GetStaticInstance()->racesScenario.GetSettings().lapCount)
     {
-        using namespace CosmosData;
+        using namespace Cosmos::Data;
         if(SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_MUSIC_CUTOFF) != CUTOFF_DISABLED)
         {
             RaceInfo * raceInfo = RaceInfo::GetStaticInstance();

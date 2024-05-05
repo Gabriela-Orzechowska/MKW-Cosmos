@@ -10,7 +10,7 @@
 
 void DraggableBlues(ItemPlayerSub& sub)
 {
-    using namespace CosmosData;
+    using namespace Cosmos::Data;
     if(SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_DRAGGABLE_BLUES) == DISABLED) sub.isNotDragged = true;
 }
 

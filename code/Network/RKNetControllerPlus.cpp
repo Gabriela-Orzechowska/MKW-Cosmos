@@ -30,7 +30,7 @@ namespace CosmosNetwork
         RKNetController* rkController = RKNetController::GetStaticInstance();
         RKNetControllerSub& rkControllerSub = rkController->subs[rkController->currentSub];
         
-        bool hostAlwaysWin = false; //CosmosData::SettingsHolder::GetInstance()->GetSettingValue(CosmosData::COSMOS_SETTING_HOST_ALWAYS_WINS) == CosmosData::ENABLED;
+        bool hostAlwaysWin = false; //Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_HOST_ALWAYS_WINS) == Cosmos::Data::ENABLED;
 
         if(hostAlwaysWin && handler.mode == ONLINEMODE_PRIVATE_VS){
             u16 hostTrack = handler.toSendPacket.playersData[0].cCourseVote;

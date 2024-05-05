@@ -27,7 +27,7 @@ void InjectAdditionalHolder(BMGHolder& baseHolder, char * filename)
 {
     baseHolder.Load(filename);
 
-    using namespace CosmosData;
+    using namespace Cosmos::Data;
 
     char baseName[] = "CosmosExtra";
     char finalName[0x10];

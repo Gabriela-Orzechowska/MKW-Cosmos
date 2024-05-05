@@ -7,7 +7,7 @@
 #include <game/UI/Ctrl/CtrlRace/CtrlRace2DMap.hpp>
 #include <game/Network/RKNetController.hpp>
 
-using namespace CosmosData;
+using namespace Cosmos::Data;
 
 static u8 defaultFpsMode = 0;
 
@@ -40,14 +40,14 @@ void SetFrameRateMidGame()
 
 }
 
-static SettingsValueUpdateHook svuhFramerate(SetFrameRateMidGame, CosmosData::COSMOS_SETTING_FRAME_MODE);
+static SettingsValueUpdateHook svuhFramerate(SetFrameRateMidGame, Cosmos::Data::COSMOS_SETTING_FRAME_MODE);
 
 void SetPerfMonitorVisibility()
 {
     ((CosmosDebug::PerformanceMonitor *) RKSystem::mInstance.processMeter)->visible = (SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_PERFORMANCE_MONITOR) == ENABLED);
 }
 static SettingsUpdateHook suhSetPerfMonitorVisibility(SetPerfMonitorVisibility);
-static SettingsValueUpdateHook svuhSetPerfMonitorVisibility(SetPerfMonitorVisibility, CosmosData::COSMOS_SETTING_PERFORMANCE_MONITOR);
+static SettingsValueUpdateHook svuhSetPerfMonitorVisibility(SetPerfMonitorVisibility, Cosmos::Data::COSMOS_SETTING_PERFORMANCE_MONITOR);
 static BootHook bhSetPerfMonitorVisibility(SetPerfMonitorVisibility, LOW);
 
 extern u32 DWC_ReportLevel;
