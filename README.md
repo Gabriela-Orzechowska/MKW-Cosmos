@@ -3,7 +3,7 @@
 Mario Kart Wii code extension for CT distributions.
 
 ## Building
-Run `Build.bat`. Update `CC=` path inside `Build.bat` if needed.
+Run `build.py`. Update `CC=` path inside `build.py` if needed.
 
 ### Requires
 [CodeWarrior for MPC55xx/MPC56xx v2.10 Special Edition](https://nxp.com/lgfiles/devsuites/PowerPC/CW55xx_v2_10_SE.exe) ([mirror](https://cache.nxp.com/lgfiles/devsuites/PowerPC/CW55xx_v2_10_SE.exe))
