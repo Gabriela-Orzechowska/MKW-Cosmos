@@ -1,6 +1,7 @@
 #pragma once
 #include <kamek.hpp>
 #include <System/Sha1.hpp>
+#include <Network/Wiimmfi.hpp>
 
 //#define NO_WIIMMFI
 #ifndef NO_WIIMMFI
@@ -95,7 +96,11 @@ end:
 
 kmCall(0x800ee3a0, wiimmfiAsm1);
 
-
+namespace Wiimmfi{
+    void RestoreAFunction(){
+        ((u32 *)wiimmfiAsm1)[1] = 0x7ee802a6;
+    }
+}
 
 asm int  wiimmfiAsm2() {
     ASM(
