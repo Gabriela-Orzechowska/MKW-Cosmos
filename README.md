@@ -1,5 +1,4 @@
 # MKW-Cosmos
-I need to update this 
 
 Mario Kart Wii code extension for CT distributions.
 
@@ -37,11 +36,13 @@ Cosmos was originally created for Mario Kart Wii Deluxe, because of that this re
 - Basic Zak's VR System
 
 ### Settings
-Settings Page, containing various settings:
+Settings Page, containing various settings, available also mid-race:
 - Race
   - Music Speed-Up
   - Draggable Blues
   - FPS Mode
+  - Toggle Mii Heads
+  - Speedometer Settings
 - Menu
   - Track Layout chooser (basic vs alphabetical;
 also can be changed with minus on track selection)
@@ -50,6 +51,7 @@ also can be changed with minus on track selection)
 - Debug (during developement)
   - DWC Logs
   - Performance Monitor
+  - Debug Messages on Screen
 - Accesibility (menu to be added)
   - Y/ZL to Wheelie
 
