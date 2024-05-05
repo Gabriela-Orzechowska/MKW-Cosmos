@@ -5,6 +5,8 @@
 #include <core/egg/ProcessMeter.hpp>
 #include <core/System/RKSystem.hpp>
 
+// Thanks to Melg for allowing me to check CTTP's PerformanceMonitor, wasnt aware what i was doing wrong
+
 namespace CosmosDebug
 {
 

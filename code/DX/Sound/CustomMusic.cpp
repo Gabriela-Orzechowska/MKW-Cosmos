@@ -3,6 +3,8 @@
 #include <game/Sound/AudioManager.hpp>
 #include <game/Sound/RaceAudioManager.hpp>
 
+#ifdef DX_FEATURES
+
 #define CUSTOM_WIN_MUSIC
 #ifdef CUSTOM_WIN_MUSIC
 
@@ -61,4 +63,5 @@ namespace DX
 } // namespace DX
 
 
+#endif
 #endif

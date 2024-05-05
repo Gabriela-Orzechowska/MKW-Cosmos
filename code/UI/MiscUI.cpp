@@ -75,6 +75,7 @@ static char * suffixes[13] = {
 
 kmWriteRegionInstruction(0x80604094, 0x4800001c, 'E');
 
+// Entire language system needs to a redo
 
 static u32 fontFileName = 0x0;
 static u32 fontBRFNTName = 0x0;
@@ -169,13 +170,6 @@ static SettingsUpdateHook FasterPages(FasterPageTransition);
 
 kmBranch(0x8053fc98, UpdateArchiveHolderLanguageOnInit);
 
-void DisableBMGSizeOverride()
-{
-    extern u32 p_bmgSizeAddress;
-    p_bmgSizeAddress = 0xa01d004c; //lhz r0,0x4c(r29)
-}
-
-static LeCodeLoadHook fuckingbmgFix(DisableBMGSizeOverride);
 
 void WhiteStrapTransition()
 {
@@ -184,5 +178,7 @@ void WhiteStrapTransition()
     RKSystem::sInstance->sceneManager->colorFader->setColor(white);
 }
 
+kmWrite32(0x80007758, 0x981e0ccc);
+kmWrite32(0x80007bc8, 0x4e800020);
 //static BootHook hWhiteStrapTransition(WhiteStrapTransition, LOW);
 

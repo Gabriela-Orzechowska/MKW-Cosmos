@@ -25,9 +25,6 @@ namespace Cosmos{
         )
     }
 
-    kmWrite32(0x80007758, 0x981e0ccc);
-    kmWrite32(0x80007bc8, 0x4e800020);
-
     System * System::sInstance = nullptr;
 
     static CosmosDebug::DebugMessage systemMessage(false, "Cosmos " __COSMOS_VERSION__ " (" __COMPILER_VERSION__ " "  __DATE__ ") Loaded");
@@ -74,6 +71,11 @@ namespace Cosmos{
         this->currentTTMode = mode;
         CosmosLog("Setting TT gamemode to: %s\n", mode == COSMOS_TT_200cc ? "200cc" : "150cc");
     }
+
+    #ifndef DX_FEATURES
+    kmWrite32(0x808b5cd8, 0x3fc00000); //100cc -> 1.5f => 200cc
+    #endif
+
 
     void System::Shutdown(){
         Shutdown(false);

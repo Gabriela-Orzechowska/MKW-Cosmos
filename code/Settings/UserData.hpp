@@ -237,11 +237,8 @@ namespace Cosmos
         {
             u8 setting[SETTINGS_PER_PAGE];
         };
-        class SettingBase
-        {
-        };
 
-        class Settings : SettingBase
+        class Settings
         {
         public:
             Settings(){};

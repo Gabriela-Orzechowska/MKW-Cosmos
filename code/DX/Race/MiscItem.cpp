@@ -8,6 +8,8 @@
 #include <game/Item/ItemSlotTable.hpp>
 #include <game/Item/Obj/ItemObj.hpp>
 
+#ifdef DX_FEATURES
+
 //Increase Item Limit
 
 #define NEW_ITEM_LIMIT 0x10;
@@ -38,3 +40,5 @@ kmWrite32(0x80573188, 0x38600001);
 
 // Cant lose Thunder Cloud
 kmWrite32(0x807AFAA8, 0x48000038);
+
+#endif

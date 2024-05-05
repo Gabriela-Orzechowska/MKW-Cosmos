@@ -13,6 +13,8 @@
 typedef char FileName[255];
 #define MAXFATFILEPATH 130
 
+// Base and Riivo Managers are gotten from SIP, thanks to Melg
+
 namespace CosmosFile
 {
     enum FILE_MODE{

@@ -1,5 +1,7 @@
 #include <Controller/MiscController.hpp>
 
+// This code is inspired by Bbg's VP implementation
+
 namespace CosmosController
 {
     

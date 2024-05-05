@@ -96,6 +96,8 @@ end:
 
 kmCall(0x800ee3a0, wiimmfiAsm1);
 
+// This is the weirdest function in this code, wiimmfi writes into the code, which breaks one of my security checks, not available in this repo
+
 namespace Wiimmfi{
     void RestoreAFunction(){
         ((u32 *)wiimmfiAsm1)[1] = 0x7ee802a6;

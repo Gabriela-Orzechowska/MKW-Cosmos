@@ -13,6 +13,8 @@
 #include <Debug/IOSDolphin.hpp>
 #include <Ghost/AntiCheat.hpp>
 
+// Insprired by SIP implementation, should rewrite it to avoid issues, one of the first things I added
+
 namespace Cosmos
 {
     namespace Ghost

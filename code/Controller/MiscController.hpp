@@ -2,6 +2,8 @@
 #include <game/Input/InputData.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
 
+// This code is inspired by Bbg's VP implementation
+
 namespace CosmosController
 {
     enum ButtonCommon{

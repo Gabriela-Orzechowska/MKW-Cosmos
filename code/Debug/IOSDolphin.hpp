@@ -5,6 +5,8 @@
 #include <core/rvl/os/OS.hpp>
 #include <main.hpp>
 
+// I need to make this a class
+
 namespace IOS
 {
     namespace Dolphin

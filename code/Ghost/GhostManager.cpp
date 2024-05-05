@@ -98,9 +98,9 @@ namespace Cosmos
             this->rkgCount = counter;
 
             // Set correct CC mode
-            EngineClass cc = CC_100;
+            EngineClass cc = CC_150;
             if (Cosmos::System::GetStaticInstance()->GetTTMode() == Cosmos::COSMOS_TT_200cc)
-                cc = CC_150;
+                cc = CC_100;
             RaceData::GetStaticInstance()->menusScenario.GetSettings().engineClass = cc;
         }
 

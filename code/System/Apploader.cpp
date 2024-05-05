@@ -8,6 +8,8 @@ extern void Run(entryPoint entry);
 
 #define LOADER_SIZE 0xC20
 
+// This was supposed to support restarting the game and making it reload the Loader after its reinitialization, idk if currently works, i doubt
+
 void PreRestart(u32 mode)
 {
     void * buffer = (void *) 0x81400000;

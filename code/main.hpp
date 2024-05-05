@@ -14,9 +14,6 @@ namespace Cosmos
     {
         WARNING_PAGE = 0xBA,
         SETTINGS_MAIN = 0xB7,
-        RACE_SETTINGS1 = 0xB8,
-        MENU_SETTINGS1 = 0xB9,
-        DEBUG_SETTINGS = 0xBB,
     };
 
     const char packFolder[] = "/Cosmos";
@@ -39,7 +36,7 @@ namespace Cosmos
 
         void Init();
         void CreateFolders();
-        TT_MODE GetTTMode() { CosmosLog("Current gamemode: %s\n", this->currentTTMode == COSMOS_TT_200cc ? "200cc" : "150cc" );return this->currentTTMode; }
+        TT_MODE GetTTMode() { return this->currentTTMode; }
         void SetTTMode(TT_MODE mode);
 
         static void Shutdown();

@@ -4,6 +4,8 @@
 #include <game/Visual/Model/ModelDirector.hpp>
 #include <game/System/Archive.hpp>
 
+#ifdef DX_FEATURES
+
 namespace DX
 {
     static ArchiveSource fibSource = ARCHIVE_HOLDER_COURSE;
@@ -68,4 +70,7 @@ namespace DX
     }
     kmCall(0x807a0160, LoadProperBrres);
 
+
 } // namespace DX
+
+#endif

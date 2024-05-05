@@ -6,6 +6,8 @@
 #include <game/Item/ItemManager.hpp>
 #include <game/Item/ItemBehaviour.hpp>
 
+#ifdef DX_FEATURES
+
 namespace DX
 {
     ItemPlayer * GetItemPlayer(KartCollision * kartCollision)
@@ -103,3 +105,5 @@ namespace DX
     //TC
 
 } // namespace DX
+
+#endif

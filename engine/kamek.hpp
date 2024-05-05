@@ -112,25 +112,8 @@ struct PtmfHolder_3A : PtmfHolderBase_3A<Ret, A1, A2, A3> {
 };
 
 
-#ifdef __INTELLISENSE__
-#define NANDSZSLOADER 1
-#define GHOSTLOADER 1
-#define BOOTMENUS 1
-#define MULTIGHOST 1
-#define WIIMMFI 1
-#define ENHANCEDREPLAY 1
-#define BUFFBADKARTS 1
-#define UMT 1
-#define PANEL 1
-#define INFODISPLAY 1
-#define LECODE 1
-#define LAPSPEED 1
-#define CCMODIF 1
-#define FILELOADING 1
-#define DEBUG 1
-#else
-#endif
 
+#define DX_FEATURES
 #define DEBUG_COSMOS
 #define CosmosLog(f, ...) OSReport("[Cosmos:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
 #define CosmosError(f, ...) OSReport("[Cosmos Error:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)

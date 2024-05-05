@@ -3,6 +3,8 @@
 #include <game/Network/RKNetController.hpp>
 #include <Debug/IOSDolphin.hpp>
 
+#ifdef DX_FEATURES
+
 extern "C"{
     int DWC_AddMatchKeyInt(u32 id, char * param_2, u32 * valuePointer);
     float CalcRating(float x);
@@ -115,3 +117,6 @@ namespace DX
     kmWrite32(0x80661b1c, 0x38001388);
     kmWrite32(0x80661b8c, 0x38001388);
 } // namespace DX
+
+
+#endif

@@ -6,45 +6,6 @@
 #include <core/egg/Display.hpp>
 #include <core/System/RKSystem.hpp>
 
-namespace nw4r
-{
-    // NW4R CharWriter
-    class TextureFilter
-    {
-    public:
-        GXTexFilter         atSmall;
-        GXTexFilter         atLarge;
-
-        bool                operator !=(const TextureFilter& rhs) const
-        {
-            return (atSmall != rhs.atSmall)
-                || (atLarge != rhs.atLarge);
-        }
-    };
-
-
-    class LoadingTexture
-    {
-    public:
-        GXTexMapID          slot;
-        const void*         texture;
-        TextureFilter       filter;
-
-        bool                operator !=(const LoadingTexture& rhs) const
-        {
-            return (slot != rhs.slot)
-                || (texture != rhs.texture)
-                || (filter != rhs.filter);
-        }
-        void                Reset()
-        {
-            slot    = GX_TEXMAP_NULL;
-            texture = NULL;
-        }
-    };
-} // namespace nw4r
-
-
 extern "C"{
     extern u32 sFontData2[77];
     extern u8 asciiTable[0x60]; //802470c8
@@ -113,6 +74,7 @@ namespace CosmosDebug
 
 
         static void Init(){
+            // Make the space appear as black image
             asciiTable[0x20] = 0x7a;
             sFontData2[28] = 0x60000000;
             sFontData2[29] = 0x110002a0;
@@ -130,7 +92,6 @@ namespace CosmosDebug
         bool isDisplayed;
         bool hasTimer;
         int curTime;
-        
 
     };
 
