@@ -35,7 +35,7 @@ extern "C"{
     void OSShutdownToSBY(); //801ab960
     bool OSGetCurrentThread(); //801a98b0
     bool OSIsTitleInstalled(u64 titleID); //801ae4a0
-
+    void OSProtectRange( u32 chan, void* addr, u32 nBytes, u32 control );
     u32 OSGetPhysicalMem1Size(); //801a75d0
     u32 OSGetPhysicalMem2Size(); //801a75dc
 }

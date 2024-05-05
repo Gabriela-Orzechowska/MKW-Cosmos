@@ -48,7 +48,7 @@ void SetPerfMonitorVisibility()
 }
 static SettingsUpdateHook suhSetPerfMonitorVisibility(SetPerfMonitorVisibility);
 static SettingsValueUpdateHook svuhSetPerfMonitorVisibility(SetPerfMonitorVisibility, Cosmos::Data::COSMOS_SETTING_PERFORMANCE_MONITOR);
-static BootHook bhSetPerfMonitorVisibility(SetPerfMonitorVisibility, LOW);
+static StrapEndHook bhSetPerfMonitorVisibility(SetPerfMonitorVisibility);
 
 extern u32 DWC_ReportLevel;
 void SetDWCLogs(){

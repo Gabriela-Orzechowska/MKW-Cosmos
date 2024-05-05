@@ -96,6 +96,7 @@ end:
 kmCall(0x800ee3a0, wiimmfiAsm1);
 
 
+
 asm int  wiimmfiAsm2() {
     ASM(
         nofralloc;

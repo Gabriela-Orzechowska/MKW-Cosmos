@@ -184,5 +184,5 @@ void WhiteStrapTransition()
     RKSystem::sInstance->sceneManager->colorFader->setColor(white);
 }
 
-static BootHook hWhiteStrapTransition(WhiteStrapTransition, LOW);
+//static BootHook hWhiteStrapTransition(WhiteStrapTransition, LOW);
 

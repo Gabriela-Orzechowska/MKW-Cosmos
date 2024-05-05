@@ -177,7 +177,6 @@ namespace Cosmos
             MenuData::GetStaticInstance()->GetCurrentContext()->isNewTime = true;
         }
         static CosmosDebug::DebugMessage ghVerifyMessage(false);
-
         void GhostManager::VerifyTime()
         {
 #ifdef COSMOS_ANTI_CHEAT

@@ -15,6 +15,7 @@ extern char gameID[4];
 namespace Cosmos{
 
     //Wiimmfi Stuff
+
     using IOS::Open2ndInst;
     asm IOS::IPCResult Open(char *path, IOS::Mode mode){ 
         ASM(
@@ -23,6 +24,9 @@ namespace Cosmos{
             b Open2ndInst;
         )
     }
+
+    kmWrite32(0x80007758, 0x981e0ccc);
+    kmWrite32(0x80007bc8, 0x4e800020);
 
     System * System::sInstance = nullptr;
 
@@ -33,7 +37,7 @@ namespace Cosmos{
         sInstance->Init();
 
         CosmosDebug::DebugMessage::Init();
-        systemMessage.DisplayForX(180);
+        systemMessage.DisplayForX(15);
         return;
     }
     static BootHook bhSystem(Cosmos::System::CreateStaticInstance, FIRST);
