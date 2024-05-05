@@ -494,6 +494,7 @@ UpdateOffroad__12KartMovementFv = 0x8057c3d4
 UpdatePow__12KartMovementFv = 0x805810a8
 ApplyLightningEffect__12KartMovementFiii = 0x80580778
 Update__9KartBoostFPb = 0x80588e24
+UpdateWheelieBump__12KartMovementFv = 0x80579fe4 
 
 #KartStatus
 UpdateFromInput__10KartStatusFv = 0x8059487c
@@ -1365,6 +1366,7 @@ UseMushroom__10ItemPlayerFv = 0x807a9d3c
 ActivateLighting__FUi = 0x807b7c20
 ActivateMushroom__10ItemPlayerFv = 0x8079864c
 ActivateMegaMushroom__10ItemPlayerFv = 0x807986b4
+ItemHolderPlayerb4_use__FP16ItemHolderPlayerUi = 0x80791910
 
 SetGoldenTimer__15PlayerInventoryFi = 0x807bcab0
 SetGoldenSomething2__15PlayerInventoryFUi = 0x807bcad0
