@@ -213,7 +213,7 @@ namespace Cosmos
             {
                 // Menu
                 .settingCount = 2,
-                .settings = {{.optionCount = 13, .isBool = false, .defaultValue = 0}, // Language
+                .settings = {{.optionCount = 12, .isBool = false, .defaultValue = 0}, // Language //TODO REENABLE KOREAN
                              {.optionCount = 2, .isBool = true, .defaultValue = 0}}   // Fast Menus
             },
             {
