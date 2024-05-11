@@ -52,6 +52,7 @@ namespace Cosmos
 
         void UpdateSelectedCourse(PushButton * button);
         void SetWinningTrack(u32 course) { winningCourse = course; }
+        u16 GetWinningTrack() { return (u16) winningCourse; }
         
         void SetTrackLayout(TrackLayout layout);
         

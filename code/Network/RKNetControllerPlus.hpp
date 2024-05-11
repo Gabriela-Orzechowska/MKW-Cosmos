@@ -10,6 +10,7 @@
 
 namespace CosmosNetwork
 {
+    #pragma pack(push, 1)
     struct CosmosSELECTPlayerData{
         u16 cCourseVote;
         u16 sumPoints;
@@ -18,7 +19,9 @@ namespace CosmosNetwork
         u8 cPrevRank;
         u8 starRank;
     }; //total size 0x8
+    #pragma pack(pop)
 
+    #pragma pack(push, 1)
     struct CosmosSELECTPacket { // Based on lecode one
         u64 timeSender;
         u64 timeReceived;
@@ -29,12 +32,30 @@ namespace CosmosNetwork
         u8 playerIdToAid[12]; //0x28
         u16 winningCourse; //0x34
         u8 winningVoterAid; //0x36
-        u8 engineClassAndPhase; //0x37 none, 100, 150, mirror
-
-        u8 GetPhase() { return ((engineClassAndPhase & 0xF0) >> 4); }
-        u8 GetEngineClass() {return (engineClassAndPhase & 0x0F); }
+        u8 phase : 4;
+        u8 engineClass : 4;
     };
+    #pragma pack(pop)
     static_assert(sizeof(CosmosSELECTPacket) == 0x38, "CosmosSELECTPacket");
+
+    #pragma pack(push, 1)
+    struct CosmosRH1Packet {
+        u32 timer;
+        u32 selectId; //0x4
+        u16 team[2]; //0x8
+        u16 lagFrames; //0xc
+        u16 kartAndCharacter[2]; //0xe treated as a u16 ingame
+        u16 countdownTime; //0x12
+        u8 starCount1 : 4;
+        u8 starCount2 : 4;
+        u16 trackId;
+        u8 unknown_0x17;
+        u8 aidsBelongToPlayer[12]; //0x18
+        u8 engineClass;
+        u8 unknown_0x25[3];
+    };
+    #pragma pack(pop)
+    static_assert(sizeof(CosmosRH1Packet) == 0x28, "CosmosRH1Packet");
 
     class RKNetSELECTHandlerPlus {
         public:

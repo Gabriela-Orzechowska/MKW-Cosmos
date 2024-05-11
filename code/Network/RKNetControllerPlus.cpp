@@ -1,15 +1,16 @@
 #include <Network/RKNetControllerPlus.hpp>
+#include <game/Network/RKNetPlayerInfo.hpp>
 
 namespace CosmosNetwork
 {
     u8 GetActualEngineClass(RKNetSELECTHandlerPlus * handler) {
-        if(handler->toSendPacket.GetPhase() != 0) return handler->toSendPacket.GetEngineClass();
+        if(handler->toSendPacket.phase != 0) return handler->toSendPacket.engineClass;
         return 0xFF;
     }
     kmBranch(0x8066048c, GetActualEngineClass);
 
     u16 GetActualWinningCourse(RKNetSELECTHandlerPlus * handler) {
-        if(handler->toSendPacket.GetPhase() == 2) return handler->toSendPacket.winningCourse;
+        if(handler->toSendPacket.phase == 2) return handler->toSendPacket.winningCourse;
         return 0xFF;
     }
     kmBranch(0x80660450, GetActualWinningCourse);
@@ -79,7 +80,7 @@ namespace CosmosNetwork
     kmCall(0x80661490, DecideTrack);
 
     u32 SetCorrectSlot(RKNetSELECTHandlerPlus& handler) {
-        if(handler.toSendPacket.GetPhase() == 2) return Cosmos::CupManager::GetStaticInstance()->GetCurrentTrackSlot();
+        if(handler.toSendPacket.phase == 2) return Cosmos::CupManager::GetStaticInstance()->GetCurrentTrackSlot();
         return -1;
     }
     kmCall(0x80650ea8, SetCorrectSlot);
@@ -89,6 +90,76 @@ namespace CosmosNetwork
         root.RequestLoadCourseAsync((CourseId)winningCourse);
     }
     kmCall(0x80644414, LoadCorrectTrack);
+
+    void PatchRaceHeader1(PacketHolder& holder, RACEHEADER1Packet* packet, u32 len){
+        CosmosRH1Packet* cpacket = (CosmosRH1Packet*) packet;
+        cpacket->starCount1 = packet->starCount[0];
+        cpacket->starCount2 = packet->starCount[1];
+        cpacket->trackId = Cosmos::CupManager::GetStaticInstance()->GetWinningTrack();
+        holder.Copy(cpacket, len);
+    }
+
+    kmCall(0x80655458, PatchRaceHeader1);
+    kmCall(0x806550e4, PatchRaceHeader1);
+    
+    void ImportPatchRaceHeader1() {
+        register CosmosRH1Packet* packet;
+        register RH1Data* data;
+        asm{
+            ASM(
+                mr packet, r28;
+                mr data, r26;
+                addi data, data, 0x20;
+            )
+        }
+        data->trackId = (CourseId) packet->trackId;
+        data->starCount[0] = packet->starCount1;
+        data->starCount[1] = packet->starCount2;
+    }
+    kmCall(0x80665310, ImportPatchRaceHeader1);
+
+    u32 GetCorrectSlot(const RKNetRH1Handler& handler){
+        Cosmos::CupManager* manager = Cosmos::CupManager::GetStaticInstance();
+
+        for(int i = 0; i < 12; i++){
+            const RH1Data& data = handler.rh1Data[i];
+            u32 track = data.trackId;
+            if(track == 0xFFFFFFFF) continue;
+            if(track >= 0x43 && track < 0xff) continue;
+            if(data.timer == 0) continue;
+
+            manager->SetWinningTrack(data.trackId);
+            return manager->GetCurrentTrackSlot();
+        }
+    }
+
+    u8* GetPlayerAids(const RKNetRH1Handler& handler){
+        for(int i = 0; i < 12; i++){
+            const RH1Data& data = handler.rh1Data[i];
+            u32 track = data.trackId;
+            if(track == 0xFFFFFFFF) continue;
+            if(track >= 0x43 && track < 0xff) continue;
+
+            return (u8 *) data.aidsBelongToPlayer;
+        }
+    }
+    kmBranch(0x80664b34, GetPlayerAids);
+
+    bool IsTrackIDValid() {
+        const RKNetRH1Handler* handler = RKNetRH1Handler::sInstance;
+        for(int i = 0; i < 12; i++){
+            const RH1Data& data = handler->rh1Data[i];
+            u32 track = data.trackId;
+            if(track == 0xFFFFFFFF) continue;
+            if(track >= 0x43 && track < 0xff) continue;
+
+            return true;
+        }
+        return false;
+    }
+    kmWrite32(0x80664084, 0x2C030000); //cmpwi r3, r0
+    kmCall(0x806643a4, IsTrackIDValid);
+    kmCall(0x80664080, IsTrackIDValid);
     
     /*
     Im gonna be 100% honest, ive spend way to long on this, had several issues related to missing patches,

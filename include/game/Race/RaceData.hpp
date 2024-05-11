@@ -92,6 +92,7 @@ struct RacedataSettings{
 public:
 
     inline bool isMirror() { return modeFlags & 1; }
+    inline bool isTeams() { return modeFlags & 2; }
 
     CourseId courseId; //http://wiki.tockdom.com/wiki/List_of_Identifiers#Courses
     EngineClass engineClass;

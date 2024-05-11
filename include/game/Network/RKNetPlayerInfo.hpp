@@ -10,8 +10,8 @@ struct RACEHEADER1Packet{
     u16 lagFrames; //0xc
     u16 kartAndCharacter[2]; //0xe treated as a u16 ingame
     u16 countdownTime; //0x12
-    u8 unknown_0x14[2];
-    u8 trackId;
+    u8 starCount[2]; // 0x14
+    u8 trackId; //0x16
     u8 unknown_0x17;
     u8 aidsBelongToPlayer[12]; //0x18
     u8 engineClass;
@@ -23,12 +23,11 @@ struct RH1Data{
     KartId kartIds[2]; //0x4
     CharacterId charIds[2]; //0xc
     CourseId trackId; //0x14
-    u32 team; //0x18
+    u32 team; 
     u32 selectId; //0x1c
     u8 aidsBelongToPlayer[12]; //0x20
     u8 engineClass; //0x2c
-    u8 unknown_0x14Packet; //0x2d
-    u8 unknown_0x15Packet; //0x2e
+    u8 starCount[2];
     u8 padding;
 }; //0x30
 
