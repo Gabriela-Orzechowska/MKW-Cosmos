@@ -181,81 +181,70 @@ namespace CosmosNetwork
     */
 
 
-kmWrite32(0x8066059c, 0xA0630018);
-kmWrite32(0x806605a0, 0x60000000); 
-kmWrite32(0x806605b8, 0xA0630050);
-kmWrite32(0x806605bc, 0x60000000); 
+    kmWrite32(0x8066059c, 0xA0630018);
+    kmWrite32(0x806605a0, 0x60000000); 
+    kmWrite32(0x806605b8, 0xA0630050);
+    kmWrite32(0x806605bc, 0x60000000); 
+    kmWrite32(0x80661810, 0xA0180018);
+    kmWrite32(0x806618e4, 0xA01C0050);
+    kmWrite32(0x80661e90, 0xA01F0018);
+    kmWrite32(0x80661ef0, 0xA0030050); 
+    kmWrite32(0x80660de0, 0xA0030018);
+    kmWrite32(0x8066141c, 0xA01C0018);
 
-kmWrite32(0x80660de0, 0xA0030018);
+    kmWrite32(0x80660004, 0xB3540018);
+    kmWrite32(0x80660140, 0xB3730050);
 
-kmWrite32(0x8066141c, 0xA01C0018);
+    kmWrite32(0x80660760, 0xB0C30018);
 
-kmWrite32(0x80661810, 0xA0180018);
-kmWrite32(0x806618e4, 0xA01C0050);
-
-kmWrite32(0x80661e90, 0xA01F0018);
-kmWrite32(0x80661ef0, 0xA0030050); 
-
-
-kmWrite32(0x80660004, 0xB3540018);
-kmWrite32(0x80660140, 0xB3730050);
-
-kmWrite32(0x80660760, 0xB0C30018);
-
-kmWrite32(0x80660908, 0xB3B80018);
+    kmWrite32(0x80660908, 0xB3B80018);
 
 
-kmWrite32(0x806440c0, 0x2c030100);
-kmWrite32(0x806440c8, 0x40a00020);
-kmWrite32(0x8064411c, 0x2c0300FF); 
-kmWrite32(0x80644150, 0x386000ff); 
-kmWrite32(0x80644154, 0x2c0300FF); 
-kmWrite32(0x80644338, 0x2C0300FF); 
-kmWrite32(0x8064433c, 0x418200dc);
+    kmWrite32(0x806440c0, 0x2c030100);
+    kmWrite32(0x806440c8, 0x40a00020);
+    kmWrite32(0x8064411c, 0x2c0300FF); 
+    kmWrite32(0x80644150, 0x386000ff); 
+    kmWrite32(0x80644154, 0x2c0300FF); 
+    kmWrite32(0x80644338, 0x2C0300FF); 
+    kmWrite32(0x8064433c, 0x418200dc);
 
-kmWrite32(0x80651374, 0x88030006); 
-kmWrite32(0x806600b0, 0x9813001E);
-kmWrite32(0x806600c0, 0x9B73001E);
-kmWrite32(0x806609b0, 0x981F001E);
-kmWrite32(0x806609c0, 0x9B9F001E);
+    kmWrite32(0x80651374, 0x88030006); 
+    kmWrite32(0x806600b0, 0x9813001E);
+    kmWrite32(0x806600c0, 0x9B73001E);
+    kmWrite32(0x806609b0, 0x981F001E);
+    kmWrite32(0x806609c0, 0x9B9F001E);
 
-kmWrite32(0x80660e54, 0xA003003C); 
-kmWrite32(0x80660e58, 0x2c0000ff); 
+    kmWrite32(0x80660e54, 0xA003003C); 
+    kmWrite32(0x80660e58, 0x2c0000ff); 
+    kmWrite32(0x80660b48, 0xB3D90010);
+    kmWrite32(0x80660b5c, 0x388000ff);
+    kmWrite32(0x80660b64, 0xB0980034);
+    kmWrite32(0x80661480, 0xA01C003C);
+    kmWrite32(0x80661484, 0x2c0000ff); 
+    kmWrite32(0x80661648, 0xa078003c); 
+    kmWrite32(0x8066164c, 0x2c0300ff); 
+    kmWrite32(0x80661658, 0xA01C0074); 
+    kmWrite32(0x80661754, 0xA018003C);
+    kmWrite32(0x80661758, 0x2c0000ff);
+    kmWrite32(0x8066184c, 0xA0DC0074);
+    kmWrite32(0x80661854, 0x2c0600ff);
+    kmWrite32(0x80661f0c, 0xA01F003C);
+    kmWrite32(0x80661f10, 0x2c0000ff); 
 
-kmWrite32(0x80661480, 0xA01C003C);
-kmWrite32(0x80661484, 0x2c0000ff); 
-//ProcessNewPacketVoting
-kmWrite32(0x80661648, 0xa078003c); //extsb -> lhz
-kmWrite32(0x8066164c, 0x2c0300ff); //cmpwi 0xFFFF -> 0xFF
-kmWrite32(0x80661658, 0xA01C0074); //extsb -> lhz
-kmWrite32(0x80661754, 0xA018003C); //extsb -> lhz
-kmWrite32(0x80661758, 0x2c0000ff); //cmpwi 0xFFFF -> 0xFF
-kmWrite32(0x8066184c, 0xA0DC0074); //extsb -> lhz
-kmWrite32(0x80661854, 0x2c0600ff); //cmpwi 0xFFFF -> 0xF
-//DecideTrack
-kmWrite32(0x80661f0c, 0xA01F003C); //extsb -> lhz
-kmWrite32(0x80661f10, 0x2c0000ff); //cmpwi 0xFFFF -> 0xFF
 
-//Store
-//InitPackets
-kmWrite32(0x80660018, 0x386000ff);
-kmWrite32(0x80660020, 0xB07F003C);
-kmWrite32(0x80660150, 0xB3D50074);
+    kmWrite32(0x80660018, 0x386000ff);
+    kmWrite32(0x80660020, 0xB07F003C);
+    kmWrite32(0x80660150, 0xB3D50074);
 
-//ResetPacket
-kmWrite32(0x80660b48, 0xB3D90010);
-kmWrite32(0x80660b5c, 0x388000ff);
-kmWrite32(0x80660b64, 0xB0980034);
+    kmWrite32(0x80661e94, 0xB01F003C);
+    kmWrite32(0x80661ef4, 0xB01F003C);
+    kmWrite32(0x80661f94, 0xB3DF003C);
+    kmWrite32(0x8066200c, 0xB01F003C);
+    kmWrite32(0x80660924, 0xB07F003C);
 
-//ResetSendPacket
-kmWrite32(0x80660924, 0xB07F003C);
-//ProcessNewPacketVoting
-kmWrite32(0x80661878, 0xB0D8003C);
-//DecideTrack
-kmWrite32(0x80661e94, 0xB01F003C);
-kmWrite32(0x80661ef4, 0xB01F003C);
-kmWrite32(0x80661f94, 0xB3DF003C);
-kmWrite32(0x8066200c, 0xB01F003C);
+    kmWrite32(0x80661878, 0xB0D8003C);
+
+
 
 #pragma region UglyAssDefines
     #define LoadPhase(addr) \
