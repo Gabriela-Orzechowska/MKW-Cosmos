@@ -2,6 +2,7 @@
 #include <game/Race/RaceData.hpp>
 #include <SlotExpansion/CupManager.hpp>
 #include <UI/BMG/BMG.hpp>
+#include <game/UI/Page/Other/Votes.hpp>
 
 int GetCorrectTrackBMG(int slot)
 {
@@ -14,6 +15,28 @@ kmCall(0x807e608c, GetCorrectTrackBMG);
 kmCall(0x807e6188, GetCorrectTrackBMG);
 kmCall(0x808552bc, GetCorrectTrackBMG);
 kmCall(0x8085fa08, GetCorrectTrackBMG);
+
+kmWrite32(0x808406e8, 0x388000ff); 
+kmWrite32(0x808415ac, 0x388000ff);
+kmWrite32(0x80643004, 0x3be000ff);
+kmWrite32(0x808394e8, 0x388000ff);
+kmWrite32(0x80644104, 0x3b5b0000);
+
+void PatchVoteBMG(VoteControl& control, bool isValid, u32 bmgId, MiiGroup* group, u32 id, bool isLocal, u32 team){
+    if(bmgId != 0x1101 && bmgId < 0x2498)  bmgId = GetCorrectTrackBMG(bmgId);
+    control.Fill(isValid, bmgId, group, id, isLocal, team);
+}
+kmCall(0x806441b8, PatchVoteBMG);
+
+void PatchWinningVoteBMG(u32 trackId){
+    register Pages::Vote* page;
+    asm{
+        ASM( mr page, r27; )
+    }
+    page->trackBmgId = GetCorrectTrackBMG(trackId);
+}
+kmCall(0x80644348, PatchWinningVoteBMG);
+kmWrite32(0x8064434c, 0x48000020);
 
 extern char * COURSE_NAMES[42]; //COURSE_NAMES
 
