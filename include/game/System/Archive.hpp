@@ -51,6 +51,13 @@ enum ArchiveSource{
 
 class ArchivesHolder{
 public:
+
+    enum SourceTypes{
+        FILE_SUFFIX, 
+        FULL_FILE_PATH,
+        FILE_BUFFER,
+    };
+
     explicit ArchivesHolder(u16 archiveCount); //0x8052a538 vtable 
     static ArchivesHolder *CreateByType(ArchiveSource type); //8052a098
     virtual ~ArchivesHolder(); //8052a6dc vtable 808b31d8

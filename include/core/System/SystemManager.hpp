@@ -5,6 +5,7 @@
 
 class SystemManager{
 public: 
+    static inline SystemManager* GetStaticInstance() { return sInstance; }
     static SystemManager *sInstance; //80386000
     static void RestartGame(); //8000b1bc
     static void CloseGame(); //8000b154
