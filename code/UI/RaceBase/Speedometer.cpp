@@ -74,7 +74,7 @@ namespace CosmosUI{
                 this->animator.GetAnimationGroupById(2)->PlayAnimationAtFrameAndDisable(0, 10.0f);
                 break;
             case Cosmos::Data::SPEEDO_1_DIGIT:
-                this->places[0] = 1; this->places[1] = 2; this->places[2] = 3; this->places[4] = 5;
+                this->places[0] = 1; this->places[1] = 2; this->places[2] = 3; this->places[3] = 5;
                 this->animator.GetAnimationGroupById(4)->PlayAnimationAtFrameAndDisable(0, 11.0f);
                 this->animator.GetAnimationGroupById(0)->PlayAnimationAtFrameAndDisable(0, 10.0f);
                 break;
