@@ -388,6 +388,7 @@ GetFile__11ArchiveRootF13ArchiveSourcePCcUi = 0x805411fc
 RequestLoadCourseAsync__11ArchiveRootF8CourseId = 0x805419ac
 LoadArchive__11ArchiveRootF13ArchiveSourcePQ23EGG4HeapPCc = 0x80540450
 UnmountArchive__11ArchiveRootF13ArchiveSource = 0x805411d4
+Mount__Q23EGG7ArchiveFPvPQ23EGG4Heapi = 0x8020f768
 
 #Exception
 console__Q23EGG9Exception = 0x80386E3C

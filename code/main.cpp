@@ -115,19 +115,57 @@ namespace Cosmos{
     kmBranch(0x805e1ef4, SetCC);
     kmBranch(0x805e1d58, SetCC);
 
+    void LoadLZMAFile(ArchiveFile * file, const char * path, EGG::Heap *heap, bool isCompressed, s32 align, EGG::Heap * fileHeap, EGG::Archive::FileInfo * fileInfo)
+    {
+        if(fileHeap == nullptr) fileHeap = heap;
+        if(file->status == 0){
+            u32 allocDirection = 2;
+
+            void* buffer = DvdRipper::LoadToMainRam(path,nullptr,fileHeap,allocDirection,0,0,&file->archiveSize);
+            if(buffer != nullptr && file->archiveSize != 0){
+                file->status = 2;
+                file->archiveHeap = fileHeap;
+                file->rawArchive = buffer;
+            }
+            else {
+                file->status = 0;
+                file->archiveSize = 0;
+            }
+        }
+
+        if(file->status == 2){
+            void* dst = Compression::LZMA::Decompress((u8 *) file->rawArchive, file->archiveSize, heap);
+            if(dst == nullptr){
+                return;
+            } else {
+                fileHeap->free(file->rawArchive);
+                file->archiveHeap = nullptr;
+                file->archiveSize = 0;
+                file->rawArchive = nullptr;
+                file->decompressedArchive = dst;
+                file->decompressedArchiveHeap = heap;
+                file->decompressedarchiveSize = Compression::LZMA::GetSize();
+
+                file->archive = Archive::Mount(file->decompressedArchive, heap, 4);
+                file->status = 4;
+            }
+        }
+    }
 
     void LoadAdditionalFiles(ArchiveFile * file, const char * path, EGG::Heap *heap, bool isCompressed, s32 align, EGG::Heap * fileHeap, EGG::Archive::FileInfo * fileInfo)
     {
-        if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archives[2] == file){
-            path = Cosmos::UIArchive;
+        if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COURSE)->archives[0] == file){
+            LoadLZMAFile(file,path,heap,isCompressed,align,fileHeap,fileInfo);
         }
-        else if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COMMON)->archives[2] == file){
-            path = Cosmos::CommonArchive;
+        else {
+            if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archives[2] == file){
+                path = Cosmos::UIArchive;
+            }
+            else if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COMMON)->archives[2] == file){
+                path = Cosmos::CommonArchive;
+            }
+            file->Load(path, heap, isCompressed, align, fileHeap, fileInfo);
         }
-        //else if(&ArchiveRoot::GetStaticInstance()->archivesHolders[ARCHIVE_HOLDER_COURSE]->archives[4] == file){
-        //    path = DX::CourseArchive;
-        //}
-        file->Load(path, heap, isCompressed, align, fileHeap, fileInfo);
         CosmosLog("Loading %s\n", path);
     }
 
@@ -135,6 +173,19 @@ namespace Cosmos{
     kmWrite32(0x8052a188, 0x38800003); //+1 for UICosmos.szs
     //kmWrite32(0x8052a148, 0x38800005); //+1 for CourseDX.szs
     kmCall(0x8052aa2c, LoadAdditionalFiles);
+
+    void PatchSuffix(ArchivesHolder* courseHolder){
+        char lz[] = ".lzma";
+        char szs[] = ".szs";
+        strncpy(courseHolder->archiveSuffixes[0], lz, 6);
+        strncpy(courseHolder->archiveSuffixes[1], szs, 5);
+        courseHolder->sourceType[0] = ArchivesHolder::FILE_SUFFIX;
+        courseHolder->sourceType[1] = ArchivesHolder::FILE_SUFFIX;
+        if(courseHolder->archiveCount > 2) courseHolder->sourceType[2] = 4;
+        if(courseHolder->archiveCount > 3) courseHolder->sourceType[3] = 4;
+    }
+
+    kmBranch(0x8052a21c, PatchSuffix);
 
     //Unlock Everything Without Save [_tZ]
     kmWrite32(0x80549974,0x38600001);

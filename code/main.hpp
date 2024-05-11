@@ -5,6 +5,8 @@
 #include <game/System/Identifiers.hpp>
 #include <core/rvl/ipc/ipc.hpp>
 #include <core/rvl/os/OS.hpp>
+#include <System/LZMA.hpp>
+#include <core/egg/DvdRipper.hpp>
 
 //#define NO_FAST_MENU
 
