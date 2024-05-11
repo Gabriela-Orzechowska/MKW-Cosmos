@@ -154,8 +154,13 @@ namespace Cosmos{
 
     void LoadAdditionalFiles(ArchiveFile * file, const char * path, EGG::Heap *heap, bool isCompressed, s32 align, EGG::Heap * fileHeap, EGG::Archive::FileInfo * fileInfo)
     {
-        if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COURSE)->archives[0] == file){
+        ArchiveFile* courseArchives = ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COURSE)->archives;
+        if(&courseArchives[0] == file){
             LoadLZMAFile(file,path,heap,isCompressed,align,fileHeap,fileInfo);
+        }
+        if(&courseArchives[1] == file){
+            if(courseArchives[0].archive != nullptr)
+                return;
         }
         else {
             if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archives[2] == file){
@@ -176,7 +181,7 @@ namespace Cosmos{
 
     void PatchSuffix(ArchivesHolder* courseHolder){
         char lz[] = ".lzma";
-        char szs[] = ".szs";
+        char szs[] = ".szs"; // if lzma one doesnt exist 
         strncpy(courseHolder->archiveSuffixes[0], lz, 6);
         strncpy(courseHolder->archiveSuffixes[1], szs, 5);
         courseHolder->sourceType[0] = ArchivesHolder::FILE_SUFFIX;
