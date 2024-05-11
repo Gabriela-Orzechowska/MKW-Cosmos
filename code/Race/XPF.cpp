@@ -25,7 +25,7 @@ namespace Cosmos
     void XPFManager::EvaluateConditions(ObjectHolder& holder)
     {
         this->randScenario = random.NextLimited(8);
-        if(isTT()) this->randScenario = 0;
+        if(isTT() || isOnline()) this->randScenario = 0;
         CosmosLog("XPF Scenario: %d\n", this->randScenario);
 
         s32 objectCount = KMP::Controller::GetStaticInstance()->gobj->pointCount;

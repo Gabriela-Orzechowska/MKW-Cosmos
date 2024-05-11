@@ -203,7 +203,9 @@ namespace Cosmos
 
         void UpdateStartTime(Page &page, u32 soundIdx, u32 param_3)
         {
-            AntiCheat::GetStaticInstance()->Reset(IOS::Dolphin::GetSystemTime());
+            AntiCheat* antiCheat = AntiCheat::GetStaticInstance();
+            if(antiCheat != nullptr)
+                antiCheat->Reset(IOS::Dolphin::GetSystemTime());
             page.PlaySound(soundIdx, param_3);
             return;
         }
