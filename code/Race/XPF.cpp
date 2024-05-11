@@ -198,11 +198,14 @@ namespace Cosmos
             EngineClass enClass = scenario->settings.engineClass;
             if((val & 0x1) && enClass == CC_BATTLE) ret = true;
             if((val & 0x2) && enClass == CC_50) ret = true;
-            if((val & 0x4) && enClass == CC_100) ret = true;
             if((val & 0x8) && enClass == CC_150) ret = true;
-            // for 200cc implement your own code
-            //if((val & 0x10 && enClass == CC_200)) ret = true;
             if((val & 0x20) && enClass == CC_150 && (scenario->settings.modeFlags & 1)) ret = true;
+            #ifdef DX_FEATURES
+            if((val & 0x4) && enClass == CC_100) ret = true;
+            #else
+            if((val & 0x10 && enClass == CC_100)) ret = true;
+            #endif
+            //if((val & 0x10 && enClass == CC_200)) ret = true;
             //if((val & 0x40) && enClass == CC_200 && (scenario->settings.modeFlags & 1)) ret = true;
         }
         else if(val >= 0x1f00){
