@@ -56,15 +56,7 @@ namespace Cosmos{
     {
         CosmosFile::FileManager * manager = CosmosFile::FileManager::GetStaticInstance();
         manager->CreateFolder(packFolder);
-        manager->CreateFolder(ghostFolder);
-
-        s32 ret = IOS::Dolphin::Open();
-        if(ret > 0)
-        {
-            isDolphin = true;
-            IOS::Dolphin::Close();
-        }
-         
+        manager->CreateFolder(ghostFolder);         
     }
 
     void System::SetTTMode(TT_MODE mode){
@@ -72,18 +64,13 @@ namespace Cosmos{
         CosmosLog("Setting TT gamemode to: %s\n", mode == COSMOS_TT_200cc ? "200cc" : "150cc");
     }
 
-    #ifndef DX_FEATURES
-    kmWrite32(0x808b5cd8, 0x3fc00000); //100cc -> 1.5f => 200cc
-    #endif
-
-
     void System::Shutdown(){
         Shutdown(false);
     }
 
     void System::Shutdown(bool force)
     {
-        if(isDolphin) {
+        if(IOS::Dolphin::IsOpen()) {
             if(force) OSShutdownToSBY();
             else OSShutdownSystem();
         }

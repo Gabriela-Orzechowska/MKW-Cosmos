@@ -7,7 +7,7 @@
 #include <Controller/MiscController.hpp>
 
 #ifndef WORLDWIDE_TEST
-
+#ifdef DX_FEATURES
 namespace DX
 {
     
@@ -36,8 +36,6 @@ namespace DX
     // Engine Class Speed Factors
 
     kmWrite32(0x808b5cd4, 0x3f666666); //50cc -> 0.9f => 100cc
-    kmWrite32(0x808b5cdc, 0x3f800000); //100cc -> 1.0f => 150cc
-    kmWrite32(0x808b5cd8, 0x3f8ccccd); //150cc -> 1.1f => "200"cc
 
     // Max Speed -> 145 u/f
     kmWrite32(0x808b59f4, 0x43070000);
@@ -45,4 +43,5 @@ namespace DX
 } // namespace DX
 
 
+#endif
 #endif

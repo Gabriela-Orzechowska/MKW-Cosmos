@@ -7,6 +7,7 @@
 #include <Controller/MiscController.hpp>
 #include <game/KMP/STGI.hpp>
 #include <game/UI/Ctrl/CtrlRace/CtrlRace2DMap.hpp>
+#include <game/Item/Obj/ItemObj.hpp>
 
 void DraggableBlues(ItemPlayerSub& sub)
 {
@@ -26,6 +27,9 @@ kmWrite32(0x807a7f6c, 0x38c00000); //FIB are always red
 kmWrite32(0x807b0bd4, 0x38000000); //pass TC to teammate
 kmWrite32(0x807bd2bc, 0x38000000); //RaceGlobals
 kmWrite32(0x807f18c8, 0x38000000); //TC alert
+
+
+kmWrite32(0x808b5cd8, 0x3f800000); //100cc -> 1.0f for 200
 
 // Lap Modifier
 
@@ -66,3 +70,52 @@ void CorrectKTPTRotationMirror(CtrlRace2DMapObject& object, Vec3 * rotation)
 }
 
 kmCall(0x807ea6e0, CorrectKTPTRotationMirror);
+
+// Speedmod
+
+void SetSpeedmod(Kart& kart){
+
+    bool is200 = RaceData::GetStaticInstance()->racesScenario.settings.engineClass == CC_100;
+
+    float factor = 1.0f;
+    #ifdef DX_FEATURES
+    if(is200) factor = 1.1f;
+    #else
+    if(is200) factor = 1.5f;
+    #endif
+
+    u32 mod = KMP::Controller::GetStaticInstance()->stageInfo->pointArray[0]->raw->speedMod;
+    mod = mod << 16;
+    float speedMod = *(float*)&mod;
+
+    if(speedMod == 0.0f) speedMod = 1.0f;
+    factor *= speedMod;
+
+    greenShellSpeed = 105.f * factor;
+    redShellInitialSpeed = 75.0f * factor;
+    redShellSpeed = 130.0f * factor;
+    blueShellHomingSpeed = 130.0f * factor;
+    blueShellMinimumDiveDistance = 6400000.0f * factor;
+    blueShellSpeed = 260.0f * factor;
+
+    hardSpeedCap = 120.0f * factor;
+    bulletSpeed = 145.0f * factor;
+    starSpeed = 105.0f * factor;
+    megaTCSpeed = 95.0f * factor;
+
+    KartStats* stats = kart.values->statsAndBsp->stats;
+
+    stats->baseSpeed *= factor;
+    stats->standard_acceleration_as[0] *= factor;
+    stats->standard_acceleration_as[1] *= factor;
+    stats->standard_acceleration_as[2] *= factor;
+    stats->standard_acceleration_as[3] *= factor;
+
+    minDriftSpeedRatio = is200 ? 0.36f : 0.55f;
+    regularBoostAccel = 3.0f * factor;
+    unknown_70 = 70.0f * factor;
+
+
+    kart.Init();
+}
+kmCall(0x8058f778, SetSpeedmod);

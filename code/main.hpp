@@ -49,8 +49,6 @@ namespace Cosmos
         TT_MODE currentTTMode;
     };
 
-    static bool isDolphin = false;
-
     IOS::IPCResult Open(char *path, IOS::Mode mode);
     void SetTTCC(TT_MODE mode);
     void SetCC();

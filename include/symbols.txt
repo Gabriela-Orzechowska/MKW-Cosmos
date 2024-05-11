@@ -487,6 +487,7 @@ GetDriftState__4KartCFv = 0x805911d8
 Compute__11StatsAndBspF6KartId11CharacterId= 0x80591fa4
 Update__18WheelPhysicsHolderFfP4Vec3P5Mtx34 = 0x8059a278
 GetKartMovement__8KartBaseCFv = 0x8059077c
+Init__4KartFv = 0x8058e22c
 
 
 #KartMovement
