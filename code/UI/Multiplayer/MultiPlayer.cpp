@@ -31,7 +31,7 @@ namespace CosmosUI
 
         PushButton * button = &this->changeComboButton;
         this->AddControl(0x0F, button, 0);
-        button->Load("button", "DXVRScreen", "ChangeCombo", 1, 0, false);
+        button->Load("button", "CosmosVRScreen", "ChangeCombo", 1, 0, false);
         button->SetOnClickHandler((PtmfHolder_2A<Page, void, PushButton *, u32> * )&this->onChangeComboButton, 0);
         button->manipulator.SetAction(START_PRESS, &button->onClickHandlerObj, 0);
     }
@@ -42,7 +42,7 @@ namespace CosmosUI
         MenuId menuId = MenuData::GetStaticInstance()->curScene->menuId;
         if(isVotingScreen(menuId))
         {
-            controlName = "DXVRScreen";
+            controlName = "CosmosVRScreen";
         }
         button.Load(folderName, controlName, variant, localPlayerCount, param_5, inaccesable);
     }
@@ -57,6 +57,7 @@ namespace CosmosUI
 
     void AddChangeComboPage(Scene& scene, PageId id)
     {
+        
         scene.CreatePage(id);
         scene.CreatePage(CHARACTER_SELECT);
         switch (scene.menuId)
@@ -85,7 +86,6 @@ namespace CosmosUI
         }
         return;
     }
-
     kmCall(0x8062e09c, AddChangeComboPage);
     kmCall(0x8062e7e0, AddChangeComboPage);
     kmCall(0x8062e870, AddChangeComboPage);

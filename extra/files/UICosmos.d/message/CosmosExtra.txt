@@ -108,14 +108,6 @@
  2820   = A solo race for the fastest record! (200cc)
  2830   = Change Combo
  2840   = Some changes require a restart
-  13100	= DS Test Circle \n\z{800,40}\c{blue1}Bruh de la Boi\c{off}
-  13101	= Castle Gorge \n\z{800,40}\c{blue1}Toadette Hack Fan, Mystora\c{off} 
-  13102	= KKW Prismatic Parkway \n\z{800,40}\c{blue1}Mystora\c{off} 
-  13103	= Ruinated Peach's Castle \n\z{800,40}\c{blue1}Gabriela_\c{off}
-  13104	= Blissful Block \n\z{800,40}\c{blue1}Strobenz\c{off}
-  13105	= Strobenz Desert Illusion \n\z{800,40}\c{blue1}Strobenz\c{off}
-  13106	= Snabo Desert \n\z{800,40}\c{blue1}JorisMKW\c{off}
-  13107	= Fever \c{blue1}Factory\c{off} \n\z{800,40}\c{blue1}Gabriela_\c{off}
 
 6000    = Mushroom
 6001    = Shell
@@ -125,82 +117,29 @@
 6005    = Leaf
 6006    = Special
 6007    = Lighting
-6008    = Bubble
-6009    = Drill
 
-7000	= \c{blue1}Wii \c{off}Mario Circuit
-  7001	= \c{blue1}Wii \c{off}Moo Moo Meadows
-  7002	= \c{blue1}Wii \c{off}Mushroom Gorge
-  7003	= \c{blue1}Wii \c{off}Grumble Volcano
-  7004	= \c{blue1}Wii \c{off}Toad's Factory
-  7005	= \c{blue1}Wii \c{off}Coconut Mall
-  7006	= \c{blue1}Wii \c{off}DK's Snowboard Cross
-  7007	= \c{blue1}Wii \c{off}Wario's Gold Mine
-  7008	= \c{blue1}Wii \c{off}Luigi Circuit
-  7009	= \c{blue1}Wii \c{off}Daisy Circuit
-  700a	= \c{blue1}Wii \c{off}Moonview Highway
-  700b	= \c{blue1}Wii \c{off}Maple Treeway
-  700c	= \c{blue1}Wii \c{off}Bowser's Castle
-  700d	= \c{blue1}Wii \c{off}Rainbow Road
-  700e	= \c{blue1}Wii \c{off}Dry Dry Ruins
-  700f	= \c{blue1}Wii \c{off}Koopa Cape
-  7010	= \c{blue1}GCN \c{off}Peach Beach
-  7011	= \c{blue1}GCN \c{off}Mario Circuit
-  7012	= \c{blue1}GCN \c{off}Waluigi Stadium
-  7013	= \c{blue1}GCN \c{off}DK Mountain
-  7014	= \c{blue1}DS \c{off}Yoshi Falls
-  7015	= \c{blue1}DS \c{off}Desert Hills
-  7016	= \c{blue1}DS \c{off}Peach Gardens
-  7017	= \c{blue1}DS \c{off}Delfino Square
-  7018	= \c{blue1}SNES \c{off}Mario Circuit 3
-  7019	= \c{blue1}SNES \c{off}Ghost Valley 2
-  701a	= \c{blue1}N64 \c{off}Mario Raceway
-  701b	= \c{blue1}N64 \c{off}Sherbet Land
-  701c	= \c{blue1}N64 \c{off}Bowser's Castle
-  701d	= \c{blue1}N64 \c{off}DK's Jungle Parkway
-  701e	= \c{blue1}GBA \c{off}Bowser Castle 3
-  701f	= \c{blue1}GBA \c{off}Shy Guy Beach
-  7020	= \c{yor7}-----\c{off}
-  7021	= \c{yor7}-----\c{off}
-  7022	= \c{yor7}-----\c{off}
-  7023	= \c{yor7}-----\c{off}
-  7024	= \c{yor7}-----\c{off}
-  7025	= \c{yor7}-----\c{off}
-  7026	= \c{yor7}-----\c{off}
-  7027	= \c{yor7}-----\c{off}
-  7028	= \c{yor7}-----\c{off}
-  7029	= \c{yor7}-----\c{off}
-  702a	/
-  702b	/
-  702c	/
-  702d	/
-  702e	/
-  702f	/
-  7030	/
-  7031	/
-  7032	/
-  7033	/
-  7034	/
-  7035	/
-  7036	= Ring Mission
-  7037	= Winningrun Demo
-  7038	= Loser Demo
-  7039	= Draw Demo
-  703a	= Ending Demo
-  703b	/
-  703c	/
-  703d	/
-  703e	/
-  703f	/
-  7040	/
-  7041	/
-  7042	/
-  7043	=  Wiimms SZS Toolset v2.25a r8443
-  7100	= DS Test Circle
-  7101	= Castle Gorge
-  7102	= KKW Prismatic Parkway
-  7103	= Ruinated Peach's Castle
-  7104	= Blissful Block
-  7105	= Strobenz Desert Illusion
-  7106	= Snabo Desert
-  7107	= Fever \c{blue1}Factory\c{off}
+  6008  =  Bubble
+  6009  =  Drill
+
+
+  7100  = DS Test Circle
+  7101  = Castle Gorge
+  7102  = KKW Prismatic Parkway
+  7103  = Ruinated Peach's Castle
+  7104  = Blissful Block
+  7105  = Strobenz Desert Illusion
+  7106  = Snabo Desert
+  7107  = Lava Lake
+
+
+  13100  = DS Test Circle\n\z{800,40}\c{blue1}Bruh de la Boi\c{off}
+  13101  = Castle Gorge\n\z{800,40}\c{blue1}Mystora & THF\c{off}
+  13102  = KKW Prismatic Parkway\n\z{800,40}\c{blue1}Mystora\c{off}
+  13103  = Ruinated Peach's Castle\n\z{800,40}\c{blue1}Gabriela_\c{off}
+  13104  = Blissful Block\n\z{800,40}\c{blue1}Strobenz\c{off}
+  13105  = Strobenz Desert Illusion\n\z{800,40}\c{blue1}Strobenz\c{off}
+  13106  = Snabo Desert\n\z{800,40}\c{blue1}Joris\c{off}
+  13107  = Lava Lake\n\z{800,40}\c{blue1}Joris\c{off}
+
+
+ 
