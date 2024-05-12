@@ -1,4 +1,5 @@
 #include <UI/BMG/MessageGroup.hpp>
+#include <UI/Language/LanguageManager.hpp>
 
 static BMGHolder * AdditionalHolder = nullptr;
 
@@ -32,12 +33,9 @@ void InjectAdditionalHolder(BMGHolder& baseHolder, char * filename)
     char baseName[] = "CosmosExtra";
     char finalName[0x10];
     char testName[0x30];
-    char suffix[0x6];
 
-    char * localization = ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archiveSuffixes[0x1];
+    char* suffix = suffixes[Cosmos::LanguageManager::GetStaticInstance()->GetActualLanguage()];
 
-    memset(suffix, 0, 0x6);
-    strncpy(suffix, localization, strlen(localization)-4);
     snprintf(finalName, 0x10, "%s%s", baseName, suffix);
     snprintf(testName, 0x30, "message/%s%s", finalName, ".bmg");
 
@@ -45,7 +43,7 @@ void InjectAdditionalHolder(BMGHolder& baseHolder, char * filename)
     if(file != nullptr)
         AdditionalHolder->Load(finalName);
     else
-        AdditionalHolder->Load("CosmosExtra");
+        AdditionalHolder->Load(baseName);
     return;
 }
 
