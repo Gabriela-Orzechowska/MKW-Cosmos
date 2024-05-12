@@ -181,6 +181,8 @@ namespace Cosmos
         void GhostManager::VerifyTime()
         {
 #ifdef COSMOS_ANTI_CHEAT
+            if(!AntiCheat::GetStaticInstance()->IsRunValid()) return;
+
             AntiCheat::GetStaticInstance()->Update(RaceInfo::GetStaticInstance()->timer);
 
             if (!AntiCheat::GetStaticInstance()->IsRunValid())
