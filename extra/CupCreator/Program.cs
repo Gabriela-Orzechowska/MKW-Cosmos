@@ -11,6 +11,8 @@ using ImPlotNET;
 using ImGuiNET;
 using System.Runtime.InteropServices;
 using Newtonsoft.Json;
+using gablibela.io;
+using Shell32;
 
 namespace CupCreator
 {
@@ -270,11 +272,11 @@ namespace CupCreator
                     ImGui.Text("Author");
                     ImGui.SameLine(413);
                     ImGui.Text("File");
-                    ImGui.SameLine(624);
+                    ImGui.SameLine(680);
                     ImGui.Text("Slot");
-                    ImGui.SameLine(830);
+                    ImGui.SameLine(891);
                     ImGui.Text("Music Slot");
-                    ImGui.SameLine(1036);
+                    ImGui.SameLine(1092);
                     ImGui.Text("Is Retro");
                 }
 
@@ -286,7 +288,28 @@ namespace CupCreator
                     ImGui.SameLine();
                     ImGui.InputText($"##author{t}{i}", ref trackdef.TrackAuthor, 256);
                     ImGui.SameLine();
-                    ImGui.InputText($"##file{t}{i}", ref trackdef.FilePath, 256);
+                    ImGui.InputText($"##file{t}{i}", ref trackdef.FilePath, 256, ImGuiInputTextFlags.ReadOnly);
+                    ImGui.SameLine();
+                    if (ImGui.Button($"Select##buttonSelect{t}{i}"))
+                    {
+                        string path = "";
+                        var ofn = new OpenFileName();
+                        ofn.lStructSize = Marshal.SizeOf(ofn);
+                        // Define Filter for your extensions (Excel, ...)
+                        ofn.lpstrFilter = "ARC files (*.arc, *.szs, *.lzma)\0*.szs;*.arc;*.lzma\0";
+                        ofn.lpstrFile = new string(new char[256]);
+                        ofn.nMaxFile = ofn.lpstrFile.Length;
+                        ofn.lpstrFileTitle = new string(new char[64]);
+                        ofn.nMaxFileTitle = ofn.lpstrFileTitle.Length;
+                        ofn.lpstrTitle = "Open File Dialog...";
+                        if (GetOpenFileName(ref ofn))
+                            path = ofn.lpstrFile;
+
+                        if (path != string.Empty && path != "")
+                        {
+                            trackdef.FilePath = path;
+                        }
+                    }
                     ImGui.SameLine();
                     ImGui.Combo($"##slot{t}{i}", ref trackdef.TrackSlot, slots);
                     ImGui.SameLine();
@@ -327,7 +350,10 @@ namespace CupCreator
                         SaveConfigFile();
                     }
                     ImGui.Separator();
-                    ImGui.Button("Export Binaries", new Vector2(ImGui.GetWindowSize().X * 0.9f, 0.0f));
+                    if(ImGui.Button("Export Binaries", new Vector2(ImGui.GetWindowSize().X * 0.9f, 0.0f)))
+                    {
+                        CreateConfigFile();
+                    }
                     ImGui.EndMenu();
                 }
                 
@@ -337,6 +363,183 @@ namespace CupCreator
 
         private static void CreateConfigFile()
         {
+            foreach(var def in layoutData.RaceCupDefs)
+            {
+                if (def.ImageFilePath == "" || def.ImageFilePath == string.Empty) return;
+                foreach(var track in def.trackDefs)
+                {
+                    if (track.FilePath == "" || def.ImageFilePath == string.Empty) return;
+                }
+            }
+
+
+            string path = "";
+            var ofn = new OpenFileName();
+            ofn.lStructSize = Marshal.SizeOf(ofn);
+            // Define Filter for your extensions (Excel, ...)
+            ofn.lpstrFilter = "Cosmos Config File (*.cscf)\0*.cscf\0";
+            ofn.lpstrFile = new string(new char[256]);
+            ofn.nMaxFile = ofn.lpstrFile.Length;
+            ofn.lpstrFileTitle = new string(new char[64]);
+            ofn.nMaxFileTitle = ofn.lpstrFileTitle.Length;
+            ofn.lpstrTitle = "Save File Dialog...";
+            if (GetSaveFileName(ref ofn))
+                path = ofn.lpstrFile;
+
+            if (path == null || path == string.Empty || path == string.Empty) return;
+
+            path = Path.GetDirectoryName(path);
+            path = Path.Join(path, "export");
+            string filePath = Path.Join(path, "config.cscf");
+
+            MemoryStream stream = new MemoryStream();
+            BetterBinaryWriter writer = new BetterBinaryWriter(stream);
+
+            int definitionSize = sizeof(UInt16) * layoutData.RaceCupCount * 4;
+            definitionSize = (definitionSize + 15) & ~15;
+            int layoutSize = sizeof(UInt32) * layoutData.RaceCupCount * 4;
+            layoutSize += (layoutData.IncludeVanilla ? 32 * sizeof(UInt32) : 0);
+            layoutSize = (layoutSize + 15) & ~15;
+
+            int fileSize = ((0x20 + definitionSize + 2 * layoutSize) + 0x1f) & ~0x1f;
+
+            int cupCount = layoutData.RaceCupCount;
+            cupCount += (layoutData.IncludeVanilla ? 8 : 0);
+
+            writer.Write("CSDF"); //Header
+            writer.Write<UInt32>((UInt32) (fileSize)); //FileSize 
+            writer.Write<UInt16>((UInt16)cupCount); // Cup Count
+            writer.Write<UInt16>(2); //Layout Count
+            writer.Write<UInt32>(0x20); //Off To definitions
+
+            writer.Write<Int32>(0x20 + definitionSize);
+            writer.Write<Int32>(0x20 + definitionSize + layoutSize);
+
+            writer.Seek(0x20);
+
+            foreach (var def in layoutData.RaceCupDefs)
+            {
+                foreach(var track in def.trackDefs)
+                {
+                    writer.Write<byte>((byte)track.TrackSlot);
+                    writer.Write<byte>((byte)track.TrackMusicSlot);
+                }
+            }
+
+            writer.Seek(0x20 + definitionSize);
+
+            if(layoutData.IncludeVanilla)
+            {
+                for(int i = 0; i < 32; i++)
+                {
+                    writer.Write<UInt32>((UInt32)trackSlots[i]);
+                }
+            }
+            for(int i = 0; i < layoutData.RaceCupCount * 4; i++)
+            {
+                writer.Write<UInt32>((UInt32)(0x100 + i));
+            }
+
+            writer.Seek(0x20 + definitionSize + layoutSize);
+
+            if (layoutData.IncludeVanilla)
+            {
+                for (int i = 0; i < 32; i++)
+                {
+                    writer.Write<UInt32>((UInt32)trackSlots[i]);
+                }
+            }
+
+            List<TrackDefinition> list = new();
+            foreach (var def in layoutData.RaceCupDefs)
+            {
+                for(int i = 0; i < 4; i++) list.Add(def.trackDefs[i]);
+            }
+            list = list.OrderBy(x => x.TrackName).ToList();
+            for (int i = 0; i < layoutData.RaceCupCount * 4; i++)
+            {
+                int slot = 0;
+                int temp = 0;
+                foreach(var def in layoutData.RaceCupDefs)
+                {
+                    foreach(var track in def.trackDefs)
+                    {
+                        if (list[i].TrackName == track.TrackName)
+                            break;
+                        slot++;
+                    }
+                }
+                writer.Write<UInt32>((UInt32)(0x100 + slot));
+            }
+
+            long curAddr = writer.Position();
+            long rounded = (curAddr + 0x1F) & ~0x1F;
+            if(curAddr < rounded) {
+                writer.Write<byte>(0);
+                curAddr++;
+            }
+
+            Directory.CreateDirectory(path);
+            File.WriteAllBytes(filePath, stream.ToArray());
+            Directory.CreateDirectory(Path.Join(path, "images"));
+            Directory.CreateDirectory(Path.Join(path, "tracks"));
+            int q = 8;
+            int b = 0x100;
+            foreach (var def in layoutData.RaceCupDefs) {
+                string command = $"wimgt encode {def.ImageFilePath} --dest {Path.Join(path, "images", $"icon_cup_{q:X03}.tpl")} --transform R3 -o";
+                
+                Process process = new();
+                ProcessStartInfo info = new();
+                info.FileName = "cmd.exe";
+                info.Arguments = $"/C {command}";
+                process.StartInfo = info;
+                process.Start();
+                q++;
+
+                foreach(var track in def.trackDefs)
+                {
+                    string newCommand = $"wszst compress \"{track.FilePath}\" --dest \"{Path.Join(path, "tracks", $"{b:X03}.lzma")}\" --lzma -o";
+                    Process process2 = new();
+                    ProcessStartInfo info2 = new();
+                    info2.FileName = "cmd.exe";
+                    info2.Arguments = $"/C {newCommand}";
+                    process2.StartInfo = info2;
+                    process2.Start();
+                    b++;
+                }
+            }
+
+            int g = 0x100;
+            StringWriter stringWriter = new StringWriter();
+            for (int i = 0; i < layoutData.RaceCupCount; i++)
+            {
+                stringWriter.WriteLine($"  {0x6008 + i:X04}  =  {layoutData.RaceCupDefs[i].CupName}");
+            }
+            stringWriter.Write("\n\n");
+            foreach (var def in layoutData.RaceCupDefs)
+            {
+                foreach (var track in def.trackDefs)
+                {
+                    stringWriter.WriteLine($"  {g + 0x7000:X04}  = {track.TrackName}");
+                    g++;
+                }
+            }
+            g = 0x100;
+            stringWriter.Write("\n\n");
+            foreach (var def in layoutData.RaceCupDefs)
+            {
+                foreach(var track in def.trackDefs)
+                {
+                    stringWriter.Write($"  {g+0x13000:X05}  = {track.TrackName}");
+                    stringWriter.Write("\\n\\z{800,40}\\c{blue1}");
+                    stringWriter.Write($"{track.TrackAuthor}");
+                    stringWriter.Write("\\c{off}\n");
+                    g++;
+                }
+            }
+            
+
+            File.WriteAllText(Path.Join(path, "text.txt"), stringWriter.ToString());
             
 
         }

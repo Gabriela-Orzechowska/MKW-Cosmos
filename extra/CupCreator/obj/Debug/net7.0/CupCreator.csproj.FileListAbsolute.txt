@@ -169,3 +169,5 @@ C:\Users\janor\Documents\GitHub\MKWDX-Kamek\extra\CupCreator\bin\Debug\net7.0\Cu
 C:\Users\janor\Documents\GitHub\MKWDX-Kamek\extra\CupCreator\bin\Debug\net7.0\CupCreator.pdb
 C:\Users\janor\Documents\GitHub\MKWDX-Kamek\extra\CupCreator\obj\Debug\net7.0\CupCreator.genruntimeconfig.cache
 C:\Users\janor\Documents\GitHub\MKWDX-Kamek\extra\CupCreator\obj\Debug\net7.0\ref\CupCreator.dll
+D:\Kamek\MKWDX-Kamek\extra\CupCreator\obj\Debug\net7.0\Interop.Shell32.dll
+D:\Kamek\MKWDX-Kamek\extra\CupCreator\obj\Debug\net7.0\CupCreator.csproj.ResolveComReference.cache

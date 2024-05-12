@@ -4,9 +4,11 @@
 
 namespace CosmosNetwork
 {
+    /*
     void PatchSELECTTrack(PacketHolder& holder, CosmosSELECTPacket* packet, u32 len){
 
     }
+*/
 
     u8 GetActualEngineClass(RKNetSELECTHandlerPlus& handler) {
         if(handler.toSendPacket.phase != 0) return handler.toSendPacket.engineClass;
