@@ -47,11 +47,11 @@ namespace Cosmos
         int GetTrackCount() const { return cupConfig->cupCount * 4; } //TODO Make it a separate field
         int GetTrackID() const { return winningCourse; };
 
-        int GetCurrentTrackSlot();
-        int GetCurrentMusicSlot();
+        int GetCurrentTrackSlot() const;
+        int GetCurrentMusicSlot() const;
 
         int GetRandomTrack() const;
-        u32 GetTrackBlockByIndex(int index) { return trackBlocking[index]; }
+        u32 GetTrackBlockByIndex(int index) const { return trackBlocking[index]; }
         void AddTrackToBlocking(u32 slot) { 
             trackBlocking[currentTrackBlockIndex++]; 
             currentTrackBlockIndex = currentTrackBlockIndex % TRACK_BLOCK_COUNT;
@@ -63,6 +63,7 @@ namespace Cosmos
         
         void SetTrackLayout(TrackLayout layout);
         
+        bool IsInBlocking(int track) const;
 
         u32 winningCourse;
         u32 lastSelectedCourse;

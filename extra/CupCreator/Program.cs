@@ -421,8 +421,8 @@ namespace CupCreator
             {
                 foreach(var track in def.trackDefs)
                 {
-                    writer.Write<byte>((byte)track.TrackSlot);
-                    writer.Write<byte>((byte)track.TrackMusicSlot);
+                    writer.Write<byte>((byte)trackSlots[track.TrackSlot]);
+                    writer.Write<byte>((byte)trackSlots[track.TrackMusicSlot]);
                 }
             }
 

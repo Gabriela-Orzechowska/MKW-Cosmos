@@ -45,7 +45,7 @@ namespace Cosmos
         this->definitions = (Track*)offsetFrom(config, config->offToDefinitions);
         this->layouts[0] = (u32*)offsetFrom(config, config->offToLayouts[0]);
         this->layouts[1] = (u32*)offsetFrom(config, config->offToLayouts[1]);
-        SetTrackLayout(ALPHABETICAL);
+        SetTrackLayout(DEFAULT);
 
         DVDClose(&fileHandle);
             
@@ -67,20 +67,33 @@ namespace Cosmos
         p_tracklist2_2 = 0x63de0000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
     }
 
-    int CupManager::GetCurrentMusicSlot()
+    int CupManager::GetCurrentMusicSlot() const
     {
         if(this->winningCourse < CT_OFFSET) return RaceAudioMgr::GetStaticInstance()->GetCourseSoundId();
         return RaceAudioMgr::GetStaticInstance()->trackToMusicIDTable[definitions[this->winningCourse - CT_OFFSET].musicSlot];
     }
 
+    bool CupManager::IsInBlocking(int track) const{
+        for(int i = 0; i < 0x10; i++){
+            if(track == trackBlocking[i]) return true;
+        }
+        return false;
+    }
+
     int CupManager::GetRandomTrack() const
     {
         Random rand;
-        int trackIndex = rand.NextLimited(this->GetTrackCount());
-        // TODO Include track blocking
+        int trackIndex = -1;
+        int currentTry = 0;
+        do {
+            trackIndex = rand.NextLimited(this->GetTrackCount());
+            currentTry++;
+        }
+        while(IsInBlocking(currentLayoutArray[trackIndex]) && currentTry < 0x10);
+
         return currentLayoutArray[trackIndex];
     }
-    int CupManager::GetCurrentTrackSlot()
+    int CupManager::GetCurrentTrackSlot() const
     {
         if(this->winningCourse < CT_OFFSET) return this->winningCourse;
 
