@@ -23,37 +23,35 @@ namespace Cosmos
         memset(this->trackBlocking, ~0x0, 0x10 * sizeof(u32));
 
         DVDFileInfo fileHandle;
-        if(DVDOpen("/cup/def.bin", &fileHandle))
+        if(!DVDOpen("/cup/config.cscf", &fileHandle))
         {
-            char buffer[0x20] __attribute__ ((aligned(0x20)));
-            if(DVDReadPrio(&fileHandle, (void *) buffer, 0x20, 0x0, 0x2))
-            {
-                Cups * tmp = (Cups *) buffer;
-                this->cupDef = (Cups *) new (RKSystem::mInstance.EGGSystem, 0x20) char[tmp->fileSize]; 
-                
-                if(DVDReadPrio(&fileHandle, (void *) this->cupDef, tmp->fileSize, 0x0, 0x2)){
-                    CosmosLog("File loaded to: %p\n", this->cupDef);
-                }
-                DVDClose(&fileHandle);
-
-                if(DVDOpen("/cup/layout_def.bin", &fileHandle))
-                {
-                    this->currentLayoutArray = new (RKSystem::mInstance.EGGSystem, 0x20) u32[4 * this->cupDef->cupCount ]; //
-
-                    if(DVDReadPrio(&fileHandle, (void *) this->currentLayoutArray, sizeof(u32) * this->cupDef->cupCount * 4, 0x0, 0x2)){
-                        CosmosLog("Layout loaded to: %p\n", this->currentLayoutArray);
-                        SetTrackLayout(DEFAULT);
-                    }
-                    DVDClose(&fileHandle);
-                }
-            }
-            else{
-                Cosmos::Panic(__FILE__, __LINE__, "Failed to read /cup/def.bin!\n");
-            }
+            Cosmos::Panic(__FILE__, __LINE__, "Failed to open /cup/config.cscf!\n");
         }
-        else{
-            Cosmos::Panic(__FILE__, __LINE__, "Failed to open /cup/def.bin!\n");
+        char buffer[0x20] __attribute__ ((aligned(0x20)));  
+        if(!DVDReadPrio(&fileHandle, (void *) buffer, 0x20, 0x0, 0x2))
+        {
+            Cosmos::Panic(__FILE__, __LINE__, "Failed to read /cup/config.cscf!\n");
         }
+        CupConfig* tempConfig = (CupConfig*) buffer;
+
+        CupConfig* config = (CupConfig*) new (RKSystem::mInstance.EGGSystem, 0x20) char[tempConfig->fileSize];
+
+        if(!DVDReadPrio(&fileHandle, (void*)config, tempConfig->fileSize, 0x0, 0x2)){
+            Cosmos::Panic(__FILE__, __LINE__, "Failed to read /cup/config.cscf!\n");
+        }
+
+        this->cupConfig = config;
+        CosmosLog("Cup Config at: %p\n", config);
+        this->definitions = (Track*)offsetFrom(config, config->offToDefinitions);
+        this->layouts[0] = (u32*)offsetFrom(config, config->offToLayouts[0]);
+        this->layouts[1] = (u32*)offsetFrom(config, config->offToLayouts[1]);
+        this->currentLayoutArray = this->layouts[0];
+        CosmosLog("Layout at: %p\n", this->currentLayoutArray);
+
+        SetTrackLayout(DEFAULT);
+
+        DVDClose(&fileHandle);
+            
     }
 
     void CupManager::UpdateSelectedCourse(PushButton * button){
@@ -74,7 +72,7 @@ namespace Cosmos
     int CupManager::GetCurrentMusicSlot()
     {
         if(this->winningCourse < CT_OFFSET) return RaceAudioMgr::GetStaticInstance()->GetCourseSoundId();
-        return RaceAudioMgr::GetStaticInstance()->trackToMusicIDTable[this->cupDef->tracks[this->winningCourse - CT_OFFSET].musicSlot];
+        return RaceAudioMgr::GetStaticInstance()->trackToMusicIDTable[definitions[this->winningCourse - CT_OFFSET].musicSlot];
     }
 
     int CupManager::GetRandomTrack() const
@@ -88,7 +86,7 @@ namespace Cosmos
     {
         if(this->winningCourse < CT_OFFSET) return this->winningCourse;
 
-        return this->cupDef->tracks[this->winningCourse - CT_OFFSET].slot;
+        return definitions[this->winningCourse - CT_OFFSET].slot;
     }
 
     int PatchSlot(Pages::CourseSelect * page, CtrlMenuCourseSelectCourse * ctrl, PushButton * button)

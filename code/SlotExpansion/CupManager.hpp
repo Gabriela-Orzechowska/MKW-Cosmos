@@ -20,8 +20,21 @@ namespace Cosmos
         u16 cupCount;
         Track tracks[1];
     };
-
     #pragma pack(pop)
+
+
+    #pragma pack(push, 1)
+    struct CupConfig {
+        u32 header;
+        u32 fileSize;
+        u16 cupCount;
+        u16 layoutCount;
+        u32 offToDefinitions;
+        u32 offToLayouts[1];
+    };
+    #pragma pack(pop)
+
+    
 
     class CupManager
     {
@@ -36,8 +49,8 @@ namespace Cosmos
 
         CupManager();
 
-        int GetCupCount() const { return cupDef->cupCount; }
-        int GetTrackCount() const { return cupDef->cupCount * 4; } //TODO Make it a separate field
+        int GetCupCount() const { return cupConfig->cupCount; }
+        int GetTrackCount() const { return cupConfig->cupCount * 4; } //TODO Make it a separate field
         int GetTrackID() const { return winningCourse; };
 
         int GetCurrentTrackSlot();
@@ -67,7 +80,9 @@ namespace Cosmos
         u8 dontUpdateCourseSelectCourse;
         private:
         static CupManager * sInstance;
-        Cups * cupDef;
+        CupConfig * cupConfig;
+        u32* layouts[2];
+        Track* definitions;
         u32 trackBlocking[TRACK_BLOCK_COUNT];
         u32 currentTrackBlockIndex;
         

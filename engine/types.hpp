@@ -44,6 +44,9 @@ for(decltype(&array[0]) ite = (&array[0]), (item) = ite; ite < (&(array)[length]
 #define offsetof(st, m) \
     ((u32)&(((st *)0)->m))
 
+#define offsetFrom(st, m) \
+    (((char*)st) + m)
+
 #ifdef __INTELLISENSE__
 #define ASM(...)
 #define asm 
