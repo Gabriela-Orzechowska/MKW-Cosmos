@@ -34,7 +34,7 @@ namespace Cosmos
     class System{
         public:
         static void CreateStaticInstance();
-        static System * GetStaticInstance() { return sInstance; }
+        static inline System * GetStaticInstance() { return sInstance; }
 
         void Init();
         void CreateFolders();
