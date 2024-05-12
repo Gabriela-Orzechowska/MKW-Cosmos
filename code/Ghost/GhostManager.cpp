@@ -209,6 +209,9 @@ namespace Cosmos
             AntiCheat* antiCheat = AntiCheat::GetStaticInstance();
             if(antiCheat != nullptr)
                 antiCheat->Reset(IOS::Dolphin::GetSystemTime());
+            GhostManager* manager = GhostManager::GetStaticInstance();
+            if(manager != nullptr)
+                manager->wereGhostsDisabled = Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED;
             page.PlaySound(soundIdx, param_3);
             return;
         }
@@ -559,7 +562,7 @@ namespace Cosmos
                 if (!AntiCheat::GetStaticInstance()->IsRunValid())
                     save = false;
 #endif
-                if(Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED)
+                if(manager->wereGhostsDisabled)
                     save = false;
 
                 if (save)

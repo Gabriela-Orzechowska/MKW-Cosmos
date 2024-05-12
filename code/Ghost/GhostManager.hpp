@@ -108,6 +108,7 @@ namespace Cosmos
             CosmosFile::FolderManager *folderManager;
             TimeEntry entry;
             u32 gameSceneFrames;
+            bool wereGhostsDisabled;
 
         private:
             static GhostManager *sInstance;
