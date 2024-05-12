@@ -145,6 +145,7 @@ namespace CosmosNetwork
             manager->SetWinningTrack(data.trackId);
             return manager->GetCurrentTrackSlot();
         }
+        return 0xFFFFFFFF;
     }
 
     u8* GetPlayerAids(const RKNetRH1Handler& handler){
@@ -156,6 +157,7 @@ namespace CosmosNetwork
 
             return (u8 *) data.aidsBelongToPlayer;
         }
+        return nullptr;
     }
     kmBranch(0x80664b34, GetPlayerAids);
 

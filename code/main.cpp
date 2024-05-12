@@ -155,12 +155,12 @@ namespace Cosmos{
     void LoadAdditionalFiles(ArchiveFile * file, const char * path, EGG::Heap *heap, bool isCompressed, s32 align, EGG::Heap * fileHeap, EGG::Archive::FileInfo * fileInfo)
     {
         ArchiveFile* courseArchives = ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COURSE)->archives;
-        if(&courseArchives[0] == file){
-            LoadLZMAFile(file,path,heap,isCompressed,align,fileHeap,fileInfo);
-        }
         if(&courseArchives[1] == file){
             if(courseArchives[0].archive != nullptr)
                 return;
+        }
+        if(&courseArchives[0] == file){
+            LoadLZMAFile(file,path,heap,isCompressed,align,fileHeap,fileInfo);
         }
         else {
             if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archives[2] == file){
