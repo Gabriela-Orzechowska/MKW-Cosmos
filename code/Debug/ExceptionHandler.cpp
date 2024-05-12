@@ -20,6 +20,7 @@
 #include <core/System/SystemManager.hpp>
 #include <Debug/SymbolMap.hpp>
 #include <main.hpp>
+#include <System/Security.hpp>
 
 extern char gameID[4];
 extern nw4r::db::ExceptionInfo exceptionData; // 0x802A70B8
@@ -151,7 +152,13 @@ namespace CosmosDebug
             else
                 break;
 
-            Exception_Printf_("%08X:  %08X    %08X: %s\n", spAddr, sp[0], sp[1], SymbolManager::GetSymbolName(sp[1]));
+            #ifdef COSMOS_SECURITY
+            u32 sp1Val = Cosmos::Security::GetDemangledAddress(sp[1]);
+            #else
+            u32 sp1Val = sp[1];
+            #endif
+
+            Exception_Printf_("%08X:  %08X    %08X: %s\n", spAddr, sp[0], sp1Val, SymbolManager::GetSymbolName(sp1Val));
             sp = (u32 *)*sp;
             spAddr = (u32)sp;
         }
@@ -159,6 +166,8 @@ namespace CosmosDebug
 
     static void PrintContext_(u32 error, const OSContext *context, u32 dsisr, u32 dar)
     {
+        IOS::Dolphin::SetSpeedLimit(100);
+
         using namespace nw4r::db;
         if (error >= 0x30)
         {

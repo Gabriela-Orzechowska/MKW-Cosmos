@@ -12,5 +12,5 @@ kmBranch(0x800074d4, BootHook::exec);
 kmBranch(0x805320d0, RaceLoadHook::exec);
 kmBranch(0x8053369c, RaceFrameHook::exec); //RaceInfo::Update()
 kmBranch(0x8063507c, MenuLoadHook::exec);
-//kmWritePointer(0x802585c8, StrapEndHook::exec);
+kmWritePointer(0x802585c8, StrapEndHook::exec);
 

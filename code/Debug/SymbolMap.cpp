@@ -25,7 +25,7 @@ namespace CosmosDebug
 
         manager->kamekBaseAddress = *(u32 *)0x80003FFC;
 
-        if(DVDOpen("/map/GameP.BMAP", &fileHandle))
+        if(DVDOpen("/Binaries/GameP.BMAP", &fileHandle))
         {
             if(DVDReadPrio(&fileHandle, buffer, 0x10, 0x0, 2))
             {

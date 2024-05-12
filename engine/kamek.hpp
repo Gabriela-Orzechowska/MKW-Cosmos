@@ -253,6 +253,7 @@ enum HookPriority{
     MEDIUM,
     HIGH,
     FIRST,
+    LINK,
 };
 
 class BootHook {
@@ -275,6 +276,9 @@ public:
 
         OSReport("[Cosmos] Cosmos %s Loaded (0x%s)\n", __COSMOS_VERSION__, __COMPILER_VERSION__);
         OSReport("[Cosmos Module] FatFs R0.15\n");
+
+        for (BootHook * p = sHooks; p; p = p->mNext)
+            if(p->mPriority == LINK) p->mFunc();
 
         for (BootHook * p = sHooks; p; p = p->mNext)
             if(p->mPriority == FIRST) p->mFunc();
