@@ -45,10 +45,7 @@ namespace Cosmos
         this->definitions = (Track*)offsetFrom(config, config->offToDefinitions);
         this->layouts[0] = (u32*)offsetFrom(config, config->offToLayouts[0]);
         this->layouts[1] = (u32*)offsetFrom(config, config->offToLayouts[1]);
-        this->currentLayoutArray = this->layouts[0];
-        CosmosLog("Layout at: %p\n", this->currentLayoutArray);
-
-        SetTrackLayout(DEFAULT);
+        SetTrackLayout(ALPHABETICAL);
 
         DVDClose(&fileHandle);
             
@@ -61,7 +58,8 @@ namespace Cosmos
 
     void CupManager::SetTrackLayout(TrackLayout layout)
     {
-        //TODO Apply actually changing array pointer
+        this->currentLayoutArray = this->layouts[layout];
+
         p_tracklist1 = 0x3ca00000 | (((u32)this->currentLayoutArray) >> 16);
         p_tracklist2 = 0x60a50000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
 

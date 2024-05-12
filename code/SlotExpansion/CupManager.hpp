@@ -14,12 +14,6 @@ namespace Cosmos
         u8 slot;
         u8 musicSlot;
     };
-
-    struct Cups{
-        u32 fileSize;
-        u16 cupCount;
-        Track tracks[1];
-    };
     #pragma pack(pop)
 
 

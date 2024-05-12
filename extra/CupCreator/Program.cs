@@ -450,31 +450,25 @@ namespace CupCreator
                 }
             }
 
-            List<TrackDefinition> list = new();
+            List<TrackDefinition> alphabetical = new();
+            List<TrackDefinition> all = new();
             foreach (var def in layoutData.RaceCupDefs)
             {
-                for(int i = 0; i < 4; i++) list.Add(def.trackDefs[i]);
-            }
-            list = list.OrderBy(x => x.TrackName).ToList();
-            for (int i = 0; i < layoutData.RaceCupCount * 4; i++)
-            {
-                int slot = 0;
-                int temp = 0;
-                foreach(var def in layoutData.RaceCupDefs)
+                for (int i = 0; i < 4; i++)
                 {
-                    foreach(var track in def.trackDefs)
-                    {
-                        if (list[i].TrackName == track.TrackName)
-                            break;
-                        slot++;
-                    }
+                    all.Add(def.trackDefs[i]);
                 }
-                writer.Write<UInt32>((UInt32)(0x100 + slot));
+            }
+            alphabetical = all.OrderBy(x => x.TrackName).ToList();
+
+            for(int i = 0; i < alphabetical.Count; i++)
+            {
+                writer.Write<UInt32>(0x100 + (UInt32) all.IndexOf(alphabetical[i]));
             }
 
             long curAddr = writer.Position();
             long rounded = (curAddr + 0x1F) & ~0x1F;
-            if(curAddr < rounded) {
+            while(curAddr < rounded) {
                 writer.Write<byte>(0);
                 curAddr++;
             }
