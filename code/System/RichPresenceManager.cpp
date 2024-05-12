@@ -118,6 +118,9 @@ void RPCSectionChange()
         }
     }
 
+    presence.largeImageText = "Mario Kart Wii Cosmos";
+    presence.smallImageText = "";
+
     switch(menuId){
         case CREATE_NEW_SAVE:
             message = "Creating new license";
@@ -272,6 +275,8 @@ void RPCSectionChange()
         case P1_WIFI_BT_LIVE_VIEW:
         case P2_WIFI_BT_LIVE_VIEW:
             GetTextFromMessage(status, trackId + 0x7000);
+            presence.largeImageText = status;
+            presence.smallImageText = "Mario Kart Wii Cosmos";
             //UpdateTrackImage(trackId);
             break;
         default:    
