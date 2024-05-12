@@ -10,6 +10,8 @@ extern u32 p_tracklist2;
 extern u32 p_tracklist1_2;
 extern u32 p_tracklist2_2;
 
+const char ConfigPath[] = "/Binaries/Config.cscf";
+
 namespace Cosmos
 {
     CupManager * CupManager::sInstance = nullptr;
@@ -23,21 +25,21 @@ namespace Cosmos
         memset(this->trackBlocking, ~0x0, 0x10 * sizeof(u32));
 
         DVDFileInfo fileHandle;
-        if(!DVDOpen("/cup/config.cscf", &fileHandle))
+        if(!DVDOpen(ConfigPath, &fileHandle))
         {
-            Cosmos::Panic(__FILE__, __LINE__, "Failed to open /cup/config.cscf!\n");
+            Cosmos::Panic(__FILE__, __LINE__, "Failed to open %s\n", ConfigPath);
         }
         char buffer[0x20] __attribute__ ((aligned(0x20)));  
         if(!DVDReadPrio(&fileHandle, (void *) buffer, 0x20, 0x0, 0x2))
         {
-            Cosmos::Panic(__FILE__, __LINE__, "Failed to read /cup/config.cscf!\n");
+            Cosmos::Panic(__FILE__, __LINE__, "Failed to read %s\n", ConfigPath);
         }
         CupConfig* tempConfig = (CupConfig*) buffer;
 
         CupConfig* config = (CupConfig*) new (RKSystem::mInstance.EGGSystem, 0x20) char[tempConfig->fileSize];
 
         if(!DVDReadPrio(&fileHandle, (void*)config, tempConfig->fileSize, 0x0, 0x2)){
-            Cosmos::Panic(__FILE__, __LINE__, "Failed to read /cup/config.cscf!\n");
+            Cosmos::Panic(__FILE__, __LINE__, "Failed to read %s\n", ConfigPath);
         }
 
         this->cupConfig = config;
