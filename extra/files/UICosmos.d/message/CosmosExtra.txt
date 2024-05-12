@@ -14,6 +14,7 @@
  2800   = Time Trials (150cc)
  2801   = Time Trials (200cc)
  2802   = Time invalidated. Delta too large.
+ 2803   = Ghost Saving disabled.
 
  2810   = Track Layout: Normal
  2811   = Track Layout: Castle Gorge	
@@ -71,6 +72,10 @@
  3841   = Use the default FPS mode.
  3842   = Use when the game is too laggy.
  3843   = Use for better systems (Dolphin only).
+
+ 3050   = Ghost Saving
+ 3851   = Ghost Saving will be Enabled.
+ 3852   = Ghost Saving will be Disabled.
 
  3110   = Fast Menus
 

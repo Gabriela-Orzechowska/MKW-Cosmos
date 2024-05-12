@@ -80,6 +80,7 @@ namespace Cosmos
             COSMOS_MII_HEADS,
             COSMOS_SPEEDOMETER,
             COSMOS_FRAME_MODE,
+            COSMOS_GHOST_SAVING,
         };
 
         enum MENU_SETTINGS_1_SETTINGS
@@ -169,6 +170,7 @@ namespace Cosmos
             COSMOS_SETTING_MII_HEADS = COSMOS_MII_HEADS + (COSMOS_RACE_SETTINGS_1 * 8),
             COSMOS_SETTING_SPEEDOMETER = COSMOS_SPEEDOMETER + (COSMOS_RACE_SETTINGS_1 * 8),
             COSMOS_SETTING_FRAME_MODE = COSMOS_FRAME_MODE + (COSMOS_RACE_SETTINGS_1 * 8),
+            COSMOS_SETTING_GHOST_SAVING = COSMOS_GHOST_SAVING + (COSMOS_RACE_SETTINGS_1 * 8),
 
             COSMOS_SETTING_LANGUAGE_SETTINGS = COSMOS_LANGUAGE_SETTINGS + (COSMOS_MENU_SETTINGS_1 * 8),
             COSMOS_SETTING_FAST_MENUS = COSMOS_FAST_MENUS + (COSMOS_MENU_SETTINGS_1 * 8),
@@ -203,12 +205,13 @@ namespace Cosmos
         static SettingPageDefinition GlobalSettingDefinitions[PAGE_COUNT] = {
             {
                 // Race
-                .settingCount = 5,
+                .settingCount = 6,
                 .settings = {{.optionCount = 3, .isBool = false, .defaultValue = 0}, // Music Cutoff
                              {.optionCount = 2, .isBool = true, .defaultValue = 0},  // Draggable Blues
                              {.optionCount = 2, .isBool = true, .defaultValue = 1},  // Mii Heads
                              {.optionCount = 4, .isBool = false, .defaultValue = 2}, // Speedometer
-                             {.optionCount = 3, .isBool = false, .defaultValue = 0}} // Frame Mode
+                             {.optionCount = 3, .isBool = false, .defaultValue = 0},
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}} // Frame Mode
             },
             {
                 // Menu

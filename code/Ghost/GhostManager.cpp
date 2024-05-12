@@ -3,6 +3,7 @@
 #include <game/UI/Page/RaceMenu/TTPause.hpp>
 #include <game/UI/Page/RaceHUD/RaceHUD.hpp>
 #include <Debug/Draw/DebugDraw.hpp>
+#include <Settings/UserData.hpp>
 
 void CorrectGhostTrackName(LayoutUIControl *control, const char *textBoxName, u32 bmgId, const TextInfo *text)
 {
@@ -215,6 +216,15 @@ namespace Cosmos
 
         void VerifyTimeDuringRace()
         {
+            if(Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED){
+                Pages::RaceHUD *page = MenuData::GetStaticInstance()->curScene->Get<Pages::RaceHUD>(TIME_TRIAL_INTERFACE);
+                if (page)
+                {
+                    page->ghostMessage->isHidden = false;
+                    page->ghostMessage->SetMsgId(0x2803);
+                }
+                return;
+            }
             if(RaceInfo::GetStaticInstance()->timer < 250) return;
             if (RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode == MODE_TIME_TRIAL) {
                 GhostManager::GetStaticInstance()->VerifyTime();
@@ -521,7 +531,7 @@ namespace Cosmos
                 s32 leaderboardPosition = -1;
 
 #ifdef COSMOS_ANTI_CHEAT
-                if (AntiCheat::GetStaticInstance()->IsRunValid())
+                if (AntiCheat::GetStaticInstance()->IsRunValid() || Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED)
 #endif
                     leaderboardPosition = manager->GetLeaderboard().GetLeaderboardPosition(splitsPage->timers[0]);
 
@@ -549,6 +559,9 @@ namespace Cosmos
                 if (!AntiCheat::GetStaticInstance()->IsRunValid())
                     save = false;
 #endif
+                if(Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED)
+                    save = false;
+
                 if (save)
                 {
                     GhostData data;
