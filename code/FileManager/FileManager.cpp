@@ -20,8 +20,10 @@ namespace CosmosFile
                 IOS::Close(ret);
             }
             valid = true;
-            SDStorage::Init();
-            manager = new (heap) FatFileManager();
+            if(SDStorage::Init())
+                manager = new (heap) FatFileManager();
+            else if(ret >= 0)
+                manager = new (heap) FileManager();
         }
         else
         {
