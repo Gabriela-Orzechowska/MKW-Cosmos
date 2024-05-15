@@ -10,6 +10,9 @@
 #include <core/rvl/os/OS.hpp>
 #include <UI/MiscUI.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>
+#include <SlotExpansion/CupManager.hpp>
+#include <SlotExpansion/SlotExpansion.hpp>
+#include <UI/BMG/MessageGroup.hpp>
 
 using namespace Cosmos::Data;
 
@@ -53,20 +56,29 @@ void FasterPageBoot()
 }
 
 static BootHook FasterPagesBoot(FasterPageBoot, LOW);
+static SettingsUpdateHook FasterPages(FasterPageTransition);
 
 kmWriteRegionInstruction(0x80604094, 0x4800001c, 'E');
 
-static SettingsUpdateHook FasterPages(FasterPageTransition);
-
-
-void WhiteStrapTransition()
-{
-    nw4r::ut::Color white;
-    white.rgba = 0xFFFFFFFF;
-    RKSystem::sInstance->sceneManager->colorFader->setColor(white);
-}
-
 kmWrite32(0x80007758, 0x981e0ccc);
 kmWrite32(0x80007bc8, 0x4e800020);
-//static BootHook hWhiteStrapTransition(WhiteStrapTransition, LOW);
+
+void FixVSIntroBMG(LayoutUIControl* control){
+    u32 trackBmg = GetCorrectTrackBMG(Cosmos::CupManager::GetStaticInstance()->GetTrackID());
+    control->SetMsgId(trackBmg, nullptr);
+}
+kmCall(0x808552cc, FixVSIntroBMG);
+
+void FixGPIntroBMG(LayoutUIControl& control, u32 bmg, TextInfo* info){
+    u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
+    if(trackId < 0x100) {
+        control.SetMsgId(bmg, info);
+        return;
+    }
+    u32 cupBmg = BMG_CUPS + ((trackId - 0x100) / 4) + 0x8;
+    CosmosLog("Setting BMG to: %x from %x\n", cupBmg, info->bmgToPass[1]);
+    info->bmgToPass[1] = cupBmg;
+    control.SetMsgId(bmg, info);
+}
+kmCall(0x808553b4, FixGPIntroBMG);
 

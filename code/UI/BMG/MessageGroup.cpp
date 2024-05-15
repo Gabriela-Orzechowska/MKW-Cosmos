@@ -66,6 +66,31 @@ void TextBox_setMessage_Patch(nw4r::lyt::TextBox * pane, BMGHolder * contextHold
 kmCall(0x8063deb0, TextBox_setMessage_Patch);
 kmCall(0x8063dd08, TextBox_setMessage_Patch);
 
+// DO NOT FUCKING ASK WHAT I DID HERE
+u64 GetSlot_Patch(BMGHolder& holder, u32 bmgId){
+    s32 ret = AdditionalHolder->GetMsgId(bmgId);
+    BMGHolder* pointerToHolder = AdditionalHolder;
+    if( ret == -1 ) {
+        ret = holder.GetMsgId(bmgId);
+        pointerToHolder = &holder;
+    }
+
+    return ((u64)ret) << 32 | (u32)pointerToHolder;
+}
+kmCall(0x805ce190, GetSlot_Patch);
+
+asm int GetSlot_PatchCopy(){
+    ASM(
+        nofralloc;
+        mr r20, r4;
+        mr r21, r3;
+        blr;
+    )
+}
+kmCall(0x805ce194, GetSlot_PatchCopy);
+
+
+
 void setTextBoxMessage_Patch(nw4r::lyt::TextBox * pane, BMGHolder * contextHolder, BMGHolder * commonHolder, u32 id)
 {
     if(AdditionalHolder->bmgFile != nullptr)
@@ -110,6 +135,13 @@ void RemoveEscapeSequences(wchar_t * msg, int len)
         }
         index++;
     }
+}
+
+wchar_t* GetMessageFromAdditionalHolder(u32 bmg){
+    s32 slot = AdditionalHolder->GetMsgId(bmg);
+    if(slot < 0)
+        return nullptr;
+    return AdditionalHolder->GetMsgByMsgId(slot);
 }
 
 void GetTextFromMessage(char * out, u32 messageId)

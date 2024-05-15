@@ -5,4 +5,6 @@
 #include <Settings/UserData.hpp>
 #include <core/System/SystemManager.hpp>
 
+
+wchar_t* GetMessageFromAdditionalHolder(u32 bmg);
 void GetTextFromMessage(char * out, u32 messageId);
