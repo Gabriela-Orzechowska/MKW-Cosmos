@@ -92,3 +92,4 @@ void FixGPIntroIcon(LayoutUIControl& control, char* name, u32){
 
 }
 kmCall(0x80855370, FixGPIntroIcon);
+
