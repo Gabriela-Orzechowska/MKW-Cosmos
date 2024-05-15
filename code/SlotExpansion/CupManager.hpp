@@ -46,6 +46,7 @@ namespace Cosmos
         int GetCupCount() const { return cupConfig->cupCount; }
         int GetTrackCount() const { return cupConfig->cupCount * 4; } //TODO Make it a separate field
         int GetTrackID() const { return winningCourse; };
+        static u32 GetCupID(u32 track) { return track > 0xff ? ((track - 0x100) / 4) + 0x8 : track / 4; }
 
         int GetCurrentTrackSlot() const;
         int GetCurrentMusicSlot() const;
