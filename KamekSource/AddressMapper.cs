@@ -31,12 +31,28 @@ public class AddressMapper
 
         var newMapping = new Mapping() { start = start, end = end, delta = delta };
 
-        foreach (var mapping in _mappings)
-        {
-            if (mapping.Overlaps(newMapping))
-                throw new ArgumentException(string.Format("new mapping {0} overlaps with existing mapping {1}", newMapping, mapping));
-        }
 
+        bool isNew = true;
+        for(int i = 0; i < _mappings.Count; i++) 
+        {
+            var mapping = _mappings[i];
+            if (mapping.Overlaps(newMapping))
+            {
+                if(mapping.delta == newMapping.delta)
+                {
+                    isNew = false;
+                    newMapping.start = Math.Min(mapping.start, newMapping.start);
+                    newMapping.end = Math.Max(mapping.end, newMapping.end);
+                    _mappings[i] = newMapping;
+                }
+                else
+                {
+                    throw new ArgumentException(string.Format("new mapping {0} overlaps with existing mapping {1}", newMapping, mapping));
+                }
+            }
+                
+        }
+        if(isNew)
         _mappings.Add(newMapping);
     }
 
