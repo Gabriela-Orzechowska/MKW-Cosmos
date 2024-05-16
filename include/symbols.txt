@@ -1417,8 +1417,13 @@ CreateAllObjects__12ObjectHolderFb = 0x80826e8c
 
 ##Rel
 
+#ModuleLinker
+sInstance__12ModuleLinker = 0x80385ff8
+
 DecideItem = 0x807bb42c		
 GetTrackBMGId = 0x80833668							   
+
+
 
 
 greenShellSpeed = 0x808a5dc0
