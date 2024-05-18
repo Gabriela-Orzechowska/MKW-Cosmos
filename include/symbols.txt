@@ -376,8 +376,6 @@ GetKTPTHolder__Q23KMP10ControllerCFUi = 0x80514b30
 GetGOBJHolder__Q23KMP10ControllerCFUi = 0x80514148
 GetAreaAtPosition__Q23KMP10ControllerCFPC4Vec3UiUc = 0x80516808
 
-isOnline__Fv = 0x807396ec
-
 #Archive
 sInstance__11ArchiveRoot = 0x809bd738
 DumpArchive__14ArchivesHolderFPcPQ23EGG4Heap = 0x8052ab6c

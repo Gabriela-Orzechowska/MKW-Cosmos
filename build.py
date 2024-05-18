@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 import shutil
 import subprocess, shlex
+import sys
 
 CC="C:\Program Files (x86)\Freescale\CW for MPC55xx and MPC56xx 2.10\PowerPC_EABI_Tools\Command_Line_Tools\mwcceppc.exe"
 CFLAGS="""-I- -i "engine" -i "include" -i "include/game" -i code -gcc_extensions on -Cpp_exceptions off -enum int -O4,s -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0 -maxerrors 1 -func_align 4 -rtti off"""
@@ -26,6 +27,11 @@ def build(path):
     subprocess.run(shlex.split(command))
 
 def main():
+    for i in sys.argv:
+        if i == "full-build":
+            if os.path.exists('build'):
+                shutil.rmtree('build/')
+            os.mkdir('build')
 
     result = list(Path("code/.").rglob("*.c*"))
     i = 1;

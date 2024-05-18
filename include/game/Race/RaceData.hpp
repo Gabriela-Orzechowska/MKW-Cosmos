@@ -196,25 +196,25 @@ extern "C" {
     char *CharacterIDToChar(CharacterId id); //80860acc
 }
 
-bool isOnline() {
+static inline bool isOnline() {
     GameMode mode = RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode;
     if(mode <= MODE_6) return false;
     if(mode >= MODE_AWARD) return false;
     return true;
 }
 
-bool isTT() {
+static inline bool isTT() {
     GameMode mode = RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode;
     if(mode != MODE_TIME_TRIAL && mode != MODE_GHOST_RACE) return false;
     return true;
 }
 
-bool isBattle() {
+static inline bool isBattle() {
     GameMode mode = RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode;
     if(mode != MODE_BATTLE && mode != MODE_PRIVATE_BATTLE && mode != MODE_PUBLIC_BATTLE) return false;
     return true;
 }
-bool isVS() {
+static inline bool isVS() {
     GameMode mode = RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode;
     if(mode != MODE_GRAND_PRIX && mode != MODE_VS_RACE && mode != MODE_TIME_TRIAL && mode != MODE_PUBLIC_VS
     && mode != MODE_PRIVATE_VS) return false;
