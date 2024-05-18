@@ -8,6 +8,8 @@ RaceFrameHook *RaceFrameHook::sHooks = NULL;
 LeCodeLoadHook *LeCodeLoadHook::sHooks = NULL;
 StrapEndHook *StrapEndHook::sHooks = NULL;
 
+ReplaceFunction * ReplaceFunction::sHooks = nullptr;
+
 kmBranch(0x800074d4, BootHook::exec);
 kmBranch(0x805320d0, RaceLoadHook::exec);
 kmBranch(0x8053369c, RaceFrameHook::exec); //RaceInfo::Update()

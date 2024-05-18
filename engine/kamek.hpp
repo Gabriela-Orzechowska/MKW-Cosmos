@@ -114,7 +114,7 @@ struct PtmfHolder_3A : PtmfHolderBase_3A<Ret, A1, A2, A3> {
 
 
 //#define DX_FEATURES
-//#define DEBUG_COSMOS
+#define DEBUG_COSMOS
 #define CosmosLog(f, ...) OSReport("[Cosmos:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
 #define CosmosError(f, ...) OSReport("[Cosmos Error:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
 
@@ -247,6 +247,51 @@ public:
         for (RaceFrameHook * p = sHooks; p; p = p->mNext) p->mFunc();
     }
 };
+typedef int (RepFunc)();
+#define REPLACED(func, type, ...) ((type (*)(...))&func.instruction1)(__VA_ARGS__);
+#define REPLACE(name, addr, func) static ReplaceFunction rp##name(addr, (RepFunc *) &func);
+
+
+class ReplaceFunction {
+public:
+
+
+    RepFunc *mFunc;
+    static ReplaceFunction * sHooks;
+    ReplaceFunction * mNext;
+    u32 address;
+    u32 instruction1;
+    u32 instruction2;
+
+    ReplaceFunction(u32 addr, RepFunc* f) {
+        mFunc = f;
+        address = addr;
+        mNext = sHooks;
+        sHooks = this;
+    }
+    ReplaceFunction(void* addr, RepFunc* f) {
+        mFunc = f;
+        address = (u32)addr;
+        mNext = sHooks;
+        sHooks = this;
+    }
+
+    static void exec()
+    {
+        for(ReplaceFunction * p = sHooks; p != nullptr; p = p->mNext)
+        {
+            p->instruction1 = *(u32 *)p->address;
+            u32 offset = ((u32)p->address)-(u32)&p->instruction1;
+            u32 command = 0x48000000 | (offset & 0x03FFFFFF);
+            p->instruction2 = command;
+
+            offset = ((u32)p->mFunc)-(u32)p->address;
+            command = 0x48000000 | (offset & 0x03FFFFFF);
+            *(u32 *)p->address = command;
+        }
+    }
+};
+
 
 enum HookPriority{
     LOW,
@@ -277,6 +322,8 @@ public:
         OSReport("[Cosmos] Cosmos %s Loaded (0x%s)\n", __COSMOS_VERSION__, __COMPILER_VERSION__);
         OSReport("[Cosmos Module] FatFs R0.15\n");
 
+        ReplaceFunction::exec();
+
         for (BootHook * p = sHooks; p; p = p->mNext)
             if(p->mPriority == LINK) p->mFunc();
 
@@ -293,4 +340,7 @@ public:
             if(p->mPriority == LOW) p->mFunc();
     }
 };
+
+
+
 #endif
