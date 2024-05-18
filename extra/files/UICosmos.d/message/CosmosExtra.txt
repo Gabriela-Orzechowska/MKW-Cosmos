@@ -15,19 +15,22 @@
  2801   = Time Trials (200cc)
  2802   = Time invalidated. Delta too large.
  2803   = Ghost Saving disabled.
+ 2804   = Ghost Saving disabled. Dolphin cheats enabled.
 
  2810   = Track Layout: Normal
- 2811   = Track Layout: Castle Gorge	
+ 2811   = Track Layout: Alphabetical
 
  2A00   = Settings
  2A01   = Race (1/1)
  2A02   = Menu (1/1)
  2A03   = Debug
+ 2A04   = Host
 
  2A20   = Manage your settings!
  2A21   = Manage your Race settings!
  2A22   = Manage your Menu settings!
  2A23   = Manage your Debug settings!
+ 2A24   = Manage your Friend Room settings!
 
  3700   = Enabled
  3701   = Disabled
@@ -109,10 +112,35 @@
  3A21   = Displays messages on screen (buggy on Dolphin).
  3A22   = Hide messages on screen.
 
+ 3300   = Host Always Wins
+ 3B01   = Only host vote will matter.
+ 3B02   = The track will be selected like normal.
+ 
+ 3310   = Allow Mii Heads
+ 3B11   = Players can use Mii Heads settings.
+ 3B12   = Mii Heads will be forced off.
+
+ 3320   = Force CC
+ 3321   = None
+ 3322   = 150cc
+ 3323   = 200cc
+ 3324   = Mirror (150cc)
+ 
+ 3330   = Race Count
+ 3331   = 2
+ 3332   = 4
+ 3333   = 8
+ 3334   = 12
+ 3335   = 16
+ 3336   = 24
+ 3337   = 32
+ 3338   = 64
+ 
 
  2820   = A solo race for the fastest record! (200cc)
  2830   = Change Combo
  2840   = Some changes require a restart
+ 2841   = Dolphin cheats are enabled!\nThe game might not function as expected.
 
 6000    = Mushroom
 6001    = Shell

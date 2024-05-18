@@ -219,15 +219,21 @@ namespace Cosmos
 
         void VerifyTimeDuringRace()
         {
-            if(Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED){
-                Pages::RaceHUD *page = MenuData::GetStaticInstance()->curScene->Get<Pages::RaceHUD>(TIME_TRIAL_INTERFACE);
-                if (page)
-                {
+            Pages::RaceHUD *page = Pages::RaceHUD::sInstance;
+            if (page)
+            {
+                if(Cosmos::Security::GeckoAnalizer::AreCheatsEnabled()){
+                    page->ghostMessage->isHidden = false;
+                    page->ghostMessage->SetMsgId(0x2804);
+                    return;
+                }
+                if(Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED){
                     page->ghostMessage->isHidden = false;
                     page->ghostMessage->SetMsgId(0x2803);
+                    return;
                 }
-                return;
             }
+
             if(RaceInfo::GetStaticInstance()->timer < 250) return;
             if (RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode == MODE_TIME_TRIAL) {
                 GhostManager::GetStaticInstance()->VerifyTime();
