@@ -63,7 +63,7 @@ namespace Cosmos
     namespace Data
     {
 
-#define SettingsVersion 6
+#define SettingsVersion 7
 
         enum SETTINGSPAGES
         {
@@ -147,7 +147,7 @@ namespace Cosmos
 
         enum FORCE_CC
         {
-            DEFAULT = 0x0,
+            FORCE_NONE = 0x0,
             FORCE_150CC,
             FORCE_200CC,
         };
@@ -206,32 +206,32 @@ namespace Cosmos
             {
                 // Race
                 .settingCount = 6,
-                .settings = {{.optionCount = 3, .isBool = false, .defaultValue = 0}, // Music Cutoff
-                             {.optionCount = 2, .isBool = true, .defaultValue = 0},  // Draggable Blues
-                             {.optionCount = 2, .isBool = true, .defaultValue = 1},  // Mii Heads
-                             {.optionCount = 4, .isBool = false, .defaultValue = 2}, // Speedometer
-                             {.optionCount = 3, .isBool = false, .defaultValue = 0},
-                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}} // Frame Mode
+                .settings = {{.optionCount = 3, .isBool = false, .defaultValue = SPEEDUP}, // Music Cutoff
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED},  // Draggable Blues
+                             {.optionCount = 2, .isBool = true, .defaultValue = DISABLED},  // Mii Heads
+                             {.optionCount = 4, .isBool = false, .defaultValue = SPEEDO_1_DIGIT}, // Speedometer
+                             {.optionCount = 3, .isBool = false, .defaultValue = FRAME_MODE_DEFAULT}, // Frame Mode
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}}  // Ghost Saving
             },
             {
                 // Menu
                 .settingCount = 2,
-                .settings = {{.optionCount = 12, .isBool = false, .defaultValue = 0}, // Language //TODO REENABLE KOREAN
-                             {.optionCount = 2, .isBool = true, .defaultValue = 0}}   // Fast Menus
+                .settings = {{.optionCount = 12, .isBool = false, .defaultValue = NO_CHANGE}, // Language //TODO REENABLE KOREAN
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}}   // Fast Menus
             },
             {
                 // Debug
                 .settingCount = 3,
-                .settings = {{.optionCount = 2, .isBool = true, .defaultValue = 1}, // DWC Logs
-                             {.optionCount = 2, .isBool = true, .defaultValue = 1},
-                             {.optionCount = 2, .isBool = true, .defaultValue = 1}} // Performance Monitor
+                .settings = {{.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, // DWC Logs
+                             {.optionCount = 2, .isBool = true, .defaultValue = DISABLED},
+                             {.optionCount = 2, .isBool = true, .defaultValue = DISABLED}} // Performance Monitor
             },
             {// Host
              .settingCount = 4,
-             .settings = {{.optionCount = 2, .isBool = true, .defaultValue = 1},
-                          {.optionCount = 2, .isBool = true, .defaultValue = 1},
-                          {.optionCount = 3, .isBool = false, .defaultValue = 0},
-                          {.optionCount = 8, .isBool = false, .defaultValue = 0}}},
+             .settings = {{.optionCount = 2, .isBool = true, .defaultValue = DISABLED},
+                          {.optionCount = 2, .isBool = true, .defaultValue = ENABLED},
+                          {.optionCount = 3, .isBool = false, .defaultValue = FORCE_NONE},
+                          {.optionCount = 8, .isBool = false, .defaultValue = RACE_COUNT_4}}},
         };
 
         static u8 GlobalSettingsPageOrder[PAGE_COUNT] = {COSMOS_RACE_SETTINGS_1, COSMOS_MENU_SETTINGS_1, COSMOS_HOST_SETTINGS_1, COSMOS_DEBUG_SETTINGS};
