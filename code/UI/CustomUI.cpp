@@ -3,6 +3,7 @@
 #include <UI/Settings/NewSettingsPage.hpp>
 #include <UI/Settings/MessageWarning.hpp>
 #include <game/UI/Page/RaceMenu/TTPause.hpp>
+#include <System/Security.hpp>
 
 void * CreatePage(u32 pageId)
 {
@@ -21,23 +22,49 @@ void * CreatePage(u32 pageId)
 kmCall(0x80622d2c, CreatePage);
 
 
-void InjectPage(Scene& scene, PageId id)
+void InjectSettingPage(Scene& scene, PageId id)
 {
     scene.CreatePage(id);
     scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
-    // scene.CreatePage((PageId)Cosmos::WARNING_PAGE);
+    //
     return;
 }
-kmCall(0x8062fe3c, InjectPage); //OPTIONS
+kmCall(0x8062fe3c, InjectSettingPage); //OPTIONS
 
 //MenuSingle
-kmCall(0x8062d334, InjectPage); //From Main
-kmCall(0x8062d478, InjectPage); //From Change Char
-kmCall(0x8062d5bc, InjectPage); //From ChangeCourse
-kmCall(0x8062d640, InjectPage); //From Versus
-kmCall(0x8062d6c4, InjectPage); //From Battle
-kmCall(0x8062d808, InjectPage); //From Mission MOde
+kmCall(0x8062d334, InjectSettingPage); //From Main
+kmCall(0x8062d478, InjectSettingPage); //From Change Char
+kmCall(0x8062d5bc, InjectSettingPage); //From ChangeCourse
+kmCall(0x8062d640, InjectSettingPage); //From Versus
+kmCall(0x8062d6c4, InjectSettingPage); //From Battle
+kmCall(0x8062d808, InjectSettingPage); //From Mission MOde
 
-kmCall(0x8062c644, InjectPage); // TTs
+kmCall(0x8062c644, InjectSettingPage); // TTs
+
+void InjectWarningPage(Scene& scene, PageId id){
+    scene.CreatePage(id);
+    scene.CreatePage((PageId)Cosmos::WARNING_PAGE);
+    return;
+}
+
+kmCall(0x8062ce54, InjectWarningPage);
+kmCall(0x8062ced8, InjectWarningPage);
+kmCall(0x8062cf5c, InjectWarningPage);
+kmCall(0x8062cfe0, InjectWarningPage);
+kmCall(0x8062d064, InjectWarningPage);
+
+static bool hasShownWarning = false;
+void ShowCheatsWarningPage(Page& page, u32 id, float animLenght) {
+    page.EndStateAnimate(animLenght,id);
+    if(!hasShownWarning){
+        if(Cosmos::Security::GeckoAnalizer::AreCheatsEnabled()){
+            CosmosUI::MessagePageWindow* messagePage = MenuData::GetStaticInstance()->curScene->Get<CosmosUI::MessagePageWindow>((PageId)Cosmos::WARNING_PAGE);
+            messagePage->Setup(CosmosUI::INFO, 0x2841);
+            page.AddPageLayer((PageId)Cosmos::WARNING_PAGE, 0);
+        }
+        hasShownWarning = true;
+    }
+}
+kmCall(0x8063b04c, ShowCheatsWarningPage);
 
 

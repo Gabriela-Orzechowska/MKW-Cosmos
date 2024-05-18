@@ -137,12 +137,9 @@ static RaceLoadHook rlhResetOnlineMenuState(ResetOnlineMenuState);
 
 void CalcInput(RealControllerHolder& holder, bool isPaused){
     holder.UpdateFunc(isPaused);
-    if(isPaused == false){
-        if(isOnlinePaused){
-            holder.GetCurrentGameInputState().Reset();
-            holder.GetPreviousGameInputState().Reset();
-        }
-            
+    if(isPaused == false && isOnlinePaused) {
+        holder.GetCurrentGameInputState().Reset();
+        holder.GetPreviousGameInputState().Reset();            
     }
 }
     
