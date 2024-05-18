@@ -14,6 +14,7 @@
 #include <SlotExpansion/SlotExpansion.hpp>
 #include <UI/BMG/MessageGroup.hpp>
 
+
 using namespace Cosmos::Data;
 
 namespace CosmosUI
@@ -93,3 +94,57 @@ void FixGPIntroIcon(LayoutUIControl& control, char* name, u32){
 }
 kmCall(0x80855370, FixGPIntroIcon);
 
+void AddPauseSceneToOnline(Scene& scene, PageId id){
+    scene.CreatePage(id);
+    scene.CreatePage(VS_RACE_PAUSE_MENU);
+}
+kmCall(0x8062eccc, AddPauseSceneToOnline);
+kmWrite32(0x808567c0, 0x60000000);
+kmWrite32(0x808567c8, 0x60000000);
+kmWrite16(0x808567cc+2, 0x0000);
+
+void DontPauseOnline(void* unknown){
+    GameMode mode = RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode;
+    if(isOnline()) {
+        Pages::RaceHUD* racehud = Pages::RaceHUD::sInstance;
+        racehud->PlaySound(0xd3, -1);
+        isOnlinePaused = true;
+        return;
+    }
+    Scene::PauseGame(unknown);
+}
+kmCall(0x80856b38, DontPauseOnline);
+
+void UnpauseOfflineSound(void* unknown){
+    GameMode mode = RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode;
+    if(isOnline()) {
+        Pages::RaceHUD* racehud = Pages::RaceHUD::sInstance;
+        racehud->PlaySound(0xd4, -1);
+        isOnlinePaused = false;
+        return;
+    }
+    Scene::UnpauseGame(unknown);
+}
+kmCall(0x8085a260, UnpauseOfflineSound);
+kmCall(0x8085a200, UnpauseOfflineSound);
+kmCall(0x8085a0dc, UnpauseOfflineSound);
+kmCall(0x8085a080, UnpauseOfflineSound);
+
+void ResetOnlineMenuState(){
+    isOnlinePaused = false;
+}
+static RaceLoadHook rlhResetOnlineMenuState(ResetOnlineMenuState);
+
+void CalcInput(RealControllerHolder& holder, bool isPaused){
+    holder.UpdateFunc(isPaused);
+    if(isPaused == false){
+        if(isOnlinePaused){
+            holder.GetCurrentGameInputState().Reset();
+            holder.GetPreviousGameInputState().Reset();
+        }
+            
+    }
+}
+    
+
+kmCall(0x80521784, CalcInput);

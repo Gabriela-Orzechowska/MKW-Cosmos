@@ -27,6 +27,8 @@ enum MenuCategory {
 class Scene {
 public:
     static Page *CreatePageById(PageId pageId); //0x80623390
+    static void PauseGame(void* unknown); //0x808600dc
+    static void UnpauseGame(void* unknown); //80860100
     static MenuCategory GetType(MenuId id); //80631588
     static u32 GetSoundid(MenuId menuId); //80631c68
 

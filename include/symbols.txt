@@ -361,7 +361,8 @@ Request__Q23EGG10TaskThreadFPFPv_vPvUi = 0x80242c18
 GetCurrent__9GameSceneFv = 0x8051bed0
 SetFramerate__9GameSceneFUc = 0x8051af84
 GetType__5SceneF6MenuId = 0x80631588
-
+PauseGame__5SceneFPv = 0x808600dc
+UnpauseGame__5SceneFPv = 0x80860100
 
 #ScnManager
 pageCount__10ScnManager = 0x808b4bf0
@@ -414,6 +415,10 @@ CreateRKG__9GhostDataFP3RKG = 0x8051ca80
 sInstance__9InputData = 0x809bd70c
 SetController__20RealControllerHolderFP10ControllerPUi = 0x80521554
 InitGhostController__9InputDataFUcP12RKGInputDatab = 0x8052453c
+UpdateFunc__16ControllerHolderFb = 0x80521198
+CoreUpdateFunc__20RealControllerHolderFb = 0x80521768
+
+Reset__10InputStateFv = 0x8051e85c
 
 #Timer
 __vt__5Timer = 0x808b2d44
@@ -499,6 +504,7 @@ Update__9KartBoostFPb = 0x80588e24
 
 #KartStatus
 UpdateFromInput__10KartStatusFv = 0x8059487c
+UpdateFromInput__10KartStatusFv4__Fv = 0x80594880
 
 #ControlLoader
 Load__13ControlLoaderFPCcPCcPCcPPCc = 0x805c2c60
@@ -1337,6 +1343,7 @@ GetCourseSoundId__12RaceAudioMgrFv = 0x807101f4
 #RSARSoundsPlayer
 sInstance__16RSARSoundsPlayer = 0x809c2850
 PlayEndRaceMenuButtonClickSound__20RaceRSARSoundsPlayerFv = 0x80715ff0
+PlayPauseSound__16RSARSoundsPlayerFv = 0x80715ecc
 
 #KartModelsMgr
 sInstance__13KartModelsMgr = 0x809c23f8

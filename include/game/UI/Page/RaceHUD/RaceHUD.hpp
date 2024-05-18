@@ -30,7 +30,7 @@ public:
     virtual void HasPlayerRaceEnded(u8 id); //0x74 808572d4 based on raceinfoplayer stateflags
     virtual bool HasRaceEnded(); //0x78 808573ac also if online, changes next page to 0x48
     virtual bool HasRaceEndedReplay(); //0x7c 8085732c only if gametype == replay
-    int GetCtrlRaceBaseCount() const; //80857b08 returns how page elements there should be
+    int GetCtrlRaceBaseCount(int params) const; //80857b08 returns how page elements there should be
     void InitCtrlRaceBase(u32 bitField); //80857cc0 inits all of the page elements 
     void InitActions(); //80856664, sets up the handlers and then stores the page input controller
     void ChangeFocusedPlayer(u32 hudSlotId, u8 type); //80856b74 type = 0 -> next, type = 1 -> prev
@@ -50,7 +50,7 @@ public:
     CtrlRaceWifiStartMessage **ctrlRaceWifiStartMessageArray; //0x70 one per hud slot only online
     CtrlRaceWifiFinishMessage **CtrlRaceWifiFinishMessageArray; //0x74 one per hud slot
     u32 framesAfterFinish; //0x78, interface fades at 120 frames
-    Pause *pausePage; //0x7C, only set when in an actual pause, as an added page layer
+    Page *pausePage; //0x7C, only set when in an actual pause, as an added page layer
     PageManipulatorManager inputController;
     PtmfHolder_1A<Page, void, u32> *onPauseHandler; //0x1c4
     PtmfHolder_1A<Page, void, u32>  *onNextPlayerSwitchHandler; //0x1c8
