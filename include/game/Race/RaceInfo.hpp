@@ -112,6 +112,9 @@ public:
   bool IsAtLeastStage(u32 stage);
   
   virtual ~RaceInfo(); //80532e3c vtable 808b3350
+
+  RaceinfoPlayer* GetPlayer(int index) { return players[index]; }
+
   RaceinfoRandom *random1;
   RaceinfoRandom *random2;
   RaceinfoPlayer **players; //pointer to an array of pointers, length is player count

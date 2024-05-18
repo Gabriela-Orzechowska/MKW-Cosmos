@@ -114,6 +114,8 @@ struct WPADCLStatus {
 class InputState {
 public:
     virtual void unknown_vtable();
+
+    void Reset(); //8051e85c
     // vtable 808b2f2c
     u16 buttonActions; // bit flags:
         /* 
@@ -251,12 +253,17 @@ class ControllerHolder {
 public:
     ControllerHolder(); // 80520f64 - inlined in RealControllerHolder()
     virtual ~ControllerHolder(); // 805222b4 vtable 808b2dd8
-    virtual void Update(); // 80521198
+    virtual void Update(bool isPaused); // 80521198
     virtual int unknown2(); // 80521110
     virtual int unknown3();// 805226f4
     virtual int unknown4();// 8051ce84
     virtual int  unknown5();// 8051ce8c
     virtual int  unknown6();// 80520ebc
+
+    void UpdateFunc(bool isPaused);
+    InputState& GetCurrentGameInputState() { return inputStates[0]; }
+    InputState& GetPreviousGameInputState() { return inputStates[1]; }
+
     // vtable 808b2dd8
     Controller *controller; //0x4
     Controller *controller2;
@@ -286,17 +293,22 @@ class RealControllerHolder : public ControllerHolder {
 public:
     RealControllerHolder(); // 805220bc 
     ~RealControllerHolder() override; // 805222f4 vtable 808b2d90
-    void Update() override; //0xc 80521768
+    void Update(bool isPaused) override; //0xc  
     int unknown2() override; // 80522708
     int unknown4() override; // 80522700
     int unknown5() override; // 805226f8
     int unknown6() override; // 80520ebc
     
+    void CoreUpdateFunc(bool isPaused);
+
+    
+
     // vtable 808b2d90
     void SetController(Controller *controller, u32 *r5); //80521554 r5 is a pointer, but unsure to what as it's always NULL
     void RequestRumble(double intensity, Controller *controller, u32 length, u8 r6); //80521acc
     RKGInputBuffer * rkgInputBuffer; // 0xd8 0x2774 byte buffer for storing a controller input section of an RKG file
-    u8 unknown_0xdc[0xe8-0xdc];
+    u8 unknown_0xdc[0xe4-0xdc];
+    bool isLocked;
   GhostWriter *ghostWriter; //0xE8
 }; // Total size 0xec
 
