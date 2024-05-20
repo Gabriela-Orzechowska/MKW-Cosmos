@@ -28,7 +28,7 @@ void * HighwayManagerCreate(u32 size)
     if(hasCar && hasTruck)
     {
         hasHighwayManager = true;
-        return new u8[size];
+        return EGG::Heap::alloc(size, 4, 0);
     }
 
    return NULL;
@@ -63,7 +63,7 @@ void * HeyhoShipManagerCreate(u32 size)
         const char * objectName = object->GetName();
         if(strcmp(objectName, "HeyhoShipGBA") == 0x0)
         {
-            return new u8[size];
+            return EGG::Heap::alloc(size, 4, 0);
         }
     }
     return NULL;
