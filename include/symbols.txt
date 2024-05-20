@@ -1310,8 +1310,20 @@ loginRegion__3DWC = 0x80384fd0
 DWC_AddMatchKeyInt = 0x800d4258
 DWC_ReportLevel = 0x803862c0
 DWC_CreateFriendKey = 0x800EC6BC
+DWC_ProcessFriendsMatch = 0x800d115c
 
 NHTTPGetBodyAll = 0x801D937C
+NHTTPStartup = 0x801d8d30
+NHTTPCreateRequest = 0x801d8ff8
+NHTTPSetRootCADefault = 0x801d9738 
+NHTTPSetClientCertDefault = 0x801d9798
+NHTTPSetProxyDefault = 0x801d9610
+NHTTPSetVerifyOption = 0x801d9444
+NHTTPAddHeaderField = 0x801d90d4
+NHTTPSendRequestAsync = 0x801d925c
+NHTTPCancelRequestAsync = 0x801d92b8
+NHTTPDestroyResponse = 0x801d92f8
+NHTTPGetResultCode = 0x801d93e4
 
 #Effects
 Reset__10EffectsMgrFv = 0x8067b8f0
