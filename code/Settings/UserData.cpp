@@ -22,13 +22,13 @@ namespace Cosmos
             SettingsUpdateHook::exec();
         }
 
-        void SettingsHolder::Init(char *filepath, const char *magic, u32 version)
+        void SettingsHolder::Init(const char *filepath, const char *magic, u32 version)
         {
             strncpy(this->filepath, filepath, IPCMAXPATH);
 
             Settings *buffer = new (RKSystem::mInstance.EGGSystem, 0x20) Settings;
 
-            CosmosFile::FileManager *manager = CosmosFile::FileManager::GetStaticInstance();
+            CosmosFile::FileManager *manager = CosmosFile::FileManager::GetNANDManager();
 
             if (manager == nullptr)
             {
@@ -70,7 +70,7 @@ namespace Cosmos
 
         void SettingsHolder::Save()
         {
-            CosmosFile::FileManager *manager = CosmosFile::FileManager::GetStaticInstance();
+            CosmosFile::FileManager *manager = CosmosFile::FileManager::GetNANDManager();
             manager->Open(this->filepath, CosmosFile::FILE_MODE_WRITE);
             manager->Overwrite(sizeof(Settings), this->settings);
             manager->Close();
@@ -85,8 +85,7 @@ namespace Cosmos
         {
             SettingsHolder *holder = new (RKSystem::mInstance.EGGSystem) SettingsHolder();
             char path[IPCMAXPATH];
-            snprintf(path, IPCMAXPATH, "%s/%s", Cosmos::packFolder, Cosmos::SaveFile);
-            holder->Init(path, "CSSE", SettingsVersion);
+            holder->Init(Cosmos::SaveFile, "CSSE", SettingsVersion);
             SettingsHolder::sInstance = holder;
         }
 

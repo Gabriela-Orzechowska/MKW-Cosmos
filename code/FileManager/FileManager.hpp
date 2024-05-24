@@ -15,6 +15,7 @@ typedef char FileName[255];
 
 // Base and Riivo Managers are gotten from SIP, thanks to Melg
 
+
 namespace CosmosFile
 {
     enum FILE_MODE{
@@ -24,12 +25,16 @@ namespace CosmosFile
         FILE_MODE_READ_WRITE = FILE_MODE_READ | FILE_MODE_WRITE,
     };
 
+    const char nandPath[] __attribute__((aligned(0x20))) = "/title/00010001/43534D53";
+
     class FileManager{
         public:
             static FileManager * sInstance;
+            static FileManager* nandInstance;
             static void CreateStaticInstance();
             static FileManager * Create();
-            static FileManager * GetStaticInstance();
+            static FileManager * GetStaticInstance() { return sInstance; }
+            static FileManager* GetNANDManager() { return nandInstance; }
             
             FileManager() : fd(-1) {memset(&this->path, 0, IPCMAXPATH);}
             virtual s32 Open(const char * filepath, u32 mode);

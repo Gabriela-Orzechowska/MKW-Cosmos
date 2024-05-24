@@ -291,7 +291,7 @@ namespace Cosmos
         private:
             Settings *settings;
             static SettingsHolder *sInstance;
-            void Init(char *filepath, const char *magic, u32 version);
+            void Init(const char *filepath, const char *magic, u32 version);
             void RequestSave();
             char filepath[IPCMAXPATH];
 

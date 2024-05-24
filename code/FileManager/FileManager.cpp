@@ -4,13 +4,20 @@
 
 namespace CosmosFile
 {
-    FileManager * FileManager::sInstance = NULL;
+    FileManager * FileManager::sInstance = nullptr;
+    FileManager * FileManager::nandInstance = nullptr;
 
     void FileManager::CreateStaticInstance()
     {
         FileManager * manager;
+        FileManager * nandManager;
         bool valid = false;
         EGG::Heap * heap = RKSystem::mInstance.EGGSystem;
+
+        nandManager = new (heap) FileManager();
+        if(nandManager != nullptr)
+            nandInstance = nandManager;
+
         s32 ret = Cosmos::Open("file", IOS::MODE_NONE); //Check if its riivo
         if(ret < 0) //If not, check if dolphin
         {
@@ -47,14 +54,9 @@ namespace CosmosFile
 
     BootHook SetUpFileLoader(FileManager::CreateStaticInstance, FIRST);
 
-    FileManager * FileManager::GetStaticInstance()
-    {
-        return FileManager::sInstance;
-    }
-
     void FileManager::GetCorrectPath(char * realPath, const char * path) const
     {
-        snprintf(realPath, IPCMAXPATH, "%s%s", "/title/00010004/", path);
+        snprintf(realPath, IPCMAXPATH, "%s/%s", nandPath, path);
         return;
     }
 
