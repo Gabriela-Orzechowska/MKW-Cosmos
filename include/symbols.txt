@@ -319,6 +319,8 @@ alloc__Q23EGG4HeapFUiiPQ23EGG4Heap = 0x80229814
 free__Q23EGG4HeapFPvPQ23EGG4Heap = 0x80229b84
 BecomeCurrentHeap__Q23EGG4HeapFv = 0x80229d74
 
+Create__Q23EGG7ExpHeapFPviUi = 0x80226a1c
+
 #Effect
 __ct__Q23EGG6EffectFPCcUi = 0x80222ccc
 Create__Q23EGG6EffectFv = 0x80222d90

@@ -17,7 +17,7 @@ extern "C"
 {
     s32 NHTTPStartup(NHTTPAlloc, NHTTPFree, u32 prio); //801d8d30
     NHTTPResponse NHTTPCreateRequest(const char* url, NHTTP_REQUEST requestMethod, char* responseBuffer, u32 responseSize, NHTTPRequestCallback callbackMethod, void* args); //801d8ff8
-    void NHTTPSetRootCADefault(); //801d9738 
+    s32 NHTTPSetRootCADefault(); //801d9738 
     s32 NHTTPSetClientCertDefault(NHTTPRequest request); //801d9798
     s32 NHTTPSetProxyDefault(NHTTPRequest request); //801d9610
     s32 NHTTPSetVerifyOption(NHTTPRequest request, u32 type); //801d9444

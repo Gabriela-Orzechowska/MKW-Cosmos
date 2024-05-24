@@ -68,6 +68,7 @@ namespace EGG {
 		}; //0x400
 
 		static ExpHeap *Create(int size, Heap *parent, u16 flags);
+		static ExpHeap* Create(void* block, int size, u32 attr); // 80226a1c
 		ExpHeap(); //80226a1c
 		virtual ~ExpHeap(); //0x8 802269a8 vtable 802a2ff8
 		int getHeapKind() const override; //C 80226efc
