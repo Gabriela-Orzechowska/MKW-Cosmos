@@ -141,7 +141,6 @@ inline void cacheInvalidateAddress(u32 address) {
     }
 }
 
-
 void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLength, bool isDol)
 {
     static u32 text = 0;
@@ -153,7 +152,6 @@ void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLengt
         funcs->sprintf(err, "FATAL ERROR: Incompatible file (version %d), please upgrade your Kamek Loader", header->version);
         kamekError(funcs, err);
     }
-    funcs->OSReport("addr: %p\n", header);
 
     funcs->OSReport("header: bssSize=%u, codeSize=%u, ctors=%u-%u\n",
         header->bssSize, header->codeSize, header->ctorStart, header->ctorEnd);
@@ -240,9 +238,8 @@ void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLengt
 }
 
 static void * codeBuf = nullptr;
-void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path)
+void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const char* codePath)
 {
-
     static u32 fileLength = 0;
     funcs->OSReport("{Kamek by Treeki}\nLoading Kamek binary '%s'...\n", path);
     bool isDol = false;
@@ -264,19 +261,38 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path)
         funcs->OSReport("DVD file located: addr=%p, size=%d\n", fileInfo.startAddr, fileInfo.length);
 
         u32 length = fileInfo.length;
-        u32 roundedLength = (fileInfo.length + 0x1F) & ~0x1F;
+
+        if(!funcs->DVDReadPrio(&fileInfo, (void*)bufferPointer, length, 0, 2)){
+            kamekError(funcs, "Failed to load file from dics!");
+        }
+        funcs->DVDClose(&fileInfo);
+
+        ARCHandle handle;
+        if(!funcs->ARCInitHandle((void*)bufferPointer, &handle)){
+            kamekError(funcs, "Failed create ARC!");
+        }
+
+        ARCFileInfo info;
+        funcs->ARCOpen(&handle, codePath, &info);
+
+        YAZHeader* header = (YAZHeader*) (bufferPointer + info.startOffset);
+
+        u32 roundedLength = (header->fileSize + 0x1F) & ~0x1F;
         codeBuf = heap->alloc(roundedLength, -0x20);
 
         if (!codeBuf)
             kamekError(funcs, "FATAL ERROR: Out of file memory");
 
-        funcs->DVDReadPrio(&fileInfo, codeBuf, roundedLength, 0, 2);
-        funcs->DVDClose(&fileInfo);
+        funcs->SZS_Decode((void*)(bufferPointer +info.startOffset), codeBuf);
+
         isDol = true;
-        fileLength = fileInfo.length;
+        fileLength = header->fileSize;
 
+        for(u32 i = bufferPointer; i < (bufferPointer + length); i++){
+            *(u8*)i = 0;
+        }
     }
-
+    
     loadKamekBinary(funcs, codeBuf, fileLength, isDol);
     if(!isDol) heap->free(codeBuf);
 }

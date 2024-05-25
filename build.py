@@ -75,12 +75,23 @@ def main():
     subprocess.run(shlex.split(kamek))
     #  -debug -map=\"D:\Kamek\MKWDX-Kamek\KamekMap.map\" -readelf=\"C:\cygnus\cygwin-b20\H-i586-cygwin32\bin\readelf.exe\" 
     print("Linking done")
-    print("Copying...")
+    print("Compressing...")
+    
+    if os.path.exists('out/Code.d/'):
+        shutil.rmtree('out/Code.d/')
+    os.mkdir('out/Code.d/')
 
-    shutil.copy("out\P.bin", "TestPack\Cosmos\Binaries")
-    shutil.copy("out\E.bin", "TestPack\Cosmos\Binaries")
-    shutil.copy("out\J.bin", "TestPack\Cosmos\Binaries")
-    shutil.copy("out\K.bin", "TestPack\Cosmos\Binaries")
+    wszst = f"wszst compress out/* -o --dest out/Code.d/"
+    subprocess.run(shlex.split(wszst))
+
+    os.remove("out/Code.d/Code.szs")
+
+    wszst = f"wszst create out/Code.d -o --dest out/Code.arc --no-compress"    
+    subprocess.run(shlex.split(wszst))
+    shutil.rmtree('out/Code.d/')
+
+    shutil.copy("out\Code.arc", "TestPack\Cosmos\Binaries")
+
 
     print("Done")
 
