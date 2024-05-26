@@ -1,6 +1,7 @@
 #ifndef _LOADER_
 #define _LOADER_
 #include <core/rvl/dvd/dvd.hpp>
+#include <core/rvl/nand.hpp>
 #include <core/System/RKSystem.hpp>
 
 
@@ -21,9 +22,13 @@ typedef int (*sprintf_t) (char *str, const char *format, ...);
 typedef bool (*ARCInitHandle_t) (void* arcStart, ARCHandle* handle);
 typedef bool (*ARCOpen_t) (ARCHandle* handle, const char* filename, ARCFileInfo* info);
 typedef u32 (*SZS_Decode_t) (void* start, void* dest);
+typedef s32 (*NANDPrivateOpen_t) (const char* path, NANDFileInfo* info, u8 type);
+typedef s32 (*NANDClose_t) (NANDFileInfo* info);
+typedef s32 (*NANDRead_t) (NANDFileInfo* info, void* buffer, u32 length);
+typedef s32 (*NANDGetLength_t) (NANDFileInfo* info, u32 *length);
 
 static const u32 bufferPointer = 0x80600000;
-
+const char nandPath[] __attribute__((aligned(0x20))) = "/title/00010001/43534D53";
 
 struct loaderFunctions {
     OSReport_t OSReport;
@@ -37,6 +42,10 @@ struct loaderFunctions {
     ARCInitHandle_t ARCInitHandle;
     ARCOpen_t ARCOpen;
     SZS_Decode_t SZS_Decode;
+    NANDPrivateOpen_t NANDPrivateOpen;
+    NANDClose_t NANDClose;
+    NANDRead_t NANDRead;
+    NANDGetLength_t NANDGetLength;
 };
 
 void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const char* codePath);

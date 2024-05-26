@@ -16,7 +16,7 @@ void PreRestart(u32 mode)
     DVDFileInfo fileHandle;
     u32 black = 0;
     u32 white = ~1;
-    if(DVDOpen("/rel/Loader.bin", &fileHandle))
+    if(DVDOpen("/Binaries/Loader.bin", &fileHandle))
     {
         if (DVDReadPrio(&fileHandle, (void *) buffer, LOADER_SIZE, 0x0, 0x2))
         {

@@ -175,7 +175,6 @@ namespace Cosmos{
             }
             file->Load(path, heap, isCompressed, align, fileHeap, fileInfo);
         }
-        CosmosLog("Loading %s\n", path);
     }
 
     kmWrite32(0x8052a108, 0x38800003); //+1 for CommonCosmos.szs
@@ -243,9 +242,7 @@ namespace Cosmos{
         char output[0x130];
         char output2[0x130];
         va_list args;
-        #ifndef __INTELLISENSE__ // I dont like errors
         va_start(args, fmt); 
-        #endif
         vsnprintf(output2, 0x100, fmt, args);
         va_end(args);
         

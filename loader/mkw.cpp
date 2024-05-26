@@ -17,7 +17,11 @@ loaderFunctionsEx functions_p = {
     (RKSystem*) 0x802A4080,
 	(ARCInitHandle_t) 0x80124500,
 	(ARCOpen_t) 0x801245a0,
-	(SZS_Decode_t) 0x80218c2c}
+	(SZS_Decode_t) 0x80218c2c,
+	(NANDPrivateOpen_t) 0x8019C88C,
+	(NANDClose_t) 0x8019CA80, 
+	(NANDRead_t) 0x8019B7A4,
+	(NANDGetLength_t) 0x8019BF4C }
 };
 loaderFunctionsEx functions_e = {
 	{(OSReport_t) 0x801A2530,
@@ -30,7 +34,11 @@ loaderFunctionsEx functions_e = {
     (RKSystem*) 0x8029fd00,
 	(ARCInitHandle_t) 0x80124460,
 	(ARCOpen_t) 0x80124500,
-	(SZS_Decode_t) 0x80218b8c}
+	(SZS_Decode_t) 0x80218b8c,
+	(NANDPrivateOpen_t) 0x8019C88C,
+	(NANDClose_t) 0x8019CA80, 
+	(NANDRead_t) 0x8019B7A4,
+	(NANDGetLength_t) 0x8019BF4C}
 };
 loaderFunctionsEx functions_j = {
 	{(OSReport_t) 0x801A24F0,
@@ -43,7 +51,11 @@ loaderFunctionsEx functions_j = {
     (RKSystem*) 0x802a3a00,
 	(ARCInitHandle_t) 0x80124420,
 	(ARCOpen_t) 0x801244c0,
-	(SZS_Decode_t) 0x80218b4c}
+	(SZS_Decode_t) 0x80218b4c,
+	(NANDPrivateOpen_t) 0x8019C88C,
+	(NANDClose_t) 0x8019CA80, 
+	(NANDRead_t) 0x8019B7A4,
+	(NANDGetLength_t) 0x8019BF4C}
 };
 loaderFunctionsEx functions_k = {
 	{(OSReport_t) 0x801A292C,
@@ -56,7 +68,11 @@ loaderFunctionsEx functions_k = {
     (RKSystem*) 0x80292080,
 	(ARCInitHandle_t) 0x80124578,
 	(ARCOpen_t) 0x80124618,
-	(SZS_Decode_t) 0x80218fa0}
+	(SZS_Decode_t) 0x80218fa0,
+	(NANDPrivateOpen_t) 0x8019C88C,
+	(NANDClose_t) 0x8019CA80, 
+	(NANDRead_t) 0x8019B7A4,
+	(NANDGetLength_t) 0x8019BF4C}
 };
 
 void unknownVersion()
