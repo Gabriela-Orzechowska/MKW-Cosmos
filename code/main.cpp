@@ -168,7 +168,7 @@ namespace Cosmos{
         }
         else {
             if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archives[2] == file){
-                path = Cosmos::UIArchive;
+                LoadLZMAFile(file, Cosmos::UIArchive, heap, isCompressed, align, fileHeap, fileInfo);
             }
             else if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COMMON)->archives[2] == file){
                 path = Cosmos::CommonArchive;

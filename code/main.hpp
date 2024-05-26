@@ -23,7 +23,7 @@ namespace Cosmos
     
     const char SaveFile[] = "CosmosData.bin";
     const char CommonArchive[] = "/CommonCosmos.szs";
-    const char UIArchive[] = "Scene/UI/UICosmos.szs";
+    const char UIArchive[] = "Scene/UI/UICosmos.lzma";
     const char CourseArchive[] = "/CourseCosmos.szs";
 
     enum TT_MODE{

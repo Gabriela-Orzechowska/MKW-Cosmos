@@ -25,9 +25,9 @@ def decode_all():
 def pack():
     dst = os.path.abspath(os.path.join( os.path.dirname( __file__ ), "../..", "TestPack/Cosmos/Extra"))
     
-    os.system("wszst c UICosmos.d -o")
+    os.system("wszst c UICosmos.d -o --dest UICosmos.lzma --lzma")
 
-    shutil.copy("UICosmos.szs", dst+'/UICosmos.szs')
+    shutil.copy("UICosmos.lzma", dst+'/UICosmos.lzma')
 
 operations = {
     'decode_all': decode_all,
