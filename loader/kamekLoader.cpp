@@ -271,15 +271,20 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
             u32 nandFileLength = 0;
             funcs->OSReport("Found binary on NAND\n");
             if(funcs->NANDGetLength(&nandInfo, &nandFileLength) == NAND_RESULT_OK){
-                funcs->OSReport("FileSize: %d\n", nandFileLength);
                 if(funcs->NANDRead(&nandInfo, (void*)bufferPointer, 0x20) != 0){
-                    funcs->OSReport("File was read to buffer\n");
                     nandVersion = *(u32*) (bufferPointer + 0x10);
-                    if(nandVersion >= dvdVersion && dvdVersion != 0xCCCCCCCC){
+                    if(nandVersion >= dvdVersion && dvdVersion != devVersion){
                         if(funcs->NANDRead(&nandInfo, (void*)(bufferPointer + 0x20), (nandFileLength - 0x20)) != 0){
                             usesNand = true;
                             funcs->OSReport("Loading code from NAND...\n");
                         }
+                    }
+                    else{
+                        if(dvdVersion == devVersion)
+                            funcs->OSReport("Using disc file, development version found\n");
+                        else
+                            funcs->OSReport("Using disc file, newer version found\n");
+                        
                     }
                 }
             }

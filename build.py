@@ -90,6 +90,11 @@ def main():
     subprocess.run(shlex.split(wszst))
     shutil.rmtree('out/Code.d/')
 
+    with open('out/Code.arc', 'r+b') as fb:
+        fb.seek(16)
+        data = b"\x44\x45\x56\x30"
+        fb.write(data)
+
     shutil.copy("out\Code.arc", "TestPack\Cosmos\Binaries")
 
 

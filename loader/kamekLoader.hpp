@@ -29,6 +29,7 @@ typedef s32 (*NANDGetLength_t) (NANDFileInfo* info, u32 *length);
 
 static const u32 bufferPointer = 0x80600000;
 const char nandPath[] __attribute__((aligned(0x20))) = "/title/00010001/43534D53";
+const u32 devVersion = 0x44455630;
 
 struct loaderFunctions {
     OSReport_t OSReport;
