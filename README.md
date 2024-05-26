@@ -1,4 +1,4 @@
-# MKW-Cosmos
+![image](https://gabriela-orzechowska.com/images/cosmosLogo.png)
 
 Mario Kart Wii code extension for CT distributions.
 
