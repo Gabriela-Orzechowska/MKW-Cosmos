@@ -19,6 +19,8 @@ void* HTTPAlloc(u32 size, s32 align){
 
 #define HTTP_HEAP_SIZE 0x1A000
 
+static char* responceBuffer = nullptr;
+
 void HTTPFree(void* ptr){
     httpHeap->free(ptr);
 }
@@ -63,14 +65,14 @@ void ProcessUpdate(){
         return;
     }
     if(isCheckingUpdate) return;
-    char buffer[0x1000];
+    responceBuffer = (char*) httpHeap->alloc(0x1000, 0x20);
     if(NHTTPStartup(HTTPAlloc, HTTPFree, 17) != 0){
         CosmosError("Failed to init NHTTP Lib!\n");
         hasCheckedUpdate = true; return;
     }
     isCheckingUpdate = true;
     
-    NHTTPRequest request = NHTTPCreateRequest("http://cosmos.gabriela-orzechowska.com/andromeda/manifest.bin", NHTTP_REQUEST_GET, buffer, 0x1000, UpdateCallback, nullptr);
+    NHTTPRequest request = NHTTPCreateRequest("http://cosmos.gabriela-orzechowska.com/andromeda/api/get-version-info/current", NHTTP_REQUEST_GET, responceBuffer, 0x1000, UpdateCallback, nullptr);
     if(request == nullptr){
         CosmosError("Failed to create request!\n");
         hasCheckedUpdate = true; return;
@@ -100,7 +102,7 @@ void ProcessUpdate(){
         CosmosError("Failed to send a request!\n");
         hasCheckedUpdate = true; return;
     }
-    CosmosLog("Sending request to: http://cosmos.gabriela-orzechowska.com/andromeda/manifest.bin\nRequestId: %d\n", requestId);
+    CosmosLog("Sending request to: http://cosmos.gabriela-orzechowska.com/andromeda/api/get-version-info/current\nRequestId: %d\n", requestId);
 
 
 }
