@@ -74,7 +74,7 @@ namespace CosmosDebug
 
 
         static void Init(){
-            // Make the space appear as black image
+            // Make the space appear as black square
             asciiTable[0x20] = 0x7a;
             sFontData2[28] = 0x60000000;
             sFontData2[29] = 0x110002a0;

@@ -59,7 +59,7 @@ void ShowCheatsWarningPage(Page& page, u32 id, float animLenght) {
     if(!hasShownWarning){
         if(Cosmos::Security::GeckoAnalizer::AreCheatsEnabled()){
             CosmosUI::MessagePageWindow* messagePage = MenuData::GetStaticInstance()->curScene->Get<CosmosUI::MessagePageWindow>((PageId)Cosmos::WARNING_PAGE);
-            messagePage->Setup(CosmosUI::INFO, 0x2841);
+            messagePage->AddMessage(CosmosUI::INFO, 0x2841);
             page.AddPageLayer((PageId)Cosmos::WARNING_PAGE, 0);
         }
         hasShownWarning = true;

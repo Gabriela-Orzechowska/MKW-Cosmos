@@ -42,7 +42,7 @@ namespace Cosmos
         static void CreateStaticInstance();
 
         void CheckForUpdate();
-        void UpdateResponceCallback(u32 error, NHTTPResponse response);
+        void UpdateResponseCallback(u32 error, NHTTPResponse response);
 
         void CreateHeaps();
         void DestroyHeaps();

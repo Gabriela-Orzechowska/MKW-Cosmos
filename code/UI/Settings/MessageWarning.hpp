@@ -4,6 +4,8 @@
 
 namespace CosmosUI
 {
+    #define MAX_MESSAGE_COUNT 8
+
     enum MESSAGE_TYPE {
         RESTART_REQUIRED,
         INFO,
@@ -15,10 +17,14 @@ namespace CosmosUI
         void OnInit() override;
         void OnBackPress(u32 hudSlotId);
         void OnClick(PushButton *button, u32 hudSlotId);
-        void Setup(MESSAGE_TYPE type, u32 bmgid);
+        void AddMessage(MESSAGE_TYPE type, u32 bmgid);
 
         
     private:
-        MESSAGE_TYPE type;
+        void NextMessage();
+
+        MESSAGE_TYPE type[MAX_MESSAGE_COUNT];
+        u32 messageBmg[MAX_MESSAGE_COUNT];
+        u32 messageCount;
     };
 }

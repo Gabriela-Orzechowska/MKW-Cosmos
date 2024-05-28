@@ -1230,6 +1230,7 @@ __ct__Q25Pages7ApproveFv = 0x805c1cc0
 __dt__Q25Pages7ApproveFv = 0x805c1e18
 OnInit__Q25Pages7ApproveFv = 0x805c1eb8
 SetMessageWindowMessage__Q25Pages7ApproveFUiPC8TextInfo = 0x805c21b0
+SetApproveButtonMessage__Q25Pages7ApproveFUiPC8TextInfo = 0x805c21b8
 Reset__Q25Pages7ApproveFv = 0x805c211c
 GetRuntimeTypeInfo__Q25Pages7ApproveCFv = 0x805c2364
 BeforeEntranceAnimations__Q25Pages7ApproveFv = 0x805c2324

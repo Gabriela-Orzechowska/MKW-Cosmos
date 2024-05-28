@@ -4,6 +4,8 @@
 
 //Credit Seeky
 
+static u64 wiiFriendCode; //80386328
+
 namespace DWC{ //this is probably C, but don't care
 struct LoginID{
     u64 userId;

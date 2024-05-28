@@ -94,10 +94,10 @@ struct WPADInfo {
     u8 firmware;
 }; //total size 0x18
 
-struct PADStatus {
-    u16 buttons;
-    s8 horizontalStickU8;
-    s8 verticalStickU8; // -62 to 62
+struct  PADStatus {
+    u16 buttons; //0
+    s8 horizontalStickU8; // 2
+    s8 verticalStickU8; // -62 to 62 //3
     s8 horizontalCStickU8;
     s8 verticalCStickU8; // -50 to 50
     u8 unknown_0x6[0xC-0x6];
