@@ -97,7 +97,7 @@ public:
     u8 unknown_0x1e[0xE20-0x1e];
     TimeEntry timentries[6][32]; //top 5 times + flap * 32 tracks //0xE20
     u8 unknwon_0x5920[0x8fb8-0x5920];
-    u32 friendCodeThing;
+    u32 pid; //0x8fb8
     u8 unknown_0x8bfc[0x9014-0x8fbc];
 
     Rating vr;

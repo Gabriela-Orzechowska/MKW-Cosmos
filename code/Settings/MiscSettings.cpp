@@ -85,7 +85,7 @@ void SetupLicenseButton(u32 unknown, LicenseButton& button, int licenseIndex, Mi
 
         TextInfo friendCodeInfo;
         LicenseManager& currentLicense = SaveDataManager::GetStaticInstance()->GetLicense(licenseIndex);
-        u64 val = DWC_CreateFriendKey(&currentLicense.friendCodeThing);
+        u64 val = DWC_CreateFriendKey(&currentLicense.pid);
         if((val >> 32) != 0){
             friendCodeInfo.intToPass[2] = val % 10000;
             friendCodeInfo.intToPass[1] = (val / 10000) % 10000;
