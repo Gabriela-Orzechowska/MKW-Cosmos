@@ -1,7 +1,7 @@
 #include <kamek.hpp>
 #include <core/System/SystemManager.hpp>
 
-#define TEST_REGION 866
+#define TEST_REGION 7772
 
 void ChangeGameRegion(u32 regionID)
 {
