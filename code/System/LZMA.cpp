@@ -1,5 +1,9 @@
 #include <System/LZMA.hpp>
 
+#define DICT_BUF_SIZE 0x30000
+
+// I did use SP lzma decompression class as a reference
+
 namespace Cosmos {
     namespace Compression
     {
@@ -28,8 +32,8 @@ namespace Cosmos {
                 return nullptr;
             }
             LzmaDec_Init(&dec);
-            dec.dicBufSize = 0x20000;
-            dec.dic = (Byte *) new (heap, 0x20) char[0x20000];
+            dec.dicBufSize = DICT_BUF_SIZE;
+            dec.dic = (Byte *) new (heap, 0x20) char[DICT_BUF_SIZE];
 
             buffer += 13;
             len -= 13;
@@ -37,7 +41,7 @@ namespace Cosmos {
             ELzmaStatus status;
             while(len != 0){
                 if(dec.dicPos == dec.dicBufSize){
-                    dec.dicBufSize += 0x20000;
+                    dec.dicBufSize += DICT_BUF_SIZE;
                     if(currentHeap->resizeForMBlock(dec.dic, dec.dicBufSize) != dec.dicBufSize){
                         u8* curDic = dec.dic;
                         dec.dic = new (currentHeap, 0x20) u8[dec.dicBufSize];
