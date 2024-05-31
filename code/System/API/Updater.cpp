@@ -82,15 +82,6 @@ namespace Cosmos
 
     void Updater::CreateHeaps(){
         EGG::Heap* volatileMem2 = GameScene::GetCurrent()->structsHeaps.heaps[1];
-        if(httpHeap == nullptr){
-            void* block = volatileMem2->alloc(HTTP_HEAP_SIZE, 0x20);
-            httpHeap = EGG::ExpHeap::Create(block, HTTP_HEAP_SIZE, 0);
-            if(httpHeap == nullptr){
-                CosmosError("Failed to create ExpHeap!");
-                currentStage = UNABLE;
-                return;
-            }
-        }
         if(fileDownloadHeap == nullptr){
             void* block = volatileMem2->alloc(FILE_HEAP_SIZE, 0x20);
             httpHeap = EGG::ExpHeap::Create(block, FILE_HEAP_SIZE, 0);

@@ -1,10 +1,5 @@
 #pragma once
-#include <kamek.hpp>
-#include <core/rvl/nhttp/nhhtp.h>
-#include <core/egg/Heap.hpp>
-#include <core/System/RKSystem.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
-#include <game/Scene/BaseScene.hpp>
+#include <System/API/API.hpp>
 
 extern "C" void DWC_ProcessFriendsMatch();
 
@@ -15,9 +10,10 @@ namespace Cosmos
 {
     const u32 currentRevision = 2;
 
-    const char api_versionInfo[] = "http://cosmos.gabriela-orzechowska.com/andromeda/api/get-version-info/current";
-
-    class Updater{
+    const char api_link[] = "http://cosmos.gabriela-orzechowska.com/andromeda/api/%s";
+    const char api_versionInfo[] = "get-version-info/current";
+    
+    class Updater: APIUser {
 
     enum Stage{
         IDLE = 0x0,
