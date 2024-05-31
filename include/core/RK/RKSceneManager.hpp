@@ -13,6 +13,7 @@ public:
 }; //0xc0c
 
 class RKScene : public EggScene {
+public:
     ~RKScene() override; //800073f0 vtable 802585d8
     ExpHeapGroup expHeapGroup; //0x30
     u8 unknown_0xc3c[0xc70 - 0xc3c]; //0xc3c

@@ -261,8 +261,9 @@ public:
     virtual int  unknown6();// 80520ebc
 
     void UpdateFunc(bool isPaused);
-    InputState& GetCurrentGameInputState() { return inputStates[0]; }
-    InputState& GetPreviousGameInputState() { return inputStates[1]; }
+    inline InputState& GetCurrentGameInputState() { return inputStates[0]; }
+    inline InputState& GetPreviousGameInputState() { return inputStates[1]; }
+    inline Controller* GetCurrentController() { return controller; }
 
     // vtable 808b2dd8
     Controller *controller; //0x4

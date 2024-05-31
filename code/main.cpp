@@ -1,5 +1,4 @@
 #include <main.hpp>
-#include <game/System/Archive.hpp>
 #include <core/nw4r/g3d/res/ResMat.hpp>
 #include <game/Race/RaceData.hpp>
 #include <FileManager/FileManager.hpp>

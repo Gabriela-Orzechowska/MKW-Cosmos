@@ -1,9 +1,10 @@
 #ifndef _IOS_DOLPHIN_
 #define _IOS_DOLPHIN_
 
+#include <main.hpp>
 #include <kamek.hpp>
 #include <core/rvl/os/OS.hpp>
-#include <main.hpp>
+
 
 // I need to make this a class
 

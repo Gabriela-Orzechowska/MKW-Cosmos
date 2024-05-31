@@ -55,6 +55,7 @@ namespace Cosmos
         u32 lastLanguage;
         bool isDefault;
         bool isKorean;
+        bool needsUpdate;
 
     };
 

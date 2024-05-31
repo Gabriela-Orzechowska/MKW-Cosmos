@@ -86,7 +86,7 @@ namespace CosmosUI {
         this->pageSelector.SetOnClickHandler(&this->onPageClickHandler);
         this->pageSelector.SetOnSelectHandler(&this->onPageSelectHandler);
         this->pageSelector.SetOnDeselectHandler(&this->onDeselectHandler);
-        this->pageSelector.drawPriority = -1.0f;
+        this->pageSelector.zIndex = 2.0f;
         this->textPageSelector.SetOnTextChangeHandler(&this->onPageChangeHandler);
 
         for(int i = 0; i < SETTINGCONTROLCOUNT; i++){
@@ -95,6 +95,7 @@ namespace CosmosUI {
             settingSelector.SetOnSelectHandler(&this->onValueSettingSelectHandler);
             settingSelector.SetOnDeselectHandler(&this->onDeselectHandler);
             settingSelector.SetOnChangeHandler(&this->onValueSettingChangeHandler);
+            settingSelector.zIndex = 2.0f;
             settingSelector.id = i;
         }
 

@@ -7,6 +7,8 @@
 #include <core/rvl/os/OS.hpp>
 #include <System/LZMA.hpp>
 #include <core/egg/DvdRipper.hpp>
+#include <game/System/Archive.hpp>
+
 
 //#define NO_FAST_MENU
 
@@ -55,7 +57,7 @@ namespace Cosmos
     void SetTTCC(TT_MODE mode);
     void SetCC();
 
-
+    void LoadLZMAFile(ArchiveFile * file, const char * path, EGG::Heap *heap, bool isCompressed, s32 align, EGG::Heap * fileHeap, EGG::Archive::FileInfo * fileInfo);
     void CreateBranch(u32 from, void * to);
     void CreateCall(u32 from, void * to);
     u32 GetPortAddress(u32 PAL, u32 NTSCU, u32 NTSCJ, u32 NTSCK);

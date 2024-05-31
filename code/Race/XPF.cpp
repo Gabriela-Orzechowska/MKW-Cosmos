@@ -73,7 +73,6 @@ namespace Cosmos
 
         switch(mode){
             case DEF_OBJ_BITS:
-                GameMode mode = scenario->settings.gamemode;
                 if(isBattle()){
                     if(scenario->settings.battleType == BATTLE_BALLOON){
                         ret = CalcConditionBits(gobj->settings[0],0);

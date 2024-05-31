@@ -1,4 +1,6 @@
 #include <UI/Language/LanguageManager.hpp>
+#include <game/Scene/RootScene.hpp>
+#include <main.hpp>
 
 namespace Cosmos
 {
@@ -49,6 +51,7 @@ namespace Cosmos
 
     void LanguageManager::Init() {
         this->systemLanguage = SystemManager::GetStaticInstance()->strapPageLanguage;
+        this->needsUpdate = true;
         
         Update(false);
     }
@@ -56,9 +59,13 @@ namespace Cosmos
     void LanguageManager::Update(bool reload) {
         this->currentLanguageOption = Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_LANGUAGE_SETTINGS);
         this->isDefault = this->currentLanguageOption == DEFAULT;
+        //this->needsUpdate = this->isKorean != (this->currentLanguageOption == KOREAN);
+        this->isKorean = this->currentLanguageOption == KOREAN;
+        if(!this->needsUpdate)
+            this->needsUpdate = this->currentLanguageOption != this->lastLanguage;
 
         this->actualLanguage = this->GetActualLanguage();
-
+        
         char buffer[0x80];
         snprintf(buffer, 0x80, "%s.szs", suffixes[this->actualLanguage]);
 
@@ -94,4 +101,7 @@ namespace Cosmos
         LanguageManager::GetStaticInstance()->Update(true);
     }
     static SettingsUpdateHook UpdateSystemLanguage(UpdateLanguage);
+
+    kmWrite32(0x800b28f8,0x4800000c);
+
 } // namespace Cosmos

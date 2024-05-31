@@ -6,7 +6,6 @@
 #include <game/System/Archive.hpp>
 #include <game/UI/SectionMgr/SectionMgr.hpp>
 
-#include <game/System/FontManager.hpp>
 #include <core/rvl/os/OS.hpp>
 #include <UI/MiscUI.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>

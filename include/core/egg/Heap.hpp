@@ -81,6 +81,7 @@ namespace EGG {
 		virtual u32 adjust(); //0x28 80226d4c
 		u32 getTotalFreeSize(); //80226c88
 		void SetGroupId(u16 groupId); //80226c98 
+		void FreeAll(); //80226ebc
 
 		void CalculateGroupSizes(GroupSizeHolder *groupSizeHolder); //80226cfc
 		static void AddSizeToGroup(void *block, ExpHeap *heap, GroupSizeHolder *groupSizeHolder); //80226ca0, non-official

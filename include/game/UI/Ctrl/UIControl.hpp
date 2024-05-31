@@ -50,10 +50,10 @@ public:
     PositionAndScale positionAndscale[4]; //same structs repeats itself 4 times, but only the last one seems to do anything?
     ControlGroup *parentGroup; //0x64 
     ControlGroup childrenGroup; //0x68
-    float drawPriority; //setting this to anything but 0 removes the element
-    bool isHidden;
+    float zIndex; //0x7C  setting this to anything but 0 removes the element
+    bool isHidden; //0x80
     u8 padding[3];
-    u32 isOpaque; //setting this to 1 disables transparency, the whole bounding box appears black
+    u32 isOpaque; //0x84  setting this to 1 disables transparency, the whole bounding box appears black
     bool animated; //0x88
     u8 padding2[3];
     float unknown_0x8C;

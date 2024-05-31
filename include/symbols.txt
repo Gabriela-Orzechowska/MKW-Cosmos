@@ -179,8 +179,19 @@ fs_fd__3IOS = 0x80385920
 
 #FontManager
 sInstance__11FontManager = 0x809c1bf8
+DestroyStaticInstance__11FontManagerFv = 0x805d1414
+CreateStaticInstance__11FontManagerFv = 0x805d13c4
 __dt__11ResFontBaseFv = 0x800b2870
 LoadFont__11FontManagerFi = 0x805d1758
+
+Init__11FontManagerFv = 0x805d14a4
+SetResource__15FontManagerFontFPv = 0x800b28d0
+Init__15FontManagerFontFv = 0x805d1214
+
+__ct__15FontManagerFontFv = 0x800b2830
+FontManagerFont__vt = 0x808b87c0
+
+fontNames = 0x808B87A8
 
 PSVECAdd = 0x8019abe4
 PSVECMag = 0x8019ac68
@@ -318,8 +329,12 @@ LoadToMainRam__Q23EGG9DvdRipperFPCcPvPQ23EGG4HeapUiUiPUiPUi = 0x802226d8
 alloc__Q23EGG4HeapFUiiPQ23EGG4Heap = 0x80229814
 free__Q23EGG4HeapFPvPQ23EGG4Heap = 0x80229b84
 BecomeCurrentHeap__Q23EGG4HeapFv = 0x80229d74
+dispose__Q23EGG4HeapFv = 0x80229c5c
 
 Create__Q23EGG7ExpHeapFPviUi = 0x80226a1c
+getTotalFreeSize__Q23EGG7ExpHeapFv = 0x80226c90
+SetHeapsGroupId__12ExpHeapGroupFUi = 0x80009bc0
+FreeAll__Q23EGG7ExpHeapFv = 0x80226ebc
 
 #Effect
 __ct__Q23EGG6EffectFPCcUi = 0x80222ccc
@@ -365,6 +380,10 @@ SetFramerate__9GameSceneFUc = 0x8051af84
 GetType__5SceneF6MenuId = 0x80631588
 PauseGame__5SceneFPv = 0x808600dc
 UnpauseGame__5SceneFPv = 0x80860100
+FinalizeEnter__9GameSceneFv = 0x8051a4dc
+
+#RootScene
+sInstance__9RootScene = 0x809bd740
 
 #ScnManager
 pageCount__10ScnManager = 0x808b4bf0
@@ -381,6 +400,7 @@ GetAreaAtPosition__Q23KMP10ControllerCFPC4Vec3UiUc = 0x80516808
 #Archive
 sInstance__11ArchiveRoot = 0x809bd738
 DumpArchive__14ArchivesHolderFPcPQ23EGG4Heap = 0x8052ab6c
+Unmount__14ArchivesHolderFv = 0x8052aa88
 Load__11ArchiveFileFPCcPQ23EGG4HeapbiPQ23EGG4HeapPQ33EGG7Archive8FileInfo = 0x80518e10
 Dump__11ArchiveFileFPCcPQ23EGG4Heapi = 0x805190f0
 Clear__11ArchiveFileFv = 0x80519240
