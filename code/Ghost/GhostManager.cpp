@@ -447,8 +447,7 @@ namespace Cosmos
             GhostManager *manager = GhostManager::GetStaticInstance();
             if (ghostManager->state == SAVED_GHOST_RACE_FROM_MENU)
                 ghostManager->state = STAFF_GHOST_RACE_FROM_MENU;
-            if (manager->mainGhostIndex == 0xFF)
-                Cosmos::Panic(__FILE__, __LINE__, "Ghost index is NULL");
+            CosmosAssert(manager->mainGhostIndex != 0xFF, "Ghost index is null");
             manager->LoadGhost(ghostManager->rkgPointer, manager->GetGhostData(manager->mainGhostIndex)->padding);
         }
         kmCall(0x805e158c, LoadCorrectGhost);

@@ -40,12 +40,7 @@ namespace CosmosFile
         }
         FileManager::sInstance = manager;
         manager->isValid = true;
-        if(!valid || manager == nullptr)
-        {
-            u32 black = 0x000000FF;
-            u32 white = 0xFFFFFFFF;
-            OSFatal(&white, &black, "Could not create FileManager");
-        }
+        CosmosAssert((valid && manager != nullptr), "Could not create FileManager\n");
         CosmosLog("Created FileManager, creating task...\n");
         FileManager::sInstance->taskThread = EGG::TaskThread::Create(2, 30, 0x2000, NULL);
         CosmosLog("Task Created\n");
