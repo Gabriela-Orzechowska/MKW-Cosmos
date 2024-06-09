@@ -29,6 +29,7 @@
 #include <game/UI/Page/Other/GhostSelect.hpp>
 #include <Debug/IOSDolphin.hpp>
 #include <Ghost/AntiCheat.hpp>
+#include <core/rvl/DWC/GHTTP.hpp>
 
 // Insprired by SIP implementation, should rewrite it to avoid issues, one of the first things I added
 
@@ -133,6 +134,16 @@ namespace Cosmos
             u32 courseId;
             u32 rkgCount;
             u64 ttStartTime;
+        };
+
+        const char ghostUploadLink[] = "http://cosmos.gabriela-orzechowska.com/andromeda/api/upload-rkg/%s";
+
+        class GhostLeaderboardAPI {
+        public:
+            static s32 SendGhostData(RKG* buffer, u32 bufferSize, char* sha1);
+        private:
+            static void SendGhostDataCallback(const char* buffer, u32 size, s32 ret, void* param);
+            static bool sendRequest;
         };
     }
 }
