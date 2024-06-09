@@ -335,6 +335,7 @@ Create__Q23EGG7ExpHeapFPviUi = 0x80226a1c
 getTotalFreeSize__Q23EGG7ExpHeapFv = 0x80226c90
 SetHeapsGroupId__12ExpHeapGroupFUi = 0x80009bc0
 FreeAll__Q23EGG7ExpHeapFv = 0x80226ebc
+sCurrentHeap__Q23EGG4Heap = 0x80386ea0
 
 #Effect
 __ct__Q23EGG6EffectFPCcUi = 0x80222ccc

@@ -33,6 +33,7 @@ namespace EGG {
 		virtual u32 resizeForMBlock(void *buffer, u32 newSize) = 0;
 		virtual u32 getAllocatableSize(s32 alignment) = 0;
 
+		static Heap* sCurrentHeap;
 
 		static void *alloc(u32 size, int align, Heap *heap);
 		static Heap *findHeap(/*MEMiHeapHead*/ void *rvlHeap);
@@ -45,6 +46,7 @@ namespace EGG {
 		static void dumpAll();
 		Heap *BecomeCurrentHeap(); //returns old heap
 		Heap *becomeCurrentHeapWithoutLocking();
+		inline bool isLocked() { return this->dameFlag & 1;}
 	private:
 		nw4r::ut::Link parentLink;
 		void *rvlHeap; //0x10
