@@ -387,9 +387,16 @@ namespace Cosmos
             DWC::GHTTP::NewPost(&post);
 
             DWC::GHTTP::PostAddFileFromMemoryA(post, "ghost.bin", (void*)rkg, size, "ghost.bin", nullptr); 
+            MenuData *menuData = MenuData::GetStaticInstance();
+            GlobalContext *menu98 = menuData->GetCurrentContext();
+
 
             char link[0x200];
-            snprintf(link, 0x200, ghostUploadLink, trackSha);
+            char miiName[0x30];
+            memset(miiName, 0, 0x30);
+            wcstombs(miiName, rkg->header.miiData.miiName, 10);
+            snprintf(link, 0x200, ghostUploadLink, trackSha, miiName, rkg->header.minutes, rkg->header.seconds, rkg->header.milliseconds);
+            CosmosLog("Sending data to: %s\n", link);
             s32 ret = DWC::GHTTP::PostData(link, &post, GhostLeaderboardAPI::SendGhostDataCallback, nullptr);
             if(ret >= 0) sendRequest = true;
             else CosmosLog("There has been and error creating the request! %d\n", ret);
