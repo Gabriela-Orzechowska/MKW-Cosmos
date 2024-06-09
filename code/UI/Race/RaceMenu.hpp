@@ -20,6 +20,8 @@ namespace CosmosUI {
     public:
         TTPausePlus() {};
 
+        u32 nextMenu;
+
         char* GetButtonsBRCTRName() const override { return "CosmosPauseMenuTimeAttack"; }
         u32 *GetVariantsIdxArray() const override { return buttonArray; }
         u32 GetButtonCount() const override { return 6; }

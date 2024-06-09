@@ -39,7 +39,12 @@ kmCall(0x8062d640, InjectSettingPage); //From Versus
 kmCall(0x8062d6c4, InjectSettingPage); //From Battle
 kmCall(0x8062d808, InjectSettingPage); //From Mission MOde
 
-kmCall(0x8062c644, InjectSettingPage); // TTs
+void InjectTTPages(Scene& scene, PageId id){
+    InjectSettingPage(scene, id);
+    scene.CreatePage(ARE_YOU_SURE_YOU_WANT_TO_QUIT);
+};
+
+kmCall(0x8062c644, InjectTTPages); // TTs
 
 void InjectWarningPage(Scene& scene, PageId id){
     scene.CreatePage(id);
