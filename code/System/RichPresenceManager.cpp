@@ -84,6 +84,8 @@ u32 UpdateTrackImage(u32 param_1)
     u32 fileSize = file->decompressedarchiveSize;
     char * trackSha = SHA1::GetFileSha1(buffer,fileSize);
 
+    Cosmos::System::GetStaticInstance()->SetTrackHash(trackSha);
+
     snprintf(finalLink, 0x80, "https://ct.wiimm.de/api/get-start-image?sha1=%s", trackSha);
     CosmosLog("Setting image to: %s\n",finalLink);
     if(manager != nullptr)

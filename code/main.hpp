@@ -43,12 +43,16 @@ namespace Cosmos
         TT_MODE GetTTMode() { return this->currentTTMode; }
         void SetTTMode(TT_MODE mode);
 
+        char* GetTrackHash() { return currentTrackHash; }
+        void SetTrackHash(char* input) { memcpy(currentTrackHash, input, 0x29); }
+
         static void Shutdown();
         static void Shutdown(bool force);
         static void Restart();
         static void HardRestart();
 
         private:
+        char currentTrackHash[0x29];
         static System * sInstance;
         TT_MODE currentTTMode;
     };

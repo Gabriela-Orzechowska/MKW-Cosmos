@@ -41,6 +41,7 @@ namespace Cosmos{
     void System::Init(){
         this->currentTTMode = COSMOS_TT_150cc;
         this->CreateFolders();
+        memset(this->currentTrackHash, 0, 0x29);
 
         EGG::ProcessMeter * meter = RKSystem::mInstance.processMeter;
 

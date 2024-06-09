@@ -120,7 +120,7 @@ public:
     void SendPacketsAndUpdateUSER(); //80657a70
     void SetupGameServer(); //806595b8
     void StartMatching(); //80659044
-    void StartMainLoop(); //80655c10
+    void StartMainLoop(u32 playerCount); //80655c10
     void TrySendNextRACEPacket(); //80657e30
     void UpdateAidsBelongingToPlayerIds(); //80659bc0
     void UpdateStatusDatas(); //8065a0b4
