@@ -57,12 +57,9 @@ namespace Cosmos
     }
 
     void LanguageManager::Update(bool reload) {
-        CosmosLog("QUEEEE");
-
         this->currentLanguageOption = this->isBoot ? DEFAULT : Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_LANGUAGE_SETTINGS);
         this->isDefault = this->isBoot ? true : this->currentLanguageOption == DEFAULT;
         //this->needsUpdate = this->isKorean != (this->currentLanguageOption == KOREAN);
-        CosmosLog("Language Option: %d", this->currentLanguageOption);
         this->isKorean = this->currentLanguageOption == KOREAN;
         if(!this->needsUpdate)
             this->needsUpdate = this->currentLanguageOption != this->lastLanguage;
@@ -92,12 +89,10 @@ namespace Cosmos
             }
         }
 
-
         this->lastLanguage = this->actualLanguage;
     }
 
     kmWrite32(0x8000ad9c, 0x38000006); //System Dutch
-
 
     void InitManager() {
         LanguageManager::CreateStaticInstance();
@@ -105,8 +100,6 @@ namespace Cosmos
     kmBranch(0x8053fc98, InitManager);
 
     void UpdateLanguage(){
-        CosmosLog("Trying to update language\n");
-        CosmosLog("Update func: %p\n", LanguageManager::Update);
         LanguageManager::GetStaticInstance()->Update(true);
     }
     static SettingsUpdateHook UpdateSystemLanguage(UpdateLanguage);
