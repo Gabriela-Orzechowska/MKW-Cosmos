@@ -375,7 +375,7 @@ namespace Cosmos
 #ifdef COSMOS_ANTI_CHEAT
 
             AntiCheat::GetStaticInstance()->CheckValidness();
-
+            AntiCheat::GetStaticInstance()->MarkFinished();
 #endif
 
             return GhostManager::GetStaticInstance()->GetLeaderboard().GetLeaderboardPosition(timer);
