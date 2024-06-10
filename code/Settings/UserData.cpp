@@ -5,7 +5,6 @@
 
 SettingsUpdateHook *SettingsUpdateHook::sHooks = NULL;
 SettingsValueUpdateHook *SettingsValueUpdateHook::sHooks = NULL;
-
 namespace Cosmos
 {
     namespace Data
@@ -126,5 +125,9 @@ namespace Cosmos
         kmWrite32(0x805469a8, 0x60000000);
         kmWrite32(0x805469c0, 0x60000000);
 
+        void LoadLicenseSettings(){
+            SettingsUpdateHook::exec();
+        }
+        kmBranch(0x805ebb40, LoadLicenseSettings);
     }
 } // namespace Cosmos::Data

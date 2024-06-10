@@ -56,7 +56,7 @@ namespace Cosmos
         bool isDefault;
         bool isKorean;
         bool needsUpdate;
-
+        bool isBoot;
     };
 
     static char* suffixes[13] = {

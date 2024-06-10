@@ -15,12 +15,10 @@ void * CreatePage(u32 pageId)
     {
         return new (CosmosUI::MessagePageWindow);
     }
-
     return Scene::CreatePageById((PageId)pageId);
 }
 
 kmCall(0x80622d2c, CreatePage);
-
 
 void InjectSettingPage(Scene& scene, PageId id)
 {

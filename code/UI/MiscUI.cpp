@@ -55,7 +55,6 @@ void FasterPageBoot()
     Page::transitionDelay = delay;
 }
 
-static BootHook FasterPagesBoot(FasterPageBoot, LOW);
 static SettingsUpdateHook FasterPages(FasterPageTransition);
 
 kmWriteRegionInstruction(0x80604094, 0x4800001c, 'E');

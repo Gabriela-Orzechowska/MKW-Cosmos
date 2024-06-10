@@ -52,14 +52,17 @@ namespace Cosmos
     void LanguageManager::Init() {
         this->systemLanguage = SystemManager::GetStaticInstance()->strapPageLanguage;
         this->needsUpdate = true;
-        
+        this->isBoot = true;        
         Update(false);
     }
 
     void LanguageManager::Update(bool reload) {
-        this->currentLanguageOption = Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_LANGUAGE_SETTINGS);
-        this->isDefault = this->currentLanguageOption == DEFAULT;
+        CosmosLog("QUEEEE");
+
+        this->currentLanguageOption = this->isBoot ? DEFAULT : Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_LANGUAGE_SETTINGS);
+        this->isDefault = this->isBoot ? true : this->currentLanguageOption == DEFAULT;
         //this->needsUpdate = this->isKorean != (this->currentLanguageOption == KOREAN);
+        CosmosLog("Language Option: %d", this->currentLanguageOption);
         this->isKorean = this->currentLanguageOption == KOREAN;
         if(!this->needsUpdate)
             this->needsUpdate = this->currentLanguageOption != this->lastLanguage;
@@ -75,12 +78,16 @@ namespace Cosmos
         strncpy(ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COMMON)->archiveSuffixes[0x1], buffer, 0x80);
         strncpy(ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archiveSuffixes[0x1], superMenuName, 0x80);
         ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->sourceType[0x1] = ArchivesHolder::FULL_FILE_PATH;
-
+        this->isBoot = false;
         if(reload){
             if(this->actualLanguage != this->lastLanguage){
                 if(Scene::GetType(MenuData::GetStaticInstance()->curScene->menuId) != CATEGORY_GAMEPLAY){
                     CosmosUI::NewSettings* page = MenuData::GetStaticInstance()->curScene->Get<CosmosUI::NewSettings>((PageId)Cosmos::SETTINGS_MAIN);
                     if(page != nullptr) page->ChangeMenu(page->GetPreviousMenu(), 0, 0.0f);
+                    else {
+                        Page* page = MenuData::GetStaticInstance()->curScene->Get<Page>(MAIN_MENU_PAGE);
+                        if(page != nullptr) page->ChangeMenu(MAIN_MENU_FROM_MENU, 0, 0.0f);
+                    }
                 }
             }
         }
@@ -98,6 +105,8 @@ namespace Cosmos
     kmBranch(0x8053fc98, InitManager);
 
     void UpdateLanguage(){
+        CosmosLog("Trying to update language\n");
+        CosmosLog("Update func: %p\n", LanguageManager::Update);
         LanguageManager::GetStaticInstance()->Update(true);
     }
     static SettingsUpdateHook UpdateSystemLanguage(UpdateLanguage);

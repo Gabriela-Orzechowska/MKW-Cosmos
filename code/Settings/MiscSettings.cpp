@@ -58,7 +58,6 @@ void SetDWCLogs(){
     }
 }
 static SettingsUpdateHook suhDWCLogs(SetDWCLogs);
-static BootHook bhDWCLogs(SetDWCLogs, LOW);
 kmWrite32(0x80658be8, 0x60000000);
 
 extern "C" {
