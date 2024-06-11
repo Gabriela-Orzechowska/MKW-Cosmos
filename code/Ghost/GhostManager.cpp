@@ -377,7 +377,6 @@ namespace Cosmos
             AntiCheat::GetStaticInstance()->CheckValidness();
             AntiCheat::GetStaticInstance()->MarkFinished();
 #endif
-
             return GhostManager::GetStaticInstance()->GetLeaderboard().GetLeaderboardPosition(timer);
         }
         kmCall(0x80856fec, PlayCorrectMusic);
@@ -415,7 +414,7 @@ namespace Cosmos
         };
         kmCall(0x806394f0, CustomGhostGroup);
 
-        void *CreatePageAndManager()
+        void* CreatePageAndManager()
         {
             GhostManager::CreateStaticInstance();
             return new (Pages::GhostSelect);
@@ -554,7 +553,6 @@ namespace Cosmos
                         splitsPage->ctrlRaceCount.isHidden = false;
                         splitsPage->ctrlRaceCount.Animate();
                         splitsPage->ctrlRaceTimeArray[0]->EnableFlashingAnimation();
-                        splitsPage->savedGhostMessage.SetMsgId(0x45b, NULL);
                         menu98->isNewBest = true;
                         if (InputData::GetStaticInstance()->GetController(0).ghostWriter->state != 3)
                         {
@@ -562,6 +560,7 @@ namespace Cosmos
                                 menu98->isNewTime = true;
                         }
                     }
+                    splitsPage->savedGhostMessage.SetMsgId(0x45b, nullptr);
                 }
 #ifdef COSMOS_ANTI_CHEAT
                 if (!AntiCheat::GetStaticInstance()->IsRunValid())
