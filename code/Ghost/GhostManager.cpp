@@ -413,8 +413,8 @@ namespace Cosmos
             char miiName[0x30];
             memset(miiName, 0, 0x30);
             wcstombs(miiName, rkg->header.miiData.miiName, 10);
-            snprintf(link, 0x200, ghostUploadLink, trackSha, miiName, rkg->header.minutes, rkg->header.seconds, rkg->header.milliseconds);
-            CosmosLog("Sending data to: %s\n", link);
+            snprintf(link, 0x200, ghostUploadLink, trackSha, miiName, rkg->header.minutes, rkg->header.seconds, 
+                rkg->header.milliseconds, Cosmos::System::GetStaticInstance()->GetTTMode() == Cosmos::COSMOS_TT_200cc ? "200" : "150");
             s32 ret = DWC::GHTTP::PostData(link, &post, GhostLeaderboardAPI::SendGhostDataCallback, nullptr);
             if(ret >= 0) sendRequest = true;
             else CosmosLog("There has been and error creating the request! %d\n", ret);
@@ -429,8 +429,6 @@ namespace Cosmos
 
         void GhostLeaderboardAPI::SendGhostDataCallback(const char* buffer, u32 size, s32 ret, void* param){
             sendRequest = false;
-            CosmosLog("Returned buffer: %s", buffer);
-            return;
         };
 
         s32 PlayCorrectMusic(LicenseManager &license, Timer &timer, u32 courseId)
