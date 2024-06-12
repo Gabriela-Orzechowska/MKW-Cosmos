@@ -356,10 +356,11 @@ namespace Cosmos
         {
             this->GhostTimeEntryToTimer(entry.timer, index);
             Cosmos::TT_MODE mode = Cosmos::System::GetStaticInstance()->GetTTMode();
-            memcpy(&entry.mii, &this->file.entry[mode][index].mii, sizeof(RawMii));
-            entry.character = this->file.entry[mode][index].character;
-            entry.kart = this->file.entry[mode][index].kart;
-            entry.controllerType = this->file.entry[mode][index].controllerType;
+            GhostTimeEntry& tEntry = this->file.entry[mode][index];
+            memcpy(&entry.mii, &tEntry.mii, sizeof(RawMii));
+            entry.character = tEntry.character;
+            entry.kart = tEntry.kart;
+            entry.controllerType = tEntry.controllerType;
         }
 
         GhostLeaderboardFile::GhostLeaderboardFile()

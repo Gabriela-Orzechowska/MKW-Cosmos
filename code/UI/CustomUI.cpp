@@ -1,3 +1,4 @@
+#include "game/System/identifiers.hpp"
 #include <kamek.hpp>
 #include <main.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>
@@ -37,6 +38,15 @@ kmCall(0x8062d640, InjectSettingPage); //From Versus
 kmCall(0x8062d6c4, InjectSettingPage); //From Battle
 kmCall(0x8062d808, InjectSettingPage); //From Mission MOde
 
+void InjectGhostPages(Scene& scene, PageId id) {
+    scene.CreatePage(TIME_TRIAL_INTERFACE);
+    scene.CreatePage(SPLITS_AFTER_TT);
+}
+
+kmCall(0x8062ccd4, InjectGhostPages);
+kmCall(0x8062cc5c, InjectGhostPages);
+kmCall(0x8062cc98, InjectGhostPages);
+
 void InjectTTPages(Scene& scene, PageId id){
     InjectSettingPage(scene, id);
     scene.CreatePage(ARE_YOU_SURE_YOU_WANT_TO_QUIT);
@@ -60,11 +70,18 @@ static bool hasShownWarning = false;
 void ShowCheatsWarningPage(Page& page, u32 id, float animLenght) {
     page.EndStateAnimate(animLenght,id);
     if(!hasShownWarning){
+        bool warningAdded = false;
+        CosmosUI::MessagePageWindow* messagePage = MenuData::GetStaticInstance()->curScene->Get<CosmosUI::MessagePageWindow>((PageId)Cosmos::WARNING_PAGE);
         if(Cosmos::Security::GeckoAnalizer::AreCheatsEnabled()){
-            CosmosUI::MessagePageWindow* messagePage = MenuData::GetStaticInstance()->curScene->Get<CosmosUI::MessagePageWindow>((PageId)Cosmos::WARNING_PAGE);
             messagePage->AddMessage(CosmosUI::INFO, 0x2841);
-            page.AddPageLayer((PageId)Cosmos::WARNING_PAGE, 0);
+            warningAdded = true;
         }
+        if((*(u32*)0x8000311C) > 0x04010000) {
+            messagePage->AddMessage(CosmosUI::INFO, 0x2842);
+            warningAdded = true;
+        }
+        if(warningAdded) page.AddPageLayer((PageId)Cosmos::WARNING_PAGE, 0);
+
         hasShownWarning = true;
     }
 }
