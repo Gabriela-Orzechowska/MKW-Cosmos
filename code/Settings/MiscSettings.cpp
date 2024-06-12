@@ -122,7 +122,6 @@ kmWrite32(0x805fa450, 0x60000000);
 //kmCall(0x805eacf0, PatchLicenseButtonFile);
 
 
-
 static CtrlRace2DMap* mainMinimap = nullptr;
 void SaveMinimap(CtrlRace2DMap& map, const char* name){
     map.Load(name);
@@ -144,7 +143,7 @@ void PatchMiiHeads() {
         }
 
         if(setting == ENABLED){ // Mii heads enabled
-            if(i == 0 || (RKNetController::GetStaticInstance()->connectionState != 0 && SettingsHolder::GetInstance()->AreMiiHeadsAllowed())){
+            if(i == 0 || (RKNetController::GetStaticInstance()->connectionState != 0 && Cosmos::System::GetStaticInstance()->AreMiiHeadsAllowed())){
                 isMii = true;
             }
         } 

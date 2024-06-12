@@ -114,7 +114,7 @@ namespace Cosmos{
             nofralloc;
             lis r12, sInstance@ha;
             lwz r12, sInstance@l;
-            lbz r0, System.raceCount;
+            lbz r0, System.raceCount(r12);
             subi r0, r0, 1;
             blr;
         )

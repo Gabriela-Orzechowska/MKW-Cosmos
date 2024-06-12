@@ -1,4 +1,5 @@
 #include "Settings/UserData.hpp"
+#include "main.hpp"
 #include <kamek.hpp>
 #include <core/System/SystemManager.hpp>
 #include <game/Network/RKNetRoom.hpp>
@@ -36,8 +37,17 @@ void ChangeRegionAtBoot(){
 
 static BootHook bhChangeRegionAtBoot(ChangeRegionAtBoot, LOW);
 
-void ParseHostSettings(u16 value) {
+const u8 raceCounts[8] = {2, 4, 8, 12, 16, 32, 64};
 
+void ParseHostSettings(u16 value) {
+    bool haw = value & 0x1;
+    bool miiHeads = (value >> 1) & 0x1;
+    u8 raceCount = raceCounts[(value >> 2) & 0x7];
+
+    Cosmos::System* system = Cosmos::System::GetStaticInstance();
+    system->SetHAW(haw);
+    system->SetMiiHeadSettings(miiHeads);
+    system->SetRaceCount(raceCount);
 }
 
 void BeforeSendingPackets(RKNetROOMHandler& handler, u32 packetData) {

@@ -46,7 +46,7 @@ namespace Cosmos
         inline bool AreMiiHeadsAllowed() { return miiHeadsEnabled; }
         inline void SetMiiHeadSettings(bool setting) { miiHeadsEnabled = setting; }
         inline bool isHAW() { return haw; }
-        inline void setHAW(bool setting) { this->haw = setting; }
+        inline void SetHAW(bool setting) { this->haw = setting; }
         inline void SetRaceCount(u8 raceCount) { this->raceCount = raceCount; }
 
         char* GetTrackHash() { return currentTrackHash; }
