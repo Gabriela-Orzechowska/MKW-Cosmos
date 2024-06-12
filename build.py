@@ -9,6 +9,7 @@ CFLAGS="""-I- -i "engine" -i "include" -i "include/game" -i code -gcc_extensions
 LD = "KamekSource/bin/Debug/net6.0/Kamek"
 
 OBJECTS = []
+UPDATED_HEADERS = []
 
 def clear_line(n=1):
     LINE_UP = '\033[1A'
@@ -34,13 +35,14 @@ def main():
             os.mkdir('build')
 
     result = list(Path("code/.").rglob("*.c*"))
+    headers = list(Path(".").rglob("*.h*"))
+    header_dict = {os.path.basename(file): os.path.getmtime(file) for file in headers}
     i = 1;
     print("Building...")
-    if os.path.exists("build/ExceptionHandler.o"):
-        os.remove("build/ExceptionHandler.o")
     command = f"\"{CC}\" {CFLAGS} -c -o build/kamek.o engine/kamek.cpp"
     subprocess.run(shlex.split(command))
     print("")
+
     for ret in result:
         r = str(ret)
 
@@ -53,20 +55,31 @@ def main():
         if(base.endswith(".c")):
             buildfile = f"build/{base[:-2]}.o"
         OBJECTS.append(buildfile)
-
-        # clear_line(1)
-        print(f"[{i}/{len(result)}] Building {base}...");
         
+        hasUpdatedHeader = False
 
         try:
             buildfileTime = os.path.getmtime(buildfile)
         except:
             build(r)
+            clear_line(1)
+            print(f"[{i}/{len(result)}] Building {base}...")
             i += 1
             continue
-        if(baseTime > buildfileTime):
+        
+        with open(ret, "rt") as f:
+            for line in f.readlines():
+                if line.startswith("#include"):
+                    for n in header_dict:
+                        if n in line and header_dict[n] > buildfileTime:
+                            hasUpdatedHeader = True
+
+        if baseTime > buildfileTime or i == len(result) or hasUpdatedHeader:
             build(r)
+            clear_line(1)
+            print(f"[{i}/{len(result)}] Building {base}...")
         i += 1
+
     print("Build done")
     print("Linking...")
     link = " ".join(OBJECTS)
