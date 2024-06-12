@@ -1,3 +1,4 @@
+#include "kamek.hpp"
 #include <UI/Language/LanguageManager.hpp>
 #include <game/Scene/RootScene.hpp>
 #include <main.hpp>
@@ -51,20 +52,28 @@ namespace Cosmos
 
     void LanguageManager::Init() {
         this->systemLanguage = SystemManager::GetStaticInstance()->strapPageLanguage;
-        this->needsUpdate = true;
+        this->needsUpdate = false;
         this->isBoot = true;        
         Update(false);
     }
+
+    bool LanguageManager::IsUpdateNeeded(){
+        return this->needsUpdate;
+    }
+
+    void ResetLanguageManagerStatus(){
+        LanguageManager::GetStaticInstance()->ResetStatus();
+    }
+    static MenuLoadHook mlhResetLanguageManagerStatus(ResetLanguageManagerStatus);
 
     void LanguageManager::Update(bool reload) {
         this->currentLanguageOption = this->isBoot ? DEFAULT : Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_LANGUAGE_SETTINGS);
         this->isDefault = this->isBoot ? true : this->currentLanguageOption == DEFAULT;
         //this->needsUpdate = this->isKorean != (this->currentLanguageOption == KOREAN);
         this->isKorean = this->currentLanguageOption == KOREAN;
-        if(!this->needsUpdate)
-            this->needsUpdate = this->currentLanguageOption != this->lastLanguage;
 
         this->actualLanguage = this->GetActualLanguage();
+        this->needsUpdate = this->actualLanguage != this->lastLanguage;
         
         char buffer[0x80];
         snprintf(buffer, 0x80, "%s.szs", suffixes[this->actualLanguage]);
@@ -88,7 +97,6 @@ namespace Cosmos
                 }
             }
         }
-
         this->lastLanguage = this->actualLanguage;
     }
 

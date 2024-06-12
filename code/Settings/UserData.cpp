@@ -2,6 +2,7 @@
 #include <game/System/SaveDataManager.hpp>
 #include <game/UI/Page/Other/WFCMain.hpp>
 #include <game/Network/RKNetUser.hpp>
+#include <UI/Language/LanguageManager.hpp>
 
 SettingsUpdateHook *SettingsUpdateHook::sHooks = NULL;
 SettingsValueUpdateHook *SettingsValueUpdateHook::sHooks = NULL;
@@ -11,7 +12,7 @@ namespace Cosmos
     {
         SettingsHolder *SettingsHolder::sInstance = NULL;
 
-        SettingsHolder::SettingsHolder() : miiHeadsEnabled(true) { settings = NULL; }
+        SettingsHolder::SettingsHolder() : miiHeadsEnabled(true), currentLicense(0) { settings = NULL; }
 
         SettingsHolder *SettingsHolder::GetInstance() { return SettingsHolder::sInstance; }
 
@@ -42,7 +43,6 @@ namespace Cosmos
                 memset(buffer, 0, sizeof(Settings));
                 strncpy(buffer->signature, magic, 4);
                 buffer->version = version;
-
                 for (int i = 0; i < 4; i++)
                 {
                     buffer->playerVr[i] = 5000;
@@ -53,7 +53,8 @@ namespace Cosmos
                 {
                     for (int j = 0; j < GlobalSettingDefinitions[i].settingCount; j++)
                     {
-                        buffer->data.pages[i].setting[j] = GlobalSettingDefinitions[i].settings[j].defaultValue;
+                        for(int o = 0; o < 4; o++)
+                            buffer->data[o].pages[i].setting[j] = GlobalSettingDefinitions[i].settings[j].defaultValue;
                     }
                 }
             }
@@ -126,7 +127,15 @@ namespace Cosmos
         kmWrite32(0x805469c0, 0x60000000);
 
         void LoadLicenseSettings(){
+            SettingsHolder::GetInstance()->SetCurrentLicense(SaveDataManager::GetStaticInstance()->curLicenseId);
             SettingsUpdateHook::exec();
+            if(LanguageManager::GetStaticInstance()->IsUpdateNeeded()) Page::transitionDelay = 176.0f;
+            else {
+                float delay = 176.0f;
+                if(SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_FAST_MENUS) == ENABLED) 
+                    delay = 0.0f;
+                Page::transitionDelay = delay;
+            }
         }
         kmBranch(0x805ebb40, LoadLicenseSettings);
     }

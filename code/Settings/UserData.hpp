@@ -63,7 +63,7 @@ namespace Cosmos
     namespace Data
     {
 
-#define SettingsVersion 7
+#define SettingsVersion 8
 
         enum SETTINGSPAGES
         {
@@ -252,7 +252,7 @@ namespace Cosmos
             {
                 SettingsPage pages[PAGE_COUNT];
                 u8 rawSettings[PAGE_COUNT * SETTINGS_PER_PAGE];
-            } data;
+            } data[4];
             u16 playerVr[4];
             u16 playerBr[4];
         } __attribute__((aligned(0x20)));
@@ -264,28 +264,28 @@ namespace Cosmos
             static void Create();
             static SettingsHolder *GetInstance();
 
-            u8 GetSettingValue(GLOBAL_SETTING setting) const { return this->settings->data.rawSettings[setting]; }
-            u8 GetSettingValue(u8 page, u8 setting) const { return this->settings->data.pages[page].setting[setting]; }
+            u8 GetSettingValue(GLOBAL_SETTING setting) const { return this->settings->data[currentLicense].rawSettings[setting]; }
+            u8 GetSettingValue(u8 page, u8 setting) const { return this->settings->data[currentLicense].pages[page].setting[setting]; }
 
-            void SetSettingValue(u8 value, GLOBAL_SETTING setting) { this->settings->data.rawSettings[setting] = value; }
-            void SetSettingValue(u8 value, u8 page, u8 setting) { this->settings->data.pages[page].setting[setting] = value; }
+            void SetSettingValue(u8 value, GLOBAL_SETTING setting) { this->settings->data[currentLicense].rawSettings[setting] = value; }
+            void SetSettingValue(u8 value, u8 page, u8 setting) { this->settings->data[currentLicense].pages[page].setting[setting] = value; }
 
             void Update();
             void Save();
 
-            u32 GetUserVR() const { return GetUserVR(SaveDataManager::GetStaticInstance()->curLicenseId); }
+            u32 GetUserVR() const { return GetUserVR(currentLicense); }
             u32 GetUserVR(u32 id) const { return this->settings->playerVr[id]; }
-            u32 GetUserBR() const { return GetUserBR(SaveDataManager::GetStaticInstance()->curLicenseId); }
+            u32 GetUserBR() const { return GetUserBR(currentLicense); }
             u32 GetUserBR(u32 id) const { return this->settings->playerBr[id]; }
 
-            void SetUserVR(u32 value) { SetUserVR(value, SaveDataManager::GetStaticInstance()->curLicenseId); }
+            void SetUserVR(u32 value) { SetUserVR(value, currentLicense); }
             void SetUserVR(u32 value, u32 id) { this->settings->playerVr[id] = value; }
-            void SetUserBR(u32 value) { SetUserVR(value, SaveDataManager::GetStaticInstance()->curLicenseId); }
+            void SetUserBR(u32 value) { SetUserVR(value, currentLicense); }
             void SetUserBR(u32 value, u32 id) { this->settings->playerBr[id] = value; }
 
             inline bool AreMiiHeadsAllowed() { return miiHeadsEnabled; }
             inline void SetMiiHeadSettings(bool setting) { miiHeadsEnabled = setting; }
-
+            void SetCurrentLicense(int i) { this->currentLicense = i; }
             static void SaveTask(void *);
 
         private:
@@ -296,6 +296,7 @@ namespace Cosmos
             char filepath[IPCMAXPATH];
 
             bool miiHeadsEnabled;
+            int currentLicense;
         };
     }
 }

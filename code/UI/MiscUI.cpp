@@ -1,3 +1,5 @@
+#include "UI/Language/LanguageManager.hpp"
+#include "hooks.hpp"
 #include <kamek.hpp>
 #include <game/UI/Page/Page.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
@@ -46,21 +48,20 @@ void FasterPageTransition()
         delay = 0.0f;
     Page::transitionDelay = delay;
 }
-
-void FasterPageBoot()
-{
-    float delay = 176.0f;
-    if(SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_FAST_MENUS) == ENABLED) 
-        delay = 0.0f;
-    Page::transitionDelay = delay;
-}
-
 static SettingsUpdateHook FasterPages(FasterPageTransition);
+static MenuLoadHook mhlFasterPages(FasterPageTransition);
 
 kmWriteRegionInstruction(0x80604094, 0x4800001c, 'E');
 
 kmWrite32(0x80007758, 0x981e0ccc);
 kmWrite32(0x80007bc8, 0x4e800020);
+
+
+void DisableFastMenuOnLicenseSelect() {
+    Page::transitionDelay = 176.0f;
+}
+kmWritePointer(0x808b9888, DisableFastMenuOnLicenseSelect);
+kmBranch(0x8063af8c, DisableFastMenuOnLicenseSelect);
 
 void FixVSIntroBMG(LayoutUIControl* control){
     u32 trackBmg = GetCorrectTrackBMG(Cosmos::CupManager::GetStaticInstance()->GetTrackID());

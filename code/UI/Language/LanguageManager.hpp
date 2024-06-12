@@ -44,9 +44,12 @@ namespace Cosmos
         void Init();
         void Update(bool reload);
         u32 GetActualLanguage();
+        bool IsUpdateNeeded();
+        void ResetStatus() { this->needsUpdate = false; }
 
         u32 GameToGlobal(u32 i, u32 a);
 
+        bool isBoot;
     private:
         static LanguageManager* sInstance;
         u32 systemLanguage;
@@ -56,7 +59,6 @@ namespace Cosmos
         bool isDefault;
         bool isKorean;
         bool needsUpdate;
-        bool isBoot;
     };
 
     static char* suffixes[13] = {
