@@ -1,5 +1,8 @@
+#include "Settings/UserData.hpp"
 #include <kamek.hpp>
 #include <core/System/SystemManager.hpp>
+#include <game/Network/RKNetRoom.hpp>
+#include <game/Network/RKNetController.hpp>
 
 #define TEST_REGION 7772
 
@@ -28,6 +31,56 @@ void ChangeRegionAtBoot(){
     ChangeGameRegion(TEST_REGION);
 }
 
-kmWrite16(0x8088fe30, 0x6478); //rksys -> dxsys
+// TODO why is it here
+// kmWrite16(0x8088fe30, 0x6478); //rksys -> dxsys
 
 static BootHook bhChangeRegionAtBoot(ChangeRegionAtBoot, LOW);
+
+void ParseHostSettings(u16 value) {
+
+}
+
+void BeforeSendingPackets(RKNetROOMHandler& handler, u32 packetData) {
+    using namespace Cosmos::Data;
+    RKNetController* controller = RKNetController::GetStaticInstance();
+    u8 userAid = controller->subs[controller->currentSub].localAid;
+    u8 hostAid = controller->subs[controller->currentSub].hostAid;
+    
+    ROOMPacketReg packet = { packetData }; 
+
+    if((packet.packet.messageType == 1 || packet.packet.messageType == 5) && userAid == hostAid) {
+        packet.packet.unknown_0x3 = (u8) packet.packet.message;
+        u16 settings = 0;
+        SettingsHolder* holder = SettingsHolder::GetInstance();
+        settings |= (holder->GetSettingValue(COSMOS_SETTING_HAW) & 0x1) << 0; 
+        settings |= (holder->GetSettingValue(COSMOS_SETTING_MII_HEADS) & 0x1) << 1; 
+        settings |= (holder->GetSettingValue(COSMOS_SETTING_RACE_COUNT) & 0x7) << 2;
+
+        ParseHostSettings(settings);
+
+        packet.packet.message = settings;
+    }
+    for(int i = 0; i < 12; i++) {
+        if(i != userAid) handler.toSendPackets[i] = packet.packet;
+    }
+}
+kmBranch(0x8065ae70, BeforeSendingPackets);
+
+ROOMPacket BeforeReadingPackets(RKNetROOMHandler& handler, u32 packetIndex) {
+    ROOMPacket packet = handler.receivedPackets[packetIndex];
+
+    if(packet.messageType == 1 || packet.messageType == 5) {
+        u16 settings = packet.message;
+
+        ParseHostSettings(settings);
+
+        packet.message = packet.unknown_0x3;
+        packet.unknown_0x3 = 0;
+
+
+        if(packet.messageType == 5) packet.messageType = 0;
+    }
+
+    return packet;
+}
+kmBranch(0x8065af64, BeforeReadingPackets);

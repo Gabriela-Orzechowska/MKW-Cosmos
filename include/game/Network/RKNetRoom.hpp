@@ -32,9 +32,9 @@ union ROOMPacketReg{
 class RKNetROOMHandler{
 public:
     static RKNetROOMHandler *sInstance; //809c20e0
-    static RKNetROOMHandler *GetStaticInstance(); //8065aa88
+    inline static RKNetROOMHandler *GetStaticInstance() { return sInstance; } //8065aa88
     static void DestroyStaticInstance(); //8065ab4c
-    void GetRecvPacket(u8 id);
+    u32 GetRecvPacket(u8 id);
     void SetToSendPacket(u8 id, ROOMPacket packet);
     void SetAllToSendPackets(ROOMPacket packet);
     u8 unknown_0x0[4];

@@ -34,7 +34,7 @@ namespace Cosmos
     };  
 
     class System{
-        public:
+    public:
         static void CreateStaticInstance();
         static inline System * GetStaticInstance() { return sInstance; }
 
@@ -42,6 +42,12 @@ namespace Cosmos
         void CreateFolders();
         TT_MODE GetTTMode() { return this->currentTTMode; }
         void SetTTMode(TT_MODE mode);
+
+        inline bool AreMiiHeadsAllowed() { return miiHeadsEnabled; }
+        inline void SetMiiHeadSettings(bool setting) { miiHeadsEnabled = setting; }
+        inline bool isHAW() { return haw; }
+        inline void setHAW(bool setting) { this->haw = setting; }
+        inline void SetRaceCount(u8 raceCount) { this->raceCount = raceCount; }
 
         char* GetTrackHash() { return currentTrackHash; }
         void SetTrackHash(char* input) { memcpy(currentTrackHash, input, 0x29); }
@@ -51,10 +57,15 @@ namespace Cosmos
         static void Restart();
         static void HardRestart();
 
-        private:
+        static asm int PatchRaceCount();
+
+    private:
         char currentTrackHash[0x29];
         static System * sInstance;
         TT_MODE currentTTMode;
+        bool haw;
+        bool miiHeadsEnabled;
+        u8 raceCount;
     };
 
     IOS::IPCResult Open(char *path, IOS::Mode mode);

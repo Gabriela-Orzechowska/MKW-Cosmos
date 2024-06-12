@@ -109,6 +109,20 @@ namespace Cosmos{
         OSRestart(0);
     }
 
+    asm int System::PatchRaceCount(){
+        ASM(
+            nofralloc;
+            lis r12, sInstance@ha;
+            lwz r12, sInstance@l;
+            lbz r0, System.raceCount;
+            subi r0, r0, 1;
+            blr;
+        )
+    }
+    kmCall(0x8064f51c, System::PatchRaceCount);
+    kmCall(0x806460B8, System::PatchRaceCount);
+
+    
     void SetCC()
     {
         EngineClass cc = CC_100;
