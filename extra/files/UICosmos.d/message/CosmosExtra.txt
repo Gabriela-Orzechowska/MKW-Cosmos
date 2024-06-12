@@ -141,7 +141,7 @@
  2830   = Change Combo
  2840   = Some changes require a restart
  2841   = Dolphin cheats are enabled!\nThe game might not function as expected.
-
+ 2842   = Dolphin extended memory enabled!\nThe game might not function as expected.
 6000    = Mushroom
 6001    = Shell
 6002    = Flower
