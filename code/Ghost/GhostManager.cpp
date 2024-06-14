@@ -507,7 +507,7 @@ namespace Cosmos
                 if ((*fLap) > splitsPage->timers[i])
                 {
                     fLap = &splitsPage->timers[i];
-                    flapIndex = 1;
+                    flapIndex = i;
                 }
                 splitsPage->ctrlRaceTimeArray[i]->SetTimer(&splitsPage->timers[i]);
                 splitsPage->ctrlRaceTimeArray[i]->OnFocus();
