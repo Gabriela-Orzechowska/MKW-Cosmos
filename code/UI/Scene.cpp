@@ -13,9 +13,8 @@ namespace Cosmos
                 isSpedUp = true;
             }
 
-            else if (isSpedUp) {
+            else {
                 IOS::Dolphin::SetSpeedLimit(100);
-                isSpedUp = false;
             }
         }
 
