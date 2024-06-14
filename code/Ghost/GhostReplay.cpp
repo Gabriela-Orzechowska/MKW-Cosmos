@@ -30,8 +30,6 @@ kmWrite32(0x80630450, 0x3880000d);
 kmWrite32(0x80630474, 0x3880000d);
 kmWrite32(0x80630498, 0x3880000d);
 
-kmWrite16(0x805e1e7A, 0x0000);
-
 inline bool isWatchingGhost(){
     MenuId id = MenuData::GetStaticInstance()->GetCurrentScene()->menuId;
     return id >= WATCH_GHOST_FROM_CHANNEL && id <= WATCH_GHOST_FROM_MENU;
@@ -42,5 +40,29 @@ PageId GetProperTTPausePage(Pages::RaceHUD& hud) {
 }
 kmCall(0x808569e0, GetProperTTPausePage);
 
+bool PatchLocalCheck(Kart& kart){
+    return !isWatchingGhost() && kart.IsLocal();
+}
+kmCall(0x80783770, PatchLocalCheck);
 
+// Music
+kmWrite16(0x80631ce6, 0x0035);
+kmWrite16(0x806320ae, 0x0035);
+//RacePage fixes
+kmWrite16(0x80856e66, 0x0035);
+kmWrite16(0x80857542, 0x0035);
+kmWrite16(0x80859ed4, 0x4800);
 
+asm int PatchSceneIdForMusic() {
+   ASM (
+    nofralloc;
+    lwz r5, 0x0 (r4);
+    subi r12, r5, WATCH_GHOST_FROM_CHANNEL;
+    cmplwi r12, 0x2;
+    bgt end;
+    li r5, TIME_TRIAL_GAMEPLAY;
+    end:
+    blr;
+    );
+}
+kmCall(0x80716064, PatchSceneIdForMusic);
