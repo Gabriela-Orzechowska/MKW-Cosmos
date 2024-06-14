@@ -65,7 +65,6 @@ namespace Cosmos{
 
     void System::SetTTMode(TT_MODE mode){
         this->currentTTMode = mode;
-        CosmosLog("Setting TT gamemode to: %s\n", mode == COSMOS_TT_200cc ? "200cc" : "150cc");
     }
 
     void System::Shutdown(){
@@ -125,8 +124,8 @@ namespace Cosmos{
     
     void SetCC()
     {
-        EngineClass cc = CC_100;
-        if(System::GetStaticInstance()->GetTTMode() == COSMOS_TT_200cc) cc = CC_150;
+        EngineClass cc = CC_150;
+        if(System::GetStaticInstance()->GetTTMode() == COSMOS_TT_200cc) cc = CC_100;
         RaceData::GetStaticInstance()->menusScenario.GetSettings().engineClass = cc;
     }
 
