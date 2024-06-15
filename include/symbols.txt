@@ -1451,6 +1451,7 @@ GetCourseVote__18RKNetSELECTHandlerCFUcUc = 0x80660574
 IsPrepared__18RKNetSELECTHandlerFv = 0x80660710
 AllocatePlayerIdsToAids__18RKNetSELECTHandlerFv = 0x80662034
 StartMainLoop__15RKNetControllerFUi = 0x80655c10
+ScheduleShutdown__15RKNetControllerFv = 0x806561a8
 sInstance__15RKNetRH1Handler = 0x809c2118
 
 #RKNETUserHandler
