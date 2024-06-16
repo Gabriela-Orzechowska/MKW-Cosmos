@@ -1,3 +1,4 @@
+#include "game/System/identifiers.hpp"
 #include <UI/Race/RaceMenu.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>
 #include <game/Race/RaceData.hpp>
@@ -53,6 +54,11 @@ namespace CosmosUI {
                 }
                 else menu.OnButtonClick(button, val);
                 break;               
+            case Pages::RaceMenu::ButtonContinue2:
+                if(RaceInfo::GetStaticInstance()->stage == 0x4) menu.nextPage = SPLITS_AFTER_TT;
+                else menu.nextPage = PAGE_NONE;
+                menu.EndStateAnimate(1, 0.0f);
+                break;
             default:
                 menu.OnButtonClick(button, val);
         }
