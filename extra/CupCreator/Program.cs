@@ -121,6 +121,16 @@ namespace CupCreator
             "N64 Sherbet Land\0GBA Shy Guy Beach\0DS Delfino Square\0GCN Waluigi Stadium\0" +
             "DS Desert Hills\0GBA Bowser Castle 3\0N64 DK's Jungle Parkway\0GCN Mario Circuit\0" +
             "SNES Mario Circuit 3\0DS Peach Gardens\0GCN DK Mountain\0N64 Bowser's Castle";
+        public static string music_slots = "Luigi Circuit\0Moo Moo Meadows\0Mushroom Gorge\0Toad's Factory\0" +
+            "Mario Circuit\0Coconut Mall\0DK Summit\0Wario's Gold Mone\0" +
+            "Daisy Circuit\0Koopa Cape\0Maple Treeway\0Grumble Volcano\0" +
+            "Dru Dry Ruins\0Moonview Highway\0Bowser's Castle\0Rainbow Road\0" +
+            "GCN Peach Beach\0DS Yoshi Falls\0SNES Ghost Valley 2\0N64 Mario Raceway\0" +
+            "N64 Sherbet Land\0GBA Shy Guy Beach\0DS Delfino Square\0GCN Waluigi Stadium\0" +
+            "DS Desert Hills\0GBA Bowser Castle 3\0N64 DK's Jungle Parkway\0GCN Mario Circuit\0" +
+            "SNES Mario Circuit 3\0DS Peach Gardens\0GCN DK Mountain\0N64 Bowser's Castle" +
+            "Block Plaza\0Delfino Pier\0Funky Stadium\0Chain Chomp Wheel\0Thwomp Desert" +
+            "SNES Battle Course 4\0GBA Battle Course 3\0N64 Skyscraper\0GCN Cookie Land\0DS Twilight House\0";
 
         static void Main(string[] args)
         {
@@ -181,8 +191,8 @@ namespace CupCreator
         public static LayoutData layoutData = new LayoutData();
 
         public static Int32[] trackSlots = { 0x08, 0x01, 0x02, 0x04, 0x00, 0x05, 0x06, 0x07, 0x09, 0x0F, 0x0B, 0x03, 0x0E, 0x0A, 0x0C, 0x0D, 0x10, 0x14, 0x19, 0x1A, 0x1B, 0x1F, 0x17, 0x12, 0x15, 0x1E, 0x1D, 0x11, 0x18, 0x16, 0x13, 0x1C };
-        // public static Int32[] musicSlots = {  }
 
+        public static Int32[] musicSlots = { 0x08, 0x01, 0x02, 0x04, 0x00, 0x05, 0x06, 0x07, 0x09, 0x0F, 0x0B, 0x03, 0x0E, 0x0A, 0x0C, 0x0D, 0x10, 0x14, 0x19, 0x1A, 0x1B, 0x1F, 0x17, 0x12, 0x15, 0x1E, 0x1D, 0x11, 0x18, 0x16, 0x13, 0x1C, 0x21, 0x20, 0x23, 0x22, 0x24, 0x27, 0x28, 0x29, 0x25, 0x26 };
 
         [DllImport("comdlg32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         private static extern bool GetOpenFileName(ref OpenFileName ofn);
@@ -313,7 +323,7 @@ namespace CupCreator
                     ImGui.SameLine();
                     ImGui.Combo($"##slot{t}{i}", ref trackdef.TrackSlot, slots);
                     ImGui.SameLine();
-                    ImGui.Combo($"##musicslot{t}{i}", ref trackdef.TrackMusicSlot, slots);
+                    ImGui.Combo($"##musicslot{t}{i}", ref trackdef.TrackMusicSlot, music_slots);
                     ImGui.SameLine();
                     ImGui.Checkbox($"##isRetro{t}{i}", ref trackdef.IsRetro);
                 }
@@ -422,7 +432,7 @@ namespace CupCreator
                 foreach(var track in def.trackDefs)
                 {
                     writer.Write<byte>((byte)trackSlots[track.TrackSlot]);
-                    writer.Write<byte>((byte)trackSlots[track.TrackMusicSlot]);
+                    writer.Write<byte>((byte)musicSlots[track.TrackMusicSlot]);
                 }
             }
 
