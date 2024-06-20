@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
@@ -104,6 +105,26 @@ namespace CupCreator
         }
     }
 
+    class WiimmJson_name {
+        public string? prefix1;
+        public string? prefix2;
+        public string? prefix;
+        public string name;
+        public string version;
+        public string? extra;
+        public string authors;
+        public string? editors;
+        public string attributes;
+    }
+
+    class WiimmJson {
+        public int http_status;
+        public string status_message;
+        public int data_version;
+        public bool is_arena;
+        public WiimmJson_name split_name;
+        public int slot;
+    }
 
     class Program
     {
@@ -179,6 +200,40 @@ namespace CupCreator
             _controller.Dispose();
             _cl.Dispose();
             _gd.Dispose();
+        }
+
+
+        private static void FillTrackData(ref TrackDefinition trackdef, string path){
+            string command = $"wszst sha1 \"{path}\"";
+            
+            Process process = new();
+            ProcessStartInfo info = new();
+            info.FileName = "cmd.exe";
+            info.Arguments = $"/C {command}";
+            info.RedirectStandardOutput = true;
+            process.StartInfo = info;
+            process.Start();
+            string output = process.StandardOutput.ReadToEnd();
+            string sha1 = output.Substring(0,40);
+            Console.WriteLine(sha1);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"https://ct.wiimm.de/api/get-track-info?sha1={sha1}");
+            request.Headers["User-Agent"] = "Cosmos Cup Creator";
+            request.Method = "GET";
+            try {
+                using(HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using(Stream stream = response.GetResponseStream())
+                using(StreamReader reader = new StreamReader(stream))
+                {
+                    string returndata = reader.ReadToEnd();
+                    WiimmJson json = JsonConvert.DeserializeObject<WiimmJson>(returndata);
+                    if(json != null && json.http_status == 200){
+                        trackdef.TrackName = json.split_name.name;
+                        trackdef.TrackAuthor = json.split_name.authors;
+                        trackdef.TrackSlot = ((json.slot / 10) - 1) * 4 + ((json.slot % 10) - 1);
+                    }
+                }
+            }
+            catch { return; }
         }
 
         private static void RenderUI()
@@ -318,6 +373,9 @@ namespace CupCreator
                         if (path != string.Empty && path != "")
                         {
                             trackdef.FilePath = path;
+                        }
+                        if(trackdef.TrackName == "" && trackdef.TrackAuthor == "") {
+                            FillTrackData(ref trackdef, path);
                         }
                     }
                     ImGui.SameLine();
