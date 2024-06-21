@@ -7,7 +7,22 @@ using namespace EGG;
 
 class ExpHeapGroup {
 public:
-    void SetHeapsGroupId(u32 groupId); //80009bc0
+    enum GroupId {
+        DEFAULT = 0x0,
+        RACE,
+        GFX,
+        KART,
+        GEO_OBJ,
+        COURSE,
+        UI,
+        EFFECT,
+        SOUND,
+        RESOURCE,
+        HOME_MENU,
+        ITEM,
+        NET,
+    };
+    void SetHeapsGroupId(GroupId groupId); //80009bc0
     ExpHeap *heaps[3];
     ExpHeap::GroupSizeHolder groupSizes[3]; //0xC, one per heap
 }; //0xc0c
