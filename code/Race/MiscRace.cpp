@@ -51,24 +51,21 @@ kmWrite32(0x80723D40, 0x3BA00009);
 
 
 // Secondary KTPT
-KMP::KTPTHolder * GetLineKTPT(const KMP::Controller& controller, u32 idx)
+KMP::KTPTHolder* GetLineKTPT(const KMP::Controller& controller)
 {
-    KMP::KTPTHolder * holder = controller.GetKTPTHolder(1);
+    KMP::KTPTHolder* holder = controller.GetKTPTHolder(1);
     if(!holder) holder = controller.GetKTPTHolder(0);
     return holder;
 }
-
 kmCall(0x807ea670, GetLineKTPT);
 
-void CorrectKTPTRotationMirror(CtrlRace2DMapObject& object, Vec3 * rotation)
+void CorrectKTPTRotationMirror(CtrlRace2DMapObject& object, Vec3* rotation)
 {
     if(RaceData::GetStaticInstance()->racesScenario.GetSettings().isMirror()){
         rotation->y *= -1;
     }
-
     object.SetMapRotation(rotation);
 }
-
 kmCall(0x807ea6e0, CorrectKTPTRotationMirror);
 
 // Speedmod
