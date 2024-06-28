@@ -77,3 +77,11 @@ PageId TTSplitsGetNextPage(Page& page)
     return PAGE_NONE;
 }
 kmWritePointer(0x808da5ec, TTSplitsGetNextPage);
+
+bool PatchIsGhost(KartBase& kart) {
+    u8 id = kart.GetPlayerIdx();
+    PlayerType type = RaceData::GetStaticInstance()->racesScenario.GetPlayer(id).playerType;
+    bool isGhost = type == PLAYER_GHOST;
+    return isGhost && (id != 0);
+}
+kmCall(0x80732634, PatchIsGhost);
