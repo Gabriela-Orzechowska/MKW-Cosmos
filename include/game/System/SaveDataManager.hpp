@@ -79,10 +79,16 @@ class Rating
 class LicenseManager{
 public:
     LicenseManager(); //8054400c
+
     TimeEntry *GetTimeEntry(u32 index, CourseId id); //80548e30
     void StoreTimeEntry(TimeEntry *entry, u32 index, CourseId id); //80548e90
-    Rating * GetVr(); //80547480
-    Rating * GetBr(); //805474a8
+
+    CharacterId GetFavouriteCharacter(); //805493b0
+    KartId GetFavouriteKart(); //80549470
+
+    inline Rating* GetVr() { return &this->vr; } //80547480
+    inline Rating* GetBr() { return &this->br; } //805474a8
+
     wchar_t miiName[10];
     u8 unknown_0x14[2];
     u8 miiAvatarID1;
@@ -103,6 +109,7 @@ public:
     Rating vr;
     Rating br;
     u8 unknown_0x9024[0x93f0-0x9024];
+
 
 }; //total size 0x93F0
 static_assert(sizeof(LicenseManager) == 0x93f0, "LicenseManager");
