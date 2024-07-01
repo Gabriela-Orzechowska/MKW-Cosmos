@@ -119,15 +119,6 @@ namespace Cosmos
             u64 ttStartTime;
         };
 
-        const char ghostUploadLink[] = "http://cosmos.gabriela-orzechowska.com/aurora/api/upload-rkg/%s?name=%s&time=%01dm%02ds%03d&mode=%s";
-
-        class GhostLeaderboardAPI {
-        public:
-            static s32 SendGhostData(RKG* buffer, u32 bufferSize, char* sha1);
-        private:
-            static void SendGhostDataCallback(const char* buffer, u32 size, s32 ret, void* param);
-            static bool sendRequest;
-        };
     }
 }
 
