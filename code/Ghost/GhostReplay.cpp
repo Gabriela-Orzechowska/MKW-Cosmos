@@ -6,20 +6,21 @@
 #include <game/UI/Page/RaceHUD/RaceHUD.hpp>
 #include <game/Race/Kart/Kart.hpp>
 
-int MakePlayerLocal(RacedataPlayer& player){
-    register u32 id;
-    asm { ASM(mr id, r0);}
+int MakePlayerLocal(RacedataPlayer& player, u8 id){
     PlayerType type = RaceData::GetStaticInstance()->racesScenario.players[id].playerType;
-    return id == 0 && type == PLAYER_GHOST ? PLAYER_REAL_LOCAL : type;
+    if(id == 0 && type == PLAYER_GHOST) return PLAYER_REAL_LOCAL;
+    return type;
 }
+kmWrite32(0x80594434, 0x889F0010);
 kmCall(0x80594444, MakePlayerLocal);
 
 int FixTransparency(const Kart& kart){
     u32 playerIdx = kart.values->playerIdx;
     PlayerType type = RaceData::GetStaticInstance()->racesScenario.players[playerIdx].playerType;
-    return playerIdx == 0 && type == PLAYER_GHOST ? PLAYER_REAL_LOCAL : type;
+    if(playerIdx == 0 && type == PLAYER_GHOST) return PLAYER_REAL_LOCAL;
+    return type;
 }
-kmCall(0x8058e264, FixTransparency);
+//kmCall(0x8058e264, FixTransparency);
 
 //Use r3 for comparing instead
 kmWrite16(0x80594448, 0x2c03);
@@ -76,3 +77,11 @@ PageId TTSplitsGetNextPage(Page& page)
     return PAGE_NONE;
 }
 kmWritePointer(0x808da5ec, TTSplitsGetNextPage);
+
+bool PatchIsGhost(KartBase& kart) {
+    u8 id = kart.GetPlayerIdx();
+    PlayerType type = RaceData::GetStaticInstance()->racesScenario.GetPlayer(id).playerType;
+    bool isGhost = type == PLAYER_GHOST;
+    return isGhost && (id != 0);
+}
+kmCall(0x80732634, PatchIsGhost);

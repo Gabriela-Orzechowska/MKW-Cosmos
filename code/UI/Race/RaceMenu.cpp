@@ -29,39 +29,38 @@ namespace CosmosUI {
     }
     static u32 lastTTButton = 0;
     void TTPauseOnButtonClick(Pages::RaceMenu& menu, PushButton* button, u32 val){
-        menu.nextPage = PAGE_NONE;
-        switch(button->buttonId)
+
+        if(isTimeTrialMode())
         {
-            case RaceMenu_ButtonSettings:
-                CosmosUI::NewSettings::SetPreviousPageGlobal(TIME_TRIAL_PAUSE_MENU, TIME_TRIAL_GAMEPLAY);
-                menu.nextPage = (PageId) Cosmos::SETTINGS_MAIN;
-                menu.EndStateAnimate(0.0f,0);
-                break;
-            case Pages::RaceMenu::ButtonQuit:
-            case Pages::RaceMenu::ButtonChangeCharacter:
-            case Pages::RaceMenu::ButtonChangeCourse:
-                menu.nextPage = ARE_YOU_SURE_YOU_WANT_TO_QUIT;
-                menu.EndStateAnimate(0.0f, 0);
-                if(isTimeTrialMode){
-                    TTPausePlus& ttpause = (TTPausePlus&)menu;
+            menu.nextPage = PAGE_NONE;
+            switch(button->buttonId)
+            {
+                case RaceMenu_ButtonSettings:
+                    CosmosUI::NewSettings::SetPreviousPageGlobal(TIME_TRIAL_PAUSE_MENU, TIME_TRIAL_GAMEPLAY);
+                    menu.nextPage = (PageId) Cosmos::SETTINGS_MAIN;
+                    menu.EndStateAnimate(0.0f,0);
+                    break;
+                case Pages::RaceMenu::ButtonQuit:
+                case Pages::RaceMenu::ButtonChangeCharacter:
+                case Pages::RaceMenu::ButtonChangeCourse:
+                    menu.nextPage = ARE_YOU_SURE_YOU_WANT_TO_QUIT;
+                    menu.EndStateAnimate(0.0f, 0);
                     lastTTButton = button->buttonId;
-                }
-                break;
-            case Pages::RaceMenu::ButtonConfirmContinue:
-                if(isTimeTrialMode){
+                    break;
+                case Pages::RaceMenu::ButtonConfirmContinue:
                     menu.nextPage = TIME_TRIAL_PAUSE_MENU;
                     menu.EndStateAnimate(0.0f, 1);
-                }
-                else menu.OnButtonClick(button, val);
-                break;               
-            case Pages::RaceMenu::ButtonContinue2:
-                if(RaceInfo::GetStaticInstance()->stage == 0x4) menu.nextPage = SPLITS_AFTER_TT;
-                else menu.nextPage = PAGE_NONE;
-                menu.EndStateAnimate(1, 0.0f);
-                break;
-            default:
-                menu.OnButtonClick(button, val);
+                    break;               
+                case Pages::RaceMenu::ButtonContinue2:
+                    if(RaceInfo::GetStaticInstance()->stage == 0x4) menu.nextPage = SPLITS_AFTER_TT;
+                    else menu.nextPage = PAGE_NONE;
+                    menu.EndStateAnimate(1, 0.0f);
+                    break;
+                default:
+                    menu.OnButtonClick(button, val);
+            }
         }
+        else menu.OnButtonClick(button, val);
     }
     kmWritePointer(0x808da844, TTPauseOnButtonClick);
 

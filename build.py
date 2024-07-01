@@ -25,7 +25,9 @@ def build(path):
     normalized = path.replace('\\','/');
 
     command = f"\"{CC}\" {CFLAGS} -c -o {objectName} {normalized}"
-    subprocess.run(shlex.split(command))
+    ret = subprocess.run(shlex.split(command), capture_output = True, text = True)
+    print(ret.stdout);
+    return ret.stdout == "" 
 
 def main():
     for i in sys.argv:
@@ -61,8 +63,9 @@ def main():
         try:
             buildfileTime = os.path.getmtime(buildfile)
         except:
-            build(r)
-            clear_line(1)
+            ret = build(r)
+            if(ret):
+                clear_line(2)
             print(f"[{i}/{len(result)}] Building {base}...")
             i += 1
             continue
@@ -75,8 +78,9 @@ def main():
                             hasUpdatedHeader = True
 
         if baseTime > buildfileTime or i == len(result) or hasUpdatedHeader:
-            build(r)
-            clear_line(1)
+            ret = build(r)
+            if(ret):
+                clear_line(2)
             print(f"[{i}/{len(result)}] Building {base}...")
         i += 1
 

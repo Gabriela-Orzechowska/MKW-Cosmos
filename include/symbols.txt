@@ -651,6 +651,10 @@ __dt__9TimeEntryFv =  0x8054437c
 StoreTimeEntry__14LicenseManagerFP9TimeEntryUi8CourseId = 0x80548e90
 CheckLicenseMagic__15SaveDataManagerFUc = 0x80544d10
 
+GetFavouriteCharacter__14LicenseManagerFv = 0x805493b0
+GetFavouriteKart__14LicenseManagerFv = 0x80549470
+
+
 #PushButton
 __ct__10PushButtonFv = 0x805bd3a8
 __dt__10PushButtonFv  = 0x805bd4b0
@@ -829,6 +833,9 @@ sInstance__8MenuData = 0x809c1e38
 SetupMenuLoad = 0x805b9344
 LoadNextMenu__8MenuDataFv = 0x80634fbc
 StartTransition__8MenuDataFUiUi = 0x80635ac8
+
+#GlobalContext
+Reset__13GlobalContextFv = 0x805e40a8
 
 #MenuDataPad
 GetCurrentSlotAndType__11MenuDataPadFUi = 0x8061b358
