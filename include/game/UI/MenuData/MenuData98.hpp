@@ -16,7 +16,7 @@ public:
     GlobalContext(); //805e2f60
     ~GlobalContext(); //805e2ff8
     void RandomizeVSTracks(); //805e32ec
-    void ChangeLicense(); //805e40a8
+    void Reset(); //805e40a8
 	u8 unknown_0x0[0x60];
 	u32 raceNumber; //0x60
 	u32 vsRaceCount;  //0x64

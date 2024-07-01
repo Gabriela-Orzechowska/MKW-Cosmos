@@ -835,7 +835,7 @@ LoadNextMenu__8MenuDataFv = 0x80634fbc
 StartTransition__8MenuDataFUiUi = 0x80635ac8
 
 #GlobalContext
-ChangeLicense__13GlobalContextFv = 0x805e40a8
+Reset__13GlobalContextFv = 0x805e40a8
 
 #MenuDataPad
 GetCurrentSlotAndType__11MenuDataPadFUi = 0x8061b358

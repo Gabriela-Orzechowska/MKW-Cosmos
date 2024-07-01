@@ -4,10 +4,9 @@
 #include <kamek.hpp>
 
 void SetFavouriteCombo(GlobalContext& context, PushButton& button) {
-    SaveDataManager* manager = SaveDataManager::GetStaticInstance();
-    LicenseManager& license = manager->GetLicense(button.buttonId - 1);
+    LicenseManager& license = SaveDataManager::GetStaticInstance()->GetLicense(button.buttonId - 1);
 
-    context.ChangeLicense();
+    context.Reset();
     context.characters[0] = license.GetFavouriteCharacter();
     context.karts[0] = license.GetFavouriteKart();
 }

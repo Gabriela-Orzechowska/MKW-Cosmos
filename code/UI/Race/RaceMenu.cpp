@@ -45,7 +45,6 @@ namespace CosmosUI {
                 case Pages::RaceMenu::ButtonChangeCourse:
                     menu.nextPage = ARE_YOU_SURE_YOU_WANT_TO_QUIT;
                     menu.EndStateAnimate(0.0f, 0);
-                    TTPausePlus& ttpause = (TTPausePlus&)menu;
                     lastTTButton = button->buttonId;
                     break;
                 case Pages::RaceMenu::ButtonConfirmContinue:
