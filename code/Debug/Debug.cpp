@@ -1,3 +1,4 @@
+#include "kamek.hpp"
 #include <Debug/Debug.hpp>
 
 #define vWIIMENU 0x0000000100000200
@@ -47,28 +48,27 @@ namespace CosmosDebug
         return;
     }
 
-    char * GetPlatformString()
-    {
-        switch(currentPlatform)
-        {
-            case DOLPHIN:
-                return IOS::Dolphin::GetVersionName();
-            case DOLPHIN_OLD:
-                return "Dolphin (OUTDATED)";
-            case WII_MINI:
-                return "Wii Mini";
-            case WII_U:
-                return "Wii U";
-            case WII:
-                return "Wii";
-        }
-        Cosmos::Panic(__FILE__, __LINE__, "Platform cannot be NULL.");
-        return nullptr;
-    }
+    char* GetPlatformName() { return platformName; }
+
     void UpdatePlatformString()
     {
         DetectPlatform(); 
-        strncpy(platformName, GetPlatformString(), 0x20);
+        char* platformString;
+        switch(currentPlatform)
+        {
+            case DOLPHIN:
+                platformString = IOS::Dolphin::GetVersionName();
+            case DOLPHIN_OLD:
+                platformString = "Dolphin (OUTDATED)";
+            case WII_MINI:
+                platformString = "Wii Mini";
+            case WII_U:
+                platformString = "Wii U";
+            case WII:
+                platformString = "Wii";
+        }
+        Cosmos::Panic(__FILE__, __LINE__, "Platform cannot be NULL.");
+        strncpy(platformName, platformString, 0x20);
     }
 
     static BootHook SetupDebug(UpdatePlatformString, MEDIUM);
