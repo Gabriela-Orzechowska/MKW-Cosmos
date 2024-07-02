@@ -120,7 +120,9 @@ namespace CosmosDebug
         else if (error == COSMOS_PANIC)
             nw4r::db::Exception_Printf_("Cosmos::Panic()", region_name);
         nw4r::db::Exception_Printf_(" has been called at 0x%08x (%s)\n<Symbol not found>\n\n", dsisr - 4, region_name);
-        nw4r::db::Exception_Printf_("Platform: %s\nCosmos %s (%s %s)\n-------------------------------\n", CosmosDebug::GetPlatformString(), __COSMOS_VERSION__, __DATE__, __TIME__);
+        nw4r::db::Exception_Printf_("Platform: %s\nCosmos %s (%s %s)\n-------------------------------\n", CosmosDebug::GetPlatformName(), __COSMOS_VERSION__, __DATE__, __TIME__);
+
+
         nw4r::db::Exception_Printf_("*** Message ***\n%s\n", (char *)dar);
     }
 
@@ -176,7 +178,7 @@ namespace CosmosDebug
         }
         OSReport("Size of ExceptionInfo: %d\nExceptionInfo addr: %p\n", sizeof(ExceptionInfo), &exceptionData);
         Exception_Printf_("**** COSMOS %s ****\n", error < 0x11 ? "EXCEPTION HANDLER" : "USER HALT");
-        Exception_Printf_("Platform: %s (%s)\nCosmos %s (%s, %s %s)\n", CosmosDebug::GetPlatformString(), GetRegionName(), __COSMOS_VERSION__, __COMPILER_VERSION__, __DATE__, __TIME__);
+        Exception_Printf_("Platform: %s (%s)\nCosmos %s (%s, %s %s)\n", CosmosDebug::GetPlatformName(), GetRegionName(), __COSMOS_VERSION__, __COMPILER_VERSION__, __DATE__, __TIME__);
         Exception_Printf_("Framebuffer: %08XH\n", (u32)exceptionData.framebuffer);
         Exception_Printf_("--------------------------------\n");
 
