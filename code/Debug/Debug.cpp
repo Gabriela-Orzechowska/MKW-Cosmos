@@ -12,6 +12,7 @@ namespace CosmosDebug
         {
             currentPlatform = DOLPHIN;
             if(!IOS::Dolphin::GetVersion()) currentPlatform = DOLPHIN_OLD;
+            IOS::Dolphin::Close();
             return;
         }
 
@@ -67,7 +68,6 @@ namespace CosmosDebug
             case WII:
                 platformString = "Wii";
         }
-        Cosmos::Panic(__FILE__, __LINE__, "Platform cannot be NULL.");
         strncpy(platformName, platformString, 0x20);
     }
 
