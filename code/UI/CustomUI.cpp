@@ -50,6 +50,7 @@ kmCall(0x8062cc98, InjectGhostPages);
 void InjectTTPages(Scene& scene, PageId id){
     InjectSettingPage(scene, id);
     scene.CreatePage(ARE_YOU_SURE_YOU_WANT_TO_QUIT);
+    scene.CreatePage(VOTERANDOM_MESSAGE_BOX);
 };
 
 kmCall(0x8062c644, InjectTTPages); // TTs

@@ -172,7 +172,7 @@ namespace Cosmos
             fileManager->Overwrite(size, rkg);
             fileManager->Close();
 
-            Aurora::Ghost::GhostLeaderboardAPI::SendGhostData(rkg, size, Cosmos::System::GetStaticInstance()->GetTrackHash());
+            Aurora::Ghost::GhostLeaderboardAPI::GetStaticInstance()->SendGhostData(rkg, size, Cosmos::System::GetStaticInstance()->GetTrackHash());
 
             char folderPath[IPCMAXPATH];
             snprintf(folderPath, IPCMAXPATH, "%s/%03x", Cosmos::ghostFolder, manager->courseId);
