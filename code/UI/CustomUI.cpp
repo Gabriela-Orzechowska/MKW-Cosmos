@@ -81,6 +81,7 @@ void InjectTTPages(Scene& scene, PageId id){
     scene.CreatePage(id);
     scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
     scene.CreatePage(ARE_YOU_SURE_YOU_WANT_TO_QUIT);
+    scene.CreatePage(VOTERANDOM_MESSAGE_BOX);
 };
 
 kmCall(0x8062c644, InjectTTPages); // TTs

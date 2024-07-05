@@ -2,8 +2,7 @@
 
 namespace Aurora {
     namespace Ghost {
-        bool GhostLeaderboardAPI::sendRequest = false;
-
+        GhostLeaderboardAPI* GhostLeaderboardAPI::sInstance = nullptr;
         s32 GhostLeaderboardAPI::SendGhostData(RKG* rkg, u32 size, char* trackSha) {
             RKNetController::GetStaticInstance()->StartMainLoop(0);
 
@@ -38,7 +37,13 @@ namespace Aurora {
         }
 
         void GhostLeaderboardAPI::SendGhostDataCallback(const char* buffer, u32 size, s32 ret, void* param){
-            sendRequest = false;
+            sInstance->sendRequest = false;
         };
+
+        void CreateAPIInstance() {
+            GhostLeaderboardAPI::CreateStaticInstance();
+        }
+        static BootHook bhCreateApiInstance(CreateAPIInstance, LOW);
+
     }
 }
