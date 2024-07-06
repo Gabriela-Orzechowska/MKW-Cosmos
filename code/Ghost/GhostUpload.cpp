@@ -75,6 +75,9 @@ namespace Aurora {
             page->SetupButton(1, 0x7d3, nullptr, 0, &this->onClickHandler);
             this->status = ASKING;
         }
+        void APIUploadRequest(void* holder) {
+         ((GhostLeaderboardAPI*)holder)->SendGhostData();
+        }
 
         void GhostLeaderboardAPI::OnButtonClick(u32 choice, PushButton& button) {
             Scene* scene = MenuData::GetStaticInstance()->GetCurrentScene();
@@ -93,7 +96,8 @@ namespace Aurora {
                 Cosmos::Ghost::GhostManager* manager = Cosmos::Ghost::GhostManager::GetStaticInstance();
 
                 GhostLeaderboardAPI::GetStaticInstance()->SetDelay(80);
-                GhostLeaderboardAPI::GetStaticInstance()->SendGhostData(&manager->rkg, manager->currentFileSize, Cosmos::System::GetStaticInstance()->GetTrackHash());
+                GhostLeaderboardAPI::GetStaticInstance()->SetData(&manager->rkg, manager->currentFileSize, Cosmos::System::GetStaticInstance()->GetTrackHash());
+                GhostLeaderboardAPI::GetStaticInstance()->thread->Request(&APIUploadRequest, (void*)GhostLeaderboardAPI::GetStaticInstance(), NULL);
                 this->status = BUSY;
             }
         }
