@@ -41,6 +41,8 @@ kmCall(0x8062d808, InjectSettingPage); //From Mission MOde
 void InjectGhostPages(Scene& scene, PageId id) {
     scene.CreatePage(TIME_TRIAL_INTERFACE);
     scene.CreatePage(SPLITS_AFTER_TT);
+
+
 }
 
 kmCall(0x8062ccd4, InjectGhostPages);
@@ -51,6 +53,7 @@ void InjectTTPages(Scene& scene, PageId id){
     InjectSettingPage(scene, id);
     scene.CreatePage(ARE_YOU_SURE_YOU_WANT_TO_QUIT);
     scene.CreatePage(VOTERANDOM_MESSAGE_BOX);
+    scene.CreatePage(TEXT_BOX_WITH_SPINNER);
 };
 
 kmCall(0x8062c644, InjectTTPages); // TTs

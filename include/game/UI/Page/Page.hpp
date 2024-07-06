@@ -124,6 +124,7 @@ class ActionLess : public Page{
 }; //0x58
 
 class AutoEnding : public ActionLess{ //0x4F but also 0x50 and 0xc7
+public:
     AutoEnding(); //805bae98
     ~AutoEnding() override; //805baf68 vtable 808b73a8
     void OnInit() override; //0x28 805bb024

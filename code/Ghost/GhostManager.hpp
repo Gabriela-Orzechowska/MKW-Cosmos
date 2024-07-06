@@ -110,6 +110,7 @@ namespace Cosmos
             TimeEntry entry;
             u32 gameSceneFrames;
             bool wereGhostsDisabled;
+            u32 currentFileSize;
 
         private:
             static GhostManager *sInstance;

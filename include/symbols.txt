@@ -1252,6 +1252,8 @@ Load__20MessageWindowControlFPCcPCcPCc = 0x805f9794
 
 #YesNoPage
 __ct__Q25Pages5YesNoFv = 0x80652300
+SetMessageBoxMsg__Q25Pages5YesNoFUiP8TextInfo = 0x806525fc
+SetupButton__Q25Pages5YesNoFUiUiP8TextInfoUiPv = 0x80652604 
 
 #Approve
 __ct__Q25Pages7ApproveFv = 0x805c1cc0

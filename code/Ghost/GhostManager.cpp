@@ -7,6 +7,7 @@
 #include <game/Network/RKNetController.hpp>
 #include <Ghost/GhostUpload.hpp>
 
+
 void CorrectGhostTrackName(LayoutUIControl *control, const char *textBoxName, u32 bmgId, const TextInfo *text)
 {
     u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
@@ -169,10 +170,10 @@ namespace Cosmos
             u32 size = sizeof(RKG);
             if (rkg->header.compressed)
                 size = ((CompressedRKG *)rkg)->dataLength + sizeof(RKGHeader) + 0x4 + 0x4;
+            manager->currentFileSize = size;
             fileManager->Overwrite(size, rkg);
             fileManager->Close();
 
-            Aurora::Ghost::GhostLeaderboardAPI::GetStaticInstance()->SendGhostData(rkg, size, Cosmos::System::GetStaticInstance()->GetTrackHash());
 
             char folderPath[IPCMAXPATH];
             snprintf(folderPath, IPCMAXPATH, "%s/%03x", Cosmos::ghostFolder, manager->courseId);
