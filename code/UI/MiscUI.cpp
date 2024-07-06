@@ -86,7 +86,7 @@ void FixGPIntroIcon(LayoutUIControl& control, char* name, u32){
     u32 id = Cosmos::CupManager::GetCupID(Cosmos::CupManager::GetStaticInstance()->GetTrackID());
 
     char tpl[0x30];
-    snprintf(tpl, 0x30, "button/timg/icon_cup_%03d.tpl", id);
+    snprintf(tpl, 0x30, "button/timg/icon_cup_%03x.tpl", id);
     void * tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, tpl, 0);
     CosmosUI::ChangePaneImage(&control, name, tplPointer);
 
