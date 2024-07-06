@@ -1,4 +1,5 @@
 #include "core/System/RKSystem.hpp"
+#include "core/egg/Thread.hpp"
 #include <kamek.hpp>
 #include <game/File/RKG.hpp>
 #include <core/rvl/DWC/GHTTP.hpp>
@@ -26,7 +27,12 @@ namespace Aurora {
             }
 
             static inline GhostLeaderboardAPI* GetStaticInstance() { return sInstance; }
-            static void CreateStaticInstance() { if(!sInstance) sInstance = new GhostLeaderboardAPI; }
+            static void CreateStaticInstance() { if(!sInstance) { 
+                sInstance = new GhostLeaderboardAPI;
+                sInstance->thread = EGG::TaskThread::Create(2, 25, 0x2000, nullptr); 
+            }}
+            
+            s32 SendGhostData() { return SendGhostData(this->currentBuffer, this->currentSize, this->currentSha1); }
             s32 SendGhostData(RKG* buffer, u32 bufferSize, char* sha1);
             Status GetStatus() { return status; }
             u32 GetDelay() { return delay; }
@@ -37,6 +43,11 @@ namespace Aurora {
                     this->delay = -1;
                     this->currentCounter = 0;
                 }
+            }
+            void SetData(RKG* rkg, u32 size, char* trackSha) {
+                this->currentBuffer = rkg;
+                this->currentSize = size;
+                this->currentSha1 = trackSha;
             }
 
 
@@ -59,6 +70,7 @@ namespace Aurora {
             void OnButtonClick(u32 choice, PushButton& button);
 
             PtmfHolder_2A<GhostLeaderboardAPI, void, u32, PushButton&> onClickHandler;
+            EGG::TaskThread* thread;
         };
     }
 }
