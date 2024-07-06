@@ -9,6 +9,7 @@
 #include <core/egg/DvdRipper.hpp>
 #include <game/System/Archive.hpp>
 
+#define AURORA
 
 //#define NO_FAST_MENU
 

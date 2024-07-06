@@ -16,6 +16,7 @@
  */
 
 #include <kamek.hpp>
+#include <Ghost/GhostUpload.hpp>
 #include <game/System/identifiers.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
 #include <game/Race/RaceData.hpp>
@@ -91,7 +92,8 @@ PageId TTSplitsGetNextPage(Page& page)
     MenuId currentMenu = MenuData::GetStaticInstance()->GetCurrentScene()->menuId;
     if(isWatchingGhost()) return GHOST_REPLAY_PAUSE_MENU;
     else if(currentMenu == GRAND_PRIX_GAMEPLAY) return GPVS_SCORE_UPDATE_PAGE;
-    else if(currentMenu == TIME_TRIAL_GAMEPLAY || currentMenu == GHOST_RACE_GAMEPLAY_1 || currentMenu == GHOST_RACE_GAMEPLAY_2) return LEADERBOARD_AFTER_TT;
+    else if(currentMenu == TIME_TRIAL_GAMEPLAY || currentMenu == GHOST_RACE_GAMEPLAY_1 || currentMenu == GHOST_RACE_GAMEPLAY_2)
+        return LEADERBOARD_AFTER_TT;
     return PAGE_NONE;
 }
 kmWritePointer(0x808da5ec, TTSplitsGetNextPage);

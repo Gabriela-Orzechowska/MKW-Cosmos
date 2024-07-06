@@ -26,6 +26,8 @@
 
 //#define WORLDWIDE_TEST
 
+#define AURORA_BUILD
+
 #define SetupHandler(handler, c, function) handler.subject = this; handler.ptmf = static_cast<c> (function);
 
 template <class Subject, typename Ret>
