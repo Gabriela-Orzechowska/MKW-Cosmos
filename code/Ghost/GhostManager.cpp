@@ -223,6 +223,7 @@ namespace Cosmos
 
         void VerifyTimeDuringRace()
         {
+            if(!isTT()) return;
             Pages::RaceHUD *page = Pages::RaceHUD::sInstance;
             if (page)
             {
