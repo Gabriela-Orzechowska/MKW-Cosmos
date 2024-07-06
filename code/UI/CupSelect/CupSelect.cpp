@@ -60,7 +60,7 @@ namespace CosmosUI
     void CupSelectPlus::ChangeTPL(LayoutUIControl * ctrl, u32 id)
     {
         char tpl[0x20];
-        snprintf(tpl, 0x20, "icon_cup_%03d.tpl", id);
+        snprintf(tpl, 0x20, "icon_cup_%03x.tpl", id);
         CosmosUI::ChangePaneImage(ctrl, "icon", tpl);
         CosmosUI::ChangePaneImage(ctrl, "icon_light_01", tpl);
         CosmosUI::ChangePaneImage(ctrl, "icon_light_02", tpl);
@@ -289,7 +289,7 @@ namespace CosmosUI
             u32 id = i < 4 ? i * 2 : ((i-4) * 2) + 1;
             id = (id + lastLeftCup + CupCount) % CupCount;
             char tpl[0x30];
-            snprintf(tpl, 0x30, "button/timg/icon_cup_%03d.tpl", id);
+            snprintf(tpl, 0x30, "button/timg/icon_cup_%03x.tpl", id);
 
             LayoutUIControl * button = &coursePage->ctrlMenuCourseSelectCup.cupIcons[i];
 
