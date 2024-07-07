@@ -9,7 +9,7 @@ typedef enum {
 typedef void* NHTTPResponse;
 typedef void* NHTTPRequest;
 
-typedef void (*NHTTPRequestCallback)(u32 error, NHTTPResponse responce, void* args);
+typedef void (*NHTTPRequestCallback)(s32 error, void* responce, void* args);
 typedef void* (*NHTTPAlloc)(u32 size, s32 align);
 typedef void (*NHTTPFree)(void* ptr);
 

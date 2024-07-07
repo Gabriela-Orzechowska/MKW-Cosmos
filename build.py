@@ -103,16 +103,16 @@ def main():
 
     os.remove("out/Code.d/Code.szs")
 
-    wszst = f"wszst create out/Code.d -o --dest out/Code.arc --no-compress"    
+    wszst = f"wszst create out/Code.d -o --dest out/Code.cscd --no-compress"    
     subprocess.run(shlex.split(wszst))
     shutil.rmtree('out/Code.d/')
 
-    with open('out/Code.arc', 'r+b') as fb:
+    with open('out/Code.cscd', 'r+b') as fb:
         fb.seek(16)
         data = b"\x44\x45\x56\x30"
         fb.write(data)
 
-    shutil.copy("out\Code.arc", "TestPack\Cosmos\Binaries")
+    shutil.copy("out\Code.cscd", "TestPack\Cosmos\Binaries")
 
 
     print("Done")

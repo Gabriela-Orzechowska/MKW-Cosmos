@@ -1,5 +1,5 @@
 gameID = 0x80000000
-
+WWFC_CUSTOM_REGION = 0x80005efc
 OSUnhandledException2nd__FUcP9OSContextUiUi = 0x801a2a18
 Run__8RKSystemFv = 0x8000951c
 
@@ -58,6 +58,7 @@ mbstowcs = 0x8000f078
 wcstombs = 0x8000f138
 wcslen = 0x80017998
 snprintf = 0x80011938
+sprintf = 0x80011a2c
 vsnprintf = 0x8001182c
 qsort = 0x80011b00
 rand = 0x80011c70
@@ -1336,7 +1337,9 @@ Patch_HostHeader = 0x800ed868
 DWC_AuthServer = 0x80386338
 SSL_Initialised = 0x80386d4c
 loginRegion__3DWC = 0x80384fd0
-
+Real_DWCi_Auth_SendRequest = 0x800ed6ec
+s_auth_work = 0x8038633c
+s_auth_error = 0x802f1cB8
 
 DWC_AddMatchKeyInt = 0x800d4258
 DWC_ReportLevel = 0x803862c0
