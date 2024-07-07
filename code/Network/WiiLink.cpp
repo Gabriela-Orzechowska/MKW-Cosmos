@@ -121,7 +121,6 @@ s32 HandleResponse(u8 *block)
         };
     }
         
-    // Disable unnecessary patches
     u32 patchMask = WWFC_PATCH_LEVEL_CRITICAL | WWFC_PATCH_LEVEL_BUGFIX |
                     WWFC_PATCH_LEVEL_SUPPORT;
     for (wwfc_patch *patch = reinterpret_cast<wwfc_patch*>(

@@ -60,7 +60,7 @@ namespace GameSpy {
     GPRet gpiAppendStringToBuffer(GPConnection* connection, GPIBuffer* output, const char* buffer);
     int gpiAppendIntToBuffer(GPConnection* connection, GPIBuffer* output, int val);
     GPIBool gpiValueForKey(const char* command, const char* key, char* value, int size);
-    GPRet gpiSendLocalInfo(GPConnection* connection, const char* key, const char* value) {
+    inline GPRet gpiSendLocalInfo(GPConnection* connection, const char* key, const char* value) {
         GPIConnection* gpiConnection = (GPIConnection*)(*connection);
         GPRet ret = gpiAppendStringToBuffer(connection, &gpiConnection->updateproBuffer, key);
         if(ret != GPNoError) return ret;

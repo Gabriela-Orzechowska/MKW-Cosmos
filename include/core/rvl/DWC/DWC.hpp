@@ -1,7 +1,7 @@
 #ifndef _DWC_ //to split into multiple files ultimately
 #define _DWC_
 #include "types.hpp"
-
+#include <core/gamespy/gamespy.hpp>
 //Credit Seeky
 
 static u64 wiiFriendCode; //80386328
@@ -33,6 +33,12 @@ struct FriendUpdate{
     u8 unknown[4];
     u32 pid;
 };
+
+struct DWCMatchContext {
+    GameSpy::GPConnection* connection;
+};
+extern DWCMatchContext* stpMatchCnt;
+
 
 }//namespace DWC
 

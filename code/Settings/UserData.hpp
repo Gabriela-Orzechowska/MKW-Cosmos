@@ -99,7 +99,8 @@ namespace Cosmos
 
         enum HOST_SETTINGS_1
         {
-            COSMOS_HAW = 0x0,
+            COSMOS_OPEN_HOST = 0x0,
+            COSMOS_HAW,
             COSMOS_ALLOW_MII_HEADS,
             COSMOS_FORCE_CC,
             COSMOS_RACE_COUNT,
@@ -180,6 +181,7 @@ namespace Cosmos
             COSMOS_SETTING_PERFORMANCE_MONITOR = COSMOS_PERFORMANCE_MONITOR + (COSMOS_DEBUG_SETTINGS * 8),
             COSMOS_SETTING_DEBUG_MSGS = COSMOS_DEBUG_MSGS + (COSMOS_DEBUG_SETTINGS * 8),
 
+            COSMOS_SETTING_OPEN_HOST = COSMOS_OPEN_HOST + (COSMOS_HOST_SETTINGS_1 * 8),
             COSMOS_SETTING_HAW = COSMOS_HAW + (COSMOS_HOST_SETTINGS_1 * 8),
             COSMOS_SETTING_ALLOW_MII_HEADS = COSMOS_ALLOW_MII_HEADS + (COSMOS_HOST_SETTINGS_1 * 8),
             COSMOS_SETTING_FORCE_CC = COSMOS_FORCE_CC + (COSMOS_HOST_SETTINGS_1 * 8),
@@ -227,8 +229,9 @@ namespace Cosmos
                              {.optionCount = 2, .isBool = true, .defaultValue = DISABLED}} // Performance Monitor
             },
             {// Host
-             .settingCount = 4,
+             .settingCount = 5,
              .settings = {{.optionCount = 2, .isBool = true, .defaultValue = DISABLED},
+                          {.optionCount = 2, .isBool = true, .defaultValue = DISABLED},
                           {.optionCount = 2, .isBool = true, .defaultValue = ENABLED},
                           {.optionCount = 3, .isBool = false, .defaultValue = FORCE_NONE},
                           {.optionCount = 8, .isBool = false, .defaultValue = RACE_COUNT_4}}},

@@ -1367,6 +1367,11 @@ NHTTPSendRequestAsync = 0x801d925c
 NHTTPCancelRequestAsync = 0x801d92b8
 NHTTPDestroyResponse = 0x801d92f8
 NHTTPGetResultCode = 0x801d93e4
+    
+stpMatchCnt__3DWC = 0x8038630c
+
+#GameSpy
+gpiAppendStringToBuffer = 0x800ff014
 
 #Effects
 Reset__10EffectsMgrFv = 0x8067b8f0

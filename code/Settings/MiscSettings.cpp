@@ -1,3 +1,5 @@
+#include "core/gamespy/gamespy.hpp"
+#include "hooks.hpp"
 #include <kamek.hpp>
 #include <Settings/UserData.hpp>
 #include <game/Scene/BaseScene.hpp>
@@ -6,6 +8,7 @@
 #include <game/UI/Page/Other/LicenseSettings.hpp>
 #include <game/UI/Ctrl/CtrlRace/CtrlRace2DMap.hpp>
 #include <game/Network/RKNetController.hpp>
+#include <core/rvl/DWC/DWC.hpp>
 
 using namespace Cosmos::Data;
 
@@ -166,3 +169,17 @@ void PatchMiiHeads() {
 
 kmBranch(0x807eb24c, PatchMiiHeads);
 static SettingsValueUpdateHook svuhMiiHeads(PatchMiiHeads, COSMOS_SETTING_MII_HEADS);
+
+void SendOpenHostSetting() {
+    GameSpy::GPConnection* connection = DWC::stpMatchCnt->connection;
+    if(connection == nullptr) return;
+
+    bool enableOpenHost = SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_OPEN_HOST) == ENABLED;
+    char val[2];
+    val[0] = '0' + enableOpenHost;
+    val[1] = '\0';
+    GameSpy::gpiSendLocalInfo(connection, "\\wwfc_openhost\\", val);
+    return;
+}
+kmWritePointer(0x808bfe84, SendOpenHostSetting);
+
