@@ -17,7 +17,7 @@ public:
     virtual void Reset(); //0x64 806525a0
 
     void SetMessageBoxMsg(u32 bmgId, TextInfo *text); //806525fc
-    void SetButtonMsg(u32 buttonId, u32 bmgId, TextInfo *text, u32 r7); //80652604
+    void SetupButton(u32 buttonId, u32 bmgId, TextInfo *text, u32 anim, void* handler); //80652604
     void OnButtonClick(PushButton *button, u32 hudSlotId); //80652678
     void SelectInitialButton(); //80652700
 
