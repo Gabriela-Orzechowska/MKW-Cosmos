@@ -14,6 +14,7 @@
 #include <SlotExpansion/CupManager.hpp>
 #include <SlotExpansion/SlotExpansion.hpp>
 #include <UI/BMG/MessageGroup.hpp>
+#include <game/UI/Page/Other/Globe.hpp>
 
 
 using namespace Cosmos::Data;
@@ -144,3 +145,4 @@ void CalcInput(RealControllerHolder& holder, bool isPaused){
     
 
 kmCall(0x80521784, CalcInput);
+

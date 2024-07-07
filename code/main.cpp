@@ -1,3 +1,5 @@
+#include "core/rvl/os/OS.hpp"
+#include "vendor/lzma/7zTypes.h"
 #include <main.hpp>
 #include <core/nw4r/g3d/res/ResMat.hpp>
 #include <game/Race/RaceData.hpp>
@@ -8,6 +10,7 @@
 #include <Debug/IOSDolphin.hpp>
 #include <Debug/SymbolMap.hpp>
 #include <Debug/Draw/DebugDraw.hpp>
+#include <Settings/UserData.hpp>
 
 extern char gameID[4];
 
@@ -294,4 +297,25 @@ namespace Cosmos{
         OSFatal(&white, &black, final);
         #endif
     }
+
+    static bool hasStartedAlready = false;
+    extern "C" int fwrite(const char* ptr, u32 size, u32 nmeb, u32* stream);
+    int myfwrite(const char* ptr, u32 size, u32 nmeb, u32* stream) {
+        Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetInstance();
+        if(holder && holder->GetSettingValue(Data::COSMOS_SETTING_LOG_TO_SD) == Data::ENABLED)
+        {
+            CosmosFile::FileManager* manager = CosmosFile::FileManager::GetStaticInstance();
+            if(manager != nullptr) {
+                manager->CreateOpen("Cosmos/Cosmos.log", CosmosFile::FILE_MODE_WRITE);
+                if(!hasStartedAlready) {
+                    hasStartedAlready = true;
+                    manager->Write(0x10, "==============\n");
+                }
+                manager->Write(size * nmeb,(const void*) ptr);
+                manager->Close();
+            }
+        }
+        return fwrite(ptr, size, nmeb, stream);
+    }
+    kmCall(0x80011648, myfwrite);
 }

@@ -47,6 +47,8 @@ msleep__11CosmosDebugFUi = 0x800f2510
 
 Run__FPFv_v = 0x801a31a8
 
+fwrite = 0x8000e954 
+
 #systemManager
 sInstance__13SystemManager = 0x80386000
 RestartGame__13SystemManagerFv = 0x8000b1bc
@@ -63,6 +65,7 @@ vsnprintf = 0x8001182c
 qsort = 0x80011b00
 rand = 0x80011c70
 srand = 0x80011c90
+vprintf = 0x800117b0
 
 sscanf = 0x80013040
  

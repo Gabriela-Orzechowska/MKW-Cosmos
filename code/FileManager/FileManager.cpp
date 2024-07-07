@@ -1,3 +1,4 @@
+#include "core/rvl/ipc/ipc.hpp"
 #include <FileManager/FileManager.hpp>
 #include <main.hpp>
 #include <Storage/SDStorage.hpp>
@@ -95,6 +96,7 @@ namespace CosmosFile
 
     s32 FileManager::Write(u32 size, const void *buffer){
         if(this->fd < 0) return -1;
+        IOS::Seek(this->fd, 0, IOS::SEEK_END);
         return IOS::Write(this->fd, (void *) buffer, size);
     }
 
@@ -167,7 +169,6 @@ namespace CosmosFile
         if(ret == FR_OK) {
             this->fileSize = f_size(&this->currentFile);
             f_lseek(&this->currentFile, 0);
-            CosmosLog("Opened file: %s\n", filepath);
         }
         else CosmosError("Opening file failed: %s\n", filepath);
         
@@ -221,7 +222,6 @@ namespace CosmosFile
             CosmosLog("File save failed! Error: %i\n", ret);
             return -1;
         }
-        CosmosLog("File saved: %i/%i", writtenSize, size);
         return writtenSize;
     }
 
@@ -247,7 +247,6 @@ namespace CosmosFile
     {
         if(StorageDevice::currentDevice == nullptr) return;
         f_close(&this->currentFile);
-        CosmosLog("Closed file.\n");
         
         return;
     }
