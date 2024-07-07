@@ -219,5 +219,38 @@ class FriendRoomMessages : public Page{
     
 }; //total size 0x2680
 //static_assert(sizeof(FriendRoomMessages) == 0x2680, "FriendRoomMessages");
+
+class FriendMenu : public Page {
+    FriendMenu();
+    ~FriendMenu() override;
+    
+    PageId GetNextPage() const override;
+    void OnInit() override;
+    void OnActivate() override;
+    void OnDeactivate() override;
+    int GetRuntimeTypeInfo() const override;
+
+    void OnNewRoomClick(PushButton* button, u32 hudSlotId);
+    void OnRegisterFriendClick(PushButton* button, u32 hudSlotId);
+    void OnRosterClick(PushButton* button, u32 hudSlotId);
+
+    PtmfHolder_2A<FriendMenu, void, PushButton*, u32> onRosterClick;
+    PtmfHolder_2A<FriendMenu, void, PushButton*, u32> onRegisterClick;
+    PtmfHolder_2A<FriendMenu, void, PushButton*, u32> onNewRoomClicl;
+    PtmfHolder_2A<FriendMenu, void, PushButton*, u32> onBackClick;
+    PtmfHolder_2A<FriendMenu, void, PushButton*, u32> onButtonSelect;
+    PtmfHolder_1A<FriendMenu, void, u32> onBack;
+    CtrlMenuPageTitleText titleText; //
+    PushButton friendListButton;
+    u32 padding[2]; //Part of the button class but idc about this for now
+    PushButton registerButton;
+    PushButton newRoomButton;
+    CtrlMenuBackButton backButton; //
+    CtrlMenuInstructionText bottomText; 
+    ControlsManipulatorManager manipulatorManager; //
+    PageId nextPage;
+};
+static_assert(sizeof(FriendMenu) == 0xf34, "FriendMenu");
+
 }//namespace Pages
 #endif
