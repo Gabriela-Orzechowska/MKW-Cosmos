@@ -104,26 +104,6 @@ void PatchLicenseButtonFile(PushButton& button, const char* folder, const char* 
     button.Load(folder, "CosmosLicenseSelect", variant, localPlayerBitfield, r8, inaccessible);
 }
 kmBranch(0x805eae94, SetupLicenseButton);
-/*
-extern float MiiXthing;
-extern float MiiZthing;
-static float time;
-void OnLicenseUpdate(Pages::LicenseSelect& page) {
-    time += 0.06f;
-    MiiXthing = 75.5f * sin(time);
-    MiiZthing = 75.5f * cos(time);
-    page.miiGroup.LoadMii(0, page.miiGroup.GetMii(0));
-    for(int i = 0; i < 4; i++){
-        page.licenseButtons[i].SetMiiPane("mii", &page.miiGroup, i, 0);
-    }
-    
-}
-kmWritePointer(0x808b9894, OnLicenseUpdate);
-kmWrite32(0x805fa450, 0x60000000);
-*/
-
-//kmCall(0x805eacf0, PatchLicenseButtonFile);
-
 
 static CtrlRace2DMap* mainMinimap = nullptr;
 void SaveMinimap(CtrlRace2DMap& map, const char* name){
