@@ -4,6 +4,8 @@
 #include <core/System/SystemManager.hpp>
 #include <game/Network/RKNetRoom.hpp>
 #include <game/Network/RKNetController.hpp>
+#include <Network/SHA256.hpp>
+#include <Network/WiiLinkTypes.hpp>
 
 #define TEST_REGION 7772
 
@@ -26,6 +28,7 @@ void ChangeGameRegion(u32 regionID)
     pr_patch6_r7 = 0x38E00000 | regionID;
     pr_patch7_r4 = 0x38800000 | regionID;
     pr_patch8_r4 = 0x38800000 | regionID;
+    WWFC_CUSTOM_REGION = regionID;
 }
 
 void ChangeRegionAtBoot(){

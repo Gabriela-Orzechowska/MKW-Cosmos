@@ -99,7 +99,7 @@ void loadIntoMKW()
 
 	char path[64];
 	funcs->sprintf(path, "%c.szs", region);
-	loadKamekBinaryFromDisc(funcs, "/Binaries/Code.arc", path);
+	loadKamekBinaryFromDisc(funcs, "/Binaries/Code.cscd", path);
     
     return;
 };

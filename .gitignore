@@ -53,3 +53,4 @@ code/System/Security.cpp
 out/Code.arc
 .clangd
 compile_flags.txt
+out/Code.cscd
