@@ -45,11 +45,12 @@ bool GenerateRandomSalt(u8 *out)
         return false;
     }
 
-    u8 dummy = 0x7a;
-    u8 eccCert[0x180];
-    u8 eccSignature[0x3C];
+    u8 dummy[0x20] __attribute((aligned(0x40)));
+    dummy[0] = 0x7a;
+    u8 eccCert[0x180] __attribute((aligned(0x40)));
+    u8 eccSignature[0x3C] __attribute((aligned(0x40)));
 
-    IOS::IOCtlvRequest vec[3];
+    IOS::IOCtlvRequest vec[3] __attribute((aligned(0x40)));
     vec[0].address = &dummy;
     vec[0].size = 1;
     vec[1].address = eccSignature;
@@ -63,6 +64,7 @@ bool GenerateRandomSalt(u8 *out)
 
     if (ret < 0)
     {
+        CosmosError("ES_Sign failed. Error: %d\n", ret);
         return false;
     }
 

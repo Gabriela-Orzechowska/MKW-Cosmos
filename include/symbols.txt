@@ -181,6 +181,9 @@ IOCtlv__3IOSFiQ23IOS9IOCtlTypeiiPQ23IOS13IOCtlvRequest = 0x801945e0
 Open2ndInst__3IOSFPcQ23IOS4Mode = 0x801938fc
 fs_fd__3IOS = 0x80385920
 
+#NAND
+NandUtil_create = 0x8052b95c
+
 #FontManager
 sInstance__11FontManager = 0x809c1bf8
 DestroyStaticInstance__11FontManagerFv = 0x805d1414
