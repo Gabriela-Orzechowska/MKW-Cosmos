@@ -87,10 +87,15 @@ enum RKNetConnectionState{
 };
 
 enum RKNetSearchType{
-    SEARCH_VS_WW,
-    SEARCH_VS_REGIONAL,
-    SEARCH_BT_WW,
-    SEARCH_BT_REGIONAL
+    VS_NONE,
+    VS_WW,
+    VS_REGIONAL,
+    BT_WW,
+    BT_REGIONAL,
+    FROOM_HOST,
+    FROOM_NONHOST,
+    JOINING_WW,
+    JOINING_REGIONAL,
 };
 
 class RKNetController {

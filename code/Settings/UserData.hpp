@@ -152,6 +152,7 @@ namespace Cosmos
             FORCE_NONE = 0x0,
             FORCE_150CC,
             FORCE_200CC,
+            FORCE_MIRROR,
         };
         enum RACE_COUNTS
         {

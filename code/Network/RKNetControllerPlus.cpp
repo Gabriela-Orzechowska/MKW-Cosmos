@@ -1,3 +1,6 @@
+#include "Network/RKNetController.hpp"
+#include "Settings/UserData.hpp"
+#include "core/rvl/os/OS.hpp"
 #include <Network/RKNetControllerPlus.hpp>
 #include <game/Network/RKNetPlayerInfo.hpp>
 #include <game/UI/Page/Other/Votes.hpp>
@@ -86,6 +89,31 @@ namespace CosmosNetwork
         else ((RKNetSELECTHandler*)&handler)->DecideTrack();
     }
     kmCall(0x80661490, DecideTrack);
+
+#define CC_100_PROBS 15
+#define CC_MIRROR_PROBS 15
+#define CC_150_PROBS 60
+
+    void DecideCC(RKNetSELECTHandlerPlus& handler) {
+        RKNetController* controller = RKNetController::GetStaticInstance();
+        RKNetSearchType type = controller->searchType;
+        
+        u8 ccEngineValue = 2;
+        Cosmos::Data::FORCE_CC ccSetting = (Cosmos::Data::FORCE_CC) Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_FORCE_CC);
+        if(type == VS_WW || type == VS_REGIONAL || (type == FROOM_HOST && ccSetting == Cosmos::Data::FORCE_NONE)) {
+            Random random(OSGetTick());
+            u32 ret = random.NextLimited(100);
+            if(ret < CC_100_PROBS) ccEngineValue = 1;
+            else if(ret < (CC_100_PROBS + CC_MIRROR_PROBS)) ccEngineValue = 3;
+        }
+        else if (type == FROOM_HOST) {
+            if(ccSetting == Cosmos::Data::FORCE_150CC) ccEngineValue = 2;
+            if(ccSetting == Cosmos::Data::FORCE_200CC) ccEngineValue = 1;
+            if(ccSetting == Cosmos::Data::FORCE_MIRROR) ccEngineValue = 3;
+        }
+        handler.toSendPacket.engineClass = ccEngineValue; 
+    }
+    kmCall(0x80661404, DecideCC);
 
     u32 SetCorrectSlot(RKNetSELECTHandlerPlus& handler) {
         if(handler.toSendPacket.phase != 0) return Cosmos::CupManager::GetStaticInstance()->GetCurrentTrackSlot();
