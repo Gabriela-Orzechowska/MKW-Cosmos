@@ -15,10 +15,6 @@ namespace CosmosFile
         bool valid = false;
         EGG::Heap * heap = RKSystem::mInstance.EGGSystem;
 
-        nandManager = new (heap) FileManager();
-        if(nandManager != nullptr)
-            nandInstance = nandManager;
-
         s32 ret = Cosmos::Open("file", IOS::MODE_NONE); //Check if its riivo
         if(ret < 0) //If not, check if dolphin
         {
@@ -32,12 +28,18 @@ namespace CosmosFile
                 manager = new (heap) FatFileManager();
             else if(ret >= 0)
                 manager = new (heap) FileManager();
+
+            nandManager = new (heap) FileManager();
+            if(nandManager != nullptr)
+                nandInstance = nandManager;
+
         }
         else
         {
             valid = true;
             IOS::Close(ret);
-            manager = new (heap) RiivoFileManager();
+            manager = new (heap) RiivoFileManager(false);
+            nandInstance = new (heap) RiivoFileManager(true);
         }
         FileManager::sInstance = manager;
         manager->isValid = true;
@@ -119,18 +121,29 @@ namespace CosmosFile
     s32 RiivoFileManager::CreateOpen(const char * filepath, u32 mode){
         s32 riivo_fd = this->GetDeviceFd();
 
-        IOS::IOCtl(riivo_fd, (IOS::IOCtlType) RIIVO_IOCTL_CREATEFILE, (void*) filepath, strlen(filepath)+1, NULL, 0);
+        if(isNand) this->CreateFolder("/Cosmos/data");
+        char realPath[IPCMAXPATH] __attribute((aligned(0x20)));
+        this->GetFilePath(realPath, filepath);
+        s32 ret = IOS::IOCtl(riivo_fd, (IOS::IOCtlType) RIIVO_IOCTL_CREATEFILE, (void*) realPath, strlen(filepath)+1, NULL, 0);
+        if(ret < 0) {
+            CosmosError("File creation failed, ret: %d\n", ret);
+        }
         IOS::Close(riivo_fd);
-        return this->Open(filepath, mode);
+        return this->Open(realPath, mode);
     }
 
     s32 RiivoFileManager::GetDeviceFd() const{
         return Cosmos::Open("file", IOS::MODE_NONE);
     }
 
+    void RiivoFileManager::GetFilePath(char* realPath, const char* path) const {
+        if(isNand) snprintf(realPath, IPCMAXPATH, "Cosmos/data/%s", path);
+        else snprintf(realPath, IPCMAXPATH, "%s", path);
+    }
+
     void RiivoFileManager::GetCorrectPath(char * realPath, const char * path) const
     {
-        snprintf(realPath, IPCMAXPATH, "%s%s", "file", path);
+        snprintf(realPath, IPCMAXPATH, "file%s", path);
     }
 
     RiivoMode RiivoFileManager::GetRiivoMode(u32 mode) const{
