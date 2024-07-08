@@ -26,6 +26,7 @@ namespace CosmosFile
     };
 
     const char nandPath[] __attribute__((aligned(0x20))) = "/title/00010001/43534D53";
+    //TODO Fix NAND Or Force SD card on wii
 
     class FileManager{
         public:

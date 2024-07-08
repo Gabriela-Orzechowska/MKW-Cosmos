@@ -5,8 +5,7 @@
 #  * Syntax and Semantics: https://szs.wiimm.de/doc/bmg/text
 #  * The BMG file format:  https://szs.wiimm.de/r/wiki/BMG
 #
-#
-
+#
 #------------------------------------------------------------------------------
 
 
@@ -111,6 +110,8 @@
  3220   = Debug Messages on Screen
  3A21   = Displays messages on screen (buggy on Dolphin).
  3A22   = Hide messages on screen.
+
+ 3230   = Log OSReport to SD
 
  3300   = OpenHost
  3B01   = Players who added you can join rooms.
