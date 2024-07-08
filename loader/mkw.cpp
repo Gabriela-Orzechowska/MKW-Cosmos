@@ -1,9 +1,17 @@
+#include "core/rvl/ipc/ipc.hpp"
+#include <core/rvl/os/OS.hpp>
 #include <kamekLoader.hpp>
 
 void loadIntoMKW();
 
 struct loaderFunctionsEx {
 	loaderFunctions base;
+};
+
+enum SC {
+    IOS_SetUid = 0x2B,
+    IOS_InvalidateDCache = 0x3F,
+    IOS_FlushDCache = 0x40,
 };
 
 loaderFunctionsEx functions_p = {
@@ -21,7 +29,14 @@ loaderFunctionsEx functions_p = {
 	(NANDPrivateOpen_t) 0x8019C88C,
 	(NANDClose_t) 0x8019CA80, 
 	(NANDRead_t) 0x8019B7A4,
-	(NANDGetLength_t) 0x8019BF4C }
+	(NANDGetLength_t) 0x8019BF4C,
+    (IOS_Open_t) 0x801938f8,
+    (IOS_Ioctlv_t) 0x801945e0,
+    (IOS_Write_t) 0x80193e88,
+    (IOS_Close_t) 0x80193ad8,
+    0x80242698,
+    0x8000A3F4,
+    }
 };
 loaderFunctionsEx functions_e = {
 	{(OSReport_t) 0x801A2530,
@@ -38,8 +53,15 @@ loaderFunctionsEx functions_e = {
 	(NANDPrivateOpen_t) 0x8019c7ec,
 	(NANDClose_t) 0x8019c9e0, 
 	(NANDRead_t) 0x8019b704,
-	(NANDGetLength_t) 0x8019beac}
-};
+	(NANDGetLength_t) 0x8019beac,
+    (IOS_Open_t) 0x801938f8,
+    (IOS_Ioctlv_t) 0x801945e0,
+    (IOS_Write_t) 0x80193e88,
+    (IOS_Close_t) 0x80193ad8,
+    0x802417dc,
+    0x8000A3B4,
+}};
+
 loaderFunctionsEx functions_j = {
 	{(OSReport_t) 0x801A24F0,
 	(OSFatal_t) 0x801A4DE4,
@@ -55,8 +77,14 @@ loaderFunctionsEx functions_j = {
 	(NANDPrivateOpen_t) 0x8019c7ac,
 	(NANDClose_t) 0x8019c9a0, 
 	(NANDRead_t) 0x8019b6c4,
-	(NANDGetLength_t) 0x8019be6c}
-};
+	(NANDGetLength_t) 0x8019be6c,
+    (IOS_Open_t) 0x801938f8,
+    (IOS_Ioctlv_t) 0x801945e0,
+    (IOS_Write_t) 0x80193e88,
+    (IOS_Close_t) 0x80193ad8,
+    0x802425b8,
+    0x8000A350,
+}};
 loaderFunctionsEx functions_k = {
 	{(OSReport_t) 0x801A292C,
 	(OSFatal_t) 0x801A5220,
@@ -72,8 +100,160 @@ loaderFunctionsEx functions_k = {
 	(NANDPrivateOpen_t) 0x8019cbe8,
 	(NANDClose_t) 0x8019cddc, 
 	(NANDRead_t) 0x8019bb00,
-	(NANDGetLength_t) 0x8019c2a8}
+	(NANDGetLength_t) 0x8019c2a8,
+    (IOS_Open_t) 0x801938f8,
+    (IOS_Ioctlv_t) 0x801945e0,
+    (IOS_Write_t) 0x80193e88,
+    (IOS_Close_t) 0x80193ad8,
+    0x80242a0c,
+    0x8000A4FC,
+}
 };
+
+#define syscall(id) 0xE6000010 | (u8)id << 5
+
+static u32 code[] = {
+        /* 0x00 */ 0xEA000000, // b       0x8
+    /* 0x04 */ 0x00000000, // MESSAGE_VALUE
+    // Set PPC UID to root
+    /* 0x08 */ 0xE3A0000F, // mov     r0, #15
+    /* 0x0C */ 0xE3A01000, // mov     r1, #0
+    /* 0x10 */ syscall(IOS_SetUid),
+    // Send response to PPC
+    /* 0x14 */ 0xE24F0018, // adr     r0, MESSAGE_VALUE
+    /* 0x18 */ 0xE3A01001, // mov     r1, #1
+    /* 0x1C */ 0xE5801000, // str     r1, [r0]
+    // Flush the response to main memory
+    /* 0x20 */ 0xE3A01004, // mov     r1, #4
+    /* 0x24 */ syscall(IOS_FlushDCache),
+    // Wait for response back from PPC
+    // loop_start:
+    /* 0x28 */ 0xE24F002C, // adr     r0, MESSAGE_VALUE
+    /* 0x2C */ 0xE5902000, // ldr     r2, [r0]
+    /* 0x30 */ 0xE3520002, // cmp     r2, #2
+    /* 0x34 */ 0x0A000001, // beq     loop_break
+    /* 0x38 */ syscall(IOS_InvalidateDCache),
+    /* 0x3C */ 0xEAFFFFF9, // b       loop_start
+    // loop_break:
+    // Reset PPC UID back to 15
+    /* 0x40 */ 0xE3A0000F, // mov     r0, #15
+    /* 0x44 */ 0xE3A0100F, // mov     r1, #15
+    /* 0x48 */ syscall(IOS_SetUid),
+    // Send response to PPC
+    /* 0x4C */ 0xE24F0050, // adr     r0, MESSAGE_VALUE
+    /* 0x50 */ 0xE3A01003, // mov     r1, #3
+    /* 0x54 */ 0xE5801000, // str     r1, [r0]
+    // Flush the response to main memory
+    /* 0x58 */ 0xE3A01004, // mov     r1, #4
+    /* 0x5C */ syscall(IOS_FlushDCache),
+    /* 0x60 */ 0xE12FFF1E, // bx      lr
+};
+
+static u32 GetMessage(u32 index) {
+    register u32 val = 0xC0000000 | (u32)(&code[index]);
+    register u32 ret = 0;
+    asm {
+        ASM(
+                lwz ret, 0x0 (val);
+                sync;
+           )
+    }
+    return ret;
+}
+
+static u32 SetMessage(u32 index, u32 message) {
+    register u32 val = 0xC0000000 | (u32)(&code[index]);
+    register u32 mess = message;
+    asm {
+        ASM (
+            stw mess, 0x0 (val);
+            eieio;
+        )
+    }
+}
+
+void loadIntoMKW();
+
+void PerformExploit() {
+    u8 region = *(u8 *)(0x80000003);
+    
+	// choose functions
+	loaderFunctions *funcs = NULL;
+    int *heap = NULL;
+	switch (region)
+	{
+		case 'P': funcs = &functions_p.base; break;
+		case 'E': funcs = &functions_e.base; break;
+		case 'J': funcs = &functions_j.base; break;
+		case 'K': funcs = &functions_k.base; break;
+	}
+
+    //Create Branches
+    u32 offset = ((u32)&loadIntoMKW)-funcs->dolHookAddress;
+    u32 command = 0x48000000 | (offset & 0x03FFFFFF);
+    *((u32*)funcs->dolHookAddress) = command;
+    
+    offset = ((u32)&loadIntoMKW)-funcs->relHookAddress;
+    command = 0x48000000 | (offset & 0x03FFFFFF);
+    *((u32*)funcs->relHookAddress) = command;
+
+    return;
+
+// Nothing for now, maybe i will come back to it and figure out whats wrong with this
+/*
+    s32 isDol = funcs->IOS_Open("/dev/dolphin", 0);
+    if(isDol >= 0) {
+        funcs->IOS_Close(isDol);
+        return;
+    }
+
+    u32* tempBuffer = (u32*) 0x80700000;
+    u32* memStart = (u32*) 0x80000000;    
+
+    s32 sha = funcs->IOS_Open("/dev/sha", 0);
+    if(sha < 0) {
+        funcs->IOS_Close(sha);
+        return;
+    }
+
+    for(int i = 0; i < 0x40; i++) {
+        tempBuffer[i] = memStart[i];
+    }
+
+    funcs->IOS_Write(-1, code, sizeof(code));
+
+
+    memStart[0] = 0x4903468D;
+    memStart[1] = 0x49034788;
+    memStart[2] = 0x49036209;
+    memStart[3] = 0x47080000;
+    memStart[4] = 0x10100000;
+    memStart[5] = (u32)&code - 0x80000000;
+    memStart[6] = 0xFFFF0014;
+    
+    IOS::IOCtlvRequest vec[4] __attribute((aligned(0x20)));
+    vec[0].address = nullptr;
+    vec[0].size = 0;
+    vec[1].address = (void*) 0xFFFE0028;
+    vec[1].size = 0;
+    vec[2].address = (void*) 0x80000000;
+    vec[2].size = 0x40;
+
+    s32 ret = funcs->IOS_IOCtlv(sha, 0, 1, 2, vec);
+    for(int i = 0; i < 0x40; i++){
+       memStart[i] = tempBuffer[i];
+    }
+    return;
+    funcs->IOS_Close(sha);
+        *((u32*)0x80003FE0) = ret;
+    ret = funcs->IOS_Open("/dev/fs", 0);
+
+    for(int i = 0; i < 0x40; i++){
+       memStart[i] = tempBuffer[i];
+    }
+    return;
+*/
+}
 
 void unknownVersion()
 {

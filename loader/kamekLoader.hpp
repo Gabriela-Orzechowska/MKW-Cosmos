@@ -3,7 +3,7 @@
 #include <core/rvl/dvd/dvd.hpp>
 #include <core/rvl/nand.hpp>
 #include <core/System/RKSystem.hpp>
-
+#include <core/rvl/ipc/ipc.hpp>
 
 struct loaderFunctions;
 
@@ -26,6 +26,10 @@ typedef s32 (*NANDPrivateOpen_t) (const char* path, NANDFileInfo* info, u8 type)
 typedef s32 (*NANDClose_t) (NANDFileInfo* info);
 typedef s32 (*NANDRead_t) (NANDFileInfo* info, void* buffer, u32 length);
 typedef s32 (*NANDGetLength_t) (NANDFileInfo* info, u32 *length);
+typedef s32 (*IOS_Open_t)(const char* deviceName, s32 mode);
+typedef s32 (*IOS_Ioctlv_t)(s32 fd, u32 call, s32 in, s32 out, IOS::IOCtlvRequest* vec); 
+typedef s32 (*IOS_Write_t)(s32 fd, void* buffer, u32 size);
+typedef s32 (*IOS_Close_t)(s32 fd);
 
 static const u32 bufferPointer = 0x80600000;
 const char nandPath[] __attribute__((aligned(0x20))) = "/title/00010001/43534D53";
@@ -47,6 +51,12 @@ struct loaderFunctions {
     NANDClose_t NANDClose;
     NANDRead_t NANDRead;
     NANDGetLength_t NANDGetLength;
+    IOS_Open_t IOS_Open;
+    IOS_Ioctlv_t IOS_IOCtlv;
+    IOS_Write_t IOS_Write;
+    IOS_Close_t IOS_Close;
+    u32 dolHookAddress;
+    u32 relHookAddress;
 };
 
 void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const char* codePath);
