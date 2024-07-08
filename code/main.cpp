@@ -301,6 +301,7 @@ namespace Cosmos{
     static bool hasStartedAlready = false;
     extern "C" int fwrite(const char* ptr, u32 size, u32 nmeb, u32* stream);
     int myfwrite(const char* ptr, u32 size, u32 nmeb, u32* stream) {
+        if(IOS::Dolphin::IsOpen()) return fwrite(ptr,size,nmeb,stream);
         Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetInstance();
         if(holder && holder->GetSettingValue(Data::COSMOS_SETTING_LOG_TO_SD) == Data::ENABLED)
         {

@@ -228,8 +228,8 @@ namespace Cosmos
                 .settingCount = 4,
                 .settings = {{.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, // DWC Logs
                              {.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, //
-                             {.optionCount = 2, .isBool = true, .defaultValue = DISABLED},
-                             {.optionCount = 2, .isBool = true, .defaultValue = DISABLED}} //LOG TO SD 
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED},
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}} //LOG TO SD 
             },
             {// Host
              .settingCount = 5,
