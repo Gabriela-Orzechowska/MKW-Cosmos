@@ -218,6 +218,7 @@ void PerformExploit() {
 
     for(int i = 0; i < 0x40; i++) {
         tempBuffer[i] = memStart[i];
+        memStart[i] = 0x0;
     }
 
     funcs->IOS_Write(-1, code, sizeof(code));

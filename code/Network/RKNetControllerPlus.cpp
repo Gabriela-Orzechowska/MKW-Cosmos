@@ -13,6 +13,11 @@ namespace CosmosNetwork
     }
 */
 
+    //Ignore player 2 Votes
+    kmWrite32(0x80660594, 0x38000000);
+    kmWrite32(0x806605ac, 0x38000000);
+
+
     u8 GetActualEngineClass(RKNetSELECTHandlerPlus& handler) {
         if(handler.toSendPacket.phase != 0) return handler.toSendPacket.engineClass;
         return 0;
