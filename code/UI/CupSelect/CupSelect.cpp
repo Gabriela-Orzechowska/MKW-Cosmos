@@ -189,6 +189,7 @@ namespace CosmosUI
                     selected = true;
                 }
             }
+            else selected = true;
         }
         if(!selected){
             coursePage->SelectButton(&course->courseButtons[0]);
