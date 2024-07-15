@@ -10,6 +10,7 @@ namespace CosmosFile
 
     void FileManager::CreateStaticInstance()
     {
+        Cosmos::System::Console_Print("Creating FileManager...\n");
         FileManager * manager;
         FileManager * nandManager;
         bool valid = false;
@@ -40,6 +41,7 @@ namespace CosmosFile
             IOS::Close(ret);
             manager = new (heap) RiivoFileManager(false);
             nandInstance = new (heap) RiivoFileManager(true);
+            Cosmos::System::Console_Print("Connected to Riivolution\n");
         }
         FileManager::sInstance = manager;
         manager->isValid = true;

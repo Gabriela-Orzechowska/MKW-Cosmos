@@ -1,6 +1,7 @@
 #include "core/rvl/ipc/ipc.hpp"
 #include <core/rvl/os/OS.hpp>
 #include <kamekLoader.hpp>
+#include <console.hpp>
 
 void loadIntoMKW();
 
@@ -36,6 +37,11 @@ loaderFunctionsEx functions_p = {
     (IOS_Close_t) 0x80193ad8,
     0x80242698,
     0x8000A3F4,
+    0x802a26f0,
+    (VIGetNextFrameBuffer_t) 0x801bab24,
+    (DirectPrint_ChangeXfb_t) 0x80021e30,
+    (DirectPrint_DrawString_t) 0x80021f80,
+    (DirectPrint_StoreCache_t) 0x80021e70,
     }
 };
 loaderFunctionsEx functions_e = {
@@ -174,7 +180,10 @@ static u32 SetMessage(u32 index, u32 message) {
 
 void loadIntoMKW();
 
-void PerformExploit() {
+inline void cacheInvalidateAddress(u32 address);
+static const char* Console_Write(const char* str);
+
+int PerformExploit() {
     u8 region = *(u8 *)(0x80000003);
     
 	// choose functions
@@ -192,12 +201,18 @@ void PerformExploit() {
     u32 offset = ((u32)&loadIntoMKW)-funcs->dolHookAddress;
     u32 command = 0x48000000 | (offset & 0x03FFFFFF);
     *((u32*)funcs->dolHookAddress) = command;
+    cacheInvalidateAddress(funcs->dolHookAddress);
     
     offset = ((u32)&loadIntoMKW)-funcs->relHookAddress;
     command = 0x48000000 | (offset & 0x03FFFFFF);
     *((u32*)funcs->relHookAddress) = command;
+    cacheInvalidateAddress(funcs->relHookAddress);
 
-    return;
+    Console_Init(funcs);
+    Console_Print("Cosmos v1.6\n");
+    Console_Print("Opening /dev/fs\n");
+
+    return funcs->IOS_Open("/dev/fs", 0);
 
 // Nothing for now, maybe i will come back to it and figure out whats wrong with this
 /*
@@ -263,6 +278,16 @@ void unknownVersion()
 	for (;;);
 }
 
+inline void cacheInvalidateAddress(u32 address) {
+    register u32 addressRegister = address;
+    asm{
+        ASM(
+        dcbst 0, addressRegister;
+        sync;
+        icbi 0, addressRegister;
+        )
+    }
+}
 void loadIntoMKW()
 {
     u8 region = *(u8 *)(0x80000003);

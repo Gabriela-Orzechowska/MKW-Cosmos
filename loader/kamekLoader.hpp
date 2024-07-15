@@ -1,5 +1,7 @@
 #ifndef _LOADER_
 #define _LOADER_
+#include "core/nw4r/db/Exception.hpp"
+#include "core/rvl/vi.hpp"
 #include <core/rvl/dvd/dvd.hpp>
 #include <core/rvl/nand.hpp>
 #include <core/System/RKSystem.hpp>
@@ -30,6 +32,10 @@ typedef s32 (*IOS_Open_t)(const char* deviceName, s32 mode);
 typedef s32 (*IOS_Ioctlv_t)(s32 fd, u32 call, s32 in, s32 out, IOS::IOCtlvRequest* vec); 
 typedef s32 (*IOS_Write_t)(s32 fd, void* buffer, u32 size);
 typedef s32 (*IOS_Close_t)(s32 fd);
+typedef void* (*VIGetNextFrameBuffer_t)(void);
+typedef void (*DirectPrint_ChangeXfb_t)(void* buffer, s32, s32);
+typedef void (*DirectPrint_DrawString_t)(s32, s32, const char* msg, s32, s32);
+typedef void (*DirectPrint_StoreCache_t)();
 
 static const u32 bufferPointer = 0x80600000;
 const char nandPath[] __attribute__((aligned(0x20))) = "/title/00010001/43534D53";
@@ -57,6 +63,12 @@ struct loaderFunctions {
     IOS_Close_t IOS_Close;
     u32 dolHookAddress;
     u32 relHookAddress;
+    u32 endRenderAddress;
+    VIGetNextFrameBuffer_t VIGetNextFrameBuffer;
+    DirectPrint_ChangeXfb_t DirentPrint_ChangeXFB;
+    DirectPrint_DrawString_t DirectPrint_DrawString;
+    DirectPrint_StoreCache_t DirectPrint_StoreCache;
+
 };
 
 void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const char* codePath);

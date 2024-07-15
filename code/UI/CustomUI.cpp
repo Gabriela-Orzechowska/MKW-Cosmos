@@ -87,4 +87,9 @@ void ShowCheatsWarningPage(Page& page, u32 id, float animLenght) {
 }
 kmCall(0x8063b04c, ShowCheatsWarningPage);
 
-
+typedef void (*Console_Destroy)();
+void DestroyConsole(){
+    Console_Destroy destroy = (Console_Destroy) *((u32*)0x80003fE8);
+    destroy();
+}
+kmBranch(0x8063ae90, DestroyConsole);

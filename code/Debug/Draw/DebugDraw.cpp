@@ -68,7 +68,7 @@ namespace CosmosDebug
         return;
     }
 
-    kmWritePointer(0x802a26f0, AsyncDisplayInjectCustomRender);
+    //kmWritePointer(0x802a26f0, AsyncDisplayInjectCustomRender);
 
     static DebugMessage GeckoDisplay(false, "Dolphin Cheats Enabled.\nErrors might occur");
 
@@ -76,7 +76,6 @@ namespace CosmosDebug
         if((*(u32*)0x80001804) == 1)
             GeckoDisplay.DisplayForX(240);
     }
-    static BootHook bhDisplayTestMsg(DisplayTestMsg, FIRST);
 
     void DebugMessage::RenderAll(){
         Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetInstance();

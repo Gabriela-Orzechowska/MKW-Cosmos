@@ -120,7 +120,7 @@ struct PtmfHolder_3A : PtmfHolderBase_3A<Ret, A1, A2, A3> {
 #define CosmosAssertNotNull(c) CosmosAssert(c != nullptr, "Pointer is nullptr!\n");
 
 #define __COMPILER_VERSION__ "4305_224"
-#define __COSMOS_VERSION__ "v0.1.4"
+#define __COSMOS_VERSION__ "v0.1.5"
 
 class MenuLoadHook {
 private:

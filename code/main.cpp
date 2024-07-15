@@ -1,6 +1,6 @@
+#include <main.hpp>
 #include "core/rvl/os/OS.hpp"
 #include "vendor/lzma/7zTypes.h"
-#include <main.hpp>
 #include <core/nw4r/g3d/res/ResMat.hpp>
 #include <game/Race/RaceData.hpp>
 #include <FileManager/FileManager.hpp>
@@ -28,8 +28,10 @@ namespace Cosmos{
     }
 
     System * System::sInstance = nullptr;
+    Console_Print_t System::Console_PrintFunc = nullptr;
 
     static CosmosDebug::DebugMessage systemMessage(false, "Cosmos " __COSMOS_VERSION__ " (" __COMPILER_VERSION__ " "  __DATE__ ") Loaded");
+
 
     void System::CreateStaticInstance(){
         sInstance = new System();
@@ -37,6 +39,7 @@ namespace Cosmos{
 
         CosmosDebug::DebugMessage::Init();
         systemMessage.DisplayForX(15);
+        System::Console_Print("Creating Cosmos System...\n");
         return;
     }
     static BootHook bhSystem(Cosmos::System::CreateStaticInstance, FIRST);
@@ -319,4 +322,17 @@ namespace Cosmos{
         return fwrite(ptr, size, nmeb, stream);
     }
     kmCall(0x80011648, myfwrite);
+
+    void LoadLoaderFuncs(){
+        System::Console_PrintFunc = (Console_Print_t) *((u32*)0x80003FEC);
+    }
+    kmBranch(0x80207e48, LoadLoaderFuncs);
+    
+    kmWrite8(0x80022277, 0x01);
+    kmWrite8(0x8002227B, 0x01);
+    /*
+    kmWrite32(0x80021f3c, 0x60000000);
+    kmWrite32(0x80021f34, 0x60000000);
+    kmWrite32(0x80021f4c, 0x60000000);
+    */
 }

@@ -14,6 +14,9 @@
 
 namespace Cosmos
 {
+    typedef void (*Console_Print_t)(const char* msg);
+    
+
     enum CUSTOM_PAGE_IDS 
     {
         WARNING_PAGE = 0xBA,
@@ -38,6 +41,8 @@ namespace Cosmos
         static void CreateStaticInstance();
         static inline System * GetStaticInstance() { return sInstance; }
 
+        static Console_Print_t Console_PrintFunc;
+
         void Init();
         void CreateFolders();
         TT_MODE GetTTMode() { return this->currentTTMode; }
@@ -56,6 +61,12 @@ namespace Cosmos
         static void Shutdown(bool force);
         static void Restart();
         static void HardRestart();
+        static inline void LoadLoaderFuncs() {
+            Console_PrintFunc = (Console_Print_t) *((u32*)0x8000FFEC);
+        }
+        static inline void Console_Print(const char* msg){
+            if(Console_PrintFunc != nullptr) Console_PrintFunc(msg);
+        }
 
         static asm int PatchRaceCount();
 
