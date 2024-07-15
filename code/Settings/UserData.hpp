@@ -269,7 +269,7 @@ namespace Cosmos
         public:
             SettingsHolder();
             static void Create();
-            static SettingsHolder *GetInstance();
+            static SettingsHolder *GetStaticInstance();
 
             u8 GetSettingValue(GLOBAL_SETTING setting) const { return this->settings->data[currentLicense].rawSettings[setting]; }
             u8 GetSettingValue(u8 page, u8 setting) const { return this->settings->data[currentLicense].pages[page].setting[setting]; }

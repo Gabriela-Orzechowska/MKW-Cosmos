@@ -46,7 +46,7 @@ namespace CosmosNetwork
         RKNetController* rkController = RKNetController::GetStaticInstance();
         RKNetControllerSub& rkControllerSub = rkController->subs[rkController->currentSub];
         
-        bool hostAlwaysWin = Cosmos::System::GetStaticInstance()->isHAW(); //Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_HOST_ALWAYS_WINS) == Cosmos::Data::ENABLED;
+        bool hostAlwaysWin = Cosmos::System::GetStaticInstance()->isHAW(); //Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_HOST_ALWAYS_WINS) == Cosmos::Data::ENABLED;
 
         if(hostAlwaysWin && handler.mode == ONLINEMODE_PRIVATE_VS){
             u16 hostTrack = handler.toSendPacket.playersData[0].cCourseVote;
@@ -104,7 +104,7 @@ namespace CosmosNetwork
         RKNetSearchType type = controller->searchType;
         
         u8 ccEngineValue = 2;
-        Cosmos::Data::FORCE_CC ccSetting = (Cosmos::Data::FORCE_CC) Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_FORCE_CC);
+        Cosmos::Data::FORCE_CC ccSetting = (Cosmos::Data::FORCE_CC) Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_FORCE_CC);
         if(type == VS_WW || type == VS_REGIONAL || (type == FROOM_HOST && ccSetting == Cosmos::Data::FORCE_NONE)) {
             Random random(OSGetTick());
             u32 ret = random.NextLimited(100);

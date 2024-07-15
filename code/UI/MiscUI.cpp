@@ -36,7 +36,7 @@ namespace CosmosUI
 }
 
 void FasterMenusOnTransition(MenuData *menuData, u32 delay, u32 r5){
-    if (SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_FAST_MENUS) == ENABLED) 
+    if (SettingsHolder::GetStaticInstance()->GetSettingValue(COSMOS_SETTING_FAST_MENUS) == ENABLED) 
         delay = 0;
     menuData->StartTransition(delay, r5);
 }
@@ -45,7 +45,7 @@ kmCall(0x80602510, FasterMenusOnTransition);
 void FasterPageTransition()
 {
     float delay = 176.0f;
-    if(SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_FAST_MENUS) == ENABLED) 
+    if(SettingsHolder::GetStaticInstance()->GetSettingValue(COSMOS_SETTING_FAST_MENUS) == ENABLED) 
         delay = 0.0f;
     Page::transitionDelay = delay;
 }

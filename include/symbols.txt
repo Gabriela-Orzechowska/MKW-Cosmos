@@ -731,6 +731,7 @@ AsyncDisplay_endRender__FPQ23EGG12AsyncDisplay = 0x8020ff9c
 AsyncDisplay_beginRender__FPQ23EGG12AsyncDisplay = 0x8020ff98
 AsyncDisplay_beginFrame__FPQ23EGG12AsyncDisplay = 0x8020fe24
 AsyncDisplay_getTickPerFrame__FPQ23EGG12AsyncDisplay = 0x80210124
+copyEFBtoXFB__3EGG7Display = 0x80219fb4 
 
 #UpDownDisplayedText
 __vt__19UpDownDisplayedText = 0x808bf3d8

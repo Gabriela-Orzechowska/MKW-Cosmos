@@ -78,7 +78,7 @@ namespace CosmosDebug
     }
 
     void DebugMessage::RenderAll(){
-        Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetInstance();
+        Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetStaticInstance();
         if(!holder) return;
 
         bool display = false;

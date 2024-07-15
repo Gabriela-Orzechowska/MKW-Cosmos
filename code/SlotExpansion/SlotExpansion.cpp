@@ -85,3 +85,7 @@ kmWrite32(0x8052f224, 0x60000000);
 kmBranch(0x8052f220, GPCorrectNextTrackWrapper);
 kmPatchExitPoint(GPCorrectNextTrackWrapper, 0x8052f228);
 kmWrite32(0x80531f80, 0x4e800020); // dont preload course due to memory
+
+void VSRaceOrderFix(GlobalContext& context) {
+
+}

@@ -116,12 +116,12 @@ namespace CosmosUI {
     }
 
     void NewSettings::OnBack(u32 hudSlotId) {
-        Cosmos::Data::SettingsHolder::GetInstance()->Update();
+        Cosmos::Data::SettingsHolder::GetStaticInstance()->Update();
         EndStateAnimate(0.0f, 1);
     }
 
     void NewSettings::OnBackButtonClick(PushButton*,u32){
-        Cosmos::Data::SettingsHolder::GetInstance()->Update();
+        Cosmos::Data::SettingsHolder::GetStaticInstance()->Update();
         EndStateAnimate(0.0f, 1);
     }
 
@@ -141,7 +141,7 @@ namespace CosmosUI {
             UpDownControl& selector = this->settingSelectors[i];
             TextUpDownValueControl& textControl = this->textSettingSelector[i];
         
-            u8 setting = Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(page, i);
+            u8 setting = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(page, i);
             selector.SetPlayerBitfield(i < settingCount ? 1 : 0);
             selector.isHidden = i >= settingCount;
             selector.SelectInitial(settingCount, setting);
@@ -181,7 +181,7 @@ namespace CosmosUI {
 
         
 
-        Cosmos::Data::SettingsHolder::GetInstance()->SetSettingValue(option, this->currentPage, id); 
+        Cosmos::Data::SettingsHolder::GetStaticInstance()->SetSettingValue(option, this->currentPage, id); 
         SettingsValueUpdateHook::exec(this->currentPage * 8 + id);
         this->bottomText.SetMsgId(bottomBmg);
 

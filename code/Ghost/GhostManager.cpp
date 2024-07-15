@@ -211,7 +211,7 @@ namespace Cosmos
                 antiCheat->Reset(IOS::Dolphin::GetSystemTime());
             GhostManager* manager = GhostManager::GetStaticInstance();
             if(manager != nullptr)
-                manager->wereGhostsDisabled = Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED;
+                manager->wereGhostsDisabled = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED;
             page.PlaySound(soundIdx, param_3);
             return;
         }
@@ -228,7 +228,7 @@ namespace Cosmos
                     page->ghostMessage->SetMsgId(0x2804);
                     return;
                 }
-                if(Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED){
+                if(Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED){
                     page->ghostMessage->isHidden = false;
                     page->ghostMessage->SetMsgId(0x2803);
                     return;
@@ -540,7 +540,7 @@ namespace Cosmos
                 s32 leaderboardPosition = -1;
 
 #ifdef COSMOS_ANTI_CHEAT
-                if (AntiCheat::GetStaticInstance()->IsRunValid() || Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED)
+                if (AntiCheat::GetStaticInstance()->IsRunValid() || Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED)
 #endif
                     leaderboardPosition = manager->GetLeaderboard().GetLeaderboardPosition(splitsPage->timers[0]);
 

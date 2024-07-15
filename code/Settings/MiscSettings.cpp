@@ -17,7 +17,7 @@ static u8 defaultFpsMode = 0;
 void SetFrameRate(GameScene& scene, u8 mode)
 {
     defaultFpsMode = mode;
-    FRAME_MODE frameMode = (FRAME_MODE) SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_FRAME_MODE);
+    FRAME_MODE frameMode = (FRAME_MODE) SettingsHolder::GetStaticInstance()->GetSettingValue(COSMOS_SETTING_FRAME_MODE);
 
     if(frameMode == FORCE_30) mode = 1;
     else if(frameMode == FORCE_60) mode = 0;
@@ -31,7 +31,7 @@ kmCall(0x80554abc, SetFrameRate);
 
 void SetFrameRateMidGame()
 {
-    FRAME_MODE frameMode = (FRAME_MODE) SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_FRAME_MODE);
+    FRAME_MODE frameMode = (FRAME_MODE) SettingsHolder::GetStaticInstance()->GetSettingValue(COSMOS_SETTING_FRAME_MODE);
     Scene * currentScene = MenuData::GetStaticInstance()->curScene;
     if(Scene::GetType(currentScene->menuId) == CATEGORY_GAMEPLAY){
         GameScene * scene = GameScene::GetCurrent();
@@ -47,7 +47,7 @@ static SettingsValueUpdateHook svuhFramerate(SetFrameRateMidGame, Cosmos::Data::
 
 void SetPerfMonitorVisibility()
 {
-    ((CosmosDebug::PerformanceMonitor *) RKSystem::mInstance.processMeter)->visible = (SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_PERFORMANCE_MONITOR) == ENABLED);
+    ((CosmosDebug::PerformanceMonitor *) RKSystem::mInstance.processMeter)->visible = (SettingsHolder::GetStaticInstance()->GetSettingValue(COSMOS_SETTING_PERFORMANCE_MONITOR) == ENABLED);
 }
 static SettingsUpdateHook suhSetPerfMonitorVisibility(SetPerfMonitorVisibility);
 static SettingsValueUpdateHook svuhSetPerfMonitorVisibility(SetPerfMonitorVisibility, Cosmos::Data::COSMOS_SETTING_PERFORMANCE_MONITOR);
@@ -56,7 +56,7 @@ static StrapEndHook bhSetPerfMonitorVisibility(SetPerfMonitorVisibility);
 extern u32 DWC_ReportLevel;
 void SetDWCLogs(){
     DWC_ReportLevel = 0x0;
-    if(SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_DWC_LOGS) == ENABLED) {
+    if(SettingsHolder::GetStaticInstance()->GetSettingValue(COSMOS_SETTING_DWC_LOGS) == ENABLED) {
         DWC_ReportLevel = ~0x0;
     }
 }
@@ -114,7 +114,7 @@ kmCall(0x80858204, SaveMinimap);
 
 void PatchMiiHeads() {
     if(mainMinimap == nullptr) return;
-    u8 setting = SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_MII_HEADS);
+    u8 setting = SettingsHolder::GetStaticInstance()->GetSettingValue(COSMOS_SETTING_MII_HEADS);
 
     for(int i = 0; i < RaceData::GetStaticInstance()->racesScenario.GetPlayerCount(); i++){
         CtrlRace2DMapCharacter& curChar = mainMinimap->characters[i];
@@ -154,7 +154,7 @@ void SendOpenHostSetting() {
     GameSpy::GPConnection* connection = DWC::stpMatchCnt->connection;
     if(connection == nullptr) return;
 
-    bool enableOpenHost = SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_OPEN_HOST) == ENABLED;
+    bool enableOpenHost = SettingsHolder::GetStaticInstance()->GetSettingValue(COSMOS_SETTING_OPEN_HOST) == ENABLED;
     char val[2];
     val[0] = '0' + enableOpenHost;
     val[1] = '\0';
