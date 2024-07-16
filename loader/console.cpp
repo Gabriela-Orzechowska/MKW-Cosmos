@@ -1,6 +1,8 @@
 #include <console.hpp>
 
-static char consoleBuffer[4096] = {0};
+#define CONSOLE_BUFFER_SIZE 512
+
+static char consoleBuffer[CONSOLE_BUFFER_SIZE] = {0};
 static int consoleCursor = 0;
 
 loaderFunctions* console_funcs = nullptr;
@@ -25,8 +27,10 @@ void Console_Init(loaderFunctions* func) {
 }
 
 void Console_Print(const char* msg) {
+    if(consoleCursor == CONSOLE_BUFFER_SIZE) return;
     for(;*msg; msg++){
         consoleBuffer[consoleCursor++] = *msg;
+        if(consoleCursor == CONSOLE_BUFFER_SIZE) return;
     }
     consoleBuffer[consoleCursor] = '\0';
     if(!console_funcs->rkSystem->asyncDisplay) return;
