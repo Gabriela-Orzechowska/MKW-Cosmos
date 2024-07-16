@@ -15,6 +15,7 @@
 namespace Cosmos
 {
     typedef void (*Console_Print_t)(const char* msg);
+    typedef void (*Console_void_t)(void);
     
 
     enum CUSTOM_PAGE_IDS 
@@ -40,9 +41,9 @@ namespace Cosmos
     public:
         static void CreateStaticInstance();
         static inline System * GetStaticInstance() { return sInstance; }
-
         static Console_Print_t Console_PrintFunc;
-
+        static Console_void_t Console_Clear;
+    public:
         void Init();
         void CreateFolders();
         TT_MODE GetTTMode() { return this->currentTTMode; }
@@ -62,7 +63,8 @@ namespace Cosmos
         static void Restart();
         static void HardRestart();
         static inline void LoadLoaderFuncs() {
-            Console_PrintFunc = (Console_Print_t) *((u32*)0x8000FFEC);
+            Console_PrintFunc = (Console_Print_t) *((u32*)0x80003FEC);
+            Console_Clear = (Console_void_t) *((u32*)0x80003FE4);
         }
         static inline void Console_Print(const char* msg){
             if(Console_PrintFunc != nullptr) Console_PrintFunc(msg);

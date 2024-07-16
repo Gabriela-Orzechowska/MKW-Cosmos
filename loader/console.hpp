@@ -9,3 +9,4 @@ void Console_Print(const char* msg);
 
 void Console_Init(loaderFunctions* funcs);
 void Console_Destroy();
+void Console_Clear();

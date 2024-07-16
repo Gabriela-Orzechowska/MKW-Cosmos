@@ -34,6 +34,11 @@ void Console_Print(const char* msg) {
     console_funcs->rkSystem->asyncDisplay->beginFrame();
 }
 
+void Console_Clear(){
+    consoleCursor = 0;
+    consoleBuffer[0] = 0;
+}
+
 void Console_Destroy(){
     *((u32*)console_funcs->endRenderAddress) = (u32) AsyncDisplay_endRender;
 }

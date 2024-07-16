@@ -1,5 +1,6 @@
 #include <main.hpp>
 #include "core/rvl/os/OS.hpp"
+#include "kamek.hpp"
 #include "vendor/lzma/7zTypes.h"
 #include <core/nw4r/g3d/res/ResMat.hpp>
 #include <game/Race/RaceData.hpp>
@@ -29,6 +30,7 @@ namespace Cosmos{
 
     System * System::sInstance = nullptr;
     Console_Print_t System::Console_PrintFunc = nullptr;
+    Console_void_t System::Console_Clear = nullptr;
 
     static CosmosDebug::DebugMessage systemMessage(false, "Cosmos " __COSMOS_VERSION__ " (" __COMPILER_VERSION__ " "  __DATE__ ") Loaded");
 
@@ -325,8 +327,15 @@ namespace Cosmos{
 
     void LoadLoaderFuncs(){
         System::Console_PrintFunc = (Console_Print_t) *((u32*)0x80003FEC);
+        System::Console_Clear = (Console_void_t) *((u32*)0x80003FE4);
+        //System::Console_Clear();
     }
     kmBranch(0x80207e48, LoadLoaderFuncs);
+
+    void ShowWelcomeMessage(){
+        System::Console_Print("\n\nCosmos " __COSMOS_VERSION__ " (" __COMPILER_VERSION__ " " __DATE__ ")\n");
+    }
+    static BootHook bhMessage(ShowWelcomeMessage, LINK);
     
     kmWrite8(0x80022277, 0x01);
     kmWrite8(0x8002227B, 0x01);

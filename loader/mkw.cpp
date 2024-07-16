@@ -224,7 +224,7 @@ int PerformExploit() {
     cacheInvalidateAddress(funcs->relHookAddress);
 
     Console_Init(funcs);
-    Console_Print("Cosmos v1.6\n");
+    Console_Print("Cosmos Loader v2.1\n");
     Console_Print("Opening /dev/fs\n");
 
     return funcs->IOS_Open("/dev/fs", 0);

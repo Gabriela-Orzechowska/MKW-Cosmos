@@ -176,6 +176,7 @@ void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLengt
     *(u32 *)0x80003FF0 = (u32)header->ctorStart;
     *(u32 *)0x80003FEC = (u32)Console_Print;
     *(u32 *)0x80003FE8 = (u32)Console_Destroy;
+    *(u32 *)0x80003FE4 = (u32)Console_Clear;
 
 
     if(isDol)
