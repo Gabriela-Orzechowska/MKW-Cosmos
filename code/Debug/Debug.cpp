@@ -1,4 +1,5 @@
 #include "kamek.hpp"
+#include "main.hpp"
 #include <Debug/Debug.hpp>
 
 #define vWIIMENU 0x0000000100000200
@@ -59,14 +60,19 @@ namespace CosmosDebug
         {
             case DOLPHIN:
                 platformString = IOS::Dolphin::GetVersionName();
+                break;
             case DOLPHIN_OLD:
                 platformString = "Dolphin (OUTDATED)";
+                break;
             case WII_MINI:
                 platformString = "Wii Mini";
+                break;
             case WII_U:
                 platformString = "Wii U";
+                break;
             case WII:
                 platformString = "Wii";
+                break;
         }
         strncpy(platformName, platformString, 0x20);
     }

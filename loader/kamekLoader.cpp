@@ -1,4 +1,5 @@
 #include <kamekLoader.hpp>
+#include <console.hpp>
 
 
 struct KBHeader {
@@ -173,6 +174,9 @@ void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLengt
     *(u32 *)0x80003FF8 = (u32)textSize;
     *(u32 *)0x80003FF4 = (u32)header->codeSize;
     *(u32 *)0x80003FF0 = (u32)header->ctorStart;
+    *(u32 *)0x80003FEC = (u32)Console_Print;
+    *(u32 *)0x80003FE8 = (u32)Console_Destroy;
+    *(u32 *)0x80003FE4 = (u32)Console_Clear;
 
 
     if(isDol)
@@ -186,7 +190,9 @@ void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLengt
             *output = 0;
             cacheInvalidateAddress((u32)(output++));
         }
+        Console_Print("Applying dol patches...\n");
     }
+    else Console_Print("Applying rel patches...\n");
     while (input < inputEnd) {
         u32 cmdHeader = *((u32 *)input);
         input += 4;
@@ -248,6 +254,7 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
     EGG::ExpHeap *heap = funcs->rkSystem->EGGSystem;
     if(codeBuf == nullptr){
 
+        Console_Print("Loading payload..\n");
         int entrynum = funcs->DVDConvertPathToEntrynum(path);
 
         DVDFileInfo fileInfo;
@@ -277,13 +284,18 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
                         if(funcs->NANDRead(&nandInfo, (void*)(bufferPointer + 0x20), (nandFileLength - 0x20)) != 0){
                             usesNand = true;
                             funcs->OSReport("Loading code from NAND...\n");
+                            Console_Print("from NAND\n");
                         }
                     }
                     else{
-                        if(dvdVersion == devVersion)
+                        if(dvdVersion == devVersion) {
                             funcs->OSReport("Using disc file, development version found\n");
-                        else
+                            Console_Print("from disc (dev version)\n");
+                        }
+                        else {
                             funcs->OSReport("Using disc file, newer version found\n");
+                            Console_Print("from disc\n");
+                        }
                         
                     }
                 }
@@ -314,9 +326,12 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
         u32 roundedLength = (header->fileSize + 0x1F) & ~0x1F;
         codeBuf = heap->alloc(roundedLength, -0x20);
 
-        if (!codeBuf)
-            kamekError(funcs, "FATAL ERROR: Out of file memory");
+        if (!codeBuf) {
+            Console_Print("Failed to allocate space!\n");
+            for(;;);
+        }
 
+        Console_Print("Unpacking...\n");
         funcs->SZS_Decode((void*)(bufferPointer +info.startOffset), codeBuf);
 
         isDol = true;

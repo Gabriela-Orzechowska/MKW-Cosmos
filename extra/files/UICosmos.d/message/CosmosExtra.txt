@@ -5,8 +5,7 @@
 #  * Syntax and Semantics: https://szs.wiimm.de/doc/bmg/text
 #  * The BMG file format:  https://szs.wiimm.de/r/wiki/BMG
 #
-#
-
+#
 #------------------------------------------------------------------------------
 
 
@@ -113,30 +112,36 @@
  3A21   = Displays messages on screen (buggy on Dolphin).
  3A22   = Hide messages on screen.
 
- 3300   = Host Always Wins
- 3B01   = Only host vote will matter.
- 3B02   = The track will be selected like normal.
- 
- 3310   = Allow Mii Heads
- 3B11   = Players can use Mii Heads settings.
- 3B12   = Mii Heads will be forced off.
+ 3230   = Log OSReport to SD
 
- 3320   = Force CC
- 3321   = None
- 3322   = 150cc
- 3323   = 200cc
- 3324   = Mirror (150cc)
+ 3300   = OpenHost
+ 3B01   = Players who added you can join rooms.
+ 3B02   = Only players you're friends with can join.
+
+ 3310   = Host Always Wins
+ 3B11   = Only host vote will matter.
+ 3B12   = The track will be selected like normal.
  
- 3330   = Race Count
- 3331   = 2
- 3332   = 4
- 3333   = 8
- 3334   = 12
- 3335   = 16
- 3336   = 24
- 3337   = 32
- 3338   = 64
+ 3320   = Allow Mii Heads
+ 3B21   = Players can use Mii Heads settings.
+ 3B22   = Mii Heads will be forced off.
+
+ 3330   = Force CC
+ 3331   = None
+ 3332   = 150cc
+ 3333   = 200cc
+ 3334   = Mirror (150cc)
  
+ 3340   = Race Count
+ 3341   = 2
+ 3342   = 4
+ 3343   = 8
+ 3344   = 12
+ 3345   = 16
+ 3346   = 24
+ 3347   = 32
+ 3348   = 64
+
 
  2820   = A solo race for the fastest record! (200cc)
  2830   = Change Combo

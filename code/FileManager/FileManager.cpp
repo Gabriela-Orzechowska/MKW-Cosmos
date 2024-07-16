@@ -1,3 +1,4 @@
+#include "core/rvl/ipc/ipc.hpp"
 #include <FileManager/FileManager.hpp>
 #include <main.hpp>
 #include <Storage/SDStorage.hpp>
@@ -9,14 +10,11 @@ namespace CosmosFile
 
     void FileManager::CreateStaticInstance()
     {
+        Cosmos::System::Console_Print("Creating FileManager...\n");
         FileManager * manager;
         FileManager * nandManager;
         bool valid = false;
         EGG::Heap * heap = RKSystem::mInstance.EGGSystem;
-
-        nandManager = new (heap) FileManager();
-        if(nandManager != nullptr)
-            nandInstance = nandManager;
 
         s32 ret = Cosmos::Open("file", IOS::MODE_NONE); //Check if its riivo
         if(ret < 0) //If not, check if dolphin
@@ -31,12 +29,19 @@ namespace CosmosFile
                 manager = new (heap) FatFileManager();
             else if(ret >= 0)
                 manager = new (heap) FileManager();
+
+            nandManager = new (heap) FileManager();
+            if(nandManager != nullptr)
+                nandInstance = nandManager;
+
         }
         else
         {
             valid = true;
             IOS::Close(ret);
-            manager = new (heap) RiivoFileManager();
+            manager = new (heap) RiivoFileManager(false);
+            nandInstance = new (heap) RiivoFileManager(true);
+            Cosmos::System::Console_Print("Connected to Riivolution\n");
         }
         FileManager::sInstance = manager;
         manager->isValid = true;
@@ -95,6 +100,7 @@ namespace CosmosFile
 
     s32 FileManager::Write(u32 size, const void *buffer){
         if(this->fd < 0) return -1;
+        IOS::Seek(this->fd, 0, IOS::SEEK_END);
         return IOS::Write(this->fd, (void *) buffer, size);
     }
 
@@ -117,18 +123,29 @@ namespace CosmosFile
     s32 RiivoFileManager::CreateOpen(const char * filepath, u32 mode){
         s32 riivo_fd = this->GetDeviceFd();
 
-        IOS::IOCtl(riivo_fd, (IOS::IOCtlType) RIIVO_IOCTL_CREATEFILE, (void*) filepath, strlen(filepath)+1, NULL, 0);
+        if(isNand) this->CreateFolder("/Cosmos/data");
+        char realPath[IPCMAXPATH] __attribute((aligned(0x20)));
+        this->GetFilePath(realPath, filepath);
+        s32 ret = IOS::IOCtl(riivo_fd, (IOS::IOCtlType) RIIVO_IOCTL_CREATEFILE, (void*) realPath, strlen(filepath)+1, NULL, 0);
+        if(ret < 0) {
+            CosmosError("File creation failed, ret: %d\n", ret);
+        }
         IOS::Close(riivo_fd);
-        return this->Open(filepath, mode);
+        return this->Open(realPath, mode);
     }
 
     s32 RiivoFileManager::GetDeviceFd() const{
         return Cosmos::Open("file", IOS::MODE_NONE);
     }
 
+    void RiivoFileManager::GetFilePath(char* realPath, const char* path) const {
+        if(isNand) snprintf(realPath, IPCMAXPATH, "Cosmos/data/%s", path);
+        else snprintf(realPath, IPCMAXPATH, "%s", path);
+    }
+
     void RiivoFileManager::GetCorrectPath(char * realPath, const char * path) const
     {
-        snprintf(realPath, IPCMAXPATH, "%s%s", "file", path);
+        snprintf(realPath, IPCMAXPATH, "file%s", path);
     }
 
     RiivoMode RiivoFileManager::GetRiivoMode(u32 mode) const{
@@ -167,7 +184,6 @@ namespace CosmosFile
         if(ret == FR_OK) {
             this->fileSize = f_size(&this->currentFile);
             f_lseek(&this->currentFile, 0);
-            CosmosLog("Opened file: %s\n", filepath);
         }
         else CosmosError("Opening file failed: %s\n", filepath);
         
@@ -221,7 +237,6 @@ namespace CosmosFile
             CosmosLog("File save failed! Error: %i\n", ret);
             return -1;
         }
-        CosmosLog("File saved: %i/%i", writtenSize, size);
         return writtenSize;
     }
 
@@ -247,7 +262,6 @@ namespace CosmosFile
     {
         if(StorageDevice::currentDevice == nullptr) return;
         f_close(&this->currentFile);
-        CosmosLog("Closed file.\n");
         
         return;
     }

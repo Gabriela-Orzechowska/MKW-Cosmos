@@ -26,6 +26,7 @@ namespace CosmosFile
     };
 
     const char nandPath[] __attribute__((aligned(0x20))) = "/title/00010001/43534D53";
+    //TODO Fix NAND Or Force SD card on wii
 
     class FileManager{
         public:
@@ -62,7 +63,7 @@ namespace CosmosFile
 
     class RiivoFileManager : public FileManager{
         public:
-            RiivoFileManager(){};
+            RiivoFileManager(bool nandReplacement) : isNand(nandReplacement) {};
             s32 Open(const char * filepath, u32 mode) override;
             s32 CreateOpen(const char * filepath, u32 mode) override;
             s32 GetDeviceFd() const override;
@@ -70,6 +71,8 @@ namespace CosmosFile
         private:
             void GetCorrectPath(char *realPath, const char *path) const override;
             RiivoMode GetRiivoMode(u32 mode) const;
+            void GetFilePath(char* realPath, const char* path) const;
+            bool isNand;
     };
     
     class FatFileManager : public FileManager{

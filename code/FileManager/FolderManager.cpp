@@ -22,7 +22,7 @@ namespace CosmosFile
         else{ 
             IOS::Close(riivo_fd);
             manager = new (heap) RiivoFolderManager();
-            manager->curFile = new (heap) RiivoFileManager();
+            manager->curFile = new (heap) RiivoFileManager(false);
         }     
         return manager;
     }

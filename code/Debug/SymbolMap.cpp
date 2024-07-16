@@ -15,6 +15,8 @@ namespace CosmosDebug
         if(IOS::Dolphin::GetVersion() == nullptr) return;
         if(gameID[3] != 'P') return;
 
+        Cosmos::System::Console_Print("Loading symbol map... ");
+
         char buffer[0x10] __attribute__((aligned(0x20)));
 
         DVDFileInfo fileHandle;
@@ -42,11 +44,15 @@ namespace CosmosDebug
                     if(DVDReadPrio(&fileHandle, manager->symNameTable, nameTableSize, manager->header.nameTableOffset, 2))
                     {
                         CosmosLog("Symbol map loaded at: %p; %p\n", manager->symEntryArray, manager->symNameTable);
+                        Cosmos::System::Console_Print("done\n");
                         SymbolManager::sInstance = manager;
                     }
                 }
             }
             DVDClose(&fileHandle);
+        }
+        else {
+            Cosmos::System::Console_Print("failed\n[ERR] Map file not found.");
         }
 
         DVDFileInfo fileHandleK;

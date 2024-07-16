@@ -54,7 +54,7 @@ namespace CosmosUI{
             this->animator.GetAnimationGroupById(i)->PlayAnimationAtFrameAndDisable(0, 0.0f);
         }
 
-        u8 speedosetting = Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_SPEEDOMETER);
+        u8 speedosetting = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_SPEEDOMETER);
         this->SetSpeedoVariant(speedosetting);
         return;
     }
@@ -144,7 +144,7 @@ namespace CosmosUI{
 
 
     void UpdateSpeedoDigits(){
-        u8 variant = Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_SPEEDOMETER);
+        u8 variant = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_SPEEDOMETER);
 
         for(int i = 0; i < 4; i++){
             if(speedos[i] == nullptr) break;

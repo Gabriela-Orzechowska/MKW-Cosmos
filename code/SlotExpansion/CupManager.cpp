@@ -24,6 +24,8 @@ namespace Cosmos
 
         memset(this->trackBlocking, ~0x0, 0x10 * sizeof(u32));
 
+        Cosmos::System::Console_Print("Loading Config File\n");
+
         DVDFileInfo fileHandle;
         if(!DVDOpen(ConfigPath, &fileHandle))
         {

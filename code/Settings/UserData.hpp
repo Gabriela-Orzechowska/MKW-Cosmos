@@ -95,11 +95,13 @@ namespace Cosmos
             COSMOS_DWC_LOGS = 0x0,
             COSMOS_PERFORMANCE_MONITOR,
             COSMOS_DEBUG_MSGS,
+            COSMOS_LOG_TO_SD,
         };
 
         enum HOST_SETTINGS_1
         {
-            COSMOS_HAW = 0x0,
+            COSMOS_OPEN_HOST = 0x0,
+            COSMOS_HAW,
             COSMOS_ALLOW_MII_HEADS,
             COSMOS_FORCE_CC,
             COSMOS_RACE_COUNT,
@@ -150,6 +152,7 @@ namespace Cosmos
             FORCE_NONE = 0x0,
             FORCE_150CC,
             FORCE_200CC,
+            FORCE_MIRROR,
         };
         enum RACE_COUNTS
         {
@@ -179,7 +182,9 @@ namespace Cosmos
             COSMOS_SETTING_DWC_LOGS = COSMOS_DWC_LOGS + (COSMOS_DEBUG_SETTINGS * 8),
             COSMOS_SETTING_PERFORMANCE_MONITOR = COSMOS_PERFORMANCE_MONITOR + (COSMOS_DEBUG_SETTINGS * 8),
             COSMOS_SETTING_DEBUG_MSGS = COSMOS_DEBUG_MSGS + (COSMOS_DEBUG_SETTINGS * 8),
+            COSMOS_SETTING_LOG_TO_SD = COSMOS_LOG_TO_SD + (COSMOS_DEBUG_SETTINGS * 8),
 
+            COSMOS_SETTING_OPEN_HOST = COSMOS_OPEN_HOST + (COSMOS_HOST_SETTINGS_1 * 8),
             COSMOS_SETTING_HAW = COSMOS_HAW + (COSMOS_HOST_SETTINGS_1 * 8),
             COSMOS_SETTING_ALLOW_MII_HEADS = COSMOS_ALLOW_MII_HEADS + (COSMOS_HOST_SETTINGS_1 * 8),
             COSMOS_SETTING_FORCE_CC = COSMOS_FORCE_CC + (COSMOS_HOST_SETTINGS_1 * 8),
@@ -221,17 +226,19 @@ namespace Cosmos
             },
             {
                 // Debug
-                .settingCount = 3,
+                .settingCount = 4,
                 .settings = {{.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, // DWC Logs
-                             {.optionCount = 2, .isBool = true, .defaultValue = DISABLED},
-                             {.optionCount = 2, .isBool = true, .defaultValue = DISABLED}} // Performance Monitor
+                             {.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, //
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED},
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}} //LOG TO SD 
             },
             {// Host
-             .settingCount = 4,
-             .settings = {{.optionCount = 2, .isBool = true, .defaultValue = DISABLED},
-                          {.optionCount = 2, .isBool = true, .defaultValue = ENABLED},
-                          {.optionCount = 3, .isBool = false, .defaultValue = FORCE_NONE},
-                          {.optionCount = 8, .isBool = false, .defaultValue = RACE_COUNT_4}}},
+             .settingCount = 5,
+             .settings = {{.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, //OpenHost
+                          {.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, // HAW
+                          {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}, //Allow Mii Heads
+                          {.optionCount = 3, .isBool = false, .defaultValue = FORCE_NONE}, // Force CC
+                          {.optionCount = 8, .isBool = false, .defaultValue = RACE_COUNT_4}}}, //Race count
         };
 
         static u8 GlobalSettingsPageOrder[PAGE_COUNT] = {COSMOS_RACE_SETTINGS_1, COSMOS_MENU_SETTINGS_1, COSMOS_HOST_SETTINGS_1, COSMOS_DEBUG_SETTINGS};
@@ -262,7 +269,7 @@ namespace Cosmos
         public:
             SettingsHolder();
             static void Create();
-            static SettingsHolder *GetInstance();
+            static SettingsHolder *GetStaticInstance();
 
             u8 GetSettingValue(GLOBAL_SETTING setting) const { return this->settings->data[currentLicense].rawSettings[setting]; }
             u8 GetSettingValue(u8 page, u8 setting) const { return this->settings->data[currentLicense].pages[page].setting[setting]; }

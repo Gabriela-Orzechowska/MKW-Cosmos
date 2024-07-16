@@ -221,6 +221,7 @@ class FriendRoomMessages : public Page{
 //static_assert(sizeof(FriendRoomMessages) == 0x2680, "FriendRoomMessages");
 
 class FriendMenu : public Page {
+    public:
     FriendMenu();
     ~FriendMenu() override;
     

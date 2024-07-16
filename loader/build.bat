@@ -10,11 +10,13 @@ SET DEFINE=
 
 ::: CPP Sources
 %CC% %CFLAGS% -c -o "build/mkw.o" "mkw.cpp"
+%CC% %CFLAGS% -c -o "build/console.o" "console.cpp"
 %CC% %CFLAGS% -c -o "build/kamek.o" "kamekLoader.cpp"
+
 
 :: Link
 echo Linking...
-"../KamekSource/bin/Debug/net6.0/Kamek" "build/mkw.o" "build/kamek.o" -static=0x80004000 -output-code=Loader.cscd
+"../KamekSource/bin/Debug/net6.0/Kamek" "build/mkw.o" "build/kamek.o" "build/console.o" -static=0x80004000 -output-code=Loader.csld
 
 if %ErrorLevel% equ 0 (
 	del build\*.o

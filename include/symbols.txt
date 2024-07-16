@@ -47,6 +47,8 @@ msleep__11CosmosDebugFUi = 0x800f2510
 
 Run__FPFv_v = 0x801a31a8
 
+fwrite = 0x8000e954 
+
 #systemManager
 sInstance__13SystemManager = 0x80386000
 RestartGame__13SystemManagerFv = 0x8000b1bc
@@ -63,6 +65,7 @@ vsnprintf = 0x8001182c
 qsort = 0x80011b00
 rand = 0x80011c70
 srand = 0x80011c90
+vprintf = 0x800117b0
 
 sscanf = 0x80013040
  
@@ -177,6 +180,9 @@ IOCtl__3IOSFiQ23IOS9IOCtlTypePviPvi = 0x80194290
 IOCtlv__3IOSFiQ23IOS9IOCtlTypeiiPQ23IOS13IOCtlvRequest = 0x801945e0
 Open2ndInst__3IOSFPcQ23IOS4Mode = 0x801938fc
 fs_fd__3IOS = 0x80385920
+
+#NAND
+NandUtil_create = 0x8052b95c
 
 #FontManager
 sInstance__11FontManager = 0x809c1bf8
@@ -725,6 +731,7 @@ AsyncDisplay_endRender__FPQ23EGG12AsyncDisplay = 0x8020ff9c
 AsyncDisplay_beginRender__FPQ23EGG12AsyncDisplay = 0x8020ff98
 AsyncDisplay_beginFrame__FPQ23EGG12AsyncDisplay = 0x8020fe24
 AsyncDisplay_getTickPerFrame__FPQ23EGG12AsyncDisplay = 0x80210124
+copyEFBtoXFB__3EGG7Display = 0x80219fb4 
 
 #UpDownDisplayedText
 __vt__19UpDownDisplayedText = 0x808bf3d8
@@ -1367,6 +1374,11 @@ NHTTPSendRequestAsync = 0x801d925c
 NHTTPCancelRequestAsync = 0x801d92b8
 NHTTPDestroyResponse = 0x801d92f8
 NHTTPGetResultCode = 0x801d93e4
+    
+stpMatchCnt__3DWC = 0x8038630c
+
+#GameSpy
+gpiAppendStringToBuffer = 0x800ff014
 
 #Effects
 Reset__10EffectsMgrFv = 0x8067b8f0

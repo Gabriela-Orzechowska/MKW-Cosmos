@@ -67,7 +67,7 @@ namespace Cosmos
     static MenuLoadHook mlhResetLanguageManagerStatus(ResetLanguageManagerStatus);
 
     void LanguageManager::Update(bool reload) {
-        this->currentLanguageOption = this->isBoot ? DEFAULT : Cosmos::Data::SettingsHolder::GetInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_LANGUAGE_SETTINGS);
+        this->currentLanguageOption = this->isBoot ? DEFAULT : Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_LANGUAGE_SETTINGS);
         this->isDefault = this->isBoot ? true : this->currentLanguageOption == DEFAULT;
         //this->needsUpdate = this->isKorean != (this->currentLanguageOption == KOREAN);
         this->isKorean = this->currentLanguageOption == KOREAN;

@@ -14,7 +14,7 @@ namespace Cosmos
 
         SettingsHolder::SettingsHolder() : miiHeadsEnabled(true), currentLicense(0) { settings = NULL; }
 
-        SettingsHolder *SettingsHolder::GetInstance() { return SettingsHolder::sInstance; }
+        SettingsHolder *SettingsHolder::GetStaticInstance() { return SettingsHolder::sInstance; }
 
         void SettingsHolder::Update()
         {
@@ -78,13 +78,14 @@ namespace Cosmos
 
         void SettingsHolder::SaveTask(void *)
         {
-            SettingsHolder::GetInstance()->Save();
+            SettingsHolder::GetStaticInstance()->Save();
         }
 
         void SettingsHolder::Create()
         {
             SettingsHolder *holder = new (RKSystem::mInstance.EGGSystem) SettingsHolder();
             char path[IPCMAXPATH];
+            Cosmos::System::Console_Print("Loading user settings\n");
             holder->Init(Cosmos::SaveFile, "CSSE", SettingsVersion);
             SettingsHolder::sInstance = holder;
         }
@@ -94,8 +95,8 @@ namespace Cosmos
         void SetBRAndVR(LicenseManager &license, u32 licenseId)
         {
 
-            license.vr.mPoints = SettingsHolder::GetInstance()->GetUserVR(licenseId);
-            license.br.mPoints = SettingsHolder::GetInstance()->GetUserBR(licenseId);
+            license.vr.mPoints = SettingsHolder::GetStaticInstance()->GetUserVR(licenseId);
+            license.br.mPoints = SettingsHolder::GetStaticInstance()->GetUserBR(licenseId);
         }
 
         kmWrite32(0x80544f7c, 0x7fe3fb78);
@@ -109,7 +110,7 @@ namespace Cosmos
             u16 curLicenseId = SaveDataManager::GetStaticInstance()->curLicenseId;
             LicenseManager &actualLicense = SaveDataManager::GetStaticInstance()->GetCurrentLicense();
 
-            SettingsHolder *holder = SettingsHolder::GetInstance();
+            SettingsHolder *holder = SettingsHolder::GetStaticInstance();
             if (holder == nullptr)
                 return 0;
 
@@ -127,12 +128,12 @@ namespace Cosmos
         kmWrite32(0x805469c0, 0x60000000);
 
         void LoadLicenseSettings(){
-            SettingsHolder::GetInstance()->SetCurrentLicense(SaveDataManager::GetStaticInstance()->curLicenseId);
+            SettingsHolder::GetStaticInstance()->SetCurrentLicense(SaveDataManager::GetStaticInstance()->curLicenseId);
             SettingsUpdateHook::exec();
             if(LanguageManager::GetStaticInstance()->IsUpdateNeeded()) Page::transitionDelay = 176.0f;
             else {
                 float delay = 176.0f;
-                if(SettingsHolder::GetInstance()->GetSettingValue(COSMOS_SETTING_FAST_MENUS) == ENABLED) 
+                if(SettingsHolder::GetStaticInstance()->GetSettingValue(COSMOS_SETTING_FAST_MENUS) == ENABLED) 
                     delay = 0.0f;
                 Page::transitionDelay = delay;
             }

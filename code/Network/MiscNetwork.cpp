@@ -64,7 +64,7 @@ void BeforeSendingPackets(RKNetROOMHandler& handler, u32 packetData) {
     if((packet.packet.messageType == 1 || packet.packet.messageType == 5) && userAid == hostAid) {
         packet.packet.unknown_0x3 = (u8) packet.packet.message;
         u16 settings = 0;
-        SettingsHolder* holder = SettingsHolder::GetInstance();
+        SettingsHolder* holder = SettingsHolder::GetStaticInstance();
         settings |= (holder->GetSettingValue(COSMOS_SETTING_HAW) & 0x1) << 0; 
         settings |= (holder->GetSettingValue(COSMOS_SETTING_MII_HEADS) & 0x1) << 1; 
         settings |= (holder->GetSettingValue(COSMOS_SETTING_RACE_COUNT) & 0x7) << 2;

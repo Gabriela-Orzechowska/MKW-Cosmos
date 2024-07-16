@@ -1,4 +1,7 @@
 #include <main.hpp>
+#include "core/rvl/os/OS.hpp"
+#include "kamek.hpp"
+#include "vendor/lzma/7zTypes.h"
 #include <core/nw4r/g3d/res/ResMat.hpp>
 #include <game/Race/RaceData.hpp>
 #include <FileManager/FileManager.hpp>
@@ -8,6 +11,7 @@
 #include <Debug/IOSDolphin.hpp>
 #include <Debug/SymbolMap.hpp>
 #include <Debug/Draw/DebugDraw.hpp>
+#include <Settings/UserData.hpp>
 
 extern char gameID[4];
 
@@ -25,8 +29,11 @@ namespace Cosmos{
     }
 
     System * System::sInstance = nullptr;
+    Console_Print_t System::Console_PrintFunc = nullptr;
+    Console_void_t System::Console_Clear = nullptr;
 
     static CosmosDebug::DebugMessage systemMessage(false, "Cosmos " __COSMOS_VERSION__ " (" __COMPILER_VERSION__ " "  __DATE__ ") Loaded");
+
 
     void System::CreateStaticInstance(){
         sInstance = new System();
@@ -34,6 +41,7 @@ namespace Cosmos{
 
         CosmosDebug::DebugMessage::Init();
         systemMessage.DisplayForX(15);
+        System::Console_Print("Creating Cosmos System...\n");
         return;
     }
     static BootHook bhSystem(Cosmos::System::CreateStaticInstance, FIRST);
@@ -294,4 +302,46 @@ namespace Cosmos{
         OSFatal(&white, &black, final);
         #endif
     }
+
+    static bool hasStartedAlready = false;
+    extern "C" int fwrite(const char* ptr, u32 size, u32 nmeb, u32* stream);
+    int myfwrite(const char* ptr, u32 size, u32 nmeb, u32* stream) {
+        if(IOS::Dolphin::IsOpen()) return fwrite(ptr,size,nmeb,stream);
+        Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetStaticInstance();
+        if(holder && holder->GetSettingValue(Data::COSMOS_SETTING_LOG_TO_SD) == Data::ENABLED)
+        {
+            CosmosFile::FileManager* manager = CosmosFile::FileManager::GetStaticInstance();
+            if(manager != nullptr) {
+                manager->CreateOpen("Cosmos/Cosmos.log", CosmosFile::FILE_MODE_WRITE);
+                if(!hasStartedAlready) {
+                    hasStartedAlready = true;
+                    manager->Write(0x10, "==============\n");
+                }
+                manager->Write(size * nmeb,(const void*) ptr);
+                manager->Close();
+            }
+        }
+        return fwrite(ptr, size, nmeb, stream);
+    }
+    kmCall(0x80011648, myfwrite);
+
+    void LoadLoaderFuncs(){
+        System::Console_PrintFunc = (Console_Print_t) *((u32*)0x80003FEC);
+        System::Console_Clear = (Console_void_t) *((u32*)0x80003FE4);
+        //System::Console_Clear();
+    }
+    kmBranch(0x80207e48, LoadLoaderFuncs);
+
+    void ShowWelcomeMessage(){
+        System::Console_Print("\n\nCosmos " __COSMOS_VERSION__ " (" __COMPILER_VERSION__ " " __DATE__ ")\n");
+    }
+    static BootHook bhMessage(ShowWelcomeMessage, LINK);
+    
+    kmWrite8(0x80022277, 0x01);
+    kmWrite8(0x8002227B, 0x01);
+    /*
+    kmWrite32(0x80021f3c, 0x60000000);
+    kmWrite32(0x80021f34, 0x60000000);
+    kmWrite32(0x80021f4c, 0x60000000);
+    */
 }
