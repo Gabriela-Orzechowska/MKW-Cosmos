@@ -42,6 +42,11 @@ loaderFunctionsEx functions_p = {
     (DirectPrint_ChangeXfb_t) 0x80021e30,
     (DirectPrint_DrawString_t) 0x80021f80,
     (DirectPrint_StoreCache_t) 0x80021e70,
+    (NETSHA1Init_t) 0x801d24f4,
+    (NETSHA1Update_t) 0x801d2544,
+    (NETSHA1GetDigest_t) 0x801d25f8,
+    0x23db20,
+    {0x1cbe24af, 0x986a6e3e, 0xbea15cc9, 0x6649cec7, 0x7d73757b},
     }
 };
 loaderFunctionsEx functions_e = {
@@ -197,8 +202,15 @@ void loadIntoMKW();
 
 inline void cacheInvalidateAddress(u32 address);
 static const char* Console_Write(const char* str);
+void VerifyDol(loaderFunctions* funcs);
 
 int PerformExploit() {
+    register u32 branchAddress;
+    asm{ASM(mflr branchAddress;)}
+    *((u32*)(branchAddress - 4)) = 0x48029ca5;
+    cacheInvalidateAddress(branchAddress - 4);
+
+
     u8 region = *(u8 *)(0x80000003);
     
 	// choose functions
@@ -212,6 +224,7 @@ int PerformExploit() {
 		case 'K': funcs = &functions_k.base; break;
 	}
 
+    VerifyDol(funcs);
     //Create Branches
     u32 offset = ((u32)&loadIntoMKW)-funcs->dolHookAddress;
     u32 command = 0x48000000 | (offset & 0x03FFFFFF);
@@ -291,6 +304,22 @@ void unknownVersion()
 	// can't do much here!
 	// we can't output a message on screen without a valid OSFatal addr
 	for (;;);
+}
+
+void VerifyDol(loaderFunctions* funcs){
+    NETSha1Context context;
+    u32 output[5];
+    funcs->NETSHA1Init(&context);
+    funcs->NETSHA1Update(&context, (void*)0x800072c0, funcs->dolSize);
+    funcs->NETSHA1GetDigest(&context, (void*)&output);
+    for(int i = 0; i < 5; i++){
+        if(output[i] != funcs->dolHash[i])
+        {
+            u32 black = 0; u32 white = -1U;
+            funcs->OSFatal(&black, &white, "main.dol has been modified!");
+        }
+    }
+    return;
 }
 
 inline void cacheInvalidateAddress(u32 address) {

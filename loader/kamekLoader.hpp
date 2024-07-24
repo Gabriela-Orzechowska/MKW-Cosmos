@@ -1,6 +1,7 @@
 #ifndef _LOADER_
 #define _LOADER_
 #include "core/nw4r/db/Exception.hpp"
+#include "core/rvl/mtx/mtx.hpp"
 #include "core/rvl/vi.hpp"
 #include <core/rvl/dvd/dvd.hpp>
 #include <core/rvl/nand.hpp>
@@ -12,6 +13,10 @@ struct loaderFunctions;
 struct YAZHeader {
     u32 magic;
     u32 fileSize;
+};
+
+struct NETSha1Context {
+    u8 unknown[0x60];
 };
 
 typedef void (*OSReport_t) (const char *str, ...);
@@ -36,10 +41,15 @@ typedef void* (*VIGetNextFrameBuffer_t)(void);
 typedef void (*DirectPrint_ChangeXfb_t)(void* buffer, s32, s32);
 typedef void (*DirectPrint_DrawString_t)(s32, s32, const char* msg, s32, s32);
 typedef void (*DirectPrint_StoreCache_t)();
+typedef void (*NETSHA1Init_t)(NETSha1Context* context);
+typedef void (*NETSHA1Update_t)(NETSha1Context* context, const void* input, u32 length);
+typedef void (*NETSHA1GetDigest_t)(NETSha1Context* context, void* output);
 
 static const u32 bufferPointer = 0x80600000;
 const char nandPath[] __attribute__((aligned(0x20))) = "/title/00010001/43534D53";
 const u32 devVersion = 0x44455630;
+
+const u32 dolStart = 0x800072c0;
 
 struct loaderFunctions {
     OSReport_t OSReport;
@@ -68,7 +78,11 @@ struct loaderFunctions {
     DirectPrint_ChangeXfb_t DirentPrint_ChangeXFB;
     DirectPrint_DrawString_t DirectPrint_DrawString;
     DirectPrint_StoreCache_t DirectPrint_StoreCache;
-
+    NETSHA1Init_t NETSHA1Init;
+    NETSHA1Update_t NETSHA1Update;
+    NETSHA1GetDigest_t NETSHA1GetDigest;
+    u32 dolSize;
+    u32 dolHash[5];
 };
 
 void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const char* codePath);

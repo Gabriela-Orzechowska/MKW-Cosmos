@@ -311,6 +311,7 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
                 kamekError(funcs, err);
             }
             funcs->OSReport("Loading code from disc...\n");
+            Console_Print("from disc\n");
             funcs->DVDReadPrio(&fileInfo, (void*)bufferPointer, length, 0, 2);
             funcs->DVDClose(&fileInfo);
         }
