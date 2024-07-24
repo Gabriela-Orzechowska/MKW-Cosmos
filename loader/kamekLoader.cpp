@@ -270,50 +270,16 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
         if(entrynum >= 0 && !funcs->DVDReadPrio(&fileInfo, (void*)bufferPointer, 0x20, 0, 2)){
             kamekError(funcs, "Failed to load file from dics!");
         }
-        dvdVersion = *(u32*) (bufferPointer + 0x10);
 
-        NANDFileInfo nandInfo;
 
-        if(funcs->NANDPrivateOpen("/title/00010001/43534D53/Code.arc", &nandInfo, NAND_ACCESS_READ) == NAND_RESULT_OK){
-            u32 nandFileLength = 0;
-            funcs->OSReport("Found binary on NAND\n");
-            if(funcs->NANDGetLength(&nandInfo, &nandFileLength) == NAND_RESULT_OK){
-                if(funcs->NANDRead(&nandInfo, (void*)bufferPointer, 0x20) != 0){
-                    nandVersion = *(u32*) (bufferPointer + 0x10);
-                    if(nandVersion >= dvdVersion && dvdVersion != devVersion){
-                        if(funcs->NANDRead(&nandInfo, (void*)(bufferPointer + 0x20), (nandFileLength - 0x20)) != 0){
-                            usesNand = true;
-                            funcs->OSReport("Loading code from NAND...\n");
-                            Console_Print("from NAND\n");
-                        }
-                    }
-                    else{
-                        if(dvdVersion == devVersion) {
-                            funcs->OSReport("Using disc file, development version found\n");
-                            Console_Print("from disc (dev version)\n");
-                        }
-                        else {
-                            funcs->OSReport("Using disc file, newer version found\n");
-                            Console_Print("from disc\n");
-                        }
-                        
-                    }
-                }
-            }
-            funcs->NANDClose(&nandInfo);
+        if (entrynum < 0) {
+            char err[512];
+            funcs->sprintf(err, "FATAL ERROR: Failed to locate file on the disc: %s", path);
+            kamekError(funcs, err);
         }
-
-        if(!usesNand)
-        {
-            if (entrynum < 0) {
-                char err[512];
-                funcs->sprintf(err, "FATAL ERROR: Failed to locate file on the disc: %s", path);
-                kamekError(funcs, err);
-            }
-            funcs->OSReport("Loading code from disc...\n");
-            funcs->DVDReadPrio(&fileInfo, (void*)bufferPointer, length, 0, 2);
-            funcs->DVDClose(&fileInfo);
-        }
+        funcs->OSReport("Loading code from disc...\n");
+        funcs->DVDReadPrio(&fileInfo, (void*)bufferPointer, length, 0, 2);
+        funcs->DVDClose(&fileInfo);
 
         ARCHandle handle;
         funcs->ARCInitHandle((void*)bufferPointer, &handle);

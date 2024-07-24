@@ -131,68 +131,6 @@ loaderFunctionsEx functions_k = {
 }
 };
 
-#define syscall(id) 0xE6000010 | (u8)id << 5
-
-static u32 code[] = {
-        /* 0x00 */ 0xEA000000, // b       0x8
-    /* 0x04 */ 0x00000000, // MESSAGE_VALUE
-    // Set PPC UID to root
-    /* 0x08 */ 0xE3A0000F, // mov     r0, #15
-    /* 0x0C */ 0xE3A01000, // mov     r1, #0
-    /* 0x10 */ syscall(IOS_SetUid),
-    // Send response to PPC
-    /* 0x14 */ 0xE24F0018, // adr     r0, MESSAGE_VALUE
-    /* 0x18 */ 0xE3A01001, // mov     r1, #1
-    /* 0x1C */ 0xE5801000, // str     r1, [r0]
-    // Flush the response to main memory
-    /* 0x20 */ 0xE3A01004, // mov     r1, #4
-    /* 0x24 */ syscall(IOS_FlushDCache),
-    // Wait for response back from PPC
-    // loop_start:
-    /* 0x28 */ 0xE24F002C, // adr     r0, MESSAGE_VALUE
-    /* 0x2C */ 0xE5902000, // ldr     r2, [r0]
-    /* 0x30 */ 0xE3520002, // cmp     r2, #2
-    /* 0x34 */ 0x0A000001, // beq     loop_break
-    /* 0x38 */ syscall(IOS_InvalidateDCache),
-    /* 0x3C */ 0xEAFFFFF9, // b       loop_start
-    // loop_break:
-    // Reset PPC UID back to 15
-    /* 0x40 */ 0xE3A0000F, // mov     r0, #15
-    /* 0x44 */ 0xE3A0100F, // mov     r1, #15
-    /* 0x48 */ syscall(IOS_SetUid),
-    // Send response to PPC
-    /* 0x4C */ 0xE24F0050, // adr     r0, MESSAGE_VALUE
-    /* 0x50 */ 0xE3A01003, // mov     r1, #3
-    /* 0x54 */ 0xE5801000, // str     r1, [r0]
-    // Flush the response to main memory
-    /* 0x58 */ 0xE3A01004, // mov     r1, #4
-    /* 0x5C */ syscall(IOS_FlushDCache),
-    /* 0x60 */ 0xE12FFF1E, // bx      lr
-};
-
-static u32 GetMessage(u32 index) {
-    register u32 val = 0xC0000000 | (u32)(&code[index]);
-    register u32 ret = 0;
-    asm {
-        ASM(
-                lwz ret, 0x0 (val);
-                sync;
-           )
-    }
-    return ret;
-}
-
-static u32 SetMessage(u32 index, u32 message) {
-    register u32 val = 0xC0000000 | (u32)(&code[index]);
-    register u32 mess = message;
-    asm {
-        ASM (
-            stw mess, 0x0 (val);
-            eieio;
-        )
-    }
-}
-
 void loadIntoMKW();
 
 inline void cacheInvalidateAddress(u32 address);
@@ -229,62 +167,6 @@ int PerformExploit() {
     Console_Print("Opening /dev/fs\n");
 
     return funcs->IOS_Open("/dev/fs", 0);
-
-// Nothing for now, maybe i will come back to it and figure out whats wrong with this
-/*
-    s32 isDol = funcs->IOS_Open("/dev/dolphin", 0);
-    if(isDol >= 0) {
-        funcs->IOS_Close(isDol);
-        return;
-    }
-
-    u32* tempBuffer = (u32*) 0x80700000;
-    u32* memStart = (u32*) 0x80000000;    
-
-    s32 sha = funcs->IOS_Open("/dev/sha", 0);
-    if(sha < 0) {
-        funcs->IOS_Close(sha);
-        return;
-    }
-
-    for(int i = 0; i < 0x40; i++) {
-        tempBuffer[i] = memStart[i];
-        memStart[i] = 0x0;
-    }
-
-    funcs->IOS_Write(-1, code, sizeof(code));
-
-
-    memStart[0] = 0x4903468D;
-    memStart[1] = 0x49034788;
-    memStart[2] = 0x49036209;
-    memStart[3] = 0x47080000;
-    memStart[4] = 0x10100000;
-    memStart[5] = (u32)&code - 0x80000000;
-    memStart[6] = 0xFFFF0014;
-    
-    IOS::IOCtlvRequest vec[4] __attribute((aligned(0x20)));
-    vec[0].address = nullptr;
-    vec[0].size = 0;
-    vec[1].address = (void*) 0xFFFE0028;
-    vec[1].size = 0;
-    vec[2].address = (void*) 0x80000000;
-    vec[2].size = 0x40;
-
-    s32 ret = funcs->IOS_IOCtlv(sha, 0, 1, 2, vec);
-    for(int i = 0; i < 0x40; i++){
-       memStart[i] = tempBuffer[i];
-    }
-    return;
-    funcs->IOS_Close(sha);
-        *((u32*)0x80003FE0) = ret;
-    ret = funcs->IOS_Open("/dev/fs", 0);
-
-    for(int i = 0; i < 0x40; i++){
-       memStart[i] = tempBuffer[i];
-    }
-    return;
-*/
 }
 
 void unknownVersion()
