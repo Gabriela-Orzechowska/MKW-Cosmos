@@ -1,6 +1,6 @@
 #include <console.hpp>
 
-#define CONSOLE_BUFFER_SIZE 512
+#define CONSOLE_BUFFER_SIZE 600
 
 static char consoleBuffer[CONSOLE_BUFFER_SIZE] = {0};
 static int consoleCursor = 0;

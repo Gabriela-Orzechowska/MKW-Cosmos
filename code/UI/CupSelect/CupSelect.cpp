@@ -70,12 +70,16 @@ namespace CosmosUI
     {
         u32 CupCount = Cosmos::CupManager::GetStaticInstance()->GetCupCount();
         CtrlMenuCupSelectCup *cupCtrl = &this->ctrlMenuCupSelectCup;
+        u32 lastCup = cupCtrl->curCupID;
         cupCtrl->curCupID = (cupCtrl->curCupID + (direction * 2) + CupCount) % CupCount;
         this->ctrlMenuCupSelectCourse.UpdateTrackList(cupCtrl->curCupID);
         for(int i = 0; i < 8; i++)
         {
             PushButton * button = &this->ctrlMenuCupSelectCup.cupButtons[i];
             u32 id = button->buttonId;
+            
+            if(id == lastCup) button->Select(0);
+
             id = (id + (direction * 2) + CupCount) % CupCount;
             button->SetMsgId(id + BMG_CUPS);
             button->buttonId = id;

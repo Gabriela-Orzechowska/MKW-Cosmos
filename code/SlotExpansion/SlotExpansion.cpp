@@ -1,4 +1,6 @@
+#include "SlotExpansion/CupManager.hpp"
 #include <SlotExpansion/SlotExpansion.hpp>
+#include <game/UI/Page/Menu/CourseSelect.hpp>
 
 int GetCorrectTrackBMG(int slot)
 {
@@ -87,5 +89,30 @@ kmPatchExitPoint(GPCorrectNextTrackWrapper, 0x8052f228);
 kmWrite32(0x80531f80, 0x4e800020); // dont preload course due to memory
 
 void VSRaceOrderFix(GlobalContext& context) {
-
+    context.vsRaceLimit = 32;
+    
+    register Pages::CourseSelect* course;
+    asm{ASM(mr course, r29;)}
+    u32 buttonId = 0;
+    for(int i = 0; i < 4; i++){
+        if(course->CtrlMenuCourseSelectCourse.courseButtons[i].IsSelected()) {
+            buttonId = i; break;
+        }
+    }
+    Cosmos::CupManager* manager = Cosmos::CupManager::GetStaticInstance(); 
+    u32 cupId = manager->lastSelectedCup;
+    u32 trackIndex = cupId * 4 + buttonId;
+    u32 trackCount = manager->GetTrackCount();
+    for(int i = 0; i < 32; i++){
+        context.vsTracks[i] = (CourseId) manager->currentLayoutArray[(trackIndex + trackCount) % trackCount];
+        trackIndex++;
+    }
 }
+kmCall(0x80840a24, VSRaceOrderFix);
+
+u32 VSRaceOrderNextTrack(u32 track){
+    Cosmos::CupManager* manager = Cosmos::CupManager::GetStaticInstance();
+    manager->winningCourse = track;
+    return manager->GetCurrentTrackSlot();
+}
+kmBranch(0x808606cc, VSRaceOrderNextTrack);
