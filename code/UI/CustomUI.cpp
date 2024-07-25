@@ -4,6 +4,7 @@
 #include <UI/Settings/NewSettingsPage.hpp>
 #include <UI/Settings/MessageWarning.hpp>
 #include <game/UI/Page/RaceMenu/TTPause.hpp>
+#include <game/UI/Page/Menu/TopMenuOverlay.hpp>
 #include <System/Security.hpp>
 
 void * CreatePage(u32 pageId)
@@ -91,9 +92,18 @@ void ShowCheatsWarningPage(Page& page, u32 id, float animLenght) {
 }
 kmCall(0x8063b04c, ShowCheatsWarningPage);
 
+
+static bool destroyed = false;
 typedef void (*Console_Destroy)();
 void DestroyConsole(){
+    if(destroyed) return;
     Console_Destroy destroy = (Console_Destroy) *((u32*)0x80003fE8);
     destroy();
+    #ifdef COSMOS_SECURITY
+    Cosmos::Security::LoaderCleanup();
+    #endif
+    destroyed = true;
 }
 kmBranch(0x8063ae90, DestroyConsole);
+
+

@@ -24,6 +24,9 @@ public:
 };
 }//namespace detail
 
+class Pane;
+typedef ut::LinkList<Pane, offsetof(detail::PaneBase, link)> PaneList;
+
 class Pane : public detail::PaneBase{
 public:
 	//Pane(nw4r::lyt::res::Pane const *); // todo: this struct
@@ -63,7 +66,7 @@ public:
 	u16 GetExtUserDataNum() const; // 802AC5A0
 
 	Pane *parent; //0xC
-	ut::LinkList<Pane, offsetof(detail::PaneBase, link)> childList; //0x10
+	PaneList childList; //0x10
 	ut::LinkList<AnimationLink, offsetof(AnimationLink, link)> animLinkList; //0x1c
 
 	Material *material; //0x28
@@ -89,6 +92,7 @@ public:
 	bool isUserAllocated;
 	u8 _D7;
 }; // Total size 0xd8
+static_assert(sizeof(Pane) == 0xd8, "Pane");
 
 
 

@@ -76,6 +76,11 @@ loaderFunctionsEx functions_e = {
     (DirectPrint_ChangeXfb_t) 0x80021d90,
     (DirectPrint_DrawString_t) 0x80021ee0,
     (DirectPrint_StoreCache_t) 0x80021dd0,
+    (NETSHA1Init_t) 0x801d2454,
+    (NETSHA1Update_t) 0x801d24a4,
+    (NETSHA1GetDigest_t) 0x801d2558,
+    0x23db20,
+    {0x1cbe24af, 0x986a6e3e, 0xbea15cc9, 0x6649cec7, 0x7d73757b},
 }};
 
 loaderFunctionsEx functions_j = {
@@ -105,6 +110,11 @@ loaderFunctionsEx functions_j = {
     (DirectPrint_ChangeXfb_t) 0x80021d50,
     (DirectPrint_DrawString_t) 0x80021ea0,
     (DirectPrint_StoreCache_t) 0x80021d90,
+    (NETSHA1Init_t) 0x801d2414,
+    (NETSHA1Update_t) 0x801d2464,
+    (NETSHA1GetDigest_t) 0x801d2518,
+    0x23db20,
+    {0x1cbe24af, 0x986a6e3e, 0xbea15cc9, 0x6649cec7, 0x7d73757b},
 }};
 loaderFunctionsEx functions_k = {
 	{(OSReport_t) 0x801A292C,
@@ -133,6 +143,11 @@ loaderFunctionsEx functions_k = {
     (DirectPrint_ChangeXfb_t) 0x80021e90,
     (DirectPrint_DrawString_t) 0x80021fe0,
     (DirectPrint_StoreCache_t) 0x80021ed0,
+    (NETSHA1Init_t) 0x801d2850,
+    (NETSHA1Update_t) 0x801d28a0,
+    (NETSHA1GetDigest_t) 0x801d2954,
+    0x23db20,
+    {0x1cbe24af, 0x986a6e3e, 0xbea15cc9, 0x6649cec7, 0x7d73757b},
 }
 };
 

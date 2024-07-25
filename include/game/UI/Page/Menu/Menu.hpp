@@ -110,6 +110,8 @@ public:
     u32 playerBitfield;
 }; //total size 0x6c4
 static_assert(sizeof(Menu) == 0x6C4, "MenuPage");
+
+
 }//namespace Pages
 
 #endif

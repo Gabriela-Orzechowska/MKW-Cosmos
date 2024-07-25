@@ -234,9 +234,10 @@ namespace Cosmos
             },
             {
                 // Menu
-                .settingCount = 2,
+                .settingCount = 3,
                 .settings = {{.optionCount = 12, .isBool = false, .defaultValue = NO_CHANGE}, // Language //TODO REENABLE KOREAN
-                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}}   // Fast Menus
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED},
+                             {.optionCount = 2, .isBool = false, .defaultValue = LAYOUT_DEFAULT}},
             },
             {
                 // Debug
