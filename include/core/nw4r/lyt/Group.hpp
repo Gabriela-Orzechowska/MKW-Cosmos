@@ -9,7 +9,7 @@ namespace lyt{
 namespace detail{
 struct PaneLink{
     ut::LinkListNode link;
-    Pane *target;
+    nw4r::lyt::Pane *target;
 };
 }//namespace detail
 
