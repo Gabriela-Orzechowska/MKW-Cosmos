@@ -33,7 +33,7 @@ void FinalLapSpeedUp(RaceRSARSoundsPlayer& soundPlayer, u32 lapSoundId, u32 play
             {
                 if(difference.minutes < 1 && difference.seconds < 5)
                 {
-                    KartHolder::GetStaticInstance()->GetKart(hudIdFinalLap)->pointers.kartSound->soundArchivePlayer->soundPlayerArray->soundList.GetFirst()->ambientParam.pitch += 0.0002f;
+                    KartHolder::GetStaticInstance()->GetKart(hudIdFinalLap)->pointers.kartSound->soundArchivePlayer->soundPlayerArray->soundList.GetFront().ambientParam.pitch += 0.0002f;
                 }
             }
 
