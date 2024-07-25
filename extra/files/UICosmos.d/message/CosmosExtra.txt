@@ -98,6 +98,10 @@
  310B   = Polski
  310C   = Japanese
  310D   = Korean
+ 
+ 3120   = Track Order
+ 3121   = Default
+ 3122   = Alphabetical
 
  3200   = DWC Logs
  3A01   = Logs will be printed to console.
