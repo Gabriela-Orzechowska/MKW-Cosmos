@@ -583,6 +583,9 @@ InitControlGroup__9UIControlFUi = 0x8063d268
 AddControl__9UIControlFUiP9UIControl = 0x8063d278
 PlaySound__9UIControlFUiUi = 0x8063d74c
 
+FuchiColor1 = 0x80895cc0
+FuchiColor2 = 0x80895cc8
+
 #LayoutUIControl
 __vt__15LayoutUIControl = 0x808befb4
 __ct__15LayoutUIControlFv = 0x8063d798

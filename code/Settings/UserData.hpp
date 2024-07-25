@@ -88,6 +88,7 @@ namespace Cosmos
             COSMOS_LANGUAGE_SETTINGS = 0x0,
             COSMOS_FAST_MENUS,
             COSMOS_LAYOUT,
+            AURORA_MENU_THEME,
         };
 
         enum DEBUG_SETTINGS
@@ -105,6 +106,18 @@ namespace Cosmos
             COSMOS_ALLOW_MII_HEADS,
             COSMOS_FORCE_CC,
             COSMOS_RACE_COUNT,
+        };
+
+        enum LAYOUT_SETTINGS 
+        {
+            LAYOUT_DEFAULT = 0x0,
+            LAYOUT_ALPHABETICAL,
+        };
+
+        enum MENU_THEME {
+            THEME_AURORA = 0x0,
+            THEME_RAINBOW,
+            THEME_WHITE, 
         };
 
         enum MUSIC_CUTOFF_OPTIONS
@@ -178,6 +191,7 @@ namespace Cosmos
             COSMOS_SETTING_LANGUAGE_SETTINGS = COSMOS_LANGUAGE_SETTINGS + (COSMOS_MENU_SETTINGS_1 * 8),
             COSMOS_SETTING_FAST_MENUS = COSMOS_FAST_MENUS + (COSMOS_MENU_SETTINGS_1 * 8),
             COSMOS_SETTING_LAYOUT = COSMOS_LAYOUT + (COSMOS_MENU_SETTINGS_1 * 8),
+            AURORA_SETTING_MENU_THEME = AURORA_MENU_THEME + (COSMOS_MENU_SETTINGS_1 * 8);
 
             COSMOS_SETTING_DWC_LOGS = COSMOS_DWC_LOGS + (COSMOS_DEBUG_SETTINGS * 8),
             COSMOS_SETTING_PERFORMANCE_MONITOR = COSMOS_PERFORMANCE_MONITOR + (COSMOS_DEBUG_SETTINGS * 8),
