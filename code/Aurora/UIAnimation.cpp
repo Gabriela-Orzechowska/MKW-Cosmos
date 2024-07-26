@@ -1,3 +1,5 @@
+#include "Settings/UserData.hpp"
+#include "kamek.hpp"
 #include <Aurora/UIAnimation.hpp>
 #include <include/c_string.h>
 
@@ -55,7 +57,7 @@ namespace Aurora {
             float frameLength = data->frameLength;
             float totalTime = data->frameLength * (data->colorCount - 1);
 
-            if(this->frame > totalTime) frame -= totalTime; 
+            while(this->frame > totalTime) this->frame -= totalTime;
 
             int index = 0;
             float prog = this->frame;
@@ -94,5 +96,17 @@ namespace Aurora {
             Animator::GetStaticInstance()->AnimateTopMenu(overlay);
         }
         kmWritePointer(0x808d9e90, TopMenuAnimation);
+
+        void OnThemeSettingUpdate(){
+            u8 value = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::AURORA_SETTING_MENU_THEME);
+            AnimationData* data = &aurora;
+            if(value == Cosmos::Data::THEME_RAINBOW) data = &rainbow;
+            if(value == Cosmos::Data::THEME_WHITE) data = &white;
+            Animator::GetStaticInstance()->SetAnimationData(data);
+            Animator::GetStaticInstance()->UpdateColor();
+        }
+        static SettingsValueUpdateHook svuhThemeSettingUpdate(OnThemeSettingUpdate, Cosmos::Data::AURORA_SETTING_MENU_THEME);
+        static MenuLoadHook mlhThemeUpdate(OnThemeSettingUpdate);
+
     }
 }
