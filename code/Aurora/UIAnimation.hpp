@@ -21,6 +21,7 @@ namespace Aurora {
             void AnimateTopMenu(Pages::TopMenuOverlay& overlay);
             void ApplyPaneColor(Pane* pane);
             void UpdateColor();
+            void SetAnimationData(AnimationData* data) { currentAnimation = data; }
 
         private:
             static Animator* sInstance;

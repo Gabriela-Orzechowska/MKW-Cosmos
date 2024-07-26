@@ -104,6 +104,11 @@
  3121   = Default
  3122   = Alphabetical
 
+ 3130   = Menu Theme
+ 3131   = Aurora
+ 3132   = Rainbow
+ 3133   = White
+
  3200   = DWC Logs
  3A01   = Logs will be printed to console.
  3A02   = No logs will be printed.
