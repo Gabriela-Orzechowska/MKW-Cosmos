@@ -72,7 +72,7 @@ namespace Cosmos
         int GetCupCount() const { return this->currentLayout->cupCount; }
         int GetTrackCount() const { return this->currentLayout->cupCount * 4; } //TODO Make it a separate field
         int GetTrackID() const { return winningCourse; };
-        u32 GetRandomVariantTrack(u32 slot);
+        u32 GetRandomVariantTrack(u32 slot) const;
 
         u32 GetCupID(u32 track) const { 
             for(int i = 0; i < this->currentLayout->cupCount * 4; i++){
@@ -83,8 +83,14 @@ namespace Cosmos
 
         int GetCurrentTrackSlot() const;
         int GetCurrentMusicSlot() const;
+        u32 GetTrackAtIndex(u32 slot) const { 
+            u32 ret = this->currentLayoutArray[slot]; 
+            if(ret >= GROUP_OFFSET) ret = this->GetRandomVariantTrack(slot);
+            return ret;
+        }
 
         int GetRandomTrack() const;
+        int GetRandomSlot() const;
         u32 GetTrackBlockByIndex(int index) const { return trackBlocking[index]; }
         void AddTrackToBlocking(u32 slot) { 
             trackBlocking[currentTrackBlockIndex++]; 

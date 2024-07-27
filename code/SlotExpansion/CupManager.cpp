@@ -47,7 +47,7 @@ namespace Cosmos
         this->cupConfig = config;
         CosmosLog("Cup Config at: %p\n", config);
         this->definitions = (Track*)offsetFrom(config, config->offToDefinitions);
-        SetTrackLayout(ALPHABETICAL);
+        SetTrackLayout(DEFAULT);
 
         DVDClose(&fileHandle);
             
@@ -99,7 +99,12 @@ namespace Cosmos
         return currentLayoutArray[trackIndex];
     }
 
-    u32 CupManager::GetRandomVariantTrack(u32 slot){
+    int CupManager::GetRandomSlot() const {
+        Random rand;
+        return currentLayoutArray[rand.NextLimited(this->GetTrackCount())];
+    }
+
+    u32 CupManager::GetRandomVariantTrack(u32 slot) const{
         if(slot >= GROUP_OFFSET) slot -= GROUP_OFFSET;
         Random rand;
         VariantDef* def = (VariantDef*) offsetFrom(this->cupConfig, this->cupConfig->offToVariants);
