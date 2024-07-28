@@ -1,8 +1,8 @@
 #include <console.hpp>
 
-#define CONSOLE_BUFFER_SIZE 600
+#define CONSOLE_BUFFER_SIZE 1200
 
-static char consoleBuffer[CONSOLE_BUFFER_SIZE] = {0};
+static char* consoleBuffer = (char*) 0x91000000;
 static int consoleCursor = 0;
 
 loaderFunctions* console_funcs = nullptr;
@@ -44,5 +44,9 @@ void Console_Clear(){
 }
 
 void Console_Destroy(){
+    for(int i = 0; i < consoleCursor; ){
+        consoleBuffer[i] = 0;
+        i++;
+    }
     *((u32*)console_funcs->endRenderAddress) = (u32) AsyncDisplay_endRender;
 }

@@ -190,9 +190,10 @@ void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLengt
             *output = 0;
             cacheInvalidateAddress((u32)(output++));
         }
-        Console_Print("Applying dol patches...\n");
+        Console_Print("[CSE] Applying dol patches\n");
+
     }
-    else Console_Print("Applying rel patches...\n");
+    else Console_Print("[CSE] Applying rel patches\n");
     while (input < inputEnd) {
         u32 cmdHeader = *((u32 *)input);
         input += 4;
@@ -254,7 +255,7 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
     EGG::ExpHeap *heap = funcs->rkSystem->EGGSystem;
     if(codeBuf == nullptr){
 
-        Console_Print("Loading payload..\n");
+        Console_Print("[CSE] Loading payload\n");
         int entrynum = funcs->DVDConvertPathToEntrynum(path);
 
         DVDFileInfo fileInfo;
@@ -293,11 +294,10 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
         codeBuf = heap->alloc(roundedLength, -0x20);
 
         if (!codeBuf) {
-            Console_Print("Failed to allocate space!\n");
+            Console_Print("[CSE] Failed to allocate space!\n");
             for(;;);
         }
 
-        Console_Print("Unpacking...\n");
         funcs->SZS_Decode((void*)(bufferPointer +info.startOffset), codeBuf);
 
         isDol = true;

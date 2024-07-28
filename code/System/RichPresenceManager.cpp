@@ -50,7 +50,7 @@ void RichPresenceManager::Init()
     s32 ret = InitConnection();
     if(ret < 0) return;
     rEnabled = true;
-    Cosmos::System::Console_Print("Enabling Discord Rich Presence\n");
+    Cosmos::System::Console_Print("[CSE] Enabling Discord Rich Presence\n");
     CosmosLog("Rich Presence Enabled\n");
 
     u64 time = IOS::Dolphin::GetSystemTime();

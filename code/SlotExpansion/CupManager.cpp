@@ -1,4 +1,4 @@
-#include "types.hpp"
+#include <System/Security.hpp>
 #include <SlotExpansion/CupManager.hpp>
 #include <core/RK/RKSystem.hpp>
 #include <FileManager/FileManager.hpp>
@@ -23,9 +23,9 @@ namespace Cosmos
         if(CupManager::sInstance != nullptr) return;
         CupManager::sInstance = this;
 
-        memset(this->trackBlocking, ~0x0, 0x10 * sizeof(u32));
+        memset(this->trackBlocking, -1U, 0x10 * sizeof(u32));
 
-        Cosmos::System::Console_Print("Loading Config File\n");
+        Cosmos::System::Console_Print("[CSE] Loading config file\n");
 
         DVDFileInfo fileHandle;
         if(!DVDOpen(ConfigPath, &fileHandle))
@@ -40,8 +40,12 @@ namespace Cosmos
         }
 
         if(config->fileVersion != 3) {
-            Cosmos::System::Console_Print("Invalid config version!\n");
+            Cosmos::System::Console_Print("[ERR] Invalid config version!\n");
+            #ifdef DEBUG_COSMOS
             for(;;){}
+            #else
+            Cosmos::Security::KillAllStack();
+            #endif
         }
 
         this->cupConfig = config;
@@ -106,6 +110,7 @@ namespace Cosmos
 
     u32 CupManager::GetRandomVariantTrack(u32 slot) const{
         if(slot >= GROUP_OFFSET) slot -= GROUP_OFFSET;
+        else return -1U;
         Random rand;
         VariantDef* def = (VariantDef*) offsetFrom(this->cupConfig, this->cupConfig->offToVariants);
         return def[slot].slot[rand.NextLimited(def[slot].count)];

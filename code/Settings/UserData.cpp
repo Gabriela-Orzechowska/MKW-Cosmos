@@ -85,7 +85,7 @@ namespace Cosmos
         {
             SettingsHolder *holder = new (RKSystem::mInstance.EGGSystem) SettingsHolder();
             char path[IPCMAXPATH];
-            Cosmos::System::Console_Print("Loading user settings\n");
+            Cosmos::System::Console_Print("[CSE] Loading user settings\n");
             holder->Init(Cosmos::SaveFile, "CSSE", SettingsVersion);
             SettingsHolder::sInstance = holder;
         }

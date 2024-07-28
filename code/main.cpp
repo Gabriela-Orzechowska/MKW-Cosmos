@@ -41,7 +41,7 @@ namespace Cosmos{
 
         CosmosDebug::DebugMessage::Init();
         systemMessage.DisplayForX(15);
-        System::Console_Print("Creating Cosmos System...\n");
+        System::Console_Print("[CSE] Creating Cosmos System\n");
         return;
     }
     static BootHook bhSystem(Cosmos::System::CreateStaticInstance, FIRST);

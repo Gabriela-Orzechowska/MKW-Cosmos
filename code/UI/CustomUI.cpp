@@ -100,6 +100,6 @@ void DestroyConsole(){
     #endif
     destroyed = true;
 }
-kmBranch(0x8063ae90, DestroyConsole);
+kmBranch(0x800074a0, DestroyConsole);
 
 
