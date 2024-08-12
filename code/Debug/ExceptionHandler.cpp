@@ -251,14 +251,12 @@ namespace CosmosDebug
 
     void SetExceptionParams()
     {
-        using namespace nw4r::db;
-
         nw4r::db::detail::ConsoleHead *console = EGG::Exception::console;
         console->width = 0x70;
         console->height = 0x40;
 
-        exceptionData.displayInfo |= EXCEPTION_INFO_GPR;
-        exceptionData.displayInfo |= EXCEPTION_INFO_FPR;
+        exceptionData.displayInfo |= nw4r::db::EXCEPTION_INFO_GPR;
+        exceptionData.displayInfo |= nw4r::db::EXCEPTION_INFO_FPR;
     }
     BootHook ConsoleParams(SetExceptionParams, LOW);
 

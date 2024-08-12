@@ -4,9 +4,9 @@ import shutil
 import subprocess, shlex
 import sys
 
-CC="C:\Program Files (x86)\Freescale\CW for MPC55xx and MPC56xx 2.10\PowerPC_EABI_Tools\Command_Line_Tools\mwcceppc.exe"
+CC=r"C:\Program Files (x86)\Freescale\CW for MPC55xx and MPC56xx 2.10\PowerPC_EABI_Tools\Command_Line_Tools\mwcceppc.exe"
 CFLAGS="""-I- -i "engine" -i "include" -i "include/game" -i code -gcc_extensions on -Cpp_exceptions off -enum int -O4,s -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0 -maxerrors 1 -func_align 4 -rtti off"""
-LD = "KamekSource/bin/Debug/net6.0/Kamek"
+LD = r"KamekSource/bin/Debug/net6.0/Kamek"
 
 OBJECTS = []
 UPDATED_HEADERS = []
@@ -107,12 +107,12 @@ def main():
     subprocess.run(shlex.split(wszst))
     shutil.rmtree('out/Code.d/')
 
-    with open('out/Code.cscd', 'r+b') as fb:
+    with open(r'out/Code.cscd', 'r+b') as fb:
         fb.seek(16)
         data = b"\x44\x45\x56\x30"
         fb.write(data)
 
-    shutil.copy("out\Code.cscd", "TestPack\Cosmos\Binaries")
+    shutil.copy(r"out\Code.cscd", r"TestPack\Cosmos\Binaries")
 
 
     print("Done")
