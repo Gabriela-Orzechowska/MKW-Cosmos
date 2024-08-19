@@ -257,7 +257,7 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
     EGG::ExpHeap *heap = funcs->rkSystem->EGGSystem;
     if(codeBuf == nullptr){
 
-        Console_Print("[CSE] Loading payload\n");
+        Console_Print("[CSE] Loading payload ");
         int entrynum = dvdFuncs->ConvertPathToEntrynum(path);
 
         DVDFileInfo fileInfo;
@@ -315,8 +315,8 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
             }
             funcs->OSReport("Loading code from disc...\n");
             Console_Print("from disc\n");
-            funcs->DVDReadPrio(&fileInfo, (void*)bufferPointer, length, 0, 2);
-            funcs->DVDClose(&fileInfo);
+            dvdFuncs->ReadPrio(&fileInfo, (void*)bufferPointer, length, 0, 2);
+            dvdFuncs->Close(&fileInfo);
         }
 
 

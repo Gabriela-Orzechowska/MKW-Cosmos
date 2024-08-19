@@ -1,5 +1,5 @@
 #include "core/rvl/ipc/ipc.hpp"
-#include "functions.hpp"
+#include <security.hpp>
 #include <core/rvl/os/OS.hpp>
 #include <kamekLoader.hpp>
 #include <console.hpp>
@@ -124,7 +124,6 @@ void loadIntoMKW();
 
 inline void cacheInvalidateAddress(u32 address);
 static const char* Console_Write(const char* str);
-void VerifyDol(loaderFunctions* funcs);
 static loaderFunctions* funcs = nullptr;
 static DVDFunctions* dvdFuncs = nullptr;
 static IOSFunctions* iosFuncs = nullptr;
@@ -150,7 +149,8 @@ int PerformExploit() {
     dvdFuncs = dvdFunctionsSets[GetRegionIndex()];
     iosFuncs = iosFunctionsSets[GetRegionIndex()];
 
-    VerifyDol(funcs);
+    s32 ret = VerifyDol();
+        
     //Create Branches
     u32 offset = ((u32)&loadIntoMKW)-funcs->dolHookAddress;
     u32 command = 0x48000000 | (offset & 0x03FFFFFF);
@@ -165,6 +165,10 @@ int PerformExploit() {
     Console_Init(funcs);
      Console_Print("  _____                      \n / ___/__  ___ __ _  ___  ___\n/ /__/ _ \\(_-</  ' \\/ _ \\(_-<\n\\___/\\___/___/_/_/_/\\___/___/\n");
     //Console_Print("Cosmos Loader v1.2\n");
+    if(ret < 0){
+        Console_Print("main.dol has been modified!");
+        for(;;){}
+    }
     Console_Print("[IOS] Opening FS\n");
 
     return iosFuncs->Open("/dev/fs", 0);
@@ -255,22 +259,6 @@ static u32 SetMessage(u32 index, u32 message) {
         )
     }
 }
-void VerifyDol(loaderFunctions* funcs){
-    NETSha1Context context;
-    u32 output[5];
-    funcs->NETSHA1Init(&context);
-    funcs->NETSHA1Update(&context, (void*)0x800072c0, funcs->dolSize);
-    funcs->NETSHA1GetDigest(&context, (void*)&output);
-    for(int i = 0; i < 5; i++){
-        if(output[i] != funcs->dolHash[i])
-        {
-            u32 black = 0; u32 white = -1U;
-            funcs->OSFatal(&black, &white, "main.dol has been modified!");
-        }
-    }
-    return;
-}
-
 inline void cacheInvalidateAddress(u32 address) {
     register u32 addressRegister = address;
     asm{

@@ -92,3 +92,4 @@ static DVDFunctions dvdFuncsK = {
 static DVDFunctions* dvdFunctionsSets[4] = {
     &dvdFuncsP, &dvdFuncsE, &dvdFuncsJ, &dvdFuncsK,
 };
+
