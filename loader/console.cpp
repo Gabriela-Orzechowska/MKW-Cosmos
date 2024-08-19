@@ -5,24 +5,28 @@
 static char* consoleBuffer = (char*) 0x91000000;
 static int consoleCursor = 0;
 
-loaderFunctions* console_funcs = nullptr;
+loaderFunctions* loaderFuncs = nullptr;
+DisplayFunctions* displayFuncs = nullptr;
 
 void Console_Render(void* display){
-    void* buffer = console_funcs->VIGetNextFrameBuffer();
+    void* buffer = displayFuncs->VIGetNextFrameBuffer();
     if(buffer == nullptr) {
         AsyncDisplay_endRender(display);
         return;
     }
-    console_funcs->DirentPrint_ChangeXFB(buffer, 608, 456);
-    console_funcs->DirectPrint_DrawString(0,0,consoleBuffer,0,0);
-    console_funcs->DirectPrint_StoreCache();
+    displayFuncs->ChangeXfb(buffer, 608, 456);
+    displayFuncs->DrawString(0,0,consoleBuffer,0,0);
+    displayFuncs->StoreCache();
 
     AsyncDisplay_endRender(display);
 }
 void Console_Init(loaderFunctions* func) {
-    console_funcs = func; 
-    AsyncDisplay_endRender = (AsyncDisplay_endRender_t) *((u32*)console_funcs->endRenderAddress);
-    *((u32*)console_funcs->endRenderAddress) = (u32)&Console_Render;
+    
+    displayFuncs = displayFunctionsSets[GetRegionIndex()];
+    loaderFuncs = func;
+
+    AsyncDisplay_endRender = (AsyncDisplay_endRender_t) *((u32*)displayFuncs->endRenderAddress);
+    *((u32*)displayFuncs->endRenderAddress) = (u32)&Console_Render;
     consoleCursor = 0;
 }
 
@@ -33,9 +37,9 @@ void Console_Print(const char* msg) {
         if(consoleCursor == CONSOLE_BUFFER_SIZE) return;
     }
     consoleBuffer[consoleCursor] = '\0';
-    if(!console_funcs->rkSystem->asyncDisplay) return;
-    console_funcs->rkSystem->asyncDisplay->endFrame();
-    console_funcs->rkSystem->asyncDisplay->beginFrame();
+    if(!loaderFuncs->rkSystem->asyncDisplay) return;
+    loaderFuncs->rkSystem->asyncDisplay->endFrame();
+    loaderFuncs->rkSystem->asyncDisplay->beginFrame();
 }
 
 void Console_Clear(){
@@ -48,5 +52,5 @@ void Console_Destroy(){
         consoleBuffer[i] = 0;
         i++;
     }
-    *((u32*)console_funcs->endRenderAddress) = (u32) AsyncDisplay_endRender;
+    *((u32*)displayFuncs->endRenderAddress) = (u32) AsyncDisplay_endRender;
 }

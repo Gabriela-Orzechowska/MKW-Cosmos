@@ -245,9 +245,11 @@ void loadKamekBinary(loaderFunctions *funcs, const void *binary, u32 binaryLengt
 }
 
 static void* codeBuf = nullptr;
+static DVDFunctions* dvdFuncs = nullptr;
 void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const char* codePath)
 {
     if(((u32)codeBuf & 0xFF000000) != 0x80000000) codeBuf = nullptr;
+    dvdFuncs = dvdFunctionsSets[GetRegionIndex()];
     static u32 fileLength = 0;
     funcs->OSReport("{Kamek by Treeki}\nLoading Kamek binary '%s'...\n", path);
     bool isDol = false;
@@ -256,10 +258,10 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
     if(codeBuf == nullptr){
 
         Console_Print("[CSE] Loading payload\n");
-        int entrynum = funcs->DVDConvertPathToEntrynum(path);
+        int entrynum = dvdFuncs->ConvertPathToEntrynum(path);
 
         DVDFileInfo fileInfo;
-        if (entrynum >= 0 && !funcs->DVDFastOpen(entrynum, &fileInfo))
+        if (entrynum >= 0 && !dvdFuncs->FastOpen(entrynum, &fileInfo))
             kamekError(funcs, "FATAL ERROR: Failed to open file!");
 
         u32 length = fileInfo.length;
@@ -268,7 +270,7 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
         u32 nandVersion = 0;
         bool usesNand = false;
 
-        if(entrynum >= 0 && !funcs->DVDReadPrio(&fileInfo, (void*)bufferPointer, 0x20, 0, 2)){
+        if(entrynum >= 0 && !dvdFuncs->ReadPrio(&fileInfo, (void*)bufferPointer, 0x20, 0, 2)){
             kamekError(funcs, "Failed to load file from dics!");
         }
 
@@ -279,8 +281,8 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
             kamekError(funcs, err);
         }
         funcs->OSReport("Loading code from disc...\n");
-        funcs->DVDReadPrio(&fileInfo, (void*)bufferPointer, length, 0, 2);
-        funcs->DVDClose(&fileInfo);
+        dvdFuncs->ReadPrio(&fileInfo, (void*)bufferPointer, length, 0, 2);
+        dvdFuncs->Close(&fileInfo);
 
         ARCHandle handle;
         funcs->ARCInitHandle((void*)bufferPointer, &handle);
