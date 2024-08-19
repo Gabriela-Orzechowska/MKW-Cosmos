@@ -52,10 +52,10 @@ bool SDStorage::Init()
         fd = Cosmos::Open((char *) sd_fd, IOS::MODE_NONE);
     }
     else fd = sdfd;
-    Cosmos::System::Console_Print("Opening SD interface...\n");
+    Cosmos::System::Console_Print("[SDi] Opening SD interface\n");
     if(fd < 0)
     {
-        Cosmos::System::Console_Print("Failed to open /dev/sdio/slot0\n");
+        Cosmos::System::Console_Print("[ERR] Failed to open SD Card\n");
         CosmosLog("Failed to open /dev/sdio/slot0");
         return false;
     }
@@ -83,8 +83,8 @@ bool SDStorage::Init()
 
     if(!(status & SDIO_STATUS_CARD_INITIALIZED))
     {
-        CosmosLog("Could not initialize filesystem... Retrying...\n");
-        Cosmos::System::Console_Print("Could not initialize SD...\nRetrying...");
+        CosmosLog("Could not initialize filesystem... Retrying\n");
+        Cosmos::System::Console_Print("[WAR] Could not initialize SD\n");
         bool ret = SD_Reinitialize();
         SD_GetStatus(&status);
 
@@ -94,7 +94,7 @@ bool SDStorage::Init()
             return false;
         } 
         CosmosLog("Success\n");
-        Cosmos::System::Console_Print(" success\n");
+        Cosmos::System::Console_Print("[SDi] Resetted SD Card successfully\n");
     }
 
     //sdhc = !!(status & SDIO_STATUS_CARD_SDHC);
@@ -132,7 +132,7 @@ bool SDStorage::Init()
     StorageDevice::currentDevice = device;
 
     CosmosLog("Successfully initialized SD card\n");
-    Cosmos::System::Console_Print("Successfully initialized SD card\n");
+    Cosmos::System::Console_Print("[SDi] Successfully initialized SD card\n");
     
     FRESULT result = f_mount(&device->m_fs, L"", 1);
     
@@ -140,12 +140,12 @@ bool SDStorage::Init()
     {
         char strbuffer[0x40];
         CosmosLog("Couldn't initialize FAT\n");
-        Cosmos::System::Console_Print("Couldn't initialize FAT\n");
+        Cosmos::System::Console_Print("[ERR] Couldn't initialize FAT\n");
         StorageDevice::currentDevice = nullptr;
         return false;
     }
     CosmosLog("Mounted FAT\n");
-    Cosmos::System::Console_Print("Mounted FAT filesystem\n");
+    Cosmos::System::Console_Print("[SDi] Mounted FAT filesystem\n");
 
     return true;
 }

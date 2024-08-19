@@ -1,6 +1,7 @@
 #pragma once
 
 #include <kamek.hpp>
+#include <core/rvl/rvl_sdk.hpp>
 #include <core/rvl/gx/GX.hpp>
 #include <core/nw4r/g3d/Camera.hpp>
 #include <core/egg/Display.hpp>

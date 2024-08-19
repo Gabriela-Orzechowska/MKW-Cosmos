@@ -1,3 +1,4 @@
+#include "Race/RaceData.hpp"
 #include "SlotExpansion/CupManager.hpp"
 #include <SlotExpansion/SlotExpansion.hpp>
 #include <game/UI/Page/Menu/CourseSelect.hpp>
@@ -66,6 +67,7 @@ RacedataScenario * GPCorrectNextTrack(RacedataScenario * scenario)
     Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
 
     manager->winningCourse = manager->currentLayoutArray[manager->lastSelectedCup * 4 + scenario->settings.raceNumber]; 
+    if(manager->winningCourse >= GROUP_OFFSET) manager->winningCourse = manager->GetRandomVariantTrack(manager->winningCourse);
     scenario->settings.courseId = (CourseId) manager->GetCurrentTrackSlot();
     return scenario;
 }
@@ -105,6 +107,7 @@ void VSRaceOrderFix(GlobalContext& context) {
     u32 trackCount = manager->GetTrackCount();
     for(int i = 0; i < 32; i++){
         context.vsTracks[i] = (CourseId) manager->currentLayoutArray[(trackIndex + trackCount) % trackCount];
+        if(context.vsTracks[i] >= GROUP_OFFSET) context.vsTracks[i] = (CourseId) manager->GetRandomVariantTrack(context.vsTracks[i]);
         trackIndex++;
     }
 }
@@ -116,3 +119,29 @@ u32 VSRaceOrderNextTrack(u32 track){
     return manager->GetCurrentTrackSlot();
 }
 kmBranch(0x808606cc, VSRaceOrderNextTrack);
+
+void VSRaceRandomFix(GlobalContext& context){
+    context.vsRaceLimit = 32;
+
+    Random rand;
+    Cosmos::CupManager* manager = Cosmos::CupManager::GetStaticInstance();
+    u32 slotArray[32];
+    for(int i = 0; i < 32; i++){
+        bool repeat = false;
+        do {
+            repeat = false;
+            u32 slot = rand.NextLimited(manager->GetTrackCount());
+            slotArray[i] = slot;
+            for(int j = 0; j < i; j++){
+                if(slot == slotArray[j]) repeat = true;
+            }
+        } while(repeat);
+    }
+    for(int i = 0; i < 32; i++){
+        context.vsTracks[i] = (CourseId) manager->GetTrackAtIndex(slotArray[i]);
+    }
+    manager->SetWinningTrack(context.vsTracks[0]);
+    RaceData::GetStaticInstance()->menusScenario.GetSettings().courseId = (CourseId) manager->GetCurrentTrackSlot();
+}
+kmBranch(0x805e32ec, VSRaceRandomFix);
+kmWrite32(0x8084e5e4, 0x60000000);

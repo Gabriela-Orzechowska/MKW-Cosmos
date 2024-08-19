@@ -1,5 +1,6 @@
 #include "Network/RKNetController.hpp"
 #include "Settings/UserData.hpp"
+#include "SlotExpansion/CupManager.hpp"
 #include "core/rvl/os/OS.hpp"
 #include <Network/RKNetControllerPlus.hpp>
 #include <game/Network/RKNetPlayerInfo.hpp>
@@ -86,9 +87,10 @@ namespace CosmosNetwork
 
             u16 actualVote = winnerAid == rkControllerSub.localAid ? handler.toSendPacket.playersData[0].cCourseVote : handler.receivedPackets[winnerAid].playersData[0].cCourseVote;
             if(actualVote == 0xFF) actualVote = manager->GetRandomTrack();
+            manager->AddTrackToBlocking(actualVote);
+            if(actualVote >= GROUP_OFFSET) actualVote = manager->GetRandomVariantTrack(actualVote);
             handler.toSendPacket.winningCourse = actualVote;
             handler.toSendPacket.winningVoterAid = winnerAid;
-            manager->AddTrackToBlocking(actualVote);
             CosmosLog("Winner track: %03x\n", actualVote);
         }
         else ((RKNetSELECTHandler*)&handler)->DecideTrack();

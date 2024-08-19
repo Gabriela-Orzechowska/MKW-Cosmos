@@ -1,3 +1,4 @@
+#include <System/Security.hpp>
 #include <SlotExpansion/CupManager.hpp>
 #include <core/RK/RKSystem.hpp>
 #include <FileManager/FileManager.hpp>
@@ -22,33 +23,34 @@ namespace Cosmos
         if(CupManager::sInstance != nullptr) return;
         CupManager::sInstance = this;
 
-        memset(this->trackBlocking, ~0x0, 0x10 * sizeof(u32));
+        memset(this->trackBlocking, -1U, 0x10 * sizeof(u32));
 
-        Cosmos::System::Console_Print("Loading Config File\n");
+        Cosmos::System::Console_Print("[CSE] Loading config file\n");
 
         DVDFileInfo fileHandle;
         if(!DVDOpen(ConfigPath, &fileHandle))
         {
             Cosmos::Panic(__FILE__, __LINE__, "Failed to open %s\n", ConfigPath);
         }
-        char buffer[0x20] __attribute__ ((aligned(0x20)));  
-        if(!DVDReadPrio(&fileHandle, (void *) buffer, 0x20, 0x0, 0x2))
-        {
+
+        CupConfig* config = (CupConfig*) new (RKSystem::mInstance.EGGSystem, 0x20) char[fileHandle.length];
+
+        if(!DVDReadPrio(&fileHandle, (void*)config, fileHandle.length, 0x0, 0x2)){
             Cosmos::Panic(__FILE__, __LINE__, "Failed to read %s\n", ConfigPath);
         }
-        CupConfig* tempConfig = (CupConfig*) buffer;
 
-        CupConfig* config = (CupConfig*) new (RKSystem::mInstance.EGGSystem, 0x20) char[tempConfig->fileSize];
-
-        if(!DVDReadPrio(&fileHandle, (void*)config, tempConfig->fileSize, 0x0, 0x2)){
-            Cosmos::Panic(__FILE__, __LINE__, "Failed to read %s\n", ConfigPath);
+        if(config->fileVersion != 3) {
+            Cosmos::System::Console_Print("[ERR] Invalid config version!\n");
+            #ifdef DEBUG_COSMOS
+            for(;;){}
+            #else
+            Cosmos::Security::KillAllStack();
+            #endif
         }
 
         this->cupConfig = config;
         CosmosLog("Cup Config at: %p\n", config);
         this->definitions = (Track*)offsetFrom(config, config->offToDefinitions);
-        this->layouts[0] = (u32*)offsetFrom(config, config->offToLayouts[0]);
-        this->layouts[1] = (u32*)offsetFrom(config, config->offToLayouts[1]);
         SetTrackLayout(DEFAULT);
 
         DVDClose(&fileHandle);
@@ -57,12 +59,15 @@ namespace Cosmos
 
     void CupManager::UpdateSelectedCourse(PushButton * button){
         this->lastSelectedCourse = button->buttonId;
+
         this->winningCourse = this->lastSelectedCourse;
+        if(this->lastSelectedCourse >= GROUP_OFFSET) this->winningCourse = this->GetRandomVariantTrack(this->lastSelectedCourse);
     }
 
     void CupManager::SetTrackLayout(TrackLayout layout)
     {
-        this->currentLayoutArray = this->layouts[layout];
+        this->currentLayout = (LayoutDef*)offsetFrom(this->cupConfig, this->cupConfig->offToLayouts[layout]);
+        this->currentLayoutArray = this->currentLayout->slots;
 
         p_tracklist1 = 0x3ca00000 | (((u32)this->currentLayoutArray) >> 16);
         p_tracklist2 = 0x60a50000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
@@ -97,6 +102,20 @@ namespace Cosmos
 
         return currentLayoutArray[trackIndex];
     }
+
+    int CupManager::GetRandomSlot() const {
+        Random rand;
+        return currentLayoutArray[rand.NextLimited(this->GetTrackCount())];
+    }
+
+    u32 CupManager::GetRandomVariantTrack(u32 slot) const{
+        if(slot >= GROUP_OFFSET) slot -= GROUP_OFFSET;
+        else return -1U;
+        Random rand;
+        VariantDef* def = (VariantDef*) offsetFrom(this->cupConfig, this->cupConfig->offToVariants);
+        return def[slot].slot[rand.NextLimited(def[slot].count)];
+    }
+
     int CupManager::GetCurrentTrackSlot() const
     {
         if(this->winningCourse < CT_OFFSET) return this->winningCourse;

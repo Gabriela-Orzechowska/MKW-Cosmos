@@ -8,6 +8,20 @@
 #include <core/System/RKSystem.hpp>
 #include <core/rvl/ipc/ipc.hpp>
 
+inline int GetRegionIndex(){
+   switch(*(u8*)0x80000003){
+        case 'P':
+            return 0;
+        case 'E':
+            return 1;
+        case 'J':
+            return 2;
+        case 'K':
+            return 3;
+   }
+   return -1;
+}
+
 struct loaderFunctions;
 
 struct YAZHeader {
@@ -54,10 +68,6 @@ const u32 dolStart = 0x800072c0;
 struct loaderFunctions {
     OSReport_t OSReport;
     OSFatal_t OSFatal;
-    DVDConvertPathToEntrynum_t DVDConvertPathToEntrynum;
-    DVDFastOpen_t DVDFastOpen;
-    DVDReadPrio_t DVDReadPrio;
-    DVDClose_t DVDClose;
     sprintf_t sprintf;
     RKSystem *rkSystem;
     ARCInitHandle_t ARCInitHandle;
@@ -67,17 +77,33 @@ struct loaderFunctions {
     NANDClose_t NANDClose;
     NANDRead_t NANDRead;
     NANDGetLength_t NANDGetLength;
-    IOS_Open_t IOS_Open;
-    IOS_Ioctlv_t IOS_IOCtlv;
-    IOS_Write_t IOS_Write;
-    IOS_Close_t IOS_Close;
     u32 dolHookAddress;
     u32 relHookAddress;
+};
+
+struct DVDFunctions {
+    DVDConvertPathToEntrynum_t ConvertPathToEntrynum;
+    DVDFastOpen_t FastOpen;
+    DVDReadPrio_t ReadPrio;
+    DVDClose_t Close;
+};
+
+struct IOSFunctions {
+    IOS_Open_t Open;
+    IOS_Ioctlv_t IOCtlv;
+    IOS_Write_t Write;
+    IOS_Close_t Close;
+};
+
+struct DisplayFunctions {
     u32 endRenderAddress;
     VIGetNextFrameBuffer_t VIGetNextFrameBuffer;
-    DirectPrint_ChangeXfb_t DirentPrint_ChangeXFB;
-    DirectPrint_DrawString_t DirectPrint_DrawString;
-    DirectPrint_StoreCache_t DirectPrint_StoreCache;
+    DirectPrint_ChangeXfb_t ChangeXfb;
+    DirectPrint_DrawString_t DrawString;
+    DirectPrint_StoreCache_t StoreCache;
+};
+
+struct SecurityFunctions {
     NETSHA1Init_t NETSHA1Init;
     NETSHA1Update_t NETSHA1Update;
     NETSHA1GetDigest_t NETSHA1GetDigest;

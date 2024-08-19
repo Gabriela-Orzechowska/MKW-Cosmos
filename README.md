@@ -37,10 +37,9 @@ Settings Page, containing various settings, available also mid-race:
   - Toggle Mii Heads
   - Speedometer Settings
 - Menu
-  - Language Select
+  - Language Selector (All vanilla + ability to add more)
   - Track Layout chooser (basic vs alphabetical)
 also can be changed with minus on track selection)
-  - Language Selector (All vanilla + ability to add more)
   - Fast Menus
 - Debug (during developement)
   - DWC Logs

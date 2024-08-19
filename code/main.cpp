@@ -41,7 +41,7 @@ namespace Cosmos{
 
         CosmosDebug::DebugMessage::Init();
         systemMessage.DisplayForX(15);
-        System::Console_Print("Creating Cosmos System...\n");
+        System::Console_Print("[CSE] Creating Cosmos System\n");
         return;
     }
     static BootHook bhSystem(Cosmos::System::CreateStaticInstance, FIRST);
@@ -337,8 +337,20 @@ namespace Cosmos{
     }
     static BootHook bhMessage(ShowWelcomeMessage, LINK);
     
-    kmWrite8(0x80022277, 0x01);
-    kmWrite8(0x8002227B, 0x01);
+    static int FontDotSize = 1;
+
+    asm int AdjustFontSize() {
+    ASM (
+        nofralloc;
+        lis r6, FontDotSize@ha;
+        lwz r6, FontDotSize@l (r6);
+        mr r0, r6;
+        blr;
+    );
+    }
+    kmCall(0x80022278, AdjustFontSize);
+
+
     /*
     kmWrite32(0x80021f3c, 0x60000000);
     kmWrite32(0x80021f34, 0x60000000);
