@@ -15,6 +15,9 @@ void Console_Render(void* display){
         return;
     }
     displayFuncs->ChangeXfb(buffer, 608, 456);
+    for(int i = 0; i < 608 * 456; i++){
+        ((u16*)buffer)[i] = 0x0088;
+    }
     displayFuncs->DrawString(0,0,consoleBuffer,0,0);
     displayFuncs->StoreCache();
 
