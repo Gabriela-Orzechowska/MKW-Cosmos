@@ -54,3 +54,5 @@ out/Code.arc
 .clangd
 compile_flags.txt
 out/Code.cscd
+loader/security.cpp
+loader/security.hpp
