@@ -88,7 +88,7 @@ namespace CosmosNetwork
             u16 actualVote = winnerAid == rkControllerSub.localAid ? handler.toSendPacket.playersData[0].cCourseVote : handler.receivedPackets[winnerAid].playersData[0].cCourseVote;
             if(actualVote == 0xFF) actualVote = manager->GetRandomTrack();
             manager->AddTrackToBlocking(actualVote);
-            if(actualVote >= GROUP_OFFSET) actualVote = manager->GetRandomVariantTrack(actualVote);
+            if(Cosmos::isGroupSlot(actualVote)) actualVote = manager->GetRandomVariantTrack(actualVote);
             handler.toSendPacket.winningCourse = actualVote;
             handler.toSendPacket.winningVoterAid = winnerAid;
             CosmosLog("Winner track: %03x\n", actualVote);

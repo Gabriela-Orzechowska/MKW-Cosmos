@@ -10,6 +10,17 @@ namespace Cosmos
     #define GROUP_OFFSET 0x3000
     #define TRACK_BLOCK_COUNT 0x10
 
+    inline bool isRTSlot(u32 slot){
+        return slot < CT_OFFSET;
+    }
+
+    inline bool isCTSlot(u32 slot){
+        return slot >= CT_OFFSET && slot < GROUP_OFFSET;
+    }
+    inline bool isGroupSlot(u32 slot){
+        return slot >= GROUP_OFFSET;
+    }
+
     #pragma pack(push, 1)
     struct Track{
         u8 slot;
@@ -85,7 +96,7 @@ namespace Cosmos
         int GetCurrentMusicSlot() const;
         u32 GetTrackAtIndex(u32 slot) const { 
             u32 ret = this->currentLayoutArray[slot]; 
-            if(ret >= GROUP_OFFSET) ret = this->GetRandomVariantTrack(slot);
+            if(isGroupSlot(ret)) ret = this->GetRandomVariantTrack(slot);
             return ret;
         }
 
@@ -100,6 +111,11 @@ namespace Cosmos
         void UpdateSelectedCourse(PushButton * button);
         void SetWinningTrack(u32 course) { winningCourse = course; }
         u16 GetWinningTrack() { return (u16) winningCourse; }
+        VariantDef* GetVariantStruct(u32 slot) {
+            if(isGroupSlot(slot)) slot -= GROUP_OFFSET;
+            VariantDef* def = (VariantDef*) offsetFrom(this->cupConfig, this->cupConfig->offToVariants);
+            return &def[slot];
+        }
         
         void SetTrackLayout(TrackLayout layout);
         

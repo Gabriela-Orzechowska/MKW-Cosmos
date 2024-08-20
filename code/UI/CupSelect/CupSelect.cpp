@@ -1,3 +1,7 @@
+#include "UI/BMG/BMG.hpp"
+#include "UI/CupSelect/CourseSelect.hpp"
+#include "UI/Page/Page.hpp"
+#include "kamek.hpp"
 #include <UI/CupSelect/CupSelect.hpp>
 #include <game/UI/Ctrl/Menu/CtrlMenuCourse.hpp>
 #include <SlotExpansion/CupManager.hpp>
@@ -174,6 +178,12 @@ namespace CosmosUI
         Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
         Pages::CupSelect * cup = MenuData::GetStaticInstance()->curScene->Get<Pages::CupSelect>(CUP_SELECT);
         Pages::CourseSelect * coursePage = MenuData::GetStaticInstance()->curScene->Get<Pages::CourseSelect>(COURSE_SELECT);
+        if(coursePage->currentState == STATE_UNLOADED) {
+            CosmosUI::VariantSelectPlus* variant = VariantSelectPlus::GetPage();
+            COSMOS_ASSERT_NOT_NULL(variant);
+            variant->SelectButton(&variant->ctrlMenuCourseSelectCourse.courseButtons[0]);
+            return;
+        }
 
         u32 cupId = manager->lastSelectedCup;
         bool selected = false;
@@ -181,8 +191,10 @@ namespace CosmosUI
         {
             int slot = manager->currentLayoutArray[cupId * 4 + i];
             course->courseButtons[i].buttonId = slot;
-            if(slot >= CT_OFFSET)
+            if(Cosmos::isCTSlot(slot))
                 course->courseButtons[i].SetMsgId(slot + BMG_TRACKS);
+            else if(Cosmos::isGroupSlot(slot))
+                course->courseButtons[i].SetMsgId(slot + BMG_GROUPS);
             else
                 course->courseButtons[i].SetMsgId(slot + 9300);
 

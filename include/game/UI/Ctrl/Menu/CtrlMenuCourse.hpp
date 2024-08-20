@@ -26,7 +26,8 @@ public:
     int GetRuntimeTypeInfo() const override; //807e561c
     const char *GetClassName() const override; //807e4410
     virtual void SetRelativePosition(PositionAndScale *parentPosition); //807e4744
-    u8 unknown_0x174[0x17c-0x174];
+    float frame;
+    u32 unknown_0x178;
     Vec3 relativePosition; //0x17C relative to parent
     bool selected; //0x188
     u8 padding[3];

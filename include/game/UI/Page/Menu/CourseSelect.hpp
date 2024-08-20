@@ -44,7 +44,7 @@ public:
     
     u32 unknown_0x6C4;
     CtrlMenuCourseSelectCup ctrlMenuCourseSelectCup; //0x6c8
-    CtrlMenuCourseSelectCourse CtrlMenuCourseSelectCourse; //0x149c
+    CtrlMenuCourseSelectCourse ctrlMenuCourseSelectCourse; //0x149c
     bool unknown_0x215c; //init at 0, set to 1 when a button is pressed
     u8 unknown_0x215d[0x2160-0x215d];
 }; //total size 0x2160
