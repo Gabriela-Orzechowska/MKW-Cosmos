@@ -32,6 +32,11 @@ public:
     static MenuData * GetStaticInstance() { return sInstance; }
     inline Scene* GetCurrentScene() { return curScene; } 
     inline GlobalContext* GetCurrentContext() { return globalContext; }
+    
+    template <class T>
+    T* GetPage(PageId pageId) { return curScene->Get<T>(pageId); }
+
+
     static void DestroyStaticInstance(); //80634cc8
     static Pages::System *CreateSystemPages(u8 idx, MenuId id); //80634a64
     void RequestSceneChange(u32 delay, u32 fadeOutColor); //80635ac8

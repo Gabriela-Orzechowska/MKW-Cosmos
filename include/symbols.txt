@@ -1149,9 +1149,13 @@ BeforeEntranceAnimations__Q25Pages12CourseSelectFv = 0x808405c0
 OnDeactivate__Q25Pages12CourseSelectFv = 0x80840b78
 OnActivate__Q25Pages12CourseSelectFv = 0x808404a0
 OnInit__Q25Pages12CourseSelectFv = 0x808402f4
+LoadNextPage__Q25Pages12CourseSelectFP26CtrlMenuCourseSelectCourseP10PushButtonUi = 0x80840830
 
-
-
+__vt__26CtrlMenuCourseSelectCourse = 0x808d30c0
+__ct__12CourseButtonFv = 0x80628074
+__dt__12CourseButtonFv = 0x80628130
+Load__26CtrlMenuCourseSelectCourseFUib = 0x807e4f7c
+__dt__26CtrlMenuCourseSelectCourseFv = 0x80628190
 #BattleKartSelectPage
 __ct__Q25Pages16BattleKartSelectFv = 0x80628e3c 
 __dt__Q25Pages16BattleKartSelectFv = 0x8083b014

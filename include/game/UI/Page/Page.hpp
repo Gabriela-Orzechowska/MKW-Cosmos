@@ -14,11 +14,12 @@ Melg
 #include <game/UI/Ctrl/Menu/CtrlMenuText.hpp>
 
 enum PageState{
+    STATE_UNKNOWN = 0,
     STATE_UNLOADED,
     STATE_LOADING,
-    STATE_ACTIVATING,
-    STATE_FOCUSED,
-    STATE_DEFOCUSING,
+    STATE_ACTIVATING = 3,
+    STATE_FOCUSED = 4,
+    STATE_DEFOCUSING = 5,
     STATE_UNLOADING
 };
 
@@ -67,7 +68,11 @@ public:
     void EndExit(); //80602c40 
     void PlaySound(u32 soundId, u32 r5); //80602cf8
     static Page* GetPageById(PageId type);
-    
+
+    inline bool isFocused(){
+        return currentState == STATE_FOCUSED; 
+    };
+
     PageId pageId;
     PageState currentState; //0x8 = focus, idk others
     bool goToNextStage; //0xc

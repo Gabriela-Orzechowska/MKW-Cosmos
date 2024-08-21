@@ -61,7 +61,7 @@ namespace Cosmos
         this->lastSelectedCourse = button->buttonId;
 
         this->winningCourse = this->lastSelectedCourse;
-        if(this->lastSelectedCourse >= GROUP_OFFSET) this->winningCourse = this->GetRandomVariantTrack(this->lastSelectedCourse);
+        if(Cosmos::isGroupSlot(this->lastSelectedCourse)) this->winningCourse = this->GetRandomVariantTrack(this->lastSelectedCourse);
     }
 
     void CupManager::SetTrackLayout(TrackLayout layout)
@@ -78,7 +78,7 @@ namespace Cosmos
 
     int CupManager::GetCurrentMusicSlot() const
     {
-        if(this->winningCourse < CT_OFFSET) return RaceAudioMgr::GetStaticInstance()->GetCourseSoundId();
+        if(isRTSlot(this->winningCourse)) return RaceAudioMgr::GetStaticInstance()->GetCourseSoundId();
         return RaceAudioMgr::GetStaticInstance()->trackToMusicIDTable[definitions[this->winningCourse - CT_OFFSET].musicSlot];
     }
 
@@ -109,7 +109,7 @@ namespace Cosmos
     }
 
     u32 CupManager::GetRandomVariantTrack(u32 slot) const{
-        if(slot >= GROUP_OFFSET) slot -= GROUP_OFFSET;
+        if(isGroupSlot(slot)) slot -= GROUP_OFFSET;
         else return -1U;
         Random rand;
         VariantDef* def = (VariantDef*) offsetFrom(this->cupConfig, this->cupConfig->offToVariants);
@@ -118,7 +118,7 @@ namespace Cosmos
 
     int CupManager::GetCurrentTrackSlot() const
     {
-        if(this->winningCourse < CT_OFFSET) return this->winningCourse;
+        if(isRTSlot(this->winningCourse)) return this->winningCourse;
 
         return definitions[this->winningCourse - CT_OFFSET].slot;
     }

@@ -170,14 +170,17 @@
   6009  =  Drill
 
 
-  7100  = DS Test Circle
-  7101  = Castle Gorge
-  7102  = KKW Prismatic Parkway
-  7103  = Ruinated Peach's Castle
-  7104  = Blissful Block
-  7105  = Strobenz Desert Illusion
-  7106  = Snabo Desert
-  7107  = Lava Lake
+  7100  = Wii U Animal Crossing (Autumn)
+  7101  = Wii U Animal Crossing (Spring)
+  7102  = Wii U Animal Crossing (Summer)
+  7103  = Wii U Animal Crossing (Winter)
+  7104  = GBA Ribbon Road (Classic)
+  7105  = GBA Ribbon Road (Remake)
+  7106  = Strobenz Desert Illusion
+  7107  = Hellado Mountain
+
+  a000  = Wii U Animal Crossing
+  a001  = GBA Ribbon Road
 
 
   13100  = DS Test Circle\n\z{800,40}\c{blue1}Bruh de la Boi\c{off}

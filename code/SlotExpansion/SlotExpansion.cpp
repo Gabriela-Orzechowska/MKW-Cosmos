@@ -1,11 +1,13 @@
 #include "Race/RaceData.hpp"
 #include "SlotExpansion/CupManager.hpp"
+#include "UI/BMG/BMG.hpp"
 #include <SlotExpansion/SlotExpansion.hpp>
 #include <game/UI/Page/Menu/CourseSelect.hpp>
 
 int GetCorrectTrackBMG(int slot)
 {
     if(slot < 0x100) return GetTrackBMGId((CourseId) slot);
+    if(slot >= 0x3000) return slot + BMG_GROUPS;
     return slot + BMG_TRACKS;
 }
 
@@ -42,7 +44,7 @@ extern char * COURSE_NAMES[42]; //COURSE_NAMES
 void LoadCorrectTrack(char * out, u32 size, char * format, char * fileName)
 {
     int slot = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
-    if(slot < CT_OFFSET) snprintf(out, size, format, fileName);
+    if(Cosmos::isRTSlot(slot)) snprintf(out, size, format, fileName);
     else {
         snprintf(out, size, "Race/Course/%03X", slot);
     }
@@ -67,7 +69,7 @@ RacedataScenario * GPCorrectNextTrack(RacedataScenario * scenario)
     Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
 
     manager->winningCourse = manager->currentLayoutArray[manager->lastSelectedCup * 4 + scenario->settings.raceNumber]; 
-    if(manager->winningCourse >= GROUP_OFFSET) manager->winningCourse = manager->GetRandomVariantTrack(manager->winningCourse);
+    if(Cosmos::isGroupSlot(manager->winningCourse)) manager->winningCourse = manager->GetRandomVariantTrack(manager->winningCourse);
     scenario->settings.courseId = (CourseId) manager->GetCurrentTrackSlot();
     return scenario;
 }
@@ -97,7 +99,7 @@ void VSRaceOrderFix(GlobalContext& context) {
     asm{ASM(mr course, r29;)}
     u32 buttonId = 0;
     for(int i = 0; i < 4; i++){
-        if(course->CtrlMenuCourseSelectCourse.courseButtons[i].IsSelected()) {
+        if(course->ctrlMenuCourseSelectCourse.courseButtons[i].IsSelected()) {
             buttonId = i; break;
         }
     }
@@ -107,7 +109,7 @@ void VSRaceOrderFix(GlobalContext& context) {
     u32 trackCount = manager->GetTrackCount();
     for(int i = 0; i < 32; i++){
         context.vsTracks[i] = (CourseId) manager->currentLayoutArray[(trackIndex + trackCount) % trackCount];
-        if(context.vsTracks[i] >= GROUP_OFFSET) context.vsTracks[i] = (CourseId) manager->GetRandomVariantTrack(context.vsTracks[i]);
+        if(Cosmos::isGroupSlot(context.vsTracks[i])) context.vsTracks[i] = (CourseId) manager->GetRandomVariantTrack(context.vsTracks[i]);
         trackIndex++;
     }
 }

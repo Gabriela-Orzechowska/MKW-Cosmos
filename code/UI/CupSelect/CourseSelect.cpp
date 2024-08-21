@@ -1,10 +1,15 @@
+#include "System/Identifiers.hpp"
+#include "UI/BMG/BMG.hpp"
+#include "main.hpp"
+#include <game/UI/Ctrl/Menu/CtrlMenuCourse.hpp>
 #include <UI/CupSelect/CourseSelect.hpp>
+
 
 namespace CosmosUI
 {
     extern s32 lastLeftCup;
 
-    CourseSelectPlus * CreateCoursePage()
+    CourseSelectPlus* CreateCoursePage()
     {
         CourseSelectPlus * course = new(CourseSelectPlus);
         return course;
@@ -12,7 +17,6 @@ namespace CosmosUI
 
     kmWrite32(0x80623db0, 0x60000000);
     kmCall(0x80623dbc, CreateCoursePage);
-    void SlideCup(CtrlMenuCourseSelectCourse * course, CtrlMenuCourseSelectCup* courseCup, s32 offset);
 
     CourseSelectPlus::CourseSelectPlus(){
         internControlCount += 1;
@@ -30,21 +34,24 @@ namespace CosmosUI
         switch(controlId){
             case 2:
                 this->AddControl(2, &this->arrows, 0);
-                arrows.Load("button", "DXCupSelectRightArrow", "ButtonArrowRight", "DXCupSelectLeftArrow", "ButtonArrowLeft", 1, 0, true);
+                arrows.Load("button", "CosmosCourseSelectRightArrow", "ButtonArrowRight", "CosmosCourseSelectLeftArrow", "ButtonArrowLeft", 1, 0, true);
                 this->controlCount++;
+                CosmosLog("Arrow Pointer: %p\n", &this->arrows);
                 return &this->arrows;
             default:
                 return CourseSelect::CreateControl(controlId);
         }
     }
 
-    static s32 slide = 0;
 
-    void SlideCup(CourseSelectPlus * coursePage, s32 offset)
+    void CourseSelectPlus::OnButtonClick(s32 hudSlotId, PushButton& button){
+        
+    };
+
+    void CourseSelectPlus::SlideCup(s32 offset)
     {
-        CtrlMenuCourseSelectCourse * course = &coursePage->CtrlMenuCourseSelectCourse;
-        CtrlMenuCourseSelectCup * courseCup = &coursePage->ctrlMenuCourseSelectCup;
-        Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
+        CtrlMenuCourseSelectCup * courseCup = &this->ctrlMenuCourseSelectCup;
+        Cosmos::CupManager* manager = Cosmos::CupManager::GetStaticInstance();
         u32 cupCount = manager->GetCupCount();
         Pages::CupSelect * cup = MenuData::GetStaticInstance()->curScene->Get<Pages::CupSelect>(CUP_SELECT);
         manager->lastSelectedCup = (manager->lastSelectedCup + offset + cupCount) % cupCount;
@@ -52,19 +59,19 @@ namespace CosmosUI
         cup->clickedCupId = lastSelectedCup;
 
         //this->LoadPrevPageWithDelayById(COURSE_SELECT, 0.0f);
-            CtrlMenuCupSelectCup * cups = &cup->ctrlMenuCupSelectCup;
+        CtrlMenuCupSelectCup* cups = &cup->ctrlMenuCupSelectCup;
 
         manager->dontUpdateCourseSelectCourse = 1;
         int off = AddLastLeft(offset);
         PatchCourseSelectCup();     
 
         if(offset > 0){
-            coursePage->arrows.rightArrow.animator.GetAnimationGroupById(ANM_SELECT)->PlayAnimationAtFrame(0,0.0f);
+            this->arrows.rightArrow.animator.GetAnimationGroupById(ANM_SELECT)->PlayAnimationAtFrame(0,0.0f);
         }
         else{
-            coursePage->arrows.leftArrow.animator.GetAnimationGroupById(ANM_SELECT)->PlayAnimationAtFrame(0,0.0f);
+            this->arrows.leftArrow.animator.GetAnimationGroupById(ANM_SELECT)->PlayAnimationAtFrame(0,0.0f);
         }
-        coursePage->arrows.HandleLeftArrowSelect(0); //Works for sound
+        this->arrows.HandleLeftArrowSelect(0); //Works for sound
         for(int i = 0; i < 8; i++)
         {
             CtrlMenuCourseSelectCupSub * button = &courseCup->cupIcons[i];
@@ -75,7 +82,7 @@ namespace CosmosUI
                 char tpl[0x30];
                 snprintf(tpl, 0x30, "button/timg/icon_cup_%03x.tpl", id);
 
-                void * tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, tpl, 0);
+                const void* tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, tpl, 0);
 
                 CosmosUI::ChangePaneImage(button, "icon", tplPointer);
                 CosmosUI::ChangePaneImage(button, "icon_light_01", tplPointer);
@@ -85,15 +92,146 @@ namespace CosmosUI
             }
         } 
 
-        ExtendCourseSelectCourseInitSelf(course);
+        ExtendCourseSelectCourseInitSelf(&this->ctrlMenuCourseSelectCourse);
     }
 
-    void CourseSelectPlus::OnRightClick(u32 slotId){
-        SlideCup(this, 1);
+    void OnCourseButtonClickOverride(CtrlMenuCourseSelectCourse& course, PushButton& button, s32 hudSlotId){
+        CourseSelectPlus* page = CourseSelectPlus::GetPage();
+        VariantSelectPlus* variantSelect = VariantSelectPlus::GetPage();
+        COSMOS_ASSERT_NOT_NULL(variantSelect);
+
+        u32 trackIndex = button.buttonId;
+
+        if(page->isFocused()){
+            if(Cosmos::isGroupSlot(trackIndex)){
+                variantSelect->SetupPage(trackIndex);
+                Cosmos::CupManager::GetStaticInstance()->lastSelectedCourse = (trackIndex);
+                page->LoadNextPageWithDelayById((PageId)Cosmos::VARIANT_SELECT,0.0f);
+            }
+            else page->LoadNextPage(&course, &button, hudSlotId);
+        }
+        else if(variantSelect->isFocused()){
+            variantSelect->LoadNextPage(&course, &button, hudSlotId);
+        }
+    };
+
+    kmBranch(0x807e5434, OnCourseButtonClickOverride);
+
+    VariantSelectPlus::VariantSelectPlus() {
+        internControlCount++;
+        currentSubPage = 0;
+        subPageCount = 1;
+
+        onRightClick.subject = this;
+        onRightClick.ptmf = &VariantSelectPlus::OnRightClick;
+        onLeftClick.subject = this;
+        onLeftClick.ptmf = &VariantSelectPlus::OnLeftClick;
+
+        this->controlsManipulatorManager.SetGlobalHandler(RIGHT_PRESS, (PtmfHolder_1A<Page, void, u32>*)&onRightClick, false, false);
+        this->controlsManipulatorManager.SetGlobalHandler(LEFT_PRESS, (PtmfHolder_1A<Page, void, u32>*)&onLeftClick, false, false);
+        this->onBackPressHandler.ptmf = static_cast<void (Page::*)(u32)> (&VariantSelectPlus::OnBackPressNew);
+    };
+
+    UIControl* VariantSelectPlus::CreateControl(u32 controlId){
+        //TODO Update;
+        switch(controlId){
+            case 2:
+                this->AddControl(2, &this->arrows, 0);
+                arrows.Load("button", "CosmosVariantSelectRightArrow", "ButtonArrowRight", "CosmosVariantSelectLeftArrow", "ButtonArrowLeft", 1, 0, true);
+                this->controlCount++;
+                return &this->arrows;
+            default:
+                return Pages::CourseSelect::CreateControl(controlId);
+        }
+    };
+
+    void VariantSelectPlus::OnBackPressNew(u32 hudSlotId){
+        this->LoadPrevPageWithDelayById(COURSE_SELECT, 0.0f);
     }
 
-    void CourseSelectPlus::OnLeftClick(u32 slotId){
-        SlideCup(this, -1);
+    void VariantSelectPlus::SetupPage(u32 slot){
+        this->SelectButton(&this->ctrlMenuCourseSelectCourse.courseButtons[0]);
+        this->currentGroup = slot;
+
+        Cosmos::CupManager* manager = Cosmos::CupManager::GetStaticInstance();
+        variant = manager->GetVariantStruct(slot);
+        COSMOS_ASSERT_NOT_NULL(variant);
+        
+        this->subPageCount = (variant->count + 3) / 3;
+        this->currentSubPage = 0;
+
+        this->SetupButtons();
+    }
+
+    void VariantSelectPlus::BeforeEntranceAnimations(){
+        Pages::Menu::BeforeEntranceAnimations();
+        for(int i = 0; i < 8; i++){
+            CtrlMenuCourseSelectCupSub& icon = this->ctrlMenuCourseSelectCup.cupIcons[i];
+            if(icon.selected) {
+                icon.frame = 300.0f;
+                icon.isHidden = false;
+                icon.SetMsgId(BMG_GROUPS + this->currentGroup);
+            }
+            else
+                icon.isHidden = true;
+        }
+        this->SetupButtons();
+    };
+
+    void VariantSelectPlus::SetupButtons(){
+        u32 totalButtonCount = (variant->count) + 1;
+        u32 buttonCount = totalButtonCount - (4 * this->currentSubPage);
+        if(buttonCount > 4) buttonCount = 4;
+        if(this->subPageCount > 1){
+            this->arrows.rightArrow.isHidden = false;
+            this->arrows.leftArrow.isHidden = false;
+        }
+        else {
+            this->arrows.rightArrow.isHidden = true;
+            this->arrows.leftArrow.isHidden = true;
+        }
+        CtrlMenuCourseSelectCourse& courseSelect = this->ctrlMenuCourseSelectCourse;
+        int offset = this->currentSubPage * 4;
+        for(int i = 0; i < 4; i++){
+            PushButton& button = courseSelect.courseButtons[i];
+            if(i == 0){
+                this->SelectButton(&button);
+            }
+            if(i < buttonCount) {
+                button.isHidden = false;
+                button.SetPlayerBitfield(0x1);
+                if((offset + i) == 0){
+                    button.SetMsgId(0xd72);
+                    button.buttonId = this->currentGroup;
+                }
+                else {
+                    button.SetMsgId(BMG_TRACKS + variant->slot[offset + i - 1]);
+                    button.buttonId = this->variant->slot[offset + i - 1];
+                }
+            }
+            else {
+                button.HandleDeselect(0,0);
+                button.isHidden = true;
+                button.SetPlayerBitfield(0);
+            }
+        }
+    }
+
+    void VariantSelectPlus::OnLeftClick(u32 hudSlotId){
+        if(this->currentSubPage != 0) {
+            this->currentSubPage--;
+            this->arrows.leftArrow.animator.GetAnimationGroupById(ANM_SELECT)->PlayAnimationAtFrame(0,0.0f);
+            this->arrows.HandleLeftArrowSelect(0); //Works for sound
+            this->SetupButtons();
+        }
+    }
+    void VariantSelectPlus::OnRightClick(u32 hudSlotId){
+        if((this->currentSubPage + 1) != this->subPageCount) {
+            this->currentSubPage++;
+            this->arrows.rightArrow.animator.GetAnimationGroupById(ANM_SELECT)->PlayAnimationAtFrame(0,0.0f);
+            this->arrows.HandleLeftArrowSelect(0); //Works for sound
+            this->SetupButtons();
+        }
     }
 
 } // namespace CosmosUI

@@ -1,3 +1,4 @@
+#include "UI/CupSelect/CourseSelect.hpp"
 #include "game/System/identifiers.hpp"
 #include <kamek.hpp>
 #include <main.hpp>
@@ -11,33 +12,35 @@ void * CreatePage(u32 pageId)
 {
     if(pageId == (u32)Cosmos::SETTINGS_MAIN)
     {
-        return new(CosmosUI::NewSettings)();
+        return new(CosmosUI::NewSettings);
     }
     else if(pageId == (u32)Cosmos::WARNING_PAGE)
     {
         return new (CosmosUI::MessagePageWindow);
+    }
+    else if(pageId == (u32)Cosmos::VARIANT_SELECT){
+        return new (CosmosUI::VariantSelectPlus);
     }
     return Scene::CreatePageById((PageId)pageId);
 }
 
 kmCall(0x80622d2c, CreatePage);
 
-void InjectSettingPage(Scene& scene, PageId id)
+void InjectMenuSinglePages(Scene& scene, PageId id)
 {
     scene.CreatePage(id);
     scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
-    //
+    scene.CreatePage((PageId)Cosmos::VARIANT_SELECT);
     return;
 }
-kmCall(0x8062fe3c, InjectSettingPage); //OPTIONS
 
 //MenuSingle
-kmCall(0x8062d334, InjectSettingPage); //From Main
-kmCall(0x8062d478, InjectSettingPage); //From Change Char
-kmCall(0x8062d5bc, InjectSettingPage); //From ChangeCourse
-kmCall(0x8062d640, InjectSettingPage); //From Versus
-kmCall(0x8062d6c4, InjectSettingPage); //From Battle
-kmCall(0x8062d808, InjectSettingPage); //From Mission MOde
+kmCall(0x8062d334, InjectMenuSinglePages); //From Main
+kmCall(0x8062d478, InjectMenuSinglePages); //From Change Char
+kmCall(0x8062d5bc, InjectMenuSinglePages); //From ChangeCourse
+kmCall(0x8062d640, InjectMenuSinglePages); //From Versus
+kmCall(0x8062d6c4, InjectMenuSinglePages); //From Battle
+kmCall(0x8062d808, InjectMenuSinglePages); //From Mission MOde
 
 void InjectGhostPages(Scene& scene, PageId id) {
     scene.CreatePage(TIME_TRIAL_INTERFACE);
@@ -51,7 +54,8 @@ kmCall(0x8062cc5c, InjectGhostPages);
 kmCall(0x8062cc98, InjectGhostPages);
 
 void InjectTTPages(Scene& scene, PageId id){
-    InjectSettingPage(scene, id);
+    scene.CreatePage(id);
+    scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
     scene.CreatePage(ARE_YOU_SURE_YOU_WANT_TO_QUIT);
     scene.CreatePage(VOTERANDOM_MESSAGE_BOX);
     scene.CreatePage(TEXT_BOX_WITH_SPINNER);
