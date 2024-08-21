@@ -3,8 +3,8 @@
 
 #pragma region SingleMenuPage
 
-const char * ttButtonBrctr = "DX_TT";
-const char * normalBrctr = "DXSingleTop";
+const char * ttButtonBrctr = "CosmosTT";
+const char * normalBrctr = "CosmosSingleTop";
 
 void LoadCorrectControlFile(PushButton& button, const char * folderName, const char * controlName, const char * variantName, u32 param_5, u32 param_6, u32 idx)
 {

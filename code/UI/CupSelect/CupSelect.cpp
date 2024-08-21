@@ -35,8 +35,11 @@ namespace CosmosUI
         this->controlsManipulatorManager.SetGlobalHandler(SWITCH_PRESS, (PtmfHolder_1A<Page, void, u32>*)&onSwitchPressHandler, false, false);
     }
     kmWrite32(0x80841244, 0x38800001);
-    
-    kmWrite32(0x808a85d1, 0x44584353);
+
+    void CreateCustomCupSelectControl(ControlLoader& control, const char* folder, const char* name, const char* variant, const char** anims){
+        control.Load(folder, "CosmosCupSelectNULL", variant, anims);
+    }
+    kmCall(0x807e56f4, CreateCustomCupSelectControl);
     
     UIControl *  CupSelectPlus::CreateControl(u32 controlId)
     {
@@ -45,7 +48,7 @@ namespace CosmosUI
                 this->AddControl(2, &this->arrows, 0);
                 arrows.SetRightArrowHandler((PtmfHolder_2A<Page, void, SheetSelectControl *, u32>*)&this->onRightArrowSelectHandler);
                 arrows.SetLeftArrowHandler((PtmfHolder_2A<Page, void, SheetSelectControl *, u32>*)&this->onLeftArrowSelectHandler);
-                arrows.Load("button", "DXCupSelectRightArrow", "ButtonArrowRight", "DXCupSelectLeftArrow", "ButtonArrowLeft", 1, 0, false);
+                arrows.Load("button", "CosmosCupSelectRightArrow", "ButtonArrowRight", "CosmosCupSelectLeftArrow", "ButtonArrowLeft", 1, 0, false);
                 this->controlCount++;
                 return &this->arrows;
             default:

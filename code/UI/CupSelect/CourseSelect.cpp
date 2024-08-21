@@ -34,8 +34,9 @@ namespace CosmosUI
         switch(controlId){
             case 2:
                 this->AddControl(2, &this->arrows, 0);
-                arrows.Load("button", "DXCupSelectRightArrow", "ButtonArrowRight", "DXCupSelectLeftArrow", "ButtonArrowLeft", 1, 0, true);
+                arrows.Load("button", "CosmosCourseSelectRightArrow", "ButtonArrowRight", "CosmosCourseSelectLeftArrow", "ButtonArrowLeft", 1, 0, true);
                 this->controlCount++;
+                CosmosLog("Arrow Pointer: %p\n", &this->arrows);
                 return &this->arrows;
             default:
                 return CourseSelect::CreateControl(controlId);
@@ -136,7 +137,7 @@ namespace CosmosUI
         switch(controlId){
             case 2:
                 this->AddControl(2, &this->arrows, 0);
-                arrows.Load("button", "DXCupSelectRightArrow", "ButtonArrowRight", "DXCupSelectLeftArrow", "ButtonArrowLeft", 1, 0, true);
+                arrows.Load("button", "CosmosVariantSelectRightArrow", "ButtonArrowRight", "CosmosVariantSelectLeftArrow", "ButtonArrowLeft", 1, 0, true);
                 this->controlCount++;
                 return &this->arrows;
             default:
