@@ -58,3 +58,4 @@ loader/security.cpp
 loader/security.hpp
 mwcceppc.exe
 lmgr8c.dll
+license.dat
