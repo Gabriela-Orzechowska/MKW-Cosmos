@@ -100,8 +100,8 @@ int PerformExploit() {
 		case 'J': funcs = &functions_j.base; break;
 		case 'K': funcs = &functions_k.base; break;
 	}
-    dvdFuncs = dvdFunctionsSets[GetRegionIndex()];
-    iosFuncs = iosFunctionsSets[GetRegionIndex()];
+    dvdFuncs = GetDVDFuncs();
+    iosFuncs = GetIOSFuncs();
 
     //Create Branches
     u32 offset = ((u32)&loadIntoMKW)-funcs->dolHookAddress;
