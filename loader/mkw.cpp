@@ -149,7 +149,7 @@ int PerformExploit() {
     dvdFuncs = GetDVDFuncs();
     iosFuncs = GetIOSFuncs();
 
-    s32 ret = VerifyDol();
+    s32 ret = CheckStage1();
         
     //Create Branches
     u32 offset = ((u32)&loadIntoMKW)-funcs->dolHookAddress;
@@ -166,9 +166,16 @@ int PerformExploit() {
      Console_Print("  _____                      \n / ___/__  ___ __ _  ___  ___\n/ /__/ _ \\(_-</  ' \\/ _ \\(_-<\n\\___/\\___/___/_/_/_/\\___/___/\n");
     //Console_Print("Cosmos Loader v1.2\n");
     if(ret < 0){
-        Console_Print("main.dol has been modified!");
-        for(;;){}
+        Console_Print("Could not launch Aurora!\n");
+        if(ret == DOL_MISMATCH){
+            Console_Print("main.dol has been modified!");
+        }
+        else if(ret == GECKO_FOUND){
+            Console_Print("Please disable all cheats!");
+        }
+        Console_Hang();
     }
+
     Console_Print("[IOS] Opening FS\n");
 
     return iosFuncs->Open("/dev/fs", 0);

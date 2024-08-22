@@ -23,7 +23,15 @@ void Console_Render(void* display){
     displayFuncs->StoreCache();
 
     AsyncDisplay_endRender(display);
+    if(shouldHang){
+        for(;;){}
+    }
 }
+
+void Console_Hang(){
+    shouldHang = true;
+}
+
 void Console_Init(loaderFunctions* func) {
     
     displayFuncs = GetDisplayFuncs();
@@ -35,6 +43,7 @@ void Console_Init(loaderFunctions* func) {
 }
 
 void Console_Print(const char* msg) {
+    if(shouldHang) return;
     if(consoleCursor == CONSOLE_BUFFER_SIZE) return;
     for(;*msg; msg++){
         consoleBuffer[consoleCursor++] = *msg;
