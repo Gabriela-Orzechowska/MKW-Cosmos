@@ -1,3 +1,4 @@
+#include "functions.hpp"
 #include <kamekLoader.hpp>
 #include <console.hpp>
 
@@ -249,7 +250,7 @@ static DVDFunctions* dvdFuncs = nullptr;
 void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const char* codePath)
 {
     if(((u32)codeBuf & 0xFF000000) != 0x80000000) codeBuf = nullptr;
-    dvdFuncs = dvdFunctionsSets[GetRegionIndex()];
+    dvdFuncs = GetDVDFuncs();
     static u32 fileLength = 0;
     funcs->OSReport("{Kamek by Treeki}\nLoading Kamek binary '%s'...\n", path);
     bool isDol = false;

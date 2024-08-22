@@ -13,11 +13,12 @@ SET DEFINE=
 %CC% %CFLAGS% -c -o "build/console.o" "console.cpp"
 %CC% %CFLAGS% -c -o "build/kamek.o" "kamekLoader.cpp"
 %CC% %CFLAGS% -c -o "build/security.o" "security.cpp"
+%CC% %CFLAGS% -c -o "build/functions.o" "functions.cpp"
 
 
 :: Link
 echo Linking...
-"../KamekSource/bin/Debug/net6.0/Kamek" "build/mkw.o" "build/security.o" "build/kamek.o" "build/console.o" -static=0x80004000 -output-code=Loader.csld
+"../KamekSource/bin/Debug/net6.0/Kamek" "build/mkw.o" "build/kamek.o" "build/console.o" "build/security.o" "build/functions.o" -static=0x80004000 -output-code=Loader.csld
 
 if %ErrorLevel% equ 0 (
 	del build\*.o

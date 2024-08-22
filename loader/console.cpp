@@ -1,3 +1,4 @@
+#include "functions.hpp"
 #include <console.hpp>
 
 #define CONSOLE_BUFFER_SIZE 1200
@@ -25,7 +26,7 @@ void Console_Render(void* display){
 }
 void Console_Init(loaderFunctions* func) {
     
-    displayFuncs = displayFunctionsSets[GetRegionIndex()];
+    displayFuncs = GetDisplayFuncs();
     loaderFuncs = func;
 
     AsyncDisplay_endRender = (AsyncDisplay_endRender_t) *((u32*)displayFuncs->endRenderAddress);
