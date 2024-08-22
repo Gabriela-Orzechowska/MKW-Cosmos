@@ -4,9 +4,12 @@ import shutil
 import subprocess, shlex
 import sys
 
-CC=r"C:\Program Files (x86)\Freescale\CW for MPC55xx and MPC56xx 2.10\PowerPC_EABI_Tools\Command_Line_Tools\mwcceppc.exe"
+CC="\"mwcceppc.exe\""
 CFLAGS="""-I- -i "engine" -i "include" -i "include/game" -i code -gcc_extensions on -Cpp_exceptions off -enum int -O4,s -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0 -maxerrors 1 -func_align 4 -rtti off"""
-LD = r"KamekSource/bin/Debug/net6.0/Kamek"
+LD = r"./KamekSource/bin/Debug/net6.0/Kamek.exe"
+if(sys.platform == "linux"):
+    LD = r"dotnet ./KamekSource/bin/Debug/net6.0/Kamek.dll"
+    CC="wine \"/WIN_D/Kamek/Cosmos-Engine/mwcceppc.exe\""
 
 OBJECTS = []
 UPDATED_HEADERS = []
@@ -24,7 +27,7 @@ def build(path):
         objectName = f"build/{base[:-2]}.o"
     normalized = path.replace('\\','/');
 
-    command = f"\"{CC}\" {CFLAGS} -c -o {objectName} {normalized}"
+    command = f"{CC} {CFLAGS} -c -o {objectName} {normalized}"
     ret = subprocess.run(shlex.split(command), capture_output = True, text = True)
     print(ret.stdout);
     return ret.stdout == "" 
@@ -41,8 +44,9 @@ def main():
     header_dict = {os.path.basename(file): os.path.getmtime(file) for file in headers}
     i = 1;
     print("Building...")
-    command = f"\"{CC}\" {CFLAGS} -c -o build/kamek.o engine/kamek.cpp"
-    subprocess.run(shlex.split(command))
+    command = f"{CC} {CFLAGS} -c -o build/kamek.o engine/kamek.cpp"
+    os.system(command);
+    # subprocess.run(shlex.split(command))
     print("")
 
     for ret in result:
@@ -94,25 +98,25 @@ def main():
     print("Linking done")
     print("Compressing...")
     
-    if os.path.exists('out/Code.d/'):
-        shutil.rmtree('out/Code.d/')
-    os.mkdir('out/Code.d/')
+    if os.path.exists('./out/Code.d'):
+        shutil.rmtree('./out/Code.d')
+    os.mkdir('./out/Code.d')
 
-    wszst = f"wszst compress out/* -o --dest out/Code.d/"
+    wszst = f"wszst compress ./out/* -o --dest ./out/Code.d/"
     subprocess.run(shlex.split(wszst))
 
-    os.remove("out/Code.d/Code.szs")
+    os.remove("./out/Code.d/Code.szs")
 
-    wszst = f"wszst create out/Code.d -o --dest out/Code.cscd --no-compress"    
+    wszst = f"wszst create ./out/Code.d -o --dest ./out/Code.cscd --no-compress"    
     subprocess.run(shlex.split(wszst))
     shutil.rmtree('out/Code.d/')
 
-    with open(r'out/Code.cscd', 'r+b') as fb:
+    with open(r'./out/Code.cscd', 'r+b') as fb:
         fb.seek(16)
         data = b"\x44\x45\x56\x30"
         fb.write(data)
 
-    shutil.copy(r"out\Code.cscd", r"TestPack\Cosmos\Binaries")
+    shutil.copy(r"./out/Code.cscd", r"./TestPack/Cosmos/Binaries")
 
 
     print("Done")
