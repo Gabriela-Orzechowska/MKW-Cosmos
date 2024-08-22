@@ -22,7 +22,7 @@ extern "C"
     s32 NHTTPSetProxyDefault(NHTTPRequest request); //801d9610
     s32 NHTTPSetVerifyOption(NHTTPRequest request, u32 type); //801d9444
     s32 NHTTPAddHeaderField(NHTTPRequest request, const char* fieldName, const char* fieldValue);
-    s32 NHTTPSendRequestAsync(NHTTPRequest requires);
+    s32 NHTTPSendRequestAsync(NHTTPRequest request);
     s32 NHTTPCancelRequestAsync(int requestId);
     void NHTTPDestroyResponse(NHTTPResponse response);
     s32 NHTTPGetBodyAll(NHTTPResponse response, char** reponseBody);
