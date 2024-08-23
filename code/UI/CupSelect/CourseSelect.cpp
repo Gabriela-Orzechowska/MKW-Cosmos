@@ -172,6 +172,11 @@ namespace CosmosUI
                 icon.frame = 300.0f;
                 icon.isHidden = false;
                 icon.SetMsgId(BMG_GROUPS + this->currentGroup);
+
+                const void* tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, "button/timg/st_battle_icon_flag.tpl", 0);
+                CosmosUI::ChangePaneImage(&icon, "icon", tplPointer);
+                CosmosUI::ChangePaneImage(&icon, "icon_light_01", tplPointer);
+                CosmosUI::ChangePaneImage(&icon, "icon_light_02", tplPointer);
             }
             else
                 icon.isHidden = true;
@@ -180,7 +185,8 @@ namespace CosmosUI
     };
 
     void VariantSelectPlus::SetupButtons(){
-        u32 totalButtonCount = (variant->count) + 1;
+        bool hasRandom = false;
+        u32 totalButtonCount = (variant->count) + hasRandom;
         u32 buttonCount = totalButtonCount - (4 * this->currentSubPage);
         if(buttonCount > 4) buttonCount = 4;
         if(this->subPageCount > 1){
@@ -202,13 +208,13 @@ namespace CosmosUI
             if(i < buttonCount) {
                 button.isHidden = false;
                 button.SetPlayerBitfield(0x1);
-                if((offset + i) == 0){
+                if(hasRandom && ((offset + i) == 0)){
                     button.SetMsgId(0xd72);
                     button.buttonId = this->currentGroup;
                 }
                 else {
-                    button.SetMsgId(BMG_VARIANTS + ((currentSlot & ~0x3000)) * 0x10 + (i-1));
-                    button.buttonId = this->variant->slot[offset + i - 1];
+                    button.SetMsgId(BMG_VARIANTS + ((currentSlot & ~0x3000)) * 0x10 + (i-(int)hasRandom));
+                    button.buttonId = this->variant->slot[offset + i - (int)hasRandom];
                 }
             }
             else {
