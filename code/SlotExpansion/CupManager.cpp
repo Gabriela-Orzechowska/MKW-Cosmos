@@ -41,11 +41,7 @@ namespace Cosmos
 
         if(config->fileVersion != 3) {
             Cosmos::System::Console_Print("[ERR] Invalid config version!\n");
-            #ifdef DEBUG_COSMOS
-            for(;;){}
-            #else
-            Cosmos::Security::KillAllStack();
-            #endif
+            COSMOS_HANG();
         }
 
         this->cupConfig = config;

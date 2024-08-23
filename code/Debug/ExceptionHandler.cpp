@@ -154,11 +154,7 @@ namespace CosmosDebug
             else
                 break;
 
-            #ifdef COSMOS_SECURITY
             u32 sp1Val = Cosmos::Security::GetDemangledAddress(sp[1]);
-            #else
-            u32 sp1Val = sp[1];
-            #endif
 
             Exception_Printf_("%08X:  %08X    %08X: %s\n", spAddr, sp[0], sp1Val, SymbolManager::GetSymbolName(sp1Val));
             sp = (u32 *)*sp;

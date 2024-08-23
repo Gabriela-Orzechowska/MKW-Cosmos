@@ -111,13 +111,20 @@ struct PtmfHolder_3A : PtmfHolderBase_3A<Ret, A1, A2, A3> {
     }
 };
 
-//#define DX_FEATURES
 #define DEBUG_COSMOS
 #define CosmosLog(f, ...) OSReport("[Cosmos:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
 #define CosmosError(f, ...) OSReport("[Cosmos Error:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
 
 #define COSMOS_ASSERT(c) if(!(c)) { OSReport("[Cosmos Assert Failed:%s:%d]" #c, __FILE__, __LINE__); u32 _blackColor = 0; u32 _whiteColor = ~0; OSFatal(&_whiteColor, &_blackColor, "Assertion Failed! " #c); }
 #define COSMOS_ASSERT_NOT_NULL(c) COSMOS_ASSERT(c != nullptr);
+
+#define COSMOS_SECURITY
+
+#if defined(COSMOS_SECURITY) && !defined(DEBUG_COSMOS)
+#define COSMOS_HANG() Cosmos::Security::KillAllStack()
+#else
+#define COSMOS_HANG() for(;;){}
+#endif
 
 #define __COMPILER_VERSION__ "4305_224"
 #define __COSMOS_VERSION__ "v0.1.5"

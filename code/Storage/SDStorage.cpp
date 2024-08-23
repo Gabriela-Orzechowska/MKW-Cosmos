@@ -121,7 +121,7 @@ bool SDStorage::Init()
         return false;
     }
 
-    if(!SD_EnableCard4BitBus){
+    if(!SD_EnableCard4BitBus()){
         SD_Deselect();
         CosmosLog("Unable to enable card 4 bit bus\n");
         return false;
