@@ -155,6 +155,7 @@ namespace CosmosUI
 
         Cosmos::CupManager* manager = Cosmos::CupManager::GetStaticInstance();
         variant = manager->GetVariantStruct(slot);
+        currentSlot = slot;
         COSMOS_ASSERT_NOT_NULL(variant);
         
         this->subPageCount = (variant->count + 3) / 3;
@@ -190,6 +191,7 @@ namespace CosmosUI
             this->arrows.rightArrow.isHidden = true;
             this->arrows.leftArrow.isHidden = true;
         }
+        //TODO Allow hiding Random button
         CtrlMenuCourseSelectCourse& courseSelect = this->ctrlMenuCourseSelectCourse;
         int offset = this->currentSubPage * 4;
         for(int i = 0; i < 4; i++){
@@ -205,7 +207,7 @@ namespace CosmosUI
                     button.buttonId = this->currentGroup;
                 }
                 else {
-                    button.SetMsgId(BMG_TRACKS + variant->slot[offset + i - 1]);
+                    button.SetMsgId(BMG_VARIANTS + ((currentSlot & ~0x3000)) * 0x10 + (i-1));
                     button.buttonId = this->variant->slot[offset + i - 1];
                 }
             }

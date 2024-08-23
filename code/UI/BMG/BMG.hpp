@@ -19,6 +19,7 @@ enum COSMOS_BMG
 
     BMG_TRACKS = 0x7000,
     BMG_GROUPS = 0x7000,
+    BMG_VARIANTS = 0x210000,
 };
 
 

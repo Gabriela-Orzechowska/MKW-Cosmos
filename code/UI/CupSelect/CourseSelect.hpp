@@ -49,6 +49,7 @@ namespace CosmosUI{
             int subPageCount;
             int currentGroup;
             Cosmos::VariantDef* variant;
+            u32 currentSlot;
             PtmfHolder_1A<VariantSelectPlus, void, u32> onRightClick;
             PtmfHolder_1A<VariantSelectPlus, void, u32> onLeftClick;
     };
