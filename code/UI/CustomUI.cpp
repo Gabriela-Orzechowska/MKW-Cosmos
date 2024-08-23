@@ -97,6 +97,19 @@ void ShowCheatsWarningPage(Page& page, u32 id, float animLenght) {
 kmCall(0x8063b04c, ShowCheatsWarningPage);
 
 
+static int FontDotSize = 1;
+
+asm int AdjustFontSize() {
+ASM (
+    nofralloc;
+    lis r6, FontDotSize@ha;
+    lwz r6, FontDotSize@l (r6);
+    mr r0, r6;
+    blr;
+);
+}
+kmCall(0x80022278, AdjustFontSize);
+
 static bool destroyed = false;
 typedef void (*Console_Destroy)();
 void DestroyConsole(){
@@ -107,6 +120,7 @@ void DestroyConsole(){
     Cosmos::Security::LoaderCleanup();
     #endif
     destroyed = true;
+    FontDotSize = 2;
 }
 kmBranch(0x800074a0, DestroyConsole);
 

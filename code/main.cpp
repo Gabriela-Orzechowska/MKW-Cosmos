@@ -337,18 +337,6 @@ namespace Cosmos{
     }
     static BootHook bhMessage(ShowWelcomeMessage, LINK);
     
-    static int FontDotSize = 1;
-
-    asm int AdjustFontSize() {
-    ASM (
-        nofralloc;
-        lis r6, FontDotSize@ha;
-        lwz r6, FontDotSize@l (r6);
-        mr r0, r6;
-        blr;
-    );
-    }
-    kmCall(0x80022278, AdjustFontSize);
 
 
     /*
