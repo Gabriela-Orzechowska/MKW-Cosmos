@@ -15,9 +15,7 @@ inline bool is200() {
 
 void EnableBrakeDrifting()
 {
-    #ifndef DX_FEATURES
     if(!is200()) return;
-    #endif
     for(int i = 0; i < RaceData::GetStaticInstance()->racesScenario.localPlayerCount; i++)
     {
         bool brakeDrift = false;
@@ -53,9 +51,7 @@ static RaceFrameHook CheckBrakeDrift(EnableBrakeDrifting);
 
 bool IsHoldingBrakeDrift(KartStatus * status)
 {
-    #ifndef DX_FEATURES
     if(!is200()) return false;
-    #endif
 
     u32 bitfield0 = status->bitfield0;
     ControllerHolder * holder = status->base->GetControllerHolder();

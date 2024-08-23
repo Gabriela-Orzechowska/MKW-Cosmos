@@ -22,7 +22,7 @@ namespace CosmosUI{
     {
         this->hudSlotId = 0;
         ControlLoader loader(this);
-        loader.Load("game_image", "credits", "info_1", NULL);
+        loader.Load("game_image", "CosmosCredits", "info_1", NULL);
         this->textBox_00 = this->layout.GetPaneByName("TextBox_00");
         u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
         this->SetMsgId(BMGOFFSET + trackId, 0);

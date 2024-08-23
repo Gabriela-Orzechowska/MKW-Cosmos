@@ -50,34 +50,35 @@ namespace CosmosUI {
     // Load UI Elements
         this->title.Load(false);
         
-        this->pageSelector.Load(PAGE_COUNT, 0, "control", "DXSettingPageUpDownBase", "UpDown4", "DXSettingPageUpDownButtonR", "RightButton",
-        "DXSettingPageUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textPageSelector, 1, 0, false, true, true);
-        this->textPageSelector.Load("control", "DXSettingPageUpDownValue", "Value_race", "DXSettingPageUpDownText", "Text_race");
+        this->pageSelector.Load(PAGE_COUNT, 0, "control", "CosmosSettingPageUpDownBase", "UpDown4", "CosmosSettingPageUpDownButtonR", "RightButton",
+        "CosmosSettingPageUpDownButtonL", "LeftButton", (UpDownDisplayedText*) &this->textPageSelector, 1, 0, false, true, true);
 
         if(isRaceMenu)
         {
             this->backButton.Load("message_window", "Back", "ButtonBack", 1, false, true);
             LoadInstructionText(&this->bottomText, "bg", "RaceMenuObiInstructionText", "MenuObiInstructionText");
+
+            this->textPageSelector.Load("control", "CosmosSettingPageUpDownValue", "Value_race", "CosmosSettingPageUpDownText", "Text_race");
         }
         else {
             this->backButton.Load("button", "Back", "ButtonBack", 1, false, true);
             LoadInstructionText(&this->bottomText, "bg", "MenuObiInstructionText", "MenuObiInstructionText");
 
-            this->textPageSelector.Load("control", "DXSettingPageUpDownValue", "Value", "DXSettingPageUpDownText", "Text");
+            this->textPageSelector.Load("control", "CosmosSettingPageUpDownValue", "Value", "CosmosSettingPageUpDownText", "Text");
         }
 
         for(int i = 0; i < SETTINGCONTROLCOUNT; i++){
             char variant[0x20];
             snprintf(variant, 0x20, "UpDown%d%s", i, isRaceMenu ? "_race" : "");
 
-            this->settingSelectors[i].Load(1, 0, "control", "DXSettingsUpDownBase", variant, "DXSettingsUpDownButtonR", isRaceMenu ? "RightButton_race" : "RightButton",
-            "DXSettingsUpDownButtonL", isRaceMenu ? "LeftButton_race" : "LeftButton", (UpDownDisplayedText*) &this->textSettingSelector[i], 1, 0, false, true, true);
+            this->settingSelectors[i].Load(1, 0, "control", "CosmosSettingsUpDownBase", variant, "CosmosSettingsUpDownButtonR", isRaceMenu ? "RightButton_race" : "RightButton",
+            "CosmosSettingsUpDownButtonL", isRaceMenu ? "LeftButton_race" : "LeftButton", (UpDownDisplayedText*) &this->textSettingSelector[i], 1, 0, false, true, true);
             this->settingSelectors[i].id = i;
 
             if(isRaceMenu)
-                this->textSettingSelector[i].Load("control", "DXSettingsUpDownValue", "Value_race", "DXSettingsUpDownText", "Text");
+                this->textSettingSelector[i].Load("control", "CosmosSettingsUpDownValue", "Value_race", "CosmosSettingsUpDownText", "Text");
             else
-                this->textSettingSelector[i].Load("control", "DXSettingsUpDownValue", "Value", "DXSettingsUpDownText", "Text");
+                this->textSettingSelector[i].Load("control", "CosmosSettingsUpDownValue", "Value", "CosmosSettingsUpDownText", "Text");
         }
 
         this->controlsManipulatorManager.SetGlobalHandler(BACK_PRESS, &this->onBackPressHandler, false, false);

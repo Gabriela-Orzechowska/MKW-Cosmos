@@ -47,7 +47,7 @@ namespace CosmosUI{
         "eDecimals2", "texture_pattern_0_9_5",NULL,
         NULL};
 
-        loader.Load("game_image", "speedometer", variant, anims);
+        loader.Load("game_image", "CosmosSpeedometer", variant, anims);
         
         for(int i = 0; i < 6; i++)
         {

@@ -75,11 +75,7 @@ void SetSpeedmod(Kart& kart){
     bool is200 = RaceData::GetStaticInstance()->racesScenario.settings.engineClass == CC_100;
 
     float factor = 1.0f;
-    #ifdef DX_FEATURES
-    if(is200) factor = 1.1f;
-    #else
     if(is200) factor = 1.5f;
-    #endif
 
     u32 mod = KMP::Controller::GetStaticInstance()->stageInfo->pointArray[0]->raw->speedMod;
     mod = mod << 16;
