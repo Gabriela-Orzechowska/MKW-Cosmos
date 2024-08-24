@@ -126,6 +126,7 @@ namespace Cosmos
         u32 lastSelectedCourse;
         u32 lastSelectedCup;
         u32 lastSelectedButton;
+        u32 lastSelectedGroup;
 
         u32* currentLayoutArray;
         u8 dontUpdateCourseSelectCourse;

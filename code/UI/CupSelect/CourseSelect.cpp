@@ -120,10 +120,14 @@ namespace CosmosUI
         if(page->isFocused()){
             if(Cosmos::isGroupSlot(trackIndex)){
                 variantSelect->SetupPage(trackIndex);
-                Cosmos::CupManager::GetStaticInstance()->lastSelectedCourse = (trackIndex);
+                Cosmos::CupManager::GetStaticInstance()->lastSelectedGroup = (trackIndex);
+                Cosmos::CupManager::GetStaticInstance()->lastSelectedCourse = -1U;
                 page->LoadNextPageWithDelayById((PageId)Cosmos::VARIANT_SELECT,0.0f);
             }
-            else page->LoadNextPage(&course, &button, hudSlotId);
+            else {
+                Cosmos::CupManager::GetStaticInstance()->lastSelectedGroup = -1;
+                page->LoadNextPage(&course, &button, hudSlotId);
+            }
         }
         else if(variantSelect->isFocused()){
             variantSelect->LoadNextPage(&course, &button, hudSlotId);

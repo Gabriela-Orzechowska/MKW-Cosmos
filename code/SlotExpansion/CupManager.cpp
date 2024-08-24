@@ -18,7 +18,7 @@ namespace Cosmos
     CupManager * CupManager::sInstance = nullptr;
 
     CupManager::CupManager() : winningCourse(0), lastSelectedButton(0), lastSelectedCourse(0), lastSelectedCup(0), dontUpdateCourseSelectCourse(0),
-    currentTrackBlockIndex(0)
+    currentTrackBlockIndex(0), lastSelectedGroup(0)
     {
         if(CupManager::sInstance != nullptr) return;
         CupManager::sInstance = this;

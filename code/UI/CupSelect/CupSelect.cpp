@@ -231,9 +231,10 @@ namespace CosmosUI
 
         u32 cupId = manager->lastSelectedCup;
         bool selected = false;
+        CosmosLog("Looking for: %04x\n%04x\n", manager->lastSelectedCourse, manager->lastSelectedGroup);
         for(int i = 0; i < 4; i++)
         {
-            int slot = manager->currentLayoutArray[cupId * 4 + i];
+            int slot = manager->GetCurrentTrackList()[cupId * 4 + i];
             course->courseButtons[i].buttonId = slot;
             if(Cosmos::isCTSlot(slot))
                 course->courseButtons[i].SetMsgId(slot + BMG_TRACKS);
@@ -244,7 +245,8 @@ namespace CosmosUI
 
             if(manager->dontUpdateCourseSelectCourse == 0)
             {
-                if(slot == manager->lastSelectedCourse){
+                CosmosLog("Slot: %04x\n", slot);
+                if(slot == manager->lastSelectedCourse || slot == manager->lastSelectedGroup){
                     coursePage->SelectButton(&course->courseButtons[i]);
                     selected = true;
                 }
