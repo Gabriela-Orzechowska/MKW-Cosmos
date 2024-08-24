@@ -5,6 +5,7 @@
 #include <game/UI/MenuData/MenuData.hpp>
 #include <SlotExpansion/CupManager.hpp>
 #include <UI/CupSelect/CupSelect.hpp>
+#include <game/Sound/SoundId.hpp>
 #include <main.hpp>
 
 namespace CosmosUI{
@@ -16,9 +17,11 @@ namespace CosmosUI{
             SheetSelectControl arrows;
 
             static inline CourseSelectPlus* GetPage() { return MenuData::GetStaticInstance()->GetPage<CourseSelectPlus>(COURSE_SELECT); }
+            void SkipAnimation() { skipNextAnim = true; }
 
         protected:
             //void OnActivate() override;
+            void BeforeEntranceAnimations() override;
 
             void OnButtonClick(s32 hudSlotId, PushButton& button);
             void OnRightClick(u32 slotId) { this->SlideCup(1); }
@@ -27,6 +30,7 @@ namespace CosmosUI{
 
             PtmfHolder_1A<CourseSelectPlus, void, u32> onRightClick;
             PtmfHolder_1A<CourseSelectPlus, void, u32> onLeftClick;
+            bool skipNextAnim;
     };
 
     class VariantSelectPlus : public Pages::CourseSelect{

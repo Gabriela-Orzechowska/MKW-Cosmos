@@ -66,7 +66,7 @@ public:
     void EndEntrance(); //806029f4
     void StartExit(); //80602b04
     void EndExit(); //80602c40 
-    void PlaySound(u32 soundId, u32 r5); //80602cf8
+    void PlaySound(u32 soundId, s32 r5); //80602cf8
     static Page* GetPageById(PageId type);
 
     inline bool isFocused(){
