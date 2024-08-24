@@ -1,5 +1,7 @@
 #include "Settings/UserData.hpp"
 #include "UI/BMG/BMG.hpp"
+#include "UI/Ctrl/Menu/CtrlMenuCup.hpp"
+#include "UI/Ctrl/PushButton.hpp"
 #include "UI/CupSelect/CourseSelect.hpp"
 #include "UI/Page/Page.hpp"
 #include "kamek.hpp"
@@ -127,16 +129,19 @@ namespace CosmosUI
             u32 id = i < 4 ? i * 2 : ((i-4) * 2) + 1;
             this->ctrlMenuCupSelectCup.cupButtons[i].buttonId = id;
         }
+
         return;
     }
 
     void CupSelectPlus::OnActivate()
     {
+        u32 sorting = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_SORTING);
+        Cosmos::CupManager::GetStaticInstance()->SetTrackLayout((Cosmos::CupManager::TrackSorting) sorting);
         u32 cupCupId = Cosmos::CupManager::GetStaticInstance()->lastSelectedCup;
         this->ctrlMenuCupSelectCup.curCupID = cupCupId;
         Pages::CupSelect::OnActivate();
         lefttemp = 0;
-        this->bottomText->SetMsgId(0x2810 + (u32)currentLayout);
+        this->bottomText->SetMsgId(0x2810 + sorting);
         this->ctrlMenuCupSelectCourse.UpdateTrackList(this->ctrlMenuCupSelectCup.curCupID);
         //ExtendCupSelectCupInitSelf(&this->ctrlMenuCupSelectCup);
     }
@@ -149,9 +154,18 @@ namespace CosmosUI
         sorting ^= 1;
         holder->SetSettingValue(sorting, Cosmos::Data::COSMOS_SETTING_SORTING);
 
-        Cosmos::CupManager::GetStaticInstance()->SetTrackLayout((Cosmos::CupManager::TrackSorting) sorting);
+        Cosmos::CupManager* manager = Cosmos::CupManager::GetStaticInstance();
+        manager->SetTrackLayout((Cosmos::CupManager::TrackSorting) sorting);
+        manager->lastSelectedCup = this->ctrlMenuCupSelectCup.curCupID;
+        for(int i = 0; i < 8; i++){
+            if(this->ctrlMenuCupSelectCup.curCupID == this->ctrlMenuCupSelectCup.cupButtons[i].buttonId){
+                manager->lastSelectedButton = i;
+                break;
+            }
+        }
+        this->bottomText->SetMsgId(0x2810 + sorting);
 
-        if(sorting & 0x1)
+        if(sorting == Cosmos::Data::SORTING_ALPHABETICAL)
         {
             PageId lastPage = this->prevPageId;
             this->LoadNextPageWithDelayById(CUP_SELECT, 0.0f);
@@ -244,7 +258,7 @@ namespace CosmosUI
     }
     kmWritePointer(0x808d30d8, ExtendCourseSelectCourseInitSelf);
 
-    void UpdateSelection(CupSelectPlus& page, CtrlMenuCupSelectCup * cups, PushButton *button, u32 slotId)
+    void CupSelectPlus::UpdateSelection(CtrlMenuCupSelectCup * cups, PushButton *button, u32 slotId)
     {
         lastLeftCup = cups->cupButtons[0].buttonId;
         lefttemp = 0;
@@ -257,10 +271,15 @@ namespace CosmosUI
             }
         }
         RaceData::GetStaticInstance()->menusScenario.GetSettings().cupId = lastSelectedCup & 0x7;
-        page.LoadNextPage(cups, button, slotId);
+        this->LoadNextPage(cups, button, slotId);
         Cosmos::CupManager::GetStaticInstance()->lastSelectedCup = lastSelectedCup;
 
     }
+
+    void UpdateSelection(CupSelectPlus& page, CtrlMenuCupSelectCup* cups, PushButton* button, u32 slotId){
+        page.UpdateSelection(cups,button,slotId);
+    }
+
     kmCall(0x807e5da8, UpdateSelection);
 
     //Disable THP

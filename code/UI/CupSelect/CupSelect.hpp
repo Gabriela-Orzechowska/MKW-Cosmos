@@ -45,6 +45,7 @@ namespace CosmosUI
             static void ChangeTPL(LayoutUIControl * ctrl, u32 id);
             UIControl * CreateControl(u32 controlId) override;
 
+            void UpdateSelection(CtrlMenuCupSelectCup* cups, PushButton *button, u32 slotId);
             static inline CupSelectPlus* GetPage() { return MenuData::GetStaticInstance()->GetPage<CupSelectPlus>(CUP_SELECT); }
         private:
             void OnSwitchPress(u32 slotId);
