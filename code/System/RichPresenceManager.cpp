@@ -1,3 +1,4 @@
+#include "Debug/IOSDolphin.hpp"
 #include <System/RichPresenceManager.hpp>
 #include <core/System/RKSystem.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
@@ -288,6 +289,7 @@ void RPCSectionChange()
     }
     presence.details = message;
     presence.state = status;
+    presence.startTimestamp = IOS::Dolphin::GetSystemTime();
     manager->UpdateStatus();
     return;
 }
