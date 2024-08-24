@@ -87,7 +87,7 @@ namespace Cosmos
         {
             COSMOS_LANGUAGE_SETTINGS = 0x0,
             COSMOS_FAST_MENUS,
-            COSMOS_LAYOUT,
+            COSMOS_SORTING,
         };
 
         enum DEBUG_SETTINGS
@@ -109,8 +109,8 @@ namespace Cosmos
 
         enum LAYOUT_SETTINGS 
         {
-            LAYOUT_DEFAULT = 0x0,
-            LAYOUT_ALPHABETICAL,
+            SORTING_DEFAULT = 0x0,
+            SORTING_ALPHABETICAL,
         };
 
         enum MUSIC_CUTOFF_OPTIONS
@@ -183,7 +183,7 @@ namespace Cosmos
 
             COSMOS_SETTING_LANGUAGE_SETTINGS = COSMOS_LANGUAGE_SETTINGS + (COSMOS_MENU_SETTINGS_1 * 8),
             COSMOS_SETTING_FAST_MENUS = COSMOS_FAST_MENUS + (COSMOS_MENU_SETTINGS_1 * 8),
-            COSMOS_SETTING_LAYOUT = COSMOS_LAYOUT + (COSMOS_MENU_SETTINGS_1 * 8),
+            COSMOS_SETTING_SORTING = COSMOS_SORTING + (COSMOS_MENU_SETTINGS_1 * 8),
 
             COSMOS_SETTING_DWC_LOGS = COSMOS_DWC_LOGS + (COSMOS_DEBUG_SETTINGS * 8),
             COSMOS_SETTING_PERFORMANCE_MONITOR = COSMOS_PERFORMANCE_MONITOR + (COSMOS_DEBUG_SETTINGS * 8),
@@ -229,7 +229,7 @@ namespace Cosmos
                 .settingCount = 3,
                 .settings = {{.optionCount = 12, .isBool = false, .defaultValue = NO_CHANGE}, // Language //TODO REENABLE KOREAN
                              {.optionCount = 2, .isBool = true, .defaultValue = ENABLED},
-                             {.optionCount = 2, .isBool = false, .defaultValue = LAYOUT_DEFAULT}},
+                             {.optionCount = 2, .isBool = false, .defaultValue = SORTING_DEFAULT}},
             },
             {
                 // Debug

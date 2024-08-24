@@ -60,16 +60,12 @@ namespace Cosmos
         if(Cosmos::isGroupSlot(this->lastSelectedCourse)) this->winningCourse = this->GetRandomVariantTrack(this->lastSelectedCourse);
     }
 
-    void CupManager::SetTrackLayout(TrackLayout layout)
+    void CupManager::SetTrackLayout(TrackSorting layout, u32 trackList)
     {
-        this->currentLayout = (LayoutDef*)offsetFrom(this->cupConfig, this->cupConfig->offToLayouts[layout]);
+        this->currentLayout = (LayoutDef*)offsetFrom(this->cupConfig, this->cupConfig->offToLayouts[trackList * 2 + layout]);
         this->currentLayoutArray = this->currentLayout->slots;
 
-        p_tracklist1 = 0x3ca00000 | (((u32)this->currentLayoutArray) >> 16);
-        p_tracklist2 = 0x60a50000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
-
-        p_tracklist1_2 = 0x3fc00000 | (((u32)this->currentLayoutArray) >> 16);
-        p_tracklist2_2 = 0x63de0000 | (((u32)this->currentLayoutArray) & 0x0000FFFF);
+        CosmosLog("Tracklist Pointer: %p\n", this->currentLayoutArray); 
     }
 
     int CupManager::GetCurrentMusicSlot() const

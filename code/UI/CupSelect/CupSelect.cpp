@@ -1,3 +1,4 @@
+#include "Settings/UserData.hpp"
 #include "UI/BMG/BMG.hpp"
 #include "UI/CupSelect/CourseSelect.hpp"
 #include "UI/Page/Page.hpp"
@@ -5,12 +6,36 @@
 #include <UI/CupSelect/CupSelect.hpp>
 #include <game/UI/Ctrl/Menu/CtrlMenuCourse.hpp>
 #include <SlotExpansion/CupManager.hpp>
+#include <SlotExpansion/SlotExpansion.hpp>
 
 namespace CosmosUI
 {
     void ExtendCupSelectCupInitSelf(CtrlMenuCupSelectCup * cups);
     static s32 lefttemp = 0;
 
+
+    void CupSelectCourseUpdate(CtrlMenuCupSelectCourse& course, int cupId){
+        for(int i = 0; i < 4; i++){
+           LayoutUIControl& trackName = course.trackNames[i]; 
+            trackName.SetMsgId(GetCorrectTrackBMG(Cosmos::CupManager::GetStaticInstance()->GetCurrentTrackList()[cupId * 4 + i]));
+        }
+    }
+    kmBranch(0x807e5ff0, CupSelectCourseUpdate);
+
+    void CupSelectCourseInit(CtrlMenuCupSelectCourse& course){
+        int cupId = CupSelectPlus::GetPage()->ctrlMenuCupSelectCup.curCupID;
+        for(int i = 0; i < 4; i++){
+           LayoutUIControl& trackName = course.trackNames[i]; 
+            trackName.SetMsgId(GetCorrectTrackBMG(Cosmos::CupManager::GetStaticInstance()->GetCurrentTrackList()[cupId * 4 + i]));
+            trackName.SetPaneVisible("waku_null", false);
+            trackName.animator.GetAnimationGroupById(0)->PlayAnimationAtFrame(0, 0.0f);
+            trackName.animator.GetAnimationGroupById(1)->PlayAnimationAtFrame(0, 0.0f);
+            trackName.animator.GetAnimationGroupById(2)->PlayAnimationAtFrame(1, 0.0f);
+            trackName.animator.GetAnimationGroupById(3)->PlayAnimationAtFrame(1, 0.0f);
+        }
+        course.zIndex = 10.0f;
+    }
+    kmBranch(0x807e60dc, CupSelectCourseInit);
 
     CupSelectPlus * CreateCupPage()
     {
@@ -107,24 +132,26 @@ namespace CosmosUI
 
     void CupSelectPlus::OnActivate()
     {
-        this->ctrlMenuCupSelectCup.curCupID = Cosmos::CupManager::GetStaticInstance()->lastSelectedCup;
+        u32 cupCupId = Cosmos::CupManager::GetStaticInstance()->lastSelectedCup;
+        this->ctrlMenuCupSelectCup.curCupID = cupCupId;
         Pages::CupSelect::OnActivate();
         lefttemp = 0;
         this->bottomText->SetMsgId(0x2810 + (u32)currentLayout);
+        this->ctrlMenuCupSelectCourse.UpdateTrackList(this->ctrlMenuCupSelectCup.curCupID);
         //ExtendCupSelectCupInitSelf(&this->ctrlMenuCupSelectCup);
     }
 
     void CupSelectPlus::OnSwitchPress(u32 slotId)
     {        
-        currentLayout = static_cast<CUP_LAYOUT>(((u32)currentLayout) ^ 0x1);
+        Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetStaticInstance();
+        COSMOS_ASSERT_NOT_NULL(holder);
+        u32 sorting = holder->GetSettingValue(Cosmos::Data::COSMOS_SETTING_SORTING);
+        sorting ^= 1;
+        holder->SetSettingValue(sorting, Cosmos::Data::COSMOS_SETTING_SORTING);
 
-        DVDFileInfo fileHandle;
-        char * filepath = "/bin/cup2.bin";
+        Cosmos::CupManager::GetStaticInstance()->SetTrackLayout((Cosmos::CupManager::TrackSorting) sorting);
 
-        char buffer[0x20] __attribute__ ((aligned(0x20)));
-
-        
-        if(((u32)currentLayout) & 0x1)
+        if(sorting & 0x1)
         {
             PageId lastPage = this->prevPageId;
             this->LoadNextPageWithDelayById(CUP_SELECT, 0.0f);
@@ -139,7 +166,6 @@ namespace CosmosUI
     s32 AddLastLeft(s32 l){
         lastLeftCup += l;
         return 0;
-
 
         lefttemp += l;
         if(lefttemp > 1) {
@@ -175,6 +201,7 @@ namespace CosmosUI
         }
     }
     kmWritePointer(0x808d324c, ExtendCupSelectCupInitSelf);
+
 
     void ExtendCourseSelectCourseInitSelf(CtrlMenuCourseSelectCourse* course)
     {
@@ -324,12 +351,4 @@ namespace CosmosUI
         return;
     }
     kmBranch(0x807e4740, PatchCourseSelectCup);
-
-    void FixCourseSelectCup()
-    {
-        extern u32 p_courseSelectCupId;
-        Cosmos::CreateCall((u32)&p_courseSelectCupId, asmCorrectCourseSelectCup);
-    }
-    static LeCodeLoadHook lclhFixCourseSelectCup(FixCourseSelectCup);
-
 }
