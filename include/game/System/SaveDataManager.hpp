@@ -88,6 +88,16 @@ public:
 
     inline Rating* GetVr() { return &this->vr; } //80547480
     inline Rating* GetBr() { return &this->br; } //805474a8
+                                                 
+    enum Modes {
+        VS_SINGLE,
+        VS_MULTI,
+        BATTLE_SINGLE,
+        BATTLE_MULTI,
+    };
+
+    inline u32 GetSettingsValue(u32 mode, u32 option) { return settings[mode][option]; }
+    inline void SetSettingValue(u32 mode, u32 option, u32 value) { settings[mode][option] = value; }
 
     wchar_t miiName[10];
     u8 unknown_0x14[2];
@@ -108,9 +118,11 @@ public:
 
     Rating vr;
     Rating br;
-    u8 unknown_0x9024[0x93f0-0x9024];
-
-
+    u8 unknown_0x9024[0x9124-0x9024];
+    u32 driftMode;
+    u32 settings[4][5];
+    u32 raceCountSettings[4];
+    u8 unknown_0x9178[0x93f0-0x9188];
 }; //total size 0x93F0
 static_assert(sizeof(LicenseManager) == 0x93f0, "LicenseManager");
 

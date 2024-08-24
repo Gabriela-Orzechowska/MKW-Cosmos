@@ -24,6 +24,8 @@
  2A02   = Menu (1/1)
  2A03   = Debug
  2A04   = Host
+ 2A05   = VS (1/2)
+ 2A05   = VS (2/2)
 
  2A20   = Manage your settings!
  2A21   = Manage your Race settings!

@@ -20,7 +20,8 @@ public:
 	u8 unknown_0x0[0x60];
 	u32 raceNumber; //0x60
 	u32 vsRaceCount;  //0x64
-	u8 unknown_0x68[0x78 - 0x68];
+	u8 unknown_0x68[0x74- 0x68];
+    u32 vehicleRestriction;
     CourseId vsTracks[32]; //0x78
     u32 vsRaceLimit; //0xf8 based on unlocked cups
     u8 unknown_0xfc[0x124-0xfc];

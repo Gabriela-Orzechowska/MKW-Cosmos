@@ -1,3 +1,4 @@
+#include "Settings/UserData.hpp"
 #include <UI/Settings/NewSettingsPage.hpp>
 #include <Ghost/GhostManager.hpp>
 
@@ -148,6 +149,7 @@ namespace CosmosUI {
             selector.SelectInitial(settingCount, setting);
             
             selector.SetMsgId(BMG_SETTING_FIELD + 0x100*page + 0x10*i);
+            if(definition.settings[i].nameBmg != 0) selector.SetMsgId(definition.settings[i].nameBmg);
 
             selector.curSelectedOption = setting;
             selector.optionsCount = definition.settings[i].optionCount;
@@ -155,6 +157,9 @@ namespace CosmosUI {
             u32 bmgId = BMG_SETTING_OPTION | ((page) << 8) | (i << 4);
             if(definition.settings[i].isBool)
                 bmgId = BMG_ENABLED_DISABLED;
+            else if(definition.settings[i].firstOptionBmg != 0)
+                bmgId = definition.settings[i].firstOptionBmg;
+
             bmgId += setting;
             textControl.activeTextValueControl->SetMsgId(bmgId);
         }
@@ -174,13 +179,18 @@ namespace CosmosUI {
         u32 id = control->id;
         TextUpDownValueControl& textControl = this->textSettingSelector[id];
 
-        u32 bmg = BMG_SETTING_OPTION + ((this->currentPage << 8) + (id << 4) + option);
+        Cosmos::Data::SettingPageOption* def = &Cosmos::Data::GlobalSettingDefinitions[this->currentPage].settings[id];
+
+        u32 bmg = 0;
+        if(def->firstOptionBmg != 0) bmg = def->firstOptionBmg + option;
+        else bmg = BMG_SETTING_OPTION + ((this->currentPage << 8) + (id << 4) + option);
+
         u32 bottomBmg = bmg - BMG_SETTING_OPTION + BMG_SETTING_OPTION_BOTTOM;
+        if(def->firstDescBmg != 0) bottomBmg = def->firstDescBmg + option;
+
         if(Cosmos::Data::GlobalSettingDefinitions[this->currentPage].settings[id].isBool)
             bmg = BMG_ENABLED_DISABLED + option;
         textControl.activeTextValueControl->SetMsgId(bmg);
-
-        
 
         Cosmos::Data::SettingsHolder::GetStaticInstance()->SetSettingValue(option, this->currentPage, id); 
         SettingsValueUpdateHook::exec(this->currentPage * 8 + id);
@@ -190,6 +200,9 @@ namespace CosmosUI {
     void NewSettings::OnValueControlClick(UpDownControl* upDownControl, u32 hudSlotId) {}
     void NewSettings::OnValueControlSelect(UpDownControl* upDownControl, u32 hudSlotId) {
         u32 bmg = BMG_SETTING_OPTION_BOTTOM + ((this->currentPage << 8) + (upDownControl->id << 4) + upDownControl->curSelectedOption);
+        Cosmos::Data::SettingPageDefinition& definition = Cosmos::Data::GlobalSettingDefinitions[this->currentPage];
+        if(definition.settings[upDownControl->id].firstDescBmg != 0)
+            bmg = definition.settings[upDownControl->id].firstDescBmg + upDownControl->curSelectedOption;
         this->bottomText.SetMsgId(bmg);
     }
 

@@ -1,3 +1,7 @@
+#include "System/identifiers.hpp"
+#include "UI/MenuData/MenuData.hpp"
+#include "UI/Page/Menu/VSModeSelect.hpp"
+#include "UI/Settings/NewSettingsPage.hpp"
 #include "core/gamespy/gamespy.hpp"
 #include "hooks.hpp"
 #include <kamek.hpp>
@@ -162,4 +166,60 @@ void SendOpenHostSetting() {
     return;
 }
 kmWritePointer(0x808bfe84, SendOpenHostSetting);
+
+void SetLicenseSettings(LicenseManager& license, LicenseManager::Modes mode)
+{
+    Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetStaticInstance();
+    license.settings[0][mode] = holder->GetSettingValue(COSMOS_SETTING_VS_CLASS);
+    license.settings[1][mode] = holder->GetSettingValue(COSMOS_SETTING_VS_CPU);
+    license.settings[2][mode] = holder->GetSettingValue(COSMOS_SETTING_VS_VEHICLES);
+    license.settings[3][mode] = holder->GetSettingValue(COSMOS_SETTING_VS_COURSES);
+    license.settings[4][mode] = holder->GetSettingValue(COSMOS_SETTING_VS_ITEMS);
+}
+
+const u8 raceCounts[8] = {2, 4, 8, 12, 16, 32, 64};
+void ApplyVSSettings(){
+    LicenseManager& license = SaveDataManager::GetStaticInstance()->GetCurrentLicense();
+    Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetStaticInstance();
+
+    SetLicenseSettings(license, LicenseManager::VS_SINGLE);
+    SetLicenseSettings(license, LicenseManager::VS_MULTI);
+
+    GlobalContext* context = MenuData::GetStaticInstance()->GetCurrentContext();
+    RacedataScenario& scenario = RaceData::GetStaticInstance()->menusScenario;
+    
+    u32 engine = holder->GetSettingValue(Cosmos::Data::COSMOS_SETTING_VS_CLASS);
+    scenario.settings.engineClass = (EngineClass) engine;
+    if(engine == Cosmos::Data::VS_CLASS_MIRROR){
+        scenario.settings.engineClass = CC_150;
+        scenario.settings.modeFlags |= 1;
+    }
+    else scenario.settings.modeFlags &= ~1;
+
+    scenario.settings.cpuMode = (CpuMode) holder->GetSettingValue(Cosmos::Data::COSMOS_SETTING_VS_CPU);
+    scenario.settings.itemMode = (ItemMode) holder->GetSettingValue(Cosmos::Data::COSMOS_SETTING_VS_ITEMS);
+
+    u32 restriction = holder->GetSettingValue(Cosmos::Data::COSMOS_SETTING_VS_VEHICLES); 
+    switch(restriction){
+        case 0:
+            context->vehicleRestriction = 2; break;
+        case 1:
+            context->vehicleRestriction = 0; break;
+        default:
+            context->vehicleRestriction = 1; break;
+    }
+    context->vsRaceCount = raceCounts[holder->GetSettingValue(Cosmos::Data::COSMOS_SETTING_VS_RACES)];
+}
+kmBranch(0x808529f8, ApplyVSSettings);
+
+void OpenSettingsOnVS(Pages::VSModeSelect* menu, u32, PushButton& button){
+    CosmosUI::NewSettings* page = CosmosUI::NewSettings::GetPage();
+    COSMOS_ASSERT_NOT_NULL(page);
+
+    page->SetNextSettingPage(Cosmos::Data::COSMOS_VS_SETTINGS_1);
+    page->SetPreviousPage(VS_MODE_SELECT, SINGLE_PLAYER_FROM_MENU);
+    menu->LoadNextPageWithDelayById((PageId)Cosmos::SETTINGS_MAIN, 0.0f);
+}
+kmCall(0x80852ab4, OpenSettingsOnVS);
+
 

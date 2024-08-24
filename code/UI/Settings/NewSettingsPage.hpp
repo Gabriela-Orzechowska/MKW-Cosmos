@@ -1,4 +1,5 @@
 #pragma once
+#include "main.hpp"
 #include <kamek.hpp>
 #include <game/UI/Page/Page.hpp>
 #include <game/UI/Ctrl/UpDown.hpp>
@@ -20,13 +21,15 @@ namespace CosmosUI
         void OnUpdate() override;
         PageId GetNextPage() const override { return this->returnPage; }
 
+        static inline NewSettings* GetPage() { return MenuData::GetStaticInstance()->GetPage<NewSettings>((PageId)Cosmos::SETTINGS_MAIN); }
         static void SetPreviousPageGlobal(PageId id, MenuId menu){
-            NewSettings* page = MenuData::GetStaticInstance()->curScene->Get<NewSettings>((PageId)Cosmos::SETTINGS_MAIN);
+            NewSettings* page = NewSettings::GetPage();
             if(page != nullptr){
                 page->SetPreviousPage(id, menu);
             }
         }
         void SetPreviousPage(PageId id, MenuId menu) { this->returnPage = id; this->returnMenu = menu; }
+        void SetNextSettingPage(u32 page) { this->currentPage = page; }
         MenuId GetPreviousMenu() const { return this->returnMenu; }
 
     private:
