@@ -1,3 +1,4 @@
+#include "Sound/SoundId.hpp"
 #include "System/Identifiers.hpp"
 #include "UI/BMG/BMG.hpp"
 #include "main.hpp"
@@ -27,6 +28,7 @@ namespace CosmosUI
 
         this->controlsManipulatorManager.SetGlobalHandler(RIGHT_PRESS, (PtmfHolder_1A<Page, void, u32>*)&onRightClick, false, false);
         this->controlsManipulatorManager.SetGlobalHandler(LEFT_PRESS, (PtmfHolder_1A<Page, void, u32>*)&onLeftClick, false, false);
+        skipNextAnim = false;
     }
 
     UIControl * CourseSelectPlus::CreateControl(u32 controlId)
@@ -95,6 +97,19 @@ namespace CosmosUI
         ExtendCourseSelectCourseInitSelf(&this->ctrlMenuCourseSelectCourse);
     }
 
+    void CourseSelectPlus::BeforeEntranceAnimations(){
+        Pages::CourseSelect::BeforeEntranceAnimations();
+        if(!skipNextAnim) return;
+        for(int i = 0; i < 8; i++){
+            CtrlMenuCourseSelectCupSub& icon = this->ctrlMenuCourseSelectCup.cupIcons[i];
+            if(icon.selected) {
+                icon.frame = 300.0f;
+            }
+        }
+        skipNextAnim = false;
+        this->PlaySound(Sound::SE_UI_PAGE_PREV, -1);
+    }
+
     void OnCourseButtonClickOverride(CtrlMenuCourseSelectCourse& course, PushButton& button, s32 hudSlotId){
         CourseSelectPlus* page = CourseSelectPlus::GetPage();
         VariantSelectPlus* variantSelect = VariantSelectPlus::GetPage();
@@ -105,10 +120,14 @@ namespace CosmosUI
         if(page->isFocused()){
             if(Cosmos::isGroupSlot(trackIndex)){
                 variantSelect->SetupPage(trackIndex);
-                Cosmos::CupManager::GetStaticInstance()->lastSelectedCourse = (trackIndex);
+                Cosmos::CupManager::GetStaticInstance()->lastSelectedGroup = (trackIndex);
+                Cosmos::CupManager::GetStaticInstance()->lastSelectedCourse = -1U;
                 page->LoadNextPageWithDelayById((PageId)Cosmos::VARIANT_SELECT,0.0f);
             }
-            else page->LoadNextPage(&course, &button, hudSlotId);
+            else {
+                Cosmos::CupManager::GetStaticInstance()->lastSelectedGroup = -1;
+                page->LoadNextPage(&course, &button, hudSlotId);
+            }
         }
         else if(variantSelect->isFocused()){
             variantSelect->LoadNextPage(&course, &button, hudSlotId);
@@ -146,6 +165,7 @@ namespace CosmosUI
     };
 
     void VariantSelectPlus::OnBackPressNew(u32 hudSlotId){
+        CourseSelectPlus::GetPage()->SkipAnimation();
         this->LoadPrevPageWithDelayById(COURSE_SELECT, 0.0f);
     }
 

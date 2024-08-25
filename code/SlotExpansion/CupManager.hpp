@@ -69,7 +69,7 @@ namespace Cosmos
 
     class CupManager
     {
-        enum TrackLayout {
+        enum TrackSorting {
             DEFAULT,
             ALPHABETICAL,
         };
@@ -99,6 +99,7 @@ namespace Cosmos
             if(isGroupSlot(ret)) ret = this->GetRandomVariantTrack(slot);
             return ret;
         }
+        u32* GetCurrentTrackList() const { return currentLayoutArray; }
 
         int GetRandomTrack() const;
         int GetRandomSlot() const;
@@ -117,7 +118,7 @@ namespace Cosmos
             return &def[slot];
         }
         
-        void SetTrackLayout(TrackLayout layout);
+        void SetTrackLayout(TrackSorting sorting, u32 trackList = 0);
         
         bool IsInBlocking(int track) const;
 
@@ -125,13 +126,13 @@ namespace Cosmos
         u32 lastSelectedCourse;
         u32 lastSelectedCup;
         u32 lastSelectedButton;
+        u32 lastSelectedGroup;
 
-
-        u32 * currentLayoutArray;
+        u32* currentLayoutArray;
         u8 dontUpdateCourseSelectCourse;
         private:
-        static CupManager * sInstance;
-        CupConfig * cupConfig;
+        static CupManager* sInstance;
+        CupConfig* cupConfig;
         LayoutDef* currentLayout;
         Track* definitions;
         u32 trackBlocking[TRACK_BLOCK_COUNT];

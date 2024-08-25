@@ -63,7 +63,7 @@ namespace Cosmos
     namespace Data
     {
 
-#define SettingsVersion 8
+#define SettingsVersion 9
 
         enum SETTINGSPAGES
         {
@@ -71,6 +71,8 @@ namespace Cosmos
             COSMOS_MENU_SETTINGS_1,
             COSMOS_DEBUG_SETTINGS,
             COSMOS_HOST_SETTINGS_1,
+            COSMOS_VS_SETTINGS_1,
+            COSMOS_VS_SETTINGS_2,
         };
 
         enum RACE_SETTINGS_1_SETTINGS
@@ -87,7 +89,7 @@ namespace Cosmos
         {
             COSMOS_LANGUAGE_SETTINGS = 0x0,
             COSMOS_FAST_MENUS,
-            COSMOS_LAYOUT,
+            COSMOS_SORTING,
             AURORA_MENU_THEME,
         };
 
@@ -108,10 +110,24 @@ namespace Cosmos
             COSMOS_RACE_COUNT,
         };
 
+        enum VS_SETTINGS {
+            COSMOS_VS_CLASS = 0x0,
+            COSMOS_VS_CPU,
+            COSMOS_VS_VEHICLES,
+            COSMOS_VS_COURSES,
+            COSMOS_VS_ITEMS,
+            COSMOS_VS_RACES,
+        };
+
+        enum COSMOS_VS_SETTINGS {
+            COSMOS_VS_MEGA_CLOUD = 0x0,
+            COSMOS_VS_ALL_ITEMS_CAN_LAND,
+        };
+
         enum LAYOUT_SETTINGS 
         {
-            LAYOUT_DEFAULT = 0x0,
-            LAYOUT_ALPHABETICAL,
+            SORTING_DEFAULT = 0x0,
+            SORTING_ALPHABETICAL,
         };
 
         enum MENU_THEME {
@@ -179,6 +195,27 @@ namespace Cosmos
             RACE_COUNT_64,
         };
 
+        enum VS_SETTINGS_OPTIONS {
+            VS_CLASS_100 = 0x0,
+            VS_CLASS_150 = 0x1,
+            VS_CLASS_200 = 0x2,
+            VS_CLASS_MIRROR = 0x3,
+            VS_CPU_EASY = 0x0,
+            VS_CPU_NORMAL = 0x1,
+            VS_CPU_HARD = 0x2,
+            VS_VEHICLES_ALL = 0x0,
+            VS_VEHICLES_KARTS = 0x1,
+            VS_VEHICLES_BIKES = 0x2,
+            VS_COURSE_CHOOSE = 0x0,
+            VS_COURSE_RANDOM = 0x1,
+            VS_COURSE_INORDER = 0x2,
+            VS_ITEM_RECOMMENDED = 0x0,
+            VS_ITEM_FRANTIC = 0x1,
+            VS_ITEM_BASIC = 0x2,
+            VS_ITEM_NONE = 0x3,
+        };
+
+
         enum GLOBAL_SETTING
         {
             COSMOS_SETTING_MUSIC_CUTOFF = COSMOS_MUSIC_CUTOFF + (COSMOS_RACE_SETTINGS_1 * 8),
@@ -190,7 +227,7 @@ namespace Cosmos
 
             COSMOS_SETTING_LANGUAGE_SETTINGS = COSMOS_LANGUAGE_SETTINGS + (COSMOS_MENU_SETTINGS_1 * 8),
             COSMOS_SETTING_FAST_MENUS = COSMOS_FAST_MENUS + (COSMOS_MENU_SETTINGS_1 * 8),
-            COSMOS_SETTING_LAYOUT = COSMOS_LAYOUT + (COSMOS_MENU_SETTINGS_1 * 8),
+            COSMOS_SETTING_SORTING = COSMOS_SORTING + (COSMOS_MENU_SETTINGS_1 * 8),
             AURORA_SETTING_MENU_THEME = AURORA_MENU_THEME + (COSMOS_MENU_SETTINGS_1 * 8),
 
             COSMOS_SETTING_DWC_LOGS = COSMOS_DWC_LOGS + (COSMOS_DEBUG_SETTINGS * 8),
@@ -203,9 +240,20 @@ namespace Cosmos
             COSMOS_SETTING_ALLOW_MII_HEADS = COSMOS_ALLOW_MII_HEADS + (COSMOS_HOST_SETTINGS_1 * 8),
             COSMOS_SETTING_FORCE_CC = COSMOS_FORCE_CC + (COSMOS_HOST_SETTINGS_1 * 8),
             COSMOS_SETTING_RACE_COUNT = COSMOS_RACE_COUNT + (COSMOS_HOST_SETTINGS_1 * 8),
+
+
+            COSMOS_SETTING_VS_CLASS = COSMOS_VS_CLASS + (COSMOS_VS_SETTINGS_1 * 8),
+            COSMOS_SETTING_VS_CPU = COSMOS_VS_CPU + (COSMOS_VS_SETTINGS_1 * 8),
+            COSMOS_SETTING_VS_VEHICLES = COSMOS_VS_VEHICLES + (COSMOS_VS_SETTINGS_1 * 8),
+            COSMOS_SETTING_VS_COURSES = COSMOS_VS_COURSES + (COSMOS_VS_SETTINGS_1 * 8),
+            COSMOS_SETTING_VS_ITEMS = COSMOS_VS_ITEMS + (COSMOS_VS_SETTINGS_1 * 8),
+            COSMOS_SETTING_VS_RACES = COSMOS_VS_RACES + (COSMOS_VS_SETTINGS_1 * 8),
+
+            COSMOS_SETTING_VS_MEGA_CLOUD = COSMOS_VS_MEGA_CLOUD + (COSMOS_VS_SETTINGS_2 * 8),
+            COSMOS_SETTING_VS_ALL_ITEMS_CAN_LAND = COSMOS_VS_ALL_ITEMS_CAN_LAND + (COSMOS_VS_SETTINGS_2 * 8),
         };
 
-#define PAGE_COUNT 4
+#define PAGE_COUNT 6
 #define SETTINGS_PER_PAGE 8
 
         typedef struct SettingPageOption
@@ -213,6 +261,9 @@ namespace Cosmos
             u8 optionCount;
             bool isBool;
             u8 defaultValue;
+            u32 nameBmg;
+            u32 firstOptionBmg;
+            u32 firstDescBmg;
         } SettingPageOption;
 
         typedef struct SettingPageDefinition
@@ -237,7 +288,7 @@ namespace Cosmos
                 .settingCount = 4,
                 .settings = {{.optionCount = 12, .isBool = false, .defaultValue = NO_CHANGE}, // Language //TODO REENABLE KOREAN
                              {.optionCount = 2, .isBool = true, .defaultValue = ENABLED},
-                             {.optionCount = 2, .isBool = false, .defaultValue = LAYOUT_DEFAULT},
+                             {.optionCount = 2, .isBool = false, .defaultValue = SORTING_DEFAULT}},
                              {.optionCount = 3, .isBool = false, .defaultValue = THEME_AURORA}},
             },
             {
@@ -254,10 +305,29 @@ namespace Cosmos
                           {.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, // HAW
                           {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}, //Allow Mii Heads
                           {.optionCount = 3, .isBool = false, .defaultValue = FORCE_NONE}, // Force CC
-                          {.optionCount = 8, .isBool = false, .defaultValue = RACE_COUNT_4}}}, //Race count
+                          {.optionCount = 8, .isBool = false, .defaultValue = RACE_COUNT_4, .nameBmg = 0}}
+            }, //Race count
+            {
+                .settingCount = 6,
+                .settings = {
+                    {.optionCount = 4, .isBool = false, .defaultValue = VS_CLASS_150, .nameBmg = 0xd52, .firstOptionBmg = 0xd53, .firstDescBmg = 0x0d57},
+                    {.optionCount = 3, .isBool = false, .defaultValue = VS_CPU_NORMAL, .nameBmg = 0xd5c, .firstOptionBmg = 0xd5d, .firstDescBmg = 0xd61},
+                    {.optionCount = 3, .isBool = false, .defaultValue = VS_VEHICLES_ALL, .nameBmg = 0xd66, .firstOptionBmg = 0xd67, .firstDescBmg = 0xd6a},
+                    {.optionCount = 3, .isBool = false, .defaultValue = VS_COURSE_CHOOSE, .nameBmg = 0xd70, .firstOptionBmg = 0xd71, .firstDescBmg = 0xd74},
+                    {.optionCount = 4, .isBool = false, .defaultValue = VS_ITEM_RECOMMENDED, .nameBmg = 0xd98, .firstOptionBmg = 0xd99, .firstDescBmg = 0xd9d},
+                    {.optionCount = 7, .isBool = false, .defaultValue = RACE_COUNT_4, .nameBmg = 0xd7a, .firstOptionBmg = 0x30341},
+                }
+            },
+            {
+                .settingCount = 2,
+                .settings = {
+                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
+                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
+                }
+            },
         };
 
-        static u8 GlobalSettingsPageOrder[PAGE_COUNT] = {COSMOS_RACE_SETTINGS_1, COSMOS_MENU_SETTINGS_1, COSMOS_HOST_SETTINGS_1, COSMOS_DEBUG_SETTINGS};
+        static u8 GlobalSettingsPageOrder[PAGE_COUNT] = {COSMOS_MENU_SETTINGS_1, COSMOS_RACE_SETTINGS_1, COSMOS_VS_SETTINGS_1, COSMOS_VS_SETTINGS_2, COSMOS_HOST_SETTINGS_1, COSMOS_DEBUG_SETTINGS};
 
         struct SettingsPage
         {

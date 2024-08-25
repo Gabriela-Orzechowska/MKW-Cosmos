@@ -992,6 +992,7 @@ Page_Refocus__8CosmosUIFPQ25Pages4Menu = 0x80602390
 StartExit__4PageFv = 0x80602b04
 StartEntrance__4PageFv = 0x80602970
 OnInit__4PageFv = 0x80601ad8
+PlaySound__4PageFUii = 0x80602cf8
 
 Stop__Q44nw4r3snd6detail10BasicSoundFi = 0x8008e330
 

@@ -29,7 +29,7 @@ class MenuData {
 public:
     static MenuData *sInstance;
     static MenuData *CreateStaticInstance(); //80634c90
-    static MenuData * GetStaticInstance() { return sInstance; }
+    static MenuData* GetStaticInstance() { return sInstance; }
     inline Scene* GetCurrentScene() { return curScene; } 
     inline GlobalContext* GetCurrentContext() { return globalContext; }
     

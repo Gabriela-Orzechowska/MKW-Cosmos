@@ -25,6 +25,8 @@
  2A02   = Menu (1/1)
  2A03   = Debug
  2A04   = Host
+ 2A05   = VS (1/2)
+ 2A06   = VS (2/2)
 
  2A20   = Manage your settings!
  2A21   = Manage your Race settings!
@@ -32,125 +34,132 @@
  2A23   = Manage your Debug settings!
  2A24   = Manage your Friend Room settings!
 
- 3700   = Enabled
- 3701   = Disabled
+ 37000   = Enabled
+ 37001   = Disabled
 
- 3000   = Final Lap Music
+ 30000   = Final Lap Music
  
- 3001   = Speed-Up
- 3002   = No Cut-off
- 3003   = Default
+ 30001   = Speed-Up
+ 30002   = No Cut-off
+ 30003   = Default
 
- 3801   = Music will speed-up over 4s when entering final lap.
- 3802   = Music will continue when entering final lap.
- 3803   = Music will change to fast variant as normal.
+ 40001   = Music will speed-up over 4s when entering final lap.
+ 40002   = Music will continue when entering final lap.
+ 40003   = Music will change to fast variant as normal.
 
- 3010   = Draggable Blue-Shells
+ 30010   = Draggable Blue-Shells
 
- 3811   = You can hold Blue-Shells behind like other shells.
- 3812   = You won't be able hold Blue-Shells behind like other shells.
+ 40011   = You can hold Blue-Shells behind like other shells.
+ 40012   = You won't be able hold Blue-Shells behind like other shells.
 
- 3020   = Mii Heads
- 3821   = Players' Miis will be displayed on the minimap.
- 3822   = Player's character will be displayed on the minimap.
+ 30020   = Mii Heads
+ 40021   = Players' Miis will be displayed on the minimap.
+ 40022   = Player's character will be displayed on the minimap.
 
- 3030   = Speed-o-meter
+ 30030   = Speed-o-meter
 
- 3031   = Disabled
- 3032   = No decimals
- 3033   = 1 decimal
- 3034   = 2 decimals
+ 30031   = Disabled
+ 30032   = No decimals
+ 30033   = 1 decimal
+ 30034   = 2 decimals
 
- 3831   = Speed-o-meter will be disabled.
- 3832   = Speed-o-meter won't display any decimals.
- 3833   = Speed-o-meter will display 1 decimal.
- 3834   = Speed-o-meter will display 2 decimals.
+ 40031   = Speed-o-meter will be disabled.
+ 40032   = Speed-o-meter won't display any decimals.
+ 40033   = Speed-o-meter will display 1 decimal.
+ 40034   = Speed-o-meter will display 2 decimals.
 
- 3040   = FPS Mode
+ 30040   = FPS Mode
 
- 3041   = Normal
- 3042   = Force 30FPS
- 3043   = Force 60FPS
+ 30041   = Normal
+ 30042   = Force 30FPS
+ 30043   = Force 60FPS
 
- 3841   = Use the default FPS mode.
- 3842   = Use when the game is too laggy.
- 3843   = Use for better systems (Dolphin only).
+ 40041   = Use the default FPS mode.
+ 40042   = Use when the game is too laggy.
+ 40043   = Use for better systems (Dolphin only).
 
- 3050   = Ghost Saving
- 3851   = Ghost Saving will be Enabled.
- 3852   = Ghost Saving will be Disabled.
+ 30050   = Ghost Saving
+ 40051   = Ghost Saving will be Enabled.
+ 40052   = Ghost Saving will be Disabled.
 
- 3110   = Fast Menus
+ 30110   = Fast Menus
 
- 3911   = Menu transitions will be instant.
- 3912   = Menu transitions will be normal.
+ 40111   = Menu transitions will be instant.
+ 40112   = Menu transitions will be normal.
 
- 3100   = Language
- 3101   = Default
- 3102   = English (PAL)
- 3103   = English (NTSC)
- 3104   = Deutsch
- 3105   = Français (PAL)
- 3106   = Français (NTSC)
- 3107   = Español (PAL)
- 3108   = Español (NTSC)
- 3109   = Italiano
- 310A   = Nederlands
- 310B   = Polski
- 310C   = Japanese
- 310D   = Korean
+ 30100   = Language
+ 30101   = Default
+ 30102   = English (PAL)
+ 30103   = English (NTSC)
+ 30104   = Deutsch
+ 30105   = Français (PAL)
+ 30106   = Français (NTSC)
+ 30107   = Español (PAL)
+ 30108   = Español (NTSC)
+ 30109   = Italiano
+ 3010A   = Nederlands
+ 3010B   = Polski
+ 3010C   = Japanese
+ 3010D   = Korean
  
- 3120   = Track Order
- 3121   = Default
- 3122   = Alphabetical
+ 30120   = Track Order
+ 30121   = Default
+ 30122   = Alphabetical
 
- 3130   = Menu Theme
- 3131   = Aurora
- 3132   = Rainbow
- 3133   = White
+ 30130   = Menu Theme
+ 30131   = Aurora
+ 30132   = Rainbow
+ 30133   = White
 
- 3200   = DWC Logs
- 3A01   = Logs will be printed to console.
- 3A02   = No logs will be printed.
+ 30200   = DWC Logs
+ 40201   = Logs will be printed to console.
+ 40202   = No logs will be printed.
 
- 3210   = Performance Monitor
- 3A11   = Monitor will be displayed at the bottom.
- 3A12   = Monitor will be hidden.
+ 30210   = Performance Monitor
+ 40211   = Monitor will be displayed at the bottom.
+ 40212   = Monitor will be hidden.
 
- 3220   = Debug Messages on Screen
- 3A21   = Displays messages on screen (buggy on Dolphin).
- 3A22   = Hide messages on screen.
+ 30220   = Debug Messages on Screen
+ 40221   = Displays messages on screen (buggy on Dolphin).
+ 40222   = Hide messages on screen.
 
- 3230   = Log OSReport to SD
+ 30230   = Log OSReport to SD
 
- 3300   = OpenHost
- 3B01   = Players who added you can join rooms.
- 3B02   = Only players you're friends with can join.
+ 30300   = OpenHost
+ 40301   = Players who added you can join rooms.
+ 40302   = Only players you're friends with can join.
 
- 3310   = Host Always Wins
- 3B11   = Only host vote will matter.
- 3B12   = The track will be selected like normal.
+ 30310   = Host Always Wins
+ 40311   = Only host vote will matter.
+ 40312   = The track will be selected like normal.
  
- 3320   = Allow Mii Heads
- 3B21   = Players can use Mii Heads settings.
- 3B22   = Mii Heads will be forced off.
+ 30320   = Allow Mii Heads
+ 40321   = Players can use Mii Heads settings.
+ 40322   = Mii Heads will be forced off.
 
- 3330   = Force CC
- 3331   = None
- 3332   = 150cc
- 3333   = 200cc
- 3334   = Mirror (150cc)
+ 30330   = Force CC
+ 30331   = None
+ 30332   = 150cc
+ 30333   = 200cc
+ 30334   = Mirror (150cc)
  
- 3340   = Race Count
- 3341   = 2
- 3342   = 4
- 3343   = 8
- 3344   = 12
- 3345   = 16
- 3346   = 24
- 3347   = 32
- 3348   = 64
+ 30340   = Race Count
+ 30341   = 2
+ 30342   = 4
+ 30343   = 8
+ 30344   = 12
+ 30345   = 16
+ 30346   = 24
+ 30347   = 32
+ 30348   = 64
 
+ 30500   = Mega Cloud
+ 40501   = Thundercloud will make players big.
+ 40502   = Thundercloud will work like normal.
+
+ 30510   = All items can land
+ 40511   = Every kind of item can land
+ 40512   = Only some items can land
 
  2820   = A solo race for the fastest record! (200cc)
  2830   = Change Combo
