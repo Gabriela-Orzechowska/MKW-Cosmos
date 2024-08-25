@@ -63,7 +63,7 @@ namespace Cosmos
     namespace Data
     {
 
-#define SettingsVersion 8
+#define SettingsVersion 9
 
         enum SETTINGSPAGES
         {
@@ -72,6 +72,7 @@ namespace Cosmos
             COSMOS_DEBUG_SETTINGS,
             COSMOS_HOST_SETTINGS_1,
             COSMOS_VS_SETTINGS_1,
+            COSMOS_VS_SETTINGS_2,
         };
 
         enum RACE_SETTINGS_1_SETTINGS
@@ -115,6 +116,11 @@ namespace Cosmos
             COSMOS_VS_COURSES,
             COSMOS_VS_ITEMS,
             COSMOS_VS_RACES,
+        };
+
+        enum COSMOS_VS_SETTINGS {
+            COSMOS_VS_MEGA_CLOUD = 0x0,
+            COSMOS_VS_ALL_ITEMS_CAN_LAND,
         };
 
         enum LAYOUT_SETTINGS 
@@ -202,6 +208,7 @@ namespace Cosmos
             VS_ITEM_NONE = 0x3,
         };
 
+
         enum GLOBAL_SETTING
         {
             COSMOS_SETTING_MUSIC_CUTOFF = COSMOS_MUSIC_CUTOFF + (COSMOS_RACE_SETTINGS_1 * 8),
@@ -233,9 +240,12 @@ namespace Cosmos
             COSMOS_SETTING_VS_COURSES = COSMOS_VS_COURSES + (COSMOS_VS_SETTINGS_1 * 8),
             COSMOS_SETTING_VS_ITEMS = COSMOS_VS_ITEMS + (COSMOS_VS_SETTINGS_1 * 8),
             COSMOS_SETTING_VS_RACES = COSMOS_VS_RACES + (COSMOS_VS_SETTINGS_1 * 8),
+
+            COSMOS_SETTING_VS_MEGA_CLOUD = COSMOS_VS_MEGA_CLOUD + (COSMOS_VS_SETTINGS_2 * 8),
+            COSMOS_SETTING_VS_ALL_ITEMS_CAN_LAND = COSMOS_VS_ALL_ITEMS_CAN_LAND + (COSMOS_VS_SETTINGS_2 * 8),
         };
 
-#define PAGE_COUNT 5
+#define PAGE_COUNT 6
 #define SETTINGS_PER_PAGE 8
 
         typedef struct SettingPageOption
@@ -296,12 +306,19 @@ namespace Cosmos
                     {.optionCount = 3, .isBool = false, .defaultValue = VS_VEHICLES_ALL, .nameBmg = 0xd66, .firstOptionBmg = 0xd67, .firstDescBmg = 0xd6a},
                     {.optionCount = 3, .isBool = false, .defaultValue = VS_COURSE_CHOOSE, .nameBmg = 0xd70, .firstOptionBmg = 0xd71, .firstDescBmg = 0xd74},
                     {.optionCount = 4, .isBool = false, .defaultValue = VS_ITEM_RECOMMENDED, .nameBmg = 0xd98, .firstOptionBmg = 0xd99, .firstDescBmg = 0xd9d},
-                    {.optionCount = 7, .isBool = false, .defaultValue = RACE_COUNT_4, .nameBmg = 0xd52, .firstOptionBmg = 0x3341},
+                    {.optionCount = 7, .isBool = false, .defaultValue = RACE_COUNT_4, .nameBmg = 0xd7a, .firstOptionBmg = 0x30341},
+                }
+            },
+            {
+                .settingCount = 2,
+                .settings = {
+                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
+                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
                 }
             },
         };
 
-        static u8 GlobalSettingsPageOrder[PAGE_COUNT] = {COSMOS_MENU_SETTINGS_1, COSMOS_RACE_SETTINGS_1, COSMOS_VS_SETTINGS_1, COSMOS_HOST_SETTINGS_1, COSMOS_DEBUG_SETTINGS};
+        static u8 GlobalSettingsPageOrder[PAGE_COUNT] = {COSMOS_MENU_SETTINGS_1, COSMOS_RACE_SETTINGS_1, COSMOS_VS_SETTINGS_1, COSMOS_VS_SETTINGS_2, COSMOS_HOST_SETTINGS_1, COSMOS_DEBUG_SETTINGS};
 
         struct SettingsPage
         {
