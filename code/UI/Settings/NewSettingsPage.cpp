@@ -125,8 +125,8 @@ namespace CosmosUI {
         EndStateAnimate(0.0f, 1);
     }
 
-    void NewSettings::ChangePage(u8 pageId) {
-        
+    void NewSettings::ChangePage(s8 pageId) {
+       
         u8 page = Cosmos::Data::GlobalSettingsPageOrder[pageId];
         this->currentPage = page;
 
@@ -160,7 +160,7 @@ namespace CosmosUI {
             bmgId += setting;
             textControl.activeTextValueControl->SetMsgId(bmgId);
         }
-        this->bottomText.SetMsgId(BMG_SETTINGS_PAGE_BOTTOM + pageSelector.curSelectedOption);
+        this->bottomText.SetMsgId(BMG_SETTINGS_PAGE_BOTTOM + Cosmos::Data::GlobalSettingsPageOrder[pageSelector.curSelectedOption]);
     }
 
     void NewSettings::OnSettingsPageControlChange(TextUpDownValueControl::TextControl* valueControl, u32 optionId) {
@@ -168,7 +168,7 @@ namespace CosmosUI {
     }
     void NewSettings::OnSettingsPageControlClick(UpDownControl* upDownControl, u32 hudSlotId) {}
     void NewSettings::OnSettingsPageControlSelect(UpDownControl* upDownControl, u32 hudSlotId) {
-        this->bottomText.SetMsgId(BMG_SETTINGS_PAGE_BOTTOM + upDownControl->curSelectedOption);
+        ChangePage(upDownControl->curSelectedOption);
     }
 
     void NewSettings::OnValueControlChange(UpDownControl* control, u32 hudSlotId, u32 option) {
