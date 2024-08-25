@@ -109,12 +109,10 @@ namespace CosmosUI {
     void NewSettings::OnActivate() {
         this->bottomText.SetMsgId(0x0);
         this->title.SetMsgId(BMG_SETTINGS_TITLE);
-        ChangePage(this->currentPage);
     }
 
     void NewSettings::BeforeEntranceAnimations() {
         UpDownControl::Select(&this->pageSelector, 0);
-        ChangePage(this->currentPage);
     }
 
     void NewSettings::OnBack(u32 hudSlotId) {
@@ -130,7 +128,6 @@ namespace CosmosUI {
     void NewSettings::ChangePage(u8 pageId) {
         
         u8 page = Cosmos::Data::GlobalSettingsPageOrder[pageId];
-
         this->currentPage = page;
 
         Cosmos::Data::SettingPageDefinition& definition = Cosmos::Data::GlobalSettingDefinitions[page];

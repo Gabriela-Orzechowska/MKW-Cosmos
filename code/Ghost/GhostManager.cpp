@@ -429,7 +429,7 @@ namespace Cosmos
             scene->CreatePage(pageId);
             GhostManager::DestroyStaticInstance();
         }
-        kmCall(0x8062cf98, DestroyManager);
+        //kmCall(0x8062cf98, DestroyManager);
 
         void ExtendSetupGhostRace(Pages::GhostManager *ghostManager, bool isStaffGhost, bool replaceGhostMiiByPlayer, bool disablePlayerMii)
         {
