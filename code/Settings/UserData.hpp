@@ -4,6 +4,7 @@
 #include <kamek.hpp>
 #include <FileManager/FileManager.hpp>
 #include <game/System/SaveDataManager.hpp>
+#include <game/Race/RaceData.hpp>
 #include <core/rvl/os/OS.hpp>
 #include <main.hpp>
 
@@ -346,7 +347,7 @@ namespace Cosmos
         public:
             SettingsHolder();
             static void Create();
-            static SettingsHolder *GetStaticInstance();
+            static inline SettingsHolder *GetStaticInstance() { return sInstance; }
 
             u8 GetSettingValue(GLOBAL_SETTING setting) const { return this->settings->data[currentLicense].rawSettings[setting]; }
             u8 GetSettingValue(u8 page, u8 setting) const { return this->settings->data[currentLicense].pages[page].setting[setting]; }
@@ -367,6 +368,26 @@ namespace Cosmos
             void SetUserBR(u32 value) { SetUserVR(value, currentLicense); }
             void SetUserBR(u32 value, u32 id) { this->settings->playerBr[id] = value; }
 
+            inline bool IsMegaCloudEnabled() {
+                return (megaCloudOffline && RaceData::GetStaticInstance()->racesScenario.settings.gamemode == MODE_VS_RACE) ||
+                    (megaCloudOnline && RaceData::GetStaticInstance()->racesScenario.settings.gamemode == MODE_PRIVATE_VS);
+            }
+
+            void SetMegaCloudSetting(bool offline) {
+                megaCloudOffline = this->GetSettingValue(COSMOS_SETTING_VS_MEGA_CLOUD) == ENABLED;
+                megaCloudOnline = false; //TODO 
+            }
+
+            inline bool CanAllItemsLand() {
+                return (allItemsCanLandOffline && RaceData::GetStaticInstance()->racesScenario.settings.gamemode == MODE_VS_RACE) ||
+                    (allItemsCanLandOnline && RaceData::GetStaticInstance()->racesScenario.settings.gamemode == MODE_PRIVATE_VS);
+            }
+
+            void SetAllItemsCanLandSetting(bool offline){
+                allItemsCanLandOffline = this->GetSettingValue(COSMOS_SETTING_VS_ALL_ITEMS_CAN_LAND) == ENABLED;
+                allItemsCanLandOnline = false; //TODO 
+            }
+
             inline bool AreMiiHeadsAllowed() { return miiHeadsEnabled; }
             inline void SetMiiHeadSettings(bool setting) { miiHeadsEnabled = setting; }
             void SetCurrentLicense(int i) { this->currentLicense = i; }
@@ -381,6 +402,11 @@ namespace Cosmos
 
             bool miiHeadsEnabled;
             int currentLicense;
+
+            bool megaCloudOffline;
+            bool megaCloudOnline;
+            bool allItemsCanLandOffline;
+            bool allItemsCanLandOnline;
         };
     }
 }

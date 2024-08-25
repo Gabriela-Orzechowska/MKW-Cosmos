@@ -112,3 +112,9 @@ void SetSpeedmod(Kart& kart){
     kart.Init();
 }
 kmCall(0x8058f778, SetSpeedmod);
+
+void MegaTC(KartMovement& movement){
+    if(Cosmos::Data::SettingsHolder::GetStaticInstance()->IsMegaCloudEnabled()) movement.ActivateMega();
+    else movement.ApplyLightningEffect(0x264, 0, 1);
+}
+kmCall(0x80580630, MegaTC);

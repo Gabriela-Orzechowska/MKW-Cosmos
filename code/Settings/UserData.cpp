@@ -12,9 +12,7 @@ namespace Cosmos
     {
         SettingsHolder *SettingsHolder::sInstance = NULL;
 
-        SettingsHolder::SettingsHolder() : miiHeadsEnabled(true), currentLicense(0) { settings = NULL; }
-
-        SettingsHolder *SettingsHolder::GetStaticInstance() { return SettingsHolder::sInstance; }
+        SettingsHolder::SettingsHolder() : miiHeadsEnabled(true), currentLicense(0), megaCloudOnline(false), megaCloudOffline(false) { settings = NULL; }
 
         void SettingsHolder::Update()
         {
