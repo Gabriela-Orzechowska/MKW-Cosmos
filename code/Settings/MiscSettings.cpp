@@ -209,6 +209,8 @@ void ApplyVSSettings(){
             context->vehicleRestriction = 1; break;
     }
     context->vsRaceCount = raceCounts[holder->GetSettingValue(Cosmos::Data::COSMOS_SETTING_VS_RACES)];
+    holder->SetMegaCloudSetting();
+    holder->SetAllItemsCanLandSetting();
 }
 kmBranch(0x808529f8, ApplyVSSettings);
 
