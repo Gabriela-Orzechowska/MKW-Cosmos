@@ -169,7 +169,8 @@ kmWritePointer(0x808bfe84, SendOpenHostSetting);
 
 void SetLicenseSettings(LicenseManager& license, LicenseManager::Modes mode)
 {
-    Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetStaticInstance();
+    using namespace Cosmos::Data;
+    SettingsHolder* holder = SettingsHolder::GetStaticInstance();
     license.settings[0][mode] = holder->GetSettingValue(COSMOS_SETTING_VS_CLASS);
     license.settings[1][mode] = holder->GetSettingValue(COSMOS_SETTING_VS_CPU);
     license.settings[2][mode] = holder->GetSettingValue(COSMOS_SETTING_VS_VEHICLES);

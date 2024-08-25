@@ -29,7 +29,9 @@ namespace CosmosUI
             }
         }
         void SetPreviousPage(PageId id, MenuId menu) { this->returnPage = id; this->returnMenu = menu; }
-        void SetNextSettingPage(u32 page) { this->currentPage = page; }
+        void SetNextSettingPage(u32 page) { 
+            this->currentPage = page;
+        }
         MenuId GetPreviousMenu() const { return this->returnMenu; }
 
     private:
@@ -46,7 +48,7 @@ namespace CosmosUI
 
         void OnDummyDeselect(UpDownControl*,u32) {}
 
-        void ChangePage(u8 page);
+        void ChangePage(s8 page = -1);
 
         ControlsManipulatorManager controlsManipulatorManager; //0x48
         CtrlMenuBackButton backButton; //0x268
