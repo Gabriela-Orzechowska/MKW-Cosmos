@@ -383,7 +383,7 @@ namespace Cosmos
                     (megaCloudOnline && RaceData::GetStaticInstance()->racesScenario.settings.gamemode == MODE_PRIVATE_VS);
             }
 
-            void SetMegaCloudSetting(bool offline) {
+            void SetMegaCloudSetting(bool offline = false) {
                 megaCloudOffline = this->GetSettingValue(COSMOS_SETTING_VS_MEGA_CLOUD) == ENABLED;
                 megaCloudOnline = false; //TODO 
             }
@@ -393,7 +393,7 @@ namespace Cosmos
                     (allItemsCanLandOnline && RaceData::GetStaticInstance()->racesScenario.settings.gamemode == MODE_PRIVATE_VS);
             }
 
-            void SetAllItemsCanLandSetting(bool offline){
+            void SetAllItemsCanLandSetting(bool offline = false){
                 allItemsCanLandOffline = this->GetSettingValue(COSMOS_SETTING_VS_ALL_ITEMS_CAN_LAND) == ENABLED;
                 allItemsCanLandOnline = false; //TODO 
             }
