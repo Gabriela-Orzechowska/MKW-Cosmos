@@ -1,9 +1,11 @@
+#include "Race/RaceData.hpp"
 #include "Sound/SoundId.hpp"
 #include "System/Identifiers.hpp"
 #include "UI/BMG/BMG.hpp"
 #include "main.hpp"
 #include <game/UI/Ctrl/Menu/CtrlMenuCourse.hpp>
 #include <UI/CupSelect/CourseSelect.hpp>
+#include <Settings/UserData.hpp>
 
 
 namespace CosmosUI
@@ -116,9 +118,10 @@ namespace CosmosUI
         COSMOS_ASSERT_NOT_NULL(variantSelect);
 
         u32 trackIndex = button.buttonId;
+        bool canSelectVariant = Cosmos::Data::SettingsHolder::GetStaticInstance()->CanChooseVariant();
 
         if(page->isFocused()){
-            if(Cosmos::isGroupSlot(trackIndex)){
+            if(canSelectVariant && Cosmos::isGroupSlot(trackIndex)){
                 variantSelect->SetupPage(trackIndex);
                 Cosmos::CupManager::GetStaticInstance()->lastSelectedGroup = (trackIndex);
                 Cosmos::CupManager::GetStaticInstance()->lastSelectedCourse = -1U;

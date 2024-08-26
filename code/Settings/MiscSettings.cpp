@@ -178,7 +178,7 @@ void SetLicenseSettings(LicenseManager& license, LicenseManager::Modes mode)
     license.settings[4][mode] = holder->GetSettingValue(COSMOS_SETTING_VS_ITEMS);
 }
 
-const u8 raceCounts[8] = {2, 4, 8, 12, 16, 32, 64};
+const u8 raceCounts[8] = {2, 4, 8, 12, 16, 32};
 void ApplyVSSettings(){
     LicenseManager& license = SaveDataManager::GetStaticInstance()->GetCurrentLicense();
     Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetStaticInstance();
@@ -210,8 +210,7 @@ void ApplyVSSettings(){
             context->vehicleRestriction = 1; break;
     }
     context->vsRaceCount = raceCounts[holder->GetSettingValue(Cosmos::Data::COSMOS_SETTING_VS_RACES)];
-    holder->SetMegaCloudSetting();
-    holder->SetAllItemsCanLandSetting();
+    holder->SetAllInnerSettings();
 }
 kmBranch(0x808529f8, ApplyVSSettings);
 
