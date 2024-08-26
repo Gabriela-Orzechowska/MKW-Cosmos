@@ -150,10 +150,17 @@
  30500   = Mega Cloud
  40501   = Thundercloud will make players big.
  40502   = Thundercloud will work like normal.
+ 30500   = Variant Selection
+ 40501   = Players will be able to vote for specific version of a track.
+ 40502   = Players won't be able to vote for specific version of a track.
 
- 30510   = All items can land
- 40511   = Every kind of item can land
- 40512   = Only some items can land
+ 30510   = Mega Cloud
+ 40511   = Thundercloud will make players big.
+ 40512   = Thundercloud will work like normal.
+
+ 30520   = All items can land
+ 40521   = Every kind of item can land
+ 40522   = Only some items can land
 
  2820   = A solo race for the fastest record! (200cc)
  2830   = Change Combo
