@@ -243,7 +243,7 @@ namespace Cosmos
             COSMOS_SETTING_VS_ITEMS = COSMOS_VS_ITEMS + (COSMOS_VS_SETTINGS_1 * 8),
             COSMOS_SETTING_VS_RACES = COSMOS_VS_RACES + (COSMOS_VS_SETTINGS_1 * 8),
 
-            COSMOS_SETTING_VS_VARIANT_SELECTION = COSMOS_VS_VARIANT_SELECTION + (COSMOS_VS_SETTINGS_2 * 8);
+            COSMOS_SETTING_VS_VARIANT_SELECTION = COSMOS_VS_VARIANT_SELECTION + (COSMOS_VS_SETTINGS_2 * 8),
             COSMOS_SETTING_VS_MEGA_CLOUD = COSMOS_VS_MEGA_CLOUD + (COSMOS_VS_SETTINGS_2 * 8),
             COSMOS_SETTING_VS_ALL_ITEMS_CAN_LAND = COSMOS_VS_ALL_ITEMS_CAN_LAND + (COSMOS_VS_SETTINGS_2 * 8),
         };
@@ -309,7 +309,7 @@ namespace Cosmos
                     {.optionCount = 3, .isBool = false, .defaultValue = VS_VEHICLES_ALL, .nameBmg = 0xd66, .firstOptionBmg = 0xd67, .firstDescBmg = 0xd6a},
                     {.optionCount = 3, .isBool = false, .defaultValue = VS_COURSE_CHOOSE, .nameBmg = 0xd70, .firstOptionBmg = 0xd71, .firstDescBmg = 0xd74},
                     {.optionCount = 4, .isBool = false, .defaultValue = VS_ITEM_RECOMMENDED, .nameBmg = 0xd98, .firstOptionBmg = 0xd99, .firstDescBmg = 0xd9d},
-                    {.optionCount = 7, .isBool = false, .defaultValue = RACE_COUNT_4, .nameBmg = 0xd7a, .firstOptionBmg = 0x30341},
+                    {.optionCount = 6, .isBool = false, .defaultValue = RACE_COUNT_4, .nameBmg = 0xd7a, .firstOptionBmg = 0x30341},
                 }
             },
             {
@@ -391,6 +391,22 @@ namespace Cosmos
                 allItemsCanLandOnline = false; //TODO 
             }
 
+            inline bool CanChooseVariant() {
+                return (variantSelectionOffline && RaceData::GetStaticInstance()->menusScenario.settings.gamemode == MODE_VS_RACE) ||
+                    (variantSelectionOnline && RaceData::GetStaticInstance()->menusScenario.settings.gamemode == MODE_PRIVATE_VS);
+            }
+
+            void SetChooseVariant(){
+                variantSelectionOffline = this->GetSettingValue(COSMOS_SETTING_VS_VARIANT_SELECTION) == ENABLED;
+            }
+
+
+            void SetAllInnerSettings(){
+                this->SetAllItemsCanLandSetting();
+                this->SetMegaCloudSetting();
+                this->SetChooseVariant();
+            }
+
             inline bool AreMiiHeadsAllowed() { return miiHeadsEnabled; }
             inline void SetMiiHeadSettings(bool setting) { miiHeadsEnabled = setting; }
             void SetCurrentLicense(int i) { this->currentLicense = i; }
@@ -410,6 +426,8 @@ namespace Cosmos
             bool megaCloudOnline;
             bool allItemsCanLandOffline;
             bool allItemsCanLandOnline;
+            bool variantSelectionOffline;
+            bool variantSelectionOnline;
         };
     }
 }
