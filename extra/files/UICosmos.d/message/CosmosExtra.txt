@@ -155,11 +155,11 @@
 
  30510   = Mega Cloud
  40511   = Thundercloud will make players big.
- 40512   = Thundercloud will work like normal.
+ 40512   = Thundercloud will shrink players like normal.
 
- 30520   = All items can land
- 40521   = Every kind of item can land
- 40522   = Only some items can land
+ 30520   = All Items Can Land
+ 40521   = Every kind of item can land.
+ 40522   = Only some items can land.
 
  2820   = A solo race for the fastest record! (200cc)
  2830   = Change Combo
