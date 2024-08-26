@@ -121,7 +121,8 @@ namespace Cosmos
         };
 
         enum COSMOS_VS_SETTINGS {
-            COSMOS_VS_MEGA_CLOUD = 0x0,
+            COSMOS_VS_VARIANT_SELECTION = 0x0,
+            COSMOS_VS_MEGA_CLOUD,
             COSMOS_VS_ALL_ITEMS_CAN_LAND,
         };
 
@@ -250,6 +251,7 @@ namespace Cosmos
             COSMOS_SETTING_VS_ITEMS = COSMOS_VS_ITEMS + (COSMOS_VS_SETTINGS_1 * 8),
             COSMOS_SETTING_VS_RACES = COSMOS_VS_RACES + (COSMOS_VS_SETTINGS_1 * 8),
 
+            COSMOS_SETTING_VS_VARIANT_SELECTION = COSMOS_VS_VARIANT_SELECTION + (COSMOS_VS_SETTINGS_2 * 8);
             COSMOS_SETTING_VS_MEGA_CLOUD = COSMOS_VS_MEGA_CLOUD + (COSMOS_VS_SETTINGS_2 * 8),
             COSMOS_SETTING_VS_ALL_ITEMS_CAN_LAND = COSMOS_VS_ALL_ITEMS_CAN_LAND + (COSMOS_VS_SETTINGS_2 * 8),
         };
@@ -321,8 +323,9 @@ namespace Cosmos
                 }
             },
             {
-                .settingCount = 2,
+                .settingCount = 3,
                 .settings = {
+                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
                     { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
                     { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
                 }
