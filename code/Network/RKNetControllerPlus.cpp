@@ -296,7 +296,7 @@ namespace CosmosNetwork
         ) \
         };\
     kmBranch(addr, LoadPhase##addr);\
-    kmPatchExitPoint(LoadPhase##addr,##addr+4);
+    kmPatchExitPoint(LoadPhase##addr, addr+4);
 
     #define GetCorrectPhase(off, from, to) GetCorrectPhase##off##from##to() { \
         ASM (\
