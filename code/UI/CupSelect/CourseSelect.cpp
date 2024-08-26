@@ -213,7 +213,7 @@ namespace CosmosUI
     }
 
     void VariantSelectPlus::SetupButtons(){
-        bool hasRandom = true;
+        bool hasRandom = (RaceData::GetStaticInstance()->menusScenario.settings.gamemode != MODE_TIME_TRIAL);
         u32 totalButtonCount = (variant->count) + hasRandom;
         u32 buttonCount = totalButtonCount - (4 * this->currentSubPage);
         if(buttonCount > 4) buttonCount = 4;

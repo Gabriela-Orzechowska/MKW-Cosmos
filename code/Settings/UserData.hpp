@@ -410,7 +410,8 @@ namespace Cosmos
             }
 
             inline bool CanChooseVariant() {
-                return (variantSelectionOffline && RaceData::GetStaticInstance()->menusScenario.settings.gamemode == MODE_VS_RACE) ||
+                return (RaceData::GetStaticInstance()->menusScenario.settings.gamemode == MODE_TIME_TRIAL) ||
+                    (variantSelectionOffline && RaceData::GetStaticInstance()->menusScenario.settings.gamemode == MODE_VS_RACE) ||
                     (variantSelectionOnline && RaceData::GetStaticInstance()->menusScenario.settings.gamemode == MODE_PRIVATE_VS);
             }
 
