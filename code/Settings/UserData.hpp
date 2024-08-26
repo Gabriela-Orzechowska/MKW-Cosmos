@@ -121,7 +121,8 @@ namespace Cosmos
         };
 
         enum COSMOS_VS_SETTINGS {
-            COSMOS_VS_VARIANT_SELECTION = 0x0,
+            COSMOS_VS_TRACK_LIST = 0x0,
+            COSMOS_VS_VARIANT_SELECTION,
             COSMOS_VS_MEGA_CLOUD,
             COSMOS_VS_ALL_ITEMS_CAN_LAND,
         };
@@ -217,6 +218,12 @@ namespace Cosmos
             VS_ITEM_NONE = 0x3,
         };
 
+        enum COSMOS_VS_SETTING_OPTIONS {
+            TRACK_LIST_ALL = 0x0,
+            TRACK_LIST_RETROS = 0x1,
+            TRACK_LIST_CTS = 0x2,
+        };
+
 
         enum GLOBAL_SETTING
         {
@@ -251,7 +258,7 @@ namespace Cosmos
             COSMOS_SETTING_VS_ITEMS = COSMOS_VS_ITEMS + (COSMOS_VS_SETTINGS_1 * 8),
             COSMOS_SETTING_VS_RACES = COSMOS_VS_RACES + (COSMOS_VS_SETTINGS_1 * 8),
 
-            COSMOS_SETTING_VS_VARIANT_SELECTION = COSMOS_VS_VARIANT_SELECTION + (COSMOS_VS_SETTINGS_2 * 8);
+            COSMOS_SETTING_VS_VARIANT_SELECTION = COSMOS_VS_VARIANT_SELECTION + (COSMOS_VS_SETTINGS_2 * 8),
             COSMOS_SETTING_VS_MEGA_CLOUD = COSMOS_VS_MEGA_CLOUD + (COSMOS_VS_SETTINGS_2 * 8),
             COSMOS_SETTING_VS_ALL_ITEMS_CAN_LAND = COSMOS_VS_ALL_ITEMS_CAN_LAND + (COSMOS_VS_SETTINGS_2 * 8),
         };
@@ -323,8 +330,9 @@ namespace Cosmos
                 }
             },
             {
-                .settingCount = 3,
+                .settingCount = 4,
                 .settings = {
+                    { .optionCount = 3, .isBool = false, .defaultValue = TRACK_LIST_ALL },
                     { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
                     { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
                     { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
