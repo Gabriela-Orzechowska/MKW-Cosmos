@@ -1462,6 +1462,7 @@ ResetLightingTimer__13ItemSlotTableFv = 0x807bb9bc
 Update__15PlayerInventoryFv = 0x807bc6e8
 RemoveItems__15PlayerInventoryFUi = 0x807bc97c
 SetItem__15PlayerInventoryF6ItemIdUc = 0x807bc940
+CheckSpawnTimer__13ItemSlotTableFiUi = 0x807bb380
 
 #ItemObj
 CopyFromRel__17ItemObjPropertiesFP17ItemObjProperties = 0x80790e7c

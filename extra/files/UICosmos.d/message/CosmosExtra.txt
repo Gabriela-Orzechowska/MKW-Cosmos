@@ -21,12 +21,13 @@
  2811   = Track Layout: Alphabetical
 
  2A00   = Settings
- 2A01   = Race (1/1)
- 2A02   = Menu (1/1)
+ 2A01   = Race
+ 2A02   = Menu
  2A03   = Debug
- 2A04   = Host
+ 2A04   = Host (1/2)
  2A05   = VS (1/2)
  2A06   = VS (2/2)
+ 2A07   = Host (2/2)
 
  2A20   = Manage your settings!
  2A21   = Manage your Race settings!
@@ -137,21 +138,22 @@
  40321   = Players can use Mii Heads settings.
  40322   = Mii Heads will be forced off.
 
- 30330   = Force CC
- 30331   = None
- 30332   = 150cc
- 30333   = 200cc
- 30334   = Mirror (150cc)
+ 30340   = Force CC
+ 30341   = None
+ 30342   = 150cc
+ 30343   = 200cc
+ 30344   = Mirror (150cc)
  
- 30340   = Race Count
- 30341   = 2
- 30342   = 4
- 30343   = 8
- 30344   = 12
- 30345   = 16
- 30346   = 24
- 30347   = 32
- 30348   = 64
+ 30350   = Race Count
+ 30351   = 2
+ 30352   = 4
+ 30353   = 8
+ 30354   = 12
+ 30355   = 16
+ 30356   = 24
+ 30357   = 32
+ 30358   = 64
+
 
  30500   = Track Selection
  30501   = All

@@ -46,11 +46,17 @@ void ParseHostSettings(u16 value) {
     bool haw = value & 0x1;
     bool miiHeads = (value >> 1) & 0x1;
     u8 raceCount = raceCounts[(value >> 2) & 0x7];
+    bool megaTc = (value >> 5) & 0x1;
+    bool variantSelection = (value >> 6) & 0x1;
 
     Cosmos::System* system = Cosmos::System::GetStaticInstance();
     system->SetHAW(haw);
     system->SetMiiHeadSettings(miiHeads);
     system->SetRaceCount(raceCount);
+
+    Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetStaticInstance();
+    holder->SetMegaCloudSetting(megaTc);
+    holder->SetChooseVariant(variantSelection);
 }
 
 void BeforeSendingPackets(RKNetROOMHandler& handler, u32 packetData) {
@@ -65,9 +71,11 @@ void BeforeSendingPackets(RKNetROOMHandler& handler, u32 packetData) {
         packet.packet.unknown_0x3 = (u8) packet.packet.message;
         u16 settings = 0;
         SettingsHolder* holder = SettingsHolder::GetStaticInstance();
-        settings |= (holder->GetSettingValue(COSMOS_SETTING_HAW) & 0x1) << 0; 
-        settings |= (holder->GetSettingValue(COSMOS_SETTING_MII_HEADS) & 0x1) << 1; 
-        settings |= (holder->GetSettingValue(COSMOS_SETTING_RACE_COUNT) & 0x7) << 2;
+        settings |= ((holder->GetSettingValue(COSMOS_SETTING_HAW)) == ENABLED) << 0; 
+        settings |= ((holder->GetSettingValue(COSMOS_SETTING_MII_HEADS)) == ENABLED) << 1; 
+        settings |= ((holder->GetSettingValue(COSMOS_SETTING_RACE_COUNT) & 0x7)) << 2;
+        settings |= ((holder->GetSettingValue(COSMOS_SETTING_HOST_MEGA_TC) == ENABLED)) << 5;
+        settings |= ((holder->GetSettingValue(COSMOS_SETTING_HOST_VARIANT_SELECTION) == ENABLED)) << 6;
 
         ParseHostSettings(settings);
 
@@ -89,7 +97,6 @@ ROOMPacket BeforeReadingPackets(RKNetROOMHandler& handler, u32 packetIndex) {
 
         packet.message = packet.unknown_0x3;
         packet.unknown_0x3 = 0;
-
 
         if(packet.messageType == 5) packet.messageType = 0;
     }

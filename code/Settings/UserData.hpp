@@ -1,6 +1,7 @@
 #ifndef _COSMOS_USER_DATA_
 #define _COSMOS_USER_DATA_
 
+#include "UI/BMG/BMG.hpp"
 #include <kamek.hpp>
 #include <FileManager/FileManager.hpp>
 #include <game/System/SaveDataManager.hpp>
@@ -74,6 +75,7 @@ namespace Cosmos
             COSMOS_HOST_SETTINGS_1,
             COSMOS_VS_SETTINGS_1,
             COSMOS_VS_SETTINGS_2,
+            COSMOS_HOST_SETTINGS_2,
         };
 
         enum RACE_SETTINGS_1_SETTINGS
@@ -107,8 +109,10 @@ namespace Cosmos
             COSMOS_OPEN_HOST = 0x0,
             COSMOS_HAW,
             COSMOS_ALLOW_MII_HEADS,
+            COSMOS_HOST_VARIANT_SELECTION,
             COSMOS_FORCE_CC,
             COSMOS_RACE_COUNT,
+            COSMOS_HOST_MEGA_TC = 0x0,
         };
 
         enum VS_SETTINGS {
@@ -247,6 +251,7 @@ namespace Cosmos
             COSMOS_SETTING_OPEN_HOST = COSMOS_OPEN_HOST + (COSMOS_HOST_SETTINGS_1 * 8),
             COSMOS_SETTING_HAW = COSMOS_HAW + (COSMOS_HOST_SETTINGS_1 * 8),
             COSMOS_SETTING_ALLOW_MII_HEADS = COSMOS_ALLOW_MII_HEADS + (COSMOS_HOST_SETTINGS_1 * 8),
+            COSMOS_SETTING_HOST_VARIANT_SELECTION = COSMOS_HOST_VARIANT_SELECTION + (COSMOS_HOST_SETTINGS_1 * 8),
             COSMOS_SETTING_FORCE_CC = COSMOS_FORCE_CC + (COSMOS_HOST_SETTINGS_1 * 8),
             COSMOS_SETTING_RACE_COUNT = COSMOS_RACE_COUNT + (COSMOS_HOST_SETTINGS_1 * 8),
 
@@ -261,9 +266,12 @@ namespace Cosmos
             COSMOS_SETTING_VS_VARIANT_SELECTION = COSMOS_VS_VARIANT_SELECTION + (COSMOS_VS_SETTINGS_2 * 8),
             COSMOS_SETTING_VS_MEGA_CLOUD = COSMOS_VS_MEGA_CLOUD + (COSMOS_VS_SETTINGS_2 * 8),
             COSMOS_SETTING_VS_ALL_ITEMS_CAN_LAND = COSMOS_VS_ALL_ITEMS_CAN_LAND + (COSMOS_VS_SETTINGS_2 * 8),
+
+            //COSMOS_SETTING_HOST_TRACK_LIST = COSMOS_HOST_TRACK_LIST + (COSMOS_HOST_SETTINGS_2 * 8),
+            COSMOS_SETTING_HOST_MEGA_TC = COSMOS_HOST_MEGA_TC + (COSMOS_HOST_SETTINGS_2 * 8),
         };
 
-#define PAGE_COUNT 6
+#define PAGE_COUNT 7
 #define SETTINGS_PER_PAGE 8
 
         typedef struct SettingPageOption
@@ -311,12 +319,13 @@ namespace Cosmos
                              {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}} //LOG TO SD 
             },
             {// Host
-             .settingCount = 5,
+             .settingCount = 6,
              .settings = {{.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, //OpenHost
                           {.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, // HAW
                           {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}, //Allow Mii Heads
+                          {.optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30500, .firstOptionBmg = BMG_ENABLED_DISABLED, .firstDescBmg = 0x40501}, //Variant Selection
                           {.optionCount = 3, .isBool = false, .defaultValue = FORCE_NONE}, // Force CC
-                          {.optionCount = 8, .isBool = false, .defaultValue = RACE_COUNT_4, .nameBmg = 0}}
+                          {.optionCount = 8, .isBool = false, .defaultValue = RACE_COUNT_4}}
             }, //Race count
             {
                 .settingCount = 6,
@@ -326,7 +335,7 @@ namespace Cosmos
                     {.optionCount = 3, .isBool = false, .defaultValue = VS_VEHICLES_ALL, .nameBmg = 0xd66, .firstOptionBmg = 0xd67, .firstDescBmg = 0xd6a},
                     {.optionCount = 3, .isBool = false, .defaultValue = VS_COURSE_CHOOSE, .nameBmg = 0xd70, .firstOptionBmg = 0xd71, .firstDescBmg = 0xd74},
                     {.optionCount = 4, .isBool = false, .defaultValue = VS_ITEM_RECOMMENDED, .nameBmg = 0xd98, .firstOptionBmg = 0xd99, .firstDescBmg = 0xd9d},
-                    {.optionCount = 6, .isBool = false, .defaultValue = RACE_COUNT_4, .nameBmg = 0xd7a, .firstOptionBmg = 0x30341},
+                    {.optionCount = 6, .isBool = false, .defaultValue = RACE_COUNT_4, .nameBmg = 0xd7a, .firstOptionBmg = 0x30351},
                 }
             },
             {
@@ -338,9 +347,15 @@ namespace Cosmos
                     { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
                 }
             },
+            {
+                .settingCount = 1,
+                .settings = {
+                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30510, .firstOptionBmg = BMG_ENABLED_DISABLED, .firstDescBmg = 0x40511},
+                }
+            },
         };
 
-        static u8 GlobalSettingsPageOrder[PAGE_COUNT] = {COSMOS_MENU_SETTINGS_1, COSMOS_RACE_SETTINGS_1, COSMOS_VS_SETTINGS_1, COSMOS_VS_SETTINGS_2, COSMOS_HOST_SETTINGS_1, COSMOS_DEBUG_SETTINGS};
+        static u8 GlobalSettingsPageOrder[PAGE_COUNT] = {COSMOS_MENU_SETTINGS_1, COSMOS_RACE_SETTINGS_1, COSMOS_VS_SETTINGS_1, COSMOS_VS_SETTINGS_2, COSMOS_HOST_SETTINGS_1, COSMOS_HOST_SETTINGS_2, COSMOS_DEBUG_SETTINGS};
 
         struct SettingsPage
         {
@@ -394,9 +409,9 @@ namespace Cosmos
                     (megaCloudOnline && RaceData::GetStaticInstance()->racesScenario.settings.gamemode == MODE_PRIVATE_VS);
             }
 
-            void SetMegaCloudSetting(bool offline = false) {
+            void SetMegaCloudSetting(bool online = false) {
                 megaCloudOffline = this->GetSettingValue(COSMOS_SETTING_VS_MEGA_CLOUD) == ENABLED;
-                megaCloudOnline = false; //TODO 
+                megaCloudOnline = online;
             }
 
             inline bool CanAllItemsLand() {
@@ -404,9 +419,9 @@ namespace Cosmos
                     (allItemsCanLandOnline && RaceData::GetStaticInstance()->racesScenario.settings.gamemode == MODE_PRIVATE_VS);
             }
 
-            void SetAllItemsCanLandSetting(bool offline = false){
+            void SetAllItemsCanLandSetting(bool online = false){
                 allItemsCanLandOffline = this->GetSettingValue(COSMOS_SETTING_VS_ALL_ITEMS_CAN_LAND) == ENABLED;
-                allItemsCanLandOnline = false; //TODO 
+                allItemsCanLandOnline = online;
             }
 
             inline bool CanChooseVariant() {
@@ -415,8 +430,9 @@ namespace Cosmos
                     (variantSelectionOnline && RaceData::GetStaticInstance()->menusScenario.settings.gamemode == MODE_PRIVATE_VS);
             }
 
-            void SetChooseVariant(){
+            void SetChooseVariant(bool online = false){
                 variantSelectionOffline = this->GetSettingValue(COSMOS_SETTING_VS_VARIANT_SELECTION) == ENABLED;
+                variantSelectionOnline = online;
             }
 
 

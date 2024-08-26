@@ -30,6 +30,7 @@ kmWrite32(0x807f18c8, 0x38000000); //TC alert
 
 
 kmWrite32(0x808b5cd8, 0x3f800000); //100cc -> 1.0f for 200
+kmWrite32(0x808b5cd4, 0x3f666666); //50cc -> 0.9f for 100 
 
 // Lap Modifier
 
@@ -73,6 +74,7 @@ kmCall(0x807ea6e0, CorrectKTPTRotationMirror);
 void SetSpeedmod(Kart& kart){
 
     bool is200 = RaceData::GetStaticInstance()->racesScenario.settings.engineClass == CC_100;
+    bool is100 = RaceData::GetStaticInstance()->racesScenario.settings.engineClass == CC_50;
 
     float factor = 1.0f;
     if(is200) factor = 1.5f;
@@ -108,7 +110,6 @@ void SetSpeedmod(Kart& kart){
     regularBoostAccel = 3.0f * factor;
     unknown_70 = 70.0f * factor;
 
-
     kart.Init();
 }
 kmCall(0x8058f778, SetSpeedmod);
@@ -118,3 +119,5 @@ void MegaTC(KartMovement& movement){
     else movement.ApplyLightningEffect(0x264, 0, 1);
 }
 kmCall(0x80580630, MegaTC);
+
+
