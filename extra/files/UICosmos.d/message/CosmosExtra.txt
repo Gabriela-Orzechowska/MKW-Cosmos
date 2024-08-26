@@ -172,6 +172,7 @@
  40531   = Every kind of item can land
  40532   = Only some items can land
 
+
  2820   = A solo race for the fastest record! (200cc)
  2830   = Change Combo
  2840   = Some changes require a restart
