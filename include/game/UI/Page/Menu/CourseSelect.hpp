@@ -6,6 +6,7 @@
 #include <game/UI/Page/Menu/Menu.hpp>
 #include <game/UI/Ctrl/PushButton.hpp>
 #include <game/UI/Ctrl/Menu/CtrlMenuCourse.hpp>
+#include <game/UI/Ctrl/CountDown.hpp>
 
 //_sinit_ at 80840dd8
 namespace Pages{
@@ -42,7 +43,7 @@ public:
     //onBackPress  0x694 vtable 808bd048 80840ab4
     //onStartPress 0x6A8 vtable 808bd048 virtual off 0x7C
     
-    u32 unknown_0x6C4;
+    CountDown *timer;
     CtrlMenuCourseSelectCup ctrlMenuCourseSelectCup; //0x6c8
     CtrlMenuCourseSelectCourse ctrlMenuCourseSelectCourse; //0x149c
     bool unknown_0x215c; //init at 0, set to 1 when a button is pressed

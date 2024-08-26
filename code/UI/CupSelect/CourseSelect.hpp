@@ -43,6 +43,7 @@ namespace CosmosUI{
             static inline VariantSelectPlus* GetPage() { return MenuData::GetStaticInstance()->GetPage<VariantSelectPlus>((PageId)Cosmos::VARIANT_SELECT); }
         protected:
             void BeforeEntranceAnimations() override;
+            void OnActivate() override;
             void SetupButtons();
 
             void OnRightClick(u32 slotId);

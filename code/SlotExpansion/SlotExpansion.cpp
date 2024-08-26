@@ -6,6 +6,7 @@
 
 int GetCorrectTrackBMG(int slot)
 {
+    if(slot == 0x1101) return slot;
     if(slot < 0x100) return GetTrackBMGId((CourseId) slot);
     if(slot >= 0x3000) return slot + BMG_GROUPS;
     return slot + BMG_TRACKS;
@@ -24,7 +25,7 @@ kmWrite32(0x808394e8, 0x388000ff);
 kmWrite32(0x80644104, 0x3b5b0000);
 
 void PatchVoteBMG(VoteControl& control, bool isValid, u32 bmgId, MiiGroup* group, u32 id, bool isLocal, u32 team){
-    if(bmgId != 0x1101 && bmgId < 0x2498)  bmgId = GetCorrectTrackBMG(bmgId);
+    bmgId = GetCorrectTrackBMG(bmgId);
     control.Fill(isValid, bmgId, group, id, isLocal, team);
 }
 kmCall(0x806441b8, PatchVoteBMG);

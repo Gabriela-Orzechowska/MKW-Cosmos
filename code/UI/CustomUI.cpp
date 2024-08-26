@@ -26,6 +26,15 @@ void * CreatePage(u32 pageId)
 
 kmCall(0x80622d2c, CreatePage);
 
+void InjectOnlinePages(Scene& scene, PageId id){
+    scene.CreatePage(id);
+    scene.CreatePage((PageId)Cosmos::VARIANT_SELECT);
+}
+kmCall(0x8062e864, InjectOnlinePages);
+kmCall(0x8062e0d8, InjectOnlinePages);
+kmCall(0x8062e744, InjectOnlinePages);
+kmCall(0x8062eaa4, InjectOnlinePages);
+
 void InjectMenuSinglePages(Scene& scene, PageId id)
 {
     scene.CreatePage(id);
