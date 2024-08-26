@@ -204,8 +204,13 @@ namespace CosmosUI
         this->SetupButtons();
     };
 
+    void VariantSelectPlus::OnActivate(){
+        Pages::CourseSelect::OnActivate();
+        this->timer = CourseSelectPlus::GetPage()->timer; 
+    }
+
     void VariantSelectPlus::SetupButtons(){
-        bool hasRandom = false;
+        bool hasRandom = true;
         u32 totalButtonCount = (variant->count) + hasRandom;
         u32 buttonCount = totalButtonCount - (4 * this->currentSubPage);
         if(buttonCount > 4) buttonCount = 4;
@@ -217,7 +222,6 @@ namespace CosmosUI
             this->arrows.rightArrow.isHidden = true;
             this->arrows.leftArrow.isHidden = true;
         }
-        //TODO Allow hiding Random button
         CtrlMenuCourseSelectCourse& courseSelect = this->ctrlMenuCourseSelectCourse;
         int offset = this->currentSubPage * 4;
         for(int i = 0; i < 4; i++){
