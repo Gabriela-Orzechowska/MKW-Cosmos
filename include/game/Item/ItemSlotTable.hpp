@@ -20,6 +20,7 @@ public:
     ItemSlotTable(); //807ba8c8
     ~ItemSlotTable(); //807ba650
     void ResetLightingTimer(); //807bb9bc
+    bool CheckSpawnTimer(s32 objId, u32 r6); //807bb380
     EGG::TDisposer<ItemSlotTable> disposer; //0x0
     ItemSlotTableHolder playerChances; //0x10
     ItemSlotTableHolder cpuChances; //0x18
