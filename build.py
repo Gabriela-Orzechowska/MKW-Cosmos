@@ -5,7 +5,7 @@ import subprocess, shlex
 import sys
 
 CC="mwcceppc.exe"
-CFLAGS="""-I- -i "engine" -i "include" -i "include/game" -i code -gcc_extensions on -Cpp_exceptions off -enum int -O4,s -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0 -maxerrors 1 -func_align 4 -rtti off -inline auto"""
+CFLAGS="""-I- -i "engine" -i "include" -i "include/game" -i code -gcc_extensions on -Cpp_exceptions off -enum int -O4,s -use_lmw_stmw on -fp hard -rostr -sdata 0 -sdata2 0 -maxerrors 1 -func_align 4 -rtti off"""
 LD = r"./KamekSource/bin/Debug/net6.0/Kamek.exe"
 if(sys.platform == "linux"):
     LD = r"dotnet ./KamekSource/bin/Debug/net6.0/Kamek.dll"
