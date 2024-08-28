@@ -1,6 +1,6 @@
+#include <kamek.hpp>
 #include "UI/Language/LanguageManager.hpp"
 #include "hooks.hpp"
-#include <kamek.hpp>
 #include <game/UI/Page/Page.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
 #include <Settings/UserData.hpp>
@@ -97,6 +97,7 @@ kmCall(0x80855370, FixGPIntroIcon);
 void AddPauseSceneToOnline(Scene& scene, PageId id){
     scene.CreatePage(id);
     scene.CreatePage(VS_RACE_PAUSE_MENU);
+    scene.CreatePage(ARE_YOU_SURE_YOU_WANT_TO_QUIT);
 }
 kmCall(0x8062eccc, AddPauseSceneToOnline);
 kmWrite32(0x808567c0, 0x60000000);
@@ -135,6 +136,9 @@ void ResetOnlineMenuState(){
 }
 static RaceLoadHook rlhResetOnlineMenuState(ResetOnlineMenuState);
 
+kmWrite16(0x806336d8 + 2, VS_RACE_PAUSE_MENU); // FROOM
+kmWrite16(0x806337f8 + 2, VS_RACE_PAUSE_MENU); // WWS
+
 void CalcInput(RealControllerHolder& holder, bool isPaused){
     holder.UpdateFunc(isPaused);
     if(isPaused == false && isOnlinePaused) {
@@ -142,7 +146,57 @@ void CalcInput(RealControllerHolder& holder, bool isPaused){
         holder.GetPreviousGameInputState().Reset();            
     }
 }
-    
-
 kmCall(0x80521784, CalcInput);
+
+asm int ShowControllerOnline2(){
+    ASM (
+        nofralloc;
+        lwz r3, 0x0 (r3);
+        cmpwi r3, P1_WIFI_VS_GAMEPLAY;
+        beq success;
+        cmpwi r3, P1_WIFI_FRIEND_VS_GAMEPLAY;
+        beq success;
+        cmpwi r3, P1_WIFI_BT_GAMEPLAY;
+        beq success;
+        cmpwi r3, P1_WIFI_FRIEND_COIN_BT_GAMEPLAY;
+        beq success;
+        cmpwi r3, P1_WIFI_FRIEND_BALLOON_BT_GAMEPLAY;
+        beq success;
+        b end;
+
+success:
+        li r3, 0x1e;
+
+end:
+        blr;
+    ) 
+}
+
+kmCall(0x80858e2c, ShowControllerOnline2);
+
+asm int ShowControllerOnline(){
+    ASM (
+        nofralloc;
+        lwz r0, 0x0 (r3);
+        cmpwi r0, P1_WIFI_VS_GAMEPLAY;
+        beq success;
+        cmpwi r0, P1_WIFI_FRIEND_VS_GAMEPLAY;
+        beq success;
+        cmpwi r0, P1_WIFI_BT_GAMEPLAY;
+        beq success;
+        cmpwi r0, P1_WIFI_FRIEND_COIN_BT_GAMEPLAY;
+        beq success;
+        cmpwi r0, P1_WIFI_FRIEND_BALLOON_BT_GAMEPLAY;
+        beq success;
+        b end;
+
+success:
+        li r0, 0x1e;
+
+end:
+        blr;
+    ) 
+}
+
+kmCall(0x80859058, ShowControllerOnline);
 

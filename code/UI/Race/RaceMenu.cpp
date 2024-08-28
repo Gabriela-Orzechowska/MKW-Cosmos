@@ -1,3 +1,5 @@
+#include "UI/Page/RaceMenu/RaceMenu.hpp"
+#include "System/Identifiers.hpp"
 #include "game/System/identifiers.hpp"
 #include <UI/Race/RaceMenu.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>
@@ -59,6 +61,14 @@ namespace CosmosUI {
                 default:
                     menu.OnButtonClick(button, val);
             }
+        }
+        else if(isOnline()){
+           if(button->buttonId == Pages::RaceMenu::ButtonQuit){
+                menu.nextPage = ARE_YOU_SURE_YOU_WANT_TO_QUIT;
+                menu.EndStateAnimate(0.0f, 0);
+                return;
+           }
+           else menu.OnButtonClick(button, val);
         }
         else menu.OnButtonClick(button, val);
     }

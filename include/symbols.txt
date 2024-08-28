@@ -3,22 +3,7 @@ WWFC_CUSTOM_REGION = 0x80005efc
 OSUnhandledException2nd__FUcP9OSContextUiUi = 0x801a2a18
 Run__8RKSystemFv = 0x8000951c
 
-# extern
-p_bmgSizeAddress = 0x8007b37c
-p_lecodeBullshit1__11Cosmos::Ghost = 0x805e1e94
-p_lecodeBlueDrag = 0x807ae8ac
-p_lecodeBluePmtf = 0x808a5b30
-p_lecodeBlueFunc = 0x807ae8a8
-
-p_lecodeCup1 = 0x80627a3c
-p_lecodeCup2 = 0x807e5c54
-p_lecodeCup3 = 0x80841614
-p_lecodeCup4 = 0x807e4740
-p_lecodeCupCount = 0x807e5c1c
-p_courseSelectCupId__8CosmosUI = 0x807e45e4
-
-p_objFlowLoad = 0x8082c140
-p_geoHitTableLoad = 0x807f92ac
+kartIdByWeigth = 0x808ab770
 
 pr_patch1_r5 = 0x80653644
 pr_patch2_r6 = 0x806536B0
@@ -28,12 +13,6 @@ pr_patch5_r7 = 0x80659724
 pr_patch6_r7 = 0x80659778
 pr_patch7_r4 = 0x8065A034
 pr_patch8_r4 = 0x8065A080
-
-p_tracklist1 = 0x807e6004
-p_tracklist2 = 0x807e6014
-
-p_tracklist1_2 = 0x807e60f0
-p_tracklist2_2 = 0x807e60f8
 
 __div2u = 0x80021604
 __mod2u = 0x80021828
@@ -606,6 +585,7 @@ __dt__24LayoutUIControlScaleFadeFv = 0x8063e7a8
 #ControlGroup
 ControlGroup = 0x805C23E4
 dtControlGroup = 0x805c2400
+GetControl__12ControlGroupFUc = 0x805c2ac0
 
 #UIAnimator
 UIAnimator = 0x8063c3ec
@@ -1126,6 +1106,14 @@ OnBackPress__Q25Pages9CupSelectFUi = 0x80841b54
 idxToCourseId__Q25Pages9CupSelect = 0x808ad320
 cupTPLs__Q25Pages9CupSelect = 0x808AF8E0
 
+#CharacterSelect
+GetButtonDriver__23CtrlMenuCharacterSelectFUi = 0x807e35b0
+
+#KartSelect
+GetButtonMachineById__Q25Pages10KartSelectFUc = 0x808471c4
+
+#Actionless
+Pop__Q25Pages10ActionLessFv = 0x805bac84
 
 #course select
 UpdateBottomText__Q25Pages12CourseSelectFP26CtrlMenuCourseSelectCourseP10PushButtonUi = 0x80840728
@@ -1293,6 +1281,7 @@ GetRuntimeTypeInfo__Q25Pages14CountDownTimerCFv = 0x80651bb0
 PrepareRace__Q25Pages14CountDownTimerFv = 0x80650e24
 SetModeTypes__Q25Pages14CountDownTimerFv = 0x80651854
 UpdateFriendParams__Q25Pages14CountDownTimerFv = 0x806515cc
+SetInitial__9CountDownFf = 0x805c3c2c
 
 #VRPage
 __ct__Q25Pages2VRFv = 0x8064a3f4
