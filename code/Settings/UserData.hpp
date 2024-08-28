@@ -65,7 +65,7 @@ namespace Cosmos
     namespace Data
     {
 
-#define SettingsVersion 9
+#define SettingsVersion 10
 
         enum SETTINGSPAGES
         {
@@ -437,6 +437,19 @@ namespace Cosmos
                 variantSelectionOnline = online;
             }
 
+            inline bool IsRandomComboForced(){
+                return (RaceData::GetStaticInstance()->menusScenario.settings.gamemode == MODE_PRIVATE_VS) && forcedRandom;
+            }
+
+            inline bool IsRandomComboCommon(){
+                return (RaceData::GetStaticInstance()->menusScenario.settings.gamemode == MODE_PRIVATE_VS) && commonRandom;
+            }
+
+            void SetRandomComboOptions(bool forced, bool common){
+                forcedRandom = forced;
+                commonRandom = forced && common;
+            }   
+
 
             void SetAllInnerSettings(){
                 this->SetAllItemsCanLandSetting();
@@ -465,6 +478,9 @@ namespace Cosmos
             bool allItemsCanLandOnline;
             bool variantSelectionOffline;
             bool variantSelectionOnline;
+
+            bool forcedRandom;
+            bool commonRandom;
         };
     }
 }

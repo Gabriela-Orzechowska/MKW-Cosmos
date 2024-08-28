@@ -1,8 +1,10 @@
 #ifndef _YESNO_
 #define _YESNO_
+#include "System/Identifiers.hpp"
 #include <kamek.hpp>
 #include <game/UI/Page/Page.hpp>
 #include <game/UI/Ctrl/MessageWindowControl.hpp>
+#include <game/UI/MenuData/MenuData.hpp>
 
 //_sinit_ at 806531dc
 namespace Pages {
@@ -53,6 +55,9 @@ public:
     void AfterExitAnimations() override; //0x44 80652b8c
     int GetRuntimeTypeInfo() const override; //0x60 80653188
     void Reset() override; //80652ce8
+    
+    static YesNoPopUp* GetPage() { return MenuData::GetStaticInstance()->GetPage<YesNoPopUp>(VOTERANDOM_MESSAGE_BOX);}
+
     BlackBackControlForMessage blackMsgBoxBg; //0x8b8
     Container container; //0xa2c
 }; //total size 0xba0

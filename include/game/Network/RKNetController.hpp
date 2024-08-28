@@ -131,6 +131,8 @@ public:
     void UpdateStatusDatas(); //8065a0b4
     void UpdateSubsAndVr(); //80658de0
 
+    inline RKNetControllerSub& GetCurrentSub() { return subs[currentSub]; }
+
     u8 unknown_0x4[0x20-0x4];//unknown class vtable 808c0988
     EGG::ExpHeap *expHeap;
     EGG::TaskThread *taskThread;

@@ -17,8 +17,8 @@
  2804   = Ghost Saving disabled. Dolphin cheats enabled.
  2805   = Would you like to upload ghost to leaderboards?
 
- 2810   = Track Layout: Normal
- 2811   = Track Layout: Alphabetical
+ 2810   = Track Sorting: Normal
+ 2811   = Track Sorting: Alphabetical
 
  2A00   = Settings
  2A01   = Race
@@ -174,7 +174,8 @@
 
 
  2820   = A solo race for the fastest record! (200cc)
- 2830   = Change Combo
+ 2830   = Change Combo 
+ 2831   = Choose or Random?
  2840   = Some changes require a restart
  2841   = Dolphin cheats are enabled!\nThe game might not function as expected.
  2842   = Dolphin extended memory enabled!\nThe game might not function as expected.

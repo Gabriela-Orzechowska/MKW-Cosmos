@@ -37,7 +37,8 @@ enum KartId{
 	SPEAR			    =0X20,
 	JET_BUBBLE		    =0X21,
 	DOLPHIN_DASHER	    =0X22,
-	PHANTOM			    =0X23
+	PHANTOM			    =0X23,
+    KART_NONE           =-1U,
 };
 
 enum CharacterId{
@@ -88,7 +89,8 @@ enum CharacterId{
     MII_L			        =0X2C,
     PEACH_BIKER		        =0X2D,
     DAISY_BIKER		        =0X2E,
-    ROSALINA_BIKER		    =0X2F
+    ROSALINA_BIKER		    =0X2F,
+    CHARACTER_NONE          =-1U,
 };
 
 enum ItemObjId{

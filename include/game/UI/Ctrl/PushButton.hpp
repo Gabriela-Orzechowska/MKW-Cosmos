@@ -43,6 +43,9 @@ public:
     void HandleClick(u32 hudSlotId, u32 r5); //805be358
     void SetPlayerBitfield(u32 bitField); //805bdbd4
     bool IsSelected(); //805bdf44
+    
+    inline ControlManipulator& GetManipulator() { return manipulator; }
+
     ControlManipulator manipulator; //0x174
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> onSelectHandlerObj; //0x1F8
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> onDeselectHandlerObj; //0x20C
@@ -50,6 +53,7 @@ public:
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> *onClickHandler; //0x234
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> *onSelectHandler; //0x238
     PtmfHolder_2A<LayoutUIControl, void, u32, u32> *onDeselectHandler; //0x23C
+
     u32 buttonId; //0x240
     u32 localPlayerBitfield; //0x244
     nw4r::lyt::Pane *fuchi_pattern; //0x248

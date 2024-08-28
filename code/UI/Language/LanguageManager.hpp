@@ -48,7 +48,7 @@ namespace Cosmos
         void ResetStatus() { this->needsUpdate = false; }
 
         u32 GameToGlobal(u32 i, u32 a);
-
+        void UpdateArchiveNames(bool isRace);
         bool isBoot;
     private:
         static LanguageManager* sInstance;

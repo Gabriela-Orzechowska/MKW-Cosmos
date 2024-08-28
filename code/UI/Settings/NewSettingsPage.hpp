@@ -1,4 +1,5 @@
 #pragma once
+#include "UI/Ctrl/CountDown.hpp"
 #include "main.hpp"
 #include <kamek.hpp>
 #include <game/UI/Page/Page.hpp>
@@ -28,7 +29,8 @@ namespace CosmosUI
                 page->SetPreviousPage(id, menu);
             }
         }
-        void SetPreviousPage(PageId id, MenuId menu) { this->returnPage = id; this->returnMenu = menu; }
+        void SetPreviousPage(PageId id, MenuId menu, PageId timer = PAGE_NONE) { this->returnPage = id; this->returnMenu = menu; this->timerPage = timer; }
+        void SetTimer(CountDown* countDown) { this->timer = countDown; } 
         void SetNextSettingPage(u32 page) { 
             this->currentPage = page;
         }
@@ -71,9 +73,11 @@ namespace CosmosUI
         PtmfHolder_2A<Page, void, UpDownControl*, u32> onValueSettingSelectHandler;
         PtmfHolder_3A<Page, void, UpDownControl*, u32, u32> onValueSettingChangeHandler;
         PtmfHolder_2A<Page, void, UpDownControl*, u32> onDeselectHandler;
+        CountDown* timer;
 
         u8 currentPage;
         PageId returnPage;
         MenuId returnMenu;
+        PageId timerPage;
     };
 } // namespace CosmosUI

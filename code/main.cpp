@@ -190,13 +190,13 @@ namespace Cosmos{
         else {
             if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archives[2] == file){
                 LoadLZMAFile(file, Cosmos::UIArchive, heap, isCompressed, align, fileHeap, fileInfo);
+                return;
             }
             else if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COMMON)->archives[2] == file){
                 path = Cosmos::CommonArchive;
             }
             file->Load(path, heap, isCompressed, align, fileHeap, fileInfo);
         }
-        CosmosLog("Loading file: %s\n", path);
     }
 
     kmWrite32(0x8052a108, 0x38800003); //+1 for CommonCosmos.szs

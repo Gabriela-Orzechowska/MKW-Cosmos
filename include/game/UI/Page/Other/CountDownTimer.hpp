@@ -6,6 +6,7 @@
 #include <game/Visual/Mii.hpp>
 #include <game/UI/Ctrl/CountDown.hpp>
 #include <game/UI/Page/Other/Message.hpp>
+#include <game/UI/MenuData/MenuData.hpp>
 
 /*
 Contributors:
@@ -33,6 +34,8 @@ struct PlayerInfo{
 namespace Pages{
 class CountDownTimer : public Page { //0x90
 public:
+
+    static inline CountDownTimer* GetPage() { return MenuData::GetStaticInstance()->GetPage<CountDownTimer>((PageId) 0x90);}
     CountDownTimer(); //8064fbdc 
     ~CountDownTimer() override; //8064fc70 vtable 0x808c069c
     int func_0x14() override; //0x14 80651ba8 return 3
