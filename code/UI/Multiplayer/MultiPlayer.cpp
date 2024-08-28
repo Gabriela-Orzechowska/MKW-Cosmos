@@ -107,7 +107,7 @@ namespace CosmosUI
 
     void VRPagePlus::OnActivate(){
         Pages::VR::OnActivate();
-
+        Pages::CountDownTimer::GetPage()->status = STATUS_VR_PAGE;
         this->menuState = 0;
         
         if(Cosmos::Data::SettingsHolder::GetStaticInstance()->IsRandomComboForced()){
@@ -286,10 +286,6 @@ namespace CosmosUI
         COSMOS_ASSERT_NOT_NULL(vrPage);
         if(vrPage->menuState == 3) pageId = (PageId)Cosmos::SETTINGS_MAIN;
         else if(vrPage->menuState != 0) pageId = CHARACTER_SELECT;
-
-        if(vrPage->menuState != 3){
-            Pages::CountDownTimer::GetPage()->status = STATUS_CUP_SELECT;
-        }
 
         return page.AddPageLayer(pageId, animationDirection);
     }
