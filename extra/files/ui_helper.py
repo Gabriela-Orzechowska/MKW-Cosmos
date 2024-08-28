@@ -5,13 +5,18 @@ import shutil
 
 wuj5_path = Path("../wuj5/wuj5.py")
 
-def create_and_pack():
+def create():
 
     result = list(Path(".").rglob("*.json5"))
 
     for r in result:
         os.system(f"python {wuj5_path} encode {r}")
         # os.remove(r)
+
+
+def create_and_pack():
+
+    create()
 
     pack()
 
@@ -34,10 +39,11 @@ operations = {
     'decode_all': decode_all,
     'create_and_pack': create_and_pack,
     'pack': pack,
+    'create': create,
 }
 
 parser = ArgumentParser()
-parser.add_argument('operation', choices = ['decode_all', 'create_and_pack', 'pack'])
+parser.add_argument('operation', choices = ['decode_all', 'create_and_pack', 'pack', 'create'])
 args = parser.parse_args()
 
 operations[args.operation]()

@@ -2,6 +2,7 @@
 #define _COSMOS_MULTIPLAYER_UI_
 
 #include "System/Identifiers.hpp"
+#include "UI/Ctrl/PushButton.hpp"
 #include <kamek.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
 #include <game/UI/Page/Page.hpp>
@@ -28,12 +29,19 @@ namespace CosmosUI
 
             static inline VRPagePlus* GetPage() { return MenuData::GetStaticInstance()->GetPage<VRPagePlus>(PLAYER_LIST_VR_PAGE); }
         private:
-            void ChangeCombo(const PushButton& button, u32 slotId);
-            void RandomCombo(const PushButton& button, u32 hudSlotId);
+            void ChangeComboButton(const PushButton& button, u32 hudSlotId);
+            void OnSettingsButton(const PushButton& button, u32 hudSlotId);
+
+            void ChangeCombo();
+            void RandomCombo();
+
+            void OnConfirmButtonClick(u32 choice, PushButton& button);
+
             PtmfHolder_2A<VRPagePlus, void, const PushButton&, u32> onChangeComboButton;
-            PtmfHolder_2A<VRPagePlus, void, const PushButton&, u32> onRandomComboButton;
+            PtmfHolder_2A<VRPagePlus, void, const PushButton&, u32> onSettingsButton;
+            PtmfHolder_2A<VRPagePlus, void, u32, PushButton&> onConfirmButton;
             PushButton changeComboButton;
-            PushButton randomComboButton;
+            PushButton settingsButton;
     };
 
     class CharSelectPlus : public Pages::CharacterSelect

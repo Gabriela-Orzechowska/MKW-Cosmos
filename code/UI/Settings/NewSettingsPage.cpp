@@ -26,8 +26,13 @@ namespace CosmosUI {
     }
 
     void NewSettings::OnUpdate() {
+        if(timer == nullptr) return;
 
-
+        if(!timer->isActive) {
+            this->returnPage = this->timerPage;
+            Cosmos::Data::SettingsHolder::GetStaticInstance()->Update();
+            this->EndStateAnimate(0.0f, 0);
+        }
     }
 
     void NewSettings::OnInit() {

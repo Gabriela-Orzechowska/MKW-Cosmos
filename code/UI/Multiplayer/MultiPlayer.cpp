@@ -4,10 +4,15 @@
 #include "Settings/UserData.hpp"
 #include "System/Identifiers.hpp"
 #include "UI/Ctrl/Manipulator.hpp"
+#include "UI/Ctrl/PushButton.hpp"
 #include "UI/Page/Menu/MultiDriftSelect.hpp"
+#include "UI/Page/Other/CountDownTimer.hpp"
+#include "UI/Page/Other/YesNo.hpp"
 #include "UI/Page/Page.hpp"
+#include "UI/Settings/NewSettingsPage.hpp"
 #include "hooks.hpp"
 #include "kamek.hpp"
+#include "main.hpp"
 #include <UI/Multiplayer/MultiPlayer.hpp>
 #include <game/Network/RKNetController.hpp>
 
@@ -41,9 +46,13 @@ namespace CosmosUI
     VRPagePlus::VRPagePlus() {
         this->menuState = 0;
         this->onChangeComboButton.subject = this;
-        this->onChangeComboButton.ptmf = &VRPagePlus::ChangeCombo;
-        this->onRandomComboButton.subject = this;
-        this->onRandomComboButton.ptmf = &VRPagePlus::RandomCombo;
+        this->onChangeComboButton.ptmf = &VRPagePlus::ChangeComboButton;
+
+        this->onSettingsButton.subject = this;
+        this->onSettingsButton.ptmf = &VRPagePlus::OnSettingsButton;
+
+        this->onConfirmButton.subject = this;
+        this->onConfirmButton.ptmf = &VRPagePlus::OnConfirmButtonClick;
     }
 
     void VRPagePlus::OnInit()
@@ -58,11 +67,10 @@ namespace CosmosUI
         button->SetOnClickHandler((PtmfHolder_2A<Page, void, PushButton *, u32> * )&this->onChangeComboButton, 0);
         button->GetManipulator().SetAction(START_PRESS, &button->onClickHandlerObj, 0);
 
-        PushButton* buttonRandom = &this->randomComboButton;
-        this->AddControl(0x10, buttonRandom, 0);
-        buttonRandom->Load("button", "CosmosVRScreen", "RandomCombo", 1, 0, false);
-        buttonRandom->SetOnClickHandler((PtmfHolder_2A<Page, void, PushButton *, u32> * )&this->onRandomComboButton, 0);
-        buttonRandom->GetManipulator().SetAction(SWITCH_PRESS, &buttonRandom->onClickHandlerObj, 0);
+        PushButton* buttonSettings = &this->settingsButton;
+        this->AddControl(0x10, buttonSettings, 0);
+        buttonSettings->Load("button", "CosmosVRScreen", "RandomCombo", 1, 0, false);
+        buttonSettings->SetOnClickHandler((PtmfHolder_2A<Page, void, PushButton *, u32> * )&this->onSettingsButton, 0);
     }
 
     void UpdateOKButton(PushButton& button, const char * folderName, const char * controlName, const char * variant, u32 localPlayerCount, u8 param_5, bool inaccesable)
@@ -72,22 +80,65 @@ namespace CosmosUI
 
     kmCall(0x8064a6e8, UpdateOKButton);
     
-    void VRPagePlus::ChangeCombo(const PushButton& button, u32 slotId)
+    void VRPagePlus::OnConfirmButtonClick(u32 choice, PushButton& button) {
+        Pages::YesNoPopUp* popUp = Pages::YesNoPopUp::GetPage();    
+        popUp->EndStateAnimate(0.0f, 0);
+
+        if(choice == 0) this->ChangeCombo();
+        else this->RandomCombo();
+    }
+
+    void VRPagePlus::ChangeComboButton(const PushButton& button, u32 hudSlotId){
+        Pages::YesNoPopUp* popUp = Pages::YesNoPopUp::GetPage();    
+        popUp->SetMessageBoxMsg(0x2831, nullptr); 
+        popUp->SetupButton(0, 0xd71, nullptr, 0, &this->onConfirmButton);
+        popUp->SetupButton(1, 0xd72, nullptr, 0, &this->onConfirmButton);
+
+        this->AddPageLayer(VOTERANDOM_MESSAGE_BOX, 0);
+    }
+
+    void VRPagePlus::ChangeCombo()
     {
         this->menuState = 1;
-        this->EndStateAnimate(button.GetAnimationFrameSize(), 0);
+        this->EndStateAnimate(0.0f, 0);
     }
+
+//#define TEST_VRSCREEN
 
     void VRPagePlus::OnActivate(){
         Pages::VR::OnActivate();
+
+        this->menuState = 0;
+        
+        if(Cosmos::Data::SettingsHolder::GetStaticInstance()->IsRandomComboForced()){
+            this->changeComboButton.isHidden = true;
+            this->changeComboButton.SetPlayerBitfield(0);
+        }
+        
+#ifdef TEST_VRSCREEN
+        this->timer->SetInitial(1000.0f);
+        for(int i = 0; i < 12; i++){
+            this->vrControls[i].isHidden = false;
+        }
+#endif
     }
 
-    void VRPagePlus::RandomCombo(const PushButton& button, u32 hudSlotId){
+    void VRPagePlus::OnSettingsButton(const PushButton& button, u32) {
+        CosmosUI::NewSettings* settings = CosmosUI::NewSettings::GetPage();
+        PageId timerEnd = COURSESTAGE_VOTES;
+        if(Cosmos::Data::SettingsHolder::GetStaticInstance()->IsRandomComboForced()) timerEnd = CHARACTER_SELECT;
+        settings->SetPreviousPage(PLAYER_LIST_VR_PAGE, P1_WIFI_VS_VOTING, timerEnd);
+        settings->SetTimer(this->timer);
+        this->menuState = 3;
+        this->EndStateAnimate(0.0f, 0);
+    }
+
+    void VRPagePlus::RandomCombo(){
         this->menuState = 2;
-        this->EndStateAnimate(button.GetAnimationFrameSize(), 0);
+        this->EndStateAnimate(0.0f, 0);
 
         u32 seed = OSGetTick();
-        if(true || Cosmos::Data::SettingsHolder::GetStaticInstance()->IsRandomComboCommon()){
+        if(Cosmos::Data::SettingsHolder::GetStaticInstance()->IsRandomComboCommon()){
             RKNetController* rknet = RKNetController::GetStaticInstance();
             RKNetControllerSub& sub = rknet->GetCurrentSub();
             seed = RKNetSELECTHandler::GetStaticInstance()->receivedPackets[sub.hostAid].selectId;
@@ -189,6 +240,7 @@ namespace CosmosUI
     {
         scene.CreatePage(id);
         scene.CreatePage(CHARACTER_SELECT);
+        scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
         switch (scene.menuId)
         {
             case(P1_WIFI_VS_VOTING):
@@ -232,10 +284,17 @@ namespace CosmosUI
     {
         VRPagePlus* vrPage = VRPagePlus::GetPage();
         COSMOS_ASSERT_NOT_NULL(vrPage);
-        if(vrPage->menuState != 0) pageId = CHARACTER_SELECT;
+        if(vrPage->menuState == 3) pageId = (PageId)Cosmos::SETTINGS_MAIN;
+        else if(vrPage->menuState != 0) pageId = CHARACTER_SELECT;
+
+        if(vrPage->menuState != 3){
+            Pages::CountDownTimer::GetPage()->status = STATUS_CUP_SELECT;
+        }
+
         return page.AddPageLayer(pageId, animationDirection);
     }
 
+    kmWrite32(0x80650978, 0x60000000);
     kmCall(0x806509d0, AddCharacterSelectLayer);
     kmWrite32(0x8064a61c, 0x60000000);
 
