@@ -118,17 +118,20 @@ static_assert(sizeof(Page) == 0x44,"Page");
 namespace Pages{
 
 class ActionLess : public Page{
+    public:
     ActionLess(); //805bab40 inlined
     ~ActionLess() override; //805bab84 vtable 808b7480
     void OnInit() override; //0x28 805babec
     void OnActivate() override; //0x30 805bac40  
     void AfterControlUpdate() override; //0x4c 805bac4c, ends the page
     int GetRuntimeTypeInfo() const override; //0x60 805bb28c
+    void Pop();
     ManipulatorManager manipulatorManager;
     u8 unknown_0x54[4]; //0x54
 }; //0x58
 
 class AutoEnding : public ActionLess{ //0x4F but also 0x50 and 0xc7
+public:
     AutoEnding(); //805bae98
     ~AutoEnding() override; //805baf68 vtable 808b73a8
     void OnInit() override; //0x28 805bb024
@@ -138,7 +141,7 @@ class AutoEnding : public ActionLess{ //0x4F but also 0x50 and 0xc7
     CtrlMenuPageTitleText titleText; //0x58 to 0x1CC
     BusySymbol busySymbol; //0x1CC to 0x340
     MessageWindowControl *messageWindow; //type SimpleMessageWindowControl if 0x50
-    u32 unknown_0x344; //set to -1 by OnInit
+    PageId nextPageId;
 }; //total size 0x348
 static_assert(sizeof(AutoEnding) == 0x348, "AutoEnding");
 }

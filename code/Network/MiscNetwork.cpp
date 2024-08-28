@@ -7,7 +7,7 @@
 #include <Network/SHA256.hpp>
 #include <Network/WiiLinkTypes.hpp>
 
-#define TEST_REGION 7772
+#define TEST_REGION 2137 
 
 void ChangeGameRegion(u32 regionID)
 {

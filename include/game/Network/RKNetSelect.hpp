@@ -65,7 +65,7 @@ static_assert(sizeof(LecodeSELECTPacket) == 0x38, "LecodeSELECTPacket");
 class RKNetSELECTHandler{
 public:
     static RKNetSELECTHandler *sInstance; //0x809c2100
-    static RKNetSELECTHandler *GetStaticInstance(); //8065fe8c
+    static RKNetSELECTHandler *GetStaticInstance() { return sInstance; }
     static void DestroyStaticInstance(); //8065ff60
     RKNetSELECTHandler(); //8066076c inlined
     ~RKNetSELECTHandler(); //806607f4
