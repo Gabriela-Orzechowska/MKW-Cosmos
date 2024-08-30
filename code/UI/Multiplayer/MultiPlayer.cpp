@@ -43,8 +43,13 @@ namespace CosmosUI
     kmCall(0x80623d74, AddKartPage);
     kmWrite32(0x80623d68, 0x60000000);
 
-    VRPagePlus::VRPagePlus() {
-        this->menuState = 0;
+    DriftSelectPlus* AddDriftPage(){
+        return new(DriftSelectPlus);
+    }
+    kmCall(0x80623d8c, AddDriftPage);
+    kmWrite32(0x80623d80, 0x60000000);
+
+    VRPagePlus::VRPagePlus() : menuState(0), hasSetRandomCombo(false) {
         this->onChangeComboButton.subject = this;
         this->onChangeComboButton.ptmf = &VRPagePlus::ChangeComboButton;
 
@@ -91,10 +96,62 @@ namespace CosmosUI
     void VRPagePlus::ChangeComboButton(const PushButton& button, u32 hudSlotId){
         Pages::YesNoPopUp* popUp = Pages::YesNoPopUp::GetPage();    
         popUp->SetMessageBoxMsg(0x2831, nullptr); 
-        popUp->SetupButton(0, 0xd71, nullptr, 0, &this->onConfirmButton);
-        popUp->SetupButton(1, 0xd72, nullptr, 0, &this->onConfirmButton);
+        popUp->SetupButton(0, 0xd71, nullptr, -1, &this->onConfirmButton);
+        popUp->SetupButton(1, 0xd72, nullptr, -1, &this->onConfirmButton);
 
         this->AddPageLayer(VOTERANDOM_MESSAGE_BOX, 0);
+    }
+
+    void VRPagePlus::SetRandomCombo(){
+        if(hasSetRandomCombo) return;
+
+        u32 seed = OSGetTick();
+        if(Cosmos::Data::SettingsHolder::GetStaticInstance()->IsRandomComboCommon()){
+            RKNetController* rknet = RKNetController::GetStaticInstance();
+            RKNetControllerSub& sub = rknet->GetCurrentSub();
+            seed = RKNetSELECTHandler::GetStaticInstance()->receivedPackets[sub.hostAid].selectId;
+            if(sub.localAid == sub.hostAid)
+                seed = RKNetSELECTHandler::GetStaticInstance()->toSendPacket.selectId;
+        }
+        seed = seed >> 5;
+
+        //The randomizer part borrowed from Melg
+        Random random(seed);
+        GlobalContext* context = MenuData::GetStaticInstance()->GetCurrentContext();
+        u32 kartPos[2];
+        bool manualMode[2] = { true, true };
+        for(int i = 0; i < context->localPlayerCount; i++){
+            CharacterId charId = (CharacterId) random.NextLimited(24);
+            kartPos[i] = random.NextLimited(12);
+            KartId kartId = kartIdByWeigth[CharacterIDToWeightClass(charId)][kartPos[i]];
+
+            context->characters[i] = charId;
+            context->karts[i] = kartId;
+            context->combos[i].selCharacter = charId;
+            context->combos[i].selKart = kartId;
+
+            for(int j = 0; j < 5; j++){
+                if(kartId == AutoKarts[j]){
+                    manualMode[i] = random.NextLimited(2) == 0;
+                }
+            }
+        }
+        
+        if(Cosmos::Data::SettingsHolder::GetStaticInstance()->IsRandomComboCommon() && context->localPlayerCount > 1){
+            context->characters[1] = context->characters[0];
+            context->karts[1] = context->karts[0];
+            context->combos[1].selCharacter = context->combos[0].selCharacter;
+            context->combos[1].selKart = context->combos[0].selKart;
+            kartPos[1] = kartPos[0];
+            manualMode[1] = manualMode[0];
+        }
+        else {
+            KartSelectPlus::GetPage()->SetRandomKarts(kartPos[0]);
+            DriftSelectPlus::GetPage()->SetDriftOption(manualMode[0]);
+        }
+        CharSelectPlus::GetPage()->SetRandomCharacters(context->characters[0], context->characters[1]);
+
+        this->hasSetRandomCombo = true;
     }
 
     void VRPagePlus::ChangeCombo()
@@ -102,8 +159,6 @@ namespace CosmosUI
         this->menuState = 1;
         this->EndStateAnimate(0.0f, 0);
     }
-
-//#define TEST_VRSCREEN
 
     void VRPagePlus::OnActivate(){
         Pages::VR::OnActivate();
@@ -113,14 +168,8 @@ namespace CosmosUI
         if(Cosmos::Data::SettingsHolder::GetStaticInstance()->IsRandomComboForced()){
             this->changeComboButton.isHidden = true;
             this->changeComboButton.SetPlayerBitfield(0);
+            this->SetRandomCombo();
         }
-        
-#ifdef TEST_VRSCREEN
-        this->timer->SetInitial(1000.0f);
-        for(int i = 0; i < 12; i++){
-            this->vrControls[i].isHidden = false;
-        }
-#endif
     }
 
     void VRPagePlus::OnSettingsButton(const PushButton& button, u32) {
@@ -137,36 +186,14 @@ namespace CosmosUI
         this->menuState = 2;
         this->EndStateAnimate(0.0f, 0);
 
-        u32 seed = OSGetTick();
-        if(Cosmos::Data::SettingsHolder::GetStaticInstance()->IsRandomComboCommon()){
-            RKNetController* rknet = RKNetController::GetStaticInstance();
-            RKNetControllerSub& sub = rknet->GetCurrentSub();
-            seed = RKNetSELECTHandler::GetStaticInstance()->receivedPackets[sub.hostAid].selectId;
-            if(sub.localAid == sub.hostAid)
-                seed = RKNetSELECTHandler::GetStaticInstance()->toSendPacket.selectId;
-        }
-        seed = seed >> 5;
-        CosmosLog("Seed used: %d\n", seed);
-
-        //The randomizer part borrowed from Melg
-        Random random(seed);
-        GlobalContext* context = MenuData::GetStaticInstance()->GetCurrentContext();
-        u32 kartPos[2];
-        for(int i = 0; i < context->localPlayerCount; i++){
-            CharacterId charId = (CharacterId) random.NextLimited(24);
-            kartPos[i] = random.NextLimited(12);
-            KartId kartId = kartIdByWeigth[CharacterIDToWeightClass(charId)][kartPos[i]];
-
-            context->characters[i] = charId;
-            context->karts[i] = kartId;
-            context->combos[i].selCharacter = charId;
-            context->combos[i].selKart = kartId;
-        }
-        CharSelectPlus::GetPage()->SetRandomCharacters(context->characters[0], context->characters[1]);
-        KartSelectPlus::GetPage()->SetRandomKarts(kartPos[0], kartPos[1]);
+        this->SetRandomCombo();
     }   
 
     void CharSelectPlus::BeforeControlUpdate(){
+        Pages::CountDownTimer* timer = Pages::CountDownTimer::GetPage();
+        if(timer){
+            timer->status = STATUS_CUP_SELECT;
+        }
         if(!isRandom) return;
 
         this->controlsManipulatorManager.inaccessible = true;
@@ -236,6 +263,29 @@ namespace CosmosUI
         }
     }
 
+    void DriftSelectPlus::BeforeControlUpdate(){
+        if(!isRandom) return;
+        this->controlsManipulatorManager.inaccessible = true;
+        GlobalContext* context = MenuData::GetStaticInstance()->GetCurrentContext();
+        if(this->rouletteCounter > 0) {
+            --this->rouletteCounter;
+            if(rouletteCounter == 0){
+               this->externControls[(int)!this->isManual[0]]->HandleClick(0, -1); 
+            }
+            else if(rouletteCounter % 5 == 0) {
+                if(rouletteCounter > 5)
+                {
+                    this->tempOption[0] = !this->tempOption[0];
+                }
+                else {
+                    this->tempOption[0] = this->isManual[0];
+                }
+                this->externControls[(int)!this->tempOption[0]]->HandleSelect(0, -1); 
+                this->externControls[(int)!this->tempOption[0]]->Select(0); 
+            }
+        }
+    }
+
     void AddChangeComboPage(Scene& scene, PageId id)
     {
         scene.CreatePage(id);
@@ -284,16 +334,44 @@ namespace CosmosUI
     {
         VRPagePlus* vrPage = VRPagePlus::GetPage();
         COSMOS_ASSERT_NOT_NULL(vrPage);
-        if(vrPage->menuState == 3) pageId = (PageId)Cosmos::SETTINGS_MAIN;
-        else if(vrPage->menuState != 0) pageId = CHARACTER_SELECT;
+        if(!page.countdown.isActive || vrPage->menuState > 5) {
+            if(vrPage->menuState < 6 && Cosmos::Data::SettingsHolder::GetStaticInstance()->IsRandomComboForced()){
+                CharSelectPlus::GetPage()->SetFastChoose();
+                KartSelectPlus* kartPage = KartSelectPlus::GetPage();
+                DriftSelectPlus* driftPage = DriftSelectPlus::GetPage();
+                if(kartPage)
+                    kartPage->SetFastChoose();
+                if(driftPage)
+                    driftPage->SetFastChoose();
+                pageId = CHARACTER_SELECT;
+            }
+            else {
+                pageId = COURSESTAGE_VOTES;
+                page.status = STATUS_VOTES_PAGE;
+            }
+            vrPage->menuState = 7;
+            page.timerControl.Reset();
+        }
+        else if(Cosmos::Data::SettingsHolder::GetStaticInstance()->IsRandomComboForced()){
+            pageId = CHARACTER_SELECT;
+        }
+        else if(vrPage->menuState == 3) pageId = (PageId)Cosmos::SETTINGS_MAIN;
+        else if(vrPage->menuState != 0) {
+            pageId = CHARACTER_SELECT;
+        }
+        if(vrPage->menuState != 3){
+            vrPage->menuState = 6;
+        }
 
         return page.AddPageLayer(pageId, animationDirection);
     }
+    kmCall(0x806509d0, AddCharacterSelectLayer);
+
+    void ForceCharacterPage(Pages::CountDownTimer& page, PageId pageId, s32 animationDirection){
+        page.AddPageLayer(pageId, animationDirection);
+    }
+    kmCall(0x80650a00, ForceCharacterPage);
 
     kmWrite32(0x80650978, 0x60000000);
-    kmCall(0x806509d0, AddCharacterSelectLayer);
     kmWrite32(0x8064a61c, 0x60000000);
-
-
-
 }

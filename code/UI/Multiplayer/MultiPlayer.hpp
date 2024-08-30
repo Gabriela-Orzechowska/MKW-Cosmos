@@ -17,6 +17,8 @@
 
 #define COUNTER_VALUE 90
 
+const KartId AutoKarts[] = { JETSETTER, SPRINTER, BLUE_FALCON, SPEAR, NITROCYCLE,};
+
 namespace CosmosUI
 {
     class VRPagePlus : public Pages::VR
@@ -27,13 +29,16 @@ namespace CosmosUI
             void OnActivate() override;
             u8 menuState;
 
+            void SetRandomCombo();
+
+            void ChangeCombo();
+            void RandomCombo();
+
+
             static inline VRPagePlus* GetPage() { return MenuData::GetStaticInstance()->GetPage<VRPagePlus>(PLAYER_LIST_VR_PAGE); }
         private:
             void ChangeComboButton(const PushButton& button, u32 hudSlotId);
             void OnSettingsButton(const PushButton& button, u32 hudSlotId);
-
-            void ChangeCombo();
-            void RandomCombo();
 
             void OnConfirmButtonClick(u32 choice, PushButton& button);
 
@@ -42,6 +47,7 @@ namespace CosmosUI
             PtmfHolder_2A<VRPagePlus, void, u32, PushButton&> onConfirmButton;
             PushButton changeComboButton;
             PushButton settingsButton;
+            bool hasSetRandomCombo;
     };
 
     class CharSelectPlus : public Pages::CharacterSelect
@@ -61,6 +67,9 @@ namespace CosmosUI
                 isRandom = true;
                 rouletteCounter = COUNTER_VALUE;
             }
+            void SetFastChoose() {
+                rouletteCounter = 5;
+            }   
         private:
             CharacterId actualCharacters[2];
             CharacterId tempCharacters[2];
@@ -81,17 +90,48 @@ namespace CosmosUI
             } 
             void BeforeControlUpdate() override;
             PushButton* KartSelectPlus::GetButton(u32 idx);
-            void SetRandomKarts(u32 p1Kart, u32 p2Kart = KART_NONE){
+            void SetRandomKarts(u32 p1Kart){
                 actualKarts[0] = p1Kart;
-                actualKarts[1] = p2Kart;
                 isRandom = true;
                 rouletteCounter = COUNTER_VALUE;
             }
+            void SetFastChoose() {
+                rouletteCounter = 5;
+            }   
         private:
             u32 actualKarts[2];
             u32 tempKarts[2];
             u32 rouletteCounter;
             bool isRandom;
+    };
+    class DriftSelectPlus : public Pages::DriftSelect {
+        public:
+            static inline DriftSelectPlus* GetPage() { return MenuData::GetStaticInstance()->GetPage<DriftSelectPlus>(DRIFT_SELECT); }
+
+            DriftSelectPlus() : isRandom(false), rouletteCounter(0) {
+                isManual[0] = true;
+                isManual[1] = true;
+                tempOption[0] = 0;
+                tempOption[1] = 0;
+            };
+
+            void BeforeControlUpdate() override;
+            void SetDriftOption(bool p1 = true){
+                isManual[0] = p1;
+                isRandom = true;
+                rouletteCounter = (COUNTER_VALUE / 2);                
+            }
+
+            void SetFastChoose(){
+                rouletteCounter = 5;
+            }
+
+        private:
+            bool isManual[2];
+            u8 tempOption[2];
+            bool isRandom;
+            u32 rouletteCounter;
+
     };
 }
 

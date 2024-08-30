@@ -1023,6 +1023,7 @@ ChangeSectionById__Q25Pages4MenuF9SectionIdP10PushButton = 0x80837e40
 HandleStartPress__Q25Pages4MenuFUi = 0x80838b14
 AddPageLayer__Q25Pages4MenuF6PageIdUi = 0x80837d1c
 ChangeMenuWithDelayById__Q25Pages4MenuF6MenuIdf = 0x80837c5c
+LoadMessageBoxTransparentPage__Q25Pages4MenuFUiPC8TextInfo = 0x808386a0
 
 #RaceMenu
 __ct__Q25Pages8RaceMenuFv = 0x80858ca4
@@ -1282,6 +1283,7 @@ PrepareRace__Q25Pages14CountDownTimerFv = 0x80650e24
 SetModeTypes__Q25Pages14CountDownTimerFv = 0x80651854
 UpdateFriendParams__Q25Pages14CountDownTimerFv = 0x806515cc
 SetInitial__9CountDownFf = 0x805c3c2c
+Reset__21CountDownTimerControlFv = 0x805c4430
 
 #VRPage
 __ct__Q25Pages2VRFv = 0x8064a3f4

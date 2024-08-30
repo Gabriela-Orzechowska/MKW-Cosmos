@@ -144,6 +144,7 @@ namespace CosmosUI{
 
 
     void UpdateSpeedoDigits(){
+        if(Scene::GetType(MenuData::GetStaticInstance()->curScene->menuId) != CATEGORY_GAMEPLAY) return;
         u8 variant = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_SPEEDOMETER);
 
         for(int i = 0; i < 4; i++){
