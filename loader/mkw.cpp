@@ -163,7 +163,7 @@ int PerformExploit() {
     cacheInvalidateAddress(funcs->relHookAddress);
 
     Console_Init(funcs);
-     Console_Print("  _____                      \n / ___/__  ___ __ _  ___  ___\n/ /__/ _ \\(_-</  ' \\/ _ \\(_-<\n\\___/\\___/___/_/_/_/\\___/___/\n");
+     Console_Print("    ___                              \n   /   | __  ___________  _________ _\n  / /| |/ / / / ___/ __ \\/ ___/ __ `/\n / ___ / /_/ / /  / /_/ / /  / /_/ / \n/_/  |_\\__,_/_/   \\____/_/   \\__,_/  \n");
     //Console_Print("Cosmos Loader v1.2\n");
     if(ret < 0){
         Console_Print("Could not launch Aurora!\n");
