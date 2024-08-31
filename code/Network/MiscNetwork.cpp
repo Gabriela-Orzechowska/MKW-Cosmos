@@ -1,4 +1,5 @@
 #include "Settings/UserData.hpp"
+#include "core/rvl/rvl_sdk.hpp"
 #include "main.hpp"
 #include <kamek.hpp>
 #include <core/System/SystemManager.hpp>
@@ -8,6 +9,18 @@
 #include <Network/WiiLinkTypes.hpp>
 
 #define TEST_REGION 2137 
+
+void WriteAndInvalidate(u32* address, u32 val){
+    *address = val;
+    register u32 addr = (u32) address;
+    asm{
+        ASM(
+            dcbst 0, addr;
+            sync;
+            icbi 0, addr;
+        );
+    }
+}
 
 void ChangeGameRegion(u32 regionID)
 {
@@ -20,14 +33,14 @@ void ChangeGameRegion(u32 regionID)
     extern u32 pr_patch7_r4;
     extern u32 pr_patch8_r4;
 
-    pr_patch1_r5 = 0x38A00000 | regionID;
-    pr_patch2_r6 = 0x38C00000 | regionID;
-    pr_patch3_r7 = 0x38E00000 | regionID;
-    pr_patch4_r7 = 0x38E00000 | regionID;
-    pr_patch5_r7 = 0x38E00000 | regionID;
-    pr_patch6_r7 = 0x38E00000 | regionID;
-    pr_patch7_r4 = 0x38800000 | regionID;
-    pr_patch8_r4 = 0x38800000 | regionID;
+    WriteAndInvalidate(&pr_patch1_r5, 0x38A00000 | regionID);
+    WriteAndInvalidate(&pr_patch2_r6, 0x38C00000 | regionID);
+    WriteAndInvalidate(&pr_patch3_r7, 0x38E00000 | regionID);
+    WriteAndInvalidate(&pr_patch4_r7, 0x38E00000 | regionID);
+    WriteAndInvalidate(&pr_patch5_r7, 0x38E00000 | regionID);
+    WriteAndInvalidate(&pr_patch6_r7, 0x38E00000 | regionID);
+    WriteAndInvalidate(&pr_patch7_r4, 0x38800000 | regionID);
+    WriteAndInvalidate(&pr_patch8_r4, 0x38800000 | regionID);
     WWFC_CUSTOM_REGION = regionID;
 }
 
