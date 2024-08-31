@@ -119,15 +119,6 @@ namespace CosmosUI
 
     void CourseSelectPlus::BeforeEntranceAnimations(){
         Pages::CourseSelect::BeforeEntranceAnimations();
-        if(!skipNextAnim) return;
-        for(int i = 0; i < 8; i++){
-            CtrlMenuCourseSelectCupSub& icon = this->ctrlMenuCourseSelectCup.cupIcons[i];
-            if(icon.selected) {
-                icon.frame = 300.0f;
-            }
-        }
-        skipNextAnim = false;
-        this->PlaySound(Sound::SE_UI_PAGE_PREV, -1);
     }
 
     void OnCourseButtonClickOverride(CtrlMenuCourseSelectCourse& course, PushButton& button, s32 hudSlotId){
