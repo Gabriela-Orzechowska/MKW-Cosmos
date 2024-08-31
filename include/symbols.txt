@@ -22,6 +22,7 @@ __div2i = 0x800216f0
 memcpy = 0x80005f34
 memset = 0x80006038
 memcmp = 0x8000f314
+atoi = 0x8001543c
 
 msleep__11CosmosDebugFUi = 0x800f2510
 

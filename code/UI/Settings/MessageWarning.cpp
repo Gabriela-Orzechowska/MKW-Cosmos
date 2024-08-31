@@ -36,6 +36,9 @@ namespace CosmosUI
         if(type[0] == RESTART_REQUIRED){
             this->nextPageId = (PageId) Cosmos::SETTINGS_MAIN;
         }
+        else if(type[0] == SHUTDOWN){
+            Cosmos::System::Shutdown();
+        }
         
         this->NextMessage();
         //this->EndStateAnimate(0.0f, 1);
@@ -45,6 +48,9 @@ namespace CosmosUI
     {
         if(type[0] == RESTART_REQUIRED){
             Cosmos::System::Restart();
+        }
+        else if(type[0] == SHUTDOWN){
+            Cosmos::System::Shutdown(true);
         }
         this->NextMessage();
         //this->EndStateAnimate(0.0f,0);

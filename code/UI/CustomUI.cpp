@@ -1,20 +1,5 @@
-/* 
- * This file is part of the Cosmos
- * Copyright (c) 2023-2024 Gabriela Orzechowska
- * 
- * This program is free software: you can redistribute it and/or modify  
- * it under the terms of the GNU General Public License as published by  
- * the Free Software Foundation, version 3.
- *
- * This program is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License 
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-
+#include "Debug/Debug.hpp"
+#include "Debug/IOSDolphin.hpp"
 #include "UI/CupSelect/CourseSelect.hpp"
 #include "game/System/identifiers.hpp"
 #include <kamek.hpp>
@@ -95,37 +80,26 @@ void InjectWarningPage(Scene& scene, PageId id){
     return;
 }
 
-void InjectVSPausePages(Scene& scene, PageId id){
-    scene.CreatePage(id);
-    scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
-    scene.CreatePage(ARE_YOU_SURE_YOU_WANT_TO_QUIT);
-}
-void InjectVSPausePagesNoConfirm(Scene& scene, PageId id){
-    scene.CreatePage(id);
-    scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
-}
-kmCall(0x8062c65c, InjectVSPausePages);
-kmCall(0x8062c7a0, InjectVSPausePages);
-
-kmCall(0x8062c6a4, InjectVSPausePagesNoConfirm);
-kmCall(0x8062c6f8, InjectVSPausePagesNoConfirm);
-kmCall(0x8062c74c, InjectVSPausePagesNoConfirm);
-kmCall(0x8062c7e8, InjectVSPausePagesNoConfirm);
-kmCall(0x8062c83c, InjectVSPausePagesNoConfirm);
-kmCall(0x8062c890, InjectVSPausePagesNoConfirm);
-
 kmCall(0x8062ce54, InjectWarningPage);
 kmCall(0x8062ced8, InjectWarningPage);
 kmCall(0x8062cf5c, InjectWarningPage);
 kmCall(0x8062cfe0, InjectWarningPage);
 kmCall(0x8062d064, InjectWarningPage);
 
+#define MIN_DOLPHIN_VERSION 17856
+
 static bool hasShownWarning = false;
 void ShowCheatsWarningPage(Page& page, u32 id, float animLenght) {
-    page.EndStateAnimate(animLenght,id);
     if(!hasShownWarning){
         bool warningAdded = false;
         CosmosUI::MessagePageWindow* messagePage = MenuData::GetStaticInstance()->curScene->Get<CosmosUI::MessagePageWindow>((PageId)Cosmos::WARNING_PAGE);
+        if(CosmosDebug::currentPlatform <= CosmosDebug::DOLPHIN_UNKNOWN && IOS::Dolphin::GetNumericalVersionNumber() < MIN_DOLPHIN_VERSION){
+            messagePage->AddMessage(CosmosUI::SHUTDOWN, 0x2806);
+            warningAdded = true;
+        }
+        else {
+            page.EndStateAnimate(animLenght,id);
+        }
         if(Cosmos::Security::GeckoAnalizer::AreCheatsEnabled()){
             messagePage->AddMessage(CosmosUI::INFO, 0x2841);
             warningAdded = true;
@@ -138,6 +112,8 @@ void ShowCheatsWarningPage(Page& page, u32 id, float animLenght) {
 
         hasShownWarning = true;
     }
+    else page.EndStateAnimate(animLenght, id);
+
 }
 kmCall(0x8063b04c, ShowCheatsWarningPage);
 
