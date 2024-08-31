@@ -1,3 +1,4 @@
+#include "core/rvl/ipc/ipc.hpp"
 #include "kamek.hpp"
 #include "main.hpp"
 #include <Debug/Debug.hpp>
@@ -17,22 +18,14 @@ namespace CosmosDebug
             return;
         }
 
-        register u32 cpuid;
-        asm{
-            ASM(
-                mfspr cpuid, 0x39c;
-            )
-        };
-        if(cpuid == DolphinECID_U){
+        IOS::IPCResult ret = IOS::Open("/dev/sha", IOS::MODE_NONE);
+        if(ret == IOS::IPC_ENOENT){
             currentPlatform = DOLPHIN_UNKNOWN;
             return;
         }
-        else if(cpuid == 0) {
-            currentPlatform = DOLPHIN_PREHISTORIC;
-            return;
-        }
+        IOS::Close(ret);
 
-        IOS::IPCResult ret = Cosmos::Open("/title/00000001/00000002/data/macaddr.bin", IOS::MODE_READ);
+        ret = Cosmos::Open("/title/00000001/00000002/data/macaddr.bin", IOS::MODE_READ);
         if(ret == IOS::IPC_OK)
         {
             IOS::Close(ret);

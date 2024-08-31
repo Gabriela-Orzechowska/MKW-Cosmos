@@ -95,7 +95,7 @@ namespace IOS{
         };
     }; //total size 0x80
 
-    s32 Open(char *path, Mode mode);
+    IPCResult Open(char *path, Mode mode);
     s32 Read(s32 fd, void *buffer, s32 length);
     s32 Write(s32 fd, void *buffer, s32 length);
     s32 Seek(s32 fd, s32 offset, SeekType whence); //returns length until the end, best to get file length
