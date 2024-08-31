@@ -1,5 +1,4 @@
 #include "functions.hpp"
-#include <kamekLoader.hpp>
 #include <console.hpp>
 
 
@@ -252,7 +251,6 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
     if(((u32)codeBuf & 0xFF000000) != 0x80000000) codeBuf = nullptr;
     dvdFuncs = GetDVDFuncs();
     static u32 fileLength = 0;
-    funcs->OSReport("{Kamek by Treeki}\nLoading Kamek binary '%s'...\n", path);
     bool isDol = false;
 
     EGG::ExpHeap *heap = funcs->rkSystem->EGGSystem;
@@ -280,24 +278,20 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
 
         if(funcs->NANDPrivateOpen("/title/00010001/43534D53/Code.arc", &nandInfo, NAND_ACCESS_READ) == NAND_RESULT_OK){
             u32 nandFileLength = 0;
-            funcs->OSReport("Found binary on NAND\n");
             if(funcs->NANDGetLength(&nandInfo, &nandFileLength) == NAND_RESULT_OK){
                 if(funcs->NANDRead(&nandInfo, (void*)bufferPointer, 0x20) != 0){
                     nandVersion = *(u32*) (bufferPointer + 0x10);
                     if(nandVersion >= dvdVersion && dvdVersion != devVersion){
                         if(funcs->NANDRead(&nandInfo, (void*)(bufferPointer + 0x20), (nandFileLength - 0x20)) != 0){
                             usesNand = true;
-                            funcs->OSReport("Loading code from NAND...\n");
                             Console_Print("from NAND\n");
                         }
                     }
                     else{
                         if(dvdVersion == devVersion) {
-                            funcs->OSReport("Using disc file, development version found\n");
                             Console_Print("from disc (dev version)\n");
                         }
                         else {
-                            funcs->OSReport("Using disc file, newer version found\n");
                             Console_Print("from disc\n");
                         }
                         
@@ -311,10 +305,9 @@ void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const cha
         {
             if (entrynum < 0) {
                 char err[512];
-                funcs->sprintf(err, "FATAL ERROR: Failed to locate file on the disc: %s", path);
+                funcs->sprintf(err, "FATAL ERROR: Failed to locate file on the disc", path);
                 kamekError(funcs, err);
             }
-            funcs->OSReport("Loading code from disc...\n");
             Console_Print("from disc\n");
             dvdFuncs->ReadPrio(&fileInfo, (void*)bufferPointer, length, 0, 2);
             dvdFuncs->Close(&fileInfo);

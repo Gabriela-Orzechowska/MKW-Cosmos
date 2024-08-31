@@ -107,7 +107,7 @@ struct SecurityFunctions {
     NETSHA1Init_t NETSHA1Init;
     NETSHA1Update_t NETSHA1Update;
     NETSHA1GetDigest_t NETSHA1GetDigest;
-    u32 dolSize;
+    u32 dolCheckEnd;
     u32 dolHash[5];
 };
 
