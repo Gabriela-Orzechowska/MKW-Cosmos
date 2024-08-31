@@ -9,6 +9,7 @@ namespace CosmosUI
     enum MESSAGE_TYPE {
         RESTART_REQUIRED,
         INFO,
+        SHUTDOWN,
     };
 
     class MessagePageWindow : public Pages::Approve

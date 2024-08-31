@@ -325,7 +325,7 @@ namespace Cosmos
              .settings = {{.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, //OpenHost
                           {.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, // HAW
                           {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}, //Allow Mii Heads
-                          {.optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30500, .firstOptionBmg = BMG_ENABLED_DISABLED, .firstDescBmg = 0x40501}, //Variant Selection
+                          {.optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30510, .firstOptionBmg = BMG_ENABLED_DISABLED, .firstDescBmg = 0x40511}, //Variant Selection
                           {.optionCount = 3, .isBool = false, .defaultValue = FORCE_NONE}, // Force CC
                           {.optionCount = 8, .isBool = false, .defaultValue = RACE_COUNT_4}}
             }, //Race count
@@ -340,7 +340,7 @@ namespace Cosmos
                     {.optionCount = 6, .isBool = false, .defaultValue = RACE_COUNT_4, .nameBmg = 0xd7a, .firstOptionBmg = 0x30351},
                 }
             },
-            {
+            { // VS 2
                 .settingCount = 4,
                 .settings = {
                     { .optionCount = 3, .isBool = false, .defaultValue = TRACK_LIST_ALL },
@@ -349,10 +349,10 @@ namespace Cosmos
                     { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
                 }
             },
-            {
+            { // Host settings 2
                 .settingCount = 1,
                 .settings = {
-                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30510, .firstOptionBmg = BMG_ENABLED_DISABLED, .firstDescBmg = 0x40511},
+                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30520, .firstOptionBmg = BMG_ENABLED_DISABLED, .firstDescBmg = 0x40521},
                 }
             },
         };

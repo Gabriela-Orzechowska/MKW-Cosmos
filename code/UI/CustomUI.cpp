@@ -1,3 +1,5 @@
+#include "Debug/Debug.hpp"
+#include "Debug/IOSDolphin.hpp"
 #include "UI/CupSelect/CourseSelect.hpp"
 #include "game/System/identifiers.hpp"
 #include <kamek.hpp>
@@ -84,12 +86,20 @@ kmCall(0x8062cf5c, InjectWarningPage);
 kmCall(0x8062cfe0, InjectWarningPage);
 kmCall(0x8062d064, InjectWarningPage);
 
+#define MIN_DOLPHIN_VERSION 17856
+
 static bool hasShownWarning = false;
 void ShowCheatsWarningPage(Page& page, u32 id, float animLenght) {
-    page.EndStateAnimate(animLenght,id);
     if(!hasShownWarning){
         bool warningAdded = false;
         CosmosUI::MessagePageWindow* messagePage = MenuData::GetStaticInstance()->curScene->Get<CosmosUI::MessagePageWindow>((PageId)Cosmos::WARNING_PAGE);
+        if(CosmosDebug::currentPlatform <= CosmosDebug::DOLPHIN_UNKNOWN && IOS::Dolphin::GetNumericalVersionNumber() < MIN_DOLPHIN_VERSION){
+            messagePage->AddMessage(CosmosUI::SHUTDOWN, 0x2806);
+            warningAdded = true;
+        }
+        else {
+            page.EndStateAnimate(animLenght,id);
+        }
         if(Cosmos::Security::GeckoAnalizer::AreCheatsEnabled()){
             messagePage->AddMessage(CosmosUI::INFO, 0x2841);
             warningAdded = true;
@@ -102,6 +112,8 @@ void ShowCheatsWarningPage(Page& page, u32 id, float animLenght) {
 
         hasShownWarning = true;
     }
+    else page.EndStateAnimate(animLenght, id);
+
 }
 kmCall(0x8063b04c, ShowCheatsWarningPage);
 

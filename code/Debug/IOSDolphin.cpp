@@ -1,4 +1,5 @@
 #include <Debug/IOSDolphin.hpp>
+#include <include/c_stdlib.h>
 
 namespace IOS
 {
@@ -16,8 +17,29 @@ namespace IOS
 
             s32 ret = IOS::IOCtlv(devDolphin, (IOS::IOCtlType)GET_VERSION, 0, 1, &request);
 
-            return result;
+            return ret == 0 ? result : (char*)nullptr;
         }
+
+        int GetNumericalVersionNumber(){
+            if(devDolphin < 0) Open();
+            if(devDolphin < 0) return -1;
+            
+            char* ret = GetVersion();
+
+            if(ret == nullptr) return 0;
+
+            int val = 0;
+            //Dolphin 5.0
+            if(ret[1] == '.'){
+                val = atoi(&ret[4]);
+            }
+            //Dolphin 2407+
+            else {
+                val = atoi(ret) * 1000;
+            }
+            return val;
+        }   
+
         char * GetVersionName()
         {
             if(devDolphin < 0) Open();

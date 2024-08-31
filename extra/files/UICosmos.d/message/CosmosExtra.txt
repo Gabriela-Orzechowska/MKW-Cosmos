@@ -16,6 +16,7 @@
  2803   = Ghost Saving disabled.
  2804   = Ghost Saving disabled. Dolphin cheats enabled.
  2805   = Would you like to upload ghost to leaderboards?
+ 2806   = Aurora requires Dolphin 5.0-17856 or newer.\nPlease download it from the official site.\nReturning to Wii Menu...
 
  2810   = Track Sorting: Normal
  2811   = Track Sorting: Alphabetical

@@ -59,6 +59,7 @@ namespace IOS
         }
 
         char * GetVersion();
+        int GetNumericalVersionNumber();
         char * GetVersionName();
         u32 GetRunTime();
         u32 GetCPUSpeed();
