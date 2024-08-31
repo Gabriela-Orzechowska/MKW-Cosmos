@@ -61,6 +61,8 @@ void ParseHostSettings(u16 value) {
     u8 raceCount = raceCounts[(value >> 2) & 0x7];
     bool megaTc = (value >> 5) & 0x1;
     bool variantSelection = (value >> 6) & 0x1;
+    bool randomForce = (value >> 7) & 0x1;
+    bool randomCommon = (value >> 8) & 0x1;
 
     Cosmos::System* system = Cosmos::System::GetStaticInstance();
     system->SetHAW(haw);
@@ -70,6 +72,7 @@ void ParseHostSettings(u16 value) {
     Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetStaticInstance();
     holder->SetMegaCloudSetting(megaTc);
     holder->SetChooseVariant(variantSelection);
+    holder->SetRandomComboOptions(randomForce, randomCommon);
 }
 
 void BeforeSendingPackets(RKNetROOMHandler& handler, u32 packetData) {
@@ -89,6 +92,13 @@ void BeforeSendingPackets(RKNetROOMHandler& handler, u32 packetData) {
         settings |= ((holder->GetSettingValue(COSMOS_SETTING_RACE_COUNT) & 0x7)) << 2;
         settings |= ((holder->GetSettingValue(COSMOS_SETTING_HOST_MEGA_TC) == ENABLED)) << 5;
         settings |= ((holder->GetSettingValue(COSMOS_SETTING_HOST_VARIANT_SELECTION) == ENABLED)) << 6;
+
+        bool randomForce = holder->GetSettingValue(AURORA_SETTING_HOST_RANDOM_COMBO) != RANDOM_COMBO_DISABLED;
+        bool randomCombo = holder->GetSettingValue(AURORA_SETTING_HOST_RANDOM_COMBO) == RANDOM_COMBO_COMMON;
+
+        settings |= randomForce << 7;
+        if(randomForce)
+            settings |= randomCombo << 8;
 
         ParseHostSettings(settings);
 
