@@ -128,8 +128,10 @@ namespace Cosmos
             COSMOS_HOST_VARIANT_SELECTION,
             COSMOS_FORCE_CC,
             COSMOS_RACE_COUNT,
-            COSMOS_HOST_MEGA_TC = 0x0,
-            AURORA_HOST_TRACK_LIST = 0x1,
+            AURORA_HOST_TRACK_LIST = 0x0,
+            COSMOS_HOST_MEGA_TC = 0x1,
+            COSMOS_HOST_ALL_ITEMS_CAN_LAND = 0x2,
+            AURORA_HOST_RANDOM_FORCED = 0x3,
         };
 
         enum VS_SETTINGS {
@@ -239,6 +241,12 @@ namespace Cosmos
             TRACK_LIST_CTS = 0x2,
         };
 
+        enum AURORA_RANDOM_COMBO {
+            RANDOM_COMBO_DISABLED = 0x0,
+            RANDOM_COMBO_INDIVIDUAL = 0x1,
+            RANDOM_COMBO_COMMON = 0x2,
+        };
+
 
         enum GLOBAL_SETTING
         {
@@ -280,6 +288,8 @@ namespace Cosmos
 
             AURORA_SETTING_HOST_TRACK_LIST = AURORA_HOST_TRACK_LIST + (COSMOS_HOST_SETTINGS_2 * 8),
             COSMOS_SETTING_HOST_MEGA_TC = COSMOS_HOST_MEGA_TC + (COSMOS_HOST_SETTINGS_2 * 8),
+            COSMOS_SETTING_HOST_ALL_ITEMS_CAN_LAND = COSMOS_HOST_ALL_ITEMS_CAN_LAND + (COSMOS_HOST_SETTINGS_2 * 8),
+            AURORA_SETTING_HOST_RANDOM_COMBO = AURORA_HOST_RANDOM_FORCED + (COSMOS_HOST_SETTINGS_2 * 8),
         };
 
 #define PAGE_COUNT 7
@@ -357,9 +367,12 @@ namespace Cosmos
                 }
             },
             { // Host settings 2
-                .settingCount = 1,
+                .settingCount = 4,
                 .settings = {
+                    { .optionCount = 3, .isBool = false, .defaultValue = TRACK_LIST_ALL, .nameBmg = 0x30500, .firstOptionBmg = 0x30501, .firstDescBmg = 0x40501},
                     { .optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30520, .firstOptionBmg = BMG_ENABLED_DISABLED, .firstDescBmg = 0x40521},
+                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30530, .firstOptionBmg = BMG_ENABLED_DISABLED, .firstDescBmg = 0x40531}, // ALL ITEMS
+                    { .optionCount = 3, .isBool = false, .defaultValue = RANDOM_COMBO_DISABLED },
                 }
             },
         };

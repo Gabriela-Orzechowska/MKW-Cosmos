@@ -163,6 +163,15 @@
  40521   = Every kind of item can land.
  40522   = Only some items can land.
 
+ 30630   = Force Random
+ 30631   = Disabled
+ 30632   = Individual
+ 30633   = Common
+
+ 40631   = Players will be able to choose their vehicle like normal.
+ 40632   = Every player will roll their own random combo before race.
+ 40633   = All players will get the same random combo before race.
+
  2820   = A solo race for the fastest record! (200cc)
  2830   = Change Combo 
  2831   = Choose or Random?
