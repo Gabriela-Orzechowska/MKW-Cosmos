@@ -14,9 +14,9 @@ namespace CosmosDebug
         public:
         PerformanceMonitor();
         static const s8 barCount = 3;
-        static PerformanceMonitor * sInstance;
-        static PerformanceMonitor * CreateInstance();
-        static PerformanceMonitor * GetInstance() {return sInstance;}
+        static PerformanceMonitor* sInstance;
+        static PerformanceMonitor* CreateInstance();
+        static PerformanceMonitor* GetInstance() {return sInstance;}
 
         EGG::CpuMonitor objectBar;
         EGG::CpuMonitor physicsBar;
