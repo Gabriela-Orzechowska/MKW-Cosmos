@@ -231,7 +231,6 @@ namespace CosmosUI
 
         u32 cupId = manager->lastSelectedCup;
         bool selected = false;
-        CosmosLog("Looking for: %04x\n%04x\n", manager->lastSelectedCourse, manager->lastSelectedGroup);
         for(int i = 0; i < 4; i++)
         {
             int slot = manager->GetCurrentTrackList()[cupId * 4 + i];
@@ -245,7 +244,6 @@ namespace CosmosUI
 
             if(manager->dontUpdateCourseSelectCourse == 0)
             {
-                CosmosLog("Slot: %04x\n", slot);
                 if(slot == manager->lastSelectedCourse || slot == manager->lastSelectedGroup){
                     coursePage->SelectButton(&course->courseButtons[i]);
                     selected = true;

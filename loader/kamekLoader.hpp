@@ -109,6 +109,7 @@ struct SecurityFunctions {
     NETSHA1GetDigest_t NETSHA1GetDigest;
     u32 dolCheckEnd;
     u32 dolHash[5];
+    u32 dolRiivoHash[5];
 };
 
 void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const char* codePath);
