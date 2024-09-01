@@ -3,7 +3,7 @@
 
 #define CONSOLE_BUFFER_SIZE 1200
 
-static char* consoleBuffer = (char*) 0x91000000;
+static char* consoleBuffer = (char*) (0x80004000 - CONSOLE_BUFFER_SIZE);
 static int consoleCursor = 0;
 
 loaderFunctions* loaderFuncs = nullptr;
