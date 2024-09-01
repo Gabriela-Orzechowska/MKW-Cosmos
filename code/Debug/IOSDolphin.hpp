@@ -42,11 +42,11 @@ namespace IOS
             GET_SYSTEM_TIME = 0x0A,
         };
 
-        static s32 devDolphin = -1;
+        static s32 devDolphin = -1000;
 
         static inline s32 Open()
         {
-            if(devDolphin < 0) devDolphin = Cosmos::Open("/dev/dolphin", IOS::MODE_NONE);
+            if(devDolphin == -1000) devDolphin = Cosmos::Open("/dev/dolphin", IOS::MODE_NONE);
             return devDolphin;
         }
 

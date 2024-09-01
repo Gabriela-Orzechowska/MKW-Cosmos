@@ -199,4 +199,5 @@ end:
 }
 
 kmCall(0x80859058, ShowControllerOnline);
+kmWrite32(0x806fa738, 0x4e800020);
 

@@ -88,7 +88,7 @@ namespace Cosmos
             SettingsHolder::sInstance = holder;
         }
 
-        BootHook InitSettings(SettingsHolder::Create, MEDIUM);
+        BootHook InitSettings(SettingsHolder::Create, LOW);
 
         void SetBRAndVR(LicenseManager &license, u32 licenseId)
         {

@@ -117,13 +117,15 @@ namespace CosmosFile
     }
 
     s32 RiivoFileManager::Open(const char * filepath, u32 mode){
-        return FileManager::Open(filepath, this->GetRiivoMode(mode));
+        char realPath[IPCMAXPATH] __attribute((aligned(0x20)));
+        this->GetFilePath(realPath, filepath);
+        return FileManager::Open(realPath, this->GetRiivoMode(mode));
     }
 
     s32 RiivoFileManager::CreateOpen(const char * filepath, u32 mode){
         s32 riivo_fd = this->GetDeviceFd();
 
-        if(isNand) this->CreateFolder("/Cosmos/data");
+        if(isNand) this->CreateFolder("/Cosmos/temp");
         char realPath[IPCMAXPATH] __attribute((aligned(0x20)));
         this->GetFilePath(realPath, filepath);
         s32 ret = IOS::IOCtl(riivo_fd, (IOS::IOCtlType) RIIVO_IOCTL_CREATEFILE, (void*) realPath, strlen(filepath)+1, NULL, 0);
@@ -131,7 +133,7 @@ namespace CosmosFile
             CosmosError("File creation failed, ret: %d\n", ret);
         }
         IOS::Close(riivo_fd);
-        return this->Open(realPath, mode);
+        return this->Open(filepath, mode);
     }
 
     s32 RiivoFileManager::GetDeviceFd() const{
@@ -139,7 +141,7 @@ namespace CosmosFile
     }
 
     void RiivoFileManager::GetFilePath(char* realPath, const char* path) const {
-        if(isNand) snprintf(realPath, IPCMAXPATH, "Cosmos/data/%s", path);
+        if(isNand) snprintf(realPath, IPCMAXPATH, "/Cosmos/temp/%s", path);
         else snprintf(realPath, IPCMAXPATH, "%s", path);
     }
 
