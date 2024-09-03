@@ -79,6 +79,7 @@ struct loaderFunctions {
     NANDGetLength_t NANDGetLength;
     u32 dolHookAddress;
     u32 relHookAddress;
+    u32 relLoadHookAddress;
 };
 
 struct DVDFunctions {
@@ -110,6 +111,7 @@ struct SecurityFunctions {
     u32 dolCheckEnd;
     u32 dolHash[5];
     u32 dolRiivoHash[5];
+    u32 relHash[5];
 };
 
 void loadKamekBinaryFromDisc(loaderFunctions *funcs, const char *path, const char* codePath);

@@ -120,6 +120,8 @@ static u32 code[] = {
 };
 
 
+
+int LoadRel(DVDFileInfo* info, void* buffer, u32 size, u32, u32);
 void loadIntoMKW();
 
 inline void cacheInvalidateAddress(u32 address);
@@ -162,7 +164,15 @@ int PerformExploit() {
     *((u32*)funcs->relHookAddress) = command;
     cacheInvalidateAddress(funcs->relHookAddress);
 
+    u32 loadAddr = funcs->relHookAddress - 0x1DC;
+
+    offset = ((u32)&LoadRel)-loadAddr;
+    command = 0x48000001 | (offset & 0x03FFFFFF);
+    *((u32*)loadAddr) = command;
+    cacheInvalidateAddress(loadAddr);
+
     Console_Init(funcs);
+
      Console_Print("    ___                              \n   /   | __  ___________  _________ _\n  / /| |/ / / / ___/ __ \\/ ___/ __ `/\n / ___ / /_/ / /  / /_/ / /  / /_/ / \n/_/  |_\\__,_/_/   \\____/_/   \\__,_/  \n");
     //Console_Print("Cosmos Loader v1.2\n");
     if(ret < 0){
@@ -265,6 +275,19 @@ static u32 SetMessage(u32 index, u32 message) {
             eieio;
         )
     }
+}
+int LoadRel(DVDFileInfo* info, void* buffer, u32 size, u32, u32){
+    DVDFunctions* funcs = GetDVDFuncs();
+
+    int read = funcs->ReadPrio(info, buffer, size, 0, 2);
+
+    int ret = CheckStage2(buffer, info->length);
+    if(ret < 0){
+        Console_Print("Could not launch Aurora!\n");
+        Console_Print("StaticR.rel has been modified!\n");
+        Console_Hang();
+    }
+    return read;
 }
 inline void cacheInvalidateAddress(u32 address) {
     register u32 addressRegister = address;

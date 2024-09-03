@@ -1,3 +1,4 @@
+#include "Debug/IOSDolphin.hpp"
 #include <Ghost/GhostManager.hpp>
 #include <SlotExpansion/CupManager.hpp>
 #include <game/UI/Page/RaceMenu/TTPause.hpp>
@@ -211,9 +212,12 @@ namespace Cosmos
 
         void UpdateStartTime(Page &page, u32 soundIdx, u32 param_3)
         {
-            AntiCheat* antiCheat = AntiCheat::GetStaticInstance();
-            if(antiCheat != nullptr)
-                antiCheat->Reset(IOS::Dolphin::GetSystemTime());
+            if(IOS::Dolphin::IsOpen())
+            {
+                AntiCheat* antiCheat = AntiCheat::GetStaticInstance();
+                if(antiCheat != nullptr)
+                    antiCheat->Reset(IOS::Dolphin::GetSystemTime());
+            }
             GhostManager* manager = GhostManager::GetStaticInstance();
             if(manager != nullptr)
                 manager->wereGhostsDisabled = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED;
