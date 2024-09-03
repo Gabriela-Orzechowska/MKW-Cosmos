@@ -40,6 +40,7 @@ void Console_Init(loaderFunctions* func) {
     AsyncDisplay_endRender = (AsyncDisplay_endRender_t) *((u32*)displayFuncs->endRenderAddress);
     *((u32*)displayFuncs->endRenderAddress) = (u32)&Console_Render;
     consoleCursor = 0;
+    shouldHang = false;
 }
 
 void Console_Print(const char* msg) {
