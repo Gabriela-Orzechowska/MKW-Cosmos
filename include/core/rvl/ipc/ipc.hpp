@@ -42,6 +42,7 @@ namespace IOS{
         IOCTL_FS_GETUSAGE       = 0xC,
         IOCTL_FS_SHUTDOWN       = 0xD,
 
+
         IOCTL_HID4_GET_DEVICE_CHANGE = 0x0,
         IOCTL_HID4_INTERRUPT_IN = 0x3,
         IOCTL_HID4_INTERRUPT_OUT = 0x4,
@@ -53,6 +54,8 @@ namespace IOS{
         IOCTL_HID5_ATTACH_FINISH = 0x6,
         IOCTL_HID5_SET_RESUME = 0x10,
         IOCTL_HID5_INTERRUPT = 0x13,
+
+        IOCTL_ES_GET_DEVICE_CERT= 0x1E,
     };
 
     enum SeekType{

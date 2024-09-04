@@ -177,7 +177,9 @@
  2831   = Choose or Random?
  2840   = Some changes require a restart
  2841   = Dolphin cheats are enabled!\nThe game might not function as expected.
- 2842   = Dolphin extended memory enabled!\nThe game might not function as expected.
+ 2842   = Dolphin extended menory enabled!\nThe game might not function as expected.
+ 2843   = Looks like you're using default Dolphin configuration.\nPlease import your Wii's NAND to access \nall Aurora features.
+ 2844   = Looks like you're using public NAND dump.\nPlease import your Wii's NAND to access \nall Aurora features.
 
 7100 = The Arctic Line
 7101 = Alpine Skyway
