@@ -22,6 +22,7 @@
 #include <SlotExpansion/CupManager.hpp>
 #include <UI/BMG/MessageGroup.hpp>
 #include <System/Sha1.hpp>
+#include <Aurora/AuroraKeys.hpp>
 
 using namespace IOS::Dolphin;
 
@@ -33,14 +34,12 @@ IOS::Dolphin::DiscordRichPresence RichPresenceManager::presence = {
     .startTimestamp = 0,
     .endTimestamp = 0,
     .largeImageKey = "",
-    .largeImageText = "Mario Kart Wii Cosmos",
+    .largeImageText = Aurora::Discord::Name,
     .smallImageKey = "",
-    .smallImageText = "MKW Cosmos",
+    .smallImageText = Aurora::Discord::Name,
     .partySize = 0,
     .partyMax = 0,
 };
-
-char * RichPresenceManager::applicationId = "1175707208042954773";
 
 void RichPresenceManager::CreateStaticInstance()
 {
@@ -58,7 +57,7 @@ s32 RichPresenceManager::InitConnection()
     if(!IOS::Dolphin::Open() < 0)
         return -2;
 
-    return IOS::Dolphin::DiscordSetClient(applicationId);
+    return IOS::Dolphin::DiscordSetClient(Aurora::Discord::applicationId);
 }
 
 void RichPresenceManager::Init()
@@ -110,7 +109,7 @@ u32 UpdateTrackImage(u32 param_1)
     if(manager != nullptr)
     {
         manager->presence.largeImageKey = finalLink;
-        manager->presence.smallImageKey = "icon1";
+        manager->presence.smallImageKey = Aurora::Discord::smallLogoName;
     }
 
     return param_1;
@@ -134,12 +133,12 @@ void RPCSectionChange()
     {
         if(menuId < P1_WIFI_VS_GAMEPLAY || menuId > P2_WIFI_FRIEND_COIN_BT_GAMEPLAY)
         {
-            presence.largeImageKey = "icon1";
+            presence.largeImageKey = Aurora::Discord::bigLogoName;
             presence.smallImageKey = "";
         }
     }
 
-    presence.largeImageText = "Mario Kart Wii Cosmos";
+    presence.largeImageText = Aurora::Discord::Name;
     presence.smallImageText = "";
 
     switch(menuId){
@@ -297,7 +296,7 @@ void RPCSectionChange()
         case P2_WIFI_BT_LIVE_VIEW:
             GetTextFromMessage(status, trackId + 0x7000);
             presence.largeImageText = status;
-            presence.smallImageText = "Mario Kart Wii Cosmos";
+            presence.smallImageText = Aurora::Discord::Name;
             //UpdateTrackImage(trackId);
             break;
         default:    

@@ -34,6 +34,5 @@ class RichPresenceManager
     s32 UpdateStatus();
 
     private:
-    static char * applicationId;
     bool rEnabled;
 };
