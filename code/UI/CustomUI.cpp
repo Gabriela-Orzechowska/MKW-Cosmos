@@ -9,6 +9,7 @@
 #include <game/UI/Page/RaceMenu/TTPause.hpp>
 #include <game/UI/Page/Menu/TopMenuOverlay.hpp>
 #include <System/Security.hpp>
+#include <Aurora/AuroraSecurity.hpp>
 
 void * CreatePage(u32 pageId)
 {
@@ -106,6 +107,14 @@ void ShowCheatsWarningPage(Page& page, u32 id, float animLenght) {
         }
         if((*(u32*)0x8000311C) > 0x04010000) {
             messagePage->AddMessage(CosmosUI::INFO, 0x2842);
+            warningAdded = true;
+        }
+        if(Aurora::Security::IsDefaultDolphin() == Aurora::Security::DEFAULT){
+            messagePage->AddMessage(CosmosUI::INFO, 0x2843);
+            warningAdded = true;
+        }
+        else if(Aurora::Security::IsDefaultDolphin() == Aurora::Security::OVERUSED){
+            messagePage->AddMessage(CosmosUI::INFO, 0x2844);
             warningAdded = true;
         }
         if(warningAdded) page.AddPageLayer((PageId)Cosmos::WARNING_PAGE, 0);

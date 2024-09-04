@@ -40,7 +40,9 @@ namespace IOS{
         IOCTL_FS_SETFILEVERCTRL = 0xA,
         IOCTL_FS_GETFILESTATS   = 0xB,
         IOCTL_FS_GETUSAGE       = 0xC,
-        IOCTL_FS_SHUTDOWN       = 0xD
+        IOCTL_FS_SHUTDOWN       = 0xD,
+
+        IOCTL_ES_GET_DEVICE_CERT= 0x1E,
     };
 
     enum SeekType{
