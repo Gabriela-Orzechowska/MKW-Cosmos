@@ -11,7 +11,22 @@
 
 namespace Aurora {
     namespace Ghost {
-        const char ghostUploadLink[] = "http://cosmos.gabriela-orzechowska.com/aurora/api/upload-rkg/%s?name=%s&time=%01dm%02ds%03d&mode=%s";
+        
+        enum Mode {
+            MODE_150,
+            MODE_200,
+        };
+
+#pragma pack(push, 1)
+        struct UploadData {
+            u32 checkNum;
+            u32 timems;
+            Mode mode;
+            u32 padding;
+            u64 sessionToken;
+            wchar_t miiName[0x10];
+        };  
+#pragma pack(pop)
 
         class GhostLeaderboardAPI {
         public:
@@ -45,6 +60,7 @@ namespace Aurora {
                 }
             }
             void SetData(RKG* rkg, u32 size, char* trackSha) {
+                CosmosLog("Setting Data: %p\n", rkg);
                 this->currentBuffer = rkg;
                 this->currentSize = size;
                 this->currentSha1 = trackSha;

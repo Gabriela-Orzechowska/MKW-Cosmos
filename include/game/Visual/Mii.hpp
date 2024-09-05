@@ -38,6 +38,7 @@ public:
     virtual ~MiiGroup(); //805f9f58 vtable 808b9f68
     void LoadMiiFromData(u8 index, MiiTexMap *data); //805fa6e0 replaces index with new mii
     void LoadMii(u8 index, Mii *mii); //805fa3fc
+    void LoadDefaultMii(u8 idx, u16 inidx); //805fa748
     void Init(u32 miiCount, u32 r5, u32 r6); //805fa04c
     void AddMii(u8 index, RawMii *data); //805fa610
     void DeleteMii(u8 index); //805faa84

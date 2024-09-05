@@ -1,7 +1,9 @@
 #include "Debug/Debug.hpp"
 #include "Debug/IOSDolphin.hpp"
+#include "System/Identifiers.hpp"
 #include "UI/CupSelect/CourseSelect.hpp"
 #include "game/System/identifiers.hpp"
+#include "hooks.hpp"
 #include <kamek.hpp>
 #include <main.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>
@@ -10,6 +12,7 @@
 #include <game/UI/Page/Menu/TopMenuOverlay.hpp>
 #include <System/Security.hpp>
 #include <Aurora/AuroraSecurity.hpp>
+#include <Aurora/AuroraAPI.hpp>
 
 void * CreatePage(u32 pageId)
 {
@@ -87,10 +90,23 @@ kmCall(0x8062cf5c, InjectWarningPage);
 kmCall(0x8062cfe0, InjectWarningPage);
 kmCall(0x8062d064, InjectWarningPage);
 
+void InjectMainMenuPages(Scene& scene, PageId id){
+    scene.CreatePage(id);
+    scene.CreatePage(TEXT_BOX_WITH_SPINNER);
+    scene.CreatePage(GENERIC_TEXT_BOX_FULL_PAGE_PRESS_A);
+    return;
+}
+kmCall(0x8062ce78, InjectMainMenuPages);
+kmCall(0x8062cefc, InjectMainMenuPages);
+kmCall(0x8062cf80, InjectMainMenuPages);
+kmCall(0x8062d004, InjectMainMenuPages);
+kmCall(0x8062d088, InjectMainMenuPages);
+
 #define MIN_DOLPHIN_VERSION 17856
 
 static bool hasShownWarning = false;
 void ShowCheatsWarningPage(Page& page, u32 id, float animLenght) {
+
     if(!hasShownWarning){
         bool warningAdded = false;
         CosmosUI::MessagePageWindow* messagePage = MenuData::GetStaticInstance()->curScene->Get<CosmosUI::MessagePageWindow>((PageId)Cosmos::WARNING_PAGE);

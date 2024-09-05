@@ -1,10 +1,12 @@
 #ifndef _LICENSESETTINGSPAGE_
 #define _LICENSESETTINGSPAGE_
+#include "System/Identifiers.hpp"
 #include <kamek.hpp>
 #include <game/UI/Page/Page.hpp>
 #include <game/UI/Page/Other/Message.hpp>
 #include <game/UI/Ctrl/MessageWindowControl.hpp>
 #include <game/UI/Page/Other/Approve.hpp>
+#include "UI/MenuData/MenuData.hpp"
 
 //_sinit_ at 805ee894
 class LicenseControl : public LayoutUIControl{
@@ -27,6 +29,7 @@ class LicenseSelect : public Page{ //0x65
 public:
     LicenseSelect(); //805ea834
     ~LicenseSelect() override; //805eab00 vtable 808b984c
+    static LicenseSelect* GetPage() { return MenuData::GetStaticInstance()->GetCurrentScene()->Get<LicenseSelect>(LICENSE_SELECT); }
     PageId GetNextPage() const override; //0x10 805ee658
     void OnInit() override; //0x28 805eabb8 
     void OnActivate() override; //0x30 805eb774

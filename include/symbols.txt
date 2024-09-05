@@ -471,6 +471,7 @@ InitModel__13MiiHeadsModelFP3MiiP13ModelDirectorUiUiUiUi =0x8055c580
 AddMii__8MiiGroupFUcP6RawMii= 0x805fa610
 GetMii__8MiiGroupFUc = 0x805fa930
 LoadMii__8MiiGroupFUcP3Mii = 0x805fa3fc
+LoadDefaultMii__8MiiGroupFUcUs = 0x805fa748
 MiiXthing = 0x808a460c
 MiiZthing = 0x808a4608
 
@@ -1362,6 +1363,10 @@ Process__Q23DWC5GHTTPFv = 0x800cd4a8
 Shutdown__Q23DWC5GHTTPFv = 0x800cd3f4
 GetDataEx__Q23DWC5GHTTPFPCcUibPFiPCvUiiiPv_vPFPCcUiiPv_vPv = 0x800cd864
 
+
+
+nhttp_alloc = 0x800ed69c
+nhttp_free = 0x800ed6b4
 NHTTPGetBodyAll = 0x801D937C
 NHTTPStartup = 0x801d8d30
 NHTTPCreateRequest = 0x801d8ff8
