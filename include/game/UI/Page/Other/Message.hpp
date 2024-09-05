@@ -15,7 +15,7 @@ public:
     void AfterControlUpdate() override; //805f8edc
     int GetRuntimeTypeInfo() const override; //0x60 805f9698
     virtual void Reset(); //0x64 805f8f40
-    virtual void OnClick(u32 hudSlotId); //805f8f54 ends page and triggers master page onclick ptmf
+    void OnClick(u32 hudSlotId); //805f8f54 ends page and triggers master page onclick ptmf
     static void TriggerPtmf(PtmfHolder_1A<Click, void, u32> *handler, u32 hudSlotId); //805f96a4
     PageManipulatorManager manipulatorManager; //no control but pressing A goes back to prev page
     PtmfHolder_1A<Page, void, Click*> *masterPageOnClickHandler; //0x188
