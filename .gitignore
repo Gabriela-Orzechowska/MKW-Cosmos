@@ -65,3 +65,5 @@ code/Aurora/AuroraAPI.hpp
 code/Aurora/AuroraKeys.hpp
 code/Aurora/AuroraSecurity.cpp
 code/Aurora/AuroraSecurity.hpp
+code/Aurora/AuroraAPI.cpp
+code/Aurora/AuroraAPI.hpp

@@ -15,6 +15,8 @@ typedef void (*NHTTPFree)(void* ptr);
 
 extern "C"
 {
+    void* nhttp_alloc(u32 size, s32 align);
+    void nhttp_free(void* ptr);
     s32 NHTTPStartup(NHTTPAlloc, NHTTPFree, u32 prio); //801d8d30
     NHTTPResponse NHTTPCreateRequest(const char* url, NHTTP_REQUEST requestMethod, void* responseBuffer, u32 responseSize, NHTTPRequestCallback callbackMethod, void* args); //801d8ff8
     s32 NHTTPSetRootCADefault(); //801d9738 

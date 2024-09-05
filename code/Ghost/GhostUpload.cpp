@@ -1,3 +1,4 @@
+#include "Aurora/AuroraAPI.hpp"
 #include "Ghost/GhostManager.hpp"
 #include "System/identifiers.hpp"
 #include "UI/Ctrl/PushButton.hpp"
@@ -5,6 +6,7 @@
 #include "UI/Page/Other/YesNo.hpp"
 #include "kamek.hpp"
 #include <Ghost/GhostUpload.hpp>
+#include <Aurora/AuroraKeys.hpp>
 
 namespace Aurora {
     namespace Ghost {
@@ -26,17 +28,23 @@ namespace Aurora {
             DWC::GHTTP::DWCGHTTPPost post;
             DWC::GHTTP::NewPost(&post);
 
-            DWC::GHTTP::PostAddFileFromMemoryA(post, "ghost.bin", (void*)this->currentBuffer, this->currentSize, "ghost.bin", nullptr); 
             MenuData* menuData = MenuData::GetStaticInstance();
             GlobalContext* context = menuData->GetCurrentContext();
 
+            UploadData data;
+            data.sessionToken = Aurora::API::GetSessionToken();
+            RKGHeader* header = &this->currentBuffer->header;
+            data.timems = header->milliseconds + (1000 * header->seconds) + (1000 * 60 * header->minutes);
+            data.mode = Cosmos::System::GetStaticInstance()->GetTTMode() == Cosmos::COSMOS_TT_200cc ? MODE_200 : MODE_150;
+            data.checkNum = 0x10;
+            memcpy(&data.miiName, &header->miiData.miiName, sizeof(header->miiData.miiName));
 
             char link[0x200];
-            char miiName[0x30];
-            memset(miiName, 0, 0x30);
-            wcstombs(miiName, this->currentBuffer->header.miiData.miiName, 10);
-            snprintf(link, 0x200, ghostUploadLink, this->currentSha1, miiName, this->currentBuffer->header.minutes, rkg->header.seconds, 
-                this->currentBuffer->header.milliseconds, Cosmos::System::GetStaticInstance()->GetTTMode() == Cosmos::COSMOS_TT_200cc ? "200" : "150");
+            //snprintf(link, 0x200, Aurora::API::Ghost::ghostUpload, this->currentSha1, miiName, this->currentBuffer->header.minutes, rkg->header.seconds, 
+            //    this->currentBuffer->header.milliseconds, Cosmos::System::GetStaticInstance()->GetTTMode() == Cosmos::COSMOS_TT_200cc ? "200" : "150");
+            snprintf(link, sizeof(link), Aurora::API::Ghost::ghostUpload, this->currentSha1);
+            DWC::GHTTP::PostAddFileFromMemoryA(post, "ghost.bin", (void*)this->currentBuffer, this->currentSize, "ghost.bin", nullptr); 
+            DWC::GHTTP::PostAddFileFromMemoryA(post, "data.bin", (void*)&data, sizeof(UploadData), "data.bin", nullptr); 
             s32 ret = DWC::GHTTP::PostData(link, &post, GhostLeaderboardAPI::SendGhostDataCallback, nullptr);
             if(ret >= 0) sendRequest = true;
             else CosmosLog("There has been and error creating the request! %d\n", ret);
