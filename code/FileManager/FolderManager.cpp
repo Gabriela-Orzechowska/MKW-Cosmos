@@ -1,3 +1,4 @@
+#include "FileManager/FileManager.hpp"
 #include <FileManager/FolderManager.hpp>
 #include <main.hpp>
 
@@ -182,7 +183,7 @@ namespace CosmosFile
     }
 
     void FatFolderManager::GetFilePath(char * filepath, u32 index) const {
-        snprintf(filepath, IPCMAXPATH, "%s/%s", &this->folderName, &this->fatFileNames[index]);
+        snprintf(filepath, MAXFATFILEPATH, "%s", &this->fatFileNames[index]);
         return;
     }
 }
