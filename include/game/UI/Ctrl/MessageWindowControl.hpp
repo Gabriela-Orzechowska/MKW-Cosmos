@@ -12,7 +12,8 @@ class MessageWindowControl : public LayoutUIControl{
     void Load(const char*folderName, const char*ctrName, const char*variant); //805f9794
 }; //total size 0x174
 
-class MessageWindowControlScaleFade : public LayoutUIControl{
+class MessageWindowControlScaleFade : public MessageWindowControl{
+    public:
     MessageWindowControlScaleFade(); //805f9820
     ~MessageWindowControlScaleFade() override; //805f985c vtable 808b9ea4
     void SetPositionAnim(float curFrame, PositionAndScale *positionAndScale) override; //805f98b8 0x20
@@ -30,6 +31,7 @@ class SimpleMessageWindowControl : public LayoutUIControl{
 }; //total size 0x174
 
 class BlackBackControlForMessage : public LayoutUIControl{
+public:
     BlackBackControlForMessage(); //805f9abc
     ~BlackBackControlForMessage() override; //805f9af8 vtable 808b9e2c
     void SetPositionAnim(float curFrame, PositionAndScale *positionAndScale) override; //805f9bc4
@@ -39,6 +41,7 @@ class BlackBackControlForMessage : public LayoutUIControl{
 }; //total size 0x174
 
 class BusySymbol : public LayoutUIControl{
+public:
     BusySymbol(); //805f9c34
     ~BusySymbol() override; //805f9c70 vtable 808b9df0
     void InitSelf() override; //805f9d5c 0x18

@@ -24,6 +24,7 @@ namespace Cosmos
         WARNING_PAGE = 0xBA,
         SETTINGS_MAIN = 0xB7,
         VARIANT_SELECT = 0xB8,
+        SPINNER_WITH_BACKGROUND = 0xB9,
     };
 
     const char packFolder[] = "/Cosmos";

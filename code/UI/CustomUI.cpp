@@ -27,6 +27,9 @@ void * CreatePage(u32 pageId)
     else if(pageId == (u32)Cosmos::VARIANT_SELECT){
         return new (CosmosUI::VariantSelectPlus);
     }
+    else if(pageId == (u32)Cosmos::SPINNER_WITH_BACKGROUND){
+        return new (CosmosUI::AwaitPageWithBackground);
+    }
     return Scene::CreatePageById((PageId)pageId);
 }
 
@@ -92,7 +95,7 @@ kmCall(0x8062d064, InjectWarningPage);
 
 void InjectMainMenuPages(Scene& scene, PageId id){
     scene.CreatePage(id);
-    scene.CreatePage(TEXT_BOX_WITH_SPINNER);
+    scene.CreatePage((PageId)Cosmos::SPINNER_WITH_BACKGROUND);
     scene.CreatePage(GENERIC_TEXT_BOX_FULL_PAGE_PRESS_A);
     return;
 }

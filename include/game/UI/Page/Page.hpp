@@ -136,6 +136,7 @@ public:
     ~AutoEnding() override; //805baf68 vtable 808b73a8
     void OnInit() override; //0x28 805bb024
     int GetRuntimeTypeInfo() const override; //0x60 805bb26c
+    PageId GetNextPage() const override;
     virtual void ResetText(); //0x64 805bb1c0
     virtual void SetMessageWindowText(u32 bmgId, const TextInfo *text); //0x68 805bb218
     CtrlMenuPageTitleText titleText; //0x58 to 0x1CC
