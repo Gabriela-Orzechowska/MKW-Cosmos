@@ -82,4 +82,22 @@ namespace CosmosUI
         this->SetMessageWindowMessage(this->messageBmg[0],0x0);
         if(this->messageCount > 1) this->SetApproveButtonMessage(0x1b5b, nullptr);
     };
+
+    void AwaitPageWithBackground::OnInit(){
+        this->nextPageId = (PageId) -1;
+        this->InitControlGroup(4);
+        this->SetManipulatorManager(&this->manipulatorManager);
+        this->AddControl(3, &this->blackBack, false);
+        this->AddControl(1, &this->busySymbol, false);
+        this->AddControl(2, &this->messageWindowScale, false);
+        this->AddControl(0, &this->titleText, false);
+
+        this->titleText.Load(0);
+        this->busySymbol.Load("message_window", "BusySymbol", "BusySymbol");
+        this->messageWindowScale.Load("message_window", "MessageWindow", "MessageWindowPopup");
+        this->blackBack.Load("message_window", "BlackBack", "BlackBack");
+        this->blackBack.zIndex = -1.0f;
+
+
+    }
 }

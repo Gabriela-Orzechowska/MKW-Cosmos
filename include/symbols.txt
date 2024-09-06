@@ -571,6 +571,8 @@ func_0x34__9UIControlFv = 0x805bd2d8
 InitControlGroup__9UIControlFUi = 0x8063d268
 AddControl__9UIControlFUiP9UIControl = 0x8063d278
 PlaySound__9UIControlFUiUi = 0x8063d74c
+__ct__29MessageWindowControlScaleFadeFv = 0x805f9820
+__dt__29MessageWindowControlScaleFadeFv = 0x805f985c
 
 FuchiColor1 = 0x80895cc0
 FuchiColor2 = 0x80895cc8
@@ -941,6 +943,27 @@ DisplayFinishTime__14CtrlRaceResultFUc = 0x807f595c
 #Votes
 Fill__11VoteControlFbUiP8MiiGroupUibUi = 0x80642ca4 
 SetVotedCourseId__Q25Pages4VoteF8CourseId = 0x80643f48
+
+#Actionless
+AfterControlUpdate__Q25Pages10ActionLessFv = 0x805bac4c
+OnActivate__Q25Pages10ActionLessFv = 0x805bac40
+
+#BusySymbol
+Load__10BusySymbolFPCcPCcPCc = 0x805f9cc8
+
+#AutoEnding
+__ct__Q25Pages10AutoEndingFv = 0x805bae98
+__dt__Q25Pages10AutoEndingFv = 0x805baf68
+OnInit__Q25Pages10AutoEndingFv = 0x805bb024
+SetMessageWindowText__Q25Pages10AutoEndingFUiPC8TextInfo = 0x805bb218
+ResetText__Q25Pages10AutoEndingFv = 0x805bb1c0
+GetRuntimeTypeInfo__Q25Pages10AutoEndingCFv = 0x805bb26c
+GetNextPage__Q25Pages10AutoEndingCFv = 0x805bb264
+
+#BlackBack
+__ct__26BlackBackControlForMessageFv = 0x805f9abc
+__dt__26BlackBackControlForMessageFv = 0x805f9af8
+Load__26BlackBackControlForMessageFPCcPCcPCc = 0x805f9b50
 
 #Page
 __ct__4PageFv = 0x8060197c
