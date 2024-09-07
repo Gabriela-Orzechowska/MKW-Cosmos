@@ -181,8 +181,8 @@
  2843   = Looks like you're using default Dolphin configuration.\nPlease import your Wii's NAND to access \nall Aurora features.
  2844   = Looks like you're using public NAND dump.\nPlease import your Wii's NAND to access \nall Aurora features.
  2845   = Verifying with the server...
- 2846   = There has been an error while\nconnecting to the server.\n\nError Code: \z{a02,1000000000}
- 2847   = There has been an error while\nconnecting to the server.\n\nError Code: \z{a02,1000000000}\nReturning to Wii Menu...
+ 2846   = There has been an error while\nconnecting to the server.\n\nError Code: \z{802,200000}\z{a02,1000000000}
+ 2847   = There has been an error while\nconnecting to the server.\n\nError Code: \z{802,200000}\z{a02,1000000000}\nReturning to Wii Menu...
  2848   = New update is available! \z{802,200000}\nDownload new version from Wiiki!
 
 7100 = The Arctic Line

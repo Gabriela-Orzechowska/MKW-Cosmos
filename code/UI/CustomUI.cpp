@@ -77,6 +77,7 @@ void InjectTTPages(Scene& scene, PageId id){
     scene.CreatePage(ARE_YOU_SURE_YOU_WANT_TO_QUIT);
     scene.CreatePage(VOTERANDOM_MESSAGE_BOX);
     scene.CreatePage(TEXT_BOX_WITH_SPINNER);
+    scene.CreatePage(GENERIC_TEXT_BOX_FULL_PAGE_PRESS_A);
 };
 
 kmCall(0x8062c644, InjectTTPages); // TTs
