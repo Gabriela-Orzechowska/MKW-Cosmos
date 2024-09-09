@@ -8,7 +8,7 @@ struct USERPacket{
     u32 recordId; // 00
     u16 miiCount; //04
     u16 unknown_0x06; //06
-    u8 mii[0xA0-0x08];
+    RFLiStoreData mii[2];
     u64 wii_fc; //a0
     u64 friend_code; //a8
     u8 country; //b0

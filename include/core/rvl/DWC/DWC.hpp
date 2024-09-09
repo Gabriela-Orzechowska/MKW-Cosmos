@@ -7,38 +7,39 @@
 static u64 wiiFriendCode; //80386328
 
 namespace DWC{ //this is probably C, but don't care
-struct LoginID{
-    u64 userId;
-    u32 playerId;
-};
+    struct LoginID{
+        u64 userId;
+        u32 playerId;
+    };
 
-struct UserData{ //https://wiki.tockdom.com/wiki/Rksys.dat#DWC_User_Data
-    u32 size;
-    LoginID pseudoId;
-    LoginID authenticID;
-    int gsProfileId; //0x1c
-    int flag;
-    u32 gamecode; //always RMCJ
-    u32 unknown_0x28[0x3c-0x28];
-    u32 crc32;
-};
+    struct UserData{ //https://wiki.tockdom.com/wiki/Rksys.dat#DWC_User_Data
+        u32 size;
+        LoginID pseudoId;
+        LoginID authenticID;
+        int gsProfileId; //0x1c
+        int flag;
+        u32 gamecode; //always RMCJ
+        u32 unknown_0x28[0x3c-0x28];
+        u32 crc32;
+    };
 
-struct Friend{
-    u32 bitflag;
-    u32 pid;
-    u32 unknown_0x4;
-};
+    struct Friend{
+        u32 bitflag;
+        u32 pid;
+        u32 unknown_0x4;
+    };
 
-struct FriendUpdate{
-    u8 unknown[4];
-    u32 pid;
-};
+    struct FriendUpdate{
+        u8 unknown[4];
+        u32 pid;
+    };
 
-struct DWCMatchContext {
-    GameSpy::GPConnection* connection;
-};
-extern DWCMatchContext* stpMatchCnt;
+    struct DWCMatchContext {
+        GameSpy::GPConnection* connection;
+    };
+    extern DWCMatchContext* stpMatchCnt;
 
+    extern "C" s32 DWC_Base64Encode(const void* data, u32 inSize, char* out, u32 outputBufferSize); //800cc7e4
 
 }//namespace DWC
 
