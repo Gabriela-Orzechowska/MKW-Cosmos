@@ -214,6 +214,7 @@ void ApplyWiiLinkPatch(int param_1, int param_2, int param_3, int param_4, int p
         url, "http://nas.%s/%s&h=%02x%02x%02x%02x", WWFC_DOMAIN, uri,
         s_saltHash[0], s_saltHash[1], s_saltHash[2], s_saltHash[3]);
 
+    CosmosLog("Sending to: %s\n", url);
     void *request = NHTTPCreateRequest(
         url, NHTTP_REQUEST_GET, s_payload, PAYLOAD_BLOCK_SIZE, OnPayloadReceived, 0);
 

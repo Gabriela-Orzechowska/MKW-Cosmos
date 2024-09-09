@@ -1,5 +1,11 @@
+#include "Network/RKNetUser.hpp"
+#include "Race/RaceData.hpp"
 #include "Settings/UserData.hpp"
+#include "Visual/Mii.hpp"
+#include "core/gamespy/gamespy.hpp"
+#include "core/rvl/DWC/DWC.hpp"
 #include "core/rvl/rvl_sdk.hpp"
+#include "hooks.hpp"
 #include "main.hpp"
 #include <kamek.hpp>
 #include <core/System/SystemManager.hpp>
@@ -127,3 +133,64 @@ ROOMPacket BeforeReadingPackets(RKNetROOMHandler& handler, u32 packetIndex) {
     return packet;
 }
 kmBranch(0x8065af64, BeforeReadingPackets);
+
+// Taken from WiiLink WFC Patcher
+
+void ReportToWiiLink(const char* key, const char* string){
+    GameSpy::GPConnection* connection = DWC::stpMatchCnt->connection;
+    if(!connection) return;
+
+    GameSpy::GPIConnection* iconnection = (GameSpy::GPIConnection*) *connection;
+
+    GameSpy::gpiAppendStringToBuffer(connection, &iconnection->outputBuffer, "\\wwfc_report\\\\");
+    GameSpy::gpiAppendStringToBuffer(connection, &iconnection->outputBuffer, key);
+    GameSpy::gpiAppendStringToBuffer(connection, &iconnection->outputBuffer, "\\");
+    GameSpy::gpiAppendStringToBuffer(connection, &iconnection->outputBuffer, string);
+    GameSpy::gpiAppendStringToBuffer(connection, &iconnection->outputBuffer, "\\final\\");
+
+    CosmosLog("Appending Key: %s String: %s\n", key, string);
+}
+
+void ReportToWiiLinkB64(const char* key, const void* data, u32 size){
+    char b64Data[0x400];
+    s32 retSize = DWC::DWC_Base64Encode(data, size, b64Data, 0x400);
+    if(retSize == -1 || retSize == 0x400) {
+        CosmosError("Failed to B64 encode to buffer!\n");
+        return;
+    }   
+    b64Data[retSize] = '\0';
+    ReportToWiiLink(key, b64Data);
+}
+
+void CreateNewUserPacket(RKNetUSERHandler& handler) {
+    handler.BuildUserPacket();
+
+    //Prepare Mii Data
+    for(int i = 0; i < handler.toSendPacket.miiCount; i++){
+        RFLiStoreData* mii = &handler.toSendPacket.mii[i];
+
+        u32 a;
+        if(RFLSearchOfficialData(&mii->data.createID,&a)) continue;
+
+        mii->data.createID.miiID = 0x80000000;
+        mii->data.createID.consoleID = 0;
+
+        bool hasHitNull = false;
+        for(int j = 0; j < RFL_NAME_LEN; j++){
+            if(hasHitNull) mii->data.name[i] = 0;
+            else if(mii->data.name[i] == 0) hasHitNull = true;
+        }
+
+        memset(mii->data.creatorName, 0, sizeof(mii->data.creatorName));
+        mii->data.birthDay = 0;
+        mii->data.birthMonth = 0;
+
+        mii->checkSum = 0;
+        mii->checkSum = RFLiCalculateCRC(mii, sizeof(RFLiStoreData));
+
+    }
+    ReportToWiiLinkB64("mkw_user", &handler.toSendPacket, 0xC0);
+}
+kmCall(0x806628b0, CreateNewUserPacket);
+
+

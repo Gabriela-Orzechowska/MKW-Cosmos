@@ -1386,8 +1386,11 @@ PostData__Q23DWC5GHTTPFPCcPPQ33DWC5GHTTP7GHIPostPFPCcUiiPv_vPv = 0x800cd6d4
 Process__Q23DWC5GHTTPFv = 0x800cd4a8
 Shutdown__Q23DWC5GHTTPFv = 0x800cd3f4
 GetDataEx__Q23DWC5GHTTPFPCcUibPFiPCvUiiiPv_vPFPCcUiiPv_vPv = 0x800cd864
+DWC_Base64Encode = 0x800cc7e4
 
 
+RFLSearchOfficialData = 0x800CA820
+RFLiCalculateCRC = 0x800C78D0
 
 nhttp_alloc = 0x800ed69c
 nhttp_free = 0x800ed6b4
