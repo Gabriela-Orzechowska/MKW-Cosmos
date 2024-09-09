@@ -674,6 +674,7 @@ Load__10PushButtonFPCcPCcPCcUiUib = 0x805bd518
 SelectFocus__10PushButtonFv = 0x805bdb58
 GetAnimationFrameSize__10PushButtonCFv = 0x805bdf88
 SetPlayerBitfield__10PushButtonFUi = 0x805bdbd4
+LoadWithAnims__10PushButtonFPPCcPCcPCcPCcUiUi = 0x805bd720
 
 #SheetSelect
 __ct__18SheetSelectControlFv = 0x80635ec4 

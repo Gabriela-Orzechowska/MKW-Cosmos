@@ -184,6 +184,7 @@
  2846   = There has been an error while\nconnecting to the server.\n\nError Code: \z{802,200000}\z{a02,1000000000}
  2847   = There has been an error while\nconnecting to the server.\n\nError Code: \z{802,200000}\z{a02,1000000000}\nReturning to Wii Menu...
  2848   = New update is available! \z{802,200000}\nDownload new version from Wiiki!
+ 284B   = \z{a02,1000000000}\n\z{800,46}Active Players
 
 7100 = The Arctic Line
 7101 = Alpine Skyway
