@@ -14,26 +14,35 @@
 #include <Aurora/AuroraSecurity.hpp>
 #include <Aurora/AuroraAPI.hpp>
 
-void * CreatePage(u32 pageId)
+void* CreatePage(u32 pageId)
 {
-    if(pageId == (u32)Cosmos::SETTINGS_MAIN)
-    {
-        return new(CosmosUI::NewSettings);
+    switch(pageId){
+        case Cosmos::SETTINGS_MAIN:
+            return new (CosmosUI::NewSettings);
+        case Cosmos::WARNING_PAGE:
+            return new (CosmosUI::MessagePageWindow);
+        case Cosmos::VARIANT_SELECT:
+            return new (CosmosUI::VariantSelectPlus);
+        case Cosmos::SPINNER_WITH_BACKGROUND:
+            return new (CosmosUI::AwaitPageWithBackground);
+        default:
+            return Scene::CreatePageById((PageId)pageId);
     }
-    else if(pageId == (u32)Cosmos::WARNING_PAGE)
-    {
-        return new (CosmosUI::MessagePageWindow);
-    }
-    else if(pageId == (u32)Cosmos::VARIANT_SELECT){
-        return new (CosmosUI::VariantSelectPlus);
-    }
-    else if(pageId == (u32)Cosmos::SPINNER_WITH_BACKGROUND){
-        return new (CosmosUI::AwaitPageWithBackground);
-    }
-    return Scene::CreatePageById((PageId)pageId);
+    return nullptr;
 }
 
 kmCall(0x80622d2c, CreatePage);
+
+void InjectWFCPages(Scene& scene, PageId id){
+    scene.CreatePage(id);
+    scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
+}
+kmCall(0x8062dc4c, InjectWFCPages);
+kmCall(0x8062ddf0, InjectWFCPages);
+kmCall(0x8062df94, InjectWFCPages);
+kmCall(0x8062e2b8, InjectWFCPages);
+kmCall(0x8062e45c, InjectWFCPages);
+kmCall(0x8062e600, InjectWFCPages);
 
 void InjectOnlinePages(Scene& scene, PageId id){
     scene.CreatePage(id);

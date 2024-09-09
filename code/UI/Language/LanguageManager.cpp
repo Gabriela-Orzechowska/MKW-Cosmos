@@ -1,5 +1,7 @@
+#include "System/Identifiers.hpp"
 #include "UI/MenuData/MenuData.hpp"
 #include "UI/MenuData/Scene.hpp"
+#include "UI/Page/Page.hpp"
 #include "kamek.hpp"
 #include <UI/Language/LanguageManager.hpp>
 #include <game/Scene/RootScene.hpp>
@@ -10,8 +12,13 @@ namespace Cosmos
     LanguageManager* LanguageManager::sInstance = nullptr;
 
     inline bool isOnlineSettingsMenu() {
-        MenuId menu = MenuData::GetStaticInstance()->GetCurrentScene()->menuId;
-        return menu >= P1_WIFI && menu <= P2_WIFI_FRIEND_COIN_BT_GAMEPLAY;
+        MenuData* menuData = MenuData::GetStaticInstance();
+        MenuId menu = menuData->GetCurrentScene()->menuId;
+
+        Page* wfcMain = menuData->GetPage<Page>(WFC_MAIN_PAGE);
+        if(wfcMain != nullptr && wfcMain->currentState == STATE_FOCUSED) return false;
+
+        return (menu >= P1_WIFI && menu <= P2_WIFI_FRIEND_COIN_BT_GAMEPLAY);
     }
 
     void LanguageManager::CreateStaticInstance(){
@@ -95,7 +102,7 @@ namespace Cosmos
         if(reload){
             if(this->actualLanguage != this->lastLanguage){
                 MenuCategory cat = Scene::GetType(MenuData::GetStaticInstance()->GetCurrentScene()->menuId);
-                if(cat != CATEGORY_GAMEPLAY && cat != CATEGORY_ONLINE_MENU && !isOnlineSettingsMenu()){
+                if(cat != CATEGORY_GAMEPLAY && !isOnlineSettingsMenu()){
                     CosmosUI::NewSettings* page = MenuData::GetStaticInstance()->curScene->
                         Get<CosmosUI::NewSettings>((PageId)Cosmos::SETTINGS_MAIN);
                     if(page != nullptr) page->ChangeMenu(page->GetPreviousMenu(), 0, 0.0f);

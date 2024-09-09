@@ -666,6 +666,7 @@ Load__10PushButtonFPCcPCcPCcUiUib = 0x805bd518
 SelectFocus__10PushButtonFv = 0x805bdb58
 GetAnimationFrameSize__10PushButtonCFv = 0x805bdf88
 SetPlayerBitfield__10PushButtonFUi = 0x805bdbd4
+LoadWithAnims__10PushButtonFPPCcPCcPCcPCcUiUi = 0x805bd720
 
 #SheetSelect
 __ct__18SheetSelectControlFv = 0x80635ec4 
@@ -987,6 +988,7 @@ AddControl__4PageFUcP9UIControlUi = 0x8060246c
 SetManipulatorManager__4PageFP18ManipulatorManager = 0x80602474
 EndStateAnimate__4PageFfUi = 0x80602488
 AddPageLayer__4PageF6PageIdUi = 0x806025b0
+AddPageLayer__4PageF6PageIdi = 0x806025b0
 SetTransitionSound__4PageFUiUi = 0x80602d20
 PlaySound__4PageFUiUi = 0x80602cf8
 Setup__4PageF6PageId = 0x80601a60
@@ -1023,7 +1025,6 @@ OnModeButtonClick__Q25Pages18FriendRoomMessagesFP10PushButtonUi = 0x805dcd78
 __vt__Q25Pages4Menu = 0x808d8d78
 __dt__Q25Pages4MenuFv = 0x80625d30
 GetNextPage__Q25Pages4MenuCFv = 0x80838a70
-AddPageLayer__4PageF6PageIdi = 0x80837d1C
 OnInit__Q25Pages4MenuFv = 0x80836b9c
 OnActivate__Q25Pages4MenuFv = 0x80837170
 BeforeEntranceAnimations__Q25Pages4MenuFv = 0x808389d4

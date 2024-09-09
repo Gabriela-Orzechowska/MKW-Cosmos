@@ -77,7 +77,6 @@ void FixGPIntroBMG(LayoutUIControl& control, u32 bmg, TextInfo* info){
         return;
     }
     u32 cupBmg = BMG_CUPS + Cosmos::CupManager::GetStaticInstance()->GetCupID(trackId);
-    CosmosLog("Setting BMG to: %x from %x\n", cupBmg, info->bmgToPass[1]);
     info->bmgToPass[1] = cupBmg;
     control.SetMsgId(bmg, info);
 }
