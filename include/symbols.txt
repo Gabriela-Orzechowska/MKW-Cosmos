@@ -1083,6 +1083,13 @@ IsPausePage__Q25Pages7TTPauseFv = 0x80633470
 GetMessageBMG__Q25Pages7TTPauseCFv = 0x80633468
 GetRuntimeTypeInfo__Q25Pages7TTPauseCFv = 0x80633504
 
+#VSPause
+__ct__Q25Pages7VSPauseFv = 0x80624ba0
+__dt__Q25Pages7VSPauseFv = 0x80633348
+IsPausePage__Q25Pages7VSPauseFv = 0x80633304
+GetMessageBMG__Q25Pages7VSPauseCFv = 0x806332fc
+GetRuntimeTypeInfo__Q25Pages7VSPauseCFv = 0x806333b4
+
 #RacePage
 sInstance__Q25Pages7RaceHUD = 0x809c4680
 

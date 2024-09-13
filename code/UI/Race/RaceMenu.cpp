@@ -13,6 +13,12 @@ namespace CosmosUI {
     kmCall(0x806235c4, CreateTTPage);
     kmWrite32(0x806235b8, 0x60000000);
 
+    VSPausePlus* CreateVSPausePage(){
+        return new VSPausePlus();
+    }
+    kmCall(0x806235ac, CreateVSPausePage);
+    kmWrite32(0x806235a0, 0x60000000);
+
     void PatchButtonLoading(PushButton& button, const char * folderName, const char * fileName, u32 index, u32 localPlayerBitfield, u32 r8, bool inaccessible){
         if(index == RaceMenu_ButtonSettings) {
             button.Load(folderName, fileName, "ButtonSettings", localPlayerBitfield, r8, inaccessible);
@@ -38,7 +44,7 @@ namespace CosmosUI {
             switch(button->buttonId)
             {
                 case RaceMenu_ButtonSettings:
-                    CosmosUI::NewSettings::SetPreviousPageGlobal(TIME_TRIAL_PAUSE_MENU, TIME_TRIAL_GAMEPLAY);
+                    CosmosUI::NewSettings::SetPreviousPageGlobal(TIME_TRIAL_PAUSE_MENU, MENU_NONE);
                     menu.nextPage = (PageId) Cosmos::SETTINGS_MAIN;
                     menu.EndStateAnimate(0.0f,0);
                     break;
@@ -61,16 +67,23 @@ namespace CosmosUI {
                 default:
                     menu.OnButtonClick(button, val);
             }
+            return;
         }
-        else if(isOnline()){
-           if(button->buttonId == Pages::RaceMenu::ButtonQuit){
+        else {
+            menu.nextPage = PAGE_NONE;
+            if(button->buttonId == Pages::RaceMenu::ButtonQuit){
                 menu.nextPage = ARE_YOU_SURE_YOU_WANT_TO_QUIT;
                 menu.EndStateAnimate(0.0f, 0);
                 return;
-           }
-           else menu.OnButtonClick(button, val);
+            }
+            else if(button->buttonId == RaceMenu_ButtonSettings){
+                    CosmosUI::NewSettings::SetPreviousPageGlobal(VS_RACE_PAUSE_MENU, MENU_NONE);
+                    menu.nextPage = (PageId) Cosmos::SETTINGS_MAIN;
+                    menu.EndStateAnimate(0.0f,0);
+                    return;
+            }
+            else menu.OnButtonClick(button, val);
         }
-        else menu.OnButtonClick(button, val);
     }
     kmWritePointer(0x808da844, TTPauseOnButtonClick);
 

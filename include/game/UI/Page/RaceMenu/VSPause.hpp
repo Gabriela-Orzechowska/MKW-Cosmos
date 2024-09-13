@@ -15,7 +15,7 @@ public:
     int GetMessageBMG() const override; //0x68 806332fc
     u32 GetButtonCount() const override; //0x6c 80633340
     const u32* GetVariantsIdxArray() const override; //0x70 8063334
-    bool IsPausePage() const override; //0x74 80633304
+    bool IsPausePage() override; //0x74 80633304
     const char* GetButtonsBRCTRName() const override; //0x78 8063330c
 }; //total size 0x344
 size_assert(VSPause, 0x344);
