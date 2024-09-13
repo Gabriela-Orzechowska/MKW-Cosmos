@@ -74,6 +74,25 @@ void InjectWarningPage(Scene& scene, PageId id){
     return;
 }
 
+void InjectVSPausePages(Scene& scene, PageId id){
+    scene.CreatePage(id);
+    scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
+    scene.CreatePage(ARE_YOU_SURE_YOU_WANT_TO_QUIT);
+}
+void InjectVSPausePagesNoConfirm(Scene& scene, PageId id){
+    scene.CreatePage(id);
+    scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
+}
+kmCall(0x8062c65c, InjectVSPausePages);
+kmCall(0x8062c7a0, InjectVSPausePages);
+
+kmCall(0x8062c6a4, InjectVSPausePagesNoConfirm);
+kmCall(0x8062c6f8, InjectVSPausePagesNoConfirm);
+kmCall(0x8062c74c, InjectVSPausePagesNoConfirm);
+kmCall(0x8062c7e8, InjectVSPausePagesNoConfirm);
+kmCall(0x8062c83c, InjectVSPausePagesNoConfirm);
+kmCall(0x8062c890, InjectVSPausePagesNoConfirm);
+
 kmCall(0x8062ce54, InjectWarningPage);
 kmCall(0x8062ced8, InjectWarningPage);
 kmCall(0x8062cf5c, InjectWarningPage);
