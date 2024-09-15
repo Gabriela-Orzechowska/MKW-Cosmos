@@ -34,7 +34,7 @@ struct RH1Data{
 class RKNetRH1Handler{
 public:
     static RKNetRH1Handler *sInstance; //809c2118
-    static void GetStaticInstance(); //80663aa4
+    static RKNetRH1Handler* GetStaticInstance() { return sInstance; }
     static void DestroyStaticInstance(); //80663c38
     ~RKNetRH1Handler(); //80664d9c
     void FillRH1Data(); //806651b4

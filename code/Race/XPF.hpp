@@ -5,7 +5,8 @@
 #include <game/System/Random.hpp>
 #include <game/KMP/Controller.hpp>
 #include <game/Race/RaceData.hpp>
-
+#include <game/Network/RKNetController.hpp>
+#include <game/Network/RKNetPlayerInfo.hpp>
 
 
 namespace Cosmos
@@ -31,7 +32,6 @@ namespace Cosmos
         
 
         static XPFManager * sInstance;
-        Random random;
         s8 randScenario;
     };
 } // namespace Cosmos
