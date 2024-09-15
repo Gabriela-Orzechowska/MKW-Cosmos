@@ -1,3 +1,5 @@
+#include "Race/RaceData.hpp"
+#include "core/rvl/os/OS.hpp"
 #include <Race/XPF.hpp>
 
 namespace Cosmos
@@ -24,8 +26,16 @@ namespace Cosmos
 
     void XPFManager::EvaluateConditions(ObjectHolder& holder)
     {
+        u32 seed = 0;
+        if(isTT()) this->randScenario = 0;
+        else if(isOnline()){
+            RKNetController* controller = RKNetController::GetStaticInstance();
+            RKNetControllerSub& sub = controller->subs[controller->currentSub];
+            seed = RKNetRH1Handler::GetStaticInstance()->rh1Data[sub.hostAid].selectId << 4;
+        }
+        else seed = OSGetTick();
+        Random random(seed);
         this->randScenario = random.NextLimited(8);
-        if(isTT() || isOnline()) this->randScenario = 0;
         CosmosLog("XPF Scenario: %d\n", this->randScenario);
 
         s32 objectCount = KMP::Controller::GetStaticInstance()->gobj->pointCount;
