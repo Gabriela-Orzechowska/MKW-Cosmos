@@ -3,7 +3,7 @@
 #include "types.hpp"
 
 
-typedef s32 OSTime;
+typedef s64 OSTime;
 
 typedef struct {
 	int sec, min, hour, mday, mon, year, wday, yday, msec, usec;

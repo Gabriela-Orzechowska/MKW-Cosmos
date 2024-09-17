@@ -16,6 +16,7 @@ pr_patch8_r4 = 0x8065A080
 
 __div2u = 0x80021604
 __mod2u = 0x80021828
+__div2i = 0x800216f0
 
 
 memcpy = 0x80005f34
@@ -121,6 +122,7 @@ WPADProbe__FiPUi = 0x801c0990
 KPADRead__FiPvUi = 0x80197380
 KPADGetUnifiedWpadStatus__FiPvUi = 0x8019812c
 PADRead__FPv = 0x801af44c
+PADRead__FP9PADStatus = 0x801af44c
 
 Util_RandInt = 0x800f2ee0
 
@@ -152,11 +154,13 @@ GetAttr__4ISFSFPCcPUiPUsPUcPQ23IOS4ModePQ23IOS4ModePQ23IOS4Mode = 0x8016a500
 
 #IPC
 Open__3IOSFPcQ23IOS4Mode = 0x801938f8
+OpenAsync__3IOSFPCcQ23IOS4ModePFiPv_vPv = 0x801937e0
 Close__3IOSFi = 0x80193ad8
 Read__3IOSFiPvi = 0x80193c80
 Write__3IOSFiPvi = 0x80193e88
 Seek__3IOSFiiQ23IOS8SeekType = 0x80194070
 IOCtl__3IOSFiQ23IOS9IOCtlTypePviPvi = 0x80194290
+IOCtlAsync__3IOSFiQ23IOS9IOCtlTypePviPviPFiPv_vPv = 0x80194158
 IOCtlv__3IOSFiQ23IOS9IOCtlTypeiiPQ23IOS13IOCtlvRequest = 0x801945e0
 Open2ndInst__3IOSFPcQ23IOS4Mode = 0x801938fc
 fs_fd__3IOS = 0x80385920
@@ -433,6 +437,9 @@ __vt__5Timer = 0x808b2d44
 __ct__5TimerFv = 0x8051c374
 __dt__5TimerFv = 0x8051c334
 
+#GlobeMgr
+sInstance__8GlobeMgr = 0x809c2cb8
+DisplayMii__8GlobeMgrFv = 0x807509b4
 
 #Racedata
 sInstance__8RaceData = 0x809bd728
