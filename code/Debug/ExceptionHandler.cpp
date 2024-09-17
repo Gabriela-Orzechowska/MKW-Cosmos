@@ -318,7 +318,7 @@ namespace CosmosDebug
             WPADCLStatus clStatus;
 
             KPADRead(0, &wStatus, 1);
-            PADRead(&gcStatus);
+            PADRead(gcStatus);
 
             if (ccp)
             {

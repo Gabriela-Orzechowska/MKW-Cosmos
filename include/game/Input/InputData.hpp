@@ -100,7 +100,11 @@ struct  PADStatus {
     s8 verticalStickU8; // -62 to 62 //3
     s8 horizontalCStickU8;
     s8 verticalCStickU8; // -50 to 50
-    u8 unknown_0x6[0xC-0x6];
+    u8 sliderL;
+    u8 sliderR;
+    u8 unknown[2];
+    s8 error;
+    u8 unknown2;
 }; //total size 0xC
 
 struct WPADCLStatus {
