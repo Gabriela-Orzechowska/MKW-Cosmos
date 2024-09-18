@@ -113,7 +113,7 @@ struct PtmfHolder_3A : PtmfHolderBase_3A<Ret, A1, A2, A3> {
     }
 };
 
-#define DEBUG_COSMOS
+//#define DEBUG_COSMOS
 #define CosmosLog(f, ...) OSReport("[Cosmos:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
 #define CosmosError(f, ...) OSReport("[Cosmos Error:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
 
@@ -124,7 +124,7 @@ struct PtmfHolder_3A : PtmfHolderBase_3A<Ret, A1, A2, A3> {
 #define COSMOS_SECURITY
 
 #if defined(COSMOS_SECURITY) && !defined(DEBUG_COSMOS)
-#define COSMOS_HANG() Cosmos::Security::KillAllStack()
+#define COSMOS_HANG() Cosmos::Security::KillAllStackAndHang()
 #else
 #define COSMOS_HANG() for(;;){}
 #endif
