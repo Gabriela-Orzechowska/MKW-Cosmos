@@ -1,5 +1,6 @@
 #ifndef _FRIENDROOMPAGE_
 #define _FRIENDROOMPAGE_
+#include "System/identifiers.hpp"
 #include <kamek.hpp>
 #include <game/UI/Page/Page.hpp>
 #include <game/UI/Page/Other/GlobeSearch.hpp>
@@ -9,7 +10,7 @@
 #include <game/UI/Ctrl/SheetSelect.hpp>
 #include <game/UI/Ctrl/CountDown.hpp>
 #include <game/Network/RKNetRoom.hpp>
-
+#include <game/UI/MenuData/MenuData.hpp>
 
 namespace Pages{
 class FriendRoomMessages;
@@ -81,6 +82,7 @@ namespace Pages{
 
 class FriendRoomWaiting : public Page{ //0x9b
 public:
+    static inline FriendRoomWaiting* GetPage() { return MenuData::GetStaticInstance()->GetPage<FriendRoomWaiting>(FRIEND_ROOM_WAITING_TEXT);}
     FriendRoomWaiting(); //805dd330
     ~FriendRoomWaiting(); //805dd38c vtable 808b8df8
     PageId GetNextPage() const override; //0x10 805de844
@@ -104,6 +106,7 @@ static_assert(sizeof(FriendRoomWaiting) == 0x364, "FriendRoomWaiting");
 
 class FriendRoomManager : public Page{ //0x9c
 public:
+    static inline FriendRoomManager* GetPage() { return MenuData::GetStaticInstance()->GetPage<FriendRoomManager>(FRIEND_ROOM_MANAGER); }
     FriendRoomManager(); //805d9b38
     ~FriendRoomManager() override; //805d9bcc vtable 808b8f2c
     void OnInit() override; //0x28 805d9c74
@@ -141,6 +144,7 @@ static_assert(sizeof(FriendRoomManager) ==  0x2c68, "FriendRoomManager");
 
 class FriendRoom : public Page{ //0x9d
 public:
+    static inline FriendRoom* GetPage() { return MenuData::GetStaticInstance()->GetPage<FriendRoom>(FRIEND_ROOM); }
     FriendRoom(); //805d7f78
     ~FriendRoom() override; //805d8160 vtable 808b8fd8
     void OnInit() override; //0x28 805d820c
@@ -180,6 +184,7 @@ static_assert(sizeof(FriendRoom) == 0xdc4, "FriendRoom");
 class FriendRoomMessages;
 
 class FriendRoomMessages : public Page{
+    static inline FriendRoomMessages* GetPage() { return MenuData::GetStaticInstance()->GetPage<FriendRoomMessages>(FRIEND_ROOM_MESSAGES); }
     FriendRoomMessages(); //805dbd94
     ~FriendRoomMessages() override; //805dc034 vtable 808b8e5c
     void OnInit() override; //0x28 805dc104
@@ -237,7 +242,7 @@ class FriendMenu : public Page {
 
     PtmfHolder_2A<FriendMenu, void, PushButton*, u32> onRosterClick;
     PtmfHolder_2A<FriendMenu, void, PushButton*, u32> onRegisterClick;
-    PtmfHolder_2A<FriendMenu, void, PushButton*, u32> onNewRoomClicl;
+    PtmfHolder_2A<FriendMenu, void, PushButton*, u32> onNewRoomClick;
     PtmfHolder_2A<FriendMenu, void, PushButton*, u32> onBackClick;
     PtmfHolder_2A<FriendMenu, void, PushButton*, u32> onButtonSelect;
     PtmfHolder_1A<FriendMenu, void, u32> onBack;
