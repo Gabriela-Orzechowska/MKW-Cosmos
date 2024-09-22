@@ -29,12 +29,18 @@
  2A05   = VS (1/2)
  2A06   = VS (2/2)
  2A07   = Host (2/2)
+ 2A08   = Accesibility
 
  2A20   = Manage your settings!
  2A21   = Manage your Race settings!
  2A22   = Manage your Menu settings!
  2A23   = Manage your Debug settings!
  2A24   = Manage your Friend Room settings!
+ 2A25   = Manage your VS settings!
+ 2A26   = Manage your VS settings!
+ 2A27   = Manage your Friend Room settings!
+ 2A28   = Manage your Accesibility settings!
+
 
  37000   = Enabled
  37001   = Disabled
@@ -182,6 +188,22 @@
  40631   = Players will be able to choose their vehicle like normal.
  40632   = Every player will roll their own random combo before race.
  40633   = All players will get the same random combo before race.
+
+ 30700   = Simplied Controls
+
+ 30701   = Disabled
+ 30702   = Only Up
+ 30703   = Directional
+
+ 30710   = FOV Effects
+
+ 30711   = Enabled
+ 30712   = Reduced
+ 30713   = Disabled
+
+ 30720   = Camera Shake
+ 
+ 30730   = Bloom
 
  2820   = A solo race for the fastest record! (200cc)
  2830   = Change Combo 

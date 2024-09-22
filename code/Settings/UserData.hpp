@@ -93,6 +93,7 @@ namespace Cosmos
             COSMOS_VS_SETTINGS_1,
             COSMOS_VS_SETTINGS_2,
             COSMOS_HOST_SETTINGS_2,
+            AURORA_ACCESIBILITY_SETTINGS_1,
         };
 
         enum RACE_SETTINGS_1_SETTINGS
@@ -149,6 +150,13 @@ namespace Cosmos
             COSMOS_VS_VARIANT_SELECTION,
             COSMOS_VS_MEGA_CLOUD,
             COSMOS_VS_ALL_ITEMS_CAN_LAND,
+        };
+
+        enum AURORA_ACCESIBILITY_SETTINGS {
+            AURORA_ACC_Y_TO_WHEELIE = 0x0,
+            AURORA_ACC_CAMERA_FOV,
+            AURORA_ACC_CAMERA_SHAKE,
+            AURORA_ACC_BLOOM,
         };
 
         enum LAYOUT_SETTINGS 
@@ -254,6 +262,16 @@ namespace Cosmos
             RANDOM_COMBO_COMMON = 0x2,
         };
 
+        enum AURORA_ACC_EFFECTS {
+            ACC_ENABLED,
+            ACC_REDUCED,
+            ACC_DISABLED,
+
+            ACC_CONTROLS_DISABLED = 0x0,
+            ACC_CONTROLS_ONLY_UP = 0x1,
+            ACC_CONTROLS_DIRECTIONAL = 0x2,
+        };
+
 
         enum GLOBAL_SETTING
         {
@@ -298,9 +316,18 @@ namespace Cosmos
             COSMOS_SETTING_HOST_MEGA_TC = COSMOS_HOST_MEGA_TC + (COSMOS_HOST_SETTINGS_2 * 8),
             COSMOS_SETTING_HOST_ALL_ITEMS_CAN_LAND = COSMOS_HOST_ALL_ITEMS_CAN_LAND + (COSMOS_HOST_SETTINGS_2 * 8),
             AURORA_SETTING_HOST_RANDOM_COMBO = AURORA_HOST_RANDOM_FORCED + (COSMOS_HOST_SETTINGS_2 * 8),
+
+            AURORA_SETTING_ACC_Y_TO_WHEELIE = AURORA_ACC_Y_TO_WHEELIE + (AURORA_ACCESIBILITY_SETTINGS_1 * 8),
+            AURORA_SETTING_ACC_CAMERA_SHAKE = AURORA_ACC_CAMERA_SHAKE + (AURORA_ACCESIBILITY_SETTINGS_1 * 8),
+            AURORA_SETTING_ACC_CAMERA_FOV = AURORA_ACC_CAMERA_FOV + (AURORA_ACCESIBILITY_SETTINGS_1 * 8),
+            AURORA_SETTING_ACC_BLOOM = AURORA_ACC_BLOOM + (AURORA_ACCESIBILITY_SETTINGS_1 * 8),
         };
 
+#ifdef DEBUG_COSMOS
+#define PAGE_COUNT 8
+#else
 #define PAGE_COUNT 7
+#endif
 #define SETTINGS_PER_PAGE 8
 
         typedef struct SettingPageOption
@@ -319,7 +346,7 @@ namespace Cosmos
             SettingPageOption settings[SETTINGS_PER_PAGE];
         } SettingPageDefinition;
 
-        static SettingPageDefinition GlobalSettingDefinitions[PAGE_COUNT] = {
+        static SettingPageDefinition GlobalSettingDefinitions[PAGE_COUNT + 1] = {
             {
                 // Race
                 .settingCount = 6,
@@ -352,7 +379,7 @@ namespace Cosmos
              .settings = {{.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, //OpenHost
                           {.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, // HAW
                           {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}, //Allow Mii Heads
-                          {.optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30510, .firstOptionBmg = BMG_ENABLED_DISABLED, .firstDescBmg = 0x40511}, //Variant Selection
+                          {.optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30510, .firstDescBmg = 0x40511}, //Variant Selection
                           {.optionCount = 3, .isBool = false, .defaultValue = FORCE_NONE}, // Force CC
                           {.optionCount = 8, .isBool = false, .defaultValue = RACE_COUNT_4}}
             }, //Race count
@@ -385,9 +412,26 @@ namespace Cosmos
                     { .optionCount = 3, .isBool = false, .defaultValue = RANDOM_COMBO_DISABLED },
                 }
             },
+            { //ACCESIBILITY
+                .settingCount = 4,
+                .settings = {
+                    { .optionCount = 3, .isBool = false, .defaultValue = ACC_CONTROLS_DISABLED},
+                    { .optionCount = 3, .isBool = false, .defaultValue = ACC_ENABLED },
+                    { .optionCount = 3, .isBool = false, .defaultValue = ACC_ENABLED, .firstOptionBmg = 0x30711 },
+                    { .optionCount = 2, .isBool = false, .defaultValue = ACC_ENABLED, .firstOptionBmg = 0x30711 },
+                },
+            },
         };
 
-        static u8 GlobalSettingsPageOrder[PAGE_COUNT] = {COSMOS_MENU_SETTINGS_1, COSMOS_RACE_SETTINGS_1, COSMOS_VS_SETTINGS_1, COSMOS_VS_SETTINGS_2, COSMOS_HOST_SETTINGS_1, COSMOS_HOST_SETTINGS_2, COSMOS_DEBUG_SETTINGS};
+#ifdef DEBUG_COSMOS
+        static u8 GlobalSettingsPageOrder[PAGE_COUNT] = {COSMOS_MENU_SETTINGS_1, COSMOS_RACE_SETTINGS_1,
+            COSMOS_VS_SETTINGS_1, COSMOS_VS_SETTINGS_2, COSMOS_HOST_SETTINGS_1, 
+            COSMOS_HOST_SETTINGS_2, AURORA_ACCESIBILITY_SETTINGS_1, COSMOS_DEBUG_SETTINGS};
+#else
+        static u8 GlobalSettingsPageOrder[PAGE_COUNT] = {COSMOS_MENU_SETTINGS_1, COSMOS_RACE_SETTINGS_1,
+            COSMOS_VS_SETTINGS_1, COSMOS_VS_SETTINGS_2, COSMOS_HOST_SETTINGS_1, 
+            COSMOS_HOST_SETTINGS_2, AURORA_ACCESIBILITY_SETTINGS_1};
+#endif
 
         struct SettingsPage
         {

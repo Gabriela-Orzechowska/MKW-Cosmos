@@ -50,6 +50,7 @@ namespace CosmosUI
         void SetTimer(CountDown* countDown) { this->timer = countDown; } 
         void SetNextSettingPage(u32 page) { 
             this->currentPage = page;
+            this->pageSelector.curSelectedOption = page;
         }
         MenuId GetPreviousMenu() const { return this->returnMenu; }
 
