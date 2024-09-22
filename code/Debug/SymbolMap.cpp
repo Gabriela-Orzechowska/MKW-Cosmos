@@ -163,6 +163,8 @@ namespace CosmosDebug
         SymbolManager::CreateStaticInstance();
     }
 
+
+
     static BootHook InitSymbolManager(InitSymbolMap, LOW);
 
 }

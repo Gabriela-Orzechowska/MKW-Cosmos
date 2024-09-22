@@ -15,6 +15,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Input/InputData.hpp"
+#include "Settings/UserData.hpp"
+#include "hooks.hpp"
 #include <Controller/MiscController.hpp>
 
 // This code is inspired by Bbg's VP implementation
@@ -138,5 +141,51 @@ namespace CosmosController
     }
 }
 
-kmWrite32(0x80520318,0x71240808);
-kmWrite32(0x8051f670,0x70e40081);
+
+void ParseSimplifiedControls(Controller& controller){
+    int setting = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::AURORA_SETTING_ACC_Y_TO_WHEELIE);
+    if(setting == Cosmos::Data::ACC_CONTROLS_DISABLED) return;
+
+    InputState& state = controller.inputState;
+
+    int type = controller.GetType();
+    bool input = false;
+    if(type == 2){
+        input = (state.buttonRaw & CLASSIC_ZL);
+    }
+
+    if(input)
+    {
+        if(setting == Cosmos::Data::ACC_CONTROLS_ONLY_UP){
+            state.rawTrickDirection = InputState::TRICK_UP;
+        }
+        else if (setting == Cosmos::Data::ACC_CONTROLS_DIRECTIONAL){
+           u8 stickX = state.quantisedStickX;
+           u8 stickY = state.quantisedStickY;
+           if(abs(stickX - 7) <= 2 * abs(stickY - 7)){
+                state.rawTrickDirection = stickY >= 6 ? InputState::TRICK_UP : InputState::TRICK_DOWN;
+           }
+           else {
+                state.rawTrickDirection = stickX >= 7 ? InputState::TRICK_RIGHT : InputState::TRICK_LEFT;
+           }
+        }
+
+    }
+    const bool isMirror = InputData::GetStaticInstance()->isMirror;
+    if(isMirror && state.rawTrickDirection == InputState::TRICK_LEFT){
+        state.trickDirection = InputState::TRICK_RIGHT;
+    }
+    else if(isMirror && state.rawTrickDirection == InputState::TRICK_RIGHT){
+        state.trickDirection = InputState::TRICK_LEFT;
+    }
+    else state.trickDirection = state.rawTrickDirection;
+}
+
+void CalcController(Controller& controller, InputState& state, UIInputState& uistate){
+    controller.Update(state, uistate);
+    ParseSimplifiedControls(controller);
+    if(InputData::GetStaticInstance()->isMirror) {
+        uistate.stickX *= -1;
+    }
+}
+kmCall(0x8051eebc, CalcController);

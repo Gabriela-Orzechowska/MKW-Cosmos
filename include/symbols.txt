@@ -493,6 +493,9 @@ ComputeRawMii__3MiiFP6RawMiiP9MiiTexMap = 0x8052758c
 sInstance__13CameraHandler = 0x809C1868
 SetProjection__17RaceCameraManagerFUiUi = 0x80566020
 
+#CameraShakeAxis
+Update__15CameraShakeAxisFv = 0x805a9a40
+
 #KartHolder
 sInstance__10KartHolder = 0x809c18f8
 sInstance__10KartParams = 0x809c1918

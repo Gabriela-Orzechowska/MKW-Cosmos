@@ -112,7 +112,6 @@ struct PtmfHolder_3A : PtmfHolderBase_3A<Ret, A1, A2, A3> {
         return (subject->*ptmf)(a1, a2, a3);
     }
 };
-
 //#define DEBUG_COSMOS
 #define CosmosLog(f, ...) OSReport("[Cosmos:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
 #define CosmosError(f, ...) OSReport("[Cosmos Error:%s:%d] " f, __FILE__, __LINE__, ##__VA_ARGS__)
@@ -131,6 +130,7 @@ struct PtmfHolder_3A : PtmfHolderBase_3A<Ret, A1, A2, A3> {
 
 #define __COMPILER_VERSION__ "4305_224"
 #define __COSMOS_VERSION__ "v0.1.5"
+#define __AURORA_VERSION__ "v1.0__3"
 
 class MenuLoadHook {
 private:
@@ -349,6 +349,7 @@ public:
 
         for (BootHook * p = sHooks; p; p = p->mNext)
             if(p->mPriority == LOW) p->mFunc();
+
     }
 };
 

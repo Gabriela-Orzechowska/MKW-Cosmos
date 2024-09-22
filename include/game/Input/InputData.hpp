@@ -119,6 +119,22 @@ class InputState {
 public:
     virtual void unknown_vtable();
 
+    enum Action {
+        ACCELERATE = 1 << 0,
+        BRAKE = 1 << 1,
+        ITEM = 1 << 2,
+        DRIFT = 1 << 3,
+        BACKWARDS = 1 << 5,
+    };
+
+    enum Trick {
+        TRICK_NONE = 0x0,
+        TRICK_UP,
+        TRICK_DOWN,
+        TRICK_LEFT,
+        TRICK_RIGHT,
+    };
+
     void Reset(); //8051e85c
     // vtable 808b2f2c
     u16 buttonActions; // bit flags:
@@ -134,8 +150,8 @@ public:
     float stickY; // -1.0 to 1.0 //0xC
     u8 quantisedStickX; // 0-14
     u8 quantisedStickY; // 0-14
-    u8 motionControlFlick; // 1 up, 2 down, 3 left, 4 right; includes the first frame of d-pad presses
-    u8 motionControlFlick2; // not sure what the difference is from the other one
+    u8 trickDirection; // 1 up, 2 down, 3 left, 4 right; includes the first frame of d-pad presses
+    u8 rawTrickDirection;  
     u8 unknown_0x14[0x18-0x14];
 }; // Total size 0x18
 
@@ -154,9 +170,9 @@ public:
         0x100 = x/Z
     */
     u16 rawButtons; //0x6
-    u16 buttonRaw; // bit flags, vary slightly by controller //0x8
     float stickX; // -1.0 to 1.0 //0xC
     float stickY; // -1.0 to 1.0 //0x10
+    u16 buttonRaw; // bit flags, vary slightly by controller //0x8
     u8 unknown_0x14[0x18-0x14]; //0x14
     u8 quantisedStickX; // 0-14 0x18
     u8 quantisedStickY; // 0-14 0x19
@@ -167,7 +183,7 @@ class Controller{
 public:
     Controller(); //8051eba8 
     virtual ~Controller(); //8051f1ec vtable 808b2ed8
-    virtual void Update() = 0;
+    virtual void Update(InputState& state, UIInputState& uistate) = 0;
     virtual int GetType() const; //0x10 8051ce7c returns -1
     virtual bool HasRumble(); //0x14 80521d84
     virtual void ActivateRumble(); //0x18 8052208c
@@ -195,14 +211,14 @@ class DummyController : public Controller{
 public:
     //no ctor
     ~DummyController() override; //805232b0 vtable 808b3020
-    void Update() override; //80524ab0 just a blr
+    void Update(InputState& state, UIInputState& uistate) override; //80524ab0 just a blr
 }; //total size 0x90
 
 class WiiController : public Controller {
 public:
     WiiController(); //8051f088
     ~WiiController() override; //80522934 vtable 808b2e90
-    void Update() override; //0xc 8051fc84
+    void Update(InputState& state, UIInputState& uistate) override; //0xc 8051fc84
     int GetType() const override; //0x10 8052292c returns 0x8dc (0 1 2)
     bool HasRumble() override; //0x14 805228dc checks wiimote internal setting
     void ActivateRumble() override; //0x18 805228d0
@@ -228,7 +244,7 @@ class GCNController : public Controller {
 public:
     GCNController(); //8051ffd0
     ~GCNController() override; //0x8 80522874 vtable 808b2e48
-    void Update() override; //0xc 805201b0
+    void Update(InputState& state, UIInputState& uistate) override; //0xc 805201b0
     int GetType() const override; //0x10 8052286c returns 3
     bool HasRumble() override; //0x14 805206fc checks RKSYS setting
     void ActivateRumble() override; //0x18 80522858
@@ -246,7 +262,7 @@ public:
 class GhostController : public Controller {
     GhostController(); //80520730
     ~GhostController() override; //80520924 vtable 808b2e00oh
-    void Update() override; //80520b9c
+    void Update(InputState& state, UIInputState& uistate) override; //80520b9c
     int GetType() const override; //0x10 8052282c returns 4
     void Init(bool isDriftAuto) override; //0x44 80520998
     

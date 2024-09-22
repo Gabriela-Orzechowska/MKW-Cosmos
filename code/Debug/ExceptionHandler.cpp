@@ -190,9 +190,17 @@ namespace CosmosDebug
             return;
         }
         OSReport("Size of ExceptionInfo: %d\nExceptionInfo addr: %p\n", sizeof(ExceptionInfo), &exceptionData);
-        Exception_Printf_("**** COSMOS %s ****\n", error < 0x11 ? "EXCEPTION HANDLER" : "USER HALT");
+        Exception_Printf_("**** AURORA %s ****\n", error < 0x11 ? "EXCEPTION HANDLER" : "USER HALT");
         Exception_Printf_("Platform: %s (%s)\nCosmos %s (%s, %s %s)\n", CosmosDebug::GetPlatformName(), GetRegionName(), __COSMOS_VERSION__, __COMPILER_VERSION__, __DATE__, __TIME__);
         Exception_Printf_("Framebuffer: %08XH\n", (u32)exceptionData.framebuffer);
+        Exception_Printf_(
+                "*** Dearest Player\n" 
+                "*** I hope it finds you well. We seem to have\n"
+                "*** found ourselves a crash in the game. Please\n"
+                "*** consider taking a screenshot and sending it \n"
+                "*** to #aurora-bug-reports\n");
+        Exception_Printf_("***\n");
+        Exception_Printf_("*** Sincerely, @VolcanoPiece1\n");
         Exception_Printf_("--------------------------------\n");
 
         if (exceptionData.displayInfo & EXCEPTION_INFO_MAIN)
@@ -234,9 +242,6 @@ namespace CosmosDebug
     /*
 
 
-            nw4r::db::Exception_Printf_("*** Dearest Player\n*** I hope it finds you well. We seem to have\n*** found ourselves a crash in the game. Please\n*** consider taking a screenshot and sending it \n*** to #bug-reports\n");
-            nw4r::db::Exception_Printf_("***\n");
-            nw4r::db::Exception_Printf_("*** Sincerely, @VolcanoPiece1\n");
 
 
     kmCall(0x800236c8, PrintHeader);

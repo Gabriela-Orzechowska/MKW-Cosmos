@@ -15,6 +15,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "System/Camera.hpp"
 #include "System/identifiers.hpp"
 #include "UI/MenuData/MenuData.hpp"
 #include "UI/Page/Menu/VSModeSelect.hpp"
@@ -30,6 +31,7 @@
 #include <game/UI/Ctrl/CtrlRace/CtrlRace2DMap.hpp>
 #include <game/Network/RKNetController.hpp>
 #include <core/rvl/DWC/DWC.hpp>
+#include <core/egg/3D/Bloom.hpp>
 
 using namespace Cosmos::Data;
 
@@ -235,10 +237,56 @@ void OpenSettingsOnVS(Pages::VSModeSelect* menu, u32, PushButton& button){
     CosmosUI::NewSettings* page = CosmosUI::NewSettings::GetPage();
     COSMOS_ASSERT_NOT_NULL(page);
 
-    page->SetNextSettingPage(Cosmos::Data::COSMOS_VS_SETTINGS_1);
+    page->SetNextSettingPage(2);
     page->SetPreviousPage(VS_MODE_SELECT, SINGLE_PLAYER_FROM_MENU);
     menu->LoadNextPageWithDelayById((PageId)Cosmos::SETTINGS_MAIN, 0.0f);
 }
 kmCall(0x80852ab4, OpenSettingsOnVS);
 
+void ReduceCameraShake(CameraShakeAxis& shake){
+    shake.Update();
+    if(shake.mIsEnabled)
+    {
+        SettingsHolder* holder = SettingsHolder::GetStaticInstance();
+        int setting = holder->GetSettingValue(AURORA_SETTING_ACC_CAMERA_SHAKE);
+        if(setting == ACC_REDUCED) shake.mOffset /= 2.0f;
+        else if(setting == ACC_DISABLED) shake.mOffset = 0.0f;
+    }
+}
+kmCall(0x805a4590, ReduceCameraShake);
+kmCall(0x805a4598, ReduceCameraShake);
 
+void SetCameraFov(RaceCamera& camera, float val){
+    SettingsHolder* holder = SettingsHolder::GetStaticInstance();
+    int setting = holder->GetSettingValue(AURORA_SETTING_ACC_CAMERA_FOV);
+
+    if(setting == ACC_DISABLED) {
+        camera.additionalFov = 0.0f; return;
+    }
+
+    float mult = 12.0f;
+    if(setting == ACC_REDUCED) mult = 6.0f;
+
+    float actualVal = mult * val;
+    if(actualVal <= camera.additionalFov) return;
+    camera.additionalFov = actualVal;
+}
+kmBranch(0x805a4dbc, SetCameraFov);
+
+void PatchBloom(EGG::PosteffectMgr& mgr){
+    SettingsHolder* holder = SettingsHolder::GetStaticInstance();
+    int setting = holder->GetSettingValue(AURORA_SETTING_ACC_BLOOM);
+
+    const float multipliers[] = { 1.0f, 0.5f, 0.0f, };
+
+    const float val = multipliers[setting];
+    mgr.bloom->bloom1Strength *= val;
+    mgr.bloom->bloom2Strength *= val;
+    mgr.blur[0]->strength *= val;
+    mgr.blur[1]->strength *= val;
+};
+
+kmBranch(0x8021ccbc, PatchBloom);
+//Use r4 instead of r3 in the last assignment
+kmWrite32(0x8021ccac, 0x8083001c);
+kmWrite32(0x8021ccb4, 0x90040028);
