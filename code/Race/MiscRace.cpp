@@ -15,6 +15,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "System/identifiers.hpp"
+#include "UI/Layout/ControlLoader.hpp"
 #include "core/nw4r/g3d/ScnMdl.hpp"
 #include <kamek.hpp>
 #include <game/Race/RaceData.hpp>
@@ -133,6 +135,17 @@ void SetSpeedmod(Kart& kart){
 }
 kmCall(0x8058f778, SetSpeedmod);
 
+void LoadNewItemWindow(ControlLoader& loader, const char* folder, const char* name, 
+        const char* variant, const char** animations){
+    loader.Load(folder, "CosmosItemWindow", variant, animations);
+}
+kmCall(0x807ef50c, LoadNewItemWindow);
+
+void LoadNewChaseIcon(ControlLoader& loader, const char* folder, const char* name, 
+        const char* variant, const char** animations){
+    loader.Load(folder, "CosmosChaseIcon", variant, animations);
+}
+kmCall(0x807f2064, LoadNewChaseIcon);
 void MegaTC(KartMovement& movement){
     if(Cosmos::Data::SettingsHolder::GetStaticInstance()->IsMegaCloudEnabled()) movement.ActivateMega();
     else movement.ApplyLightningEffect(0x264, 0, 1);
@@ -146,5 +159,26 @@ void LoadMegaModel(ItemObjKumo& obj, const char* name, const char* shadowName, u
     else obj.LoadGraphicsImplicitBRRES(name, shadowName, r6, r7, nw4r::g3d::ScnMdl::BUFFER_NONE, nullptr);
 }
 kmCall(0x807af568, LoadMegaModel); 
+
+extern char* ItemPaneNameTable[1]; //808af88c
+
+char* GetItemPane(ItemId itemType, u32 itemCount){
+    if(itemType == TRIPLE_MUSHROOM){
+        switch(itemCount){
+            case 1:
+                return "kinoko_1";
+            case 2:
+                return "kinoko_2";
+            default:
+                return "kinoko_3";
+        }
+    }
+    else if(itemType == THUNDER_CLOUD && 
+            Cosmos::Data::SettingsHolder::GetStaticInstance()->IsMegaCloudEnabled()){
+        return "thunder_mega";
+    }
+    return ItemPaneNameTable[itemType];
+}
+kmBranch(0x80860af0, GetItemPane);
 
 
