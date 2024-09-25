@@ -123,7 +123,7 @@ public:
     g3d::ScnMdl::BufferOption option, u32 directorBitfield); // 8079ff5c brresName will be deduced from mdlName, shadow list always 0
     void LoadGraphicsDefault(const char *brresName, const char *mdlName, const char *shadowSrc, AnmParam *param); //8079ffa4
     void LoadGraphicsImplicitBRRES(const char *mdlName, const char *shadowSrc, u8 whichShadowListToUse, AnmParam *anmParam,
-    g3d::ScnMdl::BufferOption option, void *funcPtr, u32 directorBitfield); //8079ffdc
+    g3d::ScnMdl::BufferOption option, void *funcPtr); //8079ffdc
     void LoadItemLight(); //807a0380 only for teams
     
     

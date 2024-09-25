@@ -44,6 +44,7 @@ public:
         ANMOBJTYPE_SHP,           
     };
     enum BufferOption{
+        BUFFER_NONE = 0,
         BUFFER_RESTEXOBJ = 0x00000001,
         BUFFER_RESTLUTOBJ = 0x00000002,
         BUFFER_RESTEXSRT = 0x00000004,
