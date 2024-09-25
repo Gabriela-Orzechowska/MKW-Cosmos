@@ -18,7 +18,7 @@ __div2u = 0x80021604
 __mod2u = 0x80021828
 __div2i = 0x800216f0
 
-
+ItemPaneNameTable = 0x808af88c
 memcpy = 0x80005f34
 memset = 0x80006038
 memcmp = 0x8000f314
