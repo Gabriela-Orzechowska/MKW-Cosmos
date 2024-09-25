@@ -15,6 +15,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "core/nw4r/g3d/ScnMdl.hpp"
 #include <kamek.hpp>
 #include <game/Race/RaceData.hpp>
 #include <game/Item/ItemManager.hpp>
@@ -25,6 +26,7 @@
 #include <game/KMP/STGI.hpp>
 #include <game/UI/Ctrl/CtrlRace/CtrlRace2DMap.hpp>
 #include <game/Item/Obj/ItemObj.hpp>
+#include <game/Item/Obj/Kumo.hpp>
 
 void DraggableBlues(ItemPlayerSub& sub)
 {
@@ -136,5 +138,13 @@ void MegaTC(KartMovement& movement){
     else movement.ApplyLightningEffect(0x264, 0, 1);
 }
 kmCall(0x80580630, MegaTC);
+
+void LoadMegaModel(ItemObjKumo& obj, const char* name, const char* shadowName, u32 r6, ItemObjBase::AnmParam* r7){
+    if(Cosmos::Data::SettingsHolder::GetStaticInstance()->IsMegaCloudEnabled()) {
+        obj.LoadGraphics("kumo_mega.brres", name, shadowName, r6, r7, nw4r::g3d::ScnMdl::BUFFER_NONE, nullptr, 0);
+    }
+    else obj.LoadGraphicsImplicitBRRES(name, shadowName, r6, r7, nw4r::g3d::ScnMdl::BUFFER_NONE, nullptr);
+}
+kmCall(0x807af568, LoadMegaModel); 
 
 
