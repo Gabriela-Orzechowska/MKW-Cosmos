@@ -217,3 +217,8 @@ end:
 kmCall(0x80859058, ShowControllerOnline);
 kmWrite32(0x806fa738, 0x4e800020);
 
+
+kmWrite16(0x80637920 + 2, 0x3F);
+kmWrite16(0x80634f40 + 2, 0x18);
+kmWrite16(0x806376ac + 2, 0xB4);
+
