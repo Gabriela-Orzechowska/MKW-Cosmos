@@ -1,0 +1,22 @@
+{
+  "name" : "uieditor",
+  "version" : "1.0",
+  "dependencies" : [ {
+    "name" : "imgui",
+    "features" : [ "glfw-binding", "opengl3-binding", "docking-experimental" ]
+  }, {
+    "name" : "glfw3"
+  }, {
+    "name" : "glad"
+  }, {
+    "name" : "boost-uuid"
+  }, {
+    "name" : "gtest"
+  }, {
+    "name" : "nlohmann-json"
+  }, {
+    "name" : "curl"
+  }, {
+    "name" : "stb"
+  } ]
+}
