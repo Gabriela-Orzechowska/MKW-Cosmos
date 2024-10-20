@@ -219,7 +219,7 @@
  2848   = New update is available! \z{802,200000}\nDownload new version from Wiiki!
  284B   = \z{a02,1000000000}\n\z{800,46}Active Players
 
- 1e14 = \z{800, 90}Photosensitivity Warning\z{800, 50}\n\nSome people may have seizures or blackouts triggered\n by flashing lights or patterns. This may occur even if they\nhave never had a seizure before.\n\nStop immediately and contact a doctor\nif you experience any symptoms
+ 1e14 = \z{800, 90}Photosensitivity Warning\z{800, 50}\n\nSome people may have seizures or blackouts triggered\n by flashing lights or patterns. This may occur even if\nthey have never had a seizure before.\n\nStop immediately and contact a doctor\nif you experience any symptoms
 
 7100 = The Arctic Line
 7101 = Alpine Skyway
