@@ -97,6 +97,12 @@ namespace Aurora {
         }
         kmWritePointer(0x808d9e90, TopMenuAnimation);
 
+        void RaceFrameUIUpdate(){
+            Animator::GetStaticInstance()->UpdateColor();
+        }   
+        kmBranch(0x80554f64, RaceFrameUIUpdate);
+        
+
         void OnThemeSettingUpdate(){
             u8 value = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::AURORA_SETTING_MENU_THEME);
             AnimationData* data = &aurora;

@@ -166,7 +166,7 @@ char* GetItemPane(ItemId itemType, u32 itemCount){
     if(itemType == TRIPLE_MUSHROOM){
         switch(itemCount){
             case 1:
-                return "kinoko_1";
+                return "kinoko";
             case 2:
                 return "kinoko_2";
             default:
