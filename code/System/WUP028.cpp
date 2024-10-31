@@ -15,7 +15,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  * As a special exception, the copyright holders of Cosmos give you permission 
- * to us this code with other software without the requirement covering your
+ * to use this code in your projects without the requirement covering your
  * work by the GNU General Public License. All of the other requirements still apply.
  *
  * The GNU General Public License gives permission to release a modified version 
