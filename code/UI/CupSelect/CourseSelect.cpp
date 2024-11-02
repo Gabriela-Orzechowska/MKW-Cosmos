@@ -99,6 +99,7 @@ namespace CosmosUI
             {
                 u32 id = i < 4 ? i * 2 : ((i-4) * 2) + 1;
                 id = (id + GetLastLeft() + off + cupCount) % cupCount;
+                id += manager->GetIconOffset();
                 char tpl[0x30];
                 snprintf(tpl, 0x30, "button/timg/icon_cup_%03x.tpl", id);
 

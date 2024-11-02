@@ -124,6 +124,7 @@ namespace CosmosUI
         u32 lastCup = cupCtrl->curCupID;
         cupCtrl->curCupID = (cupCtrl->curCupID + (direction * 2) + CupCount) % CupCount;
         this->ctrlMenuCupSelectCourse.UpdateTrackList(cupCtrl->curCupID);
+        u32 cupOffset = Cosmos::CupManager::GetStaticInstance()->GetIconOffset();
         for(int i = 0; i < 8; i++)
         {
             PushButton * button = &this->ctrlMenuCupSelectCup.cupButtons[i];
@@ -132,9 +133,9 @@ namespace CosmosUI
             if(id == lastCup) button->Select(0);
 
             id = (id + (direction * 2) + CupCount) % CupCount;
-            button->SetMsgId(id + BMG_CUPS);
+            button->SetMsgId(id + BMG_CUPS + cupOffset);
             button->buttonId = id;
-            this->ChangeTPL(button, id);
+            this->ChangeTPL(button, id + cupOffset);
         }
     }
 
@@ -215,20 +216,21 @@ namespace CosmosUI
     {
         u32 CupCount = Cosmos::CupManager::GetStaticInstance()->GetCupCount();
         cups->curCupID = Cosmos::CupManager::GetStaticInstance()->lastSelectedCup;
+        u32 cupOffset = Cosmos::CupManager::GetStaticInstance()->GetIconOffset();
         for(int i = 0; i < 8; i++)
         {
             PushButton * button = &cups->cupButtons[i];
             u32 id = i < 4 ? i * 2 : ((i-4) * 2) + 1;
             id = (id + lastLeftCup + CupCount) % CupCount;
             button->buttonId = id;
-            button->SetMsgId(id + BMG_CUPS);
+            button->SetMsgId(id + BMG_CUPS + cupOffset);
             button->SetOnClickHandler((PtmfHolder_2A<Page, void, PushButton *, u32>*) &cups->onCupButtonClickHandler, 0);
             button->SetOnSelectHandler((PtmfHolder_2A<Page, void, PushButton *, u32>*) &cups->onCupButtonSelectHandler);
             button->SetPlayerBitfield(MenuData::GetStaticInstance()->curScene->Get<Pages::CupSelect>(CUP_SELECT)->GetPlayerBitfield());
             if(id == cups->curCupID){
                 button->SelectInitialButton(0);
             }
-            CupSelectPlus::ChangeTPL(button, id);
+            CupSelectPlus::ChangeTPL(button, id + cupOffset);
         }
     }
     kmWritePointer(0x808d324c, ExtendCupSelectCupInitSelf);
@@ -367,12 +369,13 @@ namespace CosmosUI
         u32 CupCount = Cosmos::CupManager::GetStaticInstance()->GetCupCount();
         Pages::CourseSelect * coursePage = MenuData::GetStaticInstance()->curScene->Get<Pages::CourseSelect>(COURSE_SELECT);
         Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
+        u32 cupOffset = manager->GetIconOffset();
         for(int i = 0; i < 8; i++)
         {
             u32 id = i < 4 ? i * 2 : ((i-4) * 2) + 1;
             id = (id + lastLeftCup + CupCount) % CupCount;
             char tpl[0x30];
-            snprintf(tpl, 0x30, "button/timg/icon_cup_%03x.tpl", id);
+            snprintf(tpl, 0x30, "button/timg/icon_cup_%03x.tpl", id + cupOffset);
 
             LayoutUIControl * button = &coursePage->ctrlMenuCourseSelectCup.cupIcons[i];
 
@@ -382,7 +385,7 @@ namespace CosmosUI
             CosmosUI::ChangePaneImage(button, "icon_light_01", tplPointer);
             CosmosUI::ChangePaneImage(button, "icon_light_02", tplPointer);
 
-            button->SetMsgId(BMG_CUPS + id);
+            button->SetMsgId(BMG_CUPS + id + cupOffset);
         }
         return;
     }

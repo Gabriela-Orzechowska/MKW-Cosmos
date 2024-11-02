@@ -93,14 +93,15 @@ void FixGPIntroBMG(LayoutUIControl& control, u32 bmg, TextInfo* info){
         control.SetMsgId(bmg, info);
         return;
     }
-    u32 cupBmg = BMG_CUPS + Cosmos::CupManager::GetStaticInstance()->GetCupID(trackId);
+    u32 cupBmg = BMG_CUPS + Cosmos::CupManager::GetStaticInstance()->GetCupIconId(trackId);
+
     info->bmgToPass[1] = cupBmg;
     control.SetMsgId(bmg, info);
 }
 kmCall(0x808553b4, FixGPIntroBMG);
 
 void FixGPIntroIcon(LayoutUIControl& control, char* name, u32){
-    u32 id = Cosmos::CupManager::GetStaticInstance()->GetCupID(Cosmos::CupManager::GetStaticInstance()->GetTrackID());
+    u32 id = Cosmos::CupManager::GetStaticInstance()->GetCupIconId(Cosmos::CupManager::GetStaticInstance()->GetTrackID());
 
     char tpl[0x30];
     snprintf(tpl, 0x30, "button/timg/icon_cup_%03x.tpl", id);
