@@ -48,6 +48,7 @@ namespace Cosmos
     #pragma pack(push, 1)
     struct LayoutDef {
         u32 cupCount;
+        u32 cupOffset;
         u32 slots[];
     };
     #pragma pack(pop)
@@ -98,6 +99,8 @@ namespace Cosmos
         CupManager();
 
         int GetCupCount() const { return this->currentLayout->cupCount; }
+        bool HasIconOffset() const { return this->currentLayout->cupOffset != -1U; }
+        int GetIconOffset() const { return HasIconOffset() ? this->currentLayout->cupOffset : 0; } 
         int GetTrackCount() const { return this->currentLayout->cupCount * 4; } //TODO Make it a separate field
         int GetTrackID() const { return winningCourse; };
         u32 GetRandomVariantTrack(u32 slot) const;
@@ -107,6 +110,10 @@ namespace Cosmos
                 if(track == this->currentLayoutArray[i]) return i;
             }
             return 0;
+        }
+
+        u32 GetCupIconId(u32 track) const {
+            return GetIconOffset() + GetCupID(track);
         }
 
         int GetCurrentTrackSlot() const;
@@ -135,7 +142,7 @@ namespace Cosmos
             return &def[slot];
         }
         
-        void SetTrackLayout(TrackSorting sorting, u32 trackList = 0);
+        void SetTrackLayout(TrackSorting sorting, u32 trackList = -1);
         
         bool IsInBlocking(int track) const;
 
@@ -154,6 +161,7 @@ namespace Cosmos
         Track* definitions;
         u32 trackBlocking[TRACK_BLOCK_COUNT];
         u32 currentTrackBlockIndex;
+        u32 currentTrackList;
         
     };
 } // namespace Cosmos
