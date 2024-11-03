@@ -346,12 +346,11 @@ namespace CosmosUI
         Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
         for(int i = 0; i < 8; i++)
         {
-            u32 id = i < 4 ? i * 2 : ((i-4) * 2) + 1;
-            id = (id + lastLeftCup + CupCount) % CupCount;
+            CtrlMenuCourseSelectCupSub * button = &course->cupIcons[i];
+            u32 id = button->padding_id;
 
             bool pressed = lastSelectedCup == id;
 
-            CtrlMenuCourseSelectCupSub * button = &course->cupIcons[i];
             button->animator.GetAnimationGroupById(0)->PlayAnimationAtFrame(0,0.0f);
             button->animator.GetAnimationGroupById(1)->PlayAnimationAtFrame(!pressed, 0.0f);
             button->animator.GetAnimationGroupById(2)->PlayAnimationAtFrame(!pressed, 0.0f);
@@ -377,13 +376,14 @@ namespace CosmosUI
             char tpl[0x30];
             snprintf(tpl, 0x30, "button/timg/icon_cup_%03x.tpl", id + cupOffset);
 
-            LayoutUIControl * button = &coursePage->ctrlMenuCourseSelectCup.cupIcons[i];
+            CtrlMenuCourseSelectCupSub * button = &coursePage->ctrlMenuCourseSelectCup.cupIcons[i];
+            button->padding_id = id;
 
             void * tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, tpl, 0);
 
-            CosmosUI::ChangePaneImage(button, "icon", tplPointer);
-            CosmosUI::ChangePaneImage(button, "icon_light_01", tplPointer);
-            CosmosUI::ChangePaneImage(button, "icon_light_02", tplPointer);
+            CosmosUI::ChangePaneImage((LayoutUIControl*) button, "icon", tplPointer);
+            CosmosUI::ChangePaneImage((LayoutUIControl*) button, "icon_light_01", tplPointer);
+            CosmosUI::ChangePaneImage((LayoutUIControl*) button, "icon_light_02", tplPointer);
 
             button->SetMsgId(BMG_CUPS + id + cupOffset);
         }

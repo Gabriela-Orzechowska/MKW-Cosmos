@@ -30,7 +30,8 @@ public:
     u32 unknown_0x178;
     Vec3 relativePosition; //0x17C relative to parent
     bool selected; //0x188
-    u8 padding[3];
+    u8 padding;
+    u16 padding_id; //ADDED
 }; //total size 0x18c
 
 class CtrlMenuCourseSelectCup : public LayoutUIControl{
