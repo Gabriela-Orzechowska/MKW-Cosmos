@@ -23,6 +23,7 @@
 #include <game/UI/Ctrl/Menu/CtrlMenuCourse.hpp>
 #include <UI/CupSelect/CourseSelect.hpp>
 #include <Settings/UserData.hpp>
+#include <Aurora/AuroraSlot.hpp>
 
 
 namespace CosmosUI

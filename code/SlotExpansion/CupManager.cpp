@@ -35,7 +35,7 @@ namespace Cosmos
     CupManager * CupManager::sInstance = nullptr;
 
     CupManager::CupManager() : winningCourse(0), lastSelectedButton(0), lastSelectedCourse(0), lastSelectedCup(0), dontUpdateCourseSelectCourse(0),
-    currentTrackBlockIndex(0), lastSelectedGroup(0), currentTrackList(0)
+    currentTrackBlockIndex(0), lastSelectedGroup(0), currentTrackList(TRACKLIST_ALL)
     {
         if(CupManager::sInstance != nullptr) return;
         CupManager::sInstance = this;
@@ -64,7 +64,7 @@ namespace Cosmos
         this->cupConfig = config;
         CosmosLog("Cup Config at: %p\n", config);
         this->definitions = (Track*)offsetFrom(config, config->offToDefinitions);
-        SetTrackLayout(DEFAULT, 2);
+        SetTrackLayout(DEFAULT);
 
         DVDClose(&fileHandle);
             
@@ -77,9 +77,9 @@ namespace Cosmos
         if(Cosmos::isGroupSlot(this->lastSelectedCourse)) this->winningCourse = this->GetRandomVariantTrack(this->lastSelectedCourse);
     }
 
-    void CupManager::SetTrackLayout(TrackSorting layout, u32 trackList)
+    void CupManager::SetTrackLayout(TrackSorting layout, TrackList trackList)
     {
-        trackList = trackList == -1U ? currentTrackList : trackList;
+        trackList = trackList == TRACKLIST_NONE ? currentTrackList : trackList;
         this->currentLayout = (LayoutDef*)offsetFrom(this->cupConfig, this->cupConfig->offToLayouts[trackList * 2 + layout]);
         this->currentLayoutArray = this->currentLayout->slots;
         this->currentTrackList = trackList;

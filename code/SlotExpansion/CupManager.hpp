@@ -92,6 +92,15 @@ namespace Cosmos
             ALPHABETICAL,
         };
 
+        enum TrackList {
+            TRACKLIST_ALL,
+            TRACKLIST_CTS,
+            TRACKLIST_RETROS,
+            TRACKLIST_COUNT,
+
+            TRACKLIST_NONE = -1U,
+        };
+
 
         public:
         static CupManager * GetStaticInstance() { return sInstance; }
@@ -142,7 +151,7 @@ namespace Cosmos
             return &def[slot];
         }
         
-        void SetTrackLayout(TrackSorting sorting, u32 trackList = -1);
+        void SetTrackLayout(TrackSorting sorting, TrackList trackList = TRACKLIST_NONE);
         
         bool IsInBlocking(int track) const;
 
@@ -161,7 +170,7 @@ namespace Cosmos
         Track* definitions;
         u32 trackBlocking[TRACK_BLOCK_COUNT];
         u32 currentTrackBlockIndex;
-        u32 currentTrackList;
+        TrackList currentTrackList;
         
     };
 } // namespace Cosmos
