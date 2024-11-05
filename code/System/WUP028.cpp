@@ -60,6 +60,7 @@
 #include "kamek.hpp"
 #include "types.hpp"
 #include <System/WUP028.hpp>
+#include <core/rvl/vi.hpp>
 
 namespace Cosmos {
 
@@ -102,6 +103,20 @@ namespace Cosmos {
                 }
             }
             for(int i = 0; i < 4; i++){
+                {
+                    const u32 compareVal = 3;
+                    if(
+                        abs(status[i].sliderL - mStatus[i].sliderL) > compareVal ||
+                        abs(status[i].sliderR - mStatus[i].sliderR) > compareVal ||
+                        abs(status[i].verticalStickU8 - mStatus[i].verticalStickU8) > compareVal ||
+                        abs(status[i].horizontalStickU8 - mStatus[i].horizontalStickU8) > compareVal ||
+                        abs(status[i].verticalCStickU8 - mStatus[i].verticalCStickU8) > compareVal ||
+                        abs(status[i].horizontalCStickU8 - mStatus[i].horizontalCStickU8) > compareVal ||
+                        status[i].buttons != mStatus[i].buttons) {
+                        VIResetSIIdle();     
+                    }
+                }
+
                 status[i] = mStatus[i];
             }
         }
