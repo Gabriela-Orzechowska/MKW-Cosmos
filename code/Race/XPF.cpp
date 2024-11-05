@@ -1,6 +1,8 @@
 #include "Race/RaceData.hpp"
 #include "core/rvl/os/OS.hpp"
 #include <Race/XPF.hpp>
+#include <SlotExpansion/CupManager.hpp>
+#include <Aurora/AuroraSlot.hpp>
 
 namespace Cosmos
 {
@@ -42,6 +44,11 @@ namespace Cosmos
         for(int i = 0; i < objectCount; i++)
         {
             GOBJ * gobj = KMP::Controller::GetStaticInstance()->GetGOBJHolder(i)->raw;
+            if(gobj->objID == 0x20d /* bblock */ 
+                    && Cosmos::CupManager::GetStaticInstance()->GetTrackID() == Aurora::Special::SLOT_RUINATED) {
+                gobj->presenceFlags = 0;
+                return;
+            }
             if(gobj->presenceFlags < 0x1000) continue; //Not a LeCode XPF
             if(gobj->objID >= 0x2000) continue; //We dont calc definition objects
 
