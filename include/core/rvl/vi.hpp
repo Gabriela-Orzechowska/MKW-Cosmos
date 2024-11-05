@@ -10,5 +10,7 @@ extern "C"{
     void VIFlush(); //801ba9a4
     u32 VIGetCurrentLine(); //801bac48
     void VISetBlack(u32 param_1); //801bab2c
+
+    bool VIResetSIIdle(); //801bb0d0
 }
 #endif

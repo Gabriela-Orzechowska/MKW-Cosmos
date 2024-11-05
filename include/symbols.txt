@@ -1601,6 +1601,7 @@ VIConfigure = 0x801bab2c
 VIFlush = 0x801ba9a4
 VIGetCurrentLine = 0x801bac48
 VISetBlack = 0x801bab2c
+VIResetSIIdle = 0x801bb0d0
 
 
 #ios

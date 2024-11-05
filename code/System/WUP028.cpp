@@ -50,12 +50,17 @@
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.4d230769
+ * SOFTWARE.
  */
 
 #include "Input/InputData.hpp"
+#include "core/rvl/ipc/ipc.hpp"
+#include "core/rvl/os/OS.hpp"
+#include "hooks.hpp"
+#include "kamek.hpp"
+#include "types.hpp"
 #include <System/WUP028.hpp>
-#include <main.hpp>
+#include <core/rvl/vi.hpp>
 
 namespace Cosmos {
 
@@ -98,6 +103,20 @@ namespace Cosmos {
                 }
             }
             for(int i = 0; i < 4; i++){
+                {
+                    const u32 compareVal = 3;
+                    if(
+                        abs(status[i].sliderL - mStatus[i].sliderL) > compareVal ||
+                        abs(status[i].sliderR - mStatus[i].sliderR) > compareVal ||
+                        abs(status[i].verticalStickU8 - mStatus[i].verticalStickU8) > compareVal ||
+                        abs(status[i].horizontalStickU8 - mStatus[i].horizontalStickU8) > compareVal ||
+                        abs(status[i].verticalCStickU8 - mStatus[i].verticalCStickU8) > compareVal ||
+                        abs(status[i].horizontalCStickU8 - mStatus[i].horizontalCStickU8) > compareVal ||
+                        status[i].buttons != mStatus[i].buttons) {
+                        VIResetSIIdle();     
+                    }
+                }
+
                 status[i] = mStatus[i];
             }
         }
@@ -196,6 +215,9 @@ namespace Cosmos {
     }
 
     void WUP028Manager::OnUsbChangeVer4(s32 hid){
+        CosmosLog("Hid ret: %d\n", hid);
+
+        CosmosLog("Data buffer: %p\n", mDeviceChangeSizeBuffer);
         if(hid >= 0){
             bool found = false;
             for(int i = 0; i < 0x180 && mDeviceChangeSizeBuffer[i] < 0x600; i += mDeviceChangeSizeBuffer[i]/4){
@@ -233,7 +255,6 @@ namespace Cosmos {
         if(ret >= 0){
             //TODO ADD RUMBLE
             CosmosLog("Setting up poll callback\n");
-            Cosmos::System::Console_Print("[USB] Initialized WUP028\n");
             mIsInit = true;
             PollMsg4.device = mAdapterId;
             DCFlushRange(PollMsgBuffer, sizeof(PollMsgBuffer));
