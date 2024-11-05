@@ -15,20 +15,17 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Race/RaceInfo.hpp"
 #include <UI/RaceBase/AuthorCredits.hpp>
 #include <SlotExpansion/CupManager.hpp>
 #include <core/rvl/os/OS.hpp>
+#include <Aurora/AuroraSlot.hpp>
 
 namespace CosmosUI{
 
-    u32 ControlAuthorCredits::Count()
-    {
-        return 1;
-    }
-
     void ControlAuthorCredits::Create(Page * page, u32 index)
     {
-        ControlAuthorCredits * credits = new(ControlAuthorCredits);
+        ControlAuthorCredits* credits = new(ControlAuthorCredits);
         page->AddControl(index, credits, 0);
         credits->Load();
     }
@@ -43,6 +40,20 @@ namespace CosmosUI{
         this->textBox_00 = this->layout.GetPaneByName("TextBox_00");
         u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
         this->SetMsgId(BMGOFFSET + trackId, 0);
+
+        if(trackId == Aurora::Special::SLOT_SANDY_CLOCKTOWER){
+            Random random;
+            if(random.NextLimited(50) == 0){
+                this->SetMsgId(0x70001, 0);
+            }
+        }
+    }
+    bool ControlAuthorCredits::HasStarted(){
+        s32 time = RaceInfo::GetStaticInstance()->timer;
+        return time > 0 && time < 300;
+    }
+    bool ControlAuthorCredits::IsActive(){
+        return !this->HasStarted();
     }
 
 }

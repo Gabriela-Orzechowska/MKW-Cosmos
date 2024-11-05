@@ -29,8 +29,12 @@ namespace CosmosUI{
     {
     private:
         void Load();
+
+        bool HasStarted() override;
+        bool IsActive() override;
+
     public:
-        static u32 Count();
+        static u32 Count() { return 1; }
         static void Create(Page* page, u32 index);
     };
 }
