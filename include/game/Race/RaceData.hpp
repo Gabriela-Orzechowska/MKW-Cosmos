@@ -53,7 +53,9 @@ enum GameMode{
     MODE_BATTLE,
     MODE_MISSION_TOURNAMENT,
     MODE_GHOST_RACE,
-    MODE_6,
+
+    MODES_OFFLINE,
+
     MODE_PRIVATE_VS,
     MODE_PUBLIC_VS,
     MODE_PUBLIC_BATTLE,
@@ -198,7 +200,7 @@ extern "C" {
 
 static inline bool isOnline() {
     GameMode mode = RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode;
-    if(mode <= MODE_6) return false;
+    if(mode <= MODES_OFFLINE) return false;
     if(mode >= MODE_AWARD) return false;
     return true;
 }
