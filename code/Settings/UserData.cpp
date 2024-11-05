@@ -50,6 +50,7 @@ namespace Cosmos
                 CosmosError("Failed to get manager!!!\n");
                 return;
             }
+            currentManager = manager;
 
             manager->CreateOpen(this->filepath, CosmosFile::FILE_MODE_READ_WRITE);
             manager->Read(buffer, sizeof(Settings));
@@ -85,10 +86,9 @@ namespace Cosmos
 
         void SettingsHolder::Save()
         {
-            CosmosFile::FileManager *manager = CosmosFile::FileManager::GetNANDManager();
-            manager->Open(this->filepath, CosmosFile::FILE_MODE_WRITE);
-            manager->Overwrite(sizeof(Settings), this->settings);
-            manager->Close();
+            currentManager->Open(this->filepath, CosmosFile::FILE_MODE_WRITE);
+            currentManager->Overwrite(sizeof(Settings), this->settings);
+            currentManager->Close();
         }
 
         void SettingsHolder::SaveTask(void *)
