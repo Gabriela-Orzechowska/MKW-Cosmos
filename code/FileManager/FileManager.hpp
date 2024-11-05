@@ -42,8 +42,9 @@ namespace CosmosFile
         FILE_MODE_READ_WRITE = FILE_MODE_READ | FILE_MODE_WRITE,
     };
 
-    const char nandPath[] __attribute__((aligned(0x20))) = "/title/00010001/43534D53";
-    //TODO Fix NAND Or Force SD card on wii
+
+    const char titlePath[] __attribute__((aligned(0x20))) = "/title/00010004";
+    const char nandPath[] __attribute__((aligned(0x20))) = "/shared2/Aurora";
 
     class FileManager{
         public:

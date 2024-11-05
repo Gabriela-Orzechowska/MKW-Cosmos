@@ -542,6 +542,7 @@ namespace Cosmos
             void Init(const char *filepath, const char *magic, u32 version);
             void RequestSave();
             char filepath[IPCMAXPATH];
+            CosmosFile::FileManager* currentManager;
 
             bool miiHeadsEnabled;
             int currentLicense;
