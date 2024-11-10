@@ -104,14 +104,14 @@ namespace Cosmos {
             }
             for(int i = 0; i < 4; i++){
                 {
-                    const u32 compareVal = 3;
+                    const u32 threashold = 7;
                     if(
-                        abs(status[i].sliderL - mStatus[i].sliderL) > compareVal ||
-                        abs(status[i].sliderR - mStatus[i].sliderR) > compareVal ||
-                        abs(status[i].verticalStickU8 - mStatus[i].verticalStickU8) > compareVal ||
-                        abs(status[i].horizontalStickU8 - mStatus[i].horizontalStickU8) > compareVal ||
-                        abs(status[i].verticalCStickU8 - mStatus[i].verticalCStickU8) > compareVal ||
-                        abs(status[i].horizontalCStickU8 - mStatus[i].horizontalCStickU8) > compareVal ||
+                        abs(abs(status[i].sliderL) - abs(mStatus[i].sliderL)) > threashold ||
+                        abs(abs(status[i].sliderR) - abs(mStatus[i].sliderR)) > threashold ||
+                        abs(abs(status[i].verticalStickU8) - abs(mStatus[i].verticalStickU8)) > threashold ||
+                        abs(abs(status[i].horizontalStickU8) - abs(mStatus[i].horizontalStickU8)) > threashold ||
+                        abs(abs(status[i].verticalCStickU8) - abs(mStatus[i].verticalCStickU8)) > threashold ||
+                        abs(abs(status[i].horizontalCStickU8) - abs(mStatus[i].horizontalCStickU8)) > threashold ||
                         status[i].buttons != mStatus[i].buttons) {
                         VIResetSIIdle();     
                     }
