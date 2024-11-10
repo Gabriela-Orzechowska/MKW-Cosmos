@@ -28,6 +28,7 @@ msleep__11CosmosDebugFUi = 0x800f2510
 Run__FPFv_v = 0x801a31a8
 
 fwrite = 0x8000e954 
+ApplyTransparency = 0x80576b3c
 
 #systemManager
 sInstance__13SystemManager = 0x80386000
