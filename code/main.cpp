@@ -67,8 +67,6 @@ namespace Cosmos{
         manager->CreateFolder(ghostFolder);         
 
         manager = CosmosFile::FileManager::GetNANDManager();
-        //s32 ret = ISFS::CreateDir(CosmosFile::titlePath, 0, IOS::MODE_READ_WRITE, IOS::MODE_READ_WRITE, IOS::MODE_READ_WRITE);
-        //CosmosLog("Attempted creating nand folder, ret: %d\n", ret);
         s32 ret = ISFS::CreateDir(CosmosFile::nandPath, 0, IOS::MODE_READ_WRITE, IOS::MODE_READ_WRITE, IOS::MODE_READ_WRITE);
         CosmosLog("Attempted creating nand folder, ret: %d\n", ret);
     }

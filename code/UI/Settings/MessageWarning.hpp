@@ -15,6 +15,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "UI/Ctrl/MessageWindowControl.hpp"
 #include <kamek.hpp>
 #include <game/UI/Page/Other/Approve.hpp>
 #include <game/UI/Page/Page.hpp>
@@ -44,5 +45,17 @@ namespace CosmosUI
         MESSAGE_TYPE type[MAX_MESSAGE_COUNT];
         u32 messageBmg[MAX_MESSAGE_COUNT];
         u32 messageCount;
+    };
+
+    class AwaitPageWithBackground : public Pages::AutoEnding {
+    public:
+        void OnInit() override;
+        void SetMessageWindowText(u32 bmgId, const TextInfo *text) override {
+            this->messageWindowScale.SetMsgId(bmgId, text);
+        };
+
+    protected:
+        MessageWindowControlScaleFade messageWindowScale; 
+        BlackBackControlForMessage blackBack;
     };
 }

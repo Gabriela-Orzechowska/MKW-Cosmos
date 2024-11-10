@@ -111,6 +111,7 @@ namespace Cosmos
             COSMOS_LANGUAGE_SETTINGS = 0x0,
             COSMOS_FAST_MENUS,
             COSMOS_SORTING,
+            AURORA_MENU_THEME,
         };
 
         enum DEBUG_SETTINGS
@@ -162,6 +163,12 @@ namespace Cosmos
         {
             SORTING_DEFAULT = 0x0,
             SORTING_ALPHABETICAL,
+        };
+
+        enum MENU_THEME {
+            THEME_AURORA = 0x0,
+            THEME_RAINBOW,
+            THEME_WHITE, 
         };
 
         enum MUSIC_CUTOFF_OPTIONS
@@ -278,6 +285,7 @@ namespace Cosmos
             COSMOS_SETTING_LANGUAGE_SETTINGS = COSMOS_LANGUAGE_SETTINGS + (COSMOS_MENU_SETTINGS_1 * 8),
             COSMOS_SETTING_FAST_MENUS = COSMOS_FAST_MENUS + (COSMOS_MENU_SETTINGS_1 * 8),
             COSMOS_SETTING_SORTING = COSMOS_SORTING + (COSMOS_MENU_SETTINGS_1 * 8),
+            AURORA_SETTING_MENU_THEME = AURORA_MENU_THEME + (COSMOS_MENU_SETTINGS_1 * 8),
 
             COSMOS_SETTING_DWC_LOGS = COSMOS_DWC_LOGS + (COSMOS_DEBUG_SETTINGS * 8),
             COSMOS_SETTING_PERFORMANCE_MONITOR = COSMOS_PERFORMANCE_MONITOR + (COSMOS_DEBUG_SETTINGS * 8),
@@ -351,10 +359,12 @@ namespace Cosmos
             },
             {
                 // Menu
-                .settingCount = 3,
+                .settingCount = 4,
                 .settings = {{.optionCount = 12, .isBool = false, .defaultValue = NO_CHANGE}, // Language //TODO REENABLE KOREAN
                              {.optionCount = 2, .isBool = true, .defaultValue = ENABLED},
-                             {.optionCount = 2, .isBool = false, .defaultValue = SORTING_DEFAULT}},
+                             {.optionCount = 2, .isBool = false, .defaultValue = SORTING_DEFAULT},
+                             {.optionCount = 3, .isBool = false, .defaultValue = THEME_AURORA}
+                },
             },
             {
                 // Debug
@@ -532,7 +542,6 @@ namespace Cosmos
             void Init(const char *filepath, const char *magic, u32 version);
             void RequestSave();
             char filepath[IPCMAXPATH];
-            CosmosFile::FileManager* currentManager;
 
             bool miiHeadsEnabled;
             int currentLicense;
@@ -546,6 +555,8 @@ namespace Cosmos
 
             bool forcedRandom;
             bool commonRandom;
+
+            CosmosFile::FileManager* currentManager;
         };
     }
 }
