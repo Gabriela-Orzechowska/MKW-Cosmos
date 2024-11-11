@@ -154,7 +154,8 @@ namespace CosmosUI
     void CupSelectPlus::OnActivate()
     {
         u32 sorting = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_SORTING);
-        Cosmos::CupManager::GetStaticInstance()->SetTrackLayout((Cosmos::CupManager::TrackSorting) sorting);
+        u32 trackList = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetTrackList();
+        Cosmos::CupManager::GetStaticInstance()->SetTrackLayout(sorting, trackList);
         u32 cupCupId = Cosmos::CupManager::GetStaticInstance()->lastSelectedCup;
         this->ctrlMenuCupSelectCup.curCupID = cupCupId;
         Pages::CupSelect::OnActivate();

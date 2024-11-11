@@ -114,6 +114,11 @@
  30121   = Default
  30122   = Alphabetical
 
+ 30130   = Menu Theme
+ 30131   = Aurora
+ 30132   = Rainbow
+ 30133   = White
+
  30200   = DWC Logs
  40201   = Logs will be printed to console.
  40202   = No logs will be printed.
@@ -157,17 +162,23 @@
  30358   = 64
 
 
- 30500   = Variant Selection
- 40501   = Players will be able to vote for specific version of a track.
- 40502   = Players won't be able to vote for specific version of a track.
+ 30500   = Track Selection
+ 30501   = All
+ 30502   = CTs
+ 30503   = Retros
 
- 30510   = Mega Cloud
- 40511   = Thundercloud will make players big.
- 40512   = Thundercloud will shrink players like normal.
+ 30510   = Variant Selection
+ 40511   = Players will be able to vote for specific version of a track.
+ 40512   = Players won't be able to vote for specific version of a track.
 
- 30520   = All Items Can Land
- 40521   = Every kind of item can land.
- 40522   = Only some items can land.
+ 30520   = Mega Cloud
+ 40521   = Thundercloud will make players big.
+ 40522   = Thundercloud will work like normal.
+
+ 30530   = All items can land
+ 40531   = Every kind of item can land
+ 40532   = Only some items can land
+
 
  30630   = Force Random
  30631   = Disabled
@@ -211,7 +222,6 @@
  1e14 = \z{800, 90}Photosensitivity Warning\z{800, 50}\n\nSome people may have seizures or blackouts triggered\n by flashing lights or patterns. This may occur even if\nthey have never had a seizure before.\n\nStop immediately and contact a doctor\nif you experience any symptoms
 
  70000 = Lump
- 70001 = Sandy Cocktower\n\z{800,40}\c{blue1}Shortly\c{off}
 
 7100 = The Arctic Line
 7101 = Alpine Skyway
