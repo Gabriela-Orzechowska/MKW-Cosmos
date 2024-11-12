@@ -23,6 +23,7 @@
 #include <game/UI/Page/RaceHUD/TTInterface.hpp>
 #include <game/UI/Page/RaceHUD/RaceHUD.hpp>
 #include <game/Race/Kart/Kart.hpp>
+#include <game/Race/Kart/KartHolder.hpp>
 
 int MakePlayerLocal(RacedataPlayer& player, u8 id){
     PlayerType type = RaceData::GetStaticInstance()->racesScenario.players[id].playerType;
@@ -104,3 +105,10 @@ bool PatchIsGhost(KartBase& kart) {
     return isGhost && (id != 0);
 }
 kmCall(0x80732634, PatchIsGhost);
+
+bool PatchOpacity(ComboIDs *comboIDs, GFX44 *gfx44, bool isGhost, u8 playerId){
+    if (playerId == 0) isGhost = false;
+    return ApplyTransparency(comboIDs, gfx44, isGhost, playerId);
+}
+kmCall(0x8058e2b8, PatchOpacity);
+kmCall(0x807c7870, PatchOpacity);

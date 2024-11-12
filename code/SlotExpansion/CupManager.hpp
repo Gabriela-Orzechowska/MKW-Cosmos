@@ -151,7 +151,7 @@ namespace Cosmos
             return &def[slot];
         }
         
-        void SetTrackLayout(TrackSorting sorting, TrackList trackList = TRACKLIST_NONE);
+        void SetTrackLayout(u32 sorting, u32 trackList = TRACKLIST_NONE);
         
         bool IsInBlocking(int track) const;
 

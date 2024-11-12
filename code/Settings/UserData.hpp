@@ -524,11 +524,24 @@ namespace Cosmos
                 commonRandom = forced && common;
             }   
 
+            inline u8 GetTrackList(){
+                GameMode gamemode = RaceData::GetStaticInstance()->menusScenario.GetSettings().gamemode;
+                if(gamemode == MODE_VS_RACE) return tracklistOffline;
+                else if(gamemode == MODE_PRIVATE_VS) return tracklistOnline;
+                return TRACK_LIST_ALL;
+            }
+
+            void SetTrackList(u8 online = TRACK_LIST_ALL){
+                tracklistOffline = this->GetSettingValue(AURORA_SETTING_VS_TRACK_LIST);
+                tracklistOnline = online;
+            }
+
 
             void SetAllInnerSettings(){
                 this->SetAllItemsCanLandSetting();
                 this->SetMegaCloudSetting();
                 this->SetChooseVariant();
+                this->SetTrackList();
             }
 
             inline bool AreMiiHeadsAllowed() { return miiHeadsEnabled; }
@@ -554,8 +567,13 @@ namespace Cosmos
             bool variantSelectionOffline;
             bool variantSelectionOnline;
 
+            u8 tracklistOffline;
+            u8 tracklistOnline;
+
             bool forcedRandom;
             bool commonRandom;
+
+            CosmosFile::FileManager* currentManager;
         };
     }
 }

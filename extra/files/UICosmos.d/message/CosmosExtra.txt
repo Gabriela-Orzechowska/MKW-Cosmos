@@ -164,8 +164,8 @@
 
  30500   = Track Selection
  30501   = All
- 30502   = Retros
- 30503   = CTs
+ 30502   = CTs
+ 30503   = Retros
 
  30510   = Variant Selection
  40511   = Players will be able to vote for specific version of a track.
@@ -222,7 +222,6 @@
  1e14 = \z{800, 90}Photosensitivity Warning\z{800, 50}\n\nSome people may have seizures or blackouts triggered\n by flashing lights or patterns. This may occur even if\nthey have never had a seizure before.\n\nStop immediately and contact a doctor\nif you experience any symptoms
 
  70000 = Lump
- 70001 = Sandy Cocktower\n\z{800,40}\c{blue1}Shortly\c{off}
 
 7100 = The Arctic Line
 7101 = Alpine Skyway

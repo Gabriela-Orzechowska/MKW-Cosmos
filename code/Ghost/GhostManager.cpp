@@ -225,53 +225,6 @@ namespace Cosmos
             }
 #endif
         }
-#ifdef COSMOS_ANTI_CHEAT
-
-        void UpdateStartTime(Page &page, u32 soundIdx, u32 param_3)
-        {
-            if(IOS::Dolphin::IsOpen())
-            {
-                AntiCheat* antiCheat = AntiCheat::GetStaticInstance();
-                if(antiCheat != nullptr)
-                    antiCheat->Reset(IOS::Dolphin::GetSystemTime());
-            }
-            GhostManager* manager = GhostManager::GetStaticInstance();
-            if(manager != nullptr)
-                manager->wereGhostsDisabled = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED;
-            page.PlaySound(soundIdx, param_3);
-            return;
-        }
-        kmCall(0x80857790, UpdateStartTime);
-
-        void VerifyTimeDuringRace()
-        {
-            if(!isTT()) return;
-            Pages::RaceHUD *page = Pages::RaceHUD::sInstance;
-            if (page)
-            {
-                if(Cosmos::Security::GeckoAnalizer::AreCheatsEnabled()){
-                    page->ghostMessage->isHidden = false;
-                    page->ghostMessage->SetMsgId(0x2804);
-                    return;
-                }
-                if(Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED){
-                    page->ghostMessage->isHidden = false;
-                    page->ghostMessage->SetMsgId(0x2803);
-                    return;
-                }
-            }
-
-            if(RaceInfo::GetStaticInstance()->timer < 250) return;
-            if (RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode == MODE_TIME_TRIAL) {
-                GhostManager::GetStaticInstance()->VerifyTime();
-            }
-            
-        }
-
-        static RaceFrameHook rfhVerify(VerifyTimeDuringRace);
-
-#endif
-
         GhostLeaderboardManager::GhostLeaderboardManager()
         {
             memset(&this->file, 0, sizeof(GhostLeaderboardManager));

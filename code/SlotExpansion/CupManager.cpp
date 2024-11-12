@@ -64,7 +64,7 @@ namespace Cosmos
         this->cupConfig = config;
         CosmosLog("Cup Config at: %p\n", config);
         this->definitions = (Track*)offsetFrom(config, config->offToDefinitions);
-        SetTrackLayout(DEFAULT);
+        SetTrackLayout(DEFAULT, TRACKLIST_ALL);
 
         DVDClose(&fileHandle);
             
@@ -77,12 +77,12 @@ namespace Cosmos
         if(Cosmos::isGroupSlot(this->lastSelectedCourse)) this->winningCourse = this->GetRandomVariantTrack(this->lastSelectedCourse);
     }
 
-    void CupManager::SetTrackLayout(TrackSorting layout, TrackList trackList)
+    void CupManager::SetTrackLayout(u32 layout, u32 trackList)
     {
         trackList = trackList == TRACKLIST_NONE ? currentTrackList : trackList;
         this->currentLayout = (LayoutDef*)offsetFrom(this->cupConfig, this->cupConfig->offToLayouts[trackList * 2 + layout]);
         this->currentLayoutArray = this->currentLayout->slots;
-        this->currentTrackList = trackList;
+        this->currentTrackList = (TrackList) trackList;
 
         CosmosLog("Tracklist Pointer: %p\n", this->currentLayoutArray); 
     }
@@ -120,6 +120,7 @@ namespace Cosmos
     }
 
     u32 CupManager::GetRandomVariantTrack(u32 slot) const{
+        CosmosLog("Evalueting slot: %d\n", slot);
         if(isGroupSlot(slot)) slot -= GROUP_OFFSET;
         else return -1U;
         Random rand;
