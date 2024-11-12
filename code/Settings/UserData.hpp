@@ -572,8 +572,6 @@ namespace Cosmos
 
             bool forcedRandom;
             bool commonRandom;
-
-            CosmosFile::FileManager* currentManager;
         };
     }
 }
