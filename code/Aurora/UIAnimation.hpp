@@ -1,5 +1,6 @@
 #include <kamek.hpp>
 #include <game/UI/Page/Menu/TopMenuOverlay.hpp>
+#include <game/UI/Page/Other/Title.hpp>
 
 namespace Aurora {
     namespace UI {
@@ -23,11 +24,15 @@ namespace Aurora {
             void UpdateColor();
             void SetAnimationData(AnimationData* data) { currentAnimation = data; }
 
+            void AnimateBackground(Pane* pane);
+
         private:
             static Animator* sInstance;
             AnimationData* currentAnimation;
 
             float frame;
+            float titleFrameX;
+            float titleFrameY;
             u32 currentColor;
 
 

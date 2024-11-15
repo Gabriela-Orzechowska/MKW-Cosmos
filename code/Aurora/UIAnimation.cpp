@@ -1,4 +1,6 @@
 #include "Settings/UserData.hpp"
+#include "UI/Page/Other/Title.hpp"
+#include "hooks.hpp"
 #include "kamek.hpp"
 #include <Aurora/UIAnimation.hpp>
 #include <include/c_string.h>
@@ -92,6 +94,23 @@ namespace Aurora {
             }
         }
 
+        void Animator::AnimateBackground(Pane* pane){
+            const float speedX = 8.0f;
+            const float speedY = 3.0f;
+
+            if(pane != nullptr){
+                float width = pane->size.x / 5.0f;
+                float height = pane->size.z / 4.0f;
+
+                this->titleFrameX += (1/59.94f) * speedX;
+                this->titleFrameY += (1/59.94f) * speedY;
+                if(this->titleFrameX > width) this->titleFrameX -= width;
+                if(this->titleFrameY > height) this->titleFrameY -= height;
+                pane->trans.x = this->titleFrameX;
+                pane->trans.y = this->titleFrameY;
+            }
+        }
+
         void TopMenuAnimation(Pages::TopMenuOverlay& overlay){
             Animator::GetStaticInstance()->AnimateTopMenu(overlay);
         }
@@ -113,6 +132,17 @@ namespace Aurora {
         }
         static SettingsValueUpdateHook svuhThemeSettingUpdate(OnThemeSettingUpdate, Cosmos::Data::AURORA_SETTING_MENU_THEME);
         static MenuLoadHook mlhThemeUpdate(OnThemeSettingUpdate);
+
+        void UpdateTitle(Pages::Title& title){
+            Pane* pane = title.titleImage.layout.GetPaneByName("title_cosmos");
+            Animator::GetStaticInstance()->AnimateBackground(pane);
+        }
+        kmWritePointer(0x808beef0, UpdateTitle);
+        void UpdateBlurryTitle(Pages::BlurryTitle& title){
+            Pane* pane = title.blurryTitleImage.layout.GetPaneByName("chara");
+            Animator::GetStaticInstance()->AnimateBackground(pane);
+        }
+        kmWritePointer(0x808bee8c, UpdateBlurryTitle);
 
     }
 }

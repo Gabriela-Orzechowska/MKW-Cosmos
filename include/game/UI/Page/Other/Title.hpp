@@ -28,6 +28,7 @@ static_assert(sizeof(TitleMovieControl) == 0x174, "TitleMovieControl");
 
 namespace Pages{
 class Title : public Page{ //0x57
+public:
     Title(); //8063aa08
     ~Title() override; //8063aae4 vtable 808beea8
     PageId GetNextPage() const override; //0x10 8063c398
@@ -55,6 +56,7 @@ class Title : public Page{ //0x57
 static_assert(sizeof(Title) == 0x350, "Title");
 
 class BlurryTitle : public Page{ //0x58 behind main menu
+    public:
     BlurryTitle(); //8063b514
     ~BlurryTitle() override; //8063b560 vtable 808bee44
     void OnInit() override; //0x28 8062d5d4
