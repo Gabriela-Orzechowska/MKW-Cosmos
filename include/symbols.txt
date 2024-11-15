@@ -1530,6 +1530,9 @@ StartMainLoop__15RKNetControllerFUi = 0x80655c10
 ScheduleShutdown__15RKNetControllerFv = 0x806561a8
 sInstance__15RKNetRH1Handler = 0x809c2118
 
+Copy__15PacketHolder<v>FPCvUi = 0x8065a34c
+Append__Q25RKNet12PacketHolder<v>FPCvUi = 0x8065a38c
+sInstance__Q25RKNet13SELECTHandler = 0x809c2100
 #RKNETUserHandler
 BuildUserPacket__16RKNetUSERHandlerFv = 0x8066300c
 

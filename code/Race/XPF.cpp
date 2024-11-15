@@ -1,3 +1,4 @@
+#include "Network/RKNetPlayerInfo.hpp"
 #include "Race/RaceData.hpp"
 #include "core/rvl/os/OS.hpp"
 #include <Race/XPF.hpp>
@@ -33,7 +34,8 @@ namespace Cosmos
         else if(isOnline()){
             RKNetController* controller = RKNetController::GetStaticInstance();
             RKNetControllerSub& sub = controller->subs[controller->currentSub];
-            seed = RKNetRH1Handler::GetStaticInstance()->rh1Data[sub.hostAid].selectId << 4;
+            if(sub.hostAid == sub.localAid) seed = RaceData::GetStaticInstance()->racesScenario.GetSettings().selectId;
+            else seed = controller->GetReceivedPacketHolder<RACEHEADER1Packet>(sub.hostAid)->packet->selectId;
         }
         else seed = OSGetTick();
         Random random(seed);

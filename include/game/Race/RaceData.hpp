@@ -115,7 +115,7 @@ public:
         1 is mirror mode
         Others unknown
     */
-    u32 unknown_0x2c;
+    u32 selectId;
     u32 unknown_0x30;
 }; //Total size 0x34
 

@@ -133,6 +133,7 @@ kmCall(0x8062c74c, InjectVSPausePagesNoConfirm);
 kmCall(0x8062c7e8, InjectVSPausePagesNoConfirm);
 kmCall(0x8062c83c, InjectVSPausePagesNoConfirm);
 kmCall(0x8062c890, InjectVSPausePagesNoConfirm);
+kmCall(0x8062c5d8, InjectVSPausePagesNoConfirm);
 
 kmCall(0x8062ce54, InjectWarningPage);
 kmCall(0x8062ced8, InjectWarningPage);

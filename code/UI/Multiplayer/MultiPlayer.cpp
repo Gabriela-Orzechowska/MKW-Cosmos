@@ -369,10 +369,10 @@ namespace CosmosUI
             vrPage->menuState = 7;
             page.timerControl.Reset();
         }
+        else if(vrPage->menuState == 3) pageId = (PageId)Cosmos::SETTINGS_MAIN;
         else if(Cosmos::Data::SettingsHolder::GetStaticInstance()->IsRandomComboForced()){
             pageId = CHARACTER_SELECT;
         }
-        else if(vrPage->menuState == 3) pageId = (PageId)Cosmos::SETTINGS_MAIN;
         else if(vrPage->menuState != 0) {
             pageId = CHARACTER_SELECT;
         }

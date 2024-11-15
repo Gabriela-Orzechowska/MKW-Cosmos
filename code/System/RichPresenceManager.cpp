@@ -226,7 +226,7 @@ void RPCSectionChange()
         case P1_WIFI_GLOBE_DISCONNECT:
         case P2_WIFI:
         case P2_WIFI_GLOBE_DISCONNECT:
-            message = "Connected to Wiimmfi";
+            message = "Connected to WiiLink";
             break;
         case P1_WIFI_VS_VOTING:
         case P2_WIFI_VS_VOTING:

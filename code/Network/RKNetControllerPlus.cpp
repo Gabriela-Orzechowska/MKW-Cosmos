@@ -151,12 +151,12 @@ namespace CosmosNetwork
     }
     kmCall(0x80644414, LoadCorrectTrack);
 
-    void PatchRaceHeader1(PacketHolder& holder, RACEHEADER1Packet* packet, u32 len){
+    void PatchRaceHeader1(PacketHolder<RACEHEADER1Packet>& holder, RACEHEADER1Packet* packet, u32 len){
         CosmosRH1Packet* cpacket = (CosmosRH1Packet*) packet;
         cpacket->starCount1 = packet->starCount[0];
         cpacket->starCount2 = packet->starCount[1];
         cpacket->trackId = Cosmos::CupManager::GetStaticInstance()->GetWinningTrack();
-        holder.Copy(cpacket, len);
+        holder.Copy((const RACEHEADER1Packet*) cpacket, len);
     }
 
     kmCall(0x80655458, PatchRaceHeader1);

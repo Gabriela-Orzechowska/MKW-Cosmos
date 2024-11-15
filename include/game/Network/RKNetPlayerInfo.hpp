@@ -4,6 +4,7 @@
 #include <System/Identifiers.hpp>
 
 struct RACEHEADER1Packet{
+    static const u32 idx = 1;
     u32 timer;
     u32 selectId; //0x4
     u16 team[2]; //0x8

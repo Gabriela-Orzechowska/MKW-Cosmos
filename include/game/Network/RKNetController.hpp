@@ -24,35 +24,55 @@ struct RKNetFriend{
   StatusData statusData; //8 bytes, see 
   u8 unknown_0x8[4];
 } ; //total size 0xC
+    //
+template<class T>
+class PacketHolder;
 
+typedef PacketHolder<void> DefaultPacketHolder;
+
+template<class T>
 class PacketHolder {
+public:
+    explicit PacketHolder(u32 bufferSize); //8065a24c
+    ~PacketHolder(); //8065a2ac
+
+
+    void Clear() { reinterpret_cast<DefaultPacketHolder*>(this)->Clear(); }
+    void Copy(const T* src, u32 len) { reinterpret_cast<DefaultPacketHolder*>(this)->Copy(src, len); }
+    void Append(const void* src, u32 len) { reinterpret_cast<DefaultPacketHolder*>(this)->Append(src, len); }
+
+    T *packet; //data buffer pointer
+    u32 bufferSize; //maximum data size
+    u32 packetSize; //current data size
+}; //Total size 0xc
+
+template <>
+class PacketHolder<void> {
 public:
     explicit PacketHolder(u32 bufferSize); //8065a24c
     ~PacketHolder(); //8065a2ac
 
     void Init(); //8065a24c
     void Clear(); //8065a30c
-    void Copy(void *src, u32 len); //8065a34c
-    void Append(void *src, u32 len); //8065a38c
+    void Copy(const void *src, u32 len); //8065a34c
+    void Append(const void *src, u32 len); //8065a38c
 
     void *packet; //data buffer pointer
     u32 bufferSize; //maximum data size
     u32 packetSize; //current data size
 }; //Total size 0xc
-
 class SplitRACEPointers {
+public:
     SplitRACEPointers(); //8065a3dc
     ~SplitRACEPointers(); //8065a474
     void Reset(); //8065a30c
+                  //
+    template<class T>
+    PacketHolder<T>* GetPacketHolder() { return (PacketHolder<T>*)(this->packetHolders[T::idx]); };
+    template<class T>
+    const PacketHolder<T>* GetPacketHolder() const { return (PacketHolder<T>*)(this->packetHolders[T::idx]); };
+    PacketHolder<void>* packetHolders[8];
 
-    PacketHolder *header;
-    PacketHolder *raceHeader1;
-    PacketHolder *raceHeader2;
-    PacketHolder *select;
-    PacketHolder *racedata;
-    PacketHolder *user;
-    PacketHolder *item;
-    PacketHolder *event;
 }; //Total size 0x20
 
 struct ConnectionUserData{
@@ -98,6 +118,17 @@ enum RKNetSearchType{
     JOINING_REGIONAL,
 };
 
+enum RACESection {
+    PACKET_RACEHEADER,
+    PACKET_RACEHEADER1,
+    PACKET_RACEHEADER2,
+    PACKET_SELECTROOM,
+    PACKET_RACEDATA,
+    PACKET_USER,
+    PACKET_ITEM,
+    PACKET_EVENT
+};
+
 class RKNetController {
 public:
     static RKNetController *sInstance; //809c20d8
@@ -133,6 +164,17 @@ public:
 
     inline RKNetControllerSub& GetCurrentSub() { return subs[currentSub]; }
 
+    template<class T>
+    PacketHolder<T>* GetSendPacketHolder(u8 aid) const {
+
+        return this->splitToSendRACEPackets[this->lastSendBufferUsed[aid]][aid]->GetPacketHolder<T>();
+    }
+    template<class T>
+    PacketHolder<T>* GetReceivedPacketHolder(u8 aid) const {
+        u32 idx = T::idx;
+        return this->splitReceivedRACEPackets[this->lastReceivedBufferUsed[aid][idx]][aid]->GetPacketHolder<T>();
+    }
+
     u8 unknown_0x4[0x20-0x4];//unknown class vtable 808c0988
     EGG::ExpHeap *expHeap;
     EGG::TaskThread *taskThread;
@@ -143,7 +185,7 @@ public:
     u8 unknown_0xec[4];
     SplitRACEPointers *splitToSendRACEPackets[2][12]; //0xf0 split pointers for the outgoing packets, double buffered, indexed by aid
     SplitRACEPointers *splitReceivedRACEPackets[2][12]; //0x150 split pointers for the incoming packets, double buffered, indexed by aid
-    PacketHolder *fullSendPackets[12]; //0x1b0 combined outgoing packets, indexed by aid
+    PacketHolder<void>* fullSendPackets[12];
     u64 lastRACEToSendTimes[12]; //0x1e0 time when last sent to that aid
     u64 lastRACERecivedTimes[12]; //0x240 time when last received from that aid
     u64 RACEToSendTimesTaken[12]; //0x2a0 last send time minus the time of the send before it
@@ -163,8 +205,8 @@ public:
     u8 unknown_0x2760[3];
     s32 vr; //0x2764
     s32 br; //0x2768
-    s32 lastSendBufferUsed[12]; //0x276c last full send buffer used for each aid, 0 or 1
-    s32 lastRecivedBufferUsed[12][8]; //0x279c last Recived buffer used for each packet per aid, 1 or 0
+    u32 lastSendBufferUsed[12]; //0x276c last full send buffer used for each aid, 0 or 1
+    u32 lastReceivedBufferUsed[12][8]; //0x279c last Recived buffer used for each packet per aid, 1 or 0
     s32 currentSub; //0x291c index of the current sub to use, 0 or 1
     u8 aidsBelongingToPlayerIds[12]; //0x2920 index is player id, value is aid
     u32 disconnectedAids; //0x292c 1 if disconnected, index 1 << aid

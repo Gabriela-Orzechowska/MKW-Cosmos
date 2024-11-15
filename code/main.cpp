@@ -122,9 +122,9 @@ namespace Cosmos{
         ASM(
             nofralloc;
             lis r12, sInstance@ha;
-            lwz r12, sInstance@l;
-            lbz r0, System.raceCount(r12);
-            subi r0, r0, 1;
+            lwz r12, sInstance@l (r12);
+            lbz r12, System.raceCount(r12);
+            subi r0, r12, 1;
             blr;
         )
     }

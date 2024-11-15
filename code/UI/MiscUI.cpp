@@ -115,11 +115,19 @@ void AddPauseSceneToOnline(Scene& scene, PageId id){
     scene.CreatePage(id);
     scene.CreatePage(VS_RACE_PAUSE_MENU);
     scene.CreatePage(ARE_YOU_SURE_YOU_WANT_TO_QUIT);
+    scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
 }
 kmCall(0x8062eccc, AddPauseSceneToOnline);
+kmCall(0x8062f020, AddPauseSceneToOnline);
+kmCall(0x8062f08c, AddPauseSceneToOnline);
 kmWrite32(0x808567c0, 0x60000000);
 kmWrite32(0x808567c8, 0x60000000);
 kmWrite16(0x808567cc+2, 0x0000);
+
+// Replace GP Pause with VS
+
+kmWrite16(0x80633b28+2, 0x0018);
+kmWrite16(0x8062c598+2, 0x0018);
 
 void DontPauseOnline(void* unknown){
     GameMode mode = RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode;
