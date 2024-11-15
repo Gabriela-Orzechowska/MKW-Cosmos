@@ -1461,7 +1461,7 @@ PlayEndRaceMenuButtonClickSound__20RaceRSARSoundsPlayerFv = 0x80715ff0
 PlayPauseSound__16RSARSoundsPlayerFv = 0x80715ecc
 
 #KartModelsMgr
-sInstance__13KartModelsMgr = 0x809c23f8
+sInstance__13KartModelsMgr = 0x809c2f38
 isOnlineRace__13KartModelsMgr = 0x809c38b9
 
 #KartModel
