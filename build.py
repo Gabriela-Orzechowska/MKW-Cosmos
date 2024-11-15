@@ -116,7 +116,7 @@ def main():
         data = b"\x44\x45\x56\x30"
         fb.write(data)
 
-    shutil.copy(r"./out/Code.cscd", r"./TestPack/Cosmos/Binaries")
+    shutil.copy(r"./out/Code.cscd", r"./TestPack/Aurora/Binaries")
 
 
     print("Done")

@@ -116,7 +116,7 @@ namespace Cosmos
 
         u32 GetCupID(u32 track) const { 
             for(int i = 0; i < this->currentLayout->cupCount * 4; i++){
-                if(track == this->currentLayoutArray[i]) return i;
+                if(track == this->currentLayoutArray[i]) return (i>>2);
             }
             return 0;
         }
