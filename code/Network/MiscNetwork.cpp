@@ -34,6 +34,10 @@
 
 #define TEST_REGION 2137 
 
+// EXPERIMENTAL
+kmWrite16(0x8011ad68 + 2, 0x3A98); //15000
+kmWrite16(0x80104d64 + 2, 0x3A98); //15000
+
 void WriteAndInvalidate(u32* address, u32 val){
     *address = val;
     register u32 addr = (u32) address;
