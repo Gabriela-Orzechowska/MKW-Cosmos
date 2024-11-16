@@ -151,12 +151,15 @@ namespace CosmosNetwork
     }
     kmCall(0x80644414, LoadCorrectTrack);
 
-    void PatchRaceHeader1(PacketHolder<RACEHEADER1Packet>& holder, RACEHEADER1Packet* packet, u32 len){
+    u32 PatchRaceHeader1(PacketHolder<RACEHEADER1Packet>& holder, RACEHEADER1Packet* packet, u32 len){
         CosmosRH1Packet* cpacket = (CosmosRH1Packet*) packet;
-        cpacket->starCount1 = packet->starCount[0];
-        cpacket->starCount2 = packet->starCount[1];
+        u32 starCount1 = packet->starCount[0];
+        u32 starCount2 = packet->starCount[1];
+        cpacket->starCount1 = starCount1;
+        cpacket->starCount2 = starCount2;
         cpacket->trackId = Cosmos::CupManager::GetStaticInstance()->GetWinningTrack();
         holder.Copy((const RACEHEADER1Packet*) cpacket, len);
+        return cpacket->starCount1;
     }
 
     kmCall(0x80655458, PatchRaceHeader1);
@@ -176,8 +179,10 @@ namespace CosmosNetwork
         data->starCount[0] = packet->starCount1;
         data->starCount[1] = packet->starCount2;
     }
-    kmCall(0x80665310, ImportPatchRaceHeader1);
+    kmCall(0x806652ec, ImportPatchRaceHeader1);
 
+    kmWrite32(0x806652b4, 0x60000000); //nop track store
+    kmWrite32(0x80665308, 0x60000000); //nop star rank store
     void SetTrackVote(Pages::Vote& page){
         page.SetVotedCourseId((CourseId)Cosmos::CupManager::GetStaticInstance()->lastSelectedCourse);
         CosmosLog("Setting vote track to: %03x\n", Cosmos::CupManager::GetStaticInstance()->lastSelectedCourse);
@@ -199,6 +204,7 @@ namespace CosmosNetwork
         }
         return 0xFFFFFFFF;
     }
+    kmBranch(0x80664560, GetCorrectSlot);
 
     u8* GetPlayerAids(const RKNetRH1Handler& handler){
         for(int i = 0; i < 12; i++){

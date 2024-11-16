@@ -15,6 +15,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Race/RaceData.hpp"
 #include "System/Camera.hpp"
 #include "System/identifiers.hpp"
 #include "UI/MenuData/MenuData.hpp"
@@ -149,7 +150,10 @@ void PatchMiiHeads() {
         }
 
         if(setting == ENABLED){ // Mii heads enabled
-            if(i == 0 || (RKNetController::GetStaticInstance()->connectionState != 0 && Cosmos::System::GetStaticInstance()->AreMiiHeadsAllowed())){
+            if(i == 0 || 
+                    (RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode == MODE_PUBLIC_VS) ||
+                    (RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode == MODE_PRIVATE_VS
+                        && RKNetController::GetStaticInstance()->connectionState != 0 && Cosmos::System::GetStaticInstance()->AreMiiHeadsAllowed())){
                 isMii = true;
             }
         } 
