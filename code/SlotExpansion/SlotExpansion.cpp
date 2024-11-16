@@ -17,7 +17,9 @@
 
 #include "Race/RaceData.hpp"
 #include "SlotExpansion/CupManager.hpp"
+#include "System/Identifiers.hpp"
 #include "UI/BMG/BMG.hpp"
+#include "UI/MenuData/MenuData.hpp"
 #include <SlotExpansion/SlotExpansion.hpp>
 #include <game/UI/Page/Menu/CourseSelect.hpp>
 
@@ -86,8 +88,18 @@ RacedataScenario * GPCorrectNextTrack(RacedataScenario * scenario)
 {
     Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
 
+    u32 oldWinning = manager->winningCourse;
     manager->winningCourse = manager->currentLayoutArray[manager->lastSelectedCup * 4 + scenario->settings.raceNumber]; 
-    if(Cosmos::isGroupSlot(manager->winningCourse)) manager->winningCourse = manager->GetRandomVariantTrack(manager->winningCourse);
+    if(Cosmos::isGroupSlot(manager->winningCourse)) {
+        Cosmos::VariantDef* def = manager->GetVariantStruct(manager->winningCourse);
+        manager->winningCourse = manager->GetRandomVariantTrack(manager->winningCourse);
+        for(int i = 0; i < def->count; i++){
+            if(oldWinning = def->slot[i]) {
+                manager->winningCourse = oldWinning;
+                break;
+            }
+        }
+    }
     scenario->settings.courseId = (CourseId) manager->GetCurrentTrackSlot();
     return scenario;
 }
@@ -109,6 +121,21 @@ kmWrite32(0x8052f224, 0x60000000);
 kmBranch(0x8052f220, GPCorrectNextTrackWrapper);
 kmPatchExitPoint(GPCorrectNextTrackWrapper, 0x8052f228);
 kmWrite32(0x80531f80, 0x4e800020); // dont preload course due to memory
+
+void DemoFix(register RaceData* data){
+    register u32 id;
+    asm {
+        ASM (
+        mr id, r0;
+        stw r0, 0x1758(data);
+            );
+    };
+    Cosmos::CupManager::GetStaticInstance()->winningCourse = id;
+}
+kmCall(0x8085a95c, DemoFix);
+kmCall(0x8085a940, DemoFix);
+
+kmWrite32(0x805bcf9c, 0x38000000);
 
 void VSRaceOrderFix(GlobalContext& context) {
     context.vsRaceLimit = 32;
@@ -165,3 +192,5 @@ void VSRaceRandomFix(GlobalContext& context){
 }
 kmBranch(0x805e32ec, VSRaceRandomFix);
 kmWrite32(0x8084e5e4, 0x60000000);
+
+

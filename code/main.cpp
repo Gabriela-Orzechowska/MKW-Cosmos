@@ -156,6 +156,7 @@ namespace Cosmos{
             }
             else {
                 file->status = 0;
+                file->archive = nullptr;
                 file->archiveSize = 0;
             }
         }

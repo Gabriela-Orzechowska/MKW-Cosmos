@@ -115,8 +115,15 @@ namespace Cosmos
         u32 GetRandomVariantTrack(u32 slot) const;
 
         u32 GetCupID(u32 track) const { 
-            for(int i = 0; i < this->currentLayout->cupCount * 4; i++){
-                if(track == this->currentLayoutArray[i]) return (i>>2);
+            for(int i = 0; i < this->currentLayout->cupCount * 4; i+=1){
+                u32 checkSlot = this->currentLayoutArray[i];
+                if(isGroupSlot(checkSlot)){
+                    VariantDef* def = (VariantDef*) offsetFrom(this->cupConfig, this->cupConfig->offToVariants);
+                    for(int j = 0; j < def[checkSlot - GROUP_OFFSET].count; j++){
+                        if(track == def[checkSlot - GROUP_OFFSET].slot[j]) return (i>>2); 
+                    }
+                }
+                else if(track == checkSlot) return (i>>2);
             }
             return 0;
         }
