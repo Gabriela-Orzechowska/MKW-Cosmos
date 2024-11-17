@@ -150,6 +150,7 @@ namespace CosmosUI
             for(int j = 0; j < 5; j++){
                 if(kartId == AutoKarts[j]){
                     manualMode[i] = random.NextLimited(2) == 0;
+                    break;
                 }
             }
         }
@@ -162,11 +163,9 @@ namespace CosmosUI
             kartPos[1] = kartPos[0];
             manualMode[1] = manualMode[0];
         }
-        else {
-            KartSelectPlus::GetPage()->SetRandomKarts(kartPos[0]);
-            DriftSelectPlus::GetPage()->SetDriftOption(manualMode[0]);
-        }
         CharSelectPlus::GetPage()->SetRandomCharacters(context->characters[0], context->characters[1]);
+        KartSelectPlus::GetPage()->SetRandomKarts(kartPos[0]);
+        DriftSelectPlus::GetPage()->SetDriftOption(manualMode[0]);
 
         this->hasSetRandomCombo = true;
     }
@@ -287,9 +286,11 @@ namespace CosmosUI
         if(this->rouletteCounter > 0) {
             --this->rouletteCounter;
             if(rouletteCounter == 0){
-               this->externControls[(int)!this->isManual[0]]->HandleClick(0, -1); 
+                this->externControls[(int)!this->isManual[0]]->HandleSelect(0, -1); 
+                this->externControls[(int)!this->isManual[0]]->Select(0); 
+                this->externControls[(int)!this->isManual[0]]->HandleClick(0, -1); 
             }
-            else if(rouletteCounter % 5 == 0) {
+            else if(rouletteCounter % 5 == 1) {
                 if(rouletteCounter > 5)
                 {
                     this->tempOption[0] = !this->tempOption[0];

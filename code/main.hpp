@@ -27,8 +27,8 @@ namespace Cosmos
         SPINNER_WITH_BACKGROUND = 0xB9,
     };
 
-    const char packFolder[] = "/Cosmos";
-    const char ghostFolder[] = "/Cosmos/RKG";
+    const char packFolder[] = "/Aurora";
+    const char ghostFolder[] = "/Aurora/RKG";
     
     const char SaveFile[] = "CosmosData.bin";
     const char CommonArchive[] = "/CommonCosmos.szs";

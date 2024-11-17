@@ -142,7 +142,7 @@ namespace CosmosFile
     s32 RiivoFileManager::CreateOpen(const char * filepath, u32 mode){
         s32 riivo_fd = this->GetDeviceFd();
 
-        if(isNand) this->CreateFolder("/Cosmos/temp");
+        if(isNand) this->CreateFolder("/Aurora/temp");
         char realPath[IPCMAXPATH] __attribute((aligned(0x20)));
         this->GetFilePath(realPath, filepath);
         s32 ret = IOS::IOCtl(riivo_fd, (IOS::IOCtlType) RIIVO_IOCTL_CREATEFILE, (void*) realPath, strlen(filepath)+1, NULL, 0);
@@ -158,7 +158,7 @@ namespace CosmosFile
     }
 
     void RiivoFileManager::GetFilePath(char* realPath, const char* path) const {
-        if(isNand) snprintf(realPath, IPCMAXPATH, "/Cosmos/temp/%s", path);
+        if(isNand) snprintf(realPath, IPCMAXPATH, "/Aurora/temp/%s", path);
         else snprintf(realPath, IPCMAXPATH, "%s", path);
     }
 

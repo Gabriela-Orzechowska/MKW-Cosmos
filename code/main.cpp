@@ -315,7 +315,7 @@ namespace Cosmos{
         {
             CosmosFile::FileManager* manager = CosmosFile::FileManager::GetStaticInstance();
             if(manager != nullptr) {
-                manager->CreateOpen("Cosmos/Cosmos.log", CosmosFile::FILE_MODE_WRITE);
+                manager->CreateOpen("Aurora/Cosmos.log", CosmosFile::FILE_MODE_WRITE);
                 if(!hasStartedAlready) {
                     hasStartedAlready = true;
                     manager->Write(0x10, "==============\n");

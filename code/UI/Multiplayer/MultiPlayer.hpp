@@ -87,6 +87,8 @@ namespace CosmosUI
             void SetFastChoose() {
                 rouletteCounter = 5;
             }   
+
+            void OnBackPressNew(u32 hudSlotId);
         private:
             CharacterId actualCharacters[2];
             CharacterId tempCharacters[2];
