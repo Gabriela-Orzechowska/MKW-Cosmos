@@ -1127,6 +1127,7 @@ GetManipulatorManager__Q25Pages15CharacterSelectFv = 0x8083ddb4
 CreateExternalControl__Q25Pages15CharacterSelectFUi = 0x8083d87c
 CreateControl__Q25Pages15CharacterSelectFUi = 0x8083d884
 SetButtonHandlers__Q25Pages15CharacterSelectFP10PushButton = 0x8083f270
+OnBackPress__Q25Pages15CharacterSelectFUi = 0x8083e928
 
 #CupSelectPage
 __ct__Q25Pages9CupSelectFv = 0x80627684

@@ -77,6 +77,7 @@ namespace CosmosUI
                 tempCharacters[0] = CHARACTER_NONE;
                 tempCharacters[1] = CHARACTER_NONE; 
             } 
+            void OnInit() override;
             void BeforeControlUpdate() override;
             void SetRandomCharacters(CharacterId p1Char, CharacterId p2Char = CHARACTER_NONE){
                 actualCharacters[0] = p1Char;

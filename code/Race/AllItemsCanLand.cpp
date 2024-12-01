@@ -121,7 +121,7 @@ namespace Cosmos {
                 blr;
             )
     }
-    kmCall(0x807a66c0, PatchBreakCheck);
+    //kmCall(0x807a66c0, PatchBreakCheck);
 
     //Item Collision
 

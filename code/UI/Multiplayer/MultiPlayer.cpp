@@ -205,6 +205,11 @@ namespace CosmosUI
         this->SetRandomCombo();
     }   
 
+    void CharSelectPlus::OnInit(){
+        Pages::CharacterSelect::OnInit();
+        this->onBackPressHandler.ptmf = (void (Menu::*)(u32)) &CharSelectPlus::OnBackPressNew;
+    }   
+
     void CharSelectPlus::BeforeControlUpdate(){
         Pages::CountDownTimer* timer = Pages::CountDownTimer::GetPage();
         if(timer){
@@ -240,6 +245,22 @@ namespace CosmosUI
                     this->ctrlMenuCharSelect.GetButtonDriver(this->tempCharacters[i])->Select(i);
                 }
             }
+        }
+    }
+
+    void CharSelectPlus::OnBackPressNew(u32 hudSlotId){
+        MenuId id = MenuData::GetStaticInstance()->GetCurrentScene()->menuId;
+        switch(id){
+            case(P1_WIFI_VS_VOTING):
+            case(P1_WIFI_FRIEND_ROOM_VS_VOTING):
+            case(P1_WIFI_FRIEND_ROOM_TEAM_VS_VOTING):
+            case(P1_WIFI_BATTLE_VOTING):
+            case(P1_WIFI_FRIEND_ROOM_BALLOON_VOTING):
+            case(P1_WIFI_FRIEND_ROOM_COIN_VOTING):
+                this->LoadNextPageWithDelayById(PLAYER_LIST_VR_PAGE,0.0f);
+                break;
+            default:
+                this->OnBackPress(hudSlotId);
         }
     }
 
