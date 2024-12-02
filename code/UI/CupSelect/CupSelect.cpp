@@ -15,11 +15,14 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Aurora/AuroraSlot.hpp"
+#include "Race/RaceData.hpp"
 #include "Settings/UserData.hpp"
 #include "UI/BMG/BMG.hpp"
 #include "UI/Ctrl/Menu/CtrlMenuCup.hpp"
 #include "UI/Ctrl/PushButton.hpp"
 #include "UI/CupSelect/CourseSelect.hpp"
+#include "UI/Page/Menu/CourseSelect.hpp"
 #include "UI/Page/Page.hpp"
 #include "kamek.hpp"
 #include <UI/CupSelect/CupSelect.hpp>
@@ -155,18 +158,27 @@ namespace CosmosUI
     {
         u32 sorting = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_SORTING);
         u32 trackList = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetTrackList();
+
         Cosmos::CupManager::GetStaticInstance()->SetTrackLayout(sorting, trackList);
+
         u32 cupCupId = Cosmos::CupManager::GetStaticInstance()->lastSelectedCup;
         this->ctrlMenuCupSelectCup.curCupID = cupCupId;
         Pages::CupSelect::OnActivate();
         lefttemp = 0;
-        this->bottomText->SetMsgId(0x2810 + sorting);
+
+        u32 bmg = 0x2810 + sorting;
+        if(RaceData::GetStaticInstance()->menusScenario.GetSettings().gamemode == MODE_GRAND_PRIX)
+            bmg = 0;
+        this->bottomText->SetMsgId(bmg);
+
         this->ctrlMenuCupSelectCourse.UpdateTrackList(this->ctrlMenuCupSelectCup.curCupID);
         //ExtendCupSelectCupInitSelf(&this->ctrlMenuCupSelectCup);
     }
 
     void CupSelectPlus::OnSwitchPress(u32 slotId)
     {        
+        if(RaceData::GetStaticInstance()->menusScenario.GetSettings().gamemode == MODE_GRAND_PRIX) return;
+
         Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetStaticInstance();
         COSMOS_ASSERT_NOT_NULL(holder);
         u32 sorting = holder->GetSettingValue(Cosmos::Data::COSMOS_SETTING_SORTING);
@@ -174,7 +186,7 @@ namespace CosmosUI
         holder->SetSettingValue(sorting, Cosmos::Data::COSMOS_SETTING_SORTING);
 
         Cosmos::CupManager* manager = Cosmos::CupManager::GetStaticInstance();
-        manager->SetTrackLayout((Cosmos::CupManager::TrackSorting) sorting);
+        manager->SetTrackLayout(sorting);
         manager->lastSelectedCup = this->ctrlMenuCupSelectCup.curCupID;
         for(int i = 0; i < 8; i++){
             if(this->ctrlMenuCupSelectCup.curCupID == this->ctrlMenuCupSelectCup.cupButtons[i].buttonId){
@@ -236,6 +248,38 @@ namespace CosmosUI
     }
     kmWritePointer(0x808d324c, ExtendCupSelectCupInitSelf);
 
+    CtrlMenuCourseSelectCupSub* GetActiveCupIcon(CtrlMenuCourseSelectCup& cup){
+        for(int i = 0; i < 8; i++){
+            if(cup.cupIcons[i].selected) return &cup.cupIcons[i];
+        }
+        return nullptr;
+    }
+
+    void LumpCheck(Pages::CourseSelect& page, u32 slot, u32 i){
+        CtrlMenuCourseSelectCourse* course = &page.ctrlMenuCourseSelectCourse;
+        if(course->courseButtons[i].IsSelected()){
+            static bool isLump = false;
+            if(!isLump && slot == Aurora::Special::SLOT_LUMPYS){
+                CtrlMenuCourseSelectCupSub* curButton = GetActiveCupIcon(page.ctrlMenuCourseSelectCup);
+                curButton->SetMsgId(0x70000);
+                void * tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, "button/timg/icon_cup_lump.tpl", 0);
+                CosmosUI::ChangePaneImage(curButton, "icon", tplPointer);
+                CosmosUI::ChangePaneImage(curButton, "icon_light_01", tplPointer);
+                CosmosUI::ChangePaneImage(curButton, "icon_light_02", tplPointer);
+            }
+            else if (isLump){
+                CtrlMenuCourseSelectCupSub* curButton = GetActiveCupIcon(page.ctrlMenuCourseSelectCup);
+                curButton->SetMsgId(BMG_CUPS + curButton->padding_id);
+                char tpl[0x30];
+                snprintf(tpl, 0x30, "button/timg/icon_cup_%03x.tpl", curButton->padding_id);
+                void * tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, tpl, 0);
+                CosmosUI::ChangePaneImage(curButton, "icon", tplPointer);
+                CosmosUI::ChangePaneImage(curButton, "icon_light_01", tplPointer);
+                CosmosUI::ChangePaneImage(curButton, "icon_light_02", tplPointer);
+                isLump = false;
+            }
+        }
+    };
 
     void ExtendCourseSelectCourseInitSelf(CtrlMenuCourseSelectCourse* course)
     {
@@ -267,9 +311,13 @@ namespace CosmosUI
                 if(slot == manager->lastSelectedCourse || slot == manager->lastSelectedGroup){
                     coursePage->SelectButton(&course->courseButtons[i]);
                     selected = true;
+                    LumpCheck(*coursePage, slot, i);
                 }
             }
-            else selected = true;
+            else {
+                selected = true; 
+                LumpCheck(*coursePage, slot, i);
+            }
         }
         if(!selected){
             coursePage->SelectButton(&course->courseButtons[0]);
@@ -301,6 +349,18 @@ namespace CosmosUI
     }
 
     kmCall(0x807e5da8, UpdateSelection);
+
+    void UpdateCupPageBottomText(){
+        CupSelectPlus* page = CupSelectPlus::GetPage();
+        u32 sorting = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_SORTING); 
+
+        u32 bmg = 0x2810 + sorting;
+        if(RaceData::GetStaticInstance()->menusScenario.GetSettings().gamemode == MODE_GRAND_PRIX)
+            bmg = 0;
+
+        page->bottomText->SetMsgId(bmg);
+    }
+    kmBranch(0x807e5d64, UpdateCupPageBottomText);
 
     //Disable THP
     kmWrite32(0x808404f8, 0x60000000);

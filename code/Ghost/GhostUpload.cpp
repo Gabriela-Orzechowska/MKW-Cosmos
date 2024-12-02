@@ -116,7 +116,7 @@ namespace Aurora {
             splits.ctrlRaceCount.zIndex = -100.0f;
             splits.ctrlRaceCount.SetMsgId(0,0);
         }
-        kmBranch(0x80855854, PatchSplitOnFront);
+        //kmBranch(0x80855854, PatchSplitOnFront);
 
         kmWrite32(0x80855adc, 0x4E800020);
 

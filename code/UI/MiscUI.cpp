@@ -24,7 +24,7 @@
 #include <core/System/SystemManager.hpp>
 #include <game/System/Archive.hpp>
 #include <game/UI/SectionMgr/SectionMgr.hpp>
-
+#include <Aurora/AuroraSlot.hpp>
 #include <core/rvl/os/OS.hpp>
 #include <UI/MiscUI.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>
@@ -94,6 +94,7 @@ void FixGPIntroBMG(LayoutUIControl& control, u32 bmg, TextInfo* info){
         return;
     }
     u32 cupBmg = BMG_CUPS + Cosmos::CupManager::GetStaticInstance()->GetCupIconId(trackId);
+    if(trackId == Aurora::Special::SLOT_LUMPYS) cupBmg = 0x70000;
 
     info->bmgToPass[1] = cupBmg;
     control.SetMsgId(bmg, info);
@@ -105,6 +106,7 @@ void FixGPIntroIcon(LayoutUIControl& control, char* name, u32){
 
     char tpl[0x30];
     snprintf(tpl, 0x30, "button/timg/icon_cup_%03x.tpl", id);
+    if(id == Aurora::Special::SLOT_LUMPYS) snprintf(tpl, 0x30, "button/timg/icon_cup_lump.tpl");
     void * tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, tpl, 0);
     CosmosUI::ChangePaneImage(&control, name, tplPointer);
 
