@@ -114,9 +114,9 @@ namespace CosmosNetwork
     }
     kmCall(0x80661490, DecideTrack);
 
-#define CC_100_PROBS 15
-#define CC_MIRROR_PROBS 15
-#define CC_150_PROBS 60
+#define CC_100_PROBS 10
+#define CC_MIRROR_PROBS 0
+#define CC_150_PROBS 90
 
     void DecideCC(RKNetSELECTHandlerPlus& handler) {
         RKNetController* controller = RKNetController::GetStaticInstance();
@@ -125,7 +125,7 @@ namespace CosmosNetwork
         u8 ccEngineValue = 2;
         Cosmos::Data::FORCE_CC ccSetting = (Cosmos::Data::FORCE_CC) Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_FORCE_CC);
         if(type == VS_WW || type == VS_REGIONAL || (type == FROOM_HOST && ccSetting == Cosmos::Data::FORCE_NONE)) {
-            Random random(OSGetTick());
+            Random random;
             u32 ret = random.NextLimited(100);
             if(ret < CC_100_PROBS) ccEngineValue = 1;
             else if(ret < (CC_100_PROBS + CC_MIRROR_PROBS)) ccEngineValue = 3;
