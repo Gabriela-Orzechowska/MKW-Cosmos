@@ -62,6 +62,8 @@ namespace CosmosDebug
 
     char* GetPlatformName() { return platformName; }
 
+    HOSTPLATFORM GetPlatform() { return currentPlatform; }
+
     void UpdatePlatformString()
     {
         DetectPlatform(); 
@@ -84,6 +86,7 @@ namespace CosmosDebug
                 platformString = "Wii";
                 break;
         }
+        CosmosLog("Platform: %s\n", platformString);
         strncpy(platformName, platformString, 0x20);
     }
 

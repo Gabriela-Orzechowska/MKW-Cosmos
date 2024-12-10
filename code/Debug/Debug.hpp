@@ -43,6 +43,7 @@ namespace CosmosDebug
     static char platformName[0x20];
 
     static void DetectPlatform();
+    HOSTPLATFORM GetPlatform();
     char* GetPlatformName();
 } // namespace Cosmos
 
