@@ -19,6 +19,7 @@
 #define _COSMOS_USER_DATA_
 
 #include "UI/BMG/BMG.hpp"
+#include "types.hpp"
 #include <kamek.hpp>
 #include <FileManager/FileManager.hpp>
 #include <game/System/SaveDataManager.hpp>
@@ -445,14 +446,57 @@ namespace Cosmos
 
             char signature[4];
             u32 version;
-            union
-            {
+            union {
                 SettingsPage pages[PAGE_COUNT];
                 u8 rawSettings[PAGE_COUNT * SETTINGS_PER_PAGE];
             } data[4];
             u16 playerVr[4];
             u16 playerBr[4];
         } __attribute__((aligned(0x20)));
+
+#pragma pack(push,1)
+        struct UserDataSettings {
+            char sign[4];
+            u32 version;
+            union {
+        SettingsPage pages[PAGE_COUNT];
+                u8 rawSettings[PAGE_COUNT * SETTINGS_PER_PAGE];
+            } data[4];
+        } __attribute__((aligned(0x20)));
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+        struct UserDataCup {
+            u8 gpData[4];
+        };
+#pragma pack(pop)
+
+#pragma pack(push,1)
+        struct UserDataTrophies {
+            char sign[4];
+            u32 version;
+            UserDataCup cups[1];
+        };
+#pragma pack(pop)
+
+#pragma pack(push,1)
+        struct UserDataOther {
+            char sign[4];
+            u32 version;
+            u32 vr[4];
+            u32 br[4];
+        };
+#pragma pack(pop)
+
+#pragma pack(push,1)
+        struct UserDataFile {
+            char sign[4];
+            u32 version;
+            u32 offsetToSettings;
+            u32 offsetToThophies;
+            u32 offsetToOthers;
+        };
+#pragma pack(pop)
 
         class SettingsHolder
         {
@@ -461,24 +505,39 @@ namespace Cosmos
             static void Create();
             static inline SettingsHolder *GetStaticInstance() { return sInstance; }
 
-            u8 GetSettingValue(GLOBAL_SETTING setting) const { return this->settings->data[currentLicense].rawSettings[setting]; }
-            u8 GetSettingValue(u8 page, u8 setting) const { return this->settings->data[currentLicense].pages[page].setting[setting]; }
+            u8 GetSettingValue(GLOBAL_SETTING setting) const { return this->settingsNew->data[currentLicense].rawSettings[setting]; }
+            u8 GetSettingValue(u8 page, u8 setting) const { return this->settingsNew->data[currentLicense].pages[page].setting[setting]; }
 
-            void SetSettingValue(u8 value, GLOBAL_SETTING setting) { this->settings->data[currentLicense].rawSettings[setting] = value; }
-            void SetSettingValue(u8 value, u8 page, u8 setting) { this->settings->data[currentLicense].pages[page].setting[setting] = value; }
+            void SetSettingValue(u8 value, GLOBAL_SETTING setting) { this->settingsNew->data[currentLicense].rawSettings[setting] = value; }
+            void SetSettingValue(u8 value, u8 page, u8 setting) { this->settingsNew->data[currentLicense].pages[page].setting[setting] = value; }
 
             void Update();
             void Save();
 
             u32 GetUserVR() const { return GetUserVR(currentLicense); }
-            u32 GetUserVR(u32 id) const { return this->settings->playerVr[id]; }
+            u32 GetUserVR(u32 id) const { return this->other->vr[id]; }
             u32 GetUserBR() const { return GetUserBR(currentLicense); }
-            u32 GetUserBR(u32 id) const { return this->settings->playerBr[id]; }
+            u32 GetUserBR(u32 id) const { return this->other->br[id]; }
 
             void SetUserVR(u32 value) { SetUserVR(value, currentLicense); }
-            void SetUserVR(u32 value, u32 id) { this->settings->playerVr[id] = value; }
+            void SetUserVR(u32 value, u32 id) { this->other->vr[id] = value; }
             void SetUserBR(u32 value) { SetUserVR(value, currentLicense); }
-            void SetUserBR(u32 value, u32 id) { this->settings->playerBr[id] = value; }
+            void SetUserBR(u32 value, u32 id) { this->other->br[id] = value; }
+
+            void SetGPResults(u32 cupSlot, u8 rank, u8 trophy, EngineClass engine) { return SetGPResults(cupSlot, rank, trophy, engine, currentLicense); }
+            void SetGPResults(u32 cupSlot, u8 rank, u8 trophy, EngineClass engine, u32 license) {
+                this->trophies->cups[4* license +cupSlot].gpData[engine] = (rank & 0x3F) | ((trophy & 0x3) << 6);
+            }
+
+            u32 GetGPTrophy(u32 cupSlot, EngineClass engine) { return GetGPTrophy(cupSlot, engine, currentLicense); }
+            u32 GetGPTrophy(u32 cupSlot, EngineClass engine, u32 license) {
+                return ((this->trophies->cups[4 * license + cupSlot].gpData[engine]) >> 6) & 0x3;
+            }
+
+            u32 GetGPRank(u32 cupSlot, EngineClass engine) { return GetGPRank(cupSlot, engine, currentLicense); }
+            u32 GetGPRank(u32 cupSlot, EngineClass engine, u32 license) {
+                return (this->trophies->cups[4 * license + cupSlot].gpData[engine]) & 0x3f;
+            }
 
             inline bool IsMegaCloudEnabled() {
                 return (megaCloudOffline && RaceData::GetStaticInstance()->racesScenario.settings.gamemode == MODE_VS_RACE) ||
@@ -550,10 +609,15 @@ namespace Cosmos
             static void SaveTask(void *);
 
         private:
-            Settings *settings;
             static SettingsHolder *sInstance;
             void Init(const char *filepath, const char *magic, u32 version);
             void RequestSave();
+
+            u32 fileSize;
+            UserDataFile* file;
+            UserDataSettings* settingsNew;
+            UserDataOther* other;
+            UserDataTrophies* trophies;
             char filepath[IPCMAXPATH];
             CosmosFile::FileManager* currentManager;
 

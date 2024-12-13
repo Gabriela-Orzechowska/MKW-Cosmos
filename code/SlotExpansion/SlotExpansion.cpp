@@ -16,8 +16,10 @@
  */
 
 #include "Race/RaceData.hpp"
+#include "Settings/UserData.hpp"
 #include "SlotExpansion/CupManager.hpp"
 #include "System/Identifiers.hpp"
+#include "System/identifiers.hpp"
 #include "UI/BMG/BMG.hpp"
 #include "UI/MenuData/MenuData.hpp"
 #include <SlotExpansion/SlotExpansion.hpp>
@@ -84,7 +86,7 @@ kmCall(0x8071206c, SetCorrectMusic);
 
 // Fix GP, as it uses raceScenario for getting current track
 
-RacedataScenario * GPCorrectNextTrack(RacedataScenario * scenario)
+RacedataScenario* GPCorrectNextTrack(RacedataScenario * scenario)
 {
     Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
 
@@ -192,5 +194,38 @@ void VSRaceRandomFix(GlobalContext& context){
 }
 kmBranch(0x805e32ec, VSRaceRandomFix);
 kmWrite32(0x8084e5e4, 0x60000000);
+
+static void SaveGP(){
+    if(MenuData::GetStaticInstance()->curScene->menuId != GRAND_PRIX_AWARD) return;
+    
+    RacedataScenario& scenario = RaceData::GetStaticInstance()->awardsScenario;
+    Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetStaticInstance();
+
+    u32 engine = scenario.GetSettings().engineClass;
+    if(scenario.GetSettings().isMirror())
+        engine++;
+
+    u32 cupSlot = Cosmos::CupManager::GetStaticInstance()->lastSelectedCup;
+
+    bool shouldUpdate = false;
+    u32 rank = scenario.GetPlayer(0).ComputeGPRank();
+    u32 oldRank = holder->GetGPRank(cupSlot, (EngineClass) engine);
+
+    if(oldRank == 0x3F || rank < oldRank) shouldUpdate = true;
+
+    u32 trophy = scenario.GetPlayer(0).gpTrophy;
+
+    if(trophy > 0 && trophy < 4) trophy--;
+    else trophy = 3;
+
+    u32 oldTrophy = holder->GetGPTrophy(cupSlot, (EngineClass) engine);
+
+    if(trophy < oldTrophy) shouldUpdate = true;
+
+    if(shouldUpdate) 
+        holder->SetGPResults(cupSlot, rank, trophy, (EngineClass) engine);
+    holder->Update();
+}
+kmBranch(0x805bd050, SaveGP);
 
 

@@ -138,7 +138,7 @@ public:
     u16 score;
     u8 unknown_0xdc[2];
     s16 gpRankScore;
-    u8 unknown_0xe0;
+    u8 gpTrophy;
     u8 prevFinishPos;
     u8 unknown_0xe2[6];
     s16 rating; //vr or br, depending on mode
@@ -187,7 +187,7 @@ public:
 
     RacedataScenario racesScenario; //0x20
     RacedataScenario menusScenario; //0xc10
-    RacedataScenario unknown_scenario; //0x1800
+    RacedataScenario awardsScenario; //0x1800
     RKG ghosts[2]; //0x23f0 is the one you're racing, not sure what 1 is
 };  //Total size 0x73f0
 static_assert(sizeof(RaceData) == 0x73f0, "RaceData");

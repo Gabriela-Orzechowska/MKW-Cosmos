@@ -446,6 +446,8 @@ DisplayMii__8GlobeMgrFv = 0x807509b4
 sInstance__8RaceData = 0x809bd728
 GetHudSlotBytId__8RaceDataFUc = 0x80531f70
 
+#RacedataPlayer
+ComputeGPRank__14RacedataPlayerFv = 0x8052daf0
 
 #raceInfo
 sInstance__8RaceInfo = 0x809bd730

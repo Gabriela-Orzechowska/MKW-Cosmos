@@ -15,11 +15,13 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "kamek.hpp"
 #include <Settings/UserData.hpp>
 #include <game/System/SaveDataManager.hpp>
 #include <game/UI/Page/Other/WFCMain.hpp>
 #include <game/Network/RKNetUser.hpp>
 #include <UI/Language/LanguageManager.hpp>
+#include <SlotExpansion/CupManager.hpp>
 
 SettingsUpdateHook *SettingsUpdateHook::sHooks = NULL;
 SettingsValueUpdateHook *SettingsValueUpdateHook::sHooks = NULL;
@@ -29,7 +31,7 @@ namespace Cosmos
     {
         SettingsHolder *SettingsHolder::sInstance = NULL;
 
-        SettingsHolder::SettingsHolder() : miiHeadsEnabled(true), currentLicense(0), megaCloudOnline(false), megaCloudOffline(false) { settings = NULL; }
+        SettingsHolder::SettingsHolder() : miiHeadsEnabled(true), currentLicense(0), megaCloudOnline(false), megaCloudOffline(false) {}
 
         void SettingsHolder::Update()
         {
@@ -41,7 +43,12 @@ namespace Cosmos
         {
             strncpy(this->filepath, filepath, IPCMAXPATH);
 
-            Settings *buffer = new (RKSystem::mInstance.EGGSystem, 0x20) Settings;
+            u32 bufferSize = sizeof(UserDataFile) 
+                    + sizeof(UserDataSettings) + sizeof(UserDataOther) + sizeof(UserDataTrophies)
+                    + (CupManager::GetStaticInstance()->GetCupCount()*sizeof(UserDataCup)*4); // 4 per license
+            bufferSize = (bufferSize + 0x1F) & ~0x1F;
+            u8* fileBuffer = (u8*) RKSystem::mInstance.EGGSystem->alloc(bufferSize, 0x20);
+            this->fileSize = bufferSize;
 
             CosmosFile::FileManager *manager = CosmosFile::FileManager::GetNANDManager();
 
@@ -53,29 +60,66 @@ namespace Cosmos
             currentManager = manager;
 
             manager->CreateOpen(this->filepath, CosmosFile::FILE_MODE_READ_WRITE);
-            manager->Read(buffer, sizeof(Settings));
-            if (strcmp(buffer->signature, magic) != 0 || buffer->version != version)
+            manager->Read(fileBuffer, bufferSize);
+
+            UserDataFile* mainFile = (UserDataFile*) fileBuffer;
+
+            UserDataSettings* settingsFile;
+            UserDataOther* otherFile;
+            UserDataTrophies* trophiesFile;
+
+            if (strcmp(mainFile->sign, magic) != 0 || mainFile->version != version)
             {
-                memset(buffer, 0, sizeof(Settings));
-                strncpy(buffer->signature, magic, 4);
-                buffer->version = version;
-                for (int i = 0; i < 4; i++)
-                {
-                    buffer->playerVr[i] = 5000;
-                    buffer->playerBr[i] = 5000;
-                }
+                settingsFile = (UserDataSettings*)(fileBuffer+sizeof(UserDataFile));
+                otherFile = (UserDataOther*)(fileBuffer+sizeof(UserDataFile)+sizeof(UserDataSettings));
+                trophiesFile = (UserDataTrophies*)(fileBuffer+sizeof(UserDataFile)+sizeof(UserDataSettings)+sizeof(UserDataOther));
+
+                memset(mainFile, 0, bufferSize);
+                strncpy(mainFile->sign, magic, 4);
+                strncpy(settingsFile->sign, "ARSP", 4);
+                strncpy(otherFile->sign, "AROP", 4);
+                strncpy(trophiesFile->sign, "ARTP", 4);
+
+                mainFile->version = version;
+                settingsFile->version = version;
+                otherFile->version = 1;
+                trophiesFile->version = 1;
+
+                mainFile->offsetToSettings = (u32)((u32)settingsFile - (u32)fileBuffer);
+                mainFile->offsetToOthers = (u32)((u32)otherFile - (u32)fileBuffer);
+                mainFile->offsetToThophies = (u32)((u32)trophiesFile - (u32)fileBuffer);
 
                 for (int i = 0; i < PAGE_COUNT; i++)
                 {
                     for (int j = 0; j < GlobalSettingDefinitions[i].settingCount; j++)
                     {
                         for(int o = 0; o < 4; o++)
-                            buffer->data[o].pages[i].setting[j] = GlobalSettingDefinitions[i].settings[j].defaultValue;
+                            settingsFile->data[o].pages[i].setting[j] = GlobalSettingDefinitions[i].settings[j].defaultValue;
                     }
                 }
+                for (int i = 0; i < (CupManager::GetStaticInstance()->GetCupCount()*4); i++){
+                    trophiesFile->cups[i].gpData[0] = 0xFF;
+                    trophiesFile->cups[i].gpData[1] = 0xFF;
+                    trophiesFile->cups[i].gpData[2] = 0xFF;
+                    trophiesFile->cups[i].gpData[3] = 0xFF;
+                }
+
+                for(int i = 0; i < 4; i++){
+                    otherFile->vr[i] = 5000;
+                    otherFile->br[i] = 5000;
+                }
             }
-            this->settings = buffer;
-            manager->Overwrite(sizeof(Settings), buffer);
+            else {
+                settingsFile = (UserDataSettings*) offsetFrom(mainFile, mainFile->offsetToSettings);
+                otherFile = (UserDataOther*) offsetFrom(mainFile, mainFile->offsetToOthers);
+                trophiesFile = (UserDataTrophies*) offsetFrom(mainFile, mainFile->offsetToThophies);
+            }
+
+            this->file = mainFile;
+            this->settingsNew = settingsFile;
+            this->other = otherFile;
+            this->trophies = trophiesFile;
+            manager->Overwrite(bufferSize, this->file);
             manager->Close();
         }
 
@@ -87,7 +131,7 @@ namespace Cosmos
         void SettingsHolder::Save()
         {
             currentManager->Open(this->filepath, CosmosFile::FILE_MODE_WRITE);
-            currentManager->Overwrite(sizeof(Settings), this->settings);
+            currentManager->Overwrite(this->fileSize, this->file);
             currentManager->Close();
         }
 
@@ -101,7 +145,7 @@ namespace Cosmos
             SettingsHolder *holder = new (RKSystem::mInstance.EGGSystem) SettingsHolder();
             char path[IPCMAXPATH];
             Cosmos::System::Console_Print("[CSE] Loading user settings\n");
-            holder->Init(Cosmos::SaveFile, "CSSE", SettingsVersion);
+            holder->Init(Cosmos::SaveFile, "ARSE", SettingsVersion);
             SettingsHolder::sInstance = holder;
         }
 
@@ -121,7 +165,6 @@ namespace Cosmos
 
         Rating *SaveVR(LicenseManager &license)
         {
-
             u16 curLicenseId = SaveDataManager::GetStaticInstance()->curLicenseId;
             LicenseManager &actualLicense = SaveDataManager::GetStaticInstance()->GetCurrentLicense();
 
