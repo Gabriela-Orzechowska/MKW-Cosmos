@@ -34,6 +34,7 @@ namespace CosmosFile
             virtual s32 ReadFolder(const char * filepath);
             virtual const char * GetName() {return this->folderName;}
             s32 ReadFile(void * buffer, u32 index, u32 mode);
+            s32 GetFileSize(u32 index);
             void CloseFile(){this->curFile->Close();}
             const u32 GetFileCount() const {return this->fileCount; }
             void CloseFolder();

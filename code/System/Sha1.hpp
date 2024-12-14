@@ -27,6 +27,6 @@ extern void NETSHA1GetDigest(NETSHA1Context *context, void *digest);
 
 namespace SHA1
 {
-    char * GetFileSha1(const void * buffer, u32 size);
+    u8* GetFileSha1(const void * buffer, u32 size);
 }
 

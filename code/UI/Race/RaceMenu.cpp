@@ -16,6 +16,8 @@
  */
 
 #include "UI/Page/RaceMenu/RaceMenu.hpp"
+#include "Ghost/AntiCheat.hpp"
+#include "Ghost/GhostManager.hpp"
 #include "System/Identifiers.hpp"
 #include "game/System/identifiers.hpp"
 #include <UI/Race/RaceMenu.hpp>
@@ -73,7 +75,10 @@ namespace CosmosUI {
                     lastTTButton = button->buttonId;
                     break;
                 case Pages::RaceMenu::ButtonConfirmContinue:
-                    menu.nextPage = TIME_TRIAL_PAUSE_MENU;
+                    if(Cosmos::Ghost::GhostManager::GetStaticInstance()->IsFinished())
+                        menu.nextPage = LEADERBOARD_AFTER_TT;
+                    else
+                        menu.nextPage = TIME_TRIAL_PAUSE_MENU;
                     menu.EndStateAnimate(0.0f, 1);
                     break;               
                 case Pages::RaceMenu::ButtonContinue2:

@@ -100,11 +100,21 @@ u32 UpdateTrackImage(u32 param_1)
     ArchiveFile * file = &ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COURSE)->archives[0];
     void * buffer = file->decompressedArchive;
     u32 fileSize = file->decompressedarchiveSize;
-    char * trackSha = SHA1::GetFileSha1(buffer,fileSize);
+    u8* output = SHA1::GetFileSha1(buffer,fileSize);
 
-    Cosmos::System::GetStaticInstance()->SetTrackHash(trackSha);
+    char stringOutput[0x29];
+    for(int i = 0; i < 0x14; i++)
+    {
+        u8 n1 = output[i] >> 4;
+        u8 n2 = output[i] & 0x0F;
+        stringOutput[i*2] = n1 < 0xA ? '0' + n1 : 'a' + n1 - 0xA;
+        stringOutput[i*2+1] = n2 < 0xA ? '0' + n2 : 'a' + n2 - 0xA;
+    }
+    stringOutput[0x28] = '\0';
 
-    snprintf(finalLink, 0x80, "https://ct.wiimm.de/api/get-start-image?sha1=%s", trackSha);
+    Cosmos::System::GetStaticInstance()->SetTrackHash(output);
+
+    snprintf(finalLink, 0x80, "https://ct.wiimm.de/api/get-start-image?sha1=%s", stringOutput);
     CosmosLog("Setting image to: %s\n",finalLink);
     if(manager != nullptr)
     {

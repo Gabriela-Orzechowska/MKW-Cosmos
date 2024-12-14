@@ -18,6 +18,8 @@
 #ifndef _COSMOS_GHOST_MANAGER_
 #define _COSMOS_GHOST_MANAGER_
 
+#include "Race/Kart/KartMovement.hpp"
+#include "types.hpp"
 #include <kamek.hpp>
 #include <main.hpp>
 #include <game/UI/Ctrl/UIControl.hpp>
@@ -30,6 +32,7 @@
 #include <Debug/IOSDolphin.hpp>
 #include <Ghost/AntiCheat.hpp>
 #include <core/rvl/DWC/GHTTP.hpp>
+#include "Item/ItemPlayer.hpp"
 
 // Insprired by SIP implementation, should rewrite it to avoid issues, one of the first things I added
 
@@ -64,6 +67,31 @@ namespace Cosmos
             bool isActive;
         };
 #pragma(pop)
+
+#pragma pack(push, 1)
+        struct AuroraMetadata {
+#define METADATA_MAGIC 0x41524D44
+            enum {
+                BITFIELD_ULTRA = (1 << 0),
+                BITFIELD_SHROOM = (1 << 1),
+                BITFIELD_200 = (1 << 2),
+            };
+
+            u32 header;
+            u32 version;
+            u32 sha1[5];
+            u32 bitfield;
+            u32 shrooms;
+            u32 crc;
+        };
+#pragma pack(pop)
+
+        // HelperStruct
+        struct AuroraRKG {
+            RKG rkg;
+            AuroraMetadata metadata;
+        };
+
         class GhostLeaderboardFile
         {
         public:
@@ -115,7 +143,16 @@ namespace Cosmos
             }
             bool LoadGhost(RKG *rkg, u32 index);
             void LoadGhostReplay(RKG *rkg, bool isGhostRace);
-            void VerifyTime();
+
+            bool IsFinished() { return this->isFinished; }
+            void MarkFinished() { this->isFinished = true; }
+
+            //Aurora
+            void ResetMetadata();
+            void SetSHA1(u32* sha1) { memcpy(&this->metadata.sha1, sha1, 20); }
+
+            void FillMetadata();
+            void AddShroom(ItemPlayer* movement);
 
             static void CreateAndSaveFiles(void *holder);
             static char folderPath[IPCMAXPATH];
@@ -127,6 +164,7 @@ namespace Cosmos
             TimeEntry entry;
             u32 gameSceneFrames;
             bool wereGhostsDisabled;
+            bool isFinished;
             u32 currentFileSize;
 
         private:
@@ -135,6 +173,11 @@ namespace Cosmos
             u32 courseId;
             u32 rkgCount;
             u64 ttStartTime;
+
+            // AURORA
+            u8 shroomsUsed;
+            bool isAuroraGhost;
+            AuroraMetadata metadata __attribute__((aligned(0x20)));
         };
 
     }

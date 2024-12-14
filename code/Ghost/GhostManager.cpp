@@ -15,7 +15,14 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "UI/Page/Other/GhostManager.hpp"
 #include "Debug/IOSDolphin.hpp"
+#include "Item/ItemPlayer.hpp"
+#include "Race/Kart/KartMovement.hpp"
+#include "Race/RaceData.hpp"
+#include "core/rvl/os/OS.hpp"
+#include "hooks.hpp"
+#include "main.hpp"
 #include <Ghost/GhostManager.hpp>
 #include <SlotExpansion/CupManager.hpp>
 #include <game/UI/Page/RaceMenu/TTPause.hpp>
@@ -134,12 +141,33 @@ namespace Cosmos
             delete[] this->files;
             this->files = nullptr;
             RaceData::GetStaticInstance()->menusScenario.GetPlayer(1).playerType = PLAYER_NONE;
+            this->shroomsUsed = 0;
+            this->ResetMetadata();
+        }
+
+        void GhostManager::ResetMetadata() {
+            memset(&this->metadata, 0, sizeof(AuroraMetadata));
+            this->metadata.header = METADATA_MAGIC;
+            this->metadata.version = 1;
         }
 
         bool GhostManager::LoadGhost(RKG *rkg, u32 index)
         {
+            u8 buffer[sizeof(RKG) + sizeof(AuroraMetadata)];
             rkg->ClearBuffer();
-            this->folderManager->ReadFile(rkg, index, CosmosFile::FILE_MODE_READ);
+            s32 ret = this->folderManager->ReadFile(buffer, index, CosmosFile::FILE_MODE_READ);
+
+            AuroraMetadata* meta = (AuroraMetadata*)((u32) buffer + ret - sizeof(AuroraMetadata));
+            if(meta->header != METADATA_MAGIC) {
+                this->isAuroraGhost = false;
+                memcpy(rkg, buffer, ret);
+            }
+            else {
+                this->isAuroraGhost = true;
+                //memcpy(&this->metadata, meta, sizeof(AuroraMetadata));
+                memcpy(rkg, buffer, ret - sizeof(AuroraMetadata));
+            }
+
             return rkg->CheckValidity();
         }
 
@@ -177,19 +205,42 @@ namespace Cosmos
             return ret;
         }
 
+        void GhostManager::FillMetadata() {
+            this->SetSHA1((u32*)Cosmos::System::GetStaticInstance()->GetTrackHash());
+            if(Cosmos::System::GetStaticInstance()->GetTTMode() == COSMOS_TT_200cc)
+                this->metadata.bitfield |= AuroraMetadata::BITFIELD_200;
+            this->metadata.crc = OSCalcCRC32(&this->metadata, sizeof(AuroraMetadata) - 4);
+        }
+
+        void GhostManager::AddShroom(ItemPlayer* item) {
+            u32 curLap = RaceInfo::GetStaticInstance()->GetPlayer(0)->currentLap;
+            if(this->shroomsUsed > 2) {
+                return;
+            }
+            this->metadata.bitfield |= AuroraMetadata::BITFIELD_SHROOM;
+            this->metadata.shrooms |= (curLap << (4 * this->shroomsUsed++));
+        };
+
         void GhostManager::CreateAndSaveFiles(void *holder)
         {
             char path[IPCMAXPATH];
             GhostManager *manager = (GhostManager *)holder;
             RKG *rkg = &manager->rkg;
-            snprintf(path, IPCMAXPATH, "%s/%05d-%01dm%02ds%03d.rkg", manager->folderManager->GetName(), OSGetTime(), rkg->header.minutes, rkg->header.seconds, rkg->header.milliseconds);
+
+            snprintf(path, IPCMAXPATH, "%s/%05d-%01dm%02ds%03d.rkg", manager->folderManager->GetName(), (u16) OSGetTick(), 
+                    rkg->header.minutes, rkg->header.seconds, rkg->header.milliseconds);
             CosmosFile::FileManager *fileManager = CosmosFile::FileManager::GetStaticInstance();
             fileManager->CreateOpen(path, CosmosFile::FILE_MODE_WRITE);
-            u32 size = sizeof(RKG);
+            u32 size = sizeof(RKG) + sizeof(AuroraMetadata);
             if (rkg->header.compressed)
                 size = ((CompressedRKG *)rkg)->dataLength + sizeof(RKGHeader) + 0x4 + 0x4;
             manager->currentFileSize = size;
+
             fileManager->Overwrite(size, rkg);
+            fileManager->Close();
+
+            fileManager->CreateOpen(path, CosmosFile::FILE_MODE_WRITE);
+            fileManager->Write(sizeof(AuroraMetadata), &manager->metadata);
             fileManager->Close();
 
 
@@ -202,29 +253,6 @@ namespace Cosmos
             MenuData::GetStaticInstance()->GetCurrentContext()->isNewTime = true;
         }
         static CosmosDebug::DebugMessage ghVerifyMessage(false);
-        void GhostManager::VerifyTime()
-        {
-#ifdef COSMOS_ANTI_CHEAT
-            if(!AntiCheat::GetStaticInstance()->IsRunValid()) return;
-
-            AntiCheat::GetStaticInstance()->Update(RaceInfo::GetStaticInstance()->timer);
-
-            if (!AntiCheat::GetStaticInstance()->IsRunValid())
-            {
-                Pages::RaceHUD *page = MenuData::GetStaticInstance()->curScene->Get<Pages::RaceHUD>(TIME_TRIAL_INTERFACE);
-                if (page)
-                {
-                    page->ghostMessage->isHidden = false;
-                    page->ghostMessage->SetMsgId(0x2802);
-                }
-                s32 delta = AntiCheat::GetStaticInstance()->GetTimeDelta();
-                char msg[0x40];
-                snprintf(msg, 0x40, "Delta:%dms", delta);
-                ghVerifyMessage.SetMessage(msg);
-                ghVerifyMessage.DisplayForX(120);
-            }
-#endif
-        }
         GhostLeaderboardManager::GhostLeaderboardManager()
         {
             memset(&this->file, 0, sizeof(GhostLeaderboardManager));
@@ -352,16 +380,6 @@ namespace Cosmos
         }
 
 
-        s32 PlayCorrectMusic(LicenseManager &license, Timer &timer, u32 courseId)
-        {
-#ifdef COSMOS_ANTI_CHEAT
-
-            AntiCheat::GetStaticInstance()->CheckValidness();
-            AntiCheat::GetStaticInstance()->MarkFinished();
-#endif
-            return GhostManager::GetStaticInstance()->GetLeaderboard().GetLeaderboardPosition(timer);
-        }
-        kmCall(0x80856fec, PlayCorrectMusic);
 
         TimeEntry *GetTimeEntry(u32 param_1, u32 index)
         {
@@ -520,7 +538,8 @@ namespace Cosmos
                 s32 leaderboardPosition = -1;
 
 #ifdef COSMOS_ANTI_CHEAT
-                if (AntiCheat::GetStaticInstance()->IsRunValid() || Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_GHOST_SAVING) == Cosmos::Data::DISABLED)
+                if (AntiCheat::GetStaticInstance()->IsRunValid() &&
+                        !manager->wereGhostsDisabled)
 #endif
                     leaderboardPosition = manager->GetLeaderboard().GetLeaderboardPosition(splitsPage->timers[0]);
 
@@ -558,6 +577,7 @@ namespace Cosmos
                     data.Fill(0);
                     buffer.ClearBuffer();
 
+                    manager->FillMetadata();
                     RKG *rkg = &manager->rkg;
 
                     if (data.CreateRKG(&buffer) && buffer.CompressTo(rkg))
@@ -571,5 +591,12 @@ namespace Cosmos
             }
         }
         kmWritePointer(0x808DA614, PatchBeforeInAnim);
+
+        KartMovement* OnShroomActivate(ItemPlayer* item) {
+            if(item->id == 0)
+                GhostManager::GetStaticInstance()->AddShroom(item);
+            return item->kartPointers->kartMovement;
+        };
+        kmCall(0x80798660, OnShroomActivate);
     }
 }

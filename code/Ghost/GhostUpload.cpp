@@ -104,7 +104,7 @@ namespace Aurora {
                 Cosmos::Ghost::GhostManager* manager = Cosmos::Ghost::GhostManager::GetStaticInstance();
 
                 GhostLeaderboardAPI::GetStaticInstance()->SetDelay(80);
-                GhostLeaderboardAPI::GetStaticInstance()->SetData(&manager->rkg, manager->currentFileSize, Cosmos::System::GetStaticInstance()->GetTrackHash());
+                //GhostLeaderboardAPI::GetStaticInstance()->SetData(&manager->rkg, manager->currentFileSize, Cosmos::System::GetStaticInstance()->GetTrackHash());
                 GhostLeaderboardAPI::GetStaticInstance()->thread->Request(&APIUploadRequest, (void*)GhostLeaderboardAPI::GetStaticInstance(), NULL);
                 this->status = BUSY;
             }

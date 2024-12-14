@@ -58,8 +58,8 @@ namespace Cosmos
         inline void SetHAW(bool setting) { this->haw = setting; }
         inline void SetRaceCount(u8 raceCount) { this->raceCount = raceCount; }
 
-        char* GetTrackHash() { return currentTrackHash; }
-        void SetTrackHash(char* input) { memcpy(currentTrackHash, input, 0x29); }
+        u8* GetTrackHash() { return currentTrackHash; }
+        void SetTrackHash(u8* input) { memcpy(currentTrackHash, input, 20); }
 
         static void Shutdown();
         static void Shutdown(bool force);
@@ -76,7 +76,7 @@ namespace Cosmos
         static asm int PatchRaceCount();
 
     private:
-        char currentTrackHash[0x29];
+        u8 currentTrackHash[20];
         static System * sInstance;
         TT_MODE currentTTMode;
         bool haw;

@@ -16,6 +16,7 @@
  */
 
 #include "FileManager/FileManager.hpp"
+#include "core/rvl/ipc/ipc.hpp"
 #include <FileManager/FolderManager.hpp>
 #include <main.hpp>
 
@@ -85,12 +86,22 @@ namespace CosmosFile
         return;
     }
 
+    s32 FolderManager::GetFileSize(u32 index){
+        char path[IPCMAXPATH];
+        this->GetFilePath(path, index);
+        this->curFile->Open(path, IOS::MODE_READ);
+        s32 ret = this->curFile->GetFileSize();
+        this->curFile->Close();
+        return ret;
+    }
+
     s32 FolderManager::ReadFile(void * buffer, u32 index, u32 mode)
     {
         char path[IPCMAXPATH];
         this->GetFilePath(path, index);
         this->curFile->Open(path, mode);
         s32 ret = this->curFile->Read(buffer, this->curFile->GetFileSize());
+        this->curFile->Close();
         return ret;
     }
 
