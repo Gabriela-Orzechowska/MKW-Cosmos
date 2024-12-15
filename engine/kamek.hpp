@@ -258,7 +258,7 @@ public:
         for (RaceFrameHook * p = sHooks; p; p = p->mNext) p->mFunc();
     }
 };
-typedef int (RepFunc)();
+typedef int (RepFunc)(...);
 #define REPLACED(func, type, ...) ((type (*)(...))&func.instruction1)(__VA_ARGS__);
 #define REPLACE(name, addr, func) static ReplaceFunction rp##name(addr, (RepFunc *) &func);
 
@@ -332,6 +332,7 @@ public:
 
         OSReport("[Cosmos] Cosmos %s Loaded (0x%s)\n", __COSMOS_VERSION__, __COMPILER_VERSION__);
         OSReport("[Cosmos Module] FatFs R0.15\n");
+        OSReport("[Cosmos Module] 7-zip 24.05\n");
 
         ReplaceFunction::exec();
 

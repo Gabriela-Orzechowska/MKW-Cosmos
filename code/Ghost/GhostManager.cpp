@@ -71,9 +71,6 @@ namespace Cosmos
                 GhostManager::sInstance = holder;
             }
             holder->Reset();
-#ifdef COSMOS_ANTI_CHEAT
-            AntiCheat::CreateStaticInstance();
-#endif
             return holder;
         }
 
@@ -82,9 +79,6 @@ namespace Cosmos
             if (GhostManager::sInstance != nullptr)
                 delete (GhostManager::sInstance);
             GhostManager::sInstance = nullptr;
-#ifdef COSMOS_ANTI_CHEAT
-            AntiCheat::DestroyStaticInstance();
-#endif
         }
 
         const char *ttFolders[2] = {
@@ -323,13 +317,6 @@ namespace Cosmos
 
         s32 GhostLeaderboardManager::GetLeaderboardPosition(const Timer &timer) const
         {
-#ifdef COSMOS_ANTI_CHEAT
-
-            if (!AntiCheat::GetStaticInstance()->IsRunValid())
-                return -1;
-
-#endif
-
             s32 position = -1;
             Timer t_timer;
             for (int i = ENTRY_5TH; i >= 0; i--)
@@ -537,11 +524,7 @@ namespace Cosmos
                 entry.timer = splitsPage->timers[0];
                 s32 leaderboardPosition = -1;
 
-#ifdef COSMOS_ANTI_CHEAT
-                if (AntiCheat::GetStaticInstance()->IsRunValid() &&
-                        !manager->wereGhostsDisabled)
-#endif
-                    leaderboardPosition = manager->GetLeaderboard().GetLeaderboardPosition(splitsPage->timers[0]);
+                leaderboardPosition = manager->GetLeaderboard().GetLeaderboardPosition(splitsPage->timers[0]);
 
                 menu98->leaderboardPosition = leaderboardPosition;
                 splitsPage->ctrlRaceCount.isHidden = true;
@@ -563,11 +546,7 @@ namespace Cosmos
                     }
                     splitsPage->savedGhostMessage.SetMsgId(0x45b, nullptr);
                 }
-#ifdef COSMOS_ANTI_CHEAT
-                if (!AntiCheat::GetStaticInstance()->IsRunValid())
-                    save = false;
-#endif
-                if(manager->wereGhostsDisabled)
+                if (leaderboardPosition == -2)
                     save = false;
 
                 if (save)

@@ -19,6 +19,7 @@
 #include "Ghost/AntiCheat.hpp"
 #include "Ghost/GhostManager.hpp"
 #include "System/Identifiers.hpp"
+#include "UI/MenuData/MenuData.hpp"
 #include "game/System/identifiers.hpp"
 #include <UI/Race/RaceMenu.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>
@@ -59,6 +60,7 @@ namespace CosmosUI {
 
         if(isTimeTrialMode())
         {
+            MenuId curMenu = MenuData::GetStaticInstance()->GetCurrentScene()->menuId;
             menu.nextPage = PAGE_NONE;
             switch(button->buttonId)
             {
@@ -75,8 +77,10 @@ namespace CosmosUI {
                     lastTTButton = button->buttonId;
                     break;
                 case Pages::RaceMenu::ButtonConfirmContinue:
-                    if(Cosmos::Ghost::GhostManager::GetStaticInstance()->IsFinished())
-                        menu.nextPage = LEADERBOARD_AFTER_TT;
+                    if (curMenu >= WATCH_GHOST_FROM_CHANNEL && curMenu <= WATCH_GHOST_FROM_MENU)
+                        menu.nextPage = GHOST_REPLAY_PAUSE_MENU;
+                    else if(Cosmos::Ghost::GhostManager::GetStaticInstance()->IsFinished())
+                        menu.nextPage = TIME_TRIAL_END_PAGE_RETRY_CHANGE_COURSE_ETC;
                     else
                         menu.nextPage = TIME_TRIAL_PAUSE_MENU;
                     menu.EndStateAnimate(0.0f, 1);
