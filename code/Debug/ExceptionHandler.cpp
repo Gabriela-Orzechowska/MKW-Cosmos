@@ -193,14 +193,88 @@ namespace CosmosDebug
         Exception_Printf_("**** AURORA %s ****\n", error < 0x11 ? "EXCEPTION HANDLER" : "USER HALT");
         Exception_Printf_("Platform: %s (%s)\nCosmos %s (%s, %s %s)\n", CosmosDebug::GetPlatformName(), GetRegionName(), __COSMOS_VERSION__, __COMPILER_VERSION__, __DATE__, __TIME__);
         Exception_Printf_("Framebuffer: %08XH\n", (u32)exceptionData.framebuffer);
-        Exception_Printf_(
-                "*** Dearest Player\n" 
-                "*** I hope it finds you well. We seem to have\n"
-                "*** found ourselves a crash in the game. Please\n"
-                "*** consider taking a screenshot and sending it \n"
-                "*** to #aurora-bug-reports\n");
-        Exception_Printf_("***\n");
-        Exception_Printf_("*** Sincerely, @VolcanoPiece1\n");
+
+        Random random(OSGetTick() >> 5);
+        u32 message = random.NextLimited(13);
+        switch(message){
+            case 0:
+                Exception_Printf_(
+                        "*** Dearest Player\n" 
+                        "*** I hope it finds you well. We seem to have\n"
+                        "*** found ourselves a crash in the game. Please\n"
+                        "*** consider taking a screenshot and sending it \n"
+                        "*** to #aurora-bug-reports\n");
+                Exception_Printf_("***\n");
+                Exception_Printf_("*** Sincerely, @VolcanoPiece1\n");
+                break;
+            case 1:
+                Exception_Printf_(
+                        "*** You keep pretending that everyone is using\n" 
+                        "*** dumb software and that it's stupid no-one\n"
+                        "*** is using this great thing you have\n"
+                        "*** contributed to \n");
+                break;
+            case 2:
+                Exception_Printf_(
+                        "*** Don't hate me just because I'm more\n"
+                        "*** passionate about game design than you\n");  
+                break;
+            case 3:
+                Exception_Printf_(
+                        "*** If they don't use Blender have\n"
+                        "*** their human rights surrendered\n");  
+                break;
+            case 4:
+                Exception_Printf_(
+                        "*** CTGP's 24p will never be released!!\n");
+                break;
+            case 5:
+                Exception_Printf_(
+                        "*** Toadette on Magikruiser is very strong\n"
+                        "*** in certain CTs. Be careful not to let that\n"
+                        "*** Happen.\n"
+                        "*** That's a warning to CT creators\n");
+                break;
+            case 6:
+                Exception_Printf_(
+                        "*** Time invalidated. The game crashed.\n");
+                break;
+            case 7:
+                Exception_Printf_(
+                        "*** the real easter egg is hidden somewhere\n"
+                        "*** else. go find it and remove mushroom\n"
+                        "*** peaks from ctgp.\n");
+                break;
+            case 8:
+                Exception_Printf_(
+                        "*** Live, Laugh, LUMP\n");
+                break;
+            case 9:
+                Exception_Printf_(
+                        "*** Tips for players:\n"
+                        "*** Pay attention to the minimap if\n"
+                        "*** arrows aren't present on the track\n");
+                break;
+            case 10:
+                Exception_Printf_(
+                        "*** With high probability, this remake has been\n"
+                        "*** taken in consideration by Nintendo as a signi-\n"
+                        "*** ficant source of inspiration for Mario Kart\n"
+                        "*** Tour's remake of GBA Boo Lake\n");
+                break;
+            case 11:
+                Exception_Printf_(
+                        "*** - Why was SSS removed? Wait. Xblue. Nvm.\n"
+                        "*** - lol. wait what the fuck is SSS.\n"
+                        "*** - Super sky courtyard\n");
+                break;
+            case 12:
+                Exception_Printf_(
+                        "*** I love going on discord and complaining\n"
+                        "*** about custom tracks I've never played!\n");
+                break;
+        }
+
         Exception_Printf_("--------------------------------\n");
 
         if (exceptionData.displayInfo & EXCEPTION_INFO_MAIN)
