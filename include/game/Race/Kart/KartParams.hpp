@@ -24,12 +24,21 @@ public:
   u8 unknown_0x1[0x4-0x1];
   u32 mtCount;
   u32 offroadFrames;
-  u32 unknown_0xC;
+  u32 wallHits;
   u32 objectCollisionCount;
   u32 oobCount;
   u16 unknown_0x18;
   u8 unknown_0x1a[2];
 }; //Total size 0x1cf
+
+class RaceStats {
+public:
+    float distance;
+    float distanceInFirst;
+    u32 hitOtherCount;
+    u32 gotHitCount;
+    u32 trickCount;
+};
 
 class KartValues {
 public:
@@ -52,7 +61,7 @@ public:
   float wheelCountRecip;
   float wheelCountPlusOneRecip; //1.0f / (wheelCount + 1.0f)
   GpStats *gpStats;
-  u8 unknown_0x38[0x3C-0x38];
+  RaceStats* raceStats;
 }; //Total size 0x3c
 
 class DriverParams{

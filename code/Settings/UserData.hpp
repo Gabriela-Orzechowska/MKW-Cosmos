@@ -18,6 +18,7 @@
 #ifndef _COSMOS_USER_DATA_
 #define _COSMOS_USER_DATA_
 
+#include "Race/raceinfo.hpp"
 #include "UI/BMG/BMG.hpp"
 #include "types.hpp"
 #include <kamek.hpp>
@@ -485,6 +486,7 @@ namespace Cosmos
             u32 version;
             u32 vr[4];
             u32 br[4];
+            u32 recentScore[4];
         };
 #pragma pack(pop)
 
@@ -538,6 +540,8 @@ namespace Cosmos
             u32 GetGPRank(u32 cupSlot, EngineClass engine, u32 license) {
                 return (this->trophies->cups[4 * license + cupSlot].gpData[engine]) & 0x3f;
             }
+
+            void UpdateOnlineScore(RaceinfoPlayer& player);
 
             inline bool IsMegaCloudEnabled() {
                 return (megaCloudOffline && RaceData::GetStaticInstance()->racesScenario.settings.gamemode == MODE_VS_RACE) ||

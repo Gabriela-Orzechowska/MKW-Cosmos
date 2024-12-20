@@ -15,6 +15,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Input/inputdata.hpp"
+#include "Race/Kart/KartParams.hpp"
+#include "Race/RaceData.hpp"
+#include "Race/RaceInfo.hpp"
+#include "System/Identifiers.hpp"
+#include "hooks.hpp"
 #include "kamek.hpp"
 #include <Settings/UserData.hpp>
 #include <game/System/SaveDataManager.hpp>
@@ -22,6 +28,7 @@
 #include <game/Network/RKNetUser.hpp>
 #include <UI/Language/LanguageManager.hpp>
 #include <SlotExpansion/CupManager.hpp>
+#include <Race/Kart/KartHolder.hpp>
 
 SettingsUpdateHook *SettingsUpdateHook::sHooks = NULL;
 SettingsValueUpdateHook *SettingsValueUpdateHook::sHooks = NULL;
@@ -107,6 +114,7 @@ namespace Cosmos
                 for(int i = 0; i < 4; i++){
                     otherFile->vr[i] = 5000;
                     otherFile->br[i] = 5000;
+                    otherFile->recentScore[i] = 400;
                 }
             }
             else {
@@ -148,6 +156,61 @@ namespace Cosmos
             holder->Init(Cosmos::SaveFile, "ARSE", SettingsVersion);
             SettingsHolder::sInstance = holder;
         }
+
+        void SettingsHolder::UpdateOnlineScore(RaceinfoPlayer& player){
+            u32 license = this->currentLicense;
+
+            u32 controllerId = RaceData::GetStaticInstance()->racesScenario.GetPlayer(player.id).realControllerId;
+
+            if(controllerId < 0) {
+                CosmosError("Attempted to get non local player score!\n");
+                return;
+            }
+
+            Kart* kart = KartHolder::GetStaticInstance()->GetKart(player.id);
+            GpStats* stats = kart->base.pointers->values->gpStats;
+
+            u32 lowest = RaceInfo::GetStaticInstance()->GetPlayer(
+                    RaceInfo::GetStaticInstance()->playerIdInEachPosition[0])->frameCounter;
+            lowest = lowest * 3 / 2;
+
+            // No KRT, using computed value from leader
+            u32 score = (1000 * (lowest - player.frameCounter) / lowest) + (150 * player.framesInFirst / lowest);
+
+            // Bonuses
+            if(stats->startBoostSuccessful) score += 25;
+            score += stats->mtCount * 2;
+            score += kart->base.pointers->values->raceStats->hitOtherCount * 5;
+
+            Controller* controller = InputData::GetStaticInstance()->GetController(controllerId).controller;
+
+            if(controller->GetType() == CONTROLLER_WII_WHEEL) score += 10;
+            if(controller->isDriftAuto) score += 25;
+
+            // Penalties
+            score -= stats->offroadFrames / 3;
+            score -= stats->wallHits * 20;
+            score -= stats->objectCollisionCount * 30;
+            score -= stats->oobCount * 70;
+
+            if(score < -50) score = -50;
+            else if(score > 250) score = 250;
+
+            const u32 numVals = 6;
+            score *= 4;
+
+            this->other->recentScore[license] = ((numVals - 1) * this->other->recentScore[license] + score) / numVals;
+        };
+
+        void UpdateOnlineScoreAfterRace(){
+            for(int i = 0; i < RaceData::GetStaticInstance()->racesScenario.GetPlayerCount(); i++){
+                if(RaceData::GetStaticInstance()->racesScenario.GetPlayer(i).playerType == PLAYER_REAL_LOCAL){
+                    SettingsHolder::GetStaticInstance()->UpdateOnlineScore(*RaceInfo::GetStaticInstance()->GetPlayer(i));
+                    return;
+                }
+            }
+        }
+        kmBranch(0x8052ed14, UpdateOnlineScoreAfterRace);
 
         BootHook InitSettings(SettingsHolder::Create, LOW);
 
