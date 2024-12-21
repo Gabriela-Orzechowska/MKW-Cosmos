@@ -77,6 +77,16 @@ namespace Cosmos
         if(Cosmos::isGroupSlot(this->lastSelectedCourse)) this->winningCourse = this->GetRandomVariantTrack(this->lastSelectedCourse);
     }
 
+    void CupManager::GenerateGPArray(u32 cupId){
+        for(int i = 0; i < 4; i++){
+            u32 track = this->currentLayoutArray[cupId * 4 + i];
+            if(Cosmos::isGroupSlot(track)) {
+                track = GetRandomVariantTrack(track);
+            }
+            this->gpTrackArray[i] = track;
+        }
+    }
+
     void CupManager::SetTrackLayout(u32 layout, u32 trackList)
     {
         trackList = trackList == TRACKLIST_NONE ? currentTrackList : trackList;

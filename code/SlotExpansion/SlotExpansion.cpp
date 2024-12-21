@@ -90,18 +90,7 @@ RacedataScenario* GPCorrectNextTrack(RacedataScenario * scenario)
 {
     Cosmos::CupManager * manager = Cosmos::CupManager::GetStaticInstance();
 
-    u32 oldWinning = manager->winningCourse;
-    manager->winningCourse = manager->currentLayoutArray[manager->lastSelectedCup * 4 + scenario->settings.raceNumber]; 
-    if(Cosmos::isGroupSlot(manager->winningCourse)) {
-        Cosmos::VariantDef* def = manager->GetVariantStruct(manager->winningCourse);
-        manager->winningCourse = manager->GetRandomVariantTrack(manager->winningCourse);
-        for(int i = 0; i < def->count; i++){
-            if(oldWinning = def->slot[i]) {
-                manager->winningCourse = oldWinning;
-                break;
-            }
-        }
-    }
+    manager->SetWinningTrack(manager->GetGPArray()[scenario->settings.raceNumber]);
     scenario->settings.courseId = (CourseId) manager->GetCurrentTrackSlot();
     return scenario;
 }
@@ -223,7 +212,6 @@ static void SaveGP(){
     if(trophy < oldTrophy) shouldUpdate = true;
 
     if(shouldUpdate) 
-        holder->SetGPResults(cupSlot, rank, trophy, (EngineClass) engine);
         holder->SetGPResults(cupSlot, rank, trophy, engine);
     holder->LicenseClassUpdate();
 }

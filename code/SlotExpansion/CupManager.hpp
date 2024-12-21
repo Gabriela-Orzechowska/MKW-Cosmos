@@ -164,6 +164,8 @@ namespace Cosmos
         }
         
         void SetTrackLayout(u32 sorting, u32 trackList = TRACKLIST_NONE);
+        void GenerateGPArray(u32 cupId);
+        u32* GetGPArray() { return gpTrackArray; }
         
         bool IsInBlocking(int track) const;
 
@@ -183,6 +185,8 @@ namespace Cosmos
         u32 trackBlocking[TRACK_BLOCK_COUNT];
         u32 currentTrackBlockIndex;
         TrackList currentTrackList;
+
+        u32 gpTrackArray[4];
         
     };
 } // namespace Cosmos
