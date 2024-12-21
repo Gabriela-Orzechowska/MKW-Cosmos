@@ -18,11 +18,17 @@
 #include "Race/RaceData.hpp"
 #include "System/Camera.hpp"
 #include "System/identifiers.hpp"
+#include "UI/Ctrl/PushButton.hpp"
+#include "UI/Layout/ControlLoader.hpp"
 #include "UI/MenuData/MenuData.hpp"
 #include "UI/Page/Menu/VSModeSelect.hpp"
 #include "UI/Settings/NewSettingsPage.hpp"
 #include "core/gamespy/gamespy.hpp"
+#include "core/nw4r/lyt/Layout.hpp"
+#include "core/nw4r/lyt/Picture.hpp"
+#include "core/nw4r/lyt/TextBox.hpp"
 #include "hooks.hpp"
+#include "main.hpp"
 #include <kamek.hpp>
 #include <Settings/UserData.hpp>
 #include <game/Scene/BaseScene.hpp>
@@ -33,6 +39,8 @@
 #include <game/Network/RKNetController.hpp>
 #include <core/rvl/DWC/DWC.hpp>
 #include <core/egg/3D/Bloom.hpp>
+#include <UI/MiscUI.hpp>
+#include <SlotExpansion/CupManager.hpp>
 
 using namespace Cosmos::Data;
 
@@ -87,47 +95,6 @@ void SetDWCLogs(){
 static SettingsUpdateHook suhDWCLogs(SetDWCLogs);
 kmWrite32(0x80658be8, 0x60000000);
 
-extern "C" {
-    u64 DWC_CreateFriendKey(void * val);
-}
-//805eae94
-void SetupLicenseButton(u32 unknown, LicenseButton& button, int licenseIndex, MiiGroup* group, int buttonIndex){
-    button.SetMiiPane("mii", group, buttonIndex, 0);
-    RKPD& curLicense = SaveDataManager::GetStaticInstance()->rksysRaw->licenses[licenseIndex];
-    button.SetTextBoxMsg("new", 0x1781, nullptr);
-    if(curLicense.magic.raw != 0x524b5044){
-        button.SetPaneVisible("new", true);
-        button.SetPaneVisible("mii", false);
-
-        button.ResetTextBoxMsg("player");
-    }
-    else {
-        button.SetPaneVisible("new", false);
-        button.SetPaneVisible("mii", true);
-
-        TextInfo miiInfo;
-        miiInfo.miis[0] = group->GetMii(licenseIndex);
-        button.SetTextBoxMsg("player", 0x251d, &miiInfo);
-
-        TextInfo friendCodeInfo;
-        LicenseManager& currentLicense = SaveDataManager::GetStaticInstance()->GetLicense(licenseIndex);
-        u64 val = DWC_CreateFriendKey(&currentLicense.pid);
-        if((val >> 32) != 0){
-            friendCodeInfo.intToPass[2] = val % 10000;
-            friendCodeInfo.intToPass[1] = (val / 10000) % 10000;
-            friendCodeInfo.intToPass[0] = (val / 100000000) % 10000;
-            button.SetTextBoxMsg("l_number", 0x83e, &friendCodeInfo);
-        }
-        else {
-            button.SetTextBoxMsg("l_number", 0, nullptr);
-        }
-    }
-}
-
-void PatchLicenseButtonFile(PushButton& button, const char* folder, const char* filename, const char* variant, u32 localPlayerBitfield, u32 r8, bool inaccessible){
-    button.Load(folder, "CosmosLicenseSelect", variant, localPlayerBitfield, r8, inaccessible);
-}
-kmBranch(0x805eae94, SetupLicenseButton);
 
 static CtrlRace2DMap* mainMinimap = nullptr;
 void SaveMinimap(CtrlRace2DMap& map, const char* name){

@@ -1342,6 +1342,7 @@ OnInit__Q25Pages2VRFv = 0x8064a58c
 OnActivate__Q25Pages2VRFv = 0x8064a84c 
 AfterControlUpdate__Q25Pages2VRFv = 0x8064aac4
 GetRuntimeTypeInfo__Q25Pages2VRCFv = 0x8064aea8
+FillVRControl__Q25Pages2VRFUiUiUiUcb = 0x8064ab08
 
 #GhostManagerPage
 __ct__Q25Pages12GhostManagerFv = 0x805e0c38 
@@ -1538,6 +1539,7 @@ Append__Q25RKNet12PacketHolder<v>FPCvUi = 0x8065a38c
 sInstance__Q25RKNet13SELECTHandler = 0x809c2100
 #RKNETUserHandler
 BuildUserPacket__16RKNetUSERHandlerFv = 0x8066300c
+sInstance__16RKNetUSERHandler = 0x809c2108
 
 #Objects
 Update__12ObjectHolderFv = 0x8082a8f4

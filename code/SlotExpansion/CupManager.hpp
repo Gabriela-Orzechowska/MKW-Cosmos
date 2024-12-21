@@ -108,6 +108,11 @@ namespace Cosmos
         CupManager();
 
         int GetCupCount() const { return this->currentLayout->cupCount; }
+
+        int GetMaxCupCount() const { 
+            return ((LayoutDef*)offsetFrom(this->cupConfig, this->cupConfig->offToLayouts[0]))->cupCount;
+        }
+
         bool HasIconOffset() const { return this->currentLayout->cupOffset != -1U; }
         int GetIconOffset() const { return HasIconOffset() ? this->currentLayout->cupOffset : 0; } 
         int GetTrackCount() const { return this->currentLayout->cupCount * 4; } //TODO Make it a separate field

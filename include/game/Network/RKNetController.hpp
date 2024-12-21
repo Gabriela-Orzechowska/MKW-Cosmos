@@ -161,6 +161,15 @@ public:
     void UpdateAidsBelongingToPlayerIds(); //80659bc0
     void UpdateStatusDatas(); //8065a0b4
     void UpdateSubsAndVr(); //80658de0
+                            //
+                            //
+    inline bool IsLocalAid(u32 aid){
+        return (subs[currentSub].localAid == aid);
+    }
+
+    inline bool IsLocalHostAid() {
+        return (subs[currentSub].localAid == subs[currentSub].hostAid);
+    };
 
     inline RKNetControllerSub& GetCurrentSub() { return subs[currentSub]; }
 

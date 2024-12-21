@@ -62,6 +62,13 @@ fb0  =  You cannot access WiiLink\nWi-Fi Connection using this\nMii name. Please
  2804   = Ghost Saving disabled. Dolphin cheats enabled.
  2805   = Would you like to upload ghost to leaderboards?
  2806   = Aurora requires Dolphin 5.0-17856 or newer.\nPlease download it from the official site.\nReturning to Wii Menu...
+ 2807   = Grand Prix
+ 2808   = Online
+ 2809   = \u{F06D} \z{a02,1000000000}/\z{a02,1000010000}
+ 280A   = \z{a02,1000000000} VR
+ 280B   = ???
+ 280C   = 0/100 Completed GPs in 150cc+\nE/D Average Rank\n\n0/250 Completed online races\n400/500 Average Score
+
 
  2810   = Track Sorting: Normal
  2811   = Track Sorting: Alphabetical

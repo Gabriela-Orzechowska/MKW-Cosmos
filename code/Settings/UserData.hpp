@@ -456,6 +456,7 @@ namespace Cosmos
         } __attribute__((aligned(0x20)));
 
 #pragma pack(push,1)
+
         struct UserDataSettings {
             char sign[4];
             u32 version;
@@ -464,33 +465,61 @@ namespace Cosmos
                 u8 rawSettings[PAGE_COUNT * SETTINGS_PER_PAGE];
             } data[4];
         } __attribute__((aligned(0x20)));
-#pragma pack(pop)
 
-#pragma pack(push, 1)
         struct UserDataCup {
             u8 gpData[4];
         };
-#pragma pack(pop)
 
-#pragma pack(push,1)
         struct UserDataTrophies {
             char sign[4];
             u32 version;
             UserDataCup cups[1];
         };
-#pragma pack(pop)
 
-#pragma pack(push,1)
-        struct UserDataOther {
+        struct UserDataLicense {
+            enum UnlockFlags {
+                UNLOCK_GP_LICENSE_D = (1 << 0),
+                UNLOCK_GP_LICENSE_C = (1 << 1),
+                UNLOCK_GP_LICENSE_B = (1 << 2),
+                UNLOCK_GP_LICENSE_A = (1 << 3),
+                UNLOCK_GP_LICENSE_LEGEND = (1 << 4),
+
+                UNLOCK_ONLINE_LICENSE_D = (1 << 5),
+                UNLOCK_ONLINE_LICENSE_C = (1 << 6),
+                UNLOCK_ONLINE_LICENSE_B = (1 << 7),
+                UNLOCK_ONLINE_LICENSE_A = (1 << 8),
+                UNLOCK_ONLINE_LICENSE_LEGEND = (1 << 9),
+
+                UNLOCK_MASK_LICENSE = 0x1F,
+                
+                UNLOCK_OFFSET_GP_LICENSE = 0,
+                UNLOCK_OFFSET_ONLINE_LICENSE = 5,
+
+            };
+
+            inline u32 GetLicenseClass(u32 offset) {
+                u32 dat = (unlockFlags >> offset) & UNLOCK_MASK_LICENSE;
+                return 32 - __cntlzw(dat);
+            }
+
+            inline u32 GetHighestLicense() {
+                return Max(GetLicenseClass(UNLOCK_OFFSET_ONLINE_LICENSE), GetLicenseClass(UNLOCK_OFFSET_GP_LICENSE));
+            }
+
+            u32 vr;
+            u32 br;
+            u32 onlineScore;
+            u32 onlineRaces;
+            u32 unlockFlags;
+            u32 crc;
+        };
+
+        struct UserDataLicenses {
             char sign[4];
             u32 version;
-            u32 vr[4];
-            u32 br[4];
-            u32 recentScore[4];
+            UserDataLicense data[4];
         };
-#pragma pack(pop)
 
-#pragma pack(push,1)
         struct UserDataFile {
             char sign[4];
             u32 version;
@@ -499,6 +528,31 @@ namespace Cosmos
             u32 offsetToOthers;
         };
 #pragma pack(pop)
+
+#define USER_DATA_VERSION 13
+#define USER_DATA_SETTINGS_VERSION 13
+#define USER_DATA_TROPHY_VERSION 1
+#define USER_DATA_LICENSE_VERSION 2
+
+#define USER_DATA_MAGIC "ARUD"
+#define USER_DATA_SETTINGS_MAGIC "ARSD"
+#define USER_DATA_TROPHY_MAGIC "ARTD"
+#define USER_DATA_LICENSE_MAGIC "ARLD"
+
+        struct LicenseClassRequirements {
+            u32 gpCompletedCups;
+            u32 gpAverageRank;
+            u32 onlineCompletedRaces;
+            u32 onlineMinScore;
+        };
+
+        static LicenseClassRequirements globalClassRequirements[] = {
+            {1, 6, 350, 300},
+            {55, 5, 500, 400},
+            {75, 4, 750, 500},
+            {90, 3, 900, 550},
+            {100, 2, 1100, 600},
+        };
 
         class SettingsHolder
         {
@@ -517,31 +571,47 @@ namespace Cosmos
             void Save();
 
             u32 GetUserVR() const { return GetUserVR(currentLicense); }
-            u32 GetUserVR(u32 id) const { return this->other->vr[id]; }
+            u32 GetUserVR(u32 id) const { return this->licenses->data[id].vr; }
             u32 GetUserBR() const { return GetUserBR(currentLicense); }
-            u32 GetUserBR(u32 id) const { return this->other->br[id]; }
+            u32 GetUserBR(u32 id) const { return this->licenses->data[id].br; }
 
             void SetUserVR(u32 value) { SetUserVR(value, currentLicense); }
-            void SetUserVR(u32 value, u32 id) { this->other->vr[id] = value; }
+            void SetUserVR(u32 value, u32 id) { this->licenses->data[id].vr = value; }
             void SetUserBR(u32 value) { SetUserVR(value, currentLicense); }
-            void SetUserBR(u32 value, u32 id) { this->other->br[id] = value; }
+            void SetUserBR(u32 value, u32 id) { this->licenses->data[id].br = value; }
 
-            void SetGPResults(u32 cupSlot, u8 rank, u8 trophy, EngineClass engine) { return SetGPResults(cupSlot, rank, trophy, engine, currentLicense); }
-            void SetGPResults(u32 cupSlot, u8 rank, u8 trophy, EngineClass engine, u32 license) {
+            u32 GetMaxLicenseClass(u32 lic) {
+                return this->licenses->data[lic].GetHighestLicense();
+            }
+
+            void SetGPResults(u32 cupSlot, u8 rank, u8 trophy, u32 engine) { return SetGPResults(cupSlot, rank, trophy, engine, currentLicense); }
+            inline void SetGPResults(u32 cupSlot, u8 rank, u8 trophy, u32 engine, u32 license) {
                 this->trophies->cups[4* license +cupSlot].gpData[engine] = (rank & 0x3F) | ((trophy & 0x3) << 6);
             }
 
-            u32 GetGPTrophy(u32 cupSlot, EngineClass engine) { return GetGPTrophy(cupSlot, engine, currentLicense); }
-            u32 GetGPTrophy(u32 cupSlot, EngineClass engine, u32 license) {
+            inline bool IsGPCompleted(u32 cupSlot, u32 engine, u32 license) {
+                return ((this->trophies->cups[4 * license + cupSlot].gpData[engine] != 0xFF));
+            }
+
+            inline u32 GetGPTrophy(u32 cupSlot, u32 engine) { return GetGPTrophy(cupSlot, engine, currentLicense); }
+            inline u32 GetGPTrophy(u32 cupSlot, u32 engine, u32 license) {
                 return ((this->trophies->cups[4 * license + cupSlot].gpData[engine]) >> 6) & 0x3;
             }
 
-            u32 GetGPRank(u32 cupSlot, EngineClass engine) { return GetGPRank(cupSlot, engine, currentLicense); }
-            u32 GetGPRank(u32 cupSlot, EngineClass engine, u32 license) {
+            inline u32 GetGPRank(u32 cupSlot, u32 engine) { return GetGPRank(cupSlot, engine, currentLicense); }
+            inline u32 GetGPRank(u32 cupSlot, u32 engine, u32 license) {
                 return (this->trophies->cups[4 * license + cupSlot].gpData[engine]) & 0x3f;
             }
 
+            inline u32 GetOnlineClass() { return GetOnlineClass(currentLicense); }
+            inline u32 GetOnlineClass(u32 license) { 
+                return this->licenses->data[license].GetLicenseClass(UserDataLicense::UNLOCK_OFFSET_ONLINE_LICENSE);
+            }
+
             void UpdateOnlineScore(RaceinfoPlayer& player);
+
+            void LicenseClassUpdate() { LicenseClassUpdate(currentLicense); }
+            void LicenseClassUpdate(u32 license);
 
             inline bool IsMegaCloudEnabled() {
                 return (megaCloudOffline && RaceData::GetStaticInstance()->racesScenario.settings.gamemode == MODE_VS_RACE) ||
@@ -620,7 +690,7 @@ namespace Cosmos
             u32 fileSize;
             UserDataFile* file;
             UserDataSettings* settingsNew;
-            UserDataOther* other;
+            UserDataLicenses* licenses;
             UserDataTrophies* trophies;
             char filepath[IPCMAXPATH];
             CosmosFile::FileManager* currentManager;

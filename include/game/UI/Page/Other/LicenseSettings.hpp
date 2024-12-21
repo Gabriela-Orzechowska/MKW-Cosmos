@@ -43,6 +43,7 @@ public:
     void OnBackPress(u32 hudSlotId); //805ebcd0
     void OnNewLicenseApprove(Approve *validatePage, float delay); //805ebce8
     void OnNewLicenseDisapprove(Approve *validatePage, float delay); //805ebcd0
+    static void SetupLicenseButton(void* unk, LicenseControl& licenseControl, u8 curLicenseId, MiiGroup *miiGroup, u32 index); //805ec4e8
    
     PtmfHolder_2A<Page, void, LicenseButton*, u32> onLicenseButtonClickHandler; //0x44 805eb7a0
     PtmfHolder_2A<Page, void, PushButton*, u32> onOptionsButtonClickHandler; //0x58 805ebb44
@@ -77,7 +78,6 @@ class LicenseChangeMii : public Page{ //0x66 comes after choose mii
     void OnMessageBoxClick(MessageBox *messageBox); //805ed468
     void UpdateMiiGroup(MiiTexMap *newPotentialMii); //805ecdc8 updates MiiGroup with selected mii in case it is then chosen
     void PrepareMessageBox(); //805ecdd8 updates page 52 with the correct text
-    static void SetControlMii(UnkType *unusedArg, LicenseControl *licenseControl, u8 curLicenseId, MiiGroup *miiGroup, u32 index); //805ec4e8
     PtmfHolder_1A<LicenseChangeMii, void, u32> onClick; //0x44 805ed2d4
     PtmfHolder_1A<LicenseChangeMii, void, Approve*> onMiiApprove; //0x58 805ed450
     PtmfHolder_1A<LicenseChangeMii, void, Approve*> onMiiDisapprove; //0x6c 805ed45c

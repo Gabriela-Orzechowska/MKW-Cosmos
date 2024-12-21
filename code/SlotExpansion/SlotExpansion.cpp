@@ -209,7 +209,7 @@ static void SaveGP(){
 
     bool shouldUpdate = false;
     u32 rank = scenario.GetPlayer(0).ComputeGPRank();
-    u32 oldRank = holder->GetGPRank(cupSlot, (EngineClass) engine);
+    u32 oldRank = holder->GetGPRank(cupSlot, engine);
 
     if(oldRank == 0x3F || rank < oldRank) shouldUpdate = true;
 
@@ -218,13 +218,14 @@ static void SaveGP(){
     if(trophy > 0 && trophy < 4) trophy--;
     else trophy = 3;
 
-    u32 oldTrophy = holder->GetGPTrophy(cupSlot, (EngineClass) engine);
+    u32 oldTrophy = holder->GetGPTrophy(cupSlot, engine);
 
     if(trophy < oldTrophy) shouldUpdate = true;
 
     if(shouldUpdate) 
         holder->SetGPResults(cupSlot, rank, trophy, (EngineClass) engine);
-    holder->Update();
+        holder->SetGPResults(cupSlot, rank, trophy, engine);
+    holder->LicenseClassUpdate();
 }
 kmBranch(0x805bd050, SaveGP);
 

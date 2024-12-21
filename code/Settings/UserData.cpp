@@ -51,7 +51,7 @@ namespace Cosmos
             strncpy(this->filepath, filepath, IPCMAXPATH);
 
             u32 bufferSize = sizeof(UserDataFile) 
-                    + sizeof(UserDataSettings) + sizeof(UserDataOther) + sizeof(UserDataTrophies)
+                    + sizeof(UserDataSettings) + sizeof(UserDataLicenses) + sizeof(UserDataTrophies)
                     + (CupManager::GetStaticInstance()->GetCupCount()*sizeof(UserDataCup)*4); // 4 per license
             bufferSize = (bufferSize + 0x1F) & ~0x1F;
             u8* fileBuffer = (u8*) RKSystem::mInstance.EGGSystem->alloc(bufferSize, 0x20);
@@ -72,29 +72,52 @@ namespace Cosmos
             UserDataFile* mainFile = (UserDataFile*) fileBuffer;
 
             UserDataSettings* settingsFile;
-            UserDataOther* otherFile;
+            UserDataLicenses* licensesFile;
             UserDataTrophies* trophiesFile;
 
-            if (strcmp(mainFile->sign, magic) != 0 || mainFile->version != version)
-            {
+            bool isValid = true;
+            bool isValidTrophy = true;
+            bool isValidSettings = true;
+            bool isValidLicense = true;
+
+            if(strcmp(mainFile->sign, USER_DATA_MAGIC) != 0 || mainFile->version != USER_DATA_VERSION) {
+                isValid = false;
+                isValidSettings = false;
+                isValidTrophy = false;
+                isValidLicense = false;
+
                 settingsFile = (UserDataSettings*)(fileBuffer+sizeof(UserDataFile));
-                otherFile = (UserDataOther*)(fileBuffer+sizeof(UserDataFile)+sizeof(UserDataSettings));
-                trophiesFile = (UserDataTrophies*)(fileBuffer+sizeof(UserDataFile)+sizeof(UserDataSettings)+sizeof(UserDataOther));
+                licensesFile = (UserDataLicenses*)(fileBuffer+sizeof(UserDataFile)+sizeof(UserDataSettings));
+                trophiesFile = (UserDataTrophies*)(fileBuffer+sizeof(UserDataFile)+sizeof(UserDataSettings)+sizeof(UserDataLicenses));
+            }
+            else {
+                settingsFile = (UserDataSettings*) offsetFrom(mainFile, mainFile->offsetToSettings);
+                licensesFile = (UserDataLicenses*) offsetFrom(mainFile, mainFile->offsetToOthers);
+                trophiesFile = (UserDataTrophies*) offsetFrom(mainFile, mainFile->offsetToThophies);
 
+                if(strcmp(settingsFile->sign, USER_DATA_SETTINGS_MAGIC) || settingsFile->version != USER_DATA_SETTINGS_VERSION)
+                    isValidSettings = false;
+                if(strcmp(trophiesFile->sign, USER_DATA_TROPHY_MAGIC) || trophiesFile->version != USER_DATA_TROPHY_VERSION)
+                    isValidTrophy = false;
+                if(strcmp(licensesFile->sign, USER_DATA_LICENSE_MAGIC) || licensesFile->version != USER_DATA_LICENSE_VERSION)
+                    isValidTrophy = false;
+            }
+
+            if (!isValid)
+            {
                 memset(mainFile, 0, bufferSize);
-                strncpy(mainFile->sign, magic, 4);
-                strncpy(settingsFile->sign, "ARSP", 4);
-                strncpy(otherFile->sign, "AROP", 4);
-                strncpy(trophiesFile->sign, "ARTP", 4);
 
-                mainFile->version = version;
-                settingsFile->version = version;
-                otherFile->version = 1;
-                trophiesFile->version = 1;
+                strncpy(mainFile->sign, USER_DATA_MAGIC, 4);
+                mainFile->version = USER_DATA_VERSION;
 
                 mainFile->offsetToSettings = (u32)((u32)settingsFile - (u32)fileBuffer);
-                mainFile->offsetToOthers = (u32)((u32)otherFile - (u32)fileBuffer);
+                mainFile->offsetToOthers = (u32)((u32)licensesFile - (u32)fileBuffer);
                 mainFile->offsetToThophies = (u32)((u32)trophiesFile - (u32)fileBuffer);
+            }
+
+            if(!isValidSettings) {
+                strncpy(settingsFile->sign, USER_DATA_SETTINGS_MAGIC, 4);
+                settingsFile->version = USER_DATA_SETTINGS_VERSION;
 
                 for (int i = 0; i < PAGE_COUNT; i++)
                 {
@@ -104,28 +127,34 @@ namespace Cosmos
                             settingsFile->data[o].pages[i].setting[j] = GlobalSettingDefinitions[i].settings[j].defaultValue;
                     }
                 }
-                for (int i = 0; i < (CupManager::GetStaticInstance()->GetCupCount()*4); i++){
-                    trophiesFile->cups[i].gpData[0] = 0xFF;
-                    trophiesFile->cups[i].gpData[1] = 0xFF;
-                    trophiesFile->cups[i].gpData[2] = 0xFF;
-                    trophiesFile->cups[i].gpData[3] = 0xFF;
-                }
+            }
+
+            if(!isValidLicense) {
+                strncpy(licensesFile->sign, USER_DATA_LICENSE_MAGIC, 4);
+                licensesFile->version = USER_DATA_LICENSE_VERSION;
 
                 for(int i = 0; i < 4; i++){
-                    otherFile->vr[i] = 5000;
-                    otherFile->br[i] = 5000;
-                    otherFile->recentScore[i] = 400;
+                    licensesFile->data[i].vr = 7500;
+                    licensesFile->data[i].br = 7500;
+                    licensesFile->data[i].onlineRaces = 0;
+                    licensesFile->data[i].onlineScore = 400;
                 }
             }
-            else {
-                settingsFile = (UserDataSettings*) offsetFrom(mainFile, mainFile->offsetToSettings);
-                otherFile = (UserDataOther*) offsetFrom(mainFile, mainFile->offsetToOthers);
-                trophiesFile = (UserDataTrophies*) offsetFrom(mainFile, mainFile->offsetToThophies);
+
+            if(!isValidTrophy) {
+                strncpy(trophiesFile->sign, USER_DATA_TROPHY_MAGIC, 4);
+
+                trophiesFile->version = USER_DATA_TROPHY_VERSION;
+
+                for (int i = 0; i < (CupManager::GetStaticInstance()->GetMaxCupCount()*4*4); i++){
+                    trophiesFile->cups[i>>2].gpData[i & 3] = 0xFF;
+                }
+
             }
 
             this->file = mainFile;
             this->settingsNew = settingsFile;
-            this->other = otherFile;
+            this->licenses = licensesFile;
             this->trophies = trophiesFile;
             manager->Overwrite(bufferSize, this->file);
             manager->Close();
@@ -199,10 +228,52 @@ namespace Cosmos
             const u32 numVals = 6;
             score *= 4;
 
-            this->other->recentScore[license] = ((numVals - 1) * this->other->recentScore[license] + score) / numVals;
+            this->licenses->data[license].onlineScore = ((numVals - 1) * this->licenses->data[license].onlineScore + score) / numVals;
+            this->licenses->data[license].onlineRaces++;
+
+            this->LicenseClassUpdate(license);
+        };
+
+        void SettingsHolder::LicenseClassUpdate(u32 license) {
+            u32 currentClass = GetMaxLicenseClass(license);
+            if(currentClass == 5) {
+                this->Update();
+                return;
+            }
+
+            u32 completedGps = 0;
+            u32 averageGPRank = 0;
+
+            u32 onlineRaces = this->licenses->data[license].onlineRaces;
+            u32 onlineScore = this->licenses->data[license].onlineScore;
+
+            u32 cupCount = Cosmos::CupManager::GetStaticInstance()->GetMaxCupCount();
+            // We dont count 100cc
+            for(int j = 1; j < 4; j++){
+                for(int i = 0; i < cupCount; i++){
+                    if(IsGPCompleted(i, j, license)){
+                        completedGps++;
+                        averageGPRank += GetGPRank(i, j, license);
+                    }
+                }
+            }
+            averageGPRank /= completedGps;
+
+            LicenseClassRequirements& reqs = globalClassRequirements[currentClass];
+
+            if (completedGps >= (((cupCount * reqs.gpCompletedCups) * 3) / 100) && averageGPRank <= reqs.gpAverageRank) {
+                this->licenses->data[license].unlockFlags |= (1 << (currentClass));
+            }
+        
+            else if ((onlineRaces >= reqs.onlineCompletedRaces && onlineScore >= reqs.onlineMinScore)) {
+                this->licenses->data[license].unlockFlags |= (1 << (UserDataLicense::UNLOCK_OFFSET_ONLINE_LICENSE + currentClass));
+            }
+            this->Update();
+
         };
 
         void UpdateOnlineScoreAfterRace(){
+            if(!isOnline()) return;
             for(int i = 0; i < RaceData::GetStaticInstance()->racesScenario.GetPlayerCount(); i++){
                 if(RaceData::GetStaticInstance()->racesScenario.GetPlayer(i).playerType == PLAYER_REAL_LOCAL){
                     SettingsHolder::GetStaticInstance()->UpdateOnlineScore(*RaceInfo::GetStaticInstance()->GetPlayer(i));

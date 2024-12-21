@@ -341,6 +341,9 @@ namespace CosmosUI
         RaceData::GetStaticInstance()->menusScenario.GetSettings().cupId = lastSelectedCup & 0x7;
         this->LoadNextPage(cups, button, slotId);
         Cosmos::CupManager::GetStaticInstance()->lastSelectedCup = lastSelectedCup;
+        if(RaceData::GetStaticInstance()->menusScenario.GetSettings().gamemode == MODE_GRAND_PRIX) {
+            Cosmos::CupManager::GetStaticInstance()->GenerateGPArray(lastSelectedCup);
+        }   
 
     }
 

@@ -28,7 +28,7 @@ def decode_all():
         os.system(f"python {wuj5_path} decode {r}")
 
 def pack():
-    dst = os.path.abspath(os.path.join( os.path.dirname( __file__ ), "../..", "TestPack/Cosmos/Extra"))
+    dst = os.path.abspath(os.path.join( os.path.dirname( __file__ ), "../..", "TestPack/Aurora/Extra"))
     
     os.system("wbmgt encode UICosmos.d/message/CosmosExtra.txt -o")
     os.system("wszst c UICosmos.d -o --dest UICosmos.lzma --lzma")
