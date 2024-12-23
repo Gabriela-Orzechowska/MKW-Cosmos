@@ -16,6 +16,7 @@
  */
 
 
+#include "Aurora/AuroraLicense.hpp"
 #include "Debug/Debug.hpp"
 #include "Debug/IOSDolphin.hpp"
 #include "System/Identifiers.hpp"
@@ -31,6 +32,7 @@
 #include <System/Security.hpp>
 #include <Aurora/AuroraSecurity.hpp>
 #include <Aurora/AuroraAPI.hpp>
+#include <Aurora/AuroraLicense.hpp>
 
 void* CreatePage(u32 pageId)
 {
@@ -43,6 +45,8 @@ void* CreatePage(u32 pageId)
             return new (CosmosUI::VariantSelectPlus);
         case Cosmos::SPINNER_WITH_BACKGROUND:
             return new (CosmosUI::AwaitPageWithBackground);
+        case Aurora::LICENSE_CLASS_PROGRESS:
+            return new (Aurora::UI::LicenseProgress);
         default:
             return Scene::CreatePageById((PageId)pageId);
     }
@@ -50,6 +54,12 @@ void* CreatePage(u32 pageId)
 }
 
 kmCall(0x80622d2c, CreatePage);
+
+void InjectLicenseSettingsPages(Scene& scene, PageId id){
+    scene.CreatePage(id);
+    scene.CreatePage((PageId)Aurora::LICENSE_CLASS_PROGRESS);
+}
+kmCall(0x8062d1cc, InjectLicenseSettingsPages);
 
 void InjectWFCPages(Scene& scene, PageId id){
     scene.CreatePage(id);

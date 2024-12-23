@@ -547,11 +547,11 @@ namespace Cosmos
         };
 
         static LicenseClassRequirements globalClassRequirements[] = {
-            {1, 6, 350, 300},
-            {55, 5, 500, 400},
-            {75, 4, 750, 500},
-            {90, 3, 900, 550},
-            {100, 2, 1100, 600},
+            {40, 6, 300, 420},
+            {55, 5, 600, 510},
+            {75, 4, 900, 600},
+            {90, 3, 1300, 700},
+            {100, 2, 1700, 850},
         };
 
         class SettingsHolder
@@ -561,59 +561,58 @@ namespace Cosmos
             static void Create();
             static inline SettingsHolder *GetStaticInstance() { return sInstance; }
 
-            u8 GetSettingValue(GLOBAL_SETTING setting) const { return this->settingsNew->data[currentLicense].rawSettings[setting]; }
-            u8 GetSettingValue(u8 page, u8 setting) const { return this->settingsNew->data[currentLicense].pages[page].setting[setting]; }
+            inline u8 GetSettingValue(GLOBAL_SETTING setting) const { return this->settingsNew->data[currentLicense].rawSettings[setting]; }
+            inline u8 GetSettingValue(u8 page, u8 setting) const { return this->settingsNew->data[currentLicense].pages[page].setting[setting]; }
 
-            void SetSettingValue(u8 value, GLOBAL_SETTING setting) { this->settingsNew->data[currentLicense].rawSettings[setting] = value; }
-            void SetSettingValue(u8 value, u8 page, u8 setting) { this->settingsNew->data[currentLicense].pages[page].setting[setting] = value; }
+            inline void SetSettingValue(u8 value, GLOBAL_SETTING setting) { this->settingsNew->data[currentLicense].rawSettings[setting] = value; }
+            inline void SetSettingValue(u8 value, u8 page, u8 setting) { this->settingsNew->data[currentLicense].pages[page].setting[setting] = value; }
 
             void Update();
             void Save();
 
-            u32 GetUserVR() const { return GetUserVR(currentLicense); }
-            u32 GetUserVR(u32 id) const { return this->licenses->data[id].vr; }
-            u32 GetUserBR() const { return GetUserBR(currentLicense); }
-            u32 GetUserBR(u32 id) const { return this->licenses->data[id].br; }
+            inline u32 GetUserVR() const { return GetUserVR(currentLicense); }
+            inline u32 GetUserVR(u32 id) const { return this->licenses->data[id].vr; }
+            inline u32 GetUserBR() const { return GetUserBR(currentLicense); }
+            inline u32 GetUserBR(u32 id) const { return this->licenses->data[id].br; }
 
-            void SetUserVR(u32 value) { SetUserVR(value, currentLicense); }
-            void SetUserVR(u32 value, u32 id) { this->licenses->data[id].vr = value; }
-            void SetUserBR(u32 value) { SetUserVR(value, currentLicense); }
-            void SetUserBR(u32 value, u32 id) { this->licenses->data[id].br = value; }
+            inline void SetUserVR(u32 value) { SetUserVR(value, currentLicense); }
+            inline void SetUserVR(u32 value, u32 id) { this->licenses->data[id].vr = value; }
+            inline void SetUserBR(u32 value) { SetUserVR(value, currentLicense); }
+            inline void SetUserBR(u32 value, u32 id) { this->licenses->data[id].br = value; }
 
-            u32 GetMaxLicenseClass(u32 lic) {
-                return this->licenses->data[lic].GetHighestLicense();
-            }
+            inline u32 GetOnlineRaces() const { return GetOnlineRaces(currentLicense); }
+            inline u32 GetOnlineRaces(u32 license) const { return this->licenses->data[license].onlineRaces; }
 
-            void SetGPResults(u32 cupSlot, u8 rank, u8 trophy, u32 engine) { return SetGPResults(cupSlot, rank, trophy, engine, currentLicense); }
+            inline u32 GetOnlineScore() const { return GetOnlineScore(currentLicense); }
+            inline u32 GetOnlineScore(u32 license) const { return this->licenses->data[license].onlineScore; }
+
+            inline u32 GetMaxLicenseClass(u32 lic) const { return this->licenses->data[lic].GetHighestLicense();}
+
+            inline void SetGPResults(u32 cupSlot, u8 rank, u8 trophy, u32 engine) { return SetGPResults(cupSlot, rank, trophy, engine, currentLicense); }
             inline void SetGPResults(u32 cupSlot, u8 rank, u8 trophy, u32 engine, u32 license) {
                 this->trophies->cups[4* license +cupSlot].gpData[engine] = (rank & 0x3F) | ((trophy & 0x3) << 6);
             }
 
-            inline bool IsGPCompleted(u32 cupSlot, u32 engine, u32 license) {
-                return ((this->trophies->cups[4 * license + cupSlot].gpData[engine] != 0xFF));
-            }
+            inline bool IsGPCompleted(u32 cupSlot, u32 engine) const { return IsGPCompleted(cupSlot, engine, currentLicense); }
+            inline bool IsGPCompleted(u32 cupSlot, u32 engine, u32 license) const { return ((this->trophies->cups[4 * license + cupSlot].gpData[engine] != 0xFF)); }
 
-            inline u32 GetGPTrophy(u32 cupSlot, u32 engine) { return GetGPTrophy(cupSlot, engine, currentLicense); }
-            inline u32 GetGPTrophy(u32 cupSlot, u32 engine, u32 license) {
-                return ((this->trophies->cups[4 * license + cupSlot].gpData[engine]) >> 6) & 0x3;
-            }
+            inline u32 GetGPTrophy(u32 cupSlot, u32 engine) const { return GetGPTrophy(cupSlot, engine, currentLicense); }
+            inline u32 GetGPTrophy(u32 cupSlot, u32 engine, u32 license) const { return ((this->trophies->cups[4 * license + cupSlot].gpData[engine]) >> 6) & 0x3; }
 
-            inline u32 GetGPRank(u32 cupSlot, u32 engine) { return GetGPRank(cupSlot, engine, currentLicense); }
-            inline u32 GetGPRank(u32 cupSlot, u32 engine, u32 license) {
-                return (this->trophies->cups[4 * license + cupSlot].gpData[engine]) & 0x3f;
-            }
+            inline u32 GetGPRank(u32 cupSlot, u32 engine) const { return GetGPRank(cupSlot, engine, currentLicense); }
+            inline u32 GetGPRank(u32 cupSlot, u32 engine, u32 license) const { return (this->trophies->cups[4 * license + cupSlot].gpData[engine]) & 0x3f; }
 
-            inline u32 GetOnlineClass() { return GetOnlineClass(currentLicense); }
-            inline u32 GetOnlineClass(u32 license) { 
-                return this->licenses->data[license].GetLicenseClass(UserDataLicense::UNLOCK_OFFSET_ONLINE_LICENSE);
-            }
+            inline u32 GetOnlineClass() const { return GetOnlineClass(currentLicense); }
+            inline u32 GetOnlineClass(u32 license) const { return this->licenses->data[license].GetLicenseClass(UserDataLicense::UNLOCK_OFFSET_ONLINE_LICENSE); }
+            inline u32 GetGPClass() const { return GetGPClass(currentLicense); }
+            inline u32 GetGPClass(u32 license) const { return this->licenses->data[license].GetLicenseClass(0); }
 
             void UpdateOnlineScore(RaceinfoPlayer& player);
 
-            void LicenseClassUpdate() { LicenseClassUpdate(currentLicense); }
+            inline void LicenseClassUpdate() { LicenseClassUpdate(currentLicense); }
             void LicenseClassUpdate(u32 license);
 
-            inline bool IsMegaCloudEnabled() {
+            inline bool IsMegaCloudEnabled() const {
                 return (megaCloudOffline && RaceData::GetStaticInstance()->racesScenario.settings.gamemode == MODE_VS_RACE) ||
                     (megaCloudOnline && RaceData::GetStaticInstance()->racesScenario.settings.gamemode == MODE_PRIVATE_VS);
             }
@@ -623,7 +622,7 @@ namespace Cosmos
                 megaCloudOnline = online;
             }
 
-            inline bool CanAllItemsLand() {
+            inline bool CanAllItemsLand() const {
                 return (allItemsCanLandOffline && RaceData::GetStaticInstance()->racesScenario.settings.gamemode == MODE_VS_RACE) ||
                     (allItemsCanLandOnline && RaceData::GetStaticInstance()->racesScenario.settings.gamemode == MODE_PRIVATE_VS);
             }
@@ -633,7 +632,7 @@ namespace Cosmos
                 allItemsCanLandOnline = online;
             }
 
-            inline bool CanChooseVariant() {
+            inline bool CanChooseVariant() const {
                 return (RaceData::GetStaticInstance()->menusScenario.settings.gamemode == MODE_TIME_TRIAL) ||
                     (variantSelectionOffline && RaceData::GetStaticInstance()->menusScenario.settings.gamemode == MODE_VS_RACE) ||
                     (variantSelectionOnline && RaceData::GetStaticInstance()->menusScenario.settings.gamemode == MODE_PRIVATE_VS);
@@ -644,11 +643,11 @@ namespace Cosmos
                 variantSelectionOnline = online;
             }
 
-            inline bool IsRandomComboForced(){
+            inline bool IsRandomComboForced() const {
                 return (RaceData::GetStaticInstance()->menusScenario.settings.gamemode == MODE_PRIVATE_VS) && forcedRandom;
             }
 
-            inline bool IsRandomComboCommon(){
+            inline bool IsRandomComboCommon() const {
                 return (RaceData::GetStaticInstance()->menusScenario.settings.gamemode == MODE_PRIVATE_VS) && commonRandom;
             }
 
@@ -677,7 +676,7 @@ namespace Cosmos
                 this->SetTrackList();
             }
 
-            inline bool AreMiiHeadsAllowed() { return miiHeadsEnabled; }
+            inline bool AreMiiHeadsAllowed() const { return miiHeadsEnabled; }
             inline void SetMiiHeadSettings(bool setting) { miiHeadsEnabled = setting; }
             void SetCurrentLicense(int i) { this->currentLicense = i; }
             static void SaveTask(void *);

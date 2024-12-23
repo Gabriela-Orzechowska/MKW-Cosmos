@@ -10,6 +10,7 @@
 
 //_sinit_ at 805ee894
 class LicenseControl : public LayoutUIControl{
+public:
     //no ctor
     ~LicenseControl() override; //805ebf10 vtable 808b992c
     int GetRuntimeTypeInfo() const override; //0x28 805ee678
@@ -91,6 +92,9 @@ class LicenseChangeMii : public Page{ //0x66 comes after choose mii
 static_assert(sizeof(LicenseChangeMii) == 0x6cc, "LicenseChangeMii");
 
 class LicenseSettings : public Page{ //0x67
+public:
+
+    static inline LicenseSettings* GetPage() { return MenuData::GetStaticInstance()->GetPage<LicenseSettings>((PageId) 0x67);}
     LicenseSettings(); //805ed4ec 
     ~LicenseSettings() override; //805ed70c vtable 808b973c
     PageId GetNextPage() const override; //0x10 805ee630

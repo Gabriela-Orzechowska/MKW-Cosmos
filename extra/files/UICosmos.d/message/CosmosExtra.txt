@@ -49,7 +49,7 @@ fb0  =  You cannot access WiiLink\nWi-Fi Connection using this\nMii name. Please
 200b  =  WiiLink WFC Records
 201c  =  WiiLink WFC Friends Record
 26af  =  Controllers cannot be changed during\na WiiLink WFC match. Please restore\nthe original controller.
-212c  =  You have received a Friend\nregistration invitation from\n%ls!\n\nMario Kart Wii\nFriend Code: %04d-%04d-%04d\n\nBy registering each other's Friend\nCodes, you can play Mario Kart Wii\ntogether via WiiLink Wi-Fi\nConnection.\nIf you have Mario Kart Wii and have\nadded the Mario Kart Channel to\nyour Wii Menu, you can select\nthe START button on the right to\nconfirm.\n\nHave fun!
+212c  =  You have received a Friend\nregistration invitation from\n\z{802,200000}!\n\nMario Kart Wii\nFriend Code: %04d-%04d-%04d\n\nBy registering each other's Friend\nCodes, you can play Mario Kart Wii\ntogether via WiiLink Wi-Fi\nConnection.\nIf you have Mario Kart Wii and have\nadded the Mario Kart Channel to\nyour Wii Menu, you can select\nthe START button on the right to\nconfirm.\n\nHave fun!
 
 
 # OTHER
@@ -64,10 +64,29 @@ fb0  =  You cannot access WiiLink\nWi-Fi Connection using this\nMii name. Please
  2806   = Aurora requires Dolphin 5.0-17856 or newer.\nPlease download it from the official site.\nReturning to Wii Menu...
  2807   = Grand Prix
  2808   = Online
- 2809   = \u{F06D} \z{a02,1000000000}/\z{a02,1000010000}
- 280A   = \z{a02,1000000000} VR
- 280B   = ???
- 280C   = 0/100 Completed GPs in 150cc+\nE/D Average Rank\n\n0/250 Completed online races\n400/500 Average Score
+ 2809   = Coming soon!
+ 280A   = \u{F06D} \z{a02,1000000000}/\z{a02,1000010000}
+ 280B   = \z{a02,1000000000} VR
+ 280C   = ???
+
+ 2081A   = License Progress
+ 2081B   = See your License class progress!
+ 20820   = Points
+ 20821   = \z{a02,1000000000}/\z{a02,1000010000}
+ 20822   = Cups
+ 20823   = Av.Rank
+
+ 20824   = VR
+ 20825   = \z{a02,1000000000}
+ 20826   = Races
+ 20827   = Score
+
+ 20830   = \c{YOR7}\z{a02,1000000000}\c{off}/\z{a02,1000010000}
+ 20831   = \c{GREEN}\z{a02,1000000000}\c{off}/\z{a02,1000010000}
+
+ 20832   = \z{802,200000}/\z{802,200001}
+ 20833   = \z{a02,1000000000}/\z{a02,1000010000}
+
 
 
  2810   = Track Sorting: Normal

@@ -660,6 +660,8 @@ CheckLicenseMagic__15SaveDataManagerFUc = 0x80544d10
 
 GetFavouriteCharacter__14LicenseManagerFv = 0x805493b0
 GetFavouriteKart__14LicenseManagerFv = 0x80549470
+__dt__14LicenseControlFv = 0x805ebf10
+__vt__14LicenseControl = 0x808b992c
 
 
 #PushButton

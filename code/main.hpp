@@ -11,7 +11,11 @@
 
 #define AURORA
 
-//#define NO_FAST_MENU
+namespace Aurora {
+    enum CUSTOM_PAGE_IDS_AR {
+        LICENSE_CLASS_PROGRESS = 0xAE,
+    };
+};
 
 namespace Cosmos
 {
@@ -33,6 +37,7 @@ namespace Cosmos
     const char SaveFile[] = "AuroraData.bin";
     const char CommonArchive[] = "/CommonCosmos.szs";
     const char UIArchive[] = "Scene/UI/UICosmos.lzma";
+    const char UIRaceArchive[] = "Scene/UI/UICosmos.lzma";
     const char CourseArchive[] = "/CourseCosmos.szs";
 
     enum TT_MODE{
