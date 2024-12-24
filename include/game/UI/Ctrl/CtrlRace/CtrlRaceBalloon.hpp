@@ -36,6 +36,7 @@ class CtrlRaceNameBalloon : public LayoutUIControl {
     virtual const char* GetClassName() const; //0x2c 807efd0c
 
     void Load(u8 localPlayerCount, u8 hudSlotId, RaceBalloons *raceBalloons); //807efd18, also sets 808d3e14 for battle glitch
+    void Refresh(u32 playerId); //807f0044
     u8 unknown_0x174[0x17C-0x174];
     bool isOnline; //0x174
     u8 hudSlotId; //0x175

@@ -1,7 +1,11 @@
+#include "Network/RKNetController.hpp"
+#include "Race/RaceData.hpp"
 #include "Settings/UserData.hpp"
+#include "UI/Ctrl/CtrlRace/CtrlRaceBalloon.hpp"
 #include "UI/Layout/ControlLoader.hpp"
 #include "UI/Page/Other/LicenseSettings.hpp"
 #include "hooks.hpp"
+#include "kamek.hpp"
 #include "main.hpp"
 #include <Aurora/AuroraLicense.hpp>
 
@@ -358,7 +362,6 @@ namespace Aurora {
         }
         kmCall(0x805ec16c, LoadLicenseMiiControl);
 
-        // TODO
         void PatchVRControlColor(Pages::VR& page, u32 index, u32 player, u32 team, u8 type, bool isLocal){
             page.FillVRControl(index, player, team, type, isLocal);
 
@@ -369,11 +372,11 @@ namespace Aurora {
 
             Pages::CountDownTimer* timer = Pages::CountDownTimer::GetPage();
             if(isLocal){
-                licenseClass = handler->toSendPacket.city;
+                licenseClass = handler->toSendPacket.region;
             }
             else {
                 u32 playerAid = timer->infos[player].aid;
-                licenseClass = handler->receivedPackets[playerAid].city;
+                licenseClass = handler->receivedPackets[playerAid].region;
             }
 
             GXColorS10 color;
@@ -386,10 +389,27 @@ namespace Aurora {
         }
         kmCall(0x8064aa78, PatchVRControlColor);
 
-        void SendOnlineLicenseViaCity(RKNetUSERHandler& handler) {
-            handler.toSendPacket.city = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetOnlineClass(); 
+        void SendOnlineClassViaRegion(RKNetUSERHandler& handler) {
+            handler.toSendPacket.region = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetOnlineClass();
         };
-        kmBranch(0x80662dc0, SendOnlineLicenseViaCity);
+        kmBranch(0x80662dc0, SendOnlineClassViaRegion);
+/*
+        u32 LoadLocalClass(){
+            return Cosmos::Data::SettingsHolder::GetStaticInstance()->GetOnlineClass();
+        }
+        kmCall(0x806513c8, LoadLocalClass);
+        kmWrite32(0x806513cc,0x7c641b78); // mr r4, r3
+        kmWrite16(0x806513e0 + 2, 0x17A); //userPacker->city 
+        kmWrite16(0x8060a2b0 + 2, 0x17A); //userPacker->city 
+*/
+        
+        extern "C" u32 RegionColors[];
+        void CopyLicenseColors(){
+            for(int i = 0; i < 6; i++){
+                RegionColors[i] = licenseColors[i][0];
+            };
+        };
+        static BootHook bhCopyLicenseColors(CopyLicenseColors, LOW);
 
     }
 }

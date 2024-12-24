@@ -4,6 +4,7 @@ OSUnhandledException2nd__FUcP9OSContextUiUi = 0x801a2a18
 Run__8RKSystemFv = 0x8000951c
 
 kartIdByWeigth = 0x808ab770
+RegionColors = 0x808a9dfc
 
 pr_patch1_r5 = 0x80653644
 pr_patch2_r6 = 0x806536B0
@@ -374,6 +375,7 @@ GetType__5SceneF6MenuId = 0x80631588
 PauseGame__5SceneFPv = 0x808600dc
 UnpauseGame__5SceneFPv = 0x80860100
 FinalizeEnter__9GameSceneFv = 0x8051a4dc
+GetArchiveName__5SceneF6MenuId = 0x80631734
 
 #RootScene
 sInstance__9RootScene = 0x809bd740
@@ -662,6 +664,9 @@ GetFavouriteCharacter__14LicenseManagerFv = 0x805493b0
 GetFavouriteKart__14LicenseManagerFv = 0x80549470
 __dt__14LicenseControlFv = 0x805ebf10
 __vt__14LicenseControl = 0x808b992c
+
+__ct__13LicenseButtonFv = 0x805eaa6c
+__dt__13LicenseButtonFv = 0x805eaaa8
 
 
 #PushButton
@@ -967,6 +972,21 @@ SetMessageWindowText__Q25Pages10AutoEndingFUiPC8TextInfo = 0x805bb218
 ResetText__Q25Pages10AutoEndingFv = 0x805bb1c0
 GetRuntimeTypeInfo__Q25Pages10AutoEndingCFv = 0x805bb26c
 GetNextPage__Q25Pages10AutoEndingCFv = 0x805bb264
+
+#Unlock
+__ct__Q25Pages6UnlockFv = 0x8062be24
+CreateControl__Q25Pages6UnlockFUi = 0x80853ec0
+__dt__Q25Pages6UnlockFv = 0x80624650
+SetButtonHandlers__Q25Pages6UnlockFP10PushButton = 0x808550cc 
+CreateExternalControl__Q25Pages6UnlockFUi = 0x80853e30
+GetManipulatorManager__Q25Pages6UnlockFv = 0x80855128
+GetPlayerBitfield__Q25Pages6UnlockCFv = 0x808550bc
+GetActivePlayerBitfield__Q25Pages6UnlockCFv = 0x808550c4
+OnExternalButtonSelect__Q25Pages6UnlockFP10PushButtonUi = 0x80854748
+GetRuntimeTypeInfo__Q25Pages6UnlockCFv = 0x808551e0
+AfterControlUpdate__Q25Pages6UnlockFv = 0x80854320
+OnActivate__Q25Pages6UnlockFv = 0x80854104
+OnInit__Q25Pages6UnlockFv = 0x80853e18
 
 #BlackBack
 __ct__26BlackBackControlForMessageFv = 0x805f9abc

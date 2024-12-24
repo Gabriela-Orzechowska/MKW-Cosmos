@@ -18,6 +18,7 @@ public:
 }; //total size 0x174
 
 class LicenseButton : public PushButton{
+public:
     LicenseButton(); //805eaa6c
     ~LicenseButton() override; //805eaaa8 vtable 808b98e0
     int GetRuntimeTypeInfo() const override; //0x28 805ee66c

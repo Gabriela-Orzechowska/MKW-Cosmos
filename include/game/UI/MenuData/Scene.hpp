@@ -31,6 +31,7 @@ public:
     static void UnpauseGame(void* unknown); //80860100
     static MenuCategory GetType(MenuId id); //80631588
     static u32 GetSoundid(MenuId menuId); //80631c68
+    static const char *GetArchiveName(MenuId menuId); //80631734
 
     template<class T>
     T* Get(PageId id) const {return (T*) this->pages[id];}
