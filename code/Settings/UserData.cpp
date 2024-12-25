@@ -199,6 +199,11 @@ namespace Cosmos
             Kart* kart = KartHolder::GetStaticInstance()->GetKart(player.id);
             GpStats* stats = kart->base.pointers->values->gpStats;
 
+            if(stats == nullptr){
+                CosmosError("GPStats were not found!\n");
+                return;
+            };
+
             u32 lowest = RaceInfo::GetStaticInstance()->GetPlayer(
                     RaceInfo::GetStaticInstance()->playerIdInEachPosition[0])->frameCounter;
             lowest = lowest * 3 / 2;
@@ -233,6 +238,8 @@ namespace Cosmos
 
             this->LicenseClassUpdate(license);
         };
+
+        kmWrite32(0x80593058, 0x60000000); // Always create GPStats
 
         void SettingsHolder::LicenseClassUpdate(u32 license) {
             u32 currentClass = GetMaxLicenseClass(license);

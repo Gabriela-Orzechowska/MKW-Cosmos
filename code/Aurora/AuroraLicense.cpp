@@ -372,7 +372,7 @@ namespace Aurora {
 
             Pages::CountDownTimer* timer = Pages::CountDownTimer::GetPage();
             if(isLocal){
-                licenseClass = handler->toSendPacket.region;
+                licenseClass = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetOnlineClass();
             }
             else {
                 u32 playerAid = timer->infos[player].aid;

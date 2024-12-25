@@ -572,7 +572,9 @@ namespace Cosmos
         kmWritePointer(0x808DA614, PatchBeforeInAnim);
 
         KartMovement* OnShroomActivate(ItemPlayer* item) {
-            if(item->id == 0)
+            if(item->id == 0 && 
+                    (RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode == MODE_TIME_TRIAL
+                     || RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode == MODE_GHOST_RACE))
                 GhostManager::GetStaticInstance()->AddShroom(item);
             return item->kartPointers->kartMovement;
         };
