@@ -301,7 +301,7 @@ namespace Aurora {
                 button.SetPaneVisible("mii", true);
 
                 TextInfo miiInfo;
-                miiInfo.miis[0] = group->GetMii(licenseIndex);
+                miiInfo.miis[0] = group->GetMii(buttonIndex);
                 button.SetTextBoxMsg("player", 0x251d, &miiInfo);
 
                 TextInfo friendCodeInfo;
