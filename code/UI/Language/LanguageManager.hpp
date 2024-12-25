@@ -40,6 +40,8 @@ namespace Cosmos
         ITALIAN,
         DUTCH,
         POLISH,
+        CZECH,
+        HUNGARIAN,
         JAPANESE,
         KOREAN,
         NUMBER_OF_LANGUAGES,
@@ -67,6 +69,8 @@ namespace Cosmos
         u32 GameToGlobal(u32 i, u32 a);
         void UpdateArchiveNames(bool isRace);
         bool isBoot;
+
+        inline bool IsRace() { return mIsRace; };
     private:
         static LanguageManager* sInstance;
         u32 systemLanguage;
@@ -76,9 +80,11 @@ namespace Cosmos
         bool isDefault;
         bool isKorean;
         bool needsUpdate;
+
+        bool mIsRace;
     };
 
-    static char* suffixes[13] = {
+    static char* suffixes[] = {
         "",
         "_E",
         "_U",
@@ -90,6 +96,8 @@ namespace Cosmos
         "_I",
         "_H",
         "_PL",
+        "_CZ",
+        "_HU",
         "_J",
         "_K",
     };

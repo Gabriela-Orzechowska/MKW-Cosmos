@@ -1,4 +1,6 @@
 #include <main.hpp>
+#include "UI/Language/LanguageManager.hpp"
+#include "UI/MenuData/Scene.hpp"
 #include "core/rvl/os/OS.hpp"
 #include "kamek.hpp"
 #include "vendor/lzma/7zTypes.h"
@@ -12,6 +14,7 @@
 #include <Debug/SymbolMap.hpp>
 #include <Debug/Draw/DebugDraw.hpp>
 #include <Settings/UserData.hpp>
+#include <game/UI/MenuData/MenuData.hpp>
 
 extern char gameID[4];
 
@@ -192,18 +195,32 @@ namespace Cosmos{
         }
         else {
             if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archives[2] == file){
-                LoadLZMAFile(file, Cosmos::UIArchive, heap, isCompressed, align, fileHeap, fileInfo);
+                if(LanguageManager::GetStaticInstance()->IsRace()) {
+                    LoadLZMAFile(file, Cosmos::UIRaceArchive, heap, isCompressed, align, fileHeap, fileInfo);
+                    CosmosLog("Loading: %s\n", Cosmos::UIRaceArchive); 
+                }
+                else {
+                    LoadLZMAFile(file, Cosmos::UIArchive, heap, isCompressed, align, fileHeap, fileInfo);
+                    CosmosLog("Loading: %s\n", Cosmos::UIArchive); 
+                }
+                return;
+            }
+            if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archives[3] == file){
+                char buffer[0x20];
+                snprintf(buffer, 0x20, Cosmos::UIArchiveLang, Cosmos::suffixes[LanguageManager::GetStaticInstance()->GetActualLanguage()]);
+                LoadLZMAFile(file, buffer, heap, isCompressed, align, fileHeap, fileInfo);
                 return;
             }
             else if(&ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COMMON)->archives[2] == file){
                 path = Cosmos::CommonArchive;
             }
             file->Load(path, heap, isCompressed, align, fileHeap, fileInfo);
+            CosmosLog("Loading: %s\n", path); 
         }
     }
 
     kmWrite32(0x8052a108, 0x38800003); //+1 for CommonCosmos.szs
-    kmWrite32(0x8052a188, 0x38800003); //+1 for UICosmos.szs
+    kmWrite32(0x8052a188, 0x38800004); //+2 for UICosmos.szs
     //kmWrite32(0x8052a148, 0x38800005); //+1 for CourseDX.szs
     kmCall(0x8052aa2c, LoadAdditionalFiles);
 

@@ -48,19 +48,7 @@ void InjectAdditionalHolder(BMGHolder& baseHolder, char * filename)
     using namespace Cosmos::Data;
 
     char baseName[] = "CosmosExtra";
-    char finalName[0x10];
-    char testName[0x30];
-
-    char* suffix = suffixes[Cosmos::LanguageManager::GetStaticInstance()->GetActualLanguage()];
-
-    snprintf(finalName, 0x10, "%s%s", baseName, suffix);
-    snprintf(testName, 0x30, "message/%s%s", finalName, ".bmg");
-
-    void * file = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, testName, 0x0);
-    if(file != nullptr)
-        AdditionalHolder->Load(finalName);
-    else
-        AdditionalHolder->Load(baseName);
+    AdditionalHolder->Load(baseName);
     return;
 }
 

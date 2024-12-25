@@ -362,7 +362,7 @@ namespace Cosmos
             {
                 // Menu
                 .settingCount = 4,
-                .settings = {{.optionCount = 12, .isBool = false, .defaultValue = NO_CHANGE}, // Language //TODO REENABLE KOREAN
+                .settings = {{.optionCount = 14, .isBool = false, .defaultValue = NO_CHANGE}, // Language //TODO REENABLE KOREAN
                              {.optionCount = 2, .isBool = true, .defaultValue = ENABLED},
                              {.optionCount = 2, .isBool = false, .defaultValue = SORTING_DEFAULT},
                              {.optionCount = 3, .isBool = false, .defaultValue = THEME_AURORA}
@@ -399,7 +399,7 @@ namespace Cosmos
             { // VS 2
                 .settingCount = 4,
                 .settings = {
-                    { .optionCount = 3, .isBool = false, .defaultValue = TRACK_LIST_ALL },
+                    { .optionCount = 3, .isBool = false, .defaultValue = TRACK_LIST_ALL, .firstDescBmg = 1 },
                     { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
                     { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
                     { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
@@ -408,7 +408,7 @@ namespace Cosmos
             { // Host settings 2
                 .settingCount = 4,
                 .settings = {
-                    { .optionCount = 3, .isBool = false, .defaultValue = TRACK_LIST_ALL, .nameBmg = 0x30500, .firstOptionBmg = 0x30501, .firstDescBmg = 0x40501},
+                    { .optionCount = 3, .isBool = false, .defaultValue = TRACK_LIST_ALL, .nameBmg = 0x30500, .firstOptionBmg = 0x30501, .firstDescBmg = 1},
                     { .optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30520, .firstOptionBmg = BMG_ENABLED_DISABLED, .firstDescBmg = 0x40521},
                     { .optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30530, .firstOptionBmg = BMG_ENABLED_DISABLED, .firstDescBmg = 0x40531}, // ALL ITEMS
                     { .optionCount = 3, .isBool = false, .defaultValue = RANDOM_COMBO_DISABLED },

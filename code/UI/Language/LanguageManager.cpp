@@ -136,6 +136,7 @@ namespace Cosmos
     kmWrite32(0x8000ad9c, 0x38000006); //System Dutch
                                        
     void LanguageManager::UpdateArchiveNames(bool isRace){
+        this->mIsRace = isRace;
         char superMenuName[0x80];
         if(!isRace) snprintf(superMenuName, 0x80, "/Scene/UI/SuperMenu%s.szs", suffixes[this->actualLanguage]);
         else snprintf(superMenuName, 0x80, "/Scene/UI/Race%s.szs", suffixes[this->actualLanguage]);
