@@ -198,6 +198,10 @@ Open__4NANDFPCcPQ24NAND8FileInfoUc = 0x8019c800
 Close__4NANDFPQ24NAND8FileInfo = 0x8019ca80
 Seek__4NANDFPQ24NAND8FileInfoii = 0x8019b964
 
+#Socket
+SOCleanup = 0x801ec5b8
+SOStartup = 0x801ec184
+
 #OS
 OSReport = 0x801A25D0
 OSFatal = 0x801a4ec4

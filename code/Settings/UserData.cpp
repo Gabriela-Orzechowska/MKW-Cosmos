@@ -206,10 +206,12 @@ namespace Cosmos
 
             u32 lowest = RaceInfo::GetStaticInstance()->GetPlayer(
                     RaceInfo::GetStaticInstance()->playerIdInEachPosition[0])->frameCounter;
-            lowest = lowest * 3 / 2;
+            lowest = (lowest * 3) / 2;
 
             // No KRT, using computed value from leader
-            u32 score = (1000 * (lowest - player.frameCounter) / lowest) + (150 * player.framesInFirst / lowest);
+            s32 score = (1000 * (lowest - player.frameCounter) / lowest) + (150 * player.framesInFirst / lowest);
+
+            //These values are modified, put original for reference
 
             // Bonuses
             if(stats->startBoostSuccessful) score += 25;
@@ -222,16 +224,20 @@ namespace Cosmos
             if(controller->isDriftAuto) score += 25;
 
             // Penalties
-            score -= stats->offroadFrames / 3;
-            score -= stats->wallHits * 20;
-            score -= stats->objectCollisionCount * 30;
-            score -= stats->oobCount * 70;
+            score -= stats->offroadFrames / 3; // / 3
+            score -= stats->wallHits * 20; // 20
+            score -= stats->objectCollisionCount * 30; // 30
+            score -= stats->oobCount * 30; // 70
+                                           //
+            CosmosLog("Last Race Stats:\nlowest: %d\nframeCounter: %d\nframesInFirst: %d\nscore: %d\n", lowest / 2, player.frameCounter, player.framesInFirst, score);
 
             if(score < -50) score = -50;
             else if(score > 250) score = 250;
 
             const u32 numVals = 6;
             score *= 4;
+
+            CosmosLog("Final score: %d\n", score);
 
             this->licenses->data[license].onlineScore = ((numVals - 1) * this->licenses->data[license].onlineScore + score) / numVals;
             this->licenses->data[license].onlineRaces++;

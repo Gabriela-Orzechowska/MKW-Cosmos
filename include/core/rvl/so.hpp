@@ -1,6 +1,8 @@
 #pragma once
 #include <kamek.hpp>
 
+extern "C" {
+
 typedef void* (*SOAlloc)(u32 size, s32 align);
 typedef void (*SOFree)(void* ptr);
 
@@ -26,9 +28,12 @@ struct SOAddrInfo {
     SOAddrInfo* next;
 };
 
+s32 SOStartup();
+s32 SOCleanup();
 s32 SOSocket(s32 domain, s32 type, s32 protocol);
 s32 SOClose(s32 socket);
 s32 SOGetAddrInfo(const char* name, const char* serviceName, const SOAddrInfo* info, SOAddrInfo** ret);
 s32 SOSetSockOpt(s32 socket, s32 level, s32 optName, const void* val, s32 len);
 void SOFreeAddrInfo(SOAddrInfo* info);
 
+}

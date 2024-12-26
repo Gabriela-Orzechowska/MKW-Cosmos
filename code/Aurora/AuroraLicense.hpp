@@ -18,6 +18,15 @@
 
 namespace Aurora {
     namespace UI {
+        struct AuroraPlayerInfo{
+            u8 aid; //shared by players on the same console
+            u8 hudSlotid; //0 for P1, 1 for P2 on the same console etc....
+            u8 unknown_0x2[1]; //never stored likely padding
+            u8 licenceClass;
+            u32 team; //0x2 if no team (depending on the menu), 0x0 blue, 0x1 red 0x1F8
+            u16 vr; //806519c4, no idea, gets the current license then does a bunch of operations 0x1FC
+            u16 br; //80651a20, very similar, but uses a different address to start the operations
+        };//total size0xC
         class LicenseProgress : public Page {
         public:
             static const PageId pageId = (PageId) Aurora::LICENSE_CLASS_PROGRESS;

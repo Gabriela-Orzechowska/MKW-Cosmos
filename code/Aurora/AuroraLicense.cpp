@@ -375,8 +375,7 @@ namespace Aurora {
                 licenseClass = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetOnlineClass();
             }
             else {
-                u32 playerAid = timer->infos[player].aid;
-                licenseClass = handler->receivedPackets[playerAid].region;
+                licenseClass = ((AuroraPlayerInfo*)&timer->infos[player])->licenceClass;
             }
 
             GXColorS10 color;
@@ -389,16 +388,28 @@ namespace Aurora {
         }
         kmCall(0x8064aa78, PatchVRControlColor);
 
+        asm int StoreClassInPlayerInfo(){
+            ASM(
+                nofralloc;
+                sth r0, 0x1fe (r22);
+                lbz r0, 0x185 (r3);
+                stb r0, 0x1f7 (r22);
+                blr;
+               );
+        };
+        kmCall(0x80651a44, StoreClassInPlayerInfo);
+
         void SendOnlineClassViaRegion(RKNetUSERHandler& handler) {
             handler.toSendPacket.region = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetOnlineClass();
         };
         kmBranch(0x80662dc0, SendOnlineClassViaRegion);
-/*
+
         u32 LoadLocalClass(){
             return Cosmos::Data::SettingsHolder::GetStaticInstance()->GetOnlineClass();
         }
         kmCall(0x806513c8, LoadLocalClass);
         kmWrite32(0x806513cc,0x7c641b78); // mr r4, r3
+/*
         kmWrite16(0x806513e0 + 2, 0x17A); //userPacker->city 
         kmWrite16(0x8060a2b0 + 2, 0x17A); //userPacker->city 
 */
