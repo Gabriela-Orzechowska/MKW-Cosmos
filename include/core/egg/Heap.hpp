@@ -48,7 +48,6 @@ namespace EGG {
 		Heap *becomeCurrentHeapWithoutLocking();
 		inline bool isLocked() { return this->dameFlag & 1;}
 	private:
-		nw4r::ut::Link parentLink;
 		void *rvlHeap; //0x10
 		void *parentHeapMBlock; //0x14
 		Heap *parentHeap; //0x18

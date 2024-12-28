@@ -2,6 +2,7 @@
 #define _WFCMAIN_
 #include <kamek.hpp>
 #include <game/UI/Page/Page.hpp>
+#include <game/UI/MenuData/MenuData.hpp>
 /*
 Contributors:
 -Melg
@@ -40,9 +41,11 @@ public:
 };//total size 0xf34
 static_assert(sizeof(WFCMain) == 0xf34, "WFCMain");
 
+
 class WFCModeSelect : public Page { //ID 0x8C
 public:
     static const PageId id = WFC_VSBATTLE_SELECT;
+    static WFCModeSelect* GetPage() { return MenuData::GetStaticInstance()->GetCurrentScene()->Get<WFCModeSelect>(id); }
     WFCModeSelect(); //8064bfd8
     ~WFCModeSelect() override; //8064c170 vtable 808bfec8
     PageId GetNextPage() const override; //8064d674

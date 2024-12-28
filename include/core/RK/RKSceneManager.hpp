@@ -1,5 +1,6 @@
 #ifndef _RKSCENEMANAGER_
 #define _RKSCENEMANAGER_
+#include "core/egg/Heap.hpp"
 #include <types.hpp>
 #include <core/egg/Scene.hpp>
 
@@ -23,7 +24,9 @@ public:
         NET,
     };
     void SetHeapsGroupId(GroupId groupId); //80009bc0
-    ExpHeap *heaps[3];
+    ExpHeap *mem1;
+    ExpHeap *mem2;
+    ExpHeap *debug;
     ExpHeap::GroupSizeHolder groupSizes[3]; //0xC, one per heap
 }; //0xc0c
 

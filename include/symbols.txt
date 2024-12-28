@@ -1422,6 +1422,7 @@ loginRegion__3DWC = 0x80384fd0
 Real_DWCi_Auth_SendRequest = 0x800ed6ec
 s_auth_work = 0x8038633c
 s_auth_error = 0x802f1cB8
+DWCi_CheckLogin = 0x800d0cdc
 
 DWC_AddMatchKeyInt = 0x800d4258
 DWC_ReportLevel = 0x803862c0
@@ -1454,6 +1455,7 @@ NHTTPSendRequestAsync = 0x801d925c
 NHTTPCancelRequestAsync = 0x801d92b8
 NHTTPDestroyResponse = 0x801d92f8
 NHTTPGetResultCode = 0x801d93e4
+NHTTPCleanupAsync = 0x801d8dbc
     
 stpMatchCnt__3DWC = 0x8038630c
 
