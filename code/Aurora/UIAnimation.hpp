@@ -14,7 +14,7 @@ namespace Aurora {
 #define PALETTE_LENGTH 4
         class Animator{
         public:
-            Animator(){};
+            Animator() : isUsingTop(true), layerAlpha(1.0f) {};
             static void CreateStaticInstance();
             static Animator* GetStaticInstance() { return sInstance; };
             static inline float GetBezierEasing(float a);
@@ -25,6 +25,8 @@ namespace Aurora {
             void SetAnimationData(AnimationData* data) { currentAnimation = data; }
 
             void AnimateBackground(Pane* pane);
+            void UpdateBackground();
+            void UpdateLicenseIndex(u32 index);
 
         private:
             static Animator* sInstance;
@@ -35,8 +37,9 @@ namespace Aurora {
             float titleFrameY;
             u32 currentColor;
 
-
-
+            u8 licenseLevel[2];
+            float layerAlpha;
+            bool isUsingTop;
         };
     }
 }

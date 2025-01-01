@@ -4,6 +4,7 @@
 #include "kamek.hpp"
 #include <Aurora/UIAnimation.hpp>
 #include <include/c_string.h>
+#include <UI/MiscUI.hpp>
 
 extern "C" u16 FuchiColor1[16]; //80895cc2
 extern "C" u16 FuchiColor2[16]; //80895cca
@@ -82,8 +83,24 @@ namespace Aurora {
             this->currentColor = *(u32*)&endColor;
         }
 
+        void Animator::UpdateBackground(){
+            Pages::BlurryTitle* title = Pages::BlurryTitle::GetPage();
+            if(title == nullptr) return;
+
+            if(!this->isUsingTop && layerAlpha < 1.0f) layerAlpha += 0.1f;
+            else if(this->isUsingTop && layerAlpha > 0.0f) layerAlpha -= 0.1f;
+
+            Picture* pane = (Picture*) title->blurryTitleImage.layout.GetPaneByName("title_cosmos"); 
+            if(pane == nullptr) return;
+
+            for(int i = 0; i < 4; i++){
+                pane->vertexColours[i].a = 255 * layerAlpha;
+            };
+        };
+
         void Animator::AnimateTopMenu(Pages::TopMenuOverlay& overlay){
             this->UpdateColor();
+            this->UpdateBackground();
             for(int i = 0; i < 2; i++){
                 LayoutUIControl* control = (LayoutUIControl*) overlay.controlGroup.controlArray[i];
                 if(control == nullptr) return;
@@ -93,6 +110,39 @@ namespace Aurora {
                 this->ApplyPaneColor(rootPane);
             }
         }
+
+        void Animator::UpdateLicenseIndex(u32 index){
+            Pages::BlurryTitle* blurryTitle = Pages::BlurryTitle::GetPage();
+            if(blurryTitle == nullptr) return;
+            u32 licenseClass = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetMaxLicenseClass(index);
+            char buffer[0x30];
+            snprintf(buffer, 0x30, "title/timg/cosmos-%d.tpl", licenseClass);
+            void * tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, buffer, 0);
+
+            Pages::Title* title = Pages::Title::GetPage();
+            if(title != nullptr){
+                Pane* pane = title->titleImage.layout.GetPaneByName("title_cosmos");
+                if(pane == nullptr) return;    
+
+                CosmosUI::ChangePaneImage(&title->titleImage, "title_cosmos", tplPointer);
+            };
+
+            if(isUsingTop){
+                Pane* pane = blurryTitle->blurryTitleImage.layout.GetPaneByName("title_cosmos");
+                if(pane == nullptr) return;    
+
+                CosmosUI::ChangePaneImage(&blurryTitle->blurryTitleImage, "title_cosmos", tplPointer);
+            }
+            else {
+                Pane* pane = blurryTitle->blurryTitleImage.layout.GetPaneByName("title_cosmos2");
+                if(pane == nullptr) return;    
+
+                CosmosUI::ChangePaneImage(&blurryTitle->blurryTitleImage, "title_cosmos2", tplPointer);
+            }
+
+            this->isUsingTop = !this->isUsingTop;
+        };
+
 
         void Animator::AnimateBackground(Pane* pane){
             const float speedX = 8.0f;
@@ -136,10 +186,14 @@ namespace Aurora {
         void UpdateTitle(Pages::Title& title){
             Pane* pane = title.titleImage.layout.GetPaneByName("title_cosmos");
             Animator::GetStaticInstance()->AnimateBackground(pane);
+            pane = title.titleImage.layout.GetPaneByName("title_cosmos2");
+            Animator::GetStaticInstance()->AnimateBackground(pane);
         }
         kmWritePointer(0x808beef0, UpdateTitle);
         void UpdateBlurryTitle(Pages::BlurryTitle& title){
-            Pane* pane = title.blurryTitleImage.layout.GetPaneByName("chara");
+            Pane* pane = title.blurryTitleImage.layout.GetPaneByName("title_cosmos");
+            Animator::GetStaticInstance()->AnimateBackground(pane);
+            pane = title.blurryTitleImage.layout.GetPaneByName("title_cosmos2");
             Animator::GetStaticInstance()->AnimateBackground(pane);
         }
         kmWritePointer(0x808bee8c, UpdateBlurryTitle);

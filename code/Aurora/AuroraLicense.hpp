@@ -3,6 +3,7 @@
 #include "Network/RKNetController.hpp"
 #include "Network/RKNetSelect.hpp"
 #include "System/Identifiers.hpp"
+#include "UI/Ctrl/PushButton.hpp"
 #include "UI/Layout/ControlLoader.hpp"
 #include "UI/Page/Other/CountDownTimer.hpp"
 #include "UI/Page/Other/VR.hpp"
@@ -27,6 +28,21 @@ namespace Aurora {
             u16 vr; //806519c4, no idea, gets the current license then does a bunch of operations 0x1FC
             u16 br; //80651a20, very similar, but uses a different address to start the operations
         };//total size0xC
+        
+        class LicenseSelectPlus : public Pages::LicenseSelect {
+        public:
+            ~LicenseSelectPlus() override {};
+            void OnInit() override;
+            void OnActivate() override;
+
+            void OnLicenseButtonSelect(PushButton* button, u32 hudSlotId);
+
+        private:
+            PtmfHolder_2A<Page, void, PushButton*, u32> onSelectHandler;
+
+            
+        };
+
         class LicenseProgress : public Page {
         public:
             static const PageId pageId = (PageId) Aurora::LICENSE_CLASS_PROGRESS;

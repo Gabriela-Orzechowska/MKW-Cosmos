@@ -672,6 +672,14 @@ __vt__14LicenseControl = 0x808b992c
 __ct__13LicenseButtonFv = 0x805eaa6c
 __dt__13LicenseButtonFv = 0x805eaaa8
 
+__ct__Q25Pages13LicenseSelectFv = 0x805ea834
+__dt__Q25Pages13LicenseSelectFv = 0x805eab00
+OnInit__Q25Pages13LicenseSelectFv = 0x805eabb8
+GetRuntimeTypeInfo__Q25Pages13LicenseSelectCFv = 0x805ee660
+OnResume__Q25Pages13LicenseSelectFv = 0x805eb798
+AfterControlUpdate__Q25Pages13LicenseSelectFv = 0x805eb79c
+OnActivate__Q25Pages13LicenseSelectFv = 0x805eb774
+GetNextPage__Q25Pages13LicenseSelectCFv = 0x805ee658
 
 #PushButton
 __ct__10PushButtonFv = 0x805bd3a8

@@ -1,13 +1,17 @@
 #include "Network/RKNetController.hpp"
 #include "Race/RaceData.hpp"
 #include "Settings/UserData.hpp"
+#include "System/Identifiers.hpp"
 #include "UI/Ctrl/CtrlRace/CtrlRaceBalloon.hpp"
+#include "UI/Ctrl/PushButton.hpp"
 #include "UI/Layout/ControlLoader.hpp"
+#include "UI/MenuData/MenuData.hpp"
 #include "UI/Page/Other/LicenseSettings.hpp"
 #include "hooks.hpp"
 #include "kamek.hpp"
 #include "main.hpp"
 #include <Aurora/AuroraLicense.hpp>
+#include <Aurora/UIAnimation.hpp>
 
 extern "C" {
     u64 DWC_CreateFriendKey(void* val);
@@ -15,6 +19,37 @@ extern "C" {
 
 namespace Aurora {
     namespace UI {
+
+        LicenseSelectPlus* ReplaceLicensePage(){
+            return new LicenseSelectPlus;
+        }
+        kmCall(0x80623ccc, ReplaceLicensePage);
+        kmWrite32(0x80623cc0, 0x60000000);
+
+
+        void LicenseSelectPlus::OnInit(){
+            Pages::LicenseSelect::OnInit();
+
+            SetupHandler(this->onSelectHandler, void (Page::*)(PushButton*,u32), &LicenseSelectPlus::OnLicenseButtonSelect);
+
+            for(int i = 0; i < 4; i++){
+                this->licenseButtons[i].SetOnSelectHandler(&this->onSelectHandler);
+            };
+            if(MenuData::GetStaticInstance()->curScene->menuId == MAIN_MENU_FROM_MENU)
+                Aurora::UI::Animator::GetStaticInstance()->UpdateLicenseIndex(MenuData::GetStaticInstance()->GetCurrentContext()->licenseNum);
+            else Aurora::UI::Animator::GetStaticInstance()->UpdateLicenseIndex(0);
+        };
+
+        void LicenseSelectPlus::OnLicenseButtonSelect(PushButton* button, u32 hudSlotId){
+            Aurora::UI::Animator::GetStaticInstance()->UpdateLicenseIndex(button->buttonId - 1);
+        };
+
+        void LicenseSelectPlus::OnActivate(){
+            Pages::LicenseSelect::OnActivate();
+            if(this->animationDirection == 0){
+                Aurora::UI::Animator::GetStaticInstance()->UpdateLicenseIndex(0);
+            }
+        };
 
         inline void SetPaneVTXColors(Pane* root, const char* name, u32 vtx1, u32 vtx2, u32 vtx3, u32 vtx4){
             Picture* pane = (Picture*)root->FindPaneByName(name, true);

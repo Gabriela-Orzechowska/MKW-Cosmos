@@ -2,6 +2,7 @@
 #define _TITLEPAGE_
 #include <game/UI/Page/Page.hpp>
 #include <game/UI/Ctrl/Menu/CtrlMenuPressStart.hpp>
+#include <game/UI/MenuData/MenuData.hpp>
 
 //_sinit_ at 8063c3b8
 class TitleImage : public LayoutUIControl{
@@ -29,6 +30,7 @@ static_assert(sizeof(TitleMovieControl) == 0x174, "TitleMovieControl");
 namespace Pages{
 class Title : public Page{ //0x57
 public:
+    static Title* GetPage() { return MenuData::GetStaticInstance()->GetCurrentScene()->Get<Title>((PageId)0x57); }
     Title(); //8063aa08
     ~Title() override; //8063aae4 vtable 808beea8
     PageId GetNextPage() const override; //0x10 8063c398
@@ -57,6 +59,7 @@ static_assert(sizeof(Title) == 0x350, "Title");
 
 class BlurryTitle : public Page{ //0x58 behind main menu
     public:
+    static BlurryTitle* GetPage() { return MenuData::GetStaticInstance()->GetCurrentScene()->Get<BlurryTitle>((PageId)0x58); }
     BlurryTitle(); //8063b514
     ~BlurryTitle() override; //8063b560 vtable 808bee44
     void OnInit() override; //0x28 8062d5d4
