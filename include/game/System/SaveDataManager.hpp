@@ -47,7 +47,15 @@ struct RKPD{ //licenses
         char str[4]; //RKPD
         u32 raw;
     } magic;
-    u8 unknown_0x4[0x56d0 - 0x4];
+    u32 pbFlags;
+    u32 downFlags;
+    u32 nStaffFlags;
+    u32 eStaffFlags;
+    wchar_t miiName[10];
+    u32 avatarId;
+    u32 clientId;
+    u32 unlockFlags[4];
+    u8 unknown_0x4[0x56d0 - 0x40];
     FriendData friends[30]; //0x56d0
     DWC::Friend dwcFriends[30]; //0x8b50
     u8 unknown_0x8cb8[0x8cc0-0x8cb8];

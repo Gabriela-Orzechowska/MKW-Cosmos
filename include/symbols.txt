@@ -1583,6 +1583,7 @@ sInstance__12ModuleLinker = 0x80385ff8
 
 DecideItem = 0x807bb42c		
 GetTrackBMGId = 0x80833668							   
+GetCupBMGId = 0x80833638
 
 
 

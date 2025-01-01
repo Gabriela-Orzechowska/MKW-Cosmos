@@ -21,9 +21,12 @@
 #include "System/Identifiers.hpp"
 #include "System/identifiers.hpp"
 #include "UI/BMG/BMG.hpp"
+#include "UI/Ctrl/UIControl.hpp"
 #include "UI/MenuData/MenuData.hpp"
+#include "hooks.hpp"
 #include <SlotExpansion/SlotExpansion.hpp>
 #include <game/UI/Page/Menu/CourseSelect.hpp>
+#include <UI/MiscUI.hpp>
 
 int GetCorrectTrackBMG(int slot)
 {
@@ -217,4 +220,15 @@ static void SaveGP(){
 }
 kmBranch(0x805bd050, SaveGP);
 
+int GetCorrectCupBMG(int cup){
+    return cup + BMG_CUPS;
+};
+kmBranch(0x80833638, GetCorrectCupBMG);
 
+void SetCorrectCupIcon(LayoutUIControl& control, const char* name, void*){
+    char tpl[0x30];
+    snprintf(tpl, 0x30, "button/timg/icon_cup_%03x.tpl", Cosmos::CupManager::GetStaticInstance()->lastSelectedCup);
+    void * tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, tpl, 0);
+    CosmosUI::ChangePaneImage(&control, name, tplPointer);
+};
+kmCall(0x805bcb74, SetCorrectCupIcon);

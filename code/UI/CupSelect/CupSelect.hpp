@@ -64,6 +64,8 @@ namespace CosmosUI
 
             void UpdateSelection(CtrlMenuCupSelectCup* cups, PushButton *button, u32 slotId);
             static inline CupSelectPlus* GetPage() { return MenuData::GetStaticInstance()->GetPage<CupSelectPlus>(CUP_SELECT); }
+
+            void SetGPBottomText();
         private:
             void OnSwitchPress(u32 slotId);
             void OnActivate() override;

@@ -154,6 +154,30 @@ namespace CosmosUI
         return;
     }
 
+    void CupSelectPlus::SetGPBottomText(){
+        TextInfo info;
+
+        u32 engineClass = RaceData::GetStaticInstance()->menusScenario.GetSettings().engineClass;
+        if(RaceData::GetStaticInstance()->menusScenario.GetSettings().isMirror()) engineClass++;
+
+        info.bmgToPass[0] = engineClass + 0xd53;
+
+        Cosmos::Data::SettingsHolder* holder = Cosmos::Data::SettingsHolder::GetStaticInstance();
+        u32 curCup = this->ctrlMenuCupSelectCup.curCupID;
+        if(holder->IsGPCompleted(curCup, engineClass)){
+            u32 rank = holder->GetGPRank(curCup, engineClass);
+            u32 trophy = holder->GetGPTrophy(curCup, engineClass);
+            info.bmgToPass[1] = trophy >= 3 ? 0xd36 : trophy + 0xd2a;
+            info.bmgToPass[2] = rank + 0xd2d;
+        }
+        else {
+            info.bmgToPass[1] = 0xd36;
+            info.bmgToPass[2] = 0xd36;
+        }
+
+        this->bottomText->SetMsgId(0xd20, &info);
+    };
+
     void CupSelectPlus::OnActivate()
     {
         u32 sorting = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_SORTING);
@@ -167,9 +191,11 @@ namespace CosmosUI
         lefttemp = 0;
 
         u32 bmg = 0x2810 + sorting;
-        if(RaceData::GetStaticInstance()->menusScenario.GetSettings().gamemode == MODE_GRAND_PRIX)
-            bmg = 0;
-        this->bottomText->SetMsgId(bmg);
+        if(RaceData::GetStaticInstance()->menusScenario.GetSettings().gamemode == MODE_GRAND_PRIX) {
+            Cosmos::CupManager::GetStaticInstance()->SetTrackLayout(0, 0);
+            this->SetGPBottomText();
+        }
+        else this->bottomText->SetMsgId(bmg);
 
         this->ctrlMenuCupSelectCourse.UpdateTrackList(this->ctrlMenuCupSelectCup.curCupID);
         //ExtendCupSelectCupInitSelf(&this->ctrlMenuCupSelectCup);
@@ -207,7 +233,6 @@ namespace CosmosUI
             this->LoadPrevPageWithDelayById(CUP_SELECT, 0.0f);
         }
     }
-
     s32 AddLastLeft(s32 l){
         lastLeftCup += l;
         return 0;
@@ -359,9 +384,9 @@ namespace CosmosUI
 
         u32 bmg = 0x2810 + sorting;
         if(RaceData::GetStaticInstance()->menusScenario.GetSettings().gamemode == MODE_GRAND_PRIX)
-            bmg = 0;
-
-        page->bottomText->SetMsgId(bmg);
+            page->SetGPBottomText();
+        else 
+            page->bottomText->SetMsgId(bmg);
     }
     kmBranch(0x807e5d64, UpdateCupPageBottomText);
 

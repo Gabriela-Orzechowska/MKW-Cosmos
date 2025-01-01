@@ -194,6 +194,7 @@ static_assert(sizeof(RaceData) == 0x73f0, "RaceData");
 
 extern "C" {
     int GetTrackBMGId(CourseId id);
+    int GetCupBMGId(u32 cup);
     int CharacterIDToWeightClass(CharacterId id); //0 light 1 medium 2 heavy
     char *CharacterIDToChar(CharacterId id); //80860acc
 }

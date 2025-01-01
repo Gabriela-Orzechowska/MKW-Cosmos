@@ -84,22 +84,23 @@ namespace Cosmos
     #pragma pack(pop)
 
     
+    enum TrackSorting {
+        DEFAULT,
+        ALPHABETICAL,
+    };
+
+    enum TrackList {
+        TRACKLIST_ALL,
+        TRACKLIST_CTS,
+        TRACKLIST_RETROS,
+        TRACKLIST_COUNT,
+
+        TRACKLIST_NONE = -1U,
+    };
 
     class CupManager
     {
-        enum TrackSorting {
-            DEFAULT,
-            ALPHABETICAL,
-        };
-
-        enum TrackList {
-            TRACKLIST_ALL,
-            TRACKLIST_CTS,
-            TRACKLIST_RETROS,
-            TRACKLIST_COUNT,
-
-            TRACKLIST_NONE = -1U,
-        };
+        public:
 
 
         public:
