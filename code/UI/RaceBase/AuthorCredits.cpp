@@ -35,21 +35,53 @@ namespace CosmosUI{
     void ControlAuthorCredits::Load()
     {
         this->hudSlotId = 0;
-        ControlLoader loader(this);
-        loader.Load("game_image", "CosmosCredits", "info_1", NULL);
-        this->textBox_00 = this->layout.GetPaneByName("TextBox_00");
         u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
-        this->SetMsgId(BMGOFFSET + trackId, 0);
+        
+        ControlLoader loader(this);
+        if(trackId != Aurora::Special::SLOT_TGAW) {
+            loader.Load("game_image", "CosmosCredits", "info_1", NULL);
+            this->textBox_00 = this->layout.GetPaneByName("TextBox_00");
+            this->SetMsgId(BMGOFFSET + trackId, 0);
 
-        if(trackId == Aurora::Special::SLOT_SANDY_CLOCKTOWER){
-            Random random;
-            if(random.NextLimited(50) == 0){
-                this->SetMsgId(0x70001, 0);
+            if(trackId == Aurora::Special::SLOT_SANDY_CLOCKTOWER){
+                Random random;
+                if(random.NextLimited(50) == 0){
+                    this->SetMsgId(0x70001, 0);
+                }
             }
         }
+        else {
+            loader.Load("game_image", "CosmosCreditsAW", "info_1", NULL);
+            this->textBox_00 = this->layout.GetPaneByName("TextBox_00");
+            this->SetTextBoxMsg("TextBox_00", 0x70003, nullptr);
+            this->SetTextBoxMsg("TextBox_01", 0x70004, nullptr);
+            this->SetTextBoxMsg("TextBox_02", 0x70005, nullptr);
+            this->SetTextBoxMsg("TextBox_03", 0x70006, nullptr);
+            CosmosLog("Pane pointer: %p\n", this->layout.GetPaneByName("TextBox_01"));
+        }
     }
+
+    void ControlAuthorCredits::OnUpdate(){
+        CtrlRaceWifiStartMessage::OnUpdate();
+        u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
+        if(trackId != Aurora::Special::SLOT_TGAW) return;
+
+        s32 time = RaceInfo::GetStaticInstance()->timer;
+        if(time >= 200) {
+            this->layout.GetPaneByName("TextBox_01")->trans.x -= 1.0f;
+            this->layout.GetPaneByName("TextBox_02")->trans.x -= 1.0f;
+            this->layout.GetPaneByName("TextBox_03")->trans.x -= 1.0f;
+        }
+    };
+
     bool ControlAuthorCredits::HasStarted(){
         s32 time = RaceInfo::GetStaticInstance()->timer;
+// AURORA
+        u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
+        if(trackId == Aurora::Special::SLOT_TGAW) {
+            bool isEnd = time < 2040 || this->layout.GetPaneByName("TextBox_01")->trans.x < -1800.0f;
+            return time > 0 && isEnd;
+        }
         return time > 0 && time < 300;
     }
     bool ControlAuthorCredits::IsActive(){

@@ -26,6 +26,10 @@
  70000 = Lump
  70001 = Sandy Cocktower\n\z{800,40}\c{blue1}Shortly\c{off}
  70002 = Fever \c{blue1}Factory\c{off}
+ 70003 = The Great Apple War
+ 70004 = \c{blue1}Atmosphere, Birj, Blaze ok, Bluebatstar, BroOFun, CarryOn, Chouchintosh, Coffee Toffee, G-Force,\c{off}
+ 70005 = \c{blue1}Galaxia37, JadenMKW, Metabus, Mickeyman713, MKWahPhil, Rex, Shorky, Slimeserver, tarsa129,\c{off}
+ 70006 = \c{blue1}TL, Trainiax, yosh46, bento, CobaltYoshi27, Epik95, JC, koura, Mystic, Silverr, Vrock02\c{off}
 
  30351   = 2
  30352   = 4

@@ -32,6 +32,7 @@ namespace CosmosUI{
 
         bool HasStarted() override;
         bool IsActive() override;
+        void OnUpdate() override;
 
     public:
         static u32 Count() { return 1; }
