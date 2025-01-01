@@ -96,6 +96,8 @@ kmCall(0x8062d5bc, InjectMenuSinglePages); //From ChangeCourse
 kmCall(0x8062d640, InjectMenuSinglePages); //From Versus
 kmCall(0x8062d6c4, InjectMenuSinglePages); //From Battle
 kmCall(0x8062d808, InjectMenuSinglePages); //From Mission MOde
+//MenuMulti
+kmCall(0x8062db5c, InjectMenuSinglePages);
 
 void InjectGhostPages(Scene& scene, PageId id) {
     scene.CreatePage(TIME_TRIAL_INTERFACE);

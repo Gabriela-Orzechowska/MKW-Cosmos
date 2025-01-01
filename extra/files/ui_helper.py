@@ -32,11 +32,7 @@ def pack():
     
     os.system("wszst c UICosmos.d -o --dest UICosmos.lzma --lzma")
 
-    os.system("wbmgt encode UICosmos_X.d/message/CosmosExtra.txt -o")
-    os.system("wszst c UICosmos_X.d -o --dest UICosmos_X.lzma --lzma")
-
     shutil.copy("UICosmos.lzma", dst+'/UICosmos.lzma')
-    shutil.copy("UICosmos_X.lzma", dst+'/UICosmos_X.lzma')
 
 operations = {
     'decode_all': decode_all,

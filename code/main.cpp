@@ -323,6 +323,7 @@ namespace Cosmos{
         #endif
     }
 
+    /*
     static bool hasStartedAlready = false;
     extern "C" int fwrite(const char* ptr, u32 size, u32 nmeb, u32* stream);
     int myfwrite(const char* ptr, u32 size, u32 nmeb, u32* stream) {
@@ -344,6 +345,7 @@ namespace Cosmos{
         return fwrite(ptr, size, nmeb, stream);
     }
     kmCall(0x80011648, myfwrite);
+    */
 
     void LoadLoaderFuncs(){
         System::Console_PrintFunc = (Console_Print_t) *((u32*)0x80003FEC);

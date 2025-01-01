@@ -20,6 +20,7 @@
 #include "Race/RaceData.hpp"
 #include "Race/RaceInfo.hpp"
 #include "System/Identifiers.hpp"
+#include "UI/MenuData/MenuData.hpp"
 #include "hooks.hpp"
 #include "kamek.hpp"
 #include <Settings/UserData.hpp>
@@ -333,7 +334,8 @@ namespace Cosmos
         kmWrite32(0x805469c0, 0x60000000);
 
         void LoadLicenseSettings(){
-            SettingsHolder::GetStaticInstance()->SetCurrentLicense(SaveDataManager::GetStaticInstance()->curLicenseId);
+            CosmosLog("CurrentLicense: %d\n", MenuData::GetStaticInstance()->GetCurrentContext()->licenseId);
+            SettingsHolder::GetStaticInstance()->SetCurrentLicense(MenuData::GetStaticInstance()->GetCurrentContext()->licenseNum);
             SettingsUpdateHook::exec();
             if(LanguageManager::GetStaticInstance()->IsUpdateNeeded()) Page::transitionDelay = 176.0f;
             else {

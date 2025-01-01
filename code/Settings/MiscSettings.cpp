@@ -103,6 +103,12 @@ void SaveMinimap(CtrlRace2DMap& map, const char* name){
 }
 kmCall(0x80858204, SaveMinimap);
 
+void* ResetMinimap(void* ptr){
+    mainMinimap = nullptr;
+    return ptr;
+};
+kmBranch(0x807ebedc, ResetMinimap);
+
 void PatchMiiHeads() {
     if(mainMinimap == nullptr) return;
     u8 setting = SettingsHolder::GetStaticInstance()->GetSettingValue(COSMOS_SETTING_MII_HEADS);

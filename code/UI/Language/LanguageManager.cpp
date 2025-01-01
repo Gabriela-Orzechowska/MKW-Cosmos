@@ -16,6 +16,7 @@
  */
 
 #include "System/Identifiers.hpp"
+#include "System/SaveDataManager.hpp"
 #include "UI/MenuData/MenuData.hpp"
 #include "UI/MenuData/Scene.hpp"
 #include "UI/Page/Page.hpp"
@@ -97,6 +98,25 @@ namespace Cosmos
     }
     static MenuLoadHook mlhResetLanguageManagerStatus(ResetLanguageManagerStatus);
 
+
+    static char* archiveSuffixes[] = {
+        "",
+        "_E",
+        "_U",
+        "_G",
+        "_F",
+        "_Q",
+        "_S",
+        "_M",
+        "_I",
+        "_H",
+        "_PL",
+        "_CZ",
+        "_HU",
+        "_J",
+        "_K",
+    };
+
     void LanguageManager::Update(bool reload) {
         this->currentLanguageOption = this->isBoot ? DEFAULT : Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_LANGUAGE_SETTINGS);
         this->isDefault = this->isBoot ? true : this->currentLanguageOption == DEFAULT;
@@ -107,10 +127,10 @@ namespace Cosmos
         this->needsUpdate = this->actualLanguage != this->lastLanguage;
         
         char buffer[0x80];
-        snprintf(buffer, 0x80, "%s.szs", suffixes[this->actualLanguage]);
+        snprintf(buffer, 0x80, "%s.szs", archiveSuffixes[this->actualLanguage]);
 
         char superMenuName[0x80];
-        snprintf(superMenuName, 0x80, "/Scene/UI/SuperMenu%s.szs", suffixes[this->actualLanguage]);
+        snprintf(superMenuName, 0x80, "/Scene/UI/SuperMenu%s.szs", archiveSuffixes[this->actualLanguage]);
 
         strncpy(ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_COMMON)->archiveSuffixes[0x1], buffer, 0x80);
         strncpy(ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archiveSuffixes[0x1], superMenuName, 0x80);
@@ -124,8 +144,11 @@ namespace Cosmos
                         Get<CosmosUI::NewSettings>((PageId)Cosmos::SETTINGS_MAIN);
                     if(page != nullptr) page->ChangeMenu(page->GetPreviousMenu(), 0, 0.0f);
                     else {
-                        Page* page = MenuData::GetStaticInstance()->curScene->Get<Page>(MAIN_MENU_PAGE);
-                        if(page != nullptr) page->ChangeMenu(MAIN_MENU_FROM_MENU, 0, 0.0f);
+                        if(SaveDataManager::GetStaticInstance()->rksysRaw->licenses[MenuData::GetStaticInstance()
+                                ->GetCurrentContext()->licenseNum].magic.raw == 0x524b5044) {
+                            Page* page = MenuData::GetStaticInstance()->curScene->Get<Page>(MAIN_MENU_PAGE);
+                            if(page != nullptr) page->ChangeMenu(MAIN_MENU_FROM_MENU, 0, 0.0f);
+                        }
                     }
                 }
             }

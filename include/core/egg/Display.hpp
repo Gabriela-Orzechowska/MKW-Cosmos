@@ -37,6 +37,10 @@ public:
     void endRender() override; //8020ff9c
     void postVRetrace(); //80210024
     static void VIRetraceCallback(u32 retraceCount); //8020fcd4
+                                                     //
+    inline void ForceRefresh(){
+        endFrame(); beginFrame();
+    }
 
     u8 unknown_0x28[0x58 - 0x28];
     OSMessageQueue messageQueue; //0x58

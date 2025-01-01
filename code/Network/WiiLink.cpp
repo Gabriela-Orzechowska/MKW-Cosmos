@@ -1,3 +1,4 @@
+#include "Network/WiiLink.hpp"
 #include <Network/RSA.hpp>
 #include <Network/SHA256.hpp>
 #include <Network/WiiLinkTypes.hpp>
@@ -13,6 +14,9 @@ static u8 s_payloadBlock[PAYLOAD_BLOCK_SIZE + 0x20];
 static void *s_payload = NULL;
 static bool s_payloadReady = false;
 static u8 s_saltHash[SHA256_DIGEST_SIZE];
+static bool s_hasFinished = false;
+
+bool WiiLinkHasFinished() { return s_hasFinished; }
 
 extern "C"
 {
@@ -177,6 +181,7 @@ void ApplyWiiLinkPatch(int param_1, int param_2, int param_3, int param_4, int p
 {
     if (s_payloadReady)
     {
+        s_hasFinished = true;
         DWCi_Auth_SendRequest(
             param_1, param_2, param_3, param_4, param_5, param_6);
         return;
