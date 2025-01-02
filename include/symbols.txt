@@ -188,6 +188,8 @@ fontNames = 0x808B87A8
 
 PSVECAdd = 0x8019abe4
 PSVECMag = 0x8019ac68
+PSVECNormalize = 0x8019AC24
+PSVECDotProduct = 0x8019ACAC
 
 #NAND
 Create__4NANDFPCcUcUc = 0x8019b43c

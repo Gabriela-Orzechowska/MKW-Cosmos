@@ -130,11 +130,20 @@ namespace CosmosUI{
 
         //We add engine speed + moving road speed + moving water speed;
         Vec3 vec3Speed;
-        PSVECAdd(&kartPhysics->engineSpeed, &kartPhysics->movingRoadSpeed, &vec3Speed);
-        PSVECAdd(&vec3Speed, &kartPhysics->waterStreamSpeed, &vec3Speed);
-        float speed = PSVECMag(&vec3Speed);
+        float speed = PSVECMag(&kartPhysics->engineSpeed);
+        if(speed != 0){
+            Vec3 normalizedEngine;
+            PSVECNormalize(&kartPhysics->engineSpeed, &normalizedEngine);
+            speed += PSVECDotProduct(&kartPhysics->movingRoadSpeed, &normalizedEngine);
+            speed += PSVECDotProduct(&kartPhysics->waterStreamSpeed, &normalizedEngine);
+        }
+        else {
+            speed += PSVECMag(&kartPhysics->movingRoadSpeed);
+            speed += PSVECMag(&kartPhysics->waterStreamSpeed);
+        }
 
         if(speed > maxSpeed) speed = maxSpeed;
+        speed = fabs(speed);
 
         u32 splitSpeed = (u32) (speed * 100.0f);
 
