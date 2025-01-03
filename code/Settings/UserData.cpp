@@ -96,11 +96,11 @@ namespace Cosmos
                 licensesFile = (UserDataLicenses*) offsetFrom(mainFile, mainFile->offsetToOthers);
                 trophiesFile = (UserDataTrophies*) offsetFrom(mainFile, mainFile->offsetToThophies);
 
-                if(strcmp(settingsFile->sign, USER_DATA_SETTINGS_MAGIC) || settingsFile->version != USER_DATA_SETTINGS_VERSION)
+                if(strcmp(settingsFile->sign, USER_DATA_SETTINGS_MAGIC) || settingsFile->version > USER_DATA_SETTINGS_VERSION)
                     isValidSettings = false;
-                if(strcmp(trophiesFile->sign, USER_DATA_TROPHY_MAGIC) || trophiesFile->version != USER_DATA_TROPHY_VERSION)
+                if(strcmp(trophiesFile->sign, USER_DATA_TROPHY_MAGIC) || trophiesFile->version > USER_DATA_TROPHY_VERSION)
                     isValidTrophy = false;
-                if(strcmp(licensesFile->sign, USER_DATA_LICENSE_MAGIC) || licensesFile->version != USER_DATA_LICENSE_VERSION)
+                if(strcmp(licensesFile->sign, USER_DATA_LICENSE_MAGIC) || licensesFile->version > USER_DATA_LICENSE_VERSION)
                     isValidTrophy = false;
             }
 
@@ -135,8 +135,8 @@ namespace Cosmos
                 licensesFile->version = USER_DATA_LICENSE_VERSION;
 
                 for(int i = 0; i < 4; i++){
-                    licensesFile->data[i].vr = 7500;
-                    licensesFile->data[i].br = 7500;
+                    licensesFile->data[i].vr = 6250;
+                    licensesFile->data[i].br = 6250;
                     licensesFile->data[i].onlineRaces = 0;
                     licensesFile->data[i].onlineScore = 400;
                 }

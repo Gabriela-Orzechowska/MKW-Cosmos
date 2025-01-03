@@ -508,7 +508,7 @@ namespace Cosmos
 
             u32 vr;
             u32 br;
-            u32 onlineScore;
+            s32 onlineScore;
             u32 onlineRaces;
             u32 unlockFlags;
             u32 crc;
@@ -676,6 +676,11 @@ namespace Cosmos
                 this->SetTrackList();
             }
 
+            inline UserDataFile* GetFileData() const { return this->file; }
+            inline UserDataSettings* GetSettingsData() const { return this->settingsNew; }
+            inline UserDataLicenses* GetLicensesData() { return this->licenses; }
+            inline UserDataTrophies* GetTrophiesData() const { return this->trophies; }
+
             inline bool AreMiiHeadsAllowed() const { return miiHeadsEnabled; }
             inline void SetMiiHeadSettings(bool setting) { miiHeadsEnabled = setting; }
             void SetCurrentLicense(int i) { this->currentLicense = i; }
@@ -687,15 +692,16 @@ namespace Cosmos
             void RequestSave();
 
             u32 fileSize;
-            UserDataFile* file;
-            UserDataSettings* settingsNew;
-            UserDataLicenses* licenses;
-            UserDataTrophies* trophies;
             char filepath[IPCMAXPATH];
             CosmosFile::FileManager* currentManager;
 
             bool miiHeadsEnabled;
             int currentLicense;
+
+            UserDataFile* file;
+            UserDataSettings* settingsNew;
+            UserDataLicenses* licenses;
+            UserDataTrophies* trophies;
 
             bool megaCloudOffline;
             bool megaCloudOnline;
