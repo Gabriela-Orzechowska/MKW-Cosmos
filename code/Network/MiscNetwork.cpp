@@ -197,7 +197,9 @@ void CreateNewUserPacket(RKNetUSERHandler& handler) {
         RFLiStoreData* mii = &handler.toSendPacket.mii[i];
 
         u32 a;
-        if(RFLSearchOfficialData(&mii->data.createID,&a)) continue;
+        mii->data.birthMonth = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetOnlineClass();
+
+        //if(RFLSearchOfficialData(&mii->data.createID,&a)) continue;
 
         mii->data.createID.miiID = 0x80000000;
         mii->data.createID.consoleID = 0;
@@ -210,7 +212,6 @@ void CreateNewUserPacket(RKNetUSERHandler& handler) {
 
         memset(mii->data.creatorName, 0, sizeof(mii->data.creatorName));
         mii->data.birthDay = 0;
-        mii->data.birthMonth = 0;
 
         mii->checkSum = 0;
         mii->checkSum = RFLiCalculateCRC(mii, sizeof(RFLiStoreData));
