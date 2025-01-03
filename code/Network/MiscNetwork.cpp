@@ -16,9 +16,11 @@
  */
 
 
+#include "Aurora/AuroraSlot.hpp"
 #include "Network/RKNetUser.hpp"
 #include "Race/RaceData.hpp"
 #include "Settings/UserData.hpp"
+#include "SlotExpansion/CupManager.hpp"
 #include "Visual/Mii.hpp"
 #include "core/gamespy/gamespy.hpp"
 #include "core/rvl/DWC/DWC.hpp"
@@ -218,4 +220,42 @@ void CreateNewUserPacket(RKNetUSERHandler& handler) {
 }
 kmCall(0x806628b0, CreateNewUserPacket);
 
+u32 GetOnlineTimeLimit(){
+    if(Cosmos::CupManager::GetStaticInstance()->GetTrackID() == Aurora::Special::SLOT_UNDERGROUND_PUZZLE)
+        return 600000 + 0x6c20;
+    return 300000 + 0x6c20;
+};
+kmCall(0x8053f3b8, GetOnlineTimeLimit);
+
+bool GetOnlineDCLimit(u32 timer){
+    if(Cosmos::CupManager::GetStaticInstance()->GetTrackID() == Aurora::Special::SLOT_UNDERGROUND_PUZZLE)
+        return timer < 43210;
+    return timer < 21605;
+}
+
+asm int PatchOnlineDCLimit(){
+    ASM(
+        nofralloc;
+        stwu r1, -0x80 (r1);
+        stmw r3, 0x8 (r1);
+
+        mr r3, r0;
+
+        mflr r12;
+        bl GetOnlineDCLimit;
+        cmpwi r3, 0;
+        mtlr r12;
+
+        lmw r3, 0x8 (r1);
+        addi r1, r1, 0x80;
+        blr;
+       );
+};
+kmCall(0x8053f474, PatchOnlineDCLimit);
+kmWrite32(0x8053f478, 0x4082000c);
+
+kmWrite32(0x80521408, 0x38000000);
+kmWrite32(0x8053EF6C, 0x38000000);
+kmWrite32(0x8053F0B4, 0x38000000);
+kmWrite32(0x8053F124, 0x38000000);
 
