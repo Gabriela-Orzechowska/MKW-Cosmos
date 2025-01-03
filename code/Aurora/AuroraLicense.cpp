@@ -1,4 +1,5 @@
 #include "Network/RKNetController.hpp"
+#include "Network/RKNetUser.hpp"
 #include "Race/RaceData.hpp"
 #include "Settings/UserData.hpp"
 #include "System/Identifiers.hpp"
@@ -410,7 +411,8 @@ namespace Aurora {
                 licenseClass = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetOnlineClass();
             }
             else {
-                licenseClass = ((AuroraPlayerInfo*)&timer->infos[player])->licenceClass;
+                licenseClass = RKNetUSERHandler::GetStaticInstance()->receivedPackets[player].region;
+                //licenseClass = ((AuroraPlayerInfo*)&timer->infos[player])->licenceClass;
             }
 
             GXColorS10 color;
@@ -427,7 +429,7 @@ namespace Aurora {
             ASM(
                 nofralloc;
                 sth r0, 0x1fe (r22);
-                lbz r0, 0x185 (r3);
+                lbz r0, 0x184 (r3);
                 stb r0, 0x1f7 (r22);
                 blr;
                );
