@@ -1370,6 +1370,8 @@ SetModeTypes__Q25Pages14CountDownTimerFv = 0x80651854
 UpdateFriendParams__Q25Pages14CountDownTimerFv = 0x806515cc
 SetInitial__9CountDownFf = 0x805c3c2c
 Reset__21CountDownTimerControlFv = 0x805c4430
+GetEngineClass__Q25Pages14CountDownTimerCFv = 0x80650b40
+GetInstructionBmgId__Q25Pages14CountDownTimerCFv = 0x80650be0
 
 #VRPage
 __ct__Q25Pages2VRFv = 0x8064a3f4

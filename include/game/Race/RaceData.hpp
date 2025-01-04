@@ -80,7 +80,21 @@ enum EngineClass{
     CC_50,
     CC_100,
     CC_150,
-    CC_BATTLE //Note: Battle mode actually sets it to 50cc (which is ignored by code), but setting it to this in other modes results in Battle CC
+    CC_BATTLE, //Note: Battle mode actually sets it to 50cc (which is ignored by code), but setting it to this in other modes results in Battle CC
+
+    // AURORA
+    CC_200 = 1,
+};
+
+enum OnlineEngineClass {
+    CC_ONLINE_50 = 0,
+    CC_ONLINE_100,
+    CC_ONLINE_150,
+    CC_ONLINE_MIRROR,
+
+    //AURORA,
+    CC_ONLINE_200 = 1,
+    CC_ONLINE_200_MIRROR = 4,
 };
 
 enum ItemMode{

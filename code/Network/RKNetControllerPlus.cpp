@@ -16,12 +16,17 @@
  */
 
 #include "Network/RKNetController.hpp"
+#include "Race/RaceData.hpp"
 #include "Settings/UserData.hpp"
 #include "SlotExpansion/CupManager.hpp"
+#include "System/identifiers.hpp"
+#include "UI/MenuData/MenuData.hpp"
 #include "core/rvl/os/OS.hpp"
+#include "hooks.hpp"
 #include <Network/RKNetControllerPlus.hpp>
 #include <game/Network/RKNetPlayerInfo.hpp>
 #include <game/UI/Page/Other/Votes.hpp>
+#include <game/UI/Page/Other/CountDownTimer.hpp>
 
 namespace CosmosNetwork
 {
@@ -30,6 +35,45 @@ namespace CosmosNetwork
 
     }
 */
+    
+    bool IsMirrorMode(Pages::CountDownTimer& page){
+        // this function is exclusively used for "isMirrorMode" usage
+        u32 val = page.GetEngineClass();
+        if(val == CC_ONLINE_200_MIRROR) val = CC_ONLINE_MIRROR;
+        return val;
+    }
+    kmCall(0x807e8f34, IsMirrorMode);
+    kmCall(0x807e8a84, IsMirrorMode);
+    kmCall(0x807e85d4, IsMirrorMode);
+    kmCall(0x807e8268, IsMirrorMode);
+
+
+    void PrepareRace(Pages::CountDownTimer& page){
+        page.PrepareRace();
+        if(page.engineClass == CC_ONLINE_200_MIRROR){
+            RaceData::GetStaticInstance()->menusScenario.GetSettings().engineClass = CC_200;
+            RaceData::GetStaticInstance()->menusScenario.GetSettings().modeFlags |= 1;
+        }
+    };
+    kmCall(0x80643ce8, PrepareRace);
+
+    u32 GetEngineClassInstructionText(Pages::CountDownTimer& page){
+        MenuId id = MenuData::GetStaticInstance()->GetCurrentScene()->menuId;
+        switch(id){
+            case P1_WIFI_VS_VOTING:
+            case P2_WIFI_VS_VOTING:
+            case P1_WIFI_FRIEND_ROOM_VS_VOTING:
+            case P2_WIFI_FRIEND_ROOM_VS_VOTING:
+                if(page.engineClass == CC_ONLINE_200_MIRROR) return 0x280d;
+                return page.GetInstructionBmgId();
+            default:
+                return page.GetInstructionBmgId();
+        };
+    };
+    kmCall(0x8083ce54, GetEngineClassInstructionText);
+    kmCall(0x80839398, GetEngineClassInstructionText);
+    kmCall(0x808392f0, GetEngineClassInstructionText);
+    kmCall(0x8064aa9c, GetEngineClassInstructionText);
 
     //Ignore player 2 Votes
     kmWrite32(0x80660594, 0x38000000);
@@ -114,28 +158,31 @@ namespace CosmosNetwork
     }
     kmCall(0x80661490, DecideTrack);
 
+#define CC_200_MIRROR_PROBS 1
 #define CC_100_PROBS 10
-#define CC_MIRROR_PROBS 0
-#define CC_150_PROBS 90
+#define CC_MIRROR_PROBS 4
+#define CC_150_PROBS 85
 
     void DecideCC(RKNetSELECTHandlerPlus& handler) {
         RKNetController* controller = RKNetController::GetStaticInstance();
         RKNetSearchType type = controller->searchType;
         
-        u8 ccEngineValue = 2;
+        OnlineEngineClass ccEngine = CC_ONLINE_150;
         Cosmos::Data::FORCE_CC ccSetting = (Cosmos::Data::FORCE_CC) Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_FORCE_CC);
         if(type == VS_WW || type == VS_REGIONAL || (type == FROOM_HOST && ccSetting == Cosmos::Data::FORCE_NONE)) {
             Random random;
             u32 ret = random.NextLimited(100);
-            if(ret < CC_100_PROBS) ccEngineValue = 1;
-            else if(ret < (CC_100_PROBS + CC_MIRROR_PROBS)) ccEngineValue = 3;
+            if(ret < CC_200_MIRROR_PROBS) ccEngine = CC_ONLINE_200_MIRROR;
+            else if(ret < (CC_200_MIRROR_PROBS + CC_100_PROBS)) ccEngine = CC_ONLINE_100;
+            else if(ret < (CC_200_MIRROR_PROBS + CC_100_PROBS + CC_MIRROR_PROBS)) ccEngine = CC_ONLINE_MIRROR;
         }
         else if (type == FROOM_HOST) {
-            if(ccSetting == Cosmos::Data::FORCE_150CC) ccEngineValue = 2;
-            if(ccSetting == Cosmos::Data::FORCE_200CC) ccEngineValue = 1;
-            if(ccSetting == Cosmos::Data::FORCE_MIRROR) ccEngineValue = 3;
+            if(ccSetting == Cosmos::Data::FORCE_150CC) ccEngine = CC_ONLINE_150;
+            if(ccSetting == Cosmos::Data::FORCE_200CC) ccEngine = CC_ONLINE_200;
+            if(ccSetting == Cosmos::Data::FORCE_MIRROR) ccEngine = CC_ONLINE_MIRROR;
         }
-        handler.toSendPacket.engineClass = ccEngineValue; 
+
+        handler.toSendPacket.engineClass = (u8) ccEngine; 
     }
     kmCall(0x80661404, DecideCC);
 
