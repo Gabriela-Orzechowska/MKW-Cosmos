@@ -240,18 +240,29 @@ namespace Cosmos{
     //Unlock Everything Without Save [_tZ]
     kmWrite32(0x80549974,0x38600001);
 
+    void WriteAndInvalidate(u32* address, u32 val){
+        *address = val;
+        register u32 addr = (u32) address;
+        asm{
+            ASM(
+                dcbst 0, addr;
+                sync;
+                icbi 0, addr;
+            );
+        }
+    }
     void CreateBranch(u32 from, void * to)
     {
         u32 offset = ((u32)to)-from;
         u32 command = 0x48000000 | (offset & 0x03FFFFFF);
-        *((u32 *)from) = command;
+        WriteAndInvalidate((u32*)from, command);
     }
     void CreateCall(u32 from, void * to)
     {
         u32 offset = ((u32)to)-from+1;
 
         u32 command = 0x48000000 | (offset & 0x03FFFFFF);
-        *((u32 *)from) = command;
+        WriteAndInvalidate((u32*)from, command);
     }
     
     u32 GetPortAddress(u32 PAL, u32 NTSCU, u32 NTSCJ, u32 NTSCK)

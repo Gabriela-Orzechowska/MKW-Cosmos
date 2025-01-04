@@ -126,7 +126,7 @@ namespace CosmosUI
         CtrlMenuCupSelectCup *cupCtrl = &this->ctrlMenuCupSelectCup;
         u32 lastCup = cupCtrl->curCupID;
         cupCtrl->curCupID = (cupCtrl->curCupID + (direction * 2) + CupCount) % CupCount;
-        this->ctrlMenuCupSelectCourse.UpdateTrackList(cupCtrl->curCupID);
+        //this->ctrlMenuCupSelectCourse.UpdateTrackList(cupCtrl->curCupID);
         u32 cupOffset = Cosmos::CupManager::GetStaticInstance()->GetIconOffset();
         for(int i = 0; i < 8; i++)
         {
