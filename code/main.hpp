@@ -37,9 +37,9 @@ namespace Cosmos
     const char SaveFile[] = "AuroraData.bin";
     const char CommonArchive[] = "/CommonCosmos.szs";
     const char UIArchive[] = "Scene/UI/UICosmos.lzma";
-    const char UIRaceArchive[] = "Scene/UI/UICosmos.lzma";
+    //const char UIRaceArchive[] = "Scene/UI/UICosmos.lzma";
     const char UIArchiveLang[] = "Scene/UI/UICosmos%s.lzma";
-    //const char UIRaceArchive[] = "Scene/UI/UICosmosRace.lzma";
+    const char UIRaceArchive[] = "Scene/UI/UICosmosRace.lzma";
     const char CourseArchive[] = "/CourseCosmos.szs";
 
     enum TT_MODE{

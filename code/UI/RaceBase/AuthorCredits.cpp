@@ -49,6 +49,12 @@ namespace CosmosUI{
                     this->SetMsgId(0x70001, 0);
                 }
             }
+            if(trackId == Aurora::Special::SLOT_BBB){
+                Random random;
+                if(random.NextLimited(50) == 0){
+                    this->SetMsgId(0x70003, 0);
+                }
+            }
         }
         else {
             loader.Load("game_image", "CosmosCreditsAW", "info_1", NULL);

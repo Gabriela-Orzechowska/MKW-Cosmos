@@ -10,6 +10,7 @@ namespace Aurora {
             SLOT_TGAW = 0x19E,
             SLOT_SANDY_CLOCKTOWER = 0x247,
             SLOT_UNDERGROUND_PUZZLE = 0x271,
+            SLOT_BBB,
         };
     }
 }
