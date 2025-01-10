@@ -19,6 +19,7 @@
 #define _COSMOS_USER_DATA_
 
 #include "Race/raceinfo.hpp"
+#include "SlotExpansion/CupManager.hpp"
 #include "UI/BMG/BMG.hpp"
 #include "types.hpp"
 #include <kamek.hpp>
@@ -490,6 +491,8 @@ namespace Cosmos
                 UNLOCK_ONLINE_LICENSE_A = (1 << 8),
                 UNLOCK_ONLINE_LICENSE_LEGEND = (1 << 9),
 
+                UNLOCK_LOCK = (1 << 10),
+
                 UNLOCK_MASK_LICENSE = 0x1F,
                 
                 UNLOCK_OFFSET_GP_LICENSE = 0,
@@ -590,17 +593,29 @@ namespace Cosmos
 
             inline void SetGPResults(u32 cupSlot, u8 rank, u8 trophy, u32 engine) { return SetGPResults(cupSlot, rank, trophy, engine, currentLicense); }
             inline void SetGPResults(u32 cupSlot, u8 rank, u8 trophy, u32 engine, u32 license) {
-                this->trophies->cups[4* license +cupSlot].gpData[engine] = (rank & 0x3F) | ((trophy & 0x3) << 6);
+                u32 cupCount = Cosmos::CupManager::GetStaticInstance()->GetCupCount();
+                this->trophies->cups[cupCount * license +cupSlot].gpData[engine] = (rank & 0x3F) | ((trophy & 0x3) << 6);
             }
 
             inline bool IsGPCompleted(u32 cupSlot, u32 engine) const { return IsGPCompleted(cupSlot, engine, currentLicense); }
-            inline bool IsGPCompleted(u32 cupSlot, u32 engine, u32 license) const { return ((this->trophies->cups[4 * license + cupSlot].gpData[engine] != 0xFF)); }
+            inline bool IsGPCompleted(u32 cupSlot, u32 engine, u32 license) const { 
+                u32 cupCount = Cosmos::CupManager::GetStaticInstance()->GetCupCount();
+                return ((this->trophies->cups[cupCount * license + cupSlot].gpData[engine] != 0xFF)); 
+            }
 
-            inline u32 GetGPTrophy(u32 cupSlot, u32 engine) const { return GetGPTrophy(cupSlot, engine, currentLicense); }
-            inline u32 GetGPTrophy(u32 cupSlot, u32 engine, u32 license) const { return ((this->trophies->cups[4 * license + cupSlot].gpData[engine]) >> 6) & 0x3; }
+            inline u32 GetGPTrophy(u32 cupSlot, u32 engine) const {
+                return GetGPTrophy(cupSlot, engine, currentLicense); 
+            }
+            inline u32 GetGPTrophy(u32 cupSlot, u32 engine, u32 license) const {
+                u32 cupCount = Cosmos::CupManager::GetStaticInstance()->GetCupCount();
+                return ((this->trophies->cups[cupCount * license + cupSlot].gpData[engine]) >> 6) & 0x3; 
+            }
 
             inline u32 GetGPRank(u32 cupSlot, u32 engine) const { return GetGPRank(cupSlot, engine, currentLicense); }
-            inline u32 GetGPRank(u32 cupSlot, u32 engine, u32 license) const { return (this->trophies->cups[4 * license + cupSlot].gpData[engine]) & 0x3f; }
+            inline u32 GetGPRank(u32 cupSlot, u32 engine, u32 license) const { 
+                u32 cupCount = Cosmos::CupManager::GetStaticInstance()->GetCupCount();
+                return (this->trophies->cups[cupCount * license + cupSlot].gpData[engine]) & 0x3f; 
+            }
 
             inline u32 GetOnlineClass() const { return GetOnlineClass(currentLicense); }
             inline u32 GetOnlineClass(u32 license) const { return this->licenses->data[license].GetLicenseClass(UserDataLicense::UNLOCK_OFFSET_ONLINE_LICENSE); }

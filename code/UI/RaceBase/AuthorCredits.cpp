@@ -52,7 +52,7 @@ namespace CosmosUI{
             if(trackId == Aurora::Special::SLOT_BBB){
                 Random random;
                 if(random.NextLimited(50) == 0){
-                    this->SetMsgId(0x70003, 0);
+                    this->SetMsgId(0x70007, 0);
                 }
             }
         }

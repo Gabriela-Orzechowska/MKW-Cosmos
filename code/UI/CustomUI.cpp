@@ -165,46 +165,6 @@ kmCall(0x8062cf80, InjectMainMenuPages);
 kmCall(0x8062d004, InjectMainMenuPages);
 kmCall(0x8062d088, InjectMainMenuPages);
 
-#define MIN_DOLPHIN_VERSION 17856
-
-static bool hasShownWarning = false;
-void ShowCheatsWarningPage(Page& page, u32 id, float animLenght) {
-
-    if(!hasShownWarning){
-        bool warningAdded = false;
-        CosmosUI::MessagePageWindow* messagePage = MenuData::GetStaticInstance()->curScene->Get<CosmosUI::MessagePageWindow>((PageId)Cosmos::WARNING_PAGE);
-        if(CosmosDebug::currentPlatform <= CosmosDebug::DOLPHIN_UNKNOWN && IOS::Dolphin::GetNumericalVersionNumber() < MIN_DOLPHIN_VERSION){
-            messagePage->AddMessage(CosmosUI::SHUTDOWN, 0x2806);
-            warningAdded = true;
-        }
-        else {
-            page.EndStateAnimate(animLenght,id);
-        }
-        if(Cosmos::Security::GeckoAnalizer::AreCheatsEnabled()){
-            messagePage->AddMessage(CosmosUI::INFO, 0x2841);
-            warningAdded = true;
-        }
-        if((*(u32*)0x8000311C) > 0x04010000) {
-            messagePage->AddMessage(CosmosUI::INFO, 0x2842);
-            warningAdded = true;
-        }
-        if(Aurora::Security::IsDefaultDolphin() == Aurora::Security::DEFAULT){
-            messagePage->AddMessage(CosmosUI::INFO, 0x2843);
-            warningAdded = true;
-        }
-        else if(Aurora::Security::IsDefaultDolphin() == Aurora::Security::OVERUSED){
-            messagePage->AddMessage(CosmosUI::INFO, 0x2844);
-            warningAdded = true;
-        }
-        if(warningAdded) page.AddPageLayer((PageId)Cosmos::WARNING_PAGE, 0);
-
-        hasShownWarning = true;
-    }
-    else page.EndStateAnimate(animLenght, id);
-
-}
-kmCall(0x8063b04c, ShowCheatsWarningPage);
-
 
 static int FontDotSize = 1;
 
