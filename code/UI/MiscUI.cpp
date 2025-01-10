@@ -113,6 +113,12 @@ void FixGPIntroIcon(LayoutUIControl& control, char* name, u32){
 }
 kmCall(0x80855370, FixGPIntroIcon);
 
+
+// Replace GP Pause with VS
+
+kmWrite16(0x80633b28+2, 0x0018);
+kmWrite16(0x8062c598+2, 0x0018);
+/*
 void AddPauseSceneToOnline(Scene& scene, PageId id){
     scene.CreatePage(id);
     scene.CreatePage(VS_RACE_PAUSE_MENU);
@@ -126,11 +132,7 @@ kmWrite32(0x808567c0, 0x60000000);
 kmWrite32(0x808567c8, 0x60000000);
 kmWrite16(0x808567cc+2, 0x0000);
 
-// Replace GP Pause with VS
-
-kmWrite16(0x80633b28+2, 0x0018);
-kmWrite16(0x8062c598+2, 0x0018);
-
+/*
 void DontPauseOnline(void* unknown){
     GameMode mode = RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode;
     if(isOnline()) {
@@ -226,9 +228,12 @@ end:
 }
 
 kmCall(0x80859058, ShowControllerOnline);
+*/
+
+// Disable demo
 kmWrite32(0x806fa738, 0x4e800020);
 
-
+// PHOTOSENSITIVITY SCREEN
 kmWrite16(0x80637920 + 2, 0x3F);
 kmWrite16(0x80634f40 + 2, 0x18);
 kmWrite16(0x806376ac + 2, 0xB4);
