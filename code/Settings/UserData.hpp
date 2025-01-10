@@ -449,8 +449,8 @@ namespace Cosmos
             char signature[4];
             u32 version;
             union {
-                SettingsPage pages[PAGE_COUNT];
-                u8 rawSettings[PAGE_COUNT * SETTINGS_PER_PAGE];
+                SettingsPage pages[(PAGE_COUNT + 1)];
+                u8 rawSettings[(PAGE_COUNT + 1) * SETTINGS_PER_PAGE];
             } data[4];
             u16 playerVr[4];
             u16 playerBr[4];
@@ -462,8 +462,8 @@ namespace Cosmos
             char sign[4];
             u32 version;
             union {
-        SettingsPage pages[PAGE_COUNT];
-                u8 rawSettings[PAGE_COUNT * SETTINGS_PER_PAGE];
+                SettingsPage pages[PAGE_COUNT + 1];
+                u8 rawSettings[(PAGE_COUNT+1)* SETTINGS_PER_PAGE];
             } data[4];
         } __attribute__((aligned(0x20)));
 
@@ -533,7 +533,7 @@ namespace Cosmos
 #pragma pack(pop)
 
 #define USER_DATA_VERSION 13
-#define USER_DATA_SETTINGS_VERSION 13
+#define USER_DATA_SETTINGS_VERSION 14
 #define USER_DATA_TROPHY_VERSION 1
 #define USER_DATA_LICENSE_VERSION 2
 

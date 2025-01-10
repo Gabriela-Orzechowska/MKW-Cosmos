@@ -120,7 +120,7 @@ namespace Cosmos
                 strncpy(settingsFile->sign, USER_DATA_SETTINGS_MAGIC, 4);
                 settingsFile->version = USER_DATA_SETTINGS_VERSION;
 
-                for (int i = 0; i < PAGE_COUNT; i++)
+                for (int i = 0; i < PAGE_COUNT+1; i++)
                 {
                     for (int j = 0; j < GlobalSettingDefinitions[i].settingCount; j++)
                     {
