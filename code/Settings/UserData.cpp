@@ -249,6 +249,9 @@ namespace Cosmos
         kmWrite32(0x80593058, 0x60000000); // Always create GPStats
 
         void SettingsHolder::LicenseClassUpdate(u32 license) {
+            if((this->licenses->data[license].unlockFlags & UserDataLicense::UNLOCK_LOCK) == UserDataLicense::UNLOCK_LOCK)
+                return;
+
             u32 currentClass = GetMaxLicenseClass(license);
             if(currentClass == 5) {
                 this->Update();
