@@ -278,4 +278,9 @@ namespace CosmosUI
         }
     }
 
+    void LoadCorrectCourseSelectCup(ControlLoader& loader, const char* folder, const char* name, const char* variant, const char** anims){
+        loader.Load(folder, "CosmosCourseSelectCup", variant, anims);
+    }
+    kmCall(0x807e4538, LoadCorrectCourseSelectCup);
+
 } // namespace CosmosUI

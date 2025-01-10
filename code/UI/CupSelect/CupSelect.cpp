@@ -96,6 +96,9 @@ namespace CosmosUI
                 arrows.SetRightArrowHandler((PtmfHolder_2A<Page, void, SheetSelectControl *, u32>*)&this->onRightArrowSelectHandler);
                 arrows.SetLeftArrowHandler((PtmfHolder_2A<Page, void, SheetSelectControl *, u32>*)&this->onLeftArrowSelectHandler);
                 arrows.Load("button", "CosmosCupSelectRightArrow", "ButtonArrowRight", "CosmosCupSelectLeftArrow", "ButtonArrowLeft", 1, 0, false);
+                arrows.zIndex = -5.0f;
+                arrows.rightArrow.zIndex = -5.0f;
+                arrows.leftArrow.zIndex = -5.0f;
                 this->controlCount++;
                 return &this->arrows;
             default:

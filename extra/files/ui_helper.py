@@ -7,7 +7,7 @@ wuj5_path = Path("../wuj5/wuj5.py")
 
 def create():
 
-    result = list(Path(".").rglob("*.json5"))
+    result = list(Path("./UICosmos.d/").rglob("*.json5"))
 
     for r in result:
         os.system(f"python {wuj5_path} encode {r}")
@@ -21,7 +21,7 @@ def create_and_pack():
     pack()
 
 def decode_all():
-    result = list(Path(".").rglob("*.[bB]*"))
+    result = list(Path("./UICosmos.d/").rglob("*.[bB]*"))
     for r in result:
         if str(r).endswith("json5"):
             continue
