@@ -15,6 +15,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "FileManager/FileManager.hpp"
 #include "Input/inputdata.hpp"
 #include "Race/Kart/KartParams.hpp"
 #include "Race/RaceData.hpp"
@@ -23,6 +24,7 @@
 #include "UI/MenuData/MenuData.hpp"
 #include "hooks.hpp"
 #include "kamek.hpp"
+#include "main.hpp"
 #include <Settings/UserData.hpp>
 #include <game/System/SaveDataManager.hpp>
 #include <game/UI/Page/Other/WFCMain.hpp>
@@ -66,7 +68,6 @@ namespace Cosmos
                 return;
             }
             currentManager = manager;
-
             manager->CreateOpen(this->filepath, CosmosFile::FILE_MODE_READ_WRITE);
             manager->Read(fileBuffer, bufferSize);
 

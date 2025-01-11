@@ -265,11 +265,11 @@ namespace Aurora {
                 bmgId = val >= reqs.onlineCompletedRaces ? 0x20831 : 0x20830;
                 this->licenses[1].SetTextBoxMsg("req1_value", bmgId, &onlineInfo);
 
-                val = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetOnlineScore();
-                onlineInfo.intToPass[0] = val;
+                s32 val2 = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetOnlineScore();
+                onlineInfo.intToPass[0] = val2;
                 onlineInfo.intToPass[1] = reqs.onlineMinScore;
 
-                bmgId = val >= reqs.onlineMinScore ? 0x20831 : 0x20830;
+                bmgId = val2 >= reqs.onlineMinScore ? 0x20831 : 0x20830;
                 this->licenses[1].SetTextBoxMsg("req2_value", bmgId, &onlineInfo);
             }
 

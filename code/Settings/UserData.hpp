@@ -546,7 +546,7 @@ namespace Cosmos
             u32 gpCompletedCups;
             u32 gpAverageRank;
             u32 onlineCompletedRaces;
-            u32 onlineMinScore;
+            s32 onlineMinScore;
         };
 
         static LicenseClassRequirements globalClassRequirements[] = {
