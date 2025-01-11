@@ -147,7 +147,7 @@ namespace Cosmos
 
         bool GhostManager::LoadGhost(RKG *rkg, u32 index)
         {
-            u8 buffer[sizeof(RKG) + sizeof(AuroraMetadata)];
+            u8 buffer[sizeof(RKG) + sizeof(AuroraMetadata)] __attribute__((aligned(0x20)));
             rkg->ClearBuffer();
             s32 ret = this->folderManager->ReadFile(buffer, index, CosmosFile::FILE_MODE_READ);
 
