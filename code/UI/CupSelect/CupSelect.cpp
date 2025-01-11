@@ -287,8 +287,9 @@ namespace CosmosUI
         CtrlMenuCourseSelectCourse* course = &page.ctrlMenuCourseSelectCourse;
         if(course->courseButtons[i].IsSelected()){
             static bool isLump = false;
+            CtrlMenuCourseSelectCupSub* curButton = GetActiveCupIcon(page.ctrlMenuCourseSelectCup);
+            if(curButton == nullptr) return; 
             if(!isLump && slot == Aurora::Special::SLOT_LUMPYS){
-                CtrlMenuCourseSelectCupSub* curButton = GetActiveCupIcon(page.ctrlMenuCourseSelectCup);
                 curButton->SetMsgId(0x70000);
                 void * tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, "button/timg/icon_cup_lump.tpl", 0);
                 CosmosUI::ChangePaneImage(curButton, "icon", tplPointer);
@@ -296,7 +297,6 @@ namespace CosmosUI
                 CosmosUI::ChangePaneImage(curButton, "icon_light_02", tplPointer);
             }
             else if (isLump){
-                CtrlMenuCourseSelectCupSub* curButton = GetActiveCupIcon(page.ctrlMenuCourseSelectCup);
                 curButton->SetMsgId(BMG_CUPS + curButton->padding_id);
                 char tpl[0x30];
                 snprintf(tpl, 0x30, "button/timg/icon_cup_%03x.tpl", curButton->padding_id);
