@@ -208,7 +208,7 @@ namespace Cosmos
 
             u32 lowest = RaceInfo::GetStaticInstance()->GetPlayer(
                     RaceInfo::GetStaticInstance()->playerIdInEachPosition[0])->frameCounter;
-            lowest = (lowest * 3) / 2;
+            lowest = (lowest * 5) / 4;
 
             // No KRT, using computed value from leader
             s32 score = (1000 * (lowest - player.frameCounter) / lowest) + (150 * player.framesInFirst / lowest);
