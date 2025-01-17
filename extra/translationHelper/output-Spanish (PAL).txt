@@ -111,12 +111,12 @@ fb0  = No puedes acceder a la\nConexión Wi-Fi de WiiLink\ncon este nombre de 
 30320  = Permitir cabezas de Mii
 40321  = Los jugadores pueden usar su propia configuración de cabezas de Mii.
 40322  = Las cabezas de Mii estarán siempre desactivadas.
-30330  = Forzar CC
-30331  = Ninguno
-30332  = 150cc
-30333  = 200cc
-30334  = Espejo (150cc)
-30340  = Número de carreras
+30340  = Forzar CC
+30341  = Ninguno
+30342  = 150cc
+30343  = 200cc
+30344  = Espejo (150cc)
+30350  = Número de carreras
 30510  = Selección de variante
 40511  = Los jugadores podran votar una versión especifica de una pista.
 40512  = Los jugadores no podran votar una versión especifica de una pista.

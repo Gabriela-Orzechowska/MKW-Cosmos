@@ -4,31 +4,30 @@
 7f1  = CWF de WiiLink (1J)
 7f2  = CWF de WiiLink (2J)
 faa  = Accediendo a la CWF de WiiLink...
-fab  = ¿Quieres desconectarte 
-\nde la CWF de WiiLink?
+fab  = ¿Quieres desconectarte \nde la CWF de WiiLink?
 11fa  = La Conexión Wi-Fi de WiiLink tiene un\nvolumen de tráfico demasiado elevado o\nel servicio se ha interrumpido.\nVuelve a intentar conectarte más tarde.\nPara obtener ayuda, visita el sitio web\nwfc.wiilink24.com.\n\nCódigo de error: \z{a02,1000000005}
 14b4  = ¡Estoy en línea!
 14b5  = No estoy en línea...
 1ce9  = Cuando juegues Mario Kart Wii\na través de la CWF de WiiLink,\nse enviará la siguiente información\na WiiLink de manera automática:\n・Tu Mii y tu apodo.\n・Tus resultados y tus fantasmas.\nEstos datos se podrán compartir \ncon otros jugadores de Mario Kart Wii.
-1cea  = ¿Quieres permitir que se\nenvíen los datos a WiiLink?
-1ced  = Has decidido enviar \nlos datos de Mario \nKart Wii.
-1cee  = No podrás jugar Mario Kart Wii\na través de la CWF de WiiLink.\n¿Quieres continuar?
-1cef  = Has decidido no enviar\nlos datos de Mario \nKart Wii.
-17e8  = Vas a conectarte a la CWF de\nWiiLink. ¿Estás de acuerdo?
-1c53  = Mario Kart Wii puede mostrar la bandera de tu \npaís y tu región en los siguientes lugares:\n\n・En la CWF de WiiLink indicando tu ubicación.\n・En los datos de tu fantasma. \n\nSi decides mostrar estos datos, \ntus oponentes podrán verlos en la \nCWF de WiiLink.
-1c54  = ¿Quieres mostrar la bandera de tu país\ny tu región al jugar Mario Kart Wii?
-1c57  = Has decidido mostrar la bandera de tu\npaís y tu región en la CWF de WiiLink.
-1c58  = Has decidido no mostrar la bandera de tu\npaís ni tu región en la CWF de WiiLink.
-818  = Te has desconectado de la\nCWF de WiiLink. Vas a volver\nal menú principal.
+1cea  = ¿Quieres permitir que se\nenvíen los datos a WiiLink?
+1ced  = Has decidido enviar \nlos datos de Mario \nKart Wii.
+1cee  = No podrás jugar Mario Kart Wii\na través de la CWF de WiiLink.\n¿Quieres continuar?
+1cef  = Has decidido no enviar\nlos datos de Mario \nKart Wii.
+17e8  = Vas a conectarte a la CWF de\nWiiLink. ¿Estás de acuerdo?
+1c53  = Mario Kart Wii puede mostrar la bandera de tu \npaís y tu región en los siguientes lugares:\n\n・En la CWF de WiiLink indicando tu ubicación.\n・En los datos de tu fantasma. \n\nSi decides mostrar estos datos, \ntus oponentes podrán verlos en la \nCWF de WiiLink.
+1c54  = ¿Quieres mostrar la bandera de tu país\ny tu región al jugar Mario Kart Wii?
+1c57  = Has decidido mostrar la bandera de tu\npaís y tu región en la CWF de WiiLink.
+1c58  = Has decidido no mostrar la bandera de tu\npaís ni tu región en la CWF de WiiLink.
+818  = Te has desconectado de la\nCWF de WiiLink. Vas a volver\nal menú principal.
 3fc  = Menú de la CWF de WiiLink
-841  = \z{602,0} y \z{802,120000}\nse conectarán juntos\na la CWF de WiiLink.
-816  = No puedes acceder a este modo del juego\nporque no hay datos guardados.\n\nPuedes organizar los datos de la memoria\nde la consola Wii en la pantalla de Gestión\nde datos de las Opciones de Wii.
-fa8  = Tu lista de amigos está vacía.\nAñade a tus amigos para poder\njugar juntos en la CWF de\nWiiLink.
-fb0  = No puedes acceder a la\nConexión Wi-Fi de WiiLink\ncon este nombre de Mii.\nCámbialo y vuelve a\nintentarlo.
-1397  = Para mejorar tu técnica, reta a los \nfantasmas de jugadores de todo el mundo \ny disputa una serie de carreras a través \nde la CWF de WiiLink.\040
-1399  = Para mejorar tu técnica, reta a los \nfantasmas de jugadores de todo el mundo \ny disputa una serie de carreras a través \nde la CWF de WiiLink. \n\n\z{a02,1000000000} \z{c04,13a213a3} - \z{a02,1000010000} \z{c04,113a413a5}
-1a3c  = Todavía no tienes una clave\nde amigo.\n\nTu clave de amigo es un número\nde 12 cifras que te permite conectar\na la CWF de WiiLink.\n\nConsulta el folleto de instrucciones\nde Mario Kart Wii para obtener más\ninformación.
-1d4d  = Los Miis de otros jugadores pueden\naparecer durante las carreras o las\nbatallas, en las clasificaciones o en\notros lugares de la CWF de WiiLink.\n\nPuedes elegir si quieres mostrar estos\nMiis o si prefieres sustituirlos por\naquellos Miis creados por Nintendo.
+841  = \z{602,0} y \z{802,120000}\nse conectarán juntos\na la CWF de WiiLink.
+816  = No puedes acceder a este modo del juego\nporque no hay datos guardados.\n\nPuedes organizar los datos de la memoria\nde la consola Wii en la pantalla de Gestión\nde datos de las Opciones de Wii.
+fa8  = Tu lista de amigos está vacía.\nAñade a tus amigos para poder\njugar juntos en la CWF de\nWiiLink.
+fb0  = No puedes acceder a la\nConexión Wi-Fi de WiiLink\ncon este nombre de Mii.\nCámbialo y vuelve a\nintentarlo.
+1397  = Para mejorar tu técnica, reta a los \nfantasmas de jugadores de todo el mundo \ny disputa una serie de carreras a través \nde la CWF de WiiLink.\040
+1399  = Para mejorar tu técnica, reta a los \nfantasmas de jugadores de todo el mundo \ny disputa una serie de carreras a través \nde la CWF de WiiLink. \n\n\z{a02,1000000000} \z{c04,13a213a3} - \z{a02,1000010000} \z{c04,113a413a5}
+1a3c  = Todavía no tienes una clave\nde amigo.\n\nTu clave de amigo es un número\nde 12 cifras que te permite conectar\na la CWF de WiiLink.\n\nConsulta el folleto de instrucciones\nde Mario Kart Wii para obtener más\ninformación.
+1d4d  = Los Miis de otros jugadores pueden\naparecer durante las carreras o las\nbatallas, en las clasificaciones o en\notros lugares de la CWF de WiiLink.\n\nPuedes elegir si quieres mostrar estos\nMiis o si prefieres sustituirlos por\naquellos Miis creados por Nintendo.
 1fb0  = ¡Has ganado 1,000 veces en la CWF de WiiLink!
 1fbf  = ¡Has ganado 5,000 veces en la CWF de WiiLink!
 1fc1  = ¡Has ganado 250 veces en la CWF de WiiLink!
@@ -36,8 +35,8 @@ fb0  = No puedes acceder a la\nConexión Wi-Fi de WiiLink\ncon este nombre de Mi
 1fe3  = ¡Has ganado 3,000 veces en la CWF de WiiLink!
 200b  = Resultados CWF de WiiLink
 201c  = CWF de WiiLink - Amigos
-26af  = No puedes cambiar los mandos mientras\nestás jugando en la CWF de WiiLink.\nVuelve a colocar el anterior.
-212c  = ¡Has recibido una invitación de un\njugador de Mario Kart Wii para\nhacerse amigos!\n\n◆Nombre\n%ls\n\n◆Clave de amigo\n%04d-%04d-%04d\n\nSi registran sus claves de amigos\nmutuamente, podrán jugar juntos.\n\nLos jugadores que tienen Mario\nKart Wii y han instalado el Canal\nMario Kart pueden registrarse\nmutuamente de manera inmediata.\n\nLos demás jugadores pueden\nenviarse una respuesta el uno al\notro.
+26af  = No puedes cambiar los mandos mientras\nestás jugando en la CWF de WiiLink.\nVuelve a colocar el anterior.
+212c  = ¡Has recibido una invitación de un\njugador de Mario Kart Wii para\nhacerse amigos!\n\n◆Nombre\n%ls\n\n◆Clave de amigo\n%04d-%04d-%04d\n\nSi registran sus claves de amigos\nmutuamente, podrán jugar juntos.\n\nLos jugadores que tienen Mario\nKart Wii y han instalado el Canal\nMario Kart pueden registrarse\nmutuamente de manera inmediata.\n\nLos demás jugadores pueden\nenviarse una respuesta el uno al\notro.
 
 
 2800  = Contrarreloj (150cc)
@@ -112,12 +111,12 @@ fb0  = No puedes acceder a la\nConexión Wi-Fi de WiiLink\ncon este nombre de Mi
 30320  = Permitir cabezas de Mii
 40321  = Los jugadores pueden usar sus propios ajustes de cabezas de Mii.
 40322  = Las cabezas de Mii estarán siempre desactivadas.
-30330  = Forzar CC
-30331  = Ninguno
-30332  = 150cc
-30333  = 200cc
-30334  = Espejo (150cc)
-30340  = Número de carreras
+30340  = Forzar CC
+30341  = Ninguno
+30342  = 150cc
+30343  = 200cc
+30344  = Espejo (150cc)
+30350  = Número de carreras
 30510  = Selección de variante
 40511  = Los jugadores podrán votar una versión específica de una pista.
 40512  = Los jugadores no podrán votar una versión específica de una pista.
@@ -160,12 +159,12 @@ beb  = Carrera individual para conseguir el mejor récord. (150cc)
 30502  = Retros
 30503  = Custom Tracks
 2806  = Aurora requiere la versión 5.0-17856\no superior de Dolphin. Por favor,\ndescárgala desde la página oficial.\n\nRegresando al Menú de Wii...
-2843  = Parece que estás usando la configuración\npredeterminada de Dolphin.\nPor favor, importa la NAND de tu Wii para\nacceder a todas las funciones de Aurora.
+2843  = Parece que estás usando la configuración\npredeterminada de Dolphin.\nPor favor, importa la NAND de tu Wii para\nacceder a todas las funciones de Aurora.
 2844  = Parece que estás usando un dump\nde NAND público. Por favor, importa la\nNAND de tu Wii para acceder a todas\nlas funciones de Aurora.
 2845  = Verificando con el servidor...
-2846  = Se ha producido un error al\nconectarse con el servidor.\n\nCódigo de error: \z{802,200000}\z{a02,1000000000}
-2847  = Se ha producido un error al\nconectarse con el servidor.\n\nCódigo de error: \z{802,200000}\z{a02,1000000000}\nRegresando al Menú de Wii...
-2848  = ¡Nueva actualización disponible! \z{802,200000}\n¡Descarga la nueva versión en la Wiiki!
+2846  = Se ha producido un error al\nconectarse con el servidor.\n\nCódigo de error: \z{802,200000}\z{a02,1000000000}
+2847  = Se ha producido un error al\nconectarse con el servidor.\n\nCódigo de error: \z{802,200000}\z{a02,1000000000}\nRegresando al Menú de Wii...
+2848  = ¡Nueva actualización disponible! \z{802,200000}\n¡Descarga la nueva versión en la Wiiki!
 2805  = ¿Te gustaría subir el fantasma\na las clasificaciones?
 2849  = ¡Se ha subido el fantasma correctamente!
 284A  = Se ha producido un error al\nsubir el fantasma.\n\nCódigo de error: \z{802,200000}\z{a02,1000000000}

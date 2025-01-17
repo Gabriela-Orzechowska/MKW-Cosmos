@@ -111,12 +111,12 @@ fb0  = Du kannst diesen Mii-Namen \nauf WiiLink WFC nicht verwenden. \nBitte än
 30320  = Mii-Köpfe zulassen
 40321  = Die Spieler können die Einstellungen für Mii-Köpfe verwenden.
 40322  = Mii-Köpfe werden abgeschaltet.
-30330  = CCM erzwingen
-30331  = Keine
-30332  = 150ccm
-30333  = 200ccm
-30334  = Spiegel (150ccm)
-30340  = Rennen zählen
+30340  = CCM erzwingen
+30341  = Keine
+30342  = 150ccm
+30343  = 200ccm
+30344  = Spiegel (150ccm)
+30350  = Rennen zählen
 30510  = Variantenauswahl
 40511  = Spieler dürfen für eine bestimmte Version einer Strecke wählen.
 40512  = Spieler dürfen nicht für eine bestimmte Version einer Strecke wählen.
@@ -151,30 +151,30 @@ beb  = Fahre allein und stelle Bestzeiten auf! (150ccm)
 2830  = Combo ändern
 2831  = Wählen oder Zufällig?
 2840  = Einige Änderungen erfordern einen Neustart
-284C  = Sind Sie sicher, dass Sie aufhören möchten?\n\nDas Verlassen eines laufenden Rennens führt zu einer VR-Strafe.
-2841  = Dolphin Cheats sind aktiviert!\nDas Spiel funktioniert möglicherweise nicht wie erwartet.
-2842  = Dolphin erweiterter Speicher aktiviert!\nDas Spiel funktioniert möglicherweise nicht wie erwartet.
+284C  = Sind Sie sicher, dass Sie aufhören möchten?\n\nDas Verlassen eines laufenden Rennens führt zu einer VR-Strafe.
+2841  = Dolphin Cheats sind aktiviert!\nDas Spiel funktioniert möglicherweise nicht wie erwartet.
+2842  = Dolphin erweiterter Speicher aktiviert!\nDas Spiel funktioniert möglicherweise nicht wie erwartet.
 30500  = Streckenauswahl
 30501  = Alle
 30502  = Retros
 30503  = Custom Strecken
-2806  = Aurora erfordert Dolphin 5.0-17856 oder neuer.\nBitte laden Sie es von der offiziellen Website herunter.\n\nZurück zum Wii-Menü...
-2843  = Anscheinend verwenden Sie die standardmäßige Dolphin-Konfiguration.\nBitte importieren Sie das NAND Ihrer Wii, um darauf zuzugreifen \nalle Aurora-Funktionen.
-2844  = Anscheinend verwenden Sie den öffentlichen NAND-Dump.\nBitte importieren Sie das NAND Ihrer Wii, um darauf zuzugreifen \nalle Aurora-Funktionen.
+2806  = Aurora erfordert Dolphin 5.0-17856 oder neuer.\nBitte laden Sie es von der offiziellen Website herunter.\n\nZurück zum Wii-Menü...
+2843  = Anscheinend verwenden Sie die standardmäßige Dolphin-Konfiguration.\nBitte importieren Sie das NAND Ihrer Wii, um darauf zuzugreifen \nalle Aurora-Funktionen.
+2844  = Anscheinend verwenden Sie den öffentlichen NAND-Dump.\nBitte importieren Sie das NAND Ihrer Wii, um darauf zuzugreifen \nalle Aurora-Funktionen.
 2845  = Verifiziert mit dem Server...
-2846  = Beim Herstellen der Verbindung zum Server ist ein Fehler aufgetreten.\n\nFehlercode: \z{802,200000}\z{a02,1000000000}
-2847  = Beim Herstellen der Verbindung zum Server ist ein Fehler aufgetreten.\n\nFehlercode: \z{802,200000}\z{a02,1000000000}\nZurück zum Wii-Menü...
-2848  = Neues Update ist verfügbar! \z{802,200000}\nLaden Sie die neue Version aus der Wikii herunter!
+2846  = Beim Herstellen der Verbindung zum Server ist ein Fehler aufgetreten.\n\nFehlercode: \z{802,200000}\z{a02,1000000000}
+2847  = Beim Herstellen der Verbindung zum Server ist ein Fehler aufgetreten.\n\nFehlercode: \z{802,200000}\z{a02,1000000000}\nZurück zum Wii-Menü...
+2848  = Neues Update ist verfügbar! \z{802,200000}\nLaden Sie die neue Version aus der Wikii herunter!
 2805  = Möchten Sie den Geist in Bestenlisten hochladen?
 2849  = Geistdaten erfolgreich hochgeladen!
 284A  = 
-284B  = \z{a02,1000000000}\z{800,46}\nAktive Spieler
+284B  = \z{a02,1000000000}\z{800,46}\nAktive Spieler
 2802  = Zeit ungültig gemacht. Delta zu groß.
 30130  = Menü Thema
 30131  = Aurora
 30132  = Regenbogen
 30133  = Weiß
-1E40  = \z{800, 90}Lichtempfindlichkeitswarnung\n\n\z{800, 50}Bei manchen Menschen können Anfälle oder Ohnmachtsanfälle ausgelöst werden\ndurch blinkende Lichter oder Muster. Dies kann auch dann passieren, wenn \nSie hatten noch nie einen Anfall.\n\nHören Sie sofort auf und wenden Sie sich an einen Arzt\nwenn bei Ihnen Symptome auftreten.
+1E40  = \z{800, 90}Lichtempfindlichkeitswarnung\n\n\z{800, 50}Bei manchen Menschen können Anfälle oder Ohnmachtsanfälle ausgelöst werden\ndurch blinkende Lichter oder Muster. Dies kann auch dann passieren, wenn \nSie hatten noch nie einen Anfall.\n\nHören Sie sofort auf und wenden Sie sich an einen Arzt\nwenn bei Ihnen Symptome auftreten.
 2807  = Grand Prix
 2808  = Online
 2809  = Demnächst

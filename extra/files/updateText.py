@@ -12,7 +12,7 @@ def main():
 
         with open(f"{txt_file}", 'r', encoding="utf8") as f:
             data = f.read()
-            data = data.replace("Bruh de la Boi", "SamanthaMK")
+            data = data.replace("Y/ZL", r"\u{e04f}/\u{e085}")
 
         with open(f"{txt_file}", 'w', encoding="utf8") as f:
             f.write(data)

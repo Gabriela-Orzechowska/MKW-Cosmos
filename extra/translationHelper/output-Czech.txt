@@ -9,24 +9,24 @@ fab  = Chceš se odpojit od WiiLink WFC?
 14b4  = Jsem na WiiLinku WFC!
 14b5  = Nejsem na WiiLinku WFC...
 1ce9  = Když hraješ Mario Kart Wii přes\nWiiLink WFC, následující data budou\nautomaticky posílána WiiLinku:\n\n・tvá Mii a její jméno\n・tvé rekordy a duchova data\n\ntyto data jsou sdílena i s\nostatními hráči WiiLinka WFC.
-1cea  = Chceš sdílet data\ns WiiLinkem?
-1ced  = Máš vybráno sdílet\ndata s WiiLinkem.
-1cee  = Jseš si jistý, že souhlasíš? Potom nebudeš\nmoct hrát Mario Kart Wii přes\nWiiLink WFC.
-1cef  = Máš vybráno nesdílet\ndata s WiiLinkem.
+1cea  = Chceš sdílet data\ns WiiLinkem?
+1ced  = Máš vybráno sdílet\ndata s WiiLinkem.
+1cee  = Jseš si jistý, že souhlasíš? Potom nebudeš\nmoct hrát Mario Kart Wii přes\nWiiLink WFC.
+1cef  = Máš vybráno nesdílet\ndata s WiiLinkem.
 17e8  = Připojit k WiiLink?
 1c53  = Mario Kart Wii zobrazuje vlajku\na oblast na následujících místech:\n\njako globální pozici na WiiLink WFC\n・na tvých datech duchů\n\nPkud chceš aby se tato informace\nzobrazovala, bude poslána ostatním\nhráčům, když hraješ WiiLink WFC.
-1c54  = Chceš zobrazit svoji vlajku\na oblast na WiiLink WFC?
-1c57  = Máš vybráno zobrazit\ntvoji vlajku a oblast na WiiLink WFC.
-1c58  = Máš vybráno nezobrazovat\ntvoji vlajku a oblast na WiiLink WFC.
-818  = Právě jsi odpojen\nod WiiLink WFC a\nvrať se na hlavní menu.
+1c54  = Chceš zobrazit svoji vlajku\na oblast na WiiLink WFC?
+1c57  = Máš vybráno zobrazit\ntvoji vlajku a oblast na WiiLink WFC.
+1c58  = Máš vybráno nezobrazovat\ntvoji vlajku a oblast na WiiLink WFC.
+818  = Právě jsi odpojen\nod WiiLink WFC a\nvrať se na hlavní menu.
 3fc  = WiiLink WFC Menu
 841  = \z{602,0} a \z{802,120000}\nbudou připojeni do WiiLink WFC\nspolu.Souhlasíš?
 816  = Není možno se připojit k WiiLink Wi-Fi\nPřipojení. Zde nejsou uložená data.\n\nMůžeš spravovat systémovou paměť Wii\nv Data Managment Screen\nve Wii Options.
-fa8  = Ve tvé Kamarádové Soupisku\nnemáš registrované žádné Kamarády.\n\nRegistruj si Kamarády,aby\njste mohli hrát společně na WiiLink WFC.\040
+fa8  = Ve tvé Kamarádové Soupisku\nnemáš registrované žádné Kamarády.\n\nRegistruj si Kamarády,aby\njste mohli hrát společně na WiiLink WFC.\040
 fb0  = Nemůžeš vstoupit do WiiLink\nWi-Fi připojení, když používáš\ntoto jméno Mii. Prosím změň jméno\ntvé Mii a zkus to znovu.
-1397  = Zlepši svou techniku v závodech Na Čas\nvyzýváním duchových dat od\nhráčů z celéh světa v\nsériích závodů s WiiLink WFC!
-1399  = Zlepši svou techniku v závodech Na Čas\nvyzýváním duchových dat od\nhráčů z celéh světa v\nsériích závodů s WiiLink WFC!\n\nTvůj aktuální rekord:\n\z{a02,1000000000} \z{c04,13a213a3} - \z{a02,1000010000} \z{c04,113a413a5}
-1a3c  = Nemáš svůj Kód Kamaráda.\n\nKód Kamaráda je 12timístné číslo, které\nje automaticky posíláno, když\nse poprvé připojíš k WiiLink WFC.\n\nPro více informací\nse koukni do manuálu od Mario Kart Wii.
+1397  = Zlepši svou techniku v závodech Na Čas\nvyzýváním duchových dat od\nhráčů z celéh světa v\nsériích závodů s WiiLink WFC!
+1399  = Zlepši svou techniku v závodech Na Čas\nvyzýváním duchových dat od\nhráčů z celéh světa v\nsériích závodů s WiiLink WFC!\n\nTvůj aktuální rekord:\n\z{a02,1000000000} \z{c04,13a213a3} - \z{a02,1000010000} \z{c04,113a413a5}
+1a3c  = Nemáš svůj Kód Kamaráda.\n\nKód Kamaráda je 12timístné číslo, které\nje automaticky posíláno, když\nse poprvé připojíš k WiiLink WFC.\n\nPro více informací\nse koukni do manuálu od Mario Kart Wii.
 1d4d  = Mii vytvořené ostatními hráči\nmohou být zobrazené během závodů\na bitev, v žebříčcích\na na ostatních místech na WiiLink WFC.\n\nMůžeš souhlasit s tím, že tyto Mii\nbudou zobrazeny tak jak jsou,nebo si můžeš vybrat,že\ntyto Mii budou nahrazeny Mii od Nintenda.
 1fb0  = Vyhrál jsi tisíckrát v WiiLinku WFC!
 1fbf  = Vyhrál jsi pěttisíckrát v WiiLinku WFC!
@@ -35,8 +35,8 @@ fb0  = Nemůžeš vstoupit do WiiLink\nWi-Fi připojení, když používáš\nto
 1fe3  = Vyhrál jsi třítisíckrát v WiiLinku WFC!
 200b  = Rekordy na WiiLink WFC
 201c  = WiiLink WFC Rekordy Kamarádů
-26af  = Ovladače nemohou být změněny\nběhem WiiLink WFC utkání. Prosím\npřipojte původní ovladač.
-212c  = Dostal jsi pozvánku ke\nKamarádství od uživatele\n%ls!\n\nMario Kart Wii\nKód Kamaráda: %04d-%04d-%04d\n\nPro hraní společně\nmůžete hrát Mario Kart Wii\npřes WiiLink WFC\nPřipojení.\n\nPokud máš Mario Kart Wii\npřidáno na Mario Kart Kanálu na\ntvém Wii Menu, you můžeš si vybrat\ntlačítko STARTbr />napravo.\n\nBav se!
+26af  = Ovladače nemohou být změněny\nběhem WiiLink WFC utkání. Prosím\npřipojte původní ovladač.
+212c  = Dostal jsi pozvánku ke\nKamarádství od uživatele\n%ls!\n\nMario Kart Wii\nKód Kamaráda: %04d-%04d-%04d\n\nPro hraní společně\nmůžete hrát Mario Kart Wii\npřes WiiLink WFC\nPřipojení.\n\nPokud máš Mario Kart Wii\npřidáno na Mario Kart Kanálu na\ntvém Wii Menu, you můžeš si vybrat\ntlačítko STARTbr />napravo.\n\nBav se!
 
 
 2800  = Na Čas (150cc)
@@ -111,12 +111,12 @@ fb0  = Nemůžeš vstoupit do WiiLink\nWi-Fi připojení, když používáš\nto
 30320  = Povolit Mii Hlavy
 40321  = Hráči můžou používat nastavení Mii Hlavy.
 40322  = Mii Hlavy budou nepovoleny.
-30330  = Přinutit CC
-30331  = Normální
-30332  = 150cc
-30333  = 200cc
-30334  = Zrcadlově (150cc)
-30340  = Počet Závodů
+30340  = Přinutit CC
+30341  = Normální
+30342  = 150cc
+30343  = 200cc
+30344  = Zrcadlově (150cc)
+30350  = Počet Závodů
 30510  = Výběr Varianty
 40511  = Hráči budou moci hlasovat pro konkrétní verzi trati.
 40512  = Hráči nebudou moci hlasovat pro konkrétní verzi trati.
@@ -151,24 +151,24 @@ beb  = Závod pro jednoho na nejrychlejší čas! (150cc)
 2830  = Změnit Kombinace
 2831  = Vybrat nebo Náhodně?
 2840  = Některé změny vyžadují restart
-284C  = Určitě chceš skončit?\n\nOpuštění probíhajícího závodu bude mít za následek penalizaci VR.
-2841  = Delfíní cheaty jsou povoleny!\nHra nemusí fungovat podle očekávání.
-2842  = Delfín rozšířená paměť povolena!\nHra nemusí fungovat podle očekávání.
+284C  = Určitě chceš skončit?\n\nOpuštění probíhajícího závodu bude mít za následek penalizaci VR.
+2841  = Delfíní cheaty jsou povoleny!\nHra nemusí fungovat podle očekávání.
+2842  = Delfín rozšířená paměť povolena!\nHra nemusí fungovat podle očekávání.
 30500  = Výběr Trati
 30501  = Všechny
 30502  = Retro
 30503  = CT
 2806  = Aurora vyžaduje Dolphin 5.0-17856 nebo novější.\nStáhni si jej prosím z oficiálních stránek.\n\nNavrácení do Wii Menu...
 2843  = Zdá se, že používáš výchozí konfiguraci Dolphin.\nProsím importuj NAND tvého Wii pro přístup\nk všechny funkce Aurora.
-2844  = Zdá se, že používáš veřejný NAND Dump.\nProsím importuj NAND tvého Wii pro přístup\nk všechny funkce Aurora.
+2844  = Zdá se, že používáš veřejný NAND Dump.\nProsím importuj NAND tvého Wii pro přístup\nk všechny funkce Aurora.
 2845  = Potvrzování se serverem...
 2846  = Při připojování k serveru došlo k chybě.\n\nKód chyby: \z{802,200000}\z{a02,1000000000}
 2847  = Při připojování k serveru došlo k chybě.\n\nKód chyby: \z{802,200000}\z{a02,1000000000}\nNavrácení do Wii Menu...
-2848  = Nová aktualizace je k dispozici! \z{802,200000}\nStáhni si novou verzi z Wiiki!
+2848  = Nová aktualizace je k dispozici! \z{802,200000}\nStáhni si novou verzi z Wiiki!
 2805  = Chtěl bys nahrát\nducha do tabulků?
 2849  = Data duchů byla úspěšně nahrána!
 284A  = Při nahrávání ducha došlo k chybě.\n\nKód chyby: \z{802,200000}\z{a02,1000000000}
-284B  = \z{a02,1000000000}\z{800,46}\nAktivní hráči
+284B  = \z{a02,1000000000}\z{800,46}\nAktivní hráči
 2802  = Čas zneplatněn. Delta moc velká.
 30130  = Téma Menu
 30131  = Aurora
