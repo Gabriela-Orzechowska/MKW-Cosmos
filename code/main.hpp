@@ -34,7 +34,7 @@ namespace Cosmos
     const char packFolder[] = "/Aurora";
     const char ghostFolder[] = "/Aurora/RKG";
     
-    const char SaveFile[] = "AurData.bin";
+    const char SaveFile[] = "AuroraData.bin";
     const char CommonArchive[] = "/CommonCosmos.szs";
     const char UIArchive[] = "Scene/UI/UICosmos.lzma";
     //const char UIRaceArchive[] = "Scene/UI/UICosmos.lzma";

@@ -5,8 +5,9 @@
 #include <game/Route/Route.hpp>
 
 class RouteHolder{
+    public:
     static RouteHolder *sInstance; //809c22b0
-    static RouteHolder *GetStaticInstance; //806f09c8
+    static RouteHolder *GetStaticInstance() { return sInstance; }; //806f09c8
     static void DestroyStaticInstance(); //806f0a4c
     RouteHolder(); //806f0a3c inlined
     virtual ~RouteHolder(); //806f0a98 vtable 808c7798

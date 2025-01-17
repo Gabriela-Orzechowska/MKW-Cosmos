@@ -15,9 +15,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Route/RouteController.hpp"
 #include <kamek.hpp>
 #include <game/System/Archive.hpp>
 #include <game/Objects/ObjectHolder.hpp>
+#include <game/Route/RouteHolder.hpp>
 #include <main.hpp>
 
 
@@ -29,9 +31,22 @@ kmWrite32(0x8082a4fc,0x48000030); //Always create control group
 
 void * HighwayManagerCreate(u32 size)
 {
+    hasHighwayManager = false;
     bool hasCar = false;
     bool hasTruck = false;
     u32 carCount = ObjectHolder::GetStaticInstance()->GetControlledCount();
+    
+    //Route check
+    
+    if(RouteHolder::GetStaticInstance()->curRouteCount < 2) return nullptr;
+
+    if(RouteHolder::GetStaticInstance()->GetRouteById(0) == nullptr
+            || RouteHolder::GetStaticInstance()->GetRouteById(1) == nullptr){
+        return nullptr;
+    }
+
+    // Object check
+
     for(int i = 0; i < carCount; i++)
     {
         Object * object = ObjectHolder::GetStaticInstance()->GetControlledObjectByID(i);
@@ -48,7 +63,7 @@ void * HighwayManagerCreate(u32 size)
         return EGG::Heap::alloc(size, 4, 0);
     }
 
-   return NULL;
+   return nullptr;
 }
 //Noop MH Check (Make Slot Independent)
 kmWrite32(0x808279a4, 0x60000000); 

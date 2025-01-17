@@ -496,7 +496,9 @@ MiiZthing = 0x808a4608
 #Mii
 ComputeRawMii__3MiiFP6RawMiiP9MiiTexMap = 0x8052758c
 
-
+#Route
+sInstance__11RouteHolder = 0x809c22b0
+GetRouteById__11RouteHolderCFUi = 0x806f10fc
 
 
 #Cameras
