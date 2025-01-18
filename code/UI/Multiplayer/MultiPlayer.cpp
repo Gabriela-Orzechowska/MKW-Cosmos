@@ -146,13 +146,14 @@ namespace CosmosUI
             context->karts[i] = kartId;
             context->combos[i].selCharacter = charId;
             context->combos[i].selKart = kartId;
-
+/*
             for(int j = 0; j < 5; j++){
                 if(kartId == AutoKarts[j]){
                     manualMode[i] = random.NextLimited(2) == 0;
                     break;
                 }
             }
+            */
         }
         
         if(Cosmos::Data::SettingsHolder::GetStaticInstance()->IsRandomComboCommon() && context->localPlayerCount > 1){

@@ -153,6 +153,9 @@ void ParseSimplifiedControls(Controller& controller){
     if(type == 2){
         input = (state.buttonRaw & CLASSIC_ZL);
     }
+    else if(type == 3) {
+        input = (state.buttonRaw & GCN_Y);
+    }
 
     if(input)
     {

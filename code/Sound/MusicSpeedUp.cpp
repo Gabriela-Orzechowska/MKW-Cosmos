@@ -40,17 +40,20 @@ void FinalLapSpeedUp(RaceRSARSoundsPlayer& soundPlayer, u32 lapSoundId, u32 play
         using namespace Cosmos::Data;
         if(SettingsHolder::GetStaticInstance()->GetSettingValue(COSMOS_SETTING_MUSIC_CUTOFF) != CUTOFF_DISABLED)
         {
+            register KartSound* kartSound;
+            asm{ASM(mr kartSound, r29;)}
             RaceInfo * raceInfo = RaceInfo::GetStaticInstance();
-            Timer * raceTimer = &raceInfo->timerManager->timers[0];
-            Timer * playerTimer = &raceInfo->players[firstPlayerId]->lapSplits[maxLap-2];
-            Timer difference;
-            CtrlRaceGhostDiffTime::SubtractTimers(difference, raceTimer, playerTimer);
 
             if(SettingsHolder::GetStaticInstance()->GetSettingValue(COSMOS_SETTING_MUSIC_CUTOFF) == SPEEDUP)
             {
+                Timer * raceTimer = &raceInfo->timerManager->timers[0];
+                Timer * playerTimer = &raceInfo->players[
+                    RaceData::GetStaticInstance()->racesScenario.GetSettings().hudPlayerIds[playerId]]->lapSplits[maxLap-2];
+                Timer difference;
+                CtrlRaceGhostDiffTime::SubtractTimers(difference, raceTimer, playerTimer);
                 if(difference.minutes < 1 && difference.seconds < 5)
                 {
-                    KartHolder::GetStaticInstance()->GetKart(hudIdFinalLap)->pointers.kartSound->soundArchivePlayer->soundPlayerArray->soundList.GetFront().ambientParam.pitch += 0.0002f;
+                    kartSound->soundArchivePlayer->soundPlayerArray->soundList.GetFront().ambientParam.pitch += 0.0002f;
                 }
             }
 

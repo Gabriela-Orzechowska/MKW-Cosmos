@@ -59,6 +59,7 @@ namespace Cosmos
             bufferSize = (bufferSize + 0x1F) & ~0x1F;
             u8* fileBuffer = (u8*) RKSystem::mInstance.EGGSystem->alloc(bufferSize, 0x20);
             this->fileSize = bufferSize;
+            memset(fileBuffer, 0, bufferSize);
 
             CosmosFile::FileManager *manager = CosmosFile::FileManager::GetNANDManager();
 
@@ -140,6 +141,7 @@ namespace Cosmos
                     licensesFile->data[i].br = 6250;
                     licensesFile->data[i].onlineRaces = 0;
                     licensesFile->data[i].onlineScore = 400;
+                    licensesFile->data[i].unlockFlags = 0;
                 }
             }
 

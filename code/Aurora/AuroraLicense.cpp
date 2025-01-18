@@ -411,7 +411,7 @@ namespace Aurora {
                 licenseClass = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetOnlineClass();
             }
             else {
-                licenseClass = RKNetUSERHandler::GetStaticInstance()->receivedPackets[player].region;
+                licenseClass = RKNetUSERHandler::GetStaticInstance()->receivedPackets[timer->infos[player].aid].region;
                 //licenseClass = ((AuroraPlayerInfo*)&timer->infos[player])->licenceClass;
             }
 

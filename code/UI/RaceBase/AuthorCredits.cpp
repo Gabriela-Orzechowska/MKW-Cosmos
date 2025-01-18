@@ -73,7 +73,7 @@ namespace CosmosUI{
         if(trackId != Aurora::Special::SLOT_TGAW) return;
 
         s32 time = RaceInfo::GetStaticInstance()->timer;
-        if(time >= 200) {
+        if(time >= 200 && time < 2040) {
             this->layout.GetPaneByName("TextBox_01")->trans.x -= 1.0f;
             this->layout.GetPaneByName("TextBox_02")->trans.x -= 1.0f;
             this->layout.GetPaneByName("TextBox_03")->trans.x -= 1.0f;
@@ -85,8 +85,8 @@ namespace CosmosUI{
 // AURORA
         u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
         if(trackId == Aurora::Special::SLOT_TGAW) {
-            bool isEnd = time < 2040 || this->layout.GetPaneByName("TextBox_01")->trans.x < -1800.0f;
-            return time > 0 && isEnd;
+            bool isEnd = (time < 2040) || (this->layout.GetPaneByName("TextBox_01")->trans.x < -1800.0f);
+            return (time > 0) && isEnd;
         }
         return time > 0 && time < 300;
     }
