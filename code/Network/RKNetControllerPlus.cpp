@@ -159,7 +159,7 @@ namespace CosmosNetwork
     kmCall(0x80661490, DecideTrack);
 
 #define CC_200_MIRROR_PROBS 1
-#define CC_100_PROBS 10
+#define CC_200_PROBS 10
 #define CC_MIRROR_PROBS 4
 #define CC_150_PROBS 85
 
@@ -170,11 +170,14 @@ namespace CosmosNetwork
         OnlineEngineClass ccEngine = CC_ONLINE_150;
         Cosmos::Data::FORCE_CC ccSetting = (Cosmos::Data::FORCE_CC) Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_FORCE_CC);
         if(type == VS_WW || type == VS_REGIONAL || (type == FROOM_HOST && ccSetting == Cosmos::Data::FORCE_NONE)) {
+            /*
             Random random;
             u32 ret = random.NextLimited(100);
             if(ret < CC_200_MIRROR_PROBS) ccEngine = CC_ONLINE_200_MIRROR;
             else if(ret < (CC_200_MIRROR_PROBS + CC_100_PROBS)) ccEngine = CC_ONLINE_100;
             else if(ret < (CC_200_MIRROR_PROBS + CC_100_PROBS + CC_MIRROR_PROBS)) ccEngine = CC_ONLINE_MIRROR;
+            */
+            ccEngine = CC_ONLINE_150;
         }
         else if (type == FROOM_HOST) {
             if(ccSetting == Cosmos::Data::FORCE_150CC) ccEngine = CC_ONLINE_150;
