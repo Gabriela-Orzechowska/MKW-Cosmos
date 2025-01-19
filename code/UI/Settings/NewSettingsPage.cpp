@@ -16,10 +16,34 @@
  */
 
 /*
-    This settings menu style is inspired by MKW-SP implementation, while 
-    all the assets are custom made. I would like to thank stebler for
-    direct help gettings this menu to work.
-*/
+ * This settings menu style is inspired by MKW-SP implementation, while 
+ * all the assets are custom made. I would like to thank stebler for
+ * direct help gettings this menu to work.
+ * 
+ * https://github.com/mkw-sp/mkw-sp/blob/main/payload/game/ui/SettingsPage.cc
+ * 
+ * The original license text goes as follows:
+ * 
+ * Copyright 2021-2023 Pablo Stebler
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
 #include "Settings/UserData.hpp"
 #include <UI/Settings/NewSettingsPage.hpp>
