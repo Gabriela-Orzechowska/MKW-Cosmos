@@ -1,6 +1,6 @@
 /* 
  * This file is part of the Cosmos
- * Copyright (c) 2023-2024 Gabriela Orzechowska
+ * Copyright (c) 2023-2025 Gabriela Orzechowska
  * 
  * This program is free software: you can redistribute it and/or modify  
  * it under the terms of the GNU General Public License as published by  
@@ -13,17 +13,18 @@
  *
  * You should have received a copy of the GNU General Public License 
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * This code is utilitizing the /dev/dolphin IOS available in Dolphin Emulator
+ * https://github.com/dolphin-emu/dolphin/blob/master/Source/Core/Core/IOS/DolphinDevice.hpp
+ * 
  */
 
 #ifndef _IOS_DOLPHIN_
 #define _IOS_DOLPHIN_
 
-#include <main.hpp>
+#include <System/System.hpp>
 #include <kamek.hpp>
 #include <core/rvl/os/OS.hpp>
-
-
-// I need to make this a class
 
 namespace IOS
 {

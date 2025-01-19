@@ -1,6 +1,6 @@
 /* 
  * This file is part of the Cosmos
- * Copyright (c) 2023-2024 Gabriela Orzechowska
+ * Copyright (c) 2023-2025 Gabriela Orzechowska
  * 
  * This program is free software: you can redistribute it and/or modify  
  * it under the terms of the GNU General Public License as published by  
@@ -23,7 +23,7 @@
 #include "kamek.hpp"
 #include <UI/Language/LanguageManager.hpp>
 #include <game/Scene/RootScene.hpp>
-#include <main.hpp>
+#include <System/System.hpp>
 
 namespace Cosmos
 {

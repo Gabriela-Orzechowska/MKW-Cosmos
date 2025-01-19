@@ -5,7 +5,7 @@
 #include "UI/Settings/NewSettingsPage.hpp"
 #include "UI/Text.hpp"
 #include "kamek.hpp"
-#include "main.hpp"
+#include "System/System.hpp"
 
 namespace Cosmos {
     namespace UI {

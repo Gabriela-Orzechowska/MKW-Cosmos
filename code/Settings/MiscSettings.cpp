@@ -1,6 +1,6 @@
 /* 
  * This file is part of the Cosmos
- * Copyright (c) 2023-2024 Gabriela Orzechowska
+ * Copyright (c) 2023-2025 Gabriela Orzechowska
  * 
  * This program is free software: you can redistribute it and/or modify  
  * it under the terms of the GNU General Public License as published by  
@@ -28,7 +28,7 @@
 #include "core/nw4r/lyt/Picture.hpp"
 #include "core/nw4r/lyt/TextBox.hpp"
 #include "hooks.hpp"
-#include "main.hpp"
+#include "System/System.hpp"
 #include <kamek.hpp>
 #include <Settings/UserData.hpp>
 #include <game/Scene/BaseScene.hpp>

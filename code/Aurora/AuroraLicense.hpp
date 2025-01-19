@@ -7,7 +7,7 @@
 #include "UI/Layout/ControlLoader.hpp"
 #include "UI/Page/Other/CountDownTimer.hpp"
 #include "UI/Page/Other/VR.hpp"
-#include "main.hpp"
+#include "System/System.hpp"
 #include <kamek.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
 #include <game/UI/Page/Menu/Menu.hpp>

@@ -7,7 +7,7 @@
 #include <game/UI/MenuData/MenuData.hpp>
 #include <game/UI/Page/Other/YesNo.hpp>
 #include <game/Network/RKNetController.hpp>
-#include <main.hpp>
+#include <System/System.hpp>
 
 namespace Aurora {
     namespace Ghost {

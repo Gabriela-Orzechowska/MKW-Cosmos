@@ -1,6 +1,6 @@
 /* 
  * This file is part of the Cosmos
- * Copyright (c) 2023-2024 Gabriela Orzechowska
+ * Copyright (c) 2023-2025 Gabriela Orzechowska
  * 
  * This program is free software: you can redistribute it and/or modify  
  * it under the terms of the GNU General Public License as published by  
@@ -14,6 +14,12 @@
  * You should have received a copy of the GNU General Public License 
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
+/*
+    This settings menu style is inspired by MKW-SP implementation, while 
+    all the assets are custom made. I would like to thank stebler for
+    direct help gettings this menu to work.
+*/
 
 #include "Settings/UserData.hpp"
 #include <UI/Settings/NewSettingsPage.hpp>

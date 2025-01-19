@@ -1,4 +1,4 @@
-#include <main.hpp>
+#include <System/System.hpp>
 #include "UI/Language/LanguageManager.hpp"
 #include "UI/MenuData/Scene.hpp"
 #include "core/rvl/os/OS.hpp"

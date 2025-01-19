@@ -10,7 +10,7 @@
 #include "UI/Page/Other/LicenseSettings.hpp"
 #include "hooks.hpp"
 #include "kamek.hpp"
-#include "main.hpp"
+#include "System/System.hpp"
 #include <Aurora/AuroraLicense.hpp>
 #include <Aurora/UIAnimation.hpp>
 

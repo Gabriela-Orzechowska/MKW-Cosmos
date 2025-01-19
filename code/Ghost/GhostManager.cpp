@@ -1,6 +1,6 @@
 /* 
  * This file is part of the Cosmos
- * Copyright (c) 2023-2024 Gabriela Orzechowska
+ * Copyright (c) 2023-2025 Gabriela Orzechowska
  * 
  * This program is free software: you can redistribute it and/or modify  
  * it under the terms of the GNU General Public License as published by  
@@ -22,7 +22,7 @@
 #include "Race/RaceData.hpp"
 #include "core/rvl/os/OS.hpp"
 #include "hooks.hpp"
-#include "main.hpp"
+#include "System/System.hpp"
 #include <Ghost/GhostManager.hpp>
 #include <SlotExpansion/CupManager.hpp>
 #include <game/UI/Page/RaceMenu/TTPause.hpp>
