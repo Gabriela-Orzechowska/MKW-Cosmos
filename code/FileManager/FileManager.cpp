@@ -69,7 +69,7 @@ namespace CosmosFile
     }
 
 
-    BootHook SetUpFileLoader(FileManager::CreateStaticInstance, FIRST);
+    BootHook SetUpFileLoader(FileManager::CreateStaticInstance, LINK);
 
     void FileManager::GetCorrectPath(char * realPath, const char * path) const
     {
