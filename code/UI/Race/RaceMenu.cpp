@@ -114,7 +114,7 @@ namespace CosmosUI {
     kmWritePointer(0x808da844, TTPauseOnButtonClick);
 
     void ChangeSceneOnConfirm(Pages::RaceMenu* race, MenuId id, u32 animDirection, float a){
-        if(isTimeTrialMode){
+        if(isTimeTrialMode()){
             switch(lastTTButton){
                 case Pages::RaceMenu::ButtonChangeCharacter:
                     id = SINGLE_PLAYER_TT_CHANGE_CHARA; break;

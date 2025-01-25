@@ -190,7 +190,8 @@ namespace CosmosUI
         currentSlot = slot;
         COSMOS_ASSERT_NOT_NULL(variant);
         
-        this->subPageCount = (variant->count + 3) / 3;
+        bool hasRandom = (RaceData::GetStaticInstance()->menusScenario.settings.gamemode != MODE_TIME_TRIAL);
+        this->subPageCount = ((variant->count - 1 +hasRandom) / 4) + 1;
         this->currentSubPage = 0;
 
         this->SetupButtons();

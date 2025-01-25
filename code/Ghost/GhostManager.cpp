@@ -256,6 +256,16 @@ namespace Cosmos
                 this->file.ghostStatus[i] = 0x0;
         }
 
+        void ResetGhostsData(Page& page, u32 soundIdx, u32 param_3){
+            if(GhostManager::GetStaticInstance() != nullptr){
+                GhostManager::GetStaticInstance()->isFinished = false;
+                GhostManager::GetStaticInstance()->ResetMetadata();
+            }
+            page.PlaySound(soundIdx, param_3);
+            return;
+        }
+        kmCall(0x80857790, ResetGhostsData);
+
         GhostLeaderboardManager::GhostLeaderboardManager(const char *folderPath, u32 id)
         {
             new (this) GhostLeaderboardManager();
