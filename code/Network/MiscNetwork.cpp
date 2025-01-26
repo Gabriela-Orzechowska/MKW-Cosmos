@@ -33,6 +33,7 @@
 #include <game/Network/RKNetController.hpp>
 #include <Network/SHA256.hpp>
 #include <Network/WiiLinkTypes.hpp>
+#include <Network/WiiLink.hpp>
 
 #define TEST_REGION 2137 
 
@@ -162,33 +163,6 @@ ROOMPacket BeforeReadingPackets(RKNetROOMHandler& handler, u32 packetIndex) {
 kmBranch(0x8065af64, BeforeReadingPackets);
 
 // Taken from WiiLink WFC Patcher
-
-void ReportToWiiLink(const char* key, const char* string){
-    GameSpy::GPConnection* connection = DWC::stpMatchCnt->connection;
-    if(!connection) return;
-
-    GameSpy::GPIConnection* iconnection = (GameSpy::GPIConnection*) *connection;
-
-    GameSpy::gpiAppendStringToBuffer(connection, &iconnection->outputBuffer, "\\wwfc_report\\\\");
-    GameSpy::gpiAppendStringToBuffer(connection, &iconnection->outputBuffer, key);
-    GameSpy::gpiAppendStringToBuffer(connection, &iconnection->outputBuffer, "\\");
-    GameSpy::gpiAppendStringToBuffer(connection, &iconnection->outputBuffer, string);
-    GameSpy::gpiAppendStringToBuffer(connection, &iconnection->outputBuffer, "\\final\\");
-
-    CosmosLog("Appending Key: %s String: %s\n", key, string);
-}
-
-void ReportToWiiLinkB64(const char* key, const void* data, u32 size){
-    char b64Data[0x400];
-    s32 retSize = DWC::DWC_Base64Encode(data, size, b64Data, 0x400);
-    if(retSize == -1 || retSize == 0x400) {
-        CosmosError("Failed to B64 encode to buffer!\n");
-        return;
-    }   
-    b64Data[retSize] = '\0';
-    ReportToWiiLink(key, b64Data);
-}
-
 void CreateNewUserPacket(RKNetUSERHandler& handler) {
     handler.BuildUserPacket();
 

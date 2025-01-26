@@ -18,6 +18,40 @@ static bool s_hasFinished = false;
 
 bool WiiLinkHasFinished() { return s_hasFinished; }
 
+void ReportToWiiLink(const char* key, const char* string){
+    GameSpy::GPConnection* connection = DWC::stpMatchCnt->connection;
+    if(!connection) return;
+
+    GameSpy::GPIConnection* iconnection = (GameSpy::GPIConnection*) *connection;
+
+    GameSpy::gpiAppendStringToBuffer(connection, &iconnection->outputBuffer, "\\wwfc_report\\\\");
+    GameSpy::gpiAppendStringToBuffer(connection, &iconnection->outputBuffer, key);
+    GameSpy::gpiAppendStringToBuffer(connection, &iconnection->outputBuffer, "\\");
+    GameSpy::gpiAppendStringToBuffer(connection, &iconnection->outputBuffer, string);
+    GameSpy::gpiAppendStringToBuffer(connection, &iconnection->outputBuffer, "\\final\\");
+
+    CosmosLog("Appending Key: %s String: %s\n", key, string);
+}
+
+void ReportToWiiLinkU32(const char* key, u32 val){
+    char buffer[sizeof("4294967295")];
+
+    snprintf(buffer, sizeof(buffer), "%lu", val);
+    ReportToWiiLink(key, buffer);
+}
+
+void ReportToWiiLinkB64(const char* key, const void* data, u32 size){
+    char b64Data[0x400];
+    s32 retSize = DWC::DWC_Base64Encode(data, size, b64Data, 0x400);
+    if(retSize == -1 || retSize == 0x400) {
+        CosmosError("Failed to B64 encode to buffer!\n");
+        return;
+    }   
+    b64Data[retSize] = '\0';
+    ReportToWiiLink(key, b64Data);
+}
+
+
 extern "C"
 {
     void Real_DWCi_Auth_SendRequest(

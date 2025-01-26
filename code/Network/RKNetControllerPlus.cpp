@@ -27,6 +27,7 @@
 #include <game/Network/RKNetPlayerInfo.hpp>
 #include <game/UI/Page/Other/Votes.hpp>
 #include <game/UI/Page/Other/CountDownTimer.hpp>
+#include <Network/WiiLink.hpp>
 
 namespace CosmosNetwork
 {
@@ -153,6 +154,9 @@ namespace CosmosNetwork
             handler.toSendPacket.winningCourse = actualVote;
             handler.toSendPacket.winningVoterAid = winnerAid;
             CosmosLog("Winner track: %03x\n", actualVote);
+
+            ReportToWiiLinkU32("mkw_select_course", actualVote);
+
         }
         else ((RKNetSELECTHandler*)&handler)->DecideTrack();
     }
@@ -186,6 +190,7 @@ namespace CosmosNetwork
         }
 
         handler.toSendPacket.engineClass = (u8) ccEngine; 
+        ReportToWiiLinkU32("mkw_select_cc", ccEngine);
     }
     kmCall(0x80661404, DecideCC);
 
