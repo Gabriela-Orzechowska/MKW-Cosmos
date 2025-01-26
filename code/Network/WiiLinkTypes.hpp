@@ -8,7 +8,7 @@
 #  ifndef WWFC_DOMAIN
 
 #    ifdef PROD
-#      define WWFC_DOMAIN "wiilink24.com"
+#      define WWFC_DOMAIN "cosmos-wfc.com"
 #    else
 #      define WWFC_DOMAIN "nwfc.wiinoma.com" // Points to localhost
 #    endif
