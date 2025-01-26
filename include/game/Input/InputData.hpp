@@ -305,6 +305,7 @@ class GhostWriter{
 public:
     GhostWriter(); //80524ac4
     virtual ~GhostWriter(); //80524c2c vtable 808b3068
+    void WriteFrame(u16 buttonActions, u8 quantisedStickX, u8 quantisedStickY, u8 motionControlFlickUnmirrored); //0x14 80524e74
     u8 unknown_0x4[0x14-0x4];
     u32 state; //0x14
     u8 unknown_0x18[4];

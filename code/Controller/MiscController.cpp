@@ -17,6 +17,7 @@
 
 #include "Input/InputData.hpp"
 #include "Settings/UserData.hpp"
+#include "System/Identifiers.hpp"
 #include "hooks.hpp"
 #include <Controller/MiscController.hpp>
 
@@ -28,17 +29,17 @@ namespace CosmosController
     #define CASE_BUTTON(universal, specific) \
     case universal: return (raw & specific) != 0;
         
-    bool isPressed(const RealControllerHolder& holder, ControllerType type, u32 button)
+    bool isPressed(const ControllerHolder& holder, ControllerId type, u32 button)
     {
         return isPressed(holder,type,button,false);
     }
 
-    bool isPressed(const RealControllerHolder& holder, ControllerType type, u32 button, bool checkNew)
+    bool isPressed(const ControllerHolder& holder, ControllerId type, u32 button, bool checkNew)
     {
         u16 raw = holder.inputStates[0].buttonRaw;
         if(checkNew) raw &= ~holder.inputStates[1].buttonRaw;
 
-        if(type == WHEEL)
+        if(type == CONTROLLER_WII_WHEEL)
         {
             switch(button) {
                 CASE_BUTTON(BUTTON_A, WHEEL_A)
@@ -57,7 +58,7 @@ namespace CosmosController
             }
         }
          
-        else if(type == NUNCHUCK)
+        else if(type == CONTROLLER_NUNCHUCK)
         {
             switch(button) {
                 CASE_BUTTON(BUTTON_A, NUNCHUCK_A)
@@ -76,7 +77,7 @@ namespace CosmosController
                     return false;
             }
         }
-        else if(type == CLASSIC)
+        else if(type == CONTROLLER_CLASSIC)
         {
             switch(button) {
                 CASE_BUTTON(BUTTON_A, CLASSIC_A)
@@ -98,7 +99,7 @@ namespace CosmosController
                     return false;
             }
         }
-        else if(type==GCN)
+        else if(type==CONTROLLER_GCN)
         {
             switch(button) {
                 CASE_BUTTON(BUTTON_A, GCN_A)
@@ -121,12 +122,12 @@ namespace CosmosController
         return false;
     }
 
-    bool arePressed(const RealControllerHolder& holder, ControllerType type, ButtonCommon buttons)
+    bool arePressed(const ControllerHolder& holder, ControllerId type, ButtonCommon buttons)
     {
         return arePressed(holder, type, buttons, false);
     }
 
-    bool arePressed(const RealControllerHolder& holder, ControllerType type, ButtonCommon buttons, bool checkNew)
+    bool arePressed(const ControllerHolder& holder, ControllerId type, ButtonCommon buttons, bool checkNew)
     {
         bool result = true;
         for(int i = 0; i < 32; i++)

@@ -15,6 +15,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Input/InputData.hpp"
+#include "System/Identifiers.hpp"
 #include <kamek.hpp>
 #include <game/Race/Kart/KartBase.hpp>
 #include <game/Race/Kart/KartMovement.hpp>
@@ -30,41 +32,53 @@ inline bool is200() {
     return RaceData::GetStaticInstance()->racesScenario.GetSettings().engineClass == CC_100;
 }
 
-void EnableBrakeDrifting()
-{
-    if(!is200()) return;
-    for(int i = 0; i < RaceData::GetStaticInstance()->racesScenario.localPlayerCount; i++)
-    {
+void EnableBrakeDrifting(ControllerHolder* holder){
+
         bool brakeDrift = false;
 
-        u8 playerId = RaceData::GetStaticInstance()->racesScenario.GetSettings().hudPlayerIds[i];
-
-        u32 controller = MenuData::GetStaticInstance()->pad.padInfos[i].controllerSlotAndTypeActive;
-        ControllerType type = ControllerType(controller & 0xFF);
-        RealControllerHolder& holder = InputData::GetStaticInstance()->GetController(i);
+        ControllerId type = (ControllerId) holder->GetCurrentController()->GetType();
 
         using namespace CosmosController;
 
         switch(type) {
-            case CLASSIC:
-            case GCN:
-                if(arePressed(holder, type, (ButtonCommon)(BUTTON_A | BUTTON_B | BUTTON_R))) brakeDrift = true;
+            case CONTROLLER_CLASSIC:
+            case CONTROLLER_GCN:
+                if(arePressed(*holder, type, (ButtonCommon)(BUTTON_A | BUTTON_B | BUTTON_R))) brakeDrift = true;
                 break;
-            case NUNCHUCK:
-                if(arePressed(holder, type, (ButtonCommon)(BUTTON_A | BUTTON_B | BUTTON_DPAD_DOWN))) brakeDrift = true;
+            case CONTROLLER_NUNCHUCK:
+                if(arePressed(*holder, type, (ButtonCommon)(BUTTON_A | BUTTON_B | BUTTON_DPAD_DOWN))) brakeDrift = true;
                 break;
-            case WHEEL:
-                if(arePressed(holder, type, (ButtonCommon)(BUTTON_1 | BUTTON_2 | BUTTON_B))) brakeDrift = true;
+            case CONTROLLER_WII_WHEEL:
+                if(arePressed(*holder, type, (ButtonCommon)(BUTTON_1 | BUTTON_2 | BUTTON_B))) brakeDrift = true;
                 break;
             default:
                 brakeDrift = false;
         }
 
-        if(brakeDrift) holder.inputStates[0].buttonActions |= 0x10;
+        if(brakeDrift) holder->inputStates[0].buttonActions |= 0x10;
+}
+
+void EnableBrakeDrifting()
+{
+    if(!is200()) return;
+    MenuDataPad* pad = &MenuData::GetStaticInstance()->pad;
+    for(int i = 0; i < RaceData::GetStaticInstance()->racesScenario.localPlayerCount; i++)
+    {
+        ControllerHolder* holder = pad->GetControllerHolder(i);
+        if(holder) EnableBrakeDrifting(holder);
     }
 }
 
 static RaceFrameHook CheckBrakeDrift(EnableBrakeDrifting);
+
+void FixGhosts(GhostWriter* writer, u16 buttonActions, u8 quantisedStickX,
+    u8 quantisedStickY, u8 motionControlFlickUnmirrored) {
+    register ControllerHolder* controllerHolder;
+    asm{ASM (mr controllerHolder, r30;)};
+    EnableBrakeDrifting(controllerHolder);
+    writer->WriteFrame(controllerHolder->inputStates[0].buttonActions & ~0x20, quantisedStickX, quantisedStickY, motionControlFlickUnmirrored);
+}
+kmCall(0x80521828, FixGhosts);
 
 bool IsHoldingBrakeDrift(KartStatus * status)
 {

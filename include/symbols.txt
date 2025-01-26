@@ -872,6 +872,7 @@ Reset__13GlobalContextFv = 0x805e40a8
 #MenuDataPad
 GetCurrentSlotAndType__11MenuDataPadFUi = 0x8061b358
 GetType__11MenuDataPadFUi = 0x8061bfac
+GetControllerHolder__11MenuDataPadFUi = 0x8061b398
 
 #Scene
 BuildPages__5SceneF6MenuId = 0x8062c3a4
@@ -949,6 +950,8 @@ __vt__21CtrlRaceGhostDiffTime = 0x808d3c78
 __dt__21CtrlRaceGhostDiffTimeFv = 0x807ee990
 SubtractTimers__21CtrlRaceGhostDiffTimeFR5TimerPC5TimerPC5Timer = 0x807ee860
 Load__21CtrlRaceGhostDiffTimeFPCc = 0x807ee8e0
+
+WriteFrame__11GhostWriterFUsUcUcUc = 0x80524e74
 
 #CtrlRaceTime
 SetTimer__12CtrlRaceTimeFP5Timer = 0x807f84c0

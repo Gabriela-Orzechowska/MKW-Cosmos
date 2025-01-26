@@ -209,12 +209,23 @@ namespace CosmosUI
     void CharSelectPlus::OnInit(){
         Pages::CharacterSelect::OnInit();
         this->onBackPressHandler.ptmf = (void (Menu::*)(u32)) &CharSelectPlus::OnBackPressNew;
+
+        Pages::CountDownTimer* timerPage = Pages::CountDownTimer::GetPage();
+        if(timerPage){
+            this->timer = &timerPage->countdown;
+            this->ctrlMenuCharSelect.timer = &timerPage->countdown;
+        }
+
     }   
 
     void CharSelectPlus::BeforeControlUpdate(){
         Pages::CountDownTimer* timer = Pages::CountDownTimer::GetPage();
         if(timer){
             timer->status = STATUS_CUP_SELECT;
+            if(this->timer == nullptr) {
+                this->timer = &timer->countdown;
+                this->ctrlMenuCharSelect.timer = &timer->countdown;
+            }
         }
         if(!isRandom) return;
 
@@ -269,8 +280,18 @@ namespace CosmosUI
         return (PushButton*) this->controlGroup.GetControl(2)->childrenGroup.GetControl(idx/2)->childrenGroup.GetControl(idx % 2);
     }
 
+    void KartSelectPlus::OnInit(){
+        Pages::KartSelect::OnInit();
+        Pages::CountDownTimer* timerPage = Pages::CountDownTimer::GetPage();
+        if(timerPage){
+            this->timer = &timerPage->countdown;
+        }
+    };
 
     void KartSelectPlus::BeforeControlUpdate(){
+        Pages::CountDownTimer* timer = Pages::CountDownTimer::GetPage();
+        if(timer && this->timer == nullptr) this->timer = &timer->countdown;
+
         if(!isRandom) return;
 
         this->controlsManipulatorManager.inaccessible = true;
@@ -301,8 +322,19 @@ namespace CosmosUI
         }
     }
 
+    void DriftSelectPlus::OnInit(){
+        Pages::DriftSelect::OnInit();
+        Pages::CountDownTimer* timerPage = Pages::CountDownTimer::GetPage();
+        if(timerPage){
+            this->timer = &timerPage->countdown;
+        }
+    }
+
     void DriftSelectPlus::BeforeControlUpdate(){
+        Pages::CountDownTimer* timer = Pages::CountDownTimer::GetPage();
+        if(timer && this->timer == nullptr) this->timer = &timer->countdown;
         if(!isRandom) return;
+
         this->controlsManipulatorManager.inaccessible = true;
         GlobalContext* context = MenuData::GetStaticInstance()->GetCurrentContext();
         if(this->rouletteCounter > 0) {
@@ -402,15 +434,16 @@ namespace CosmosUI
         if(vrPage->menuState != 3){
             vrPage->menuState = 6;
         }
+        CosmosLog("menuStatus: %d\n", vrPage->menuState);
 
-        return page.AddPageLayer(pageId, animationDirection);
+        page.AddPageLayer(pageId, animationDirection);
     }
     kmCall(0x806509d0, AddCharacterSelectLayer);
 
     void ForceCharacterPage(Pages::CountDownTimer& page, PageId pageId, s32 animationDirection){
         page.AddPageLayer(pageId, animationDirection);
     }
-    kmCall(0x80650a00, ForceCharacterPage);
+    kmCall(0x80650a00, AddCharacterSelectLayer);
 
     kmWrite32(0x80650978, 0x60000000);
     kmWrite32(0x8064a61c, 0x60000000);

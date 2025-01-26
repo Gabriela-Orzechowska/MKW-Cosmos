@@ -15,6 +15,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "System/Identifiers.hpp"
 #include <kamek.hpp>
 #include <core/egg/Exception.hpp>
 #include <core/rvl/ipc/ipc.hpp>
@@ -385,8 +386,8 @@ namespace CosmosDebug
         bool ccp = (ret == 0 && (controllerType == 2 || controllerType == 7));
 
         u32 controller = MenuData::GetStaticInstance()->pad.padInfos[0].controllerSlotAndTypeActive;
-        ControllerType type = ControllerType(controller & 0xFF);
         RealControllerHolder &holder = InputData::GetStaticInstance()->GetController(0);
+        ControllerId type = (ControllerId) holder.GetCurrentController()->GetType();
 
         bool lock = true;
 
@@ -406,18 +407,18 @@ namespace CosmosDebug
             holder.inputStates[1] = holder.inputStates[0];
             switch (type)
             {
-            case (CLASSIC):
+            case (CONTROLLER_CLASSIC):
                 holder.inputStates[0].buttonRaw = clStatus.buttons;
                 holder.inputStates[0].stickX = clStatus.lStickX / 128.0f;
                 holder.inputStates[0].stickY = clStatus.lStickY / 128.0f;
                 break;
-            case (NUNCHUCK):
-            case (WHEEL):
+            case (CONTROLLER_NUNCHUCK):
+            case (CONTROLLER_WII_WHEEL):
                 holder.inputStates[0].buttonRaw = wStatus.buttons;
                 holder.inputStates[0].stickX = wStatus.cStickHorizontal;
                 holder.inputStates[0].stickY = wStatus.cStickVertical;
                 break;
-            case (GCN):
+            case (CONTROLLER_GCN):
                 holder.inputStates[0].buttonRaw = gcStatus[0].buttons;
                 holder.inputStates[0].stickX = gcStatus[0].horizontalStickU8 / 62.0f;
                 holder.inputStates[0].stickY = gcStatus[0].verticalStickU8 / 62.0f;

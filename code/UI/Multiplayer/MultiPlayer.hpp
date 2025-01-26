@@ -108,6 +108,8 @@ namespace CosmosUI
                 tempKarts[0] = KART_NONE;
                 tempKarts[1] = KART_NONE; 
             } 
+
+            void OnInit() override;
             void BeforeControlUpdate() override;
             PushButton* KartSelectPlus::GetButton(u32 idx);
             void SetRandomKarts(u32 p1Kart){
@@ -127,6 +129,8 @@ namespace CosmosUI
     class DriftSelectPlus : public Pages::DriftSelect {
         public:
             static inline DriftSelectPlus* GetPage() { return MenuData::GetStaticInstance()->GetPage<DriftSelectPlus>(DRIFT_SELECT); }
+
+            void OnInit() override;
 
             DriftSelectPlus() : isRandom(false), rouletteCounter(0) {
                 isManual[0] = true;

@@ -113,6 +113,9 @@ void FixGPIntroIcon(LayoutUIControl& control, char* name, u32){
 }
 kmCall(0x80855370, FixGPIntroIcon);
 
+// Disable credits
+kmWrite32(0x805bc788, 0x38600000);
+
 
 // Replace GP Pause with VS
 
