@@ -1,13 +1,51 @@
 #include "UI/BMG/BMG.hpp"
 #include "UI/CupSelect/CourseSelect.hpp"
 #include "UI/Page/Menu/CourseSelect.hpp"
+#include "hooks.hpp"
 #include <kamek.hpp>
 #include <Aurora/AuroraSlot.hpp>
 #include <game/UI/Ctrl/Menu/CtrlMenuCourse.hpp>
+#include <game/UI/Ctrl/CtrlRace/CtrlRaceTime.hpp>
+#include <game/UI/Ctrl/CtrlRace/CtrlRaceLap.hpp>
+#include <UI/Language/LanguageManager.hpp>
 
 namespace Aurora {
     namespace Special {
     
+        void LoadTimeControl(CtrlRaceTime& time, const char* variant, u8 hudSlotId){
+            time.Load(variant, hudSlotId);
+            u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
+            if(trackId != SLOT_LUMPYS) return;
+
+            if(time.layout.GetPaneByName("set_p") == nullptr) return;
+
+            int curLang = Cosmos::LanguageManager::GetStaticInstance()->GetActualLanguage();
+
+            void* tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, "game_image/timg/tt_ml_lump.tpl", 0);
+            if(curLang == Cosmos::LanguageManager::POLISH || curLang == Cosmos::LanguageManager::CZECH || curLang == Cosmos::LanguageManager::HUNGARIAN) {
+                time.layout.GetPaneByName("set_p")->scale.z *= 0.5f;
+            }
+
+            CosmosUI::ChangePaneImage(&time, "set_p", tplPointer);
+        }
+        kmCall(0x80858188, LoadTimeControl);
+
+        void LoadLapControl(CtrlRaceLap& lap, const char* variant, u8 hudSlotId){
+            lap.Load(variant, hudSlotId);
+            u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
+            if(trackId != SLOT_LUMPYS) return;
+
+            if(lap.layout.GetPaneByName("lap_text") == nullptr) return;
+
+            int curLang = Cosmos::LanguageManager::GetStaticInstance()->GetActualLanguage();
+
+            void* tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, "game_image/timg/tt_ml_lump.tpl", 0);
+            if(curLang == Cosmos::LanguageManager::POLISH || curLang == Cosmos::LanguageManager::CZECH || curLang == Cosmos::LanguageManager::HUNGARIAN)
+                lap.layout.GetPaneByName("lap_text")->scale.z *= 0.5f;
+
+            CosmosUI::ChangePaneImage(&lap, "lap_text", tplPointer);
+        }
+        kmCall(0x80857e60, LoadLapControl);
         CtrlMenuCourseSelectCupSub* GetActiveCupIcon(CtrlMenuCourseSelectCup& cup){
             for(int i = 0; i < 8; i++){
                 if(cup.cupIcons[i].selected) return &cup.cupIcons[i];

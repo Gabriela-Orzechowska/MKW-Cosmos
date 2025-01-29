@@ -28,6 +28,8 @@ extern char * szsLanguageNames[7];
 namespace Cosmos
 {
     class LanguageManager {
+    public:
+
     enum Languages {
         DEFAULT = 0x0,
         ENGLISH,

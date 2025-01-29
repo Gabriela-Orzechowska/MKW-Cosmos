@@ -174,6 +174,7 @@ void SetLicenseSettings(LicenseManager& license, LicenseManager::Modes mode)
     license.settings[2][mode] = holder->GetSettingValue(COSMOS_SETTING_VS_VEHICLES);
     license.settings[3][mode] = holder->GetSettingValue(COSMOS_SETTING_VS_COURSES);
     license.settings[4][mode] = holder->GetSettingValue(COSMOS_SETTING_VS_ITEMS);
+    MenuData::GetStaticInstance()->savedGhostsHandler->NotifyNewLicenseContent();
 }
 
 const u8 raceCounts[8] = {2, 4, 8, 12, 16, 32};

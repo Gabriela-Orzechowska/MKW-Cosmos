@@ -46,15 +46,12 @@ void * HighwayManagerCreate(u32 size)
     }
 
     // Object check
-
-    for(int i = 0; i < carCount; i++)
+    s32 objectCount = KMP::Controller::GetStaticInstance()->gobj->pointCount;
+    for(int i = 0; i < objectCount; i++)
     {
-        Object * object = ObjectHolder::GetStaticInstance()->GetControlledObjectByID(i);
-        const char * objectName = object->GetName();
-        if(strcmp(objectName, "car_body") == 0x0)
-            hasCar = true;
-        else if(strcmp(objectName, "kart_truck") == 0x0)
-            hasTruck = true;
+        GOBJ * gobj = KMP::Controller::GetStaticInstance()->GetGOBJHolder(i)->raw;
+        if(gobj->objID == 0xd0 /* kart_truck */) hasTruck = true;
+        else if (gobj->objID == 0xd1 /* car_body */) hasCar = true;
     }
 
     if(hasCar && hasTruck)
@@ -62,7 +59,6 @@ void * HighwayManagerCreate(u32 size)
         hasHighwayManager = true;
         return EGG::Heap::alloc(size, 4, 0);
     }
-
    return nullptr;
 }
 //Noop MH Check (Make Slot Independent)
@@ -89,16 +85,14 @@ kmWrite32(0x8078df44, 0x48000070); //Mat Fix
 void * HeyhoShipManagerCreate(u32 size)
 {
     u32 controlledCount = ObjectHolder::GetStaticInstance()->GetControlledCount();
-    for(int i = 0; i < controlledCount; i++)
+    s32 objectCount = KMP::Controller::GetStaticInstance()->gobj->pointCount;
+    for(int i = 0; i < objectCount; i++)
     {
-        Object * object = ObjectHolder::GetStaticInstance()->GetControlledObjectByID(i);
-        const char * objectName = object->GetName();
-        if(strcmp(objectName, "HeyhoShipGBA") == 0x0)
-        {
+        GOBJ * gobj = KMP::Controller::GetStaticInstance()->GetGOBJHolder(i)->raw;
+        if(gobj->objID == 0xce /* HeyhoShipGBA */)
             return EGG::Heap::alloc(size, 4, 0);
-        }
     }
-    return NULL;
+    return nullptr;
 }
 kmCall(0x80827a34, HeyhoShipManagerCreate);
 kmWrite32(0x80827a3c, 0x41820018);
@@ -108,6 +102,7 @@ kmWrite32(0x80827a2c, 0x60000000);
 
 void * LoadAdditionalBinaries(ArchiveRoot& archive, ArchiveSource source, const char * name)
 {
+    hasHighwayManager = false;
     void * file = archive.GetFile(ARCHIVE_HOLDER_COURSE, name, 0);
     if(file == NULL)
     {

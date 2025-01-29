@@ -685,6 +685,8 @@ AfterControlUpdate__Q25Pages13LicenseSelectFv = 0x805eb79c
 OnActivate__Q25Pages13LicenseSelectFv = 0x805eb774
 GetNextPage__Q25Pages13LicenseSelectCFv = 0x805ee658
 
+NotifyNewLicenseContent__18SavedGhostsHandlerFv = 0x80621410
+
 #PushButton
 __ct__10PushButtonFv = 0x805bd3a8
 __dt__10PushButtonFv  = 0x805bd4b0
@@ -756,6 +758,8 @@ AsyncDisplay_beginRender__FPQ23EGG12AsyncDisplay = 0x8020ff98
 AsyncDisplay_beginFrame__FPQ23EGG12AsyncDisplay = 0x8020fe24
 AsyncDisplay_getTickPerFrame__FPQ23EGG12AsyncDisplay = 0x80210124
 copyEFBtoXFB__3EGG7Display = 0x80219fb4 
+
+beginFrame__Display = 0x8020fe24 
 
 #UpDownDisplayedText
 __vt__19UpDownDisplayedText = 0x808bf3d8
@@ -944,6 +948,12 @@ CharacterIDToChar = 0x80860acc
 
 #RaceBalloons
 maxDistanceNames__12RaceBalloons = 0x808d3e14
+
+#CtrlRaceTime
+Load__12CtrlRaceTimeFPCcUc = 0x807f842c
+
+#CtrlRaceLap
+Load__11CtrlRaceLapFPCcUc = 0x807ef8d0
 
 #CtrlRaceGhostDiffTime
 __vt__21CtrlRaceGhostDiffTime = 0x808d3c78
@@ -1512,6 +1522,10 @@ PlayPauseSound__16RSARSoundsPlayerFv = 0x80715ecc
 #KartModelsMgr
 sInstance__13KartModelsMgr = 0x809c2f38
 isOnlineRace__13KartModelsMgr = 0x809c38b9
+isTT_3 = 0x809c38bc
+
+
+sInstance__RKNetPacketCreator = 0x809c1f50
 
 #KartModel
 
