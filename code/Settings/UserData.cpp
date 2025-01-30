@@ -193,6 +193,13 @@ namespace Cosmos
         void SettingsHolder::UpdateOnlineScore(RaceinfoPlayer& player){
             u32 license = this->currentLicense;
 
+            int playerCount = RaceData::GetStaticInstance()->racesScenario.playerCount;
+            if(playerCount < 3) {
+                this->licenses->data[license].onlineRaces++;
+                this->LicenseClassUpdate(license);
+                return;
+            }
+
             u32 controllerId = RaceData::GetStaticInstance()->racesScenario.GetPlayer(player.id).realControllerId;
 
             if(controllerId < 0) {
@@ -215,8 +222,6 @@ namespace Cosmos
             // No KRT, using computed value from leader
             s32 score = (1000 * (lowest - player.frameCounter) / lowest) + (150 * player.framesInFirst / lowest);
 
-            //These values are modified, put original for reference
-
             // Bonuses
             if(stats->startBoostSuccessful) score += 25;
             score += stats->mtCount * 2;
@@ -231,19 +236,19 @@ namespace Cosmos
             score -= stats->offroadFrames / 3; // / 3
             score -= stats->wallHits * 20; // 20
             score -= stats->objectCollisionCount * 30; // 30
-            score -= stats->oobCount * 30; // 70
-                                           //
-            CosmosLog("Last Race Stats:\nlowest: %d\nframeCounter: %d\nframesInFirst: %d\nscore: %d\n", lowest / 2, player.frameCounter, player.framesInFirst, score);
+            score -= stats->oobCount * 70; // 70
 
             if(score < -50) score = -50;
             else if(score > 250) score = 250;
 
-            const u32 numVals = 6;
+            int scoreWeight = (playerCount - 2);
+            if(scoreWeight > 6) scoreWeight = 6;
+
+            const u32 numVals = 36;
             score *= 4;
 
-            CosmosLog("Final score: %d\n", score);
-
-            this->licenses->data[license].onlineScore = ((numVals - 1) * this->licenses->data[license].onlineScore + score) / numVals;
+            this->licenses->data[license].onlineScore = ((numVals - scoreWeight) 
+                    * this->licenses->data[license].onlineScore + (scoreWeight * score)) / numVals;
             this->licenses->data[license].onlineRaces++;
 
             this->LicenseClassUpdate(license);
@@ -340,7 +345,6 @@ namespace Cosmos
         kmWrite32(0x805469c0, 0x60000000);
 
         void LoadLicenseSettings(){
-            CosmosLog("CurrentLicense: %d\n", MenuData::GetStaticInstance()->GetCurrentContext()->licenseId);
             SettingsHolder::GetStaticInstance()->SetCurrentLicense(MenuData::GetStaticInstance()->GetCurrentContext()->licenseNum);
             SettingsUpdateHook::exec();
             if(LanguageManager::GetStaticInstance()->IsUpdateNeeded()) Page::transitionDelay = 176.0f;

@@ -22,6 +22,7 @@
 #include "UI/Page/Page.hpp"
 #include "kamek.hpp"
 #include <UI/Language/LanguageManager.hpp>
+#include <game/UI/Page/Other/LicenseSettings.hpp>
 #include <game/Scene/RootScene.hpp>
 #include <System/System.hpp>
 
@@ -124,6 +125,7 @@ namespace Cosmos
         this->isKorean = this->currentLanguageOption == KOREAN;
 
         this->actualLanguage = this->GetActualLanguage();
+        if(this->isBoot) this->lastLanguage == this->actualLanguage;
         this->needsUpdate = this->actualLanguage != this->lastLanguage;
         
         char buffer[0x80];
@@ -136,7 +138,21 @@ namespace Cosmos
         strncpy(ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->archiveSuffixes[0x1], superMenuName, 0x80);
         ArchiveRoot::GetStaticInstance()->GetHolder(ARCHIVE_HOLDER_UI)->sourceType[0x1] = ArchivesHolder::FULL_FILE_PATH;
         this->isBoot = false;
+        if(MenuData::GetStaticInstance() == nullptr) {
+            this->lastLanguage = this->actualLanguage;
+            return;
+        }
+        if(MenuData::GetStaticInstance()->curScene == nullptr) {
+            this->lastLanguage = this->actualLanguage;
+            return;
+        }
+        Pages::LicenseSelect* select = Pages::LicenseSelect::GetPage();
         if(reload){
+            if(select != nullptr && select->GetNextPage() == TEXT_BOX_WITH_ONE_PROMPT_MULTIPLE_USES) {
+                this->lastLanguage = this->actualLanguage;
+                return;
+            }
+
             if(this->actualLanguage != this->lastLanguage){
                 MenuCategory cat = Scene::GetType(MenuData::GetStaticInstance()->GetCurrentScene()->menuId);
                 if(cat != CATEGORY_GAMEPLAY && !isOnlineSettingsMenu()){

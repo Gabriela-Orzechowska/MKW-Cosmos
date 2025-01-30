@@ -25,6 +25,7 @@ namespace Aurora {
             if(curLang == Cosmos::LanguageManager::POLISH || curLang == Cosmos::LanguageManager::CZECH || curLang == Cosmos::LanguageManager::HUNGARIAN) {
                 time.layout.GetPaneByName("set_p")->scale.z *= 0.5f;
             }
+            if(tplPointer == nullptr) return;
 
             CosmosUI::ChangePaneImage(&time, "set_p", tplPointer);
         }
@@ -42,6 +43,7 @@ namespace Aurora {
             void* tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, "game_image/timg/tt_ml_lump.tpl", 0);
             if(curLang == Cosmos::LanguageManager::POLISH || curLang == Cosmos::LanguageManager::CZECH || curLang == Cosmos::LanguageManager::HUNGARIAN)
                 lap.layout.GetPaneByName("lap_text")->scale.z *= 0.5f;
+            if(tplPointer == nullptr) return;
 
             CosmosUI::ChangePaneImage(&lap, "lap_text", tplPointer);
         }

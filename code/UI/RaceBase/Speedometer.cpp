@@ -16,6 +16,8 @@
  */
 
 #include <UI/RaceBase/Speedometer.hpp>
+#include <UI/MiscUI.hpp>
+#include <Aurora/AuroraSlot.hpp>
 
 namespace CosmosUI{
 
@@ -73,6 +75,17 @@ namespace CosmosUI{
 
         u8 speedosetting = Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_SPEEDOMETER);
         this->SetSpeedoVariant(speedosetting);
+        
+        
+        u32 trackId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
+        if(trackId != Aurora::Special::SLOT_LUMPYS) return;
+
+        if(this->layout.GetPaneByName("kmh") == nullptr) return;
+
+        void* tplPointer = ArchiveRoot::GetStaticInstance()->GetFile(ARCHIVE_HOLDER_UI, "game_image/timg/speed_lump.tpl", 0);
+        if(tplPointer == nullptr) return;
+        CosmosUI::ChangePaneImage(this, "kmh", tplPointer);
+
         return;
     }
 
