@@ -39,6 +39,95 @@ namespace Cosmos
 {
     namespace Data
     {
+
+        static SettingPageDefinition GlobalSettingDefinitions[PAGE_COUNT + 1] = {
+            {
+                // Race
+                .settingCount = 6,
+                .settings = {{.optionCount = 3, .isBool = false, .defaultValue = SPEEDUP}, // Music Cutoff
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED},  // Draggable Blues
+                             {.optionCount = 2, .isBool = true, .defaultValue = DISABLED},  // Mii Heads
+                             {.optionCount = 4, .isBool = false, .defaultValue = SPEEDO_1_DIGIT}, // Speedometer
+                             {.optionCount = 3, .isBool = false, .defaultValue = FRAME_MODE_DEFAULT}, // Frame Mode
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}}  // Ghost Saving
+            },
+            {
+                // Menu
+                .settingCount = 4,
+                .settings = {{.optionCount = 14, .isBool = false, .defaultValue = NO_CHANGE}, // Language //TODO REENABLE KOREAN
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED},
+                             {.optionCount = 2, .isBool = false, .defaultValue = SORTING_DEFAULT},
+                             {.optionCount = 3, .isBool = false, .defaultValue = THEME_AURORA}
+                },
+            },
+            {
+                // Debug
+                .settingCount = 4,
+                .settings = {{.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, // DWC Logs
+                             {.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, //
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED},
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}} //LOG TO SD 
+            },
+            {// Host
+             .settingCount = 6,
+             .settings = {{.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, //OpenHost
+                          {.optionCount = 2, .isBool = true, .defaultValue = DISABLED}, // HAW
+                          {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}, //Allow Mii Heads
+                          {.optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30510, .firstDescBmg = 0x40511}, //Variant Selection
+                          {.optionCount = 3, .isBool = false, .defaultValue = FORCE_NONE}, // Force CC
+                          {.optionCount = 8, .isBool = false, .defaultValue = RACE_COUNT_4}}
+            }, //Race count
+            {
+                .settingCount = 6,
+                .settings = {
+                    {.optionCount = 4, .isBool = false, .defaultValue = VS_CLASS_150, .nameBmg = 0xd52, .firstOptionBmg = 0xd53, .firstDescBmg = 0x0d57},
+                    {.optionCount = 3, .isBool = false, .defaultValue = VS_CPU_NORMAL, .nameBmg = 0xd5c, .firstOptionBmg = 0xd5d, .firstDescBmg = 0xd61},
+                    {.optionCount = 3, .isBool = false, .defaultValue = VS_VEHICLES_ALL, .nameBmg = 0xd66, .firstOptionBmg = 0xd67, .firstDescBmg = 0xd6a},
+                    {.optionCount = 3, .isBool = false, .defaultValue = VS_COURSE_CHOOSE, .nameBmg = 0xd70, .firstOptionBmg = 0xd71, .firstDescBmg = 0xd74},
+                    {.optionCount = 4, .isBool = false, .defaultValue = VS_ITEM_RECOMMENDED, .nameBmg = 0xd98, .firstOptionBmg = 0xd99, .firstDescBmg = 0xd9d},
+                    {.optionCount = 6, .isBool = false, .defaultValue = RACE_COUNT_4, .nameBmg = 0xd7a, .firstOptionBmg = 0x30351},
+                }
+            },
+            { // VS 2
+                .settingCount = 4,
+                .settings = {
+                    { .optionCount = 3, .isBool = false, .defaultValue = TRACK_LIST_ALL, .firstDescBmg = 1 },
+                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
+                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
+                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED },
+                }
+            },
+            { // Host settings 2
+                .settingCount = 5,
+                .settings = {
+                    { .optionCount = 3, .isBool = false, .defaultValue = TRACK_LIST_ALL, .nameBmg = 0x30500, .firstOptionBmg = 0x30501, .firstDescBmg = 1},
+                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30520, .firstOptionBmg = BMG_ENABLED_DISABLED, .firstDescBmg = 0x40521},
+                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30530, .firstOptionBmg = BMG_ENABLED_DISABLED, .firstDescBmg = 0x40531}, // ALL ITEMS
+                    { .optionCount = 3, .isBool = false, .defaultValue = RANDOM_COMBO_DISABLED },
+                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED, .revisionAdded = 15}, // TRACK BLOCKING
+                }
+            },
+            { //ACCESIBILITY
+                .settingCount = 4,
+                .settings = {
+                    { .optionCount = 3, .isBool = false, .defaultValue = ACC_CONTROLS_DISABLED},
+                    { .optionCount = 3, .isBool = false, .defaultValue = ACC_ENABLED },
+                    { .optionCount = 3, .isBool = false, .defaultValue = ACC_ENABLED, .firstOptionBmg = 0x30711 },
+                    { .optionCount = 2, .isBool = false, .defaultValue = ACC_ENABLED, .firstOptionBmg = 0x30711 },
+                },
+            },
+            { // SOUND
+                .settingCount = 3,
+                .settings = {
+                    { .optionCount = 11, .isBool = false, .defaultValue = 10, .revisionAdded = 15},
+                    { .optionCount = 11, .isBool = false, .defaultValue = 10, .revisionAdded = 15},
+                    { .optionCount = 11, .isBool = false, .defaultValue = 10, .revisionAdded = 15},
+                }
+            }
+        };
+
+        SettingPageDefinition* GetDefinitions() { return GlobalSettingDefinitions; }
+
         SettingsHolder *SettingsHolder::sInstance = NULL;
 
         SettingsHolder::SettingsHolder() : miiHeadsEnabled(true), currentLicense(0), megaCloudOnline(false), megaCloudOffline(false) {}

@@ -46,6 +46,7 @@
  */
 
 #include "Settings/UserData.hpp"
+#include "kamek.hpp"
 #include <UI/Settings/NewSettingsPage.hpp>
 #include <Ghost/GhostManager.hpp>
 
@@ -182,7 +183,7 @@ namespace CosmosUI {
         u8 page = Cosmos::Data::GlobalSettingsPageOrder[pageId];
         this->currentPage = page;
 
-        Cosmos::Data::SettingPageDefinition& definition = Cosmos::Data::GlobalSettingDefinitions[page];
+        Cosmos::Data::SettingPageDefinition& definition = Cosmos::Data::GetDefinitions()[page];
 
         this->textPageSelector.activeTextValueControl->SetMsgId(BMG_SETTING_CATEGORY + page);
         this->pageSelector.curSelectedOption = pageId;
@@ -203,14 +204,19 @@ namespace CosmosUI {
             selector.curSelectedOption = setting;
             selector.optionsCount = definition.settings[i].optionCount;
 
-            u32 bmgId = BMG_SETTING_OPTION | ((page) << 8) | (i << 4);
-            if(definition.settings[i].isBool)
-                bmgId = BMG_ENABLED_DISABLED;
-            else if(definition.settings[i].firstOptionBmg != 0)
-                bmgId = definition.settings[i].firstOptionBmg;
+            if(definition.settings[i].setTextFunc == (Cosmos::Data::settingOptionFunc*)nullptr){
+                u32 bmgId = BMG_SETTING_OPTION | ((page) << 8) | (i << 4);
+                if(definition.settings[i].isBool)
+                    bmgId = BMG_ENABLED_DISABLED;
+                else if(definition.settings[i].firstOptionBmg != 0)
+                    bmgId = definition.settings[i].firstOptionBmg;
 
-            bmgId += setting;
-            textControl.activeTextValueControl->SetMsgId(bmgId);
+                bmgId += setting;
+                textControl.activeTextValueControl->SetMsgId(bmgId);
+            }
+            else {
+                definition.settings[i].setTextFunc(textControl.activeTextValueControl, setting);
+            }
         }
         this->bottomText.SetMsgId(BMG_SETTINGS_PAGE_BOTTOM + Cosmos::Data::GlobalSettingsPageOrder[pageSelector.curSelectedOption]);
     }
@@ -228,28 +234,32 @@ namespace CosmosUI {
         u32 id = control->id;
         TextUpDownValueControl& textControl = this->textSettingSelector[id];
 
-        Cosmos::Data::SettingPageOption* def = &Cosmos::Data::GlobalSettingDefinitions[this->currentPage].settings[id];
+        Cosmos::Data::SettingPageOption* def = &Cosmos::Data::GetDefinitions()[this->currentPage].settings[id];
 
-        u32 bmg = 0;
-        if(def->firstOptionBmg != 0) bmg = def->firstOptionBmg + option;
-        else bmg = BMG_SETTING_OPTION + ((this->currentPage << 8) + (id << 4) + option);
+        if(def->setTextFunc == (Cosmos::Data::settingOptionFunc*) nullptr) {
+            u32 bmg = 0;
+            if(def->firstOptionBmg != 0) bmg = def->firstOptionBmg + option;
+            else bmg = BMG_SETTING_OPTION + ((this->currentPage << 8) + (id << 4) + option);
 
-        u32 bottomBmg = bmg - BMG_SETTING_OPTION + BMG_SETTING_OPTION_BOTTOM;
-        if(def->firstDescBmg != 0) bottomBmg = def->firstDescBmg + option;
+            u32 bottomBmg = bmg - BMG_SETTING_OPTION + BMG_SETTING_OPTION_BOTTOM;
+            if(def->firstDescBmg != 0) bottomBmg = def->firstDescBmg + option;
 
-        if(Cosmos::Data::GlobalSettingDefinitions[this->currentPage].settings[id].isBool)
-            bmg = BMG_ENABLED_DISABLED + option;
-        textControl.activeTextValueControl->SetMsgId(bmg);
-
+            if(Cosmos::Data::GetDefinitions()[this->currentPage].settings[id].isBool)
+                bmg = BMG_ENABLED_DISABLED + option;
+            textControl.activeTextValueControl->SetMsgId(bmg);
+            this->bottomText.SetMsgId(bottomBmg);
+        }
+        else {
+            def->setTextFunc(textControl.activeTextValueControl, option);
+        }
         Cosmos::Data::SettingsHolder::GetStaticInstance()->SetSettingValue(option, this->currentPage, id); 
         SettingsValueUpdateHook::exec(this->currentPage * 8 + id);
-        this->bottomText.SetMsgId(bottomBmg);
 
     }
     void NewSettings::OnValueControlClick(UpDownControl* upDownControl, u32 hudSlotId) {}
     void NewSettings::OnValueControlSelect(UpDownControl* upDownControl, u32 hudSlotId) {
         u32 bmg = BMG_SETTING_OPTION_BOTTOM + ((this->currentPage << 8) + (upDownControl->id << 4) + upDownControl->curSelectedOption);
-        Cosmos::Data::SettingPageDefinition& definition = Cosmos::Data::GlobalSettingDefinitions[this->currentPage];
+        Cosmos::Data::SettingPageDefinition& definition = Cosmos::Data::GetDefinitions()[this->currentPage];
         if(definition.settings[upDownControl->id].firstDescBmg != 0)
             bmg = definition.settings[upDownControl->id].firstDescBmg + upDownControl->curSelectedOption;
         this->bottomText.SetMsgId(bmg);
