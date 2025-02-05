@@ -137,6 +137,7 @@ namespace Cosmos
             COSMOS_HOST_MEGA_TC = 0x1,
             COSMOS_HOST_ALL_ITEMS_CAN_LAND = 0x2,
             AURORA_HOST_RANDOM_FORCED = 0x3,
+            COSMOS_HOST_TRACK_BLOCKING = 0x4,
         };
 
         enum VS_SETTINGS {
@@ -319,6 +320,7 @@ namespace Cosmos
             COSMOS_SETTING_HOST_MEGA_TC = COSMOS_HOST_MEGA_TC + (COSMOS_HOST_SETTINGS_2 * 8),
             COSMOS_SETTING_HOST_ALL_ITEMS_CAN_LAND = COSMOS_HOST_ALL_ITEMS_CAN_LAND + (COSMOS_HOST_SETTINGS_2 * 8),
             AURORA_SETTING_HOST_RANDOM_COMBO = AURORA_HOST_RANDOM_FORCED + (COSMOS_HOST_SETTINGS_2 * 8),
+            COSMOS_SETTING_HOST_TRACK_BLOCKING = COSMOS_HOST_TRACK_BLOCKING + (COSMOS_HOST_SETTINGS_2 * 8),
 
             AURORA_SETTING_ACC_Y_TO_WHEELIE = AURORA_ACC_Y_TO_WHEELIE + (AURORA_ACCESIBILITY_SETTINGS_1 * 8),
             AURORA_SETTING_ACC_CAMERA_SHAKE = AURORA_ACC_CAMERA_SHAKE + (AURORA_ACCESIBILITY_SETTINGS_1 * 8),
@@ -327,9 +329,9 @@ namespace Cosmos
         };
 
 #ifdef DEBUG_COSMOS
-#define PAGE_COUNT 8
+#define PAGE_COUNT 9
 #else
-#define PAGE_COUNT 7
+#define PAGE_COUNT 8
 #endif
 #define SETTINGS_PER_PAGE 8
 
@@ -338,6 +340,7 @@ namespace Cosmos
             u8 optionCount;
             bool isBool;
             u8 defaultValue;
+            u8 revisionAdded;
             u32 nameBmg;
             u32 firstOptionBmg;
             u32 firstDescBmg;
@@ -407,12 +410,13 @@ namespace Cosmos
                 }
             },
             { // Host settings 2
-                .settingCount = 4,
+                .settingCount = 5,
                 .settings = {
                     { .optionCount = 3, .isBool = false, .defaultValue = TRACK_LIST_ALL, .nameBmg = 0x30500, .firstOptionBmg = 0x30501, .firstDescBmg = 1},
                     { .optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30520, .firstOptionBmg = BMG_ENABLED_DISABLED, .firstDescBmg = 0x40521},
                     { .optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30530, .firstOptionBmg = BMG_ENABLED_DISABLED, .firstDescBmg = 0x40531}, // ALL ITEMS
                     { .optionCount = 3, .isBool = false, .defaultValue = RANDOM_COMBO_DISABLED },
+                    { .optionCount = 2, .isBool = true, .defaultValue = DISABLED, .revisionAdded = 15}, // TRACK BLOCKING
                 }
             },
             { //ACCESIBILITY
@@ -533,7 +537,7 @@ namespace Cosmos
 #pragma pack(pop)
 
 #define USER_DATA_VERSION 13
-#define USER_DATA_SETTINGS_VERSION 14
+#define USER_DATA_SETTINGS_VERSION 15
 #define USER_DATA_TROPHY_VERSION 1
 #define USER_DATA_LICENSE_VERSION 2
 
@@ -705,6 +709,7 @@ namespace Cosmos
         private:
             static SettingsHolder *sInstance;
             void Init(const char *filepath, const char *magic, u32 version);
+            u32 GetRevisionPageCount(u32 revision);
             void RequestSave();
 
             u32 fileSize;

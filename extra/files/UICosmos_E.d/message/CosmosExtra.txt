@@ -1,0 +1,1724 @@
+#BMG  <<<  The first 4 characters '#BMG' are the magic for a BMG text file.
+#     <<<  Don't remove them!
+#
+# Details about BMG text files are available in the Web:
+#  * Syntax and Semantics: https://szs.wiimm.de/doc/bmg/text
+#  * The BMG file format:  https://szs.wiimm.de/r/wiki/BMG
+#
+#
+#------------------------------------------------------------------------------
+
+   3fc	=  Cosmos WFC Menu
+
+#--- [589:58c] engines
+   589	= 100cc
+   58a	= 200cc
+
+   7dd	=  Cosmos WFC
+   7e8	=  Play via Cosmos WFC!
+   7e9	=  Play with a friend via Cosmos WFC!
+   7f1	=  Cosmos WFC (1P)
+   7f2	=  Cosmos WFC (2P)
+   816	=  Unable to connect to Cosmos Wi-Fi\n
+	+ Connection. There is no save data.\n
+	+ \n
+	+ You can manage the Wii System Memory\n
+	+ on the Data Management Screen\n
+	+ of the Wii Options.
+   818	=  You will now disconnect\n
+	+ from Cosmos WFC and\n
+	+ return to the main menu.
+   841	=  \z{602,0} and \z{802,120000}\n
+	+ will connect to Cosmos WFC\n
+	+ together. Is this OK?
+   848	= Progression
+   bbe	= 100cc\n
+	+ \z{800,32}Karts Only
+   bbf	= 200cc\n
+	+ \z{800,32}Bikes Only
+   bc2	= 100cc\n
+	+ \z{800,32}Karts and Bikes
+   bc3	= 200cc\n
+	+ \z{800,32}Karts and Bikes
+   beb	= A solo race for the fastest record! (150cc)
+   d53	= 100cc
+   d54	= 200cc
+   d57	= 100cc class for beginners
+   d58	= 200cc class for experts
+   d59	= 150cc class for average racers.
+   fa8	=  There are no Friends registered\n
+	+ in your Friend Roster.\n
+	+ \n
+	+ Register Friends to play\n
+	+ together on Cosmos WFC.\040
+   faa	=  Connecting to Cosmos WFC...
+   fab	=  Disconnect from Cosmos WFC?
+   fb0	=  You cannot access Cosmos\n
+	+ Wi-Fi Connection using this\n
+	+ Mii name. Please change your\n
+	+ Mii name and try again.
+  10e0	= The next race is 200cc class!
+  10e5	= The next race is 200cc class!
+  10e8	= The next race is 200cc class!
+
+  11fa	=  Either Cosmos Wi-Fi Connection is\n
+	+ experiencing high traffic volumes or the\n
+	+ service is down. Please try again later.\n
+	+ For help, visit wfc.wiilink24.com.\n
+	+ \n
+	+ Error Code: \z{a02,1000000005}
+  1397	=  Hone your Time Trial technique\n
+	+ by challenging ghost data from\n
+	+ players around the world in a\n
+	+ series of races via Cosmos WFC!
+  1399	=  Hone your Time Trial technique\n
+	+ by challenging ghost data from\n
+	+ players around the world in a\n
+	+ series of races via Cosmos WFC!\n
+	+ \n
+	+ Your current record:\n
+	+ \z{a02,1000000000} \z{c04,13a213a3} - \z{a02,1000010000} 
+	+ \z{c04,113a413a5}
+  14b4	=  I'm on Cosmos WFC!
+  14b5	=  I'm not on Cosmos WFC...
+  17e8	=  Connect to Cosmos WFC?
+  1a3c	=  You do not have a Friend Code.\n
+	+ \n
+	+ A Friend Code is a 12-digit number that\n
+	+ is automatically assigned to you the\n
+	+ first time you connect to Cosmos WFC.\n
+	+ \n
+	+ For more information, please refer to\n
+	+ the Mario Kart Wii Instruction Booklet.
+  1c53	=  Mario Kart Wii can show your country flag\n
+	+ and region in the following places:\n
+	+ \n
+	+ ・as a globe position in Cosmos WFC mode\n
+	+ ・in your ghost data\n
+	+ \n
+	+ If you choose to make this information\n
+	+ available, it will be sent to other\n
+	+ players when playing via Cosmos WFC.
+  1c54	=  Do you want to display your country\n
+	+ flag and region on Cosmos WFC?\n
+  1c57	=  You have chosen to display your\n
+	+ country flag and region on Cosmos WFC.
+  1c58	=  You have chosen not to display your\n
+	+ country flag and region on Cosmos WFC.
+  1ce9	=  When you play Mario Kart Wii via\n
+	+ Cosmos WFC, the following data will\n
+	+ automatically be sent to Cosmos:\n
+	+ \n
+	+ ・your Mii and nickname\n
+	+ ・your records and ghost data\n
+	+ \n
+	+ \n
+	+ This data may also be shared with\n
+	+ other players on Cosmos WFC.
+  1cea	=  Will you allow game data\n
+	+ to be sent to Cosmos?
+  1ced	=  You have chosen to allow\n
+	+ sending of game data to Cosmos.
+  1cee	=  Are you sure this is OK? You will be\n
+	+ unable to play Mario Kart Wii via\n
+	+ Cosmos WFC with this setting.
+  1cef	=  You have chosen not to allow\n
+	+ sending of game data to Cosmos.
+  1d4d	=  Miis created by other players\n
+	+ may be displayed during races\n
+	+ and battles, in ranking data\n
+	+ and other places on Cosmos WFC.\n
+	+ \n
+	+ You can choose to allow these Miis to\n
+	+ be displayed as they are, or to replace\n
+	+ them with Miis created by Nintendo.
+  1e14	= \z{800,90}Photosensitivity Warning\z{800,50}\n
+	+ \n
+	+ Some people may have seizures or blackouts triggered\n
+	+  by flashing lights or patterns. This may occur even if\n
+	+ they have never had a seizure before.\n
+	+ \n
+	+ Stop immediately and contact a doctor\n
+	+ if you experience any symptoms
+  1fb0	=  You've won 1000 times online!
+  1fbf	=  You've won 5000 times online!
+  1fc1	=  You've won 250 times online!
+  1fce	=  You've won 50 times online!
+  1fe3	=  You've won 3000 times online!
+  200b	=  Cosmos WFC Records
+  201c	=  Cosmos WFC Friends Record
+  212c	=  You have received a Friend\n
+	+ registration invitation from\n
+	+ \z{802,200000}!\n
+	+ \n
+	+ Mario Kart Wii\n
+	+ Friend Code: %04d-%04d-%04d\n
+	+ \n
+	+ By registering each other's Friend\n
+	+ Codes, you can play Mario Kart Wii\n
+	+ together via Cosmos Wi-Fi\n
+	+ Connection.\n
+	+ If you have Mario Kart Wii and have\n
+	+ added the Mario Kart Channel to\n
+	+ your Wii Menu, you can select\n
+	+ the START button on the right to\n
+	+ confirm.\n
+	+ \n
+	+ Have fun!
+
+  26af	=  Controllers cannot be changed during\n
+	+ a Cosmos WFC match. Please restore\n
+	+ the original controller.
+  2800	= Time Trials (150cc)
+  2801	= Time Trials (200cc)
+  2802	= Time invalidated. Delta too large.
+  2803	= Ghost Saving disabled.
+  2804	= Ghost Saving disabled. Dolphin cheats enabled.
+  2806	= Aurora requires Dolphin 5.0-17856 or newer.\n
+	+ Please download it from the official site.\n
+	+ Returning to Wii Menu...
+  2807	= Grand Prix
+  2808	= Online
+  2809	= Coming soon!
+  280a	= \u{f06d} \z{a02,1000000000}/\z{a02,1000010000}
+  280b	= \z{a02,1000000000} VR
+  280c	= ???
+  280d	= The next race is 200cc Mirror class!
+  2810	= Track Sorting: Normal
+  2811	= Track Sorting: Alphabetical
+  2820	= A solo race for the fastest record! (200cc)
+  2830	= Change Combo\040
+  2831	= Choose or Random?
+  2840	= Some changes require a restart
+  2841	= Dolphin cheats are enabled!\n
+	+ The game might not function as expected.
+  2842	= Dolphin extended menory enabled!\n
+	+ The game might not function as expected.
+  2843	= Looks like you're using default Dolphin configuration.\n
+	+ Please import your Wii's NAND to access \n
+	+ all Aurora features.
+  2844	= Looks like you're using public NAND dump.\n
+	+ Please import your Wii's NAND to access \n
+	+ all Aurora features.
+  2845	= Verifying with the server...
+  2846	= There has been an error while\n
+	+ connecting to the server.\n
+	+ \n
+	+ Error Code: \z{802,200000}\z{a02,1000000000}
+  2847	= There has been an error while\n
+	+ connecting to the server.\n
+	+ \n
+	+ Error Code: \z{802,200000}\z{a02,1000000000}\n
+	+ Returning to Wii Menu...
+  2848	= New update is available! \z{802,200000}\n
+	+ Download new version from Wiiki!
+  284b	= \z{a02,1000000000}\n
+	+ \z{800,46}Active Players
+  2a00	= Settings
+  2a01	= Race
+  2a02	= Menu
+  2a03	= Debug
+  2a04	= Host (1/2)
+  2a05	= VS (1/2)
+  2a06	= VS (2/2)
+  2a07	= Host (2/2)
+  2a08	= Accesibility
+  2a20	= Manage your settings!
+  2a21	= Manage your Race settings!
+  2a22	= Manage your Menu settings!
+  2a23	= Manage your Debug settings!
+  2a24	= Manage your Friend Room settings!
+  2a25	= Manage your VS settings!
+  2a26	= Manage your VS settings!
+  2a27	= Manage your Friend Room settings!
+  2a28	= Manage your Accesibility settings!
+
+#--- [6000:61ff] new messages for CT/LE-CODE
+  6000	= Ty-foo
+  6001	= Chincho
+  6002	= Cheep Cheep
+  6003	= Leaf
+  6004	= Cloud
+  6005	= Bullet Bill
+  6006	= Firesnake
+  6007	= Hammer
+  6008	= Boo
+  6009	= Super Crown
+  600a	= Luma
+  600b	= Blooper
+  600c	= Mini Goomba
+  600d	= Klepo
+  600e	= Para-Biddybud
+  600f	= Lakitu
+  6010	= Kinoko
+  6011	= Moon
+  6012	= Spindrift
+  6013	= Bubble
+  6014	= Drill
+  6015	= Pumpkin
+  6016	= Lava Bubble
+  6017	= Pokey
+  6018	= Bowsy
+  6019	= Moo Moo
+  601a	= Mechakoopa
+  601b	= Mario
+  601c	= Toadsworth
+  601d	= Coin
+  601e	= Charvaargh
+  601f	= Starbit
+  6020	= Snowman
+  6021	= Cherry
+  6022	= Spring
+  6023	= Wonder
+  6024	= Kamek
+  6025	= Li'l Cinder
+  6026	= Circuit
+  6027	= Shy Guy
+  6028	= Goomba
+  6029	= Cloudflower
+  602a	= Larry
+  602b	= Ant Trooper
+  602c	= Properller
+  602d	= Bee
+  602e	= Snow Pokey
+  602f	= Chronocup
+  6030	= Buzzy Beetle
+  6031	= Bobomb
+  6032	= Grrrol
+  6033	= Goob
+  6034	= Spike Top
+  6035	= Dry Bones
+  6036	= Acorn
+  6037	= Ice Bro
+  6038	= Crash
+  6039	= Aku-Aku
+  603a	= SNES Mushroom
+  603b	= SNES Flower
+  603c	= SNES Star
+  603d	= SNES Boo
+  603e	= SNES Lighting
+  603f	= N64 Mushroom
+  6040	= N64 Flower
+  6041	= N64 Star
+  6042	= N64 Special
+  6043	= GBA Mushroom
+  6044	= GBA Flower
+  6045	= GBA Lighting
+  6046	= GBA Star
+  6047	= GBA Special
+  6048	= GCN Mushroom
+  6049	= GCN Flower
+  604a	= GCN Star
+  604b	= GCN Special
+  604c	= DS Mushroom
+  604d	= DS Flower
+  604e	= DS Star
+  604f	= DS Special
+  6050	= Wii Mushroom
+  6051	= Wii Flower
+  6052	= Wii Star
+  6053	= Wii Special
+  6054	= 3DS Mushroom
+  6055	= 3DS Flower
+  6056	= 3DS Star
+  6057	= 3DS Special
+
+#--- [7000:8fff] LE-CODE: track names
+  7100	= The Arctic Line
+  7101	= Alpine Skyway
+  7102	= Bluster Blob Bluff
+  7103	= Elemental Solstice
+  7104	= Reflective Ruins
+  7105	= Sandcastle Park
+  7106	= Strobenz Desert
+  7107	= Sunset Desert
+  7108	= Golden Poppy Coastline
+  7109	= Emerald Coast
+  710a	= Pianta Shore
+  710b	= Vacay Bay
+  710c	= Autumnal Archipelago
+  710d	= Fiery Foliage Forest
+  710e	= Maplewood Caverns
+  710f	= Painted Petals
+  7110	= Propeller Paradise
+  7111	= Skyloft Slope
+  7112	= Shy Guy Skies
+  7113	= Skybound Cloudscape
+  7114	= Blissful Block (Dawn)
+  7115	= Blissful Block (Sunset)
+  7116	= District 65
+  7117	= Punch City 2
+  7118	= Punch City 2
+  7119	= Riverside City
+  711a	= Inferni Umbra
+  711b	= Lava Road
+  711c	= Lava Lake
+  711d	= Magma Mine
+  711e	= Oil Rig Run
+  711f	= Cargo Bay
+  7120	= Full Moon Facility
+  7121	= Under Construction Circuit
+  7122	= Lost Ruins
+  7123	= Spectral Station
+  7124	= Unrecalled Universe
+  7125	= New Moon Manor
+  7126	= Toadette's Castle
+  7127	= Colorful Cathedral
+  7128	= Medieval Castlegrounds
+  7129	= Obstagoon's Palace
+  712a	= Dark Matter Shrine
+  712b	= Honeymoon Lune
+  712c	= Interstellar Laboratory
+  712d	= Snifit Station
+  712e	= Camp Kartigan
+  712f	= Delfino Island
+  7130	= Rooster Island
+  7131	= Super Blooper Circuit
+  7132	= Anthill & Apian Apts.
+  7133	= Frantic Funyard
+  7134	= Marble Towers
+  7135	= Slot Circuit
+  7136	= Sunset Savanna
+  7137	= Desert Fort
+  7138	= Desert Mushroom Ruins
+  7139	= Strobenz Desert II
+  713a	= Ant Arctic Ambush
+  713b	= Candy Coaster
+  713c	= Confectionery Cliffs
+  713d	= Ice Cream Fortress
+  713e	= Cloud Mist Castle
+  713f	= Coin Heaven
+  7140	= Heavenly Sanctuary
+  7141	= Stickerbush Serenity
+  7142	= Gleamhaven
+  7143	= Amanita Abyss
+  7144	= Fungal Jungle
+  7145	= Kinoko Cave
+  7146	= Constellation Cliffs
+  7147	= Moonlit Grounds
+  7148	= Shy Guy's Stormy Seaport
+  7149	= Thunder City (The World That Never Was)
+  714a	= Snowy Loop
+  714b	= Tau-Cryovolcano
+  714c	= Glacier Mine
+  714d	= Stargaze Summit
+  714e	= Underwater Rapture
+  714f	= Acrobatic Airway
+  7150	= Aqua Dungeon
+  7151	= Waterway
+  7152	= Musical Cliff
+  7153	= Quaking Mad Cliffs
+  7154	= Talicid Falls
+  7155	= Twin Peaks
+  7156	= Castle of Darkness
+  7157	= Final Grounds
+  7158	= Thump Bump Forest
+  7159	= Vile Isle
+  715a	= Melting Magma Melee
+  715b	= Fiery Factory, Fading Frost
+  715c	= Global Warmingway
+  715d	= Wario's Climate Cataclysm
+  715e	= Volcanic Skyway
+  715f	= Hell Pyramid
+  7160	= Magma Caverns
+  7161	= Strobenz Desert Illusion
+  7162	= Bowser Jr.'s Crafty Castle
+  7163	= Bowser Jr.'s Fort
+  7164	= Bowser's Lava Lair
+  7165	= Bowser's Termination Station
+  7166	= Forsaken Funfair
+  7167	= Area 64
+  7168	= Pipe Underworld
+  7169	= Thunder Canyon
+  716a	= Bioluminescent Lab
+  716b	= Conveyor Conundrum
+  716c	= Mech Factory
+  716d	= Toxic Neon
+  716e	= Windy Whirl
+  716f	= Fort Francis
+  7170	= Ghost House
+  7171	= Painted Swamp Circuit
+  7172	= Darkness Temple
+  7173	= Toad's Temple
+  7174	= Gloomy Castle
+  7175	= Toadstool Dynasty
+  7176	= Starry Cityscape
+  7177	= Cruel Angel's Thesis
+  7178	= Celestial Speedway
+  7179	= Superstar Dystopia
+  717a	= Distant Dimension
+  717b	= Dragon Burying Grounds
+  717c	= Hellado Mountain
+  717d	= Magmatic Sanctuary
+  717e	= Lantern Light Terrace
+  717f	= Lunar Lantern Festival
+  7180	= Lunar Lights
+  7181	= Mystic Tangle
+  7182	= Alpine Peak
+  7183	= Bullet Bill Chill
+  7184	= Envenom Snowstorm
+  7185	= Northern Heights
+  7186	= Blossoming Ruins
+  7187	= Sakura Sanctuary
+  7188	= Cherry Blossom Garden
+  7189	= Cosmo Garden
+  718a	= Cloudy Courtway
+  718b	= Good Egg Drive
+  718c	= Puzzle Plank Pass
+  718d	= SMG Honeyhive Galaxy
+  718e	= Garden of Dreams
+  718f	= Daisy Gardens
+  7190	= Daisy's Palace
+  7191	= White Garden
+  7192	= Kamek's Library
+  7193	= King Boo's Library
+  7194	= Midnight Museum
+  7195	= The Grand Archives
+  7196	= Crypt of the Cataclysm
+  7197	= Hydropower Current
+  7198	= Ruinated Peach's Castle
+  7199	= The Castle of Broken Promises
+  719a	= Goomba Circuit
+  719b	= Birdo Circuit
+  719c	= Wendy Raceway
+  719d	= Wario Circuit
+  719e	= The Great Apple War
+  719f	= Shy Guy Lumber Co.
+  71a0	= Wario's Canyon Castle
+  71a1	= Wario's Counterfeit Coffin
+  71a2	= Crystal Plains
+  71a3	= Kinopio Potato Inc.
+  71a4	= Botania
+  71a5	= Terra Ursae
+  71a6	= Castle in the Sky
+  71a7	= Parkway Boogie
+  71a8	= The Windmill Peak
+  71a9	= Turbulence
+  71aa	= SNES Donut Plains 1
+  71ab	= SNES Mario Circuit 1
+  71ac	= SNES Bowser Castle 1
+  71ad	= SNES Bowser Castle 1
+  71ae	= SNES Donut Plains 1
+  71af	= SNES Ghost Valley 1
+  71b0	= SNES Ghost Valley 1
+  71b1	= SNES Mario Circuit 1
+  71b2	= SNES Choco Island 1
+  71b3	= SNES Donut Plains 2
+  71b4	= SNES Mario Circuit 2
+  71b5	= SNES Choco Island 1
+  71b6	= SNES Ghost Valley 2
+  71b7	= SNES Mario Circuit 3
+  71b8	= SNES Bowser Castle 2
+  71b9	= SNES Bowser Castle 2
+  71ba	= SNES Mario Circuit 3
+  71bb	= SNES Choco Island 2
+  71bc	= SNES Koopa Beach 1
+  71bd	= SNES Bowser Castle 3
+  71be	= SNES Bowser Castle 3
+  71bf	= SNES Choco Island 2
+  71c0	= SNES Vanilla Lake 1
+  71c1	= SNES Donut Plains 3
+  71c2	= SNES Donut Plains 3
+  71c3	= SNES Mario Circuit 4
+  71c4	= SNES Koopa Beach 2
+  71c5	= SNES Rainbow Road
+  71c6	= SNES Ghost Valley 3
+  71c7	= SNES Vanilla Lake 2
+  71c8	= N64 Luigi Raceway
+  71c9	= N64 Kalimari Desert
+  71ca	= N64 Kalimari Desert
+  71cb	= N64 Koopa Troopa Beach
+  71cc	= N64 Moo Moo Farm
+  71cd	= N64 Frappe Snowland
+  71ce	= N64 Choco Mountain
+  71cf	= N64 Frappe Snowland
+  71d0	= N64 Mario Raceway
+  71d1	= N64 Toad's Turnpike (Night)
+  71d2	= N64 Toad's Turnpike (Sunset)
+  71d3	= N64 Wario Stadium
+  71d4	= N64 Bowser's Castle
+  71d5	= N64 Bowser's Castle
+  71d6	= N64 Royal Raceway
+  71d7	= N64 Sherbet Land
+  71d8	= N64 Wario Stadium
+  71d9	= N64 Banshee Boardwalk
+  71da	= N64 Banshee Boardwalk
+  71db	= N64 DK's Jungle Parkway
+  71dc	= N64 Rainbow Road
+  71dd	= N64 Yoshi Valley
+  71de	= GBA Bowser Castle 1
+  71df	= GBA Peach Circuit
+  71e0	= GBA Peach Circuit
+  71e1	= GBA Riverside Park
+  71e2	= GBA Riverside Park
+  71e3	= GBA Shy Guy Beach
+  71e4	= GBA Boo Lake
+  71e5	= GBA Bowser Castle 2
+  71e6	= GBA Cheese Land
+  71e7	= GBA Mario Circuit
+  71e8	= GBA Sunset Wilds
+  71e9	= GBA Cheep-Cheep Island
+  71ea	= GBA Luigi Circuit
+  71eb	= GBA Luigi Circuit
+  71ec	= GBA Sky Garden
+  71ed	= GBA Ribbon Road
+  71ee	= GBA Bowser Castle 3
+  71ef	= GBA Ribbon Road
+  71f0	= GBA Snow Land
+  71f1	= GBA Snow Land
+  71f2	= GBA Snow Land
+  71f3	= GBA Yoshi Desert
+  71f4	= GBA Bowser Castle 4
+  71f5	= GBA Broken Pier
+  71f6	= GBA Lakeside Park
+  71f7	= GBA Lakeside Park
+  71f8	= GBA Rainbow Road
+  71f9	= GBA Rainbow Road
+  71fa	= GCN Baby Park
+  71fb	= GCN Dry Dry Desert
+  71fc	= GCN Luigi Circuit
+  71fd	= GCN Peach Beach
+  71fe	= GCN Mushroom Bridge
+  71ff	= GCN Daisy Cruiser
+  7200	= GCN Mario Circuit
+  7201	= GCN Waluigi Stadium
+  7202	= GCN Mushroom City
+  7203	= GCN Sherbet Land
+  7204	= GCN Yoshi Circuit
+  7205	= GCN DK Mountain
+  7206	= GCN Bowser's Castle
+  7207	= GCN Dino Dino Jungle
+  7208	= GCN Rainbow Road
+  7209	= GCN Wario Colosseum
+  720a	= DS Cheep Cheep Beach (Night)
+  720b	= DS Cheep Cheep Beach (Day)
+  720c	= DS Figure-8 Circuit
+  720d	= DS Luigi's Mansion
+  720e	= DS Yoshi Falls
+  720f	= DS Waluigi Pinball
+  7210	= DS Delfino Square
+  7211	= DS Desert Hills
+  7212	= DS Shroom Ridge
+  7213	= DS Airship Fortress
+  7214	= DS DK Pass
+  7215	= DS Mario Circuit
+  7216	= DS Tick-Tock Clock
+  7217	= DS Rainbow Road
+  7218	= DS Bowser Castle
+  7219	= DS Peach Gardens
+  721a	= DS Peach Gardens
+  721b	= DS Wario Stadium
+  721c	= Wii Bowser's Castle
+  721d	= Wii Coconut Mall
+  721e	= Wii DK Summit
+  721f	= Wii Daisy Circuit
+  7220	= Wii Dry Dry Ruins
+  7221	= Wii Grumble Volcano
+  7222	= Wii Koopa Cape
+  7223	= Wii Luigi Circuit
+  7224	= Wii Maple Treeway
+  7225	= Wii Mario Circuit
+  7226	= Wii Moo Moo Meadows
+  7227	= Wii Moonview Highway
+  7228	= Wii Mushroom Gorge
+  7229	= Wii Rainbow Road
+  722a	= Wii Toad's Factory
+  722b	= Wii Wario's Gold Mine
+  722c	= 3DS Toad Circuit
+  722d	= 3DS Cheep Cheep Lagoon
+  722e	= 3DS Daisy Hills
+  722f	= 3DS Shy Guy Bazaar
+  7230	= 3DS Mario Circuit
+  7231	= 3DS Music Park
+  7232	= 3DS Rock Rock Mountain
+  7233	= 3DS Wuhu Loop
+  7234	= 3DS Maka Wuhu
+  7235	= 3DS Neo Bowser City
+  7236	= 3DS Piranha Plant Slide
+  7237	= 3DS Wario Shipyard
+  7238	= 3DS Rainbow Road
+  7239	= 3DS Bowser's Castle
+  723a	= 3DS DK Jungle
+  723b	= 3DS Rosalina's Ice World
+  723c	= 3DS Rosalina's Ice World
+  723d	= 3DS Rainbow Road
+  723e	= Frost Flooded City
+  723f	= Sahara Hideout
+  7240	= Bluetopian Valley
+  7241	= Behind the Curtain
+  7242	= Mansion of Madness
+  7243	= Shy Guy Circus
+  7244	= Wario's Abandoned Casino
+  7245	= Cool Castle Canyon
+  7246	= Overgrown Temple
+  7247	= Sandy Clocktower
+  7248	= Captains' Shore
+  7249	= Golden Mountain Road
+  724a	= Windy Fall
+  724b	= Bullet Bill Bluff
+  724c	= Yokai Falls
+  724d	= Glimmer Express Trains
+  724e	= Honeybee Hideout
+  724f	= Lumpy's Lively Lair
+  7250	= The Seamlands
+  7251	= Breezechill Citadel
+  7252	= Icebound Stronghold
+  7253	= Blizzard's Rise
+  7254	= Frigid Furnace
+  7255	= Altepeyolko
+  7256	= CTR Papu's Pyramid
+  7257	= CTR Polar Pass
+  7258	= CTR Sewer Speedway
+  7259	= CNK Jungle Boogie
+  725a	= CTR Blizzard Bluff
+  725b	= CTR Cortex Castle
+  725c	= CTR Hot Air Skyway
+  725d	= CTR N. Gin Labs
+  725e	= Ancient Fields
+  725f	= Gallant Grotto
+  7260	= Living Caverns
+  7261	= Meteor Shower (Crystallic Dream)
+  7262	= Cool Shroom Cliff
+  7263	= Foggy Forest
+  7264	= Overgrown Stronghold
+  7265	= Castle Gorge
+  7266	= Forgotten Facility
+  7267	= The Scorch Trials
+  7268	= Toxic Moon
+  7269	= Decayed Temple
+  726a	= Darkest Night
+  726b	= Breathing Bosque
+  726c	= Cosmic Causeway
+  726d	= Shadow Woods
+  726e	= THE FIRE
+  726f	= Wario's Corrupted Continuum
+  7270	= Alone and Incomplete
+  7271	= Underground Puzzle
+  7272	= Bouldergeist's Not So Lively Lair
+  7273	= SM64 Bowser in the Dark World
+  7274	= CT Cemetery
+  7275	= Red Rooms
+  7276	= Whispy Woodlands
+  7277	= Big Nature City
+  7278	= Eventide Gorge
+  7279	= Log Breeze
+  727a	= Frozen Festival
+  727b	= Heart of China
+  727c	= Phendrana Frostbite
+  727d	= Poisonous Pass
+
+  a000	= Blissful Block
+  a001	= Punch City 2
+  a002	= SNES Mario Circuit 1
+  a003	= SNES Donut Plains 1
+  a004	= SNES Ghost Valley 1
+  a005	= SNES Bowser Castle 1
+  a006	= SNES Choco Island 1
+  a007	= SNES Bowser Castle 2
+  a008	= SNES Mario Circuit 3
+  a009	= SNES Choco Island 2
+  a00a	= SNES Bowser Castle 3
+  a00b	= SNES Donut Plains 3
+  a00c	= N64 Kalimari Desert
+  a00d	= N64 Frappe Snowland
+  a00e	= N64 Toad's Turnpike
+  a00f	= N64 Wario Stadium
+  a010	= N64 Bowser's Castle
+  a011	= N64 Banshee Boardwalk
+  a012	= GBA Peach Circuit
+  a013	= GBA Riverside Park
+  a014	= GBA Luigi Circuit
+  a015	= GBA Snow Land
+  a016	= GBA Ribbon Road
+  a017	= GBA Lakeside Park
+  a018	= GBA Rainbow Road
+  a019	= DS Cheep Cheep Beach
+  a01a	= DS Peach Gardens
+  a01b	= 3DS Rosalina's Ice World
+  a01c	= 3DS Rainbow Road
+
+ 13100	= The Arctic Line\n
+	+ \z{800,40}\c{blue1}Chouchintosh\c{off}
+ 13101	= Alpine Skyway\n
+	+ \z{800,40}\c{blue1}Luca\c{off}
+ 13102	= Bluster Blob Bluff\n
+	+ \z{800,40}\c{blue1}MrFluffy\c{off}
+ 13103	= Elemental Solstice\n
+	+ \z{800,40}\c{blue1}Bear, Birj, ._., LucioWins, Shorky, Hamborgor,
+	+  Mystora, Elemental\c{off}
+ 13104	= Reflective Ruins\n
+	+ \z{800,40}\c{blue1}Atmosphere\c{off}
+ 13105	= Sandcastle Park\n
+	+ \z{800,40}\c{blue1}SpyKid, ZPL\c{off}
+ 13106	= Strobenz Desert\n
+	+ \z{800,40}\c{blue1}Strobenz\c{off}
+ 13107	= Sunset Desert\n
+	+ \z{800,40}\c{blue1}G-Force\c{off}
+ 13108	= Golden Poppy Coastline\n
+	+ \z{800,40}\c{blue1}Chouchintosh\c{off}
+ 13109	= Emerald Coast\n
+	+ \z{800,40}\c{blue1}Squadaloo\c{off}
+ 1310a	= Pianta Shore\n
+	+ \z{800,40}\c{blue1}NateFox\c{off}
+ 1310b	= Vacay Bay\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt\c{off}
+ 1310c	= Autumnal Archipelago\n
+	+ \z{800,40}\c{blue1}bugsy\c{off}
+ 1310d	= Fiery Foliage Forest\n
+	+ \z{800,40}\c{blue1}KaneTheSnowman\c{off}
+ 1310e	= Maplewood Caverns\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 1310f	= Painted Petals\n
+	+ \z{800,40}\c{blue1}Atmosphere\c{off}
+ 13110	= Propeller Paradise\n
+	+ \z{800,40}\c{blue1}Mickeyman713\c{off}
+ 13111	= Skyloft Slope\n
+	+ \z{800,40}\c{blue1}Atmosphere\c{off}
+ 13112	= Shy Guy Skies\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt,Atmosphere\c{off}
+ 13113	= Skybound Cloudscape\n
+	+ \z{800,40}\c{blue1}Atmosphere\c{off}
+ 13114	= Blissful Block (Dawn)\n
+	+ \z{800,40}\c{blue1}Strobenz\c{off}
+ 13115	= Blissful Block (Sunset)\n
+	+ \z{800,40}\c{blue1}Strobenz\c{off}
+ 13116	= District 65\n
+	+ \z{800,40}\c{blue1}Strobenz\c{off}
+ 13117	= Punch City 2\n
+	+ \z{800,40}\c{blue1}Strobenz\c{off}
+ 13118	= Punch City 2\n
+	+ \z{800,40}\c{blue1}Marianne8559\c{off}
+ 13119	= Riverside City\n
+	+ \z{800,40}\c{blue1}MysterE99\c{off}
+ 1311a	= Inferni Umbra\n
+	+ \z{800,40}\c{blue1}ChaosShadow23, Echo\c{off}
+ 1311b	= Lava Road\n
+	+ \z{800,40}\c{blue1}Renegade Ciara, Zootmcschmoove\c{off}
+ 1311c	= Lava Lake\n
+	+ \z{800,40}\c{blue1}JorisMKW\c{off}
+ 1311d	= Magma Mine\n
+	+ \z{800,40}\c{blue1}Chouchintosh\c{off}
+ 1311e	= Oil Rig Run\n
+	+ \z{800,40}\c{blue1}BillyNoodles, KartoffelKorps, slipperymac, Hman6516,
+	+  acaruso\c{off}
+ 1311f	= Cargo Bay\n
+	+ \z{800,40}\c{blue1}Shorky\c{off}
+ 13120	= Full Moon Facility\n
+	+ \z{800,40}\c{blue1}Atmosphere\c{off}
+ 13121	= Under Construction Circuit\n
+	+ \z{800,40}\c{blue1}Atmosphere\c{off}
+ 13122	= Lost Ruins\n
+	+ \z{800,40}\c{blue1}JorisMKW\c{off}
+ 13123	= Spectral Station\n
+	+ \z{800,40}\c{blue1}MrFluffy\c{off}
+ 13124	= Unrecalled Universe\n
+	+ \z{800,40}\c{blue1}Atmosphere,Fuffina\c{off}
+ 13125	= New Moon Manor\n
+	+ \z{800,40}\c{blue1}Sniki\c{off}
+ 13126	= Toadette's Castle\n
+	+ \z{800,40}\c{blue1}FunkyRacer\c{off}
+ 13127	= Colorful Cathedral\n
+	+ \z{800,40}\c{blue1}Fuffina,Atmosphere\c{off}
+ 13128	= Medieval Castlegrounds\n
+	+ \z{800,40}\c{blue1}JorisMKW,kHacker35000vr\c{off}
+ 13129	= Obstagoon's Palace\n
+	+ \z{800,40}\c{blue1}SpyKid\c{off}
+ 1312a	= Dark Matter Shrine\n
+	+ \z{800,40}\c{blue1}Sniki\c{off}
+ 1312b	= Honeymoon Lune\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt\c{off}
+ 1312c	= Interstellar Laboratory\n
+	+ \z{800,40}\c{blue1}BroOFun,._.\c{off}
+ 1312d	= Snifit Station\n
+	+ \z{800,40}\c{blue1}Shorky,SamanthaMK\c{off}
+ 1312e	= Camp Kartigan\n
+	+ \z{800,40}\c{blue1}MrFluffy\c{off}
+ 1312f	= Delfino Island\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 13130	= Rooster Island\n
+	+ \z{800,40}\c{blue1}BroOFun\c{off}
+ 13131	= Super Blooper Circuit\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 13132	= Anthill & Apian Apts.\n
+	+ \z{800,40}\c{blue1}Shorky\c{off}
+ 13133	= Frantic Funyard\n
+	+ \z{800,40}\c{blue1}Sniki\c{off}
+ 13134	= Marble Towers\n
+	+ \z{800,40}\c{blue1}Sniki\c{off}
+ 13135	= Slot Circuit\n
+	+ \z{800,40}\c{blue1}Jefe\c{off}
+ 13136	= Sunset Savanna\n
+	+ \z{800,40}\c{blue1}KaneTheSnowman, Zappoola\c{off}
+ 13137	= Desert Fort\n
+	+ \z{800,40}\c{blue1}JorisMKW\c{off}
+ 13138	= Desert Mushroom Ruins\n
+	+ \z{800,40}\c{blue1}MysterE99\c{off}
+ 13139	= Strobenz Desert II\n
+	+ \z{800,40}\c{blue1}Strobenz\c{off}
+ 1313a	= Ant Arctic Ambush\n
+	+ \z{800,40}\c{blue1}Mickeyman713\c{off}
+ 1313b	= Candy Coaster\n
+	+ \z{800,40}\c{blue1}SpyKid\c{off}
+ 1313c	= Confectionery Cliffs\n
+	+ \z{800,40}\c{blue1}Bear, ZPL\c{off}
+ 1313d	= Ice Cream Fortress\n
+	+ \z{800,40}\c{blue1}Citrus\c{off}
+ 1313e	= Cloud Mist Castle\n
+	+ \z{800,40}\c{blue1}BroOFun\c{off}
+ 1313f	= Coin Heaven\n
+	+ \z{800,40}\c{blue1}TacoJosh\c{off}
+ 13140	= Heavenly Sanctuary\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 13141	= Stickerbush Serenity\n
+	+ \z{800,40}\c{blue1}Fuffina\c{off}
+ 13142	= Gleamhaven\n
+	+ \z{800,40}\c{blue1}Strobenz, Gabriela_\c{off}
+ 13143	= Amanita Abyss\n
+	+ \z{800,40}\c{blue1}Brawlboxgaming, SquireTurnbolt\c{off}
+ 13144	= Fungal Jungle\n
+	+ \z{800,40}\c{blue1}TacoJosh\c{off}
+ 13145	= Kinoko Cave\n
+	+ \z{800,40}\c{blue1}Sucht93a, Wingcapman\c{off}
+ 13146	= Constellation Cliffs\n
+	+ \z{800,40}\c{blue1}bugsy\c{off}
+ 13147	= Moonlit Grounds\n
+	+ \z{800,40}\c{blue1}bugsy\c{off}
+ 13148	= Shy Guy's Stormy Seaport\n
+	+ \z{800,40}\c{blue1}Atmosphere\c{off}
+ 13149	= Thunder City (The World That Never Was)\n
+	+ \z{800,40}\c{blue1}Fuffina\c{off}
+ 1314a	= Snowy Loop\n
+	+ \z{800,40}\c{blue1}FunkyRacer\c{off}
+ 1314b	= Tau-Cryovolcano\n
+	+ \z{800,40}\c{blue1}Strobenz\c{off}
+ 1314c	= Glacier Mine\n
+	+ \z{800,40}\c{blue1}ishiyama263\c{off}
+ 1314d	= Stargaze Summit\n
+	+ \z{800,40}\c{blue1}Ferv\c{off}
+ 1314e	= Underwater Rapture\n
+	+ \z{800,40}\c{blue1}KaneTheSnowman\c{off}
+ 1314f	= Acrobatic Airway\n
+	+ \z{800,40}\c{blue1}bugsy\c{off}
+ 13150	= Aqua Dungeon\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 13151	= Waterway\n
+	+ \z{800,40}\c{blue1}MysterE99\c{off}
+ 13152	= Musical Cliff\n
+	+ \z{800,40}\c{blue1}Luca\c{off}
+ 13153	= Quaking Mad Cliffs\n
+	+ \z{800,40}\c{blue1}MrFluffy\c{off}
+ 13154	= Talicid Falls\n
+	+ \z{800,40}\c{blue1}Shorky\c{off}
+ 13155	= Twin Peaks\n
+	+ \z{800,40}\c{blue1}Sucht93a\c{off}
+ 13156	= Castle of Darkness\n
+	+ \z{800,40}\c{blue1}MEGAKart69\c{off}
+ 13157	= Final Grounds\n
+	+ \z{800,40}\c{blue1}MEGAKart69\c{off}
+ 13158	= Thump Bump Forest\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt\c{off}
+ 13159	= Vile Isle\n
+	+ \z{800,40}\c{blue1}Citrus\c{off}
+ 1315a	= Melting Magma Melee\n
+	+ \z{800,40}\c{blue1}Sucht93a\c{off}
+ 1315b	= Fiery Factory, Fading Frost\n
+	+ \z{800,40}\c{blue1}Cotni, tarsa\c{off}
+ 1315c	= Global Warmingway\n
+	+ \z{800,40}\c{blue1}Shorky\c{off}
+ 1315d	= Wario's Climate Cataclysm\n
+	+ \z{800,40}\c{blue1}Yoshii,Shorky\c{off}
+ 1315e	= Volcanic Skyway\n
+	+ \z{800,40}\c{blue1}BigOto2, bento, Metabus\c{off}
+ 1315f	= Hell Pyramid\n
+	+ \z{800,40}\c{blue1}SpyKid\c{off}
+ 13160	= Magma Caverns\n
+	+ \z{800,40}\c{blue1}Shorky\c{off}
+ 13161	= Strobenz Desert Illusion\n
+	+ \z{800,40}\c{blue1}Strobenz\c{off}
+ 13162	= Bowser Jr.'s Crafty Castle\n
+	+ \z{800,40}\c{blue1}Fuffina,Shorky\c{off}
+ 13163	= Bowser Jr.'s Fort\n
+	+ \z{800,40}\c{blue1}MrFluffy\c{off}
+ 13164	= Bowser's Lava Lair\n
+	+ \z{800,40}\c{blue1}ANoob\c{off}
+ 13165	= Bowser's Termination Station\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt,TL\c{off}
+ 13166	= Forsaken Funfair\n
+	+ \z{800,40}\c{blue1}Shorky, Chouchintosh\c{off}
+ 13167	= Area 64\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt\c{off}
+ 13168	= Pipe Underworld\n
+	+ \z{800,40}\c{blue1}MEGAKart69\c{off}
+ 13169	= Thunder Canyon\n
+	+ \z{800,40}\c{blue1}bugsy\c{off}
+ 1316a	= Bioluminescent Lab\n
+	+ \z{800,40}\c{blue1}LucioWins\c{off}
+ 1316b	= Conveyor Conundrum\n
+	+ \z{800,40}\c{blue1}Bri911\c{off}
+ 1316c	= Mech Factory\n
+	+ \z{800,40}\c{blue1}TL, Coffee Toffee\c{off}
+ 1316d	= Toxic Neon\n
+	+ \z{800,40}\c{blue1}BroOFun\c{off}
+ 1316e	= Windy Whirl\n
+	+ \z{800,40}\c{blue1}Syst3ms\c{off}
+ 1316f	= Fort Francis\n
+	+ \z{800,40}\c{blue1}Jaden\c{off}
+ 13170	= Ghost House\n
+	+ \z{800,40}\c{blue1}Demonz\c{off}
+ 13171	= Painted Swamp Circuit\n
+	+ \z{800,40}\c{blue1}TheGamingBram\c{off}
+ 13172	= Darkness Temple\n
+	+ \z{800,40}\c{blue1}WiiLuigi\c{off}
+ 13173	= Toad's Temple\n
+	+ \z{800,40}\c{blue1}LucioWins, tarsa\c{off}
+ 13174	= Gloomy Castle\n
+	+ \z{800,40}\c{blue1}Bri911\c{off}
+ 13175	= Toadstool Dynasty\n
+	+ \z{800,40}\c{blue1}Cotni, Riidefi\c{off}
+ 13176	= Starry Cityscape\n
+	+ \z{800,40}\c{blue1}bugsy\c{off}
+ 13177	= Cruel Angel's Thesis\n
+	+ \z{800,40}\c{blue1}Cal\c{off}
+ 13178	= Celestial Speedway\n
+	+ \z{800,40}\c{blue1}bugsy\c{off}
+ 13179	= Superstar Dystopia\n
+	+ \z{800,40}\c{blue1}SpyKid\c{off}
+ 1317a	= Distant Dimension\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 1317b	= Dragon Burying Grounds\n
+	+ \z{800,40}\c{blue1}Multimariokartds\c{off}
+ 1317c	= Hellado Mountain\n
+	+ \z{800,40}\c{blue1}ChaosShadow23, Renegade Ciara\c{off}
+ 1317d	= Magmatic Sanctuary\n
+	+ \z{800,40}\c{blue1}ZPL, Jasperr, acaruso\c{off}
+ 1317e	= Lantern Light Terrace\n
+	+ \z{800,40}\c{blue1}Atmosphere,Birj\c{off}
+ 1317f	= Lunar Lantern Festival\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt\c{off}
+ 13180	= Lunar Lights\n
+	+ \z{800,40}\c{blue1}Sniki\c{off}
+ 13181	= Mystic Tangle\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 13182	= Alpine Peak\n
+	+ \z{800,40}\c{blue1}MysterE99\c{off}
+ 13183	= Bullet Bill Chill\n
+	+ \z{800,40}\c{blue1}Shorky\c{off}
+ 13184	= Envenom Snowstorm\n
+	+ \z{800,40}\c{blue1}Luca\c{off}
+ 13185	= Northern Heights\n
+	+ \z{800,40}\c{blue1}Lovelifeandtpose024\c{off}
+ 13186	= Blossoming Ruins\n
+	+ \z{800,40}\c{blue1}Birj, ISwearChris, Yoshii\c{off}
+ 13187	= Sakura Sanctuary\n
+	+ \z{800,40}\c{blue1}Terron, Jasperr\c{off}
+ 13188	= Cherry Blossom Garden\n
+	+ \z{800,40}\c{blue1}Renegade Ciara, ChaosShadow23\c{off}
+ 13189	= Cosmo Garden\n
+	+ \z{800,40}\c{blue1}Yosh46, JadenMKW\c{off}
+ 1318a	= Cloudy Courtway\n
+	+ \z{800,40}\c{blue1}Shorky\c{off}
+ 1318b	= Good Egg Drive\n
+	+ \z{800,40}\c{blue1}Wraith Hopper\c{off}
+ 1318c	= Puzzle Plank Pass\n
+	+ \z{800,40}\c{blue1}AltairYoshi\c{off}
+ 1318d	= SMG Honeyhive Galaxy\n
+	+ \z{800,40}\c{blue1}Thevayl\c{off}
+ 1318e	= Garden of Dreams\n
+	+ \z{800,40}\c{blue1}Jiyuu\c{off}
+ 1318f	= Daisy Gardens\n
+	+ \z{800,40}\c{blue1}xBlue98\c{off}
+ 13190	= Daisy's Palace\n
+	+ \z{800,40}\c{blue1}JorisMKW\c{off}
+ 13191	= White Garden\n
+	+ \z{800,40}\c{blue1}SpyKid,Riidefi\c{off}
+ 13192	= Kamek's Library\n
+	+ \z{800,40}\c{blue1}MysterE99\c{off}
+ 13193	= King Boo's Library\n
+	+ \z{800,40}\c{blue1}TheGamingBram\c{off}
+ 13194	= Midnight Museum\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt\c{off}
+ 13195	= The Grand Archives\n
+	+ \z{800,40}\c{blue1}Metabus\c{off}
+ 13196	= Crypt of the Cataclysm\n
+	+ \z{800,40}\c{blue1}Echo, KaneTheSnowman, LucioWins\c{off}
+ 13197	= Hydropower Current\n
+	+ \z{800,40}\c{blue1}Atmosphere, Shorky\c{off}
+ 13198	= Ruinated Peach's Castle\n
+	+ \z{800,40}\c{blue1}Gabriela_\c{off}
+ 13199	= The Castle of Broken Promises\n
+	+ \z{800,40}\c{blue1}ISwearChris\c{off}
+ 1319a	= Goomba Circuit\n
+	+ \z{800,40}\c{blue1}UmbreonTurtle\c{off}
+ 1319b	= Birdo Circuit\n
+	+ \z{800,40}\c{blue1}Fuffina\c{off}
+ 1319c	= Wendy Raceway\n
+	+ \z{800,40}\c{blue1}Marianne8559\c{off}
+ 1319d	= Wario Circuit\n
+	+ \z{800,40}\c{blue1}MysterE99\c{off}
+ 1319e	= The Great Apple War\n
+	+ \z{800,40}\c{blue1}ABBBBCCCGGJMMMRSSTTybCEJkMSV\c{off}
+ 1319f	= Shy Guy Lumber Co.\n
+	+ \z{800,40}\c{blue1}Metabus\c{off}
+ 131a0	= Wario's Canyon Castle\n
+	+ \z{800,40}\c{blue1}Atmosphere\c{off}
+ 131a1	= Wario's Counterfeit Coffin\n
+	+ \z{800,40}\c{blue1}Shorky\c{off}
+ 131a2	= Crystal Plains\n
+	+ \z{800,40}\c{blue1}Sniki\c{off}
+ 131a3	= Kinopio Potato Inc.\n
+	+ \z{800,40}\c{blue1}Fuffina\c{off}
+ 131a4	= Botania\n
+	+ \z{800,40}\c{blue1}SpyKid\c{off}
+ 131a5	= Terra Ursae\n
+	+ \z{800,40}\c{blue1}Bear\c{off}
+ 131a6	= Castle in the Sky\n
+	+ \z{800,40}\c{blue1}Multimariokartds\c{off}
+ 131a7	= Parkway Boogie\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 131a8	= The Windmill Peak\n
+	+ \z{800,40}\c{blue1}Shorky\c{off}
+ 131a9	= Turbulence\n
+	+ \z{800,40}\c{blue1}LucioWins\c{off}
+ 131aa	= SNES Donut Plains 1\n
+	+ \z{800,40}\c{blue1}Luca\c{off}
+ 131ab	= SNES Mario Circuit 1\n
+	+ \z{800,40}\c{blue1}maczkopeti\c{off}
+ 131ac	= SNES Bowser Castle 1\n
+	+ \z{800,40}\c{blue1}ChaosShadow23\c{off}
+ 131ad	= SNES Bowser Castle 1\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 131ae	= SNES Donut Plains 1\n
+	+ \z{800,40}\c{blue1}maczkopeti\c{off}
+ 131af	= SNES Ghost Valley 1\n
+	+ \z{800,40}\c{blue1}MilanDK\c{off}
+ 131b0	= SNES Ghost Valley 1\n
+	+ \z{800,40}\c{blue1}zilly\c{off}
+ 131b1	= SNES Mario Circuit 1\n
+	+ \z{800,40}\c{blue1}ZPL, Jasperr\c{off}
+ 131b2	= SNES Choco Island 1\n
+	+ \z{800,40}\c{blue1}Luca\c{off}
+ 131b3	= SNES Donut Plains 2\n
+	+ \z{800,40}\c{blue1}Luca\c{off}
+ 131b4	= SNES Mario Circuit 2\n
+	+ \z{800,40}\c{blue1}Wexos\c{off}
+ 131b5	= SNES Choco Island 1\n
+	+ \z{800,40}\c{blue1}Slimeserver\c{off}
+ 131b6	= SNES Ghost Valley 2\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 131b7	= SNES Mario Circuit 3\n
+	+ \z{800,40}\c{blue1}TailsCraft\c{off}
+ 131b8	= SNES Bowser Castle 2\n
+	+ \z{800,40}\c{blue1}Dreacastian-Turnip\c{off}
+ 131b9	= SNES Bowser Castle 2\n
+	+ \z{800,40}\c{blue1}ChaosShadow23\c{off}
+ 131ba	= SNES Mario Circuit 3\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 131bb	= SNES Choco Island 2\n
+	+ \z{800,40}\c{blue1}Slimeserver\c{off}
+ 131bc	= SNES Koopa Beach 1\n
+	+ \z{800,40}\c{blue1}Luca\c{off}
+ 131bd	= SNES Bowser Castle 3\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 131be	= SNES Bowser Castle 3\n
+	+ \z{800,40}\c{blue1}ScyHigh\c{off}
+ 131bf	= SNES Choco Island 2\n
+	+ \z{800,40}\c{blue1}maczkopeti\c{off}
+ 131c0	= SNES Vanilla Lake 1\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt\c{off}
+ 131c1	= SNES Donut Plains 3\n
+	+ \z{800,40}\c{blue1}Yoshidude4\c{off}
+ 131c2	= SNES Donut Plains 3\n
+	+ \z{800,40}\c{blue1}Bear, ZPL\c{off}
+ 131c3	= SNES Mario Circuit 4\n
+	+ \z{800,40}\c{blue1}Brawlboxgaming\c{off}
+ 131c4	= SNES Koopa Beach 2\n
+	+ \z{800,40}\c{blue1}Luca\c{off}
+ 131c5	= SNES Rainbow Road\n
+	+ \z{800,40}\c{blue1}xBlue98\c{off}
+ 131c6	= SNES Ghost Valley 3\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 131c7	= SNES Vanilla Lake 2\n
+	+ \z{800,40}\c{blue1}Slimeserver\c{off}
+ 131c8	= N64 Luigi Raceway\n
+	+ \z{800,40}\c{blue1}zilly\c{off}
+ 131c9	= N64 Kalimari Desert\n
+	+ \z{800,40}\c{blue1}SamanthaMK\c{off}
+ 131ca	= N64 Kalimari Desert\n
+	+ \z{800,40}\c{blue1}Sniki\c{off}
+ 131cb	= N64 Koopa Troopa Beach\n
+	+ \z{800,40}\c{blue1}Waltz\c{off}
+ 131cc	= N64 Moo Moo Farm\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 131cd	= N64 Frappe Snowland\n
+	+ \z{800,40}\c{blue1}AltairYoshi\c{off}
+ 131ce	= N64 Choco Mountain\n
+	+ \z{800,40}\c{blue1}TacoJosh\c{off}
+ 131cf	= N64 Frappe Snowland\n
+	+ \z{800,40}\c{blue1}TheGamingBram\c{off}
+ 131d0	= N64 Mario Raceway\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 131d1	= N64 Toad's Turnpike (Night)\n
+	+ \z{800,40}\c{blue1}AltairYoshi\c{off}
+ 131d2	= N64 Toad's Turnpike (Sunset)\n
+	+ \z{800,40}\c{blue1}AltairYoshi\c{off}
+ 131d3	= N64 Wario Stadium\n
+	+ \z{800,40}\c{blue1}zilly\c{off}
+ 131d4	= N64 Bowser's Castle\n
+	+ \z{800,40}\c{blue1}Elemental\c{off}
+ 131d5	= N64 Bowser's Castle\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 131d6	= N64 Royal Raceway\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt\c{off}
+ 131d7	= N64 Sherbet Land\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 131d8	= N64 Wario Stadium\n
+	+ \z{800,40}\c{blue1}bugsy\c{off}
+ 131d9	= N64 Banshee Boardwalk\n
+	+ \z{800,40}\c{blue1}zilly\c{off}
+ 131da	= N64 Banshee Boardwalk\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 131db	= N64 DK's Jungle Parkway\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 131dc	= N64 Rainbow Road\n
+	+ \z{800,40}\c{blue1}cpfusion\c{off}
+ 131dd	= N64 Yoshi Valley\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 131de	= GBA Bowser Castle 1\n
+	+ \z{800,40}\c{blue1}Bri\c{off}
+ 131df	= GBA Peach Circuit\n
+	+ \z{800,40}\c{blue1}FunkyRacer\c{off}
+ 131e0	= GBA Peach Circuit\n
+	+ \z{800,40}\c{blue1}ISwearChris\c{off}
+ 131e1	= GBA Riverside Park\n
+	+ \z{800,40}\c{blue1}ChaosShadow23\c{off}
+ 131e2	= GBA Riverside Park\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 131e3	= GBA Shy Guy Beach\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 131e4	= GBA Boo Lake\n
+	+ \z{800,40}\c{blue1}Slimeserver\c{off}
+ 131e5	= GBA Bowser Castle 2\n
+	+ \z{800,40}\c{blue1}ChaosShadow23\c{off}
+ 131e6	= GBA Cheese Land\n
+	+ \z{800,40}\c{blue1}ChaosShadow23\c{off}
+ 131e7	= GBA Mario Circuit\n
+	+ \z{800,40}\c{blue1}MysterE99\c{off}
+ 131e8	= GBA Sunset Wilds\n
+	+ \z{800,40}\c{blue1}Luca\c{off}
+ 131e9	= GBA Cheep-Cheep Island\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt,Kozakura\c{off}
+ 131ea	= GBA Luigi Circuit\n
+	+ \z{800,40}\c{blue1}Flint\c{off}
+ 131eb	= GBA Luigi Circuit\n
+	+ \z{800,40}\c{blue1}zilly\c{off}
+ 131ec	= GBA Sky Garden\n
+	+ \z{800,40}\c{blue1}acaruso\c{off}
+ 131ed	= GBA Ribbon Road\n
+	+ \z{800,40}\c{blue1}Gabriela_\c{off}
+ 131ee	= GBA Bowser Castle 3\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 131ef	= GBA Ribbon Road\n
+	+ \z{800,40}\c{blue1}ChaosShadow23\c{off}
+ 131f0	= GBA Snow Land\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt\c{off}
+ 131f1	= GBA Snow Land\n
+	+ \z{800,40}\c{blue1}cpfusion\c{off}
+ 131f2	= GBA Snow Land\n
+	+ \z{800,40}\c{blue1}ChaosShadow23\c{off}
+ 131f3	= GBA Yoshi Desert\n
+	+ \z{800,40}\c{blue1}ChaosShadow23\c{off}
+ 131f4	= GBA Bowser Castle 4\n
+	+ \z{800,40}\c{blue1}ChaosShadow23\c{off}
+ 131f5	= GBA Broken Pier\n
+	+ \z{800,40}\c{blue1}xBlue98\c{off}
+ 131f6	= GBA Lakeside Park\n
+	+ \z{800,40}\c{blue1}ChaosShadow23\c{off}
+ 131f7	= GBA Lakeside Park\n
+	+ \z{800,40}\c{blue1}Dreacastian-Turnip\c{off}
+ 131f8	= GBA Rainbow Road\n
+	+ \z{800,40}\c{blue1}ChaosShadow23\c{off}
+ 131f9	= GBA Rainbow Road\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt\c{off}
+ 131fa	= GCN Baby Park\n
+	+ \z{800,40}\c{blue1}SamanthaMK\c{off}
+ 131fb	= GCN Dry Dry Desert\n
+	+ \z{800,40}\c{blue1}UltraWario\c{off}
+ 131fc	= GCN Luigi Circuit\n
+	+ \z{800,40}\c{blue1}Tock\c{off}
+ 131fd	= GCN Peach Beach\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 131fe	= GCN Mushroom Bridge\n
+	+ \z{800,40}\c{blue1}Tock\c{off}
+ 131ff	= GCN Daisy Cruiser\n
+	+ \z{800,40}\c{blue1}FunkyDude15,Riidefi,Cotni\c{off}
+ 13200	= GCN Mario Circuit\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 13201	= GCN Waluigi Stadium\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 13202	= GCN Mushroom City\n
+	+ \z{800,40}\c{blue1}Riidefi,Tock\c{off}
+ 13203	= GCN Sherbet Land\n
+	+ \z{800,40}\c{blue1}Tock\c{off}
+ 13204	= GCN Yoshi Circuit\n
+	+ \z{800,40}\c{blue1}Tock\c{off}
+ 13205	= GCN DK Mountain\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 13206	= GCN Bowser's Castle\n
+	+ \z{800,40}\c{blue1}Tock\c{off}
+ 13207	= GCN Dino Dino Jungle\n
+	+ \z{800,40}\c{blue1}Tock\c{off}
+ 13208	= GCN Rainbow Road\n
+	+ \z{800,40}\c{blue1}Riidefi,Tock\c{off}
+ 13209	= GCN Wario Colosseum\n
+	+ \z{800,40}\c{blue1}Tock\c{off}
+ 1320a	= DS Cheep Cheep Beach (Night)\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt\c{off}
+ 1320b	= DS Cheep Cheep Beach (Day)\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt\c{off}
+ 1320c	= DS Figure-8 Circuit\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 1320d	= DS Luigi's Mansion\n
+	+ \z{800,40}\c{blue1}Tock\c{off}
+ 1320e	= DS Yoshi Falls\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 1320f	= DS Waluigi Pinball\n
+	+ \z{800,40}\c{blue1}Sniki\c{off}
+ 13210	= DS Delfino Square\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 13211	= DS Desert Hills\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 13212	= DS Shroom Ridge\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt\c{off}
+ 13213	= DS Airship Fortress\n
+	+ \z{800,40}\c{blue1}Sniki\c{off}
+ 13214	= DS DK Pass\n
+	+ \z{800,40}\c{blue1}Skipper93653\c{off}
+ 13215	= DS Mario Circuit\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 13216	= DS Tick-Tock Clock\n
+	+ \z{800,40}\c{blue1}Tock\c{off}
+ 13217	= DS Rainbow Road\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 13218	= DS Bowser Castle\n
+	+ \z{800,40}\c{blue1}Sniki\c{off}
+ 13219	= DS Peach Gardens\n
+	+ \z{800,40}\c{blue1}SamanthaMK,TheGamingBram\c{off}
+ 1321a	= DS Peach Gardens\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 1321b	= DS Wario Stadium\n
+	+ \z{800,40}\c{blue1}ZPL\c{off}
+ 1321c	= Wii Bowser's Castle\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 1321d	= Wii Coconut Mall\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 1321e	= Wii DK Summit\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 1321f	= Wii Daisy Circuit\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 13220	= Wii Dry Dry Ruins\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 13221	= Wii Grumble Volcano\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 13222	= Wii Koopa Cape\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 13223	= Wii Luigi Circuit\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 13224	= Wii Maple Treeway\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 13225	= Wii Mario Circuit\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 13226	= Wii Moo Moo Meadows\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 13227	= Wii Moonview Highway\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 13228	= Wii Mushroom Gorge\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 13229	= Wii Rainbow Road\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 1322a	= Wii Toad's Factory\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 1322b	= Wii Wario's Gold Mine\n
+	+ \z{800,40}\c{blue1}Nintendo\c{off}
+ 1322c	= 3DS Toad Circuit\n
+	+ \z{800,40}\c{blue1}Torran\c{off}
+ 1322d	= 3DS Cheep Cheep Lagoon\n
+	+ \z{800,40}\c{blue1}Wexos, Crile\c{off}
+ 1322e	= 3DS Daisy Hills\n
+	+ \z{800,40}\c{blue1}Atlas\c{off}
+ 1322f	= 3DS Shy Guy Bazaar\n
+	+ \z{800,40}\c{blue1}Atlas\c{off}
+ 13230	= 3DS Mario Circuit\n
+	+ \z{800,40}\c{blue1}ZPL, Bri\c{off}
+ 13231	= 3DS Music Park\n
+	+ \z{800,40}\c{blue1}Atlas\c{off}
+ 13232	= 3DS Rock Rock Mountain\n
+	+ \z{800,40}\c{blue1}MrKoeikoei, zilly\c{off}
+ 13233	= 3DS Wuhu Loop\n
+	+ \z{800,40}\c{blue1}FunkyDude15, Riidefi, Zachruff\c{off}
+ 13234	= 3DS Maka Wuhu\n
+	+ \z{800,40}\c{blue1}FunkyDude15,Wexos\c{off}
+ 13235	= 3DS Neo Bowser City\n
+	+ \z{800,40}\c{blue1}Atlas\c{off}
+ 13236	= 3DS Piranha Plant Slide\n
+	+ \z{800,40}\c{blue1}Atlas\c{off}
+ 13237	= 3DS Wario Shipyard\n
+	+ \z{800,40}\c{blue1}Atlas\c{off}
+ 13238	= 3DS Rainbow Road\n
+	+ \z{800,40}\c{blue1}Diego Vapy\c{off}
+ 13239	= 3DS Bowser's Castle\n
+	+ \z{800,40}\c{blue1}Wexos, Atlas\c{off}
+ 1323a	= 3DS DK Jungle\n
+	+ \z{800,40}\c{blue1}Bri\c{off}
+ 1323b	= 3DS Rosalina's Ice World\n
+	+ \z{800,40}\c{blue1}MysterE99, Skipper93653\c{off}
+ 1323c	= 3DS Rosalina's Ice World\n
+	+ \z{800,40}\c{blue1}SquireTurnbolt\c{off}
+ 1323d	= 3DS Rainbow Road\n
+	+ \z{800,40}\c{blue1}BigOto2\c{off}
+ 1323e	= Frost Flooded City\n
+	+ \z{800,40}\c{blue1}Marianne\c{off}
+ 1323f	= Sahara Hideout\n
+	+ \z{800,40}\c{blue1}ZPL, Jasperr, Golden RS\c{off}
+ 13240	= Bluetopian Valley\n
+	+ \z{800,40}\c{blue1}LUDAROBE\c{off}
+ 13241	= Behind the Curtain\n
+	+ \z{800,40}\c{blue1}LucioWins\c{off}
+ 13242	= Mansion of Madness\n
+	+ \z{800,40}\c{blue1}Sucht93a\c{off}
+ 13243	= Shy Guy Circus\n
+	+ \z{800,40}\c{blue1}FunkyRacer\c{off}
+ 13244	= Wario's Abandoned Casino\n
+	+ \z{800,40}\c{blue1}Shorky\c{off}
+ 13245	= Cool Castle Canyon\n
+	+ \z{800,40}\c{blue1}Sniki\c{off}
+ 13246	= Overgrown Temple\n
+	+ \z{800,40}\c{blue1}JoeyMK\c{off}
+ 13247	= Sandy Clocktower\n
+	+ \z{800,40}\c{blue1}Shorky\c{off}
+ 13248	= Captains' Shore\n
+	+ \z{800,40}\c{blue1}baral\c{off}
+ 13249	= Golden Mountain Road\n
+	+ \z{800,40}\c{blue1}ISwearChris\c{off}
+ 1324a	= Windy Fall\n
+	+ \z{800,40}\c{blue1}tari\c{off}
+ 1324b	= Bullet Bill Bluff\n
+	+ \z{800,40}\c{blue1}Atmosphere,Chouchintosh,Mickeyman713\c{off}
+ 1324c	= Yokai Falls\n
+	+ \z{800,40}\c{blue1}Dreacastian-Turnip\c{off}
+ 1324d	= Glimmer Express Trains\n
+	+ \z{800,40}\c{blue1}Sniki\c{off}
+ 1324e	= Honeybee Hideout\n
+	+ \z{800,40}\c{blue1}TacoJosh\c{off}
+ 1324f	= Lumpy's Lively Lair\n
+	+ \z{800,40}\c{blue1}MrFluffy\c{off}
+ 13250	= The Seamlands\n
+	+ \z{800,40}\c{blue1}Metabus, Fuffina, ._., tarsa129\c{off}
+ 13251	= Breezechill Citadel\n
+	+ \z{800,40}\c{blue1}Atmosphere\c{off}
+ 13252	= Icebound Stronghold\n
+	+ \z{800,40}\c{blue1}KaneTheSnowman\c{off}
+ 13253	= Blizzard's Rise\n
+	+ \z{800,40}\c{blue1}Metabus\c{off}
+ 13254	= Frigid Furnace\n
+	+ \z{800,40}\c{blue1}Atmosphere,Nozzly\c{off}
+ 13255	= Altepeyolko\n
+	+ \z{800,40}\c{blue1}Strobenz\c{off}
+ 13256	= CTR Papu's Pyramid\n
+	+ \z{800,40}\c{blue1}Zappoola\c{off}
+ 13257	= CTR Polar Pass\n
+	+ \z{800,40}\c{blue1}KaneTheSnowman\c{off}
+ 13258	= CTR Sewer Speedway\n
+	+ \z{800,40}\c{blue1}LucioWins\c{off}
+ 13259	= CNK Jungle Boogie\n
+	+ \z{800,40}\c{blue1}LucioWins\c{off}
+ 1325a	= CTR Blizzard Bluff\n
+	+ \z{800,40}\c{blue1}MysterE99\c{off}
+ 1325b	= CTR Cortex Castle\n
+	+ \z{800,40}\c{blue1}MysterE99\c{off}
+ 1325c	= CTR Hot Air Skyway\n
+	+ \z{800,40}\c{blue1}MysterE99\c{off}
+ 1325d	= CTR N. Gin Labs\n
+	+ \z{800,40}\c{blue1}MysterE99\c{off}
+ 1325e	= Ancient Fields\n
+	+ \z{800,40}\c{blue1}LUDAROBE,Diego Vapy\c{off}
+ 1325f	= Gallant Grotto\n
+	+ \z{800,40}\c{blue1}ISwearChris\c{off}
+ 13260	= Living Caverns\n
+	+ \z{800,40}\c{blue1}Chouchintosh\c{off}
+ 13261	= Meteor Shower (Crystallic Dream)\n
+	+ \z{800,40}\c{blue1}ISwearChris\c{off}
+ 13262	= Cool Shroom Cliff\n
+	+ \z{800,40}\c{blue1}MackerelDude123\c{off}
+ 13263	= Foggy Forest\n
+	+ \z{800,40}\c{blue1}UmbreonTurtle\c{off}
+ 13264	= Overgrown Stronghold\n
+	+ \z{800,40}\c{blue1}Nwt\c{off}
+ 13265	= Castle Gorge\n
+	+ \z{800,40}\c{blue1}Toadette Hack Fan, Mystora\c{off}
+ 13266	= Forgotten Facility\n
+	+ \z{800,40}\c{blue1}Citrus\c{off}
+ 13267	= The Scorch Trials\n
+	+ \z{800,40}\c{blue1}Nwt\c{off}
+ 13268	= Toxic Moon\n
+	+ \z{800,40}\c{blue1}Supershyguy\c{off}
+ 13269	= Decayed Temple\n
+	+ \z{800,40}\c{blue1}JOE WHO?\c{off}
+ 1326a	= Darkest Night\n
+	+ \z{800,40}\c{blue1}ISwearChris\c{off}
+ 1326b	= Breathing Bosque\n
+	+ \z{800,40}\c{blue1}KaneTheSnomwan\c{off}
+ 1326c	= Cosmic Causeway\n
+	+ \z{800,40}\c{blue1}Mickeyman713\c{off}
+ 1326d	= Shadow Woods\n
+	+ \z{800,40}\c{blue1}Sniki\c{off}
+ 1326e	= THE FIRE\n
+	+ \z{800,40}\c{blue1}ISwearChris\c{off}
+ 1326f	= Wario's Corrupted Continuum\n
+	+ \z{800,40}\c{blue1}Kozakura, Strobenz\c{off}
+ 13270	= Alone and Incomplete\n
+	+ \z{800,40}\c{blue1}ISwearChris\c{off}
+ 13271	= Underground Puzzle\n
+	+ \z{800,40}\c{blue1}NBKevin98x\c{off}
+ 13272	= Bouldergeist's Not So Lively Lair\n
+	+ \z{800,40}\c{blue1}Bits\c{off}
+ 13273	= SM64 Bowser in the Dark World\n
+	+ \z{800,40}\c{blue1}Waltz\c{off}
+ 13274	= CT Cemetery\n
+	+ \z{800,40}\c{blue1}riidefi\c{off}
+ 13275	= Red Rooms\n
+	+ \z{800,40}\c{blue1}Jasperr\c{off}
+ 13276	= Whispy Woodlands\n
+	+ \z{800,40}\c{blue1}Bear, ISwearChris, Kit\c{off}
+ 13277	= Big Nature City\n
+	+ \z{800,40}\c{blue1}lgmb\c{off}
+ 13278	= Eventide Gorge\n
+	+ \z{800,40}\c{blue1}Cal\c{off}
+ 13279	= Log Breeze\n
+	+ \z{800,40}\c{blue1}Rex\c{off}
+ 1327a	= Frozen Festival\n
+	+ \z{800,40}\c{blue1}Jasperr\c{off}
+ 1327b	= Heart of China\n
+	+ \z{800,40}\c{blue1}Wingcapman\c{off}
+ 1327c	= Phendrana Frostbite\n
+	+ \z{800,40}\c{blue1}Fuffina,ISwearChris\c{off}
+ 1327d	= Poisonous Pass\n
+	+ \z{800,40}\c{blue1}Atmosphere,Shorky\c{off}
+ 2081a	= License Progress
+ 2081b	= See your License class progress!
+ 20820	= Points
+ 20821	= \z{a02,1000000000}/\z{a02,1000010000}
+ 20822	= Cups
+ 20823	= Av.Rank
+ 20824	= VR
+ 20825	= \z{a02,1000000000}
+ 20826	= Races
+ 20827	= Score
+ 20830	= \c{yor7}\z{a02,1000000000}\c{off}/\z{a02,1000010000}
+ 20831	= \c{green}\z{a02,1000000000}\c{off}/\z{a02,1000010000}
+ 20832	= \z{802,200000}/\z{802,200001}
+ 20833	= \z{a02,1000000000}/\z{a02,1000010000}
+ 30000	= Final Lap Music
+ 30001	= Speed-Up
+ 30002	= No Cut-off
+ 30003	= Default
+ 30010	= Draggable Blue Shells
+ 30020	= Mii Heads
+ 30030	= Speed-o-meter
+ 30031	= Disabled
+ 30032	= No decimals
+ 30033	= 1 decimal
+ 30034	= 2 decimals
+ 30040	= FPS Mode
+ 30041	= Normal
+ 30042	= Force 30FPS
+ 30043	= Force 60FPS
+ 30050	= Ghost Saving
+ 30100	= Language
+ 30101	= Default
+ 30102	= English (PAL)
+ 30103	= English (NTSC)
+ 30104	= Deutsch
+ 30105	= Français (PAL)
+ 30106	= Français (NTSC)
+ 30107	= Español (PAL)
+ 30108	= Español (NTSC)
+ 30109	= Italiano
+ 3010a	= Nederlands
+ 3010b	= Polski
+ 3010c	= Český
+ 3010d	= Magyar
+ 3010e	= Japanese
+ 3010f	= Korean
+ 30110	= Fast Menus
+ 30120	= Track Order
+ 30121	= Default
+ 30122	= Alphabetical
+ 30130	= Menu Theme
+ 30131	= Aurora
+ 30132	= Rainbow
+ 30133	= White
+ 30200	= DWC Logs
+ 30210	= Performance Monitor
+ 30220	= Debug Messages on Screen
+ 30230	= Log OSReport to SD
+ 30300	= OpenHost
+ 30310	= Host Always Wins
+ 30320	= Allow Mii Heads
+ 30340	= Force CC
+ 30341	= None
+ 30342	= 150cc
+ 30343	= 200cc
+ 30344	= Mirror (150cc)
+ 30350	= Race Count
+ 30351	= 2
+ 30352	= 4
+ 30353	= 8
+ 30354	= 12
+ 30355	= 16
+ 30356	= 24
+ 30357	= 32
+ 30358	= 64
+ 30500	= Track Selection
+ 30501	= All
+ 30502	= CTs
+ 30503	= Retros
+ 30510	= Variant Selection
+ 30520	= Mega Cloud
+ 30530	= All items can land
+ 30630	= Force Random
+ 30631	= Disabled
+ 30632	= Individual
+ 30633	= Common
+ 30700	= Simplied Controls
+ 30701	= Disabled
+ 30702	= Only Up
+ 30703	= Directional
+ 30710	= FOV Effects
+ 30711	= Enabled
+ 30712	= Reduced
+ 30713	= Disabled
+ 30720	= Camera Shake
+ 30730	= Bloom
+ 37000	= Enabled
+ 37001	= Disabled
+ 40001	= Music will speed-up over 4s when entering final lap.
+ 40002	= Music will continue when entering final lap.
+ 40003	= Music will change to fast variant as normal.
+ 40011	= You can hold Blue Shells behind like other shells.
+ 40012	= You won't be able hold Blue Shells behind like other shells.
+ 40021	= Players' Miis will be displayed on the minimap.
+ 40022	= Player's character will be displayed on the minimap.
+ 40031	= Speed-o-meter will be disabled.
+ 40032	= Speed-o-meter won't display any decimals.
+ 40033	= Speed-o-meter will display 1 decimal.
+ 40034	= Speed-o-meter will display 2 decimals.
+ 40041	= Use the default FPS mode.
+ 40042	= Use when the game is too laggy.
+ 40043	= Use for better systems (Dolphin only).
+ 40051	= Ghost Saving will be Enabled.
+ 40052	= Ghost Saving will be Disabled.
+ 40111	= Menu transitions will be instant.
+ 40112	= Menu transitions will be normal.
+ 40201	= Logs will be printed to console.
+ 40202	= No logs will be printed.
+ 40211	= Monitor will be displayed at the bottom.
+ 40212	= Monitor will be hidden.
+ 40221	= Displays messages on screen (buggy on Dolphin).
+ 40222	= Hide messages on screen.
+ 40301	= Players who added you can join rooms.
+ 40302	= Only players you're friends with can join.
+ 40311	= Only host vote will matter.
+ 40312	= The track will be selected like normal.
+ 40321	= Players can use Mii Heads settings.
+ 40322	= Mii Heads will be forced off.
+ 40511	= Players will be able to vote for specific version of a track.
+ 40512	= Players won't be able to vote for specific version of a track.
+ 40521	= Thundercloud will make players big.
+ 40522	= Thundercloud will work like normal.
+ 40531	= Every kind of item can land
+ 40532	= Only some items can land
+ 40631	= Players will be able to choose their vehicle like normal.
+ 40632	= Every player will roll their own random combo before race.
+ 40633	= All players will get the same random combo before race.
+ 40701	= Simplified controls will be disabled.
+ 40702	= Pressing \u{e04f}/\u{e085} will grant up trick effect.
+ 40703	= Pressing \u{e04f}/\u{e085} will grant the trick effect depending on
+	+  joystick direction.
+ 70000	= Lump
+ 70001	= Sandy Cocktower\n
+	+ \z{800,40}\c{blue1}Shortly\c{off}
+ 70002	= Fever \c{blue1}Factory\c{off}
+ 70003	= The Great Apple War
+ 70004	= \c{blue1}Atmosphere, Birj, Blaze ok, Bluebatstar, BroOFun, CarryOn,
+	+  Chouchintosh, Coffee Toffee, G-Force,\c{off}
+ 70005	= \c{blue1}Galaxia37, JadenMKW, Metabus, Mickeyman713, MKWahPhil, Rex,
+	+  Shorky, Slimeserver, tarsa129,\c{off}
+ 70006	= \c{blue1}TL, Trainiax, yosh46, bento, CobaltYoshi27, Epik95, JC, koura,
+	+  Mystic, Silverr, Vrock02\c{off}
+ 70007	=  The coldest ice track\n
+	+ \z{800,40}\c{blue1}MrFluffy\c{off}
+ 70008	= You cheated not only the game, but yourself.\n
+	+ You didn't grow. You didn't improve. \n
+	+ You took a shortcut and gained nothing. \n
+	+ You experienced a hollow victory. \n
+	+ Nothing was risked and nothing was gained.
+210000	= Dawn
+210001	= Sunset
+210010	= Original
+210011	= Remake
+210020	= Original
+210021	= Remake
+210030	= Original
+210031	= Remake
+210040	= Original
+210041	= Remake
+210050	= Original
+210051	= Remake
+210060	= Remake
+210061	= Revamp
+210070	= Original
+210071	= Remake
+210080	= Original
+210081	= Remake
+210090	= Original
+210091	= Remake
+2100a0	= Original
+2100a1	= Remake
+2100b0	= Original
+2100b1	= Remake
+2100c0	= Original
+2100c1	= Tour
+2100d0	= Original
+2100d1	= Remake
+2100e0	= Night
+2100e1	= Sunset
+2100f0	= Original
+2100f1	= Remake
+210100	= Original
+210101	= Remake
+210110	= Original
+210111	= Remake
+210120	= Original Remake
+210121	= Tour Remake
+210130	= Original
+210131	= Remake
+210140	= Original
+210141	= Remake
+210150	= Original
+210151	= MK8
+210152	= Custom
+210160	= Original
+210161	= Remake
+210170	= Original
+210171	= Remake
+210180	= Original
+210181	= Remake
+210190	= Day
+210191	= Night
+2101a0	= Original
+2101a1	= Remake
+2101b0	= Original
+2101b1	= Tour
+2101c0	= Classic
+2101c1	= Remake
+

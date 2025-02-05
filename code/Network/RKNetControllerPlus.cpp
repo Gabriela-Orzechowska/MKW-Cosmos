@@ -114,8 +114,10 @@ namespace CosmosNetwork
         if(hostAlwaysWin && handler.mode == ONLINEMODE_PRIVATE_VS){
             u16 hostTrack = handler.toSendPacket.playersData[0].cCourseVote;
             if(hostTrack == 0xFF) hostTrack == manager->GetRandomTrack();
+            if(Cosmos::isGroupSlot(hostTrack)) hostTrack = manager->GetRandomVariantTrack(hostTrack);
             handler.toSendPacket.winningCourse = hostTrack;
             handler.toSendPacket.winningVoterAid = rkControllerSub.hostAid;
+            ReportToWiiLinkU32("mkw_select_course", hostTrack);
         }
         else if(handler.mode == ONLINEMODE_PUBLIC_VS || handler.mode == ONLINEMODE_PRIVATE_VS){
             u32 availableAids = rkControllerSub.availableAids;
@@ -155,10 +157,31 @@ namespace CosmosNetwork
             handler.toSendPacket.winningVoterAid = winnerAid;
             CosmosLog("Winner track: %03x\n", actualVote);
 
-            ReportToWiiLinkU32("mkw_select_course", actualVote);
 
+            ReportToWiiLinkU32("mkw_select_course", actualVote);
         }
-        else ((RKNetSELECTHandler*)&handler)->DecideTrack();
+        else {
+            u32 availableAids = rkControllerSub.availableAids;
+
+            u8 playerCount = 0;
+            u8 playerAids[12];
+
+            for(int i = 0; i < 12; i++){
+                if(((1 << i) & availableAids) == 0x0) continue; //aid not found
+                
+                playerAids[playerCount++] = i;
+            }
+            u8 winnerAid = playerAids[random.NextLimited(playerCount)];
+
+            u16 actualVote = winnerAid == rkControllerSub.localAid ? handler.toSendPacket.playersData[0].cCourseVote : 
+                handler.receivedPackets[winnerAid].playersData[0].cCourseVote;
+            if(actualVote == 0xFF) actualVote = manager->GetRandomTrack();
+            if(Cosmos::isGroupSlot(actualVote)) actualVote = manager->GetRandomVariantTrack(actualVote);
+            handler.toSendPacket.winningCourse = actualVote;
+            handler.toSendPacket.winningVoterAid = winnerAid;
+            
+            ReportToWiiLinkU32("mkw_select_course", actualVote);
+        }
     }
     kmCall(0x80661490, DecideTrack);
 
@@ -173,15 +196,15 @@ namespace CosmosNetwork
         
         OnlineEngineClass ccEngine = CC_ONLINE_150;
         Cosmos::Data::FORCE_CC ccSetting = (Cosmos::Data::FORCE_CC) Cosmos::Data::SettingsHolder::GetStaticInstance()->GetSettingValue(Cosmos::Data::COSMOS_SETTING_FORCE_CC);
-        if(type == VS_WW || type == VS_REGIONAL || (type == FROOM_HOST && ccSetting == Cosmos::Data::FORCE_NONE)) {
-            /*
+        if(type == VS_WW || type == VS_REGIONAL) {
+            ccEngine = CC_ONLINE_150;
+        }
+        else if (type == FROOM_HOST && ccSetting == Cosmos::Data::FORCE_NONE) {
             Random random;
             u32 ret = random.NextLimited(100);
             if(ret < CC_200_MIRROR_PROBS) ccEngine = CC_ONLINE_200_MIRROR;
-            else if(ret < (CC_200_MIRROR_PROBS + CC_100_PROBS)) ccEngine = CC_ONLINE_100;
-            else if(ret < (CC_200_MIRROR_PROBS + CC_100_PROBS + CC_MIRROR_PROBS)) ccEngine = CC_ONLINE_MIRROR;
-            */
-            ccEngine = CC_ONLINE_150;
+            else if(ret < (CC_200_MIRROR_PROBS + CC_200_PROBS)) ccEngine = CC_ONLINE_100;
+            else if(ret < (CC_200_MIRROR_PROBS + CC_200_PROBS + CC_MIRROR_PROBS)) ccEngine = CC_ONLINE_MIRROR;
         }
         else if (type == FROOM_HOST) {
             if(ccSetting == Cosmos::Data::FORCE_150CC) ccEngine = CC_ONLINE_150;

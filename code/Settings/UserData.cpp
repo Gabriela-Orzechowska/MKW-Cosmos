@@ -49,6 +49,11 @@ namespace Cosmos
             SettingsUpdateHook::exec();
         }
 
+        u32 SettingsHolder::GetRevisionPageCount(u32 revision){
+            (void)revision;
+            return 7;
+        }
+
         void SettingsHolder::Init(const char *filepath, const char *magic, u32 version)
         {
             strncpy(this->filepath, filepath, IPCMAXPATH);
@@ -70,7 +75,7 @@ namespace Cosmos
             }
             currentManager = manager;
             manager->CreateOpen(this->filepath, CosmosFile::FILE_MODE_READ_WRITE);
-            manager->Read(fileBuffer, bufferSize);
+            u32 bytesRead = manager->Read(fileBuffer, bufferSize);
 
             UserDataFile* mainFile = (UserDataFile*) fileBuffer;
 
@@ -82,6 +87,7 @@ namespace Cosmos
             bool isValidTrophy = true;
             bool isValidSettings = true;
             bool isValidLicense = true;
+
 
             if(strcmp(mainFile->sign, USER_DATA_MAGIC) != 0 || mainFile->version != USER_DATA_VERSION) {
                 isValid = false;
@@ -104,6 +110,67 @@ namespace Cosmos
                     isValidTrophy = false;
                 if(strcmp(licensesFile->sign, USER_DATA_LICENSE_MAGIC) || licensesFile->version > USER_DATA_LICENSE_VERSION)
                     isValidTrophy = false;
+            }
+
+            if(isValid && settingsFile->version < USER_DATA_SETTINGS_VERSION){
+                void* settingsFileP = (void*)(fileBuffer+sizeof(UserDataFile));
+                void* licensesDataP = (void*)(fileBuffer+sizeof(UserDataFile)+sizeof(UserDataSettings));
+                void* trophyDataP = (void*)(fileBuffer+sizeof(UserDataFile)+sizeof(UserDataSettings)+sizeof(UserDataLicenses));
+
+                u32 trophyBufferSize = sizeof(UserDataTrophies)
+                        + (CupManager::GetStaticInstance()->GetCupCount()*sizeof(UserDataCup)*4); // 4 per license
+                trophyBufferSize = (trophyBufferSize + 0x1F) & ~0x1F;
+                u8* tempBufferTr = (u8*) RKSystem::mInstance.EGGSystem->alloc(trophyBufferSize, 0x20);
+
+                u8 tempBufferLc[sizeof(UserDataLicenses)];
+
+                u32 oldVersion = settingsFile->version;
+
+                u8 rawSettingsBuff[4][(PAGE_COUNT+1)* SETTINGS_PER_PAGE];
+
+                u8 oldSettingsSize = SETTINGS_PER_PAGE * (GetRevisionPageCount(oldVersion) + 1);
+                for(int i = 0; i < 4; i++){
+                    memcpy(rawSettingsBuff[i], ((u8*)&settingsFile->data[0]) + (i * oldSettingsSize), oldSettingsSize);
+                }
+
+                memcpy(tempBufferTr, trophiesFile, trophyBufferSize);
+                memcpy(tempBufferLc, licensesFile, sizeof(UserDataLicenses));
+
+                memset(trophyDataP, 0, trophyBufferSize);
+                memset(licensesDataP, 0, sizeof(UserDataLicenses));
+
+                memcpy(trophyDataP, tempBufferTr, trophyBufferSize);
+                memcpy(licensesDataP, tempBufferLc, sizeof(UserDataLicenses));
+
+                RKSystem::mInstance.EGGSystem->free(tempBufferTr);
+
+                memset(settingsFile, 0, sizeof(UserDataSettings));
+
+                strncpy(settingsFile->sign, USER_DATA_SETTINGS_MAGIC, 4);
+                settingsFile->version = USER_DATA_SETTINGS_VERSION;
+
+                for(int i = 0; i < 4; i++){
+                    memcpy(&settingsFile->data[i], rawSettingsBuff[i], oldSettingsSize);
+                }
+
+                CosmosLog("Updating settings, old rev: %d, new rev: %d\n", oldVersion, USER_DATA_SETTINGS_VERSION);
+
+                for (int i = 0; i < PAGE_COUNT+1; i++)
+                {
+                    for (int j = 0; j < GlobalSettingDefinitions[i].settingCount; j++)
+                    {
+                        for(int o = 0; o < 4; o++) {
+                            if(GlobalSettingDefinitions[i].settings[j].revisionAdded >= oldVersion) {
+                                settingsFile->data[o].pages[i].setting[j] = GlobalSettingDefinitions[i].settings[j].defaultValue;
+                            }
+                        }
+                    }
+                }
+                isValidSettings = true;
+                trophiesFile = (UserDataTrophies*)trophyDataP;
+                licensesFile = (UserDataLicenses*)licensesDataP;
+                mainFile->offsetToOthers = (u32)((u32)licensesFile - (u32)fileBuffer);
+                mainFile->offsetToThophies = (u32)((u32)trophiesFile - (u32)fileBuffer);
             }
 
             if (!isValid)
