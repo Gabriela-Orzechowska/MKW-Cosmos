@@ -133,8 +133,8 @@ namespace CosmosNetwork
                 u32 playerVote = i == rkControllerSub.localAid ? handler.toSendPacket.playersData[0].cCourseVote : handler.receivedPackets[i].playersData[0].cCourseVote;
 
                 bool repeatVote = false;
-                for(int i = 0; i < TRACK_BLOCK_COUNT; i++){
-                    u32 track = manager->GetTrackBlockByIndex(i);
+                for(int j = 0; j < TRACK_BLOCK_COUNT; j++){
+                    u32 track = manager->GetTrackBlockByIndex(j);
                     if(track == ~0x0) continue;
                     if(track == playerVote) {
                         repeatVote = true; break;
