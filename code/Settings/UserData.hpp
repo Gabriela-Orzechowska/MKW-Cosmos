@@ -103,8 +103,7 @@ namespace Cosmos
 
         enum RACE_SETTINGS_1_SETTINGS
         {
-            COSMOS_MUSIC_CUTOFF = 0x0,
-            COSMOS_DRAGGABLE_BLUES,
+            COSMOS_DRAGGABLE_BLUES = 0x0,
             COSMOS_MII_HEADS,
             COSMOS_SPEEDOMETER,
             COSMOS_FRAME_MODE,
@@ -166,7 +165,8 @@ namespace Cosmos
         };
 
         enum AURORA_SOUND {
-            AURORA_SOUND_MAIN_VOLUME = 0x0,
+            AURORA_SOUND_SPEED_UP = 0x0,
+            AURORA_SOUND_MAIN_VOLUME,
             AURORA_SOUND_MUSIC_VOLUME,
             AURORA_SOUND_GAME_VOLUME,
         };
@@ -287,7 +287,6 @@ namespace Cosmos
 
         enum GLOBAL_SETTING
         {
-            COSMOS_SETTING_MUSIC_CUTOFF = COSMOS_MUSIC_CUTOFF + (COSMOS_RACE_SETTINGS_1 * 8),
             COSMOS_SETTING_DRAGGABLE_BLUES = COSMOS_DRAGGABLE_BLUES + (COSMOS_RACE_SETTINGS_1 * 8),
             COSMOS_SETTING_MII_HEADS = COSMOS_MII_HEADS + (COSMOS_RACE_SETTINGS_1 * 8),
             COSMOS_SETTING_SPEEDOMETER = COSMOS_SPEEDOMETER + (COSMOS_RACE_SETTINGS_1 * 8),
@@ -338,6 +337,7 @@ namespace Cosmos
             AURORA_SETTING_SOUND_MAIN = AURORA_SOUND_MAIN_VOLUME + (AURORA_SOUND_SETTINGS * 8),
             AURORA_SETTING_SOUND_MUSIC = AURORA_SOUND_MUSIC_VOLUME + (AURORA_SOUND_SETTINGS * 8),
             AURORA_SETTING_SOUND_GAME = AURORA_SOUND_GAME_VOLUME + (AURORA_SOUND_SETTINGS * 8),
+            COSMOS_SETTING_MUSIC_CUTOFF = AURORA_SOUND_SPEED_UP + (AURORA_SOUND_SETTINGS * 8),
         };
 
 #ifdef DEBUG_COSMOS
@@ -375,9 +375,9 @@ namespace Cosmos
             COSMOS_VS_SETTINGS_1, COSMOS_VS_SETTINGS_2, COSMOS_HOST_SETTINGS_1, 
             COSMOS_HOST_SETTINGS_2, AURORA_ACCESIBILITY_SETTINGS_1, COSMOS_DEBUG_SETTINGS};
 #else
-        static u8 GlobalSettingsPageOrder[PAGE_COUNT] = {COSMOS_MENU_SETTINGS_1, COSMOS_RACE_SETTINGS_1,
+        static u8 GlobalSettingsPageOrder[PAGE_COUNT] = {COSMOS_MENU_SETTINGS_1, COSMOS_RACE_SETTINGS_1, AURORA_SOUND_SETTINGS,
             COSMOS_VS_SETTINGS_1, COSMOS_VS_SETTINGS_2, COSMOS_HOST_SETTINGS_1, 
-            COSMOS_HOST_SETTINGS_2, AURORA_ACCESIBILITY_SETTINGS_1, AURORA_SOUND_SETTINGS};
+            COSMOS_HOST_SETTINGS_2, AURORA_ACCESIBILITY_SETTINGS_1};
 #endif
 
         struct SettingsPage
@@ -650,6 +650,7 @@ namespace Cosmos
             static SettingsHolder *sInstance;
             void Init(const char *filepath, const char *magic, u32 version);
             u32 GetRevisionPageCount(u32 revision);
+            void AdjustRevisionShifts(UserDataSettings*,u32 oldRevision);
             void RequestSave();
 
             u32 fileSize;

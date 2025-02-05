@@ -43,13 +43,13 @@ namespace Cosmos
         static SettingPageDefinition GlobalSettingDefinitions[PAGE_COUNT + 1] = {
             {
                 // Race
-                .settingCount = 6,
-                .settings = {{.optionCount = 3, .isBool = false, .defaultValue = SPEEDUP}, // Music Cutoff
-                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED},  // Draggable Blues
-                             {.optionCount = 2, .isBool = true, .defaultValue = DISABLED},  // Mii Heads
-                             {.optionCount = 4, .isBool = false, .defaultValue = SPEEDO_1_DIGIT}, // Speedometer
-                             {.optionCount = 3, .isBool = false, .defaultValue = FRAME_MODE_DEFAULT}, // Frame Mode
-                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED}}  // Ghost Saving
+                .settingCount = 5,
+                .settings = {
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED, .nameBmg = 0x30010, .firstDescBmg = 0x40011},  // Draggable Blues
+                             {.optionCount = 2, .isBool = true, .defaultValue = DISABLED, .nameBmg = 0x30020, .firstDescBmg = 0x40021},  // Mii Heads
+                             {.optionCount = 4, .isBool = false, .defaultValue = SPEEDO_1_DIGIT, .nameBmg = 0x30030, .firstDescBmg = 0x40031, .firstOptionBmg = 0x30031}, // Speedometer
+                             {.optionCount = 3, .isBool = false, .defaultValue = FRAME_MODE_DEFAULT, .nameBmg = 0x30040, .firstDescBmg = 0x40041, .firstOptionBmg = 0x30041}, // Frame Mode
+                             {.optionCount = 2, .isBool = true, .defaultValue = ENABLED, .nameBmg = 0x30050, .firstDescBmg = 0x40051}}  // Ghost Saving
             },
             {
                 // Menu
@@ -117,8 +117,9 @@ namespace Cosmos
                 },
             },
             { // SOUND
-                .settingCount = 3,
+                .settingCount = 4,
                 .settings = {
+                    {.optionCount = 3, .isBool = false, .defaultValue = SPEEDUP, .nameBmg = 0x30000, .firstDescBmg = 0x40001, .firstOptionBmg = 0x30001}, // Music Cutoff
                     { .optionCount = 11, .isBool = false, .defaultValue = 10, .revisionAdded = 15},
                     { .optionCount = 11, .isBool = false, .defaultValue = 10, .revisionAdded = 15},
                     { .optionCount = 11, .isBool = false, .defaultValue = 10, .revisionAdded = 15},
@@ -141,6 +142,18 @@ namespace Cosmos
         u32 SettingsHolder::GetRevisionPageCount(u32 revision){
             (void)revision;
             return 7;
+        }
+
+        void SettingsHolder::AdjustRevisionShifts(UserDataSettings* settings,u32 rev){
+            for(int i = 0; i < 4; i++){
+                if(rev < 15) { //CURRENT
+                    settings->data[i].rawSettings[COSMOS_SETTING_MUSIC_CUTOFF] = settings->data[i].pages[COSMOS_RACE_SETTINGS_1].setting[0];
+                    for(int j = 0; j < 5; j++){
+                        settings->data[i].pages[COSMOS_RACE_SETTINGS_1].setting[j] = 
+                            settings->data[i].pages[COSMOS_RACE_SETTINGS_1].setting[j+1];
+                    }
+                }
+            }
         }
 
         void SettingsHolder::Init(const char *filepath, const char *magic, u32 version)
@@ -242,6 +255,7 @@ namespace Cosmos
                     memcpy(&settingsFile->data[i], rawSettingsBuff[i], oldSettingsSize);
                 }
 
+                this->AdjustRevisionShifts(settingsFile, oldVersion);
                 CosmosLog("Updating settings, old rev: %d, new rev: %d\n", oldVersion, USER_DATA_SETTINGS_VERSION);
 
                 for (int i = 0; i < PAGE_COUNT+1; i++)
@@ -255,6 +269,8 @@ namespace Cosmos
                         }
                     }
                 }
+
+
                 isValidSettings = true;
                 trophiesFile = (UserDataTrophies*)trophyDataP;
                 licensesFile = (UserDataLicenses*)licensesDataP;

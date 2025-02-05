@@ -18,9 +18,9 @@ namespace Aurora {
         }
 
         void InitSoundSettings(){
-            GetDefinitions()[AURORA_SOUND_SETTINGS].settings[0].setTextFunc = SetVolumeText;
-            GetDefinitions()[AURORA_SOUND_SETTINGS].settings[1].setTextFunc = SetVolumeText;
-            GetDefinitions()[AURORA_SOUND_SETTINGS].settings[2].setTextFunc = SetVolumeText;
+            GetDefinitions()[AURORA_SOUND_SETTINGS].settings[AURORA_SOUND_MAIN_VOLUME].setTextFunc = SetVolumeText;
+            GetDefinitions()[AURORA_SOUND_SETTINGS].settings[AURORA_SOUND_MUSIC_VOLUME].setTextFunc = SetVolumeText;
+            GetDefinitions()[AURORA_SOUND_SETTINGS].settings[AURORA_SOUND_GAME_VOLUME].setTextFunc = SetVolumeText;
         }
         static BootHook bhInitSoundSettings(InitSoundSettings, LOW);
 
@@ -30,6 +30,7 @@ namespace Aurora {
             float musicVolume = mainVolume * holder->GetSettingValue(AURORA_SETTING_SOUND_MUSIC) / 100.0f;
             float gameVolume = mainVolume * holder->GetSettingValue(AURORA_SETTING_SOUND_GAME) / 100.0f;
 
+            // I think max is 11? Better safe than sorry
             float oldVolumes[20];
 
             oldVolumes[0] = player.soundPlayerArray[0].mainOutVolume;
