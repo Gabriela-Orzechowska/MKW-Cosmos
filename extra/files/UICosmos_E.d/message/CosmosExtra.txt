@@ -1722,3 +1722,14 @@
 2101c0	= Classic
 2101c1	= Remake
 
+
+  2a09	= Sound
+  2a29  = Manage your Sound settings!
+
+  30810 = Main Volume
+  30820 = Music Volume
+  30830 = Game Volume
+
+  2850  = \z{a02,1000000000}%
+  2851  = Disabled
+

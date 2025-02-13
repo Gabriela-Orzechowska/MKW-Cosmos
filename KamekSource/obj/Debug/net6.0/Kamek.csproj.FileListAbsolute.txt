@@ -53,3 +53,17 @@ D:\Kamek\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\refint\Kamek.dll
 D:\Kamek\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.pdb
 D:\Kamek\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\Kamek.genruntimeconfig.cache
 D:\Kamek\MKWDX-Kamek\KamekSource\obj\Debug\net6.0\ref\Kamek.dll
+D:\Kamek\Cosmos-Engine\KamekSource\obj\Debug\net6.0\Kamek.GeneratedMSBuildEditorConfig.editorconfig
+D:\Kamek\Cosmos-Engine\KamekSource\obj\Debug\net6.0\Kamek.csproj.CoreCompileInputs.cache
+D:\Kamek\Cosmos-Engine\KamekSource\obj\Debug\net6.0\Kamek.sourcelink.json
+D:\Kamek\Cosmos-Engine\KamekSource\obj\Debug\net6.0\Kamek.dll
+D:\Kamek\Cosmos-Engine\KamekSource\obj\Debug\net6.0\refint\Kamek.dll
+D:\Kamek\Cosmos-Engine\KamekSource\obj\Debug\net6.0\Kamek.pdb
+D:\Kamek\Cosmos-Engine\KamekSource\bin\Debug\net6.0\Kamek.exe
+D:\Kamek\Cosmos-Engine\KamekSource\bin\Debug\net6.0\Kamek.dll.config
+D:\Kamek\Cosmos-Engine\KamekSource\bin\Debug\net6.0\Kamek.deps.json
+D:\Kamek\Cosmos-Engine\KamekSource\bin\Debug\net6.0\Kamek.runtimeconfig.json
+D:\Kamek\Cosmos-Engine\KamekSource\bin\Debug\net6.0\Kamek.dll
+D:\Kamek\Cosmos-Engine\KamekSource\bin\Debug\net6.0\Kamek.pdb
+D:\Kamek\Cosmos-Engine\KamekSource\obj\Debug\net6.0\Kamek.genruntimeconfig.cache
+D:\Kamek\Cosmos-Engine\KamekSource\obj\Debug\net6.0\ref\Kamek.dll

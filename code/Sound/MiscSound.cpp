@@ -12,9 +12,14 @@ namespace Aurora {
         void SetVolumeText(LayoutUIControl* control, u32 option) {
             if(control == nullptr) return;
 
+            if(option == 0){
+                control->SetMsgId(0x2851, nullptr);
+                return;
+            }
+
             TextInfo info;
-            info.intToPass[0] = option;
-            control->SetMsgId(0xd7b, &info);
+            info.intToPass[0] = option * 10;
+            control->SetMsgId(0x2850, &info);
         }
 
         void InitSoundSettings(){
@@ -26,6 +31,10 @@ namespace Aurora {
 
         void SoundArchivePlayerNewUpdate(snd::SoundArchivePlayer& player){
             SettingsHolder* holder = SettingsHolder::GetStaticInstance();
+            if(holder == nullptr){
+                player.Update();
+                return;
+            }
             float mainVolume = (float)holder->GetSettingValue(AURORA_SETTING_SOUND_MAIN);
             float musicVolume = mainVolume * holder->GetSettingValue(AURORA_SETTING_SOUND_MUSIC) / 100.0f;
             float gameVolume = mainVolume * holder->GetSettingValue(AURORA_SETTING_SOUND_GAME) / 100.0f;

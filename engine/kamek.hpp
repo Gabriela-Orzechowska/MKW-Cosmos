@@ -129,7 +129,7 @@ struct PtmfHolder_3A : PtmfHolderBase_3A<Ret, A1, A2, A3> {
 #endif
 
 #define __COMPILER_VERSION__ "4305_224"
-#define __COSMOS_VERSION__ "v0.1.5"
+#define __COSMOS_VERSION__ "v0.1.7"
 #define __AURORA_VERSION__ "v1.0__3"
 
 class MenuLoadHook {

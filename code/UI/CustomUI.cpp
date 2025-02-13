@@ -184,7 +184,8 @@ typedef void (*Console_Destroy)();
 void DestroyConsole(){
     if(destroyed) return;
     Console_Destroy destroy = (Console_Destroy) *((u32*)0x80003fE8);
-    destroy();
+    if(destroy != nullptr)
+        destroy();
     #ifdef COSMOS_SECURITY
     Cosmos::Security::LoaderCleanup();
     #endif

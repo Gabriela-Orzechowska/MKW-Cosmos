@@ -72,7 +72,7 @@ static MenuLoadHook mhlFasterPages(FasterPageTransition);
 kmWriteRegionInstruction(0x80604094, 0x4800001c, 'E');
 
 kmWrite32(0x80007758, 0x981e0ccc);
-kmWrite32(0x80007bc8, 0x4e800020);
+//kmWrite32(0x80007bc8, 0x4e800020);
 
 
 void DisableFastMenuOnLicenseSelect() {

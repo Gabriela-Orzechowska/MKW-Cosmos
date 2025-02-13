@@ -324,7 +324,7 @@ namespace Kamek
                 var mappedAddr = Mapper.Remap(parsedAddr, out bool inwasported);
                 if(inwasported)
                 { 
-                    Console.Write($"{mappedAddr:X8} ");
+                    Console.Write($"\nSymbol not ported: {mappedAddr:X8}");
                 }
                 return new Symbol { address = new Word(WordType.AbsoluteAddr, mappedAddr) };
             }

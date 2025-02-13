@@ -360,6 +360,7 @@ namespace Cosmos{
 
     void LoadLoaderFuncs(){
         System::Console_PrintFunc = (Console_Print_t) *((u32*)0x80003FEC);
+
         System::Console_Clear = (Console_void_t) *((u32*)0x80003FE4);
         //System::Console_Clear();
     }

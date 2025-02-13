@@ -1,0 +1,223 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|d:\\kamek\\cosmos-engine\\kameksource\\kamekfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|solutionrelative:kamekfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|d:\\kamek\\cosmos-engine\\kameksource\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|d:\\kamek\\cosmos-engine\\kameksource\\dol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|solutionrelative:dol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|d:\\kamek\\cosmos-engine\\kameksource\\elf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|solutionrelative:elf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|d:\\kamek\\cosmos-engine\\kameksource\\hooks\\branchhook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|solutionrelative:hooks\\branchhook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|d:\\kamek\\cosmos-engine\\kameksource\\linker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|solutionrelative:linker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|d:\\kamek\\cosmos-engine\\kameksource\\addressmapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|solutionrelative:addressmapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|d:\\kamek\\cosmos-engine\\kameksource\\versioninfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|solutionrelative:versioninfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|d:\\kamek\\cosmos-engine\\kameksource\\util.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|solutionrelative:util.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|d:\\kamek\\cosmos-engine\\kameksource\\hooks\\hook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|solutionrelative:hooks\\hook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|d:\\kamek\\cosmos-engine\\kameksource\\word.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|solutionrelative:word.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|d:\\kamek\\cosmos-engine\\kameksource\\commands\\branchcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57BCB38A-0135-4AC6-AD0B-3191A2804DC4}|Kamek.csproj|solutionrelative:commands\\branchcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "VersionInfo.cs",
+              "DocumentMoniker": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\VersionInfo.cs",
+              "RelativeDocumentMoniker": "VersionInfo.cs",
+              "ToolTip": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\VersionInfo.cs",
+              "RelativeToolTip": "VersionInfo.cs",
+              "ViewState": "AQIAAEIAAAAAAAAAAAAvwEgAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T11:26:17.023Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Util.cs",
+              "DocumentMoniker": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Util.cs",
+              "RelativeDocumentMoniker": "Util.cs",
+              "ToolTip": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Util.cs",
+              "RelativeToolTip": "Util.cs",
+              "ViewState": "AQIAAGEAAAAAAAAAAAAwwG0AAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T11:26:17.054Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Hook.cs",
+              "DocumentMoniker": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Hooks\\Hook.cs",
+              "RelativeDocumentMoniker": "Hooks\\Hook.cs",
+              "ToolTip": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Hooks\\Hook.cs",
+              "RelativeToolTip": "Hooks\\Hook.cs",
+              "ViewState": "AQIAACYAAAAAAAAAAAD4vzMAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T11:26:17.055Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAHoAAAAAAAAAAAASwJYAAAA7AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T11:26:17.056Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Word.cs",
+              "DocumentMoniker": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Word.cs",
+              "RelativeDocumentMoniker": "Word.cs",
+              "ToolTip": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Word.cs",
+              "RelativeToolTip": "Word.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAwwGgAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T11:26:17.059Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "KamekFile.cs",
+              "DocumentMoniker": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\KamekFile.cs",
+              "RelativeDocumentMoniker": "KamekFile.cs",
+              "ToolTip": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\KamekFile.cs",
+              "RelativeToolTip": "KamekFile.cs",
+              "ViewState": "AQIAAJsAAAAAAAAAAAAWwJMAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T11:26:17.06Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AddressMapper.cs",
+              "DocumentMoniker": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\AddressMapper.cs",
+              "RelativeDocumentMoniker": "AddressMapper.cs",
+              "ToolTip": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\AddressMapper.cs",
+              "RelativeToolTip": "AddressMapper.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAWwBIAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T11:26:17.062Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Linker.cs",
+              "DocumentMoniker": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Linker.cs",
+              "RelativeDocumentMoniker": "Linker.cs",
+              "ToolTip": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Linker.cs",
+              "RelativeToolTip": "Linker.cs",
+              "ViewState": "AQIAAMkBAAAAAAAAAAA5wLsBAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T11:26:17.063Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Elf.cs",
+              "DocumentMoniker": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Elf.cs",
+              "RelativeDocumentMoniker": "Elf.cs",
+              "ToolTip": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Elf.cs",
+              "RelativeToolTip": "Elf.cs",
+              "ViewState": "AQIAAH4AAAAAAAAAAAAAAEcAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T11:26:17.065Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Dol.cs",
+              "DocumentMoniker": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Dol.cs",
+              "RelativeDocumentMoniker": "Dol.cs",
+              "ToolTip": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Dol.cs",
+              "RelativeToolTip": "Dol.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T11:26:17.066Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BranchHook.cs",
+              "DocumentMoniker": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Hooks\\BranchHook.cs",
+              "RelativeDocumentMoniker": "Hooks\\BranchHook.cs",
+              "ToolTip": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Hooks\\BranchHook.cs",
+              "RelativeToolTip": "Hooks\\BranchHook.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABcAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T11:26:17.068Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BranchCommand.cs",
+              "DocumentMoniker": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Commands\\BranchCommand.cs",
+              "RelativeDocumentMoniker": "Commands\\BranchCommand.cs",
+              "ToolTip": "D:\\Kamek\\Cosmos-Engine\\KamekSource\\Commands\\BranchCommand.cs",
+              "RelativeToolTip": "Commands\\BranchCommand.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T11:26:17.07Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -5,7 +5,6 @@ public class AddressMapper
 {
     public AddressMapper Base = null;
 
-
     struct Mapping
     {
         public uint start, end;
@@ -23,6 +22,12 @@ public class AddressMapper
     }
 
     private List<Mapping> _mappings = new List<Mapping>();
+    private int _rel_offset = 0;
+
+    public void SetRelOffset(int offset)
+    {
+        this._rel_offset = offset; 
+    }
 
     public void AddMapping(uint start, uint end, int delta)
     {
@@ -67,6 +72,8 @@ public class AddressMapper
         {
             if (input >= mapping.start && input <= mapping.end)
             {
+                if(input >= 0x80510238) 
+                    return (uint)(input + mapping.delta + _rel_offset);
                 return (uint)(input + mapping.delta);
             }
                 

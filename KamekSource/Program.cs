@@ -23,6 +23,7 @@ namespace Kamek
             var externals = new Dictionary<string, uint>();
             VersionInfo versions = null;
             var selectedVersions = new List<String>();
+            int rel_offset = 0;
 
             foreach (var arg in args)
             {
@@ -57,6 +58,8 @@ namespace Kamek
                         ReadExternals(externals, arg.Substring(11));
                     else if (arg.StartsWith("-versions="))
                         versions = new VersionInfo(arg.Substring(10));
+                    else if (arg.StartsWith("-rel-offset="))
+                        rel_offset = (int.Parse(arg.Substring(12), System.Globalization.NumberStyles.Number));
                     else if (arg.StartsWith("-select-version="))
                         selectedVersions.Add(arg.Substring(16));
                     else
@@ -126,7 +129,8 @@ namespace Kamek
                     Console.WriteLine("(skipping version {0} as it's not selected)", version.Key);
                     continue;
                 }
-                Console.WriteLine("linking version {0}...", version.Key);
+                Console.WriteLine("linking version {0}... Offset: {1}", version.Key, rel_offset);
+                version.Value.SetRelOffset(rel_offset);
 
                 var linker = new Linker(version.Value);
                 foreach (var module in modules)

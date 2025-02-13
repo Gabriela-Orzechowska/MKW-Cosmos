@@ -92,7 +92,7 @@ def main():
     print("Linking...")
     link = " ".join(OBJECTS)
 
-    kamek = f"{LD} build/kamek.o {link} -dynamic -externals=\"include/symbols.txt\" -versions=\"include/versions.txt\" -output-kamek=out/$KV$.bin"
+    kamek = f"{LD} build/kamek.o {link} -dynamic -externals=\"include/symbols.txt\" -versions=\"include/versions.txt\" -output-kamek=out/$KV$.bin -rel-offset=-196608"
     subprocess.run(shlex.split(kamek))
     #  -debug -map=\"D:\Kamek\MKWDX-Kamek\KamekMap.map\" -readelf=\"C:\cygnus\cygwin-b20\H-i586-cygwin32\bin\readelf.exe\" 
     print("Linking done")
