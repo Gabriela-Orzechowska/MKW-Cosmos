@@ -166,7 +166,7 @@ kmCall(0x8062d004, InjectMainMenuPages);
 kmCall(0x8062d088, InjectMainMenuPages);
 
 
-static int FontDotSize = 1;
+static int FontDotSize = 2;
 
 asm int AdjustFontSize() {
     ASM (
@@ -179,19 +179,5 @@ asm int AdjustFontSize() {
 }
 kmCall(0x80022278, AdjustFontSize);
 
-static bool destroyed = false;
-typedef void (*Console_Destroy)();
-void DestroyConsole(){
-    if(destroyed) return;
-    Console_Destroy destroy = (Console_Destroy) *((u32*)0x80003fE8);
-    if(destroy != nullptr)
-        destroy();
-    #ifdef COSMOS_SECURITY
-    Cosmos::Security::LoaderCleanup();
-    #endif
-    destroyed = true;
-    FontDotSize = 2;
-}
-kmBranch(0x800074a0, DestroyConsole);
 
 
