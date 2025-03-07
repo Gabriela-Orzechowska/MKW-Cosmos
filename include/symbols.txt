@@ -3,6 +3,8 @@ WWFC_CUSTOM_REGION = 0x80005efc
 OSUnhandledException2nd__FUcP9OSContextUiUi = 0x801a2a18
 Run__8RKSystemFv = 0x8000951c
 
+vehicle_names = 0x808B3B50
+
 kartIdByWeigth = 0x808ab770
 RegionColors = 0x808a9dfc
 
@@ -203,6 +205,9 @@ Seek__4NANDFPQ24NAND8FileInfoii = 0x8019b964
 #Socket
 SOCleanup = 0x801ec5b8
 SOStartup = 0x801ec184
+SOInit = 0x801ebec0
+_SOAlloc = 0x80658418
+_SOFree = 0x80658498
 
 #OS
 OSReport = 0x801A25D0
@@ -418,6 +423,15 @@ console__Q23EGG9Exception = 0x80386E3C
 
 #ColorFader
 setColor__Q23EGG10ColorFaderFQ34nw4r2ut5Color = 0x8021522c
+__ct__Q23EGG10ColorFaderFffffQ34nw4r2ut5ColorQ33EGG5Fader7EStatus = 0x80215168
+__vt__Q23EGG10ColorFader = 0x802a2a28
+__dt__Q23EGG10ColorFaderFv = 0x8021566c
+calc__Q23EGG10ColorFaderFv = 0x802152d4
+draw__Q23EGG10ColorFaderFv = 0x802153b8
+fadeOut__Q23EGG10ColorFaderFv = 0x802152a8
+fadeIn__Q23EGG10ColorFaderFv = 0x80215280
+getStatus__Q23EGG10ColorFaderCFv = 0x80007bc0
+setStatus__Q23EGG10ColorFaderFQ33EGG5Fader7EStatus = 0x80215248
 
 #RKG
 ClearBuffer__3RKGFv = 0x8051c088
@@ -493,6 +507,11 @@ LoadMii__8MiiGroupFUcP3Mii = 0x805fa3fc
 LoadDefaultMii__8MiiGroupFUcUs = 0x805fa748
 MiiXthing = 0x808a460c
 MiiZthing = 0x808a4608
+
+__ct__8MiiGroupFv = 0x805f9e78
+__dt__8MiiGroupFv = 0x805f9f58
+Init__8MiiGroupFUiUiPQ23EGG4Heap = 0x805fa04c
+LoadStoreMii__8MiiGroupFUcP11RFLCreateID = 0x805fa6e0
 
 #Mii
 ComputeRawMii__3MiiFP6RawMiiP9MiiTexMap = 0x8052758c
@@ -707,6 +726,15 @@ GetAnimationFrameSize__10PushButtonCFv = 0x805bdf88
 SetPlayerBitfield__10PushButtonFUi = 0x805bdbd4
 LoadWithAnims__10PushButtonFPPCcPCcPCcPCcUiUi = 0x805bd720
 
+OnClick__10PushButtonFv = 0x805be42c
+OnDeselect__10PushButtonFv = 0x805be354
+OnSelect__10PushButtonFv = 0x805be12c
+OnDeactivate__10PushButtonFv =  0x805bd710
+GetClassName__10PushButtonCFv = 0x805bd39c
+GetRuntimeTypeInfo__10PushButtonCFv = 0x805be610
+Update__10PushButtonFv = 0x805bdd98
+Init__10PushButtonFv = 0x805bdbe0
+
 #SheetSelect
 __ct__18SheetSelectControlFv = 0x80635ec4 
 __dt__18SheetSelectControlFv = 0x8063607c
@@ -754,6 +782,7 @@ Load__22TextUpDownValueControlFPCcPCcPCcPCcPCc = 0x806406b0
 SetOnTextChangeHandler__22TextUpDownValueControlFP66PtmfHolder_2A<4Page,v,PQ222TextUpDownValueControl11TextControl,Ui> = 0x806407d4
 func_vtable__12UnkTextClassFv = 0x80642a50
 
+AsyncDisplay_endRender = 0x8020ff9c
 AsyncDisplay_endRender__FPQ23EGG12AsyncDisplay = 0x8020ff9c
 AsyncDisplay_beginRender__FPQ23EGG12AsyncDisplay = 0x8020ff98
 AsyncDisplay_beginFrame__FPQ23EGG12AsyncDisplay = 0x8020fe24
@@ -1451,6 +1480,7 @@ Real_DWCi_Auth_SendRequest = 0x800ed6ec
 s_auth_work = 0x8038633c
 s_auth_error = 0x802f1cB8
 DWCi_CheckLogin = 0x800d0cdc
+DWCi_Auth_IsFinished = 0x800ed5c0
 
 DWC_AddMatchKeyInt = 0x800d4258
 DWC_ReportLevel = 0x803862c0
@@ -1879,6 +1909,7 @@ GXTexModeSync= 0x8016eb70
 GXTokenInterruptHandler= 0x8016eccc
 StateGX_ChangeProjectionv= 0x802417fc
 TPLGetGXTexObjFromPalette= 0x801b7544
+TPLBind = 0x801b7410
 
 C_MTXOrtho = 0x8019ab4c
 PSMTXIdentity = 0x80199d04

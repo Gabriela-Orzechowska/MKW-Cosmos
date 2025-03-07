@@ -6,9 +6,18 @@
 #include <core/rvl/gx/GXStruct.hpp>
 
 extern "C" {
+
+void __GXInitGX(); 
 void GXSetVtxDesc(GXAttr attr, GXAttrType type);
+void GXSetArray(GXAttr attr, void* buff, u32 size);
 void GXClearVtxDesc();
+void GXSetTevOp(GXTevStageID id, GXTevMode mode);
+void GXSetTevColorIn(GXTevStageID stage, GXTevColorArg a, GXTevColorArg b, GXTevColorArg c,
+        GXTevColorArg d);
+void GXSetTevAlphaIn(GXTevStageID stage, GXTevAlphaArg a, GXTevAlphaArg b, GXTevAlphaArg c,
+        GXTevAlphaArg d);
 void GXSetVtxAttrFmt(GXVtxFmt vtxfmt, GXAttr attr, GXCompCnt cnt, GXCompType type, u8 frac);
+void GXSetTexCoordGen2(GXTexCoordID id, GXTexGenType func, GXTexGenSrc src, s32 mtx, bool renormalize, s32 pt_mtx);
 void GXSetDrawSync(u32 val);
 void GXSetNumTexGens(u8 nr);
 void GXBegin(GXPrimitive type, GXVtxFmt vtxfmt, u16 nverts);
@@ -30,10 +39,11 @@ void GXLoadPosMtxImm(const float mtx[3][4], u32 pnidx);
 void GXSetCurrentMtx(u32 mtx);
 void GXLoadPosMtxIndx(u32 indx);
 void GXSetViewport(float x, float y, float width, float height, float near, float far);
-void GXSetScissor(u32 left, u32 top, u32 right, u32 bottom);
+void GXSetScissor(u32 left, u32 top, u32 width, u32 height);
 void GXSetScissorBoxOffset(u32 x, u32 y);
 void GXSetNumIndStages(u32 i);
 void GXSetChanMatColor(GXChannelID id, GXColor color);
+void GXSetChanAmbColor(GXChannelID id, GXColor color);
 
 
 }

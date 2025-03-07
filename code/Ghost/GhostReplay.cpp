@@ -16,7 +16,6 @@
  */
 
 #include <kamek.hpp>
-#include <Ghost/GhostUpload.hpp>
 #include <game/System/identifiers.hpp>
 #include <game/UI/MenuData/MenuData.hpp>
 #include <game/Race/RaceData.hpp>

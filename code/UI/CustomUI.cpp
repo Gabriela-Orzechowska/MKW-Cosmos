@@ -33,6 +33,7 @@
 #include <Aurora/AuroraSecurity.hpp>
 #include <Aurora/AuroraAPI.hpp>
 #include <Aurora/AuroraLicense.hpp>
+#include <UI/Leaderboards/LeaderboardMain.hpp>
 
 void* CreatePage(u32 pageId)
 {
@@ -47,6 +48,8 @@ void* CreatePage(u32 pageId)
             return new (CosmosUI::AwaitPageWithBackground);
         case Aurora::LICENSE_CLASS_PROGRESS:
             return new (Aurora::UI::LicenseProgress);
+        case Aurora::LEADERBOARDS_MAIN:
+            return new (Aurora::UI::LeaderboardMain);
         default:
             return Scene::CreatePageById((PageId)pageId);
     }
@@ -86,6 +89,10 @@ void InjectMenuSinglePages(Scene& scene, PageId id)
     scene.CreatePage(id);
     scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
     scene.CreatePage((PageId)Cosmos::VARIANT_SELECT);
+
+    //DEV
+    scene.CreatePage((PageId)Aurora::LEADERBOARDS_MAIN);
+
     return;
 }
 
@@ -115,8 +122,9 @@ void InjectTTPages(Scene& scene, PageId id){
     scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
     scene.CreatePage(ARE_YOU_SURE_YOU_WANT_TO_QUIT);
     scene.CreatePage(VOTERANDOM_MESSAGE_BOX);
-    scene.CreatePage(TEXT_BOX_WITH_SPINNER);
+    scene.CreatePage((PageId)Cosmos::SPINNER_WITH_BACKGROUND);
     scene.CreatePage(GENERIC_TEXT_BOX_FULL_PAGE_PRESS_A);
+    scene.CreatePage(PAGE_MESSAGE_BOX_TRANSPARENT);
 };
 
 kmCall(0x8062c644, InjectTTPages); // TTs

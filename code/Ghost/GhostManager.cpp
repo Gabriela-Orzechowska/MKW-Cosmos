@@ -30,7 +30,6 @@
 #include <Debug/Draw/DebugDraw.hpp>
 #include <Settings/UserData.hpp>
 #include <game/Network/RKNetController.hpp>
-#include <Ghost/GhostUpload.hpp>
 
 
 void CorrectGhostTrackName(LayoutUIControl *control, const char *textBoxName, u32 bmgId, const TextInfo *text)
@@ -136,7 +135,6 @@ namespace Cosmos
             this->files = nullptr;
             RaceData::GetStaticInstance()->menusScenario.GetPlayer(1).playerType = PLAYER_NONE;
             this->shroomsUsed = 0;
-            this->ResetMetadata();
         }
 
         void GhostManager::ResetMetadata() {
@@ -229,6 +227,8 @@ namespace Cosmos
             if (rkg->header.compressed)
                 size = ((CompressedRKG *)rkg)->dataLength + sizeof(RKGHeader) + 0x4 + 0x4;
             manager->currentFileSize = size;
+
+            manager->rkgSize = size;
 
             fileManager->Overwrite(size, rkg);
             fileManager->Close();
@@ -582,9 +582,7 @@ namespace Cosmos
         kmWritePointer(0x808DA614, PatchBeforeInAnim);
 
         KartMovement* OnShroomActivate(ItemPlayer* item) {
-            if(item->id == 0 && 
-                    (RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode == MODE_TIME_TRIAL
-                     || RaceData::GetStaticInstance()->racesScenario.GetSettings().gamemode == MODE_GHOST_RACE))
+            if(item->id == 0 && GhostManager::GetStaticInstance())
                 GhostManager::GetStaticInstance()->AddShroom(item);
             return item->kartPointers->kartMovement;
         };

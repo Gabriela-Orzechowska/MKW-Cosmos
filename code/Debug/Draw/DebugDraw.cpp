@@ -47,10 +47,10 @@ namespace CosmosDebug
         GXEnd();
     }
 
+    /*
     void AsyncDisplayInjectCustomRender(EGG::AsyncDisplay * display)
     {
         DebugMessage::RenderAll();
-/*
         GXSetViewport(0.0f,0.0f,608.0f,456.0f,0.0f,1.0f);
         GXSetScissor(0,0, 608, 456);
         float mtx[4][4];
@@ -78,11 +78,11 @@ namespace CosmosDebug
 
         DebugDrawHook::exec();
         
-*/
         AsyncDisplay_endRender(display);
 
         return;
     }
+*/
 
     //kmWritePointer(0x802a26f0, AsyncDisplayInjectCustomRender);
 

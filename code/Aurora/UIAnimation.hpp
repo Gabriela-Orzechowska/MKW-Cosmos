@@ -18,6 +18,7 @@ namespace Aurora {
             static void CreateStaticInstance();
             static Animator* GetStaticInstance() { return sInstance; };
             static inline float GetBezierEasing(float a);
+            inline u32 GetCurrentColor() const { return currentColor; }
 
             void AnimateTopMenu(Pages::TopMenuOverlay& overlay);
             void ApplyPaneColor(Pane* pane);

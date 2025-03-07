@@ -4,6 +4,8 @@
 #include "types.hpp"
 #include <core/rvl/gx/GX.hpp>
 
+extern "C" {
+
 typedef struct{
     u16             numEntries;
     u8              unpacked;
@@ -47,4 +49,5 @@ TPLDescriptorPtr TPLGet(TPLPalettePtr pal, u32 id);
 void TPLGetGXTexObjFromPalette(TPLPalettePtr pal, GXTexObj *to, u32 id);
 void TPLGetGXTexObjFromPaletteCI(TPLPalettePtr pal, GXTexObj *to, GXTlutObj *tlo, GXTlut tluts, u32 id);
 
+}
 #endif

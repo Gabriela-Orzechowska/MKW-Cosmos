@@ -9,6 +9,7 @@
 namespace Pages{
 class TTSplits : public Page{ //0x2D
 public:
+    static inline TTSplits* GetPage() { return MenuData::GetStaticInstance()->GetPage<TTSplits>((PageId)0x2D); }
     TTSplits(); //808556e4
     ~TTSplits() override; //80855864 vtable 808da5dc
     PageId GetNextPage() const override; //0x10 808561dc

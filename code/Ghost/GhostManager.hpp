@@ -149,6 +149,9 @@ namespace Cosmos
 
             //Aurora
             void ResetMetadata();
+            AuroraMetadata* GetMetadata() { return &this->metadata; }
+            RKG* GetRKG() { return &this->rkg; }
+            u32 GetRKGSize() { return this->rkgSize; }
             void SetSHA1(u32* sha1) { memcpy(&this->metadata.sha1, sha1, 20); }
 
             void FillMetadata();
@@ -166,6 +169,7 @@ namespace Cosmos
             bool wereGhostsDisabled;
             bool isFinished;
             u32 currentFileSize;
+            u32 rkgSize;
 
         private:
             static GhostManager *sInstance;

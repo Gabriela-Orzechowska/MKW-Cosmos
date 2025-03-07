@@ -29,3 +29,35 @@ namespace DWC{
         
     }
 }
+
+enum GPIProgress {
+    INIT,
+    CREATE_SOCKET,
+    HOST_LOOKUP,
+    LOOKUP_PENDING,
+    CONNECTION,
+    SECURE_SESSION,
+    SEND_REQUEST,
+    POSTING,
+    WAITING,
+    RECEIVING_STATUS,
+    RECEIVING_HEADERS,
+    RECEIVING_FILE,
+};
+
+// Size unknown
+struct _gpiConnection {
+    u8 unknown_00[0x10-0x0]; 
+    GPIProgress progress;
+    char* url; //0x14
+    char* host; //0x18
+    u8 unknown_18[0x20-0x1C];
+    u16 port;
+    u16 padding;
+    char* data;
+    u32 isHttps;
+};
+
+extern "C" {
+    bool gpiParseUrl(_gpiConnection* conn); // 
+};
