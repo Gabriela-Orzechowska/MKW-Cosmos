@@ -1,6 +1,6 @@
-![image](https://gabriela-orzechowska.com/images/cosmosLogo.png)
+![image](https://cosmos.gabriela-orzechowska.com/aurora/images/aurora.png)
 
-Mario Kart Wii code extension for CT distributions.
+Mario Kart Wii Custom Track Distribution
 
 ## Building
 Run `build.py`. Update `CC=` path inside `build.py` if needed.
@@ -12,50 +12,25 @@ Run `build.py`. Update `CC=` path inside `build.py` if needed.
 ### General
 - Slot Expansion
 - Discord Rich Presence
+- Custom WiiLink based servers.
 - Files loading from additional archives/bmg files
 - Auto BRSAR Patching
 - Full ghost support (saving, watching, racing)
-- Various debugging features
 - SD Card Support
 - LZMA Compression
 - Custom Track Selection
-- Performance Monitor
 
 ### Gameplay
+- Custom License system
 - Time Trial CC mode selection
 - No multi channel music cut off
 - Speed-o-meter
 - Extended Presence Flags
 - Many minor fixes and patches
   
-### Settings
-Settings Page, containing various settings, available also mid-race:
-- Race
-  - Music Speed-Up
-  - Draggable Blues
-  - FPS Mode
-  - Toggle Mii Heads
-  - Speedometer Settings
-- Menu
-  - Language Selector (All vanilla + ability to add more)
-  - Track Layout chooser (basic vs alphabetical)
-also can be changed with minus on track selection)
-  - Fast Menus
-- Debug (during developement)
-  - DWC Logs
-  - Performance Monitor
-  - Debug Messages on Screen
-  - Log Console to SD Card
-- Host
-  - OpenHost
-  - Race Count
-  - HAW
-  - Allow Mii Heads
-  - Force CC
-- Accesibility (menu to be added)
-  - Y/ZL to Wheelie
-
 ## License
+
+The "Cosmos" parts of the code are under GPLv3 and are free to use in your projects. Please make sure the proper license text is present in the file. Aurora specific parts are not licensed and cannot be used without private permission. 
 
     Cosmos
     Copyright (C) 2023-2025 Gabriela Orzechowska
@@ -72,6 +47,7 @@ also can be changed with minus on track selection)
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 ## Credits
