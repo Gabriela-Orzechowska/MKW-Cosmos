@@ -9,6 +9,7 @@
 #include <game/UI/Ctrl/SheetSelect.hpp>
 #include <game/UI/Ctrl/GhostInfoControl.hpp>
 
+#include <game/UI/MenuData/MenuData.hpp>
 /*
 Contributors:
 -stebler, Melg
@@ -18,6 +19,8 @@ Contributors:
 
 namespace Pages{
 class GhostSelectSupporting : public Page { //0x70
+public:
+    static inline GhostSelectSupporting* GetPage() { return MenuData::GetStaticInstance()->GetPage<GhostSelectSupporting>((PageId)0x70); }
     GhostSelectSupporting(); //80638e88
     ~GhostSelectSupporting() override; //80638ecc vtable 808becd8
     PageId GetNextPage() const override; //8063a4cc

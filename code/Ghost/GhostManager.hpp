@@ -137,6 +137,11 @@ namespace Cosmos
             void Init(u32 courseId);
             bool EnableGhost(const GhostListEntry &entry);
             GhostLeaderboardManager &GetLeaderboard() { return this->leaderboard; }
+
+            void ReadGhosts();
+            static void StartReadingGhosts(void* arg) {
+                ((GhostManager*)arg)->ReadGhosts();
+            }
             const GhostData *GetGhostData(u32 idx) const
             {
                 return &this->files[idx];

@@ -20,6 +20,10 @@
 #include "Item/ItemPlayer.hpp"
 #include "Race/Kart/KartMovement.hpp"
 #include "Race/RaceData.hpp"
+#include "System/Identifiers.hpp"
+#include "UI/MenuData/MenuData.hpp"
+#include "UI/Page/Other/GhostSelect.hpp"
+#include "UI/Page/Page.hpp"
 #include "core/rvl/os/OS.hpp"
 #include "hooks.hpp"
 #include "System/System.hpp"
@@ -30,6 +34,7 @@
 #include <Debug/Draw/DebugDraw.hpp>
 #include <Settings/UserData.hpp>
 #include <game/Network/RKNetController.hpp>
+#include <game/UI/Page/Menu/CourseSelect.hpp>
 
 
 void CorrectGhostTrackName(LayoutUIControl *control, const char *textBoxName, u32 bmgId, const TextInfo *text)
@@ -389,8 +394,12 @@ namespace Cosmos
         kmCall(0x8085d5c8, GetTimeEntry);
         kmCall(0x8085da54, GetTimeEntry);
 
-        void CustomGhostGroup(GhostList *list, u32 id)
-        {
+        void GhostManager::ReadGhosts(){
+            volatile Pages::AutoEnding* waitPage = MenuData::GetStaticInstance()->GetPage<Pages::AutoEnding>(READING_GHOST_DATAPAGE_WITH_TEXT__SPINNER);
+            Pages::GhostManager* page = Pages::GhostManager::GetPage();
+            Pages::GhostSelectSupporting* supporting = Pages::GhostSelectSupporting::GetPage();
+            while(waitPage->currentState != STATE_FOCUSED) {}
+            GhostList* list = &page->list;
             u32 trackID = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
             GhostManager *manager = GhostManager::GetStaticInstance();
             manager->Init(trackID);
@@ -408,8 +417,19 @@ namespace Cosmos
             }
             list->count = index;
             qsort(list, list->count, sizeof(GhostListEntry), (int (*)(const void *, const void *)) * &GhostList::CompareEntries);
-        };
-        kmCall(0x806394f0, CustomGhostGroup);
+
+            waitPage->nextPageId = (PageId)SELECT_GHOST_BACK_PAGE;
+            waitPage->isPopped = true;
+        }
+        kmWrite32(0x806394f0, 0x60000000);
+
+        void ReadGhostDataFromSD(Pages::CourseSelect* select, PageId, PushButton* button){
+            select->LoadNextPageById(READING_GHOST_DATAPAGE_WITH_TEXT__SPINNER, button);
+            Pages::AutoEnding* waitPage = MenuData::GetStaticInstance()->GetPage<Pages::AutoEnding>(READING_GHOST_DATAPAGE_WITH_TEXT__SPINNER);
+            waitPage->SetMessageWindowText(0x157c, nullptr);
+            CosmosFile::FileManager::GetStaticInstance()->taskThread->Request(&GhostManager::StartReadingGhosts, GhostManager::GetStaticInstance(), NULL);
+        }
+        kmCall(0x80840a00, ReadGhostDataFromSD);
 
         void* CreatePageAndManager()
         {

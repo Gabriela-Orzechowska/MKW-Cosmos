@@ -1,5 +1,7 @@
 #ifndef _GHOSTMANAGER_
 #define _GHOSTMANAGER_
+#include "System/Identifiers.hpp"
+#include "UI/MenuData/MenuData.hpp"
 #include <kamek.hpp>
 #include <game/UI/Page/Page.hpp>
 #include <game/System/Ghost.hpp>
@@ -54,6 +56,7 @@ public:
 namespace Pages{
 class GhostManager : public Page { //0xA7
 public:
+    static inline GhostManager* GetPage() { return MenuData::GetStaticInstance()->GetPage<GhostManager>(GHOST_LIST_MANAGER); }
     GhostManager(); //805e0c38 vtable 0x808b9258
     ~GhostManager() override; //0x805e0cb8
     void OnInit() override; //805e0d84
