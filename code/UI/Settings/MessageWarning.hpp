@@ -19,6 +19,7 @@
 #include <kamek.hpp>
 #include <game/UI/Page/Other/Approve.hpp>
 #include <game/UI/Page/Page.hpp>
+#include <UI/Scene.hpp>
 
 namespace CosmosUI
 {

@@ -20,7 +20,7 @@
 #include <core/System/RKSystem.hpp>
 #include <core/System/SystemManager.hpp>
 #include <Settings/UserData.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>
 
 extern char * szsLanguageNames[7];

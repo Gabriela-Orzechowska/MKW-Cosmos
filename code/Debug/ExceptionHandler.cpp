@@ -33,7 +33,7 @@
 #include <core/rvl/wpad.h>
 #include <game/Input/InputData.hpp>
 #include <game/Input/InputData.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 #include <Controller/MiscController.hpp>
 #include <core/System/SystemManager.hpp>
 #include <Debug/SymbolMap.hpp>

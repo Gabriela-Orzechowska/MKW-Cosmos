@@ -34,29 +34,7 @@
 #include <Aurora/AuroraAPI.hpp>
 #include <Aurora/AuroraLicense.hpp>
 #include <UI/Leaderboards/LeaderboardMain.hpp>
-
-void* CreatePage(u32 pageId)
-{
-    switch(pageId){
-        case Cosmos::SETTINGS_MAIN:
-            return new (CosmosUI::NewSettings);
-        case Cosmos::WARNING_PAGE:
-            return new (CosmosUI::MessagePageWindow);
-        case Cosmos::VARIANT_SELECT:
-            return new (CosmosUI::VariantSelectPlus);
-        case Cosmos::SPINNER_WITH_BACKGROUND:
-            return new (CosmosUI::AwaitPageWithBackground);
-        case Aurora::LICENSE_CLASS_PROGRESS:
-            return new (Aurora::UI::LicenseProgress);
-        case Aurora::LEADERBOARDS_MAIN:
-            return new (Aurora::UI::LeaderboardMain);
-        default:
-            return Scene::CreatePageById((PageId)pageId);
-    }
-    return nullptr;
-}
-
-kmCall(0x80622d2c, CreatePage);
+#include <UI/Scene.hpp>
 
 void InjectLicenseSettingsPages(Scene& scene, PageId id){
     scene.CreatePage(id);
@@ -66,7 +44,7 @@ kmCall(0x8062d1cc, InjectLicenseSettingsPages);
 
 void InjectWFCPages(Scene& scene, PageId id){
     scene.CreatePage(id);
-    scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
+    scene.CreatePage((PageId)Aurora::SETTINGS_MAIN);
 }
 kmCall(0x8062dc4c, InjectWFCPages);
 kmCall(0x8062ddf0, InjectWFCPages);
@@ -77,7 +55,7 @@ kmCall(0x8062e600, InjectWFCPages);
 
 void InjectOnlinePages(Scene& scene, PageId id){
     scene.CreatePage(id);
-    scene.CreatePage((PageId)Cosmos::VARIANT_SELECT);
+    scene.CreatePage((PageId)Aurora::VARIANT_SELECT);
 }
 kmCall(0x8062e864, InjectOnlinePages);
 kmCall(0x8062e0d8, InjectOnlinePages);
@@ -87,11 +65,13 @@ kmCall(0x8062eaa4, InjectOnlinePages);
 void InjectMenuSinglePages(Scene& scene, PageId id)
 {
     scene.CreatePage(id);
-    scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
-    scene.CreatePage((PageId)Cosmos::VARIANT_SELECT);
+    scene.CreatePage((PageId)Aurora::SETTINGS_MAIN);
+    scene.CreatePage((PageId)Aurora::VARIANT_SELECT);
 
     //DEV
     scene.CreatePage((PageId)Aurora::LEADERBOARDS_MAIN);
+    scene.CreatePage((PageId)Aurora::LEADERBOARDS_DETAIL);
+    scene.CreatePage((PageId)Aurora::SPINNER_WITH_BACKGROUND);
 
     return;
 }
@@ -119,10 +99,10 @@ kmCall(0x8062cc98, InjectGhostPages);
 
 void InjectTTPages(Scene& scene, PageId id){
     scene.CreatePage(id);
-    scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
+    scene.CreatePage((PageId)Aurora::SETTINGS_MAIN);
     scene.CreatePage(ARE_YOU_SURE_YOU_WANT_TO_QUIT);
     scene.CreatePage(VOTERANDOM_MESSAGE_BOX);
-    scene.CreatePage((PageId)Cosmos::SPINNER_WITH_BACKGROUND);
+    scene.CreatePage((PageId)Aurora::SPINNER_WITH_BACKGROUND);
     scene.CreatePage(GENERIC_TEXT_BOX_FULL_PAGE_PRESS_A);
     scene.CreatePage(PAGE_MESSAGE_BOX_TRANSPARENT);
 };
@@ -131,18 +111,18 @@ kmCall(0x8062c644, InjectTTPages); // TTs
 
 void InjectWarningPage(Scene& scene, PageId id){
     scene.CreatePage(id);
-    scene.CreatePage((PageId)Cosmos::WARNING_PAGE);
+    scene.CreatePage((PageId)Aurora::WARNING_PAGE);
     return;
 }
 
 void InjectVSPausePages(Scene& scene, PageId id){
     scene.CreatePage(id);
-    scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
+    scene.CreatePage((PageId)Aurora::SETTINGS_MAIN);
     scene.CreatePage(ARE_YOU_SURE_YOU_WANT_TO_QUIT);
 }
 void InjectVSPausePagesNoConfirm(Scene& scene, PageId id){
     scene.CreatePage(id);
-    scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
+    scene.CreatePage((PageId)Aurora::SETTINGS_MAIN);
 }
 kmCall(0x8062c65c, InjectVSPausePages);
 kmCall(0x8062c7a0, InjectVSPausePages);
@@ -163,7 +143,7 @@ kmCall(0x8062d064, InjectWarningPage);
 
 void InjectMainMenuPages(Scene& scene, PageId id){
     scene.CreatePage(id);
-    scene.CreatePage((PageId)Cosmos::SPINNER_WITH_BACKGROUND);
+    scene.CreatePage((PageId)Aurora::SPINNER_WITH_BACKGROUND);
     scene.CreatePage(GENERIC_TEXT_BOX_FULL_PAGE_PRESS_A);
     return;
 }

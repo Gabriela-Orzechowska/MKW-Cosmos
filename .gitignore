@@ -68,3 +68,4 @@ code/Aurora/AuroraAPI.hpp
 extra/translationHelper/api.py
 /extra/translationHelper/__pycache__
 /loader-new
+*.pyc

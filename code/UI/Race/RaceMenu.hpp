@@ -16,9 +16,11 @@
  */
 
 #pragma once
+#include <UI/MenuDataPlus.hpp>
 #include "UI/Page/RaceMenu/VSPause.hpp"
 #include <game/UI/Page/RaceMenu/TTPause.hpp>
 #include "Race/RaceData.hpp"
+#include <UI/Scene.hpp>
 
 namespace CosmosUI {
 

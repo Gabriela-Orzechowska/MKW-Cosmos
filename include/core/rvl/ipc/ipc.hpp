@@ -115,7 +115,9 @@ namespace IOS{
     IPCResult Open(char *path, Mode mode);
     IPCResult OpenAsync(const char* path, Mode mode, IOSAsyncCallback cb, void* arg);
     s32 Read(s32 fd, void *buffer, s32 length);
+    s32 ReadAsync(s32 fd, void* buffer, s32 length, IOSAsyncCallback cb, void* arg);
     s32 Write(s32 fd, void *buffer, s32 length);
+    s32 WriteAsync(s32 fd, void* buffer, s32 length, IOSAsyncCallback cb, void* arg);
     s32 Seek(s32 fd, s32 offset, SeekType whence); //returns length until the end, best to get file length
     s32 Close(s32 fd);
     s32 IOCtl(s32 fd, IOCtlType ioctl,void *buffer_in,s32 len_in,void *buffer_io,s32 len_io);

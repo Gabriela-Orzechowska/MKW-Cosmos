@@ -1,7 +1,7 @@
 #include "SlotExpansion/CupManager.hpp"
 #include "System/Identifiers.hpp"
 #include "System/System.hpp"
-#include "UI/MenuData/MenuData.hpp"
+#include "UI/MenuDataPlus.hpp"
 #include "UI/MenuData/Scene.hpp"
 #include "core/System/RKSystem.hpp"
 #include "core/egg/Fader.hpp"

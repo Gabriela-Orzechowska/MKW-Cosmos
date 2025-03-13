@@ -57,6 +57,7 @@ public:
 	u32 taskCount; //0x50
 	OSMessageQueue *messageQueue;
 	static TaskThread* Create(int msgCount, int priority, u32 stackSize, Heap* heap);
+    static void Destroy(TaskThread* thread); //80242ba8 
 }; //total size 0x58
 }//namespace EGG
 #endif

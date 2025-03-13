@@ -1,7 +1,7 @@
 #ifndef _GHOSTMANAGER_
 #define _GHOSTMANAGER_
 #include "System/Identifiers.hpp"
-#include "UI/MenuData/MenuData.hpp"
+#include "UI/MenuDataPlus.hpp"
 #include <kamek.hpp>
 #include <game/UI/Page/Page.hpp>
 #include <game/System/Ghost.hpp>

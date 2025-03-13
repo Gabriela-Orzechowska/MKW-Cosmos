@@ -2,7 +2,7 @@
 #define _TITLEPAGE_
 #include <game/UI/Page/Page.hpp>
 #include <game/UI/Ctrl/Menu/CtrlMenuPressStart.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 
 //_sinit_ at 8063c3b8
 class TitleImage : public LayoutUIControl{

@@ -1733,3 +1733,7 @@
   2850  = \z{a02,1000000000}%
   2851  = Disabled
 
+  2805 = Would you like to upload\nthe ghost to leaderboards?
+  2849 = Ghost data uploaded successfully!
+  284C = Uploading ghost to the server...
+

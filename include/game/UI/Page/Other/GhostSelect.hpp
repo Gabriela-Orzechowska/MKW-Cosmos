@@ -9,7 +9,7 @@
 #include <game/UI/Ctrl/SheetSelect.hpp>
 #include <game/UI/Ctrl/GhostInfoControl.hpp>
 
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 /*
 Contributors:
 -stebler, Melg

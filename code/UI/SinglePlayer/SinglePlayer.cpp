@@ -15,6 +15,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Aurora/AuroraAPI.hpp"
+#include "System/System.hpp"
 #include <UI/SinglePlayer/SinglePlayer.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>
 
@@ -86,7 +88,10 @@ void OnButtonClick(Pages::SinglePlayer& page, PushButton * button, u32 slotId)
     if(button->buttonId == SETTINGS)
     {
         CosmosUI::NewSettings::SetPreviousPageGlobal(SINGLE_PLAYER_MENU, SINGLE_PLAYER_FROM_MENU);
-        page.nextPageId = (PageId) Cosmos::SETTINGS_MAIN;
+        page.nextPageId = (PageId) Aurora::SETTINGS_MAIN;
+        //TEST
+       //Aurora::API::Manager::GetStaticInstance()->LoadLeaderboards(&page, 371);
+        //page.nextPageId = (PageId) Aurora::LEADERBOARDS_MAIN;
         page.EndStateAnimate(button->GetAnimationFrameSize(), 0);
     }
     else

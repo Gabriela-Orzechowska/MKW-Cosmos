@@ -224,11 +224,11 @@ public:
 };
 static_assert(sizeof(RKNetController) == 0x29c8, "RKNetController");
 
-namespace RKNet{
+extern "C" {
     void userRecivedCallback(u32 aid, void *packet, u32 size); //806585f4
     void *DWCAlloc(s32 r3, u32 size, s32 alignment); //80658500
     void DWCFree(s32 r3, void *buffer); //8065858c
-    void *SOAlloc(s32 r3, u32 size); //80658418
-    void SOFree(s32 r3, void *buffer); //80658498
-}//namespace RKNet
+    void* _SOAlloc(u32 r3, s32 size); //80658418
+    void _SOFree(u32 r3, void *buffer); //80658498
+}
 #endif

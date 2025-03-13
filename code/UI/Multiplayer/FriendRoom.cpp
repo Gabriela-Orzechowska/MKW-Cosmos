@@ -21,6 +21,7 @@
 #include <UI/Multiplayer/FriendRoom.hpp>
 #include <UI/Settings/NewSettingsPage.hpp>
 #include <game/Visual/GlobeMgr.hpp>
+#include <UI/Scene.hpp>
 
 namespace Cosmos {
     namespace UI {
@@ -49,7 +50,7 @@ namespace Cosmos {
         void FriendRoomPlus::OnSettingsButton(PushButton* button, u32 hudslotid){
             CosmosUI::NewSettings::SetPreviousPageGlobal(PAGE_NONE, MENU_NONE);
             this->controlsHidden = true;
-            this->AddPageLayer((PageId)Cosmos::SETTINGS_MAIN, 0);
+            this->AddPageLayer((PageId)Aurora::SETTINGS_MAIN, 0);
         }
 
         void FriendRoomPlus::AfterControlUpdate(){

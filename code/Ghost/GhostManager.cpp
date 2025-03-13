@@ -17,11 +17,12 @@
 
 #include "UI/Page/Other/GhostManager.hpp"
 #include "Debug/IOSDolphin.hpp"
+#include "FileManager/FileManager.hpp"
 #include "Item/ItemPlayer.hpp"
 #include "Race/Kart/KartMovement.hpp"
 #include "Race/RaceData.hpp"
 #include "System/Identifiers.hpp"
-#include "UI/MenuData/MenuData.hpp"
+#include "UI/MenuDataPlus.hpp"
 #include "UI/Page/Other/GhostSelect.hpp"
 #include "UI/Page/Page.hpp"
 #include "core/rvl/os/OS.hpp"
@@ -35,6 +36,7 @@
 #include <Settings/UserData.hpp>
 #include <game/Network/RKNetController.hpp>
 #include <game/UI/Page/Menu/CourseSelect.hpp>
+#include <UI/Leaderboards/LeaderboardMain.hpp>
 
 
 void CorrectGhostTrackName(LayoutUIControl *control, const char *textBoxName, u32 bmgId, const TextInfo *text)
@@ -132,6 +134,40 @@ namespace Cosmos
             RaceData::GetStaticInstance()->menusScenario.GetSettings().engineClass = cc;
         }
 
+        bool GhostManager::LoadGhostFromFile(const char* filename){
+            this->Reset();
+            this->courseId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
+            CosmosFile::FileManager* manager = CosmosFile::FileManager::GetStaticInstance();
+            snprintf(folderPath, IPCMAXPATH, "%s/%03x", Cosmos::ghostFolder, courseId);
+            CosmosFile::FileManager::GetStaticInstance()->CreateFolder(folderPath);
+            new (&this->GetLeaderboard()) GhostLeaderboardManager(folderPath, courseId);
+            this->files = new (RKSystem::mInstance.EGGSystem) GhostData[1]; 
+            this->rkgCount = 1;
+            RKG *rkg = &this->rkg;
+
+            manager->Open(filename, IOS::MODE_READ_WRITE);
+
+            rkg->ClearBuffer();
+            GhostData *header = &this->files[0];
+            header->isValid = false;
+            if (manager->Read(rkg, manager->GetFileSize()) > 0 && rkg->CheckValidity())
+            {
+                header->Init(rkg);
+            }
+            manager->Close();
+
+            header->padding = 0xFF;
+            this->mainGhostIndex = 0xFF;
+
+            // Set correct CC mode
+            EngineClass cc = CC_150;
+            if (Cosmos::System::GetStaticInstance()->GetTTMode() == Cosmos::COSMOS_TT_200cc)
+                cc = CC_100;
+            RaceData::GetStaticInstance()->menusScenario.GetSettings().engineClass = cc;
+
+        }
+
+
         void GhostManager::Reset()
         {
             this->courseId = -1;
@@ -152,7 +188,8 @@ namespace Cosmos
         {
             u8 buffer[sizeof(RKG) + sizeof(AuroraMetadata)] __attribute__((aligned(0x20)));
             rkg->ClearBuffer();
-            s32 ret = this->folderManager->ReadFile(buffer, index, CosmosFile::FILE_MODE_READ);
+            s32 ret;
+            ret = this->folderManager->ReadFile(buffer, index, CosmosFile::FILE_MODE_READ);
 
             AuroraMetadata* meta = (AuroraMetadata*)((u32) buffer + ret - sizeof(AuroraMetadata));
             if(meta->header != METADATA_MAGIC) {
@@ -184,6 +221,21 @@ namespace Cosmos
                     GhostData data(dest);
                     MenuData::GetStaticInstance()->GetCurrentContext()->playerMiis.AddMii(isGhostRace, &data.miiData);
                 }
+            }
+            else {
+                RaceData *raceData = RaceData::GetStaticInstance();
+                const GhostData *data = this->GetGhostData(0);
+                RKG *dest = &raceData->GetGhost(0);
+                if (this->rkg.header.compressed)
+                    this->rkg.DecompressTo(dest);
+                else
+                    memcpy(dest, &this->rkg, sizeof(RKG));
+                GhostData gdata(dest);
+                MenuData::GetStaticInstance()->GetCurrentContext()->playerMiis.AddMii(isGhostRace, &gdata.miiData);
+                for(int i = isGhostRace + 1; i < 12; i++){
+                    raceData->menusScenario.GetPlayer(i).playerType = PLAYER_NONE;
+                }
+                raceData->menusScenario.GetPlayer(isGhostRace).playerType = PLAYER_GHOST;
             }
         }
 
@@ -269,7 +321,7 @@ namespace Cosmos
             page.PlaySound(soundIdx, param_3);
             return;
         }
-        kmCall(0x80857790, ResetGhostsData);
+        //kmCall(0x80857790, ResetGhostsData);
 
         GhostLeaderboardManager::GhostLeaderboardManager(const char *folderPath, u32 id)
         {
@@ -434,7 +486,7 @@ namespace Cosmos
         void* CreatePageAndManager()
         {
             GhostManager::CreateStaticInstance();
-            return new (Pages::GhostSelect);
+            return new Aurora::UI::GhostSelectPlus;
         }
         kmCall(0x80623dec, CreatePageAndManager);
         kmWrite32(0x80623de0, 0x60000000);
@@ -463,7 +515,6 @@ namespace Cosmos
             GhostManager *manager = GhostManager::GetStaticInstance();
             if (ghostManager->state == SAVED_GHOST_RACE_FROM_MENU)
                 ghostManager->state = STAFF_GHOST_RACE_FROM_MENU;
-            COSMOS_ASSERT(manager->mainGhostIndex != 0xFF);
             manager->LoadGhost(ghostManager->rkgPointer, manager->GetGhostData(manager->mainGhostIndex)->padding);
         }
         kmCall(0x805e158c, LoadCorrectGhost);

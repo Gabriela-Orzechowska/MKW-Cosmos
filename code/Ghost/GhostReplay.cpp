@@ -17,7 +17,7 @@
 
 #include <kamek.hpp>
 #include <game/System/identifiers.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 #include <game/Race/RaceData.hpp>
 #include <game/UI/Page/RaceHUD/TTInterface.hpp>
 #include <game/UI/Page/RaceHUD/RaceHUD.hpp>

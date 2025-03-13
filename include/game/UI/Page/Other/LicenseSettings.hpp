@@ -6,7 +6,7 @@
 #include <game/UI/Page/Other/Message.hpp>
 #include <game/UI/Ctrl/MessageWindowControl.hpp>
 #include <game/UI/Page/Other/Approve.hpp>
-#include "UI/MenuData/MenuData.hpp"
+#include "UI/MenuDataPlus.hpp"
 
 //_sinit_ at 805ee894
 class LicenseControl : public LayoutUIControl{

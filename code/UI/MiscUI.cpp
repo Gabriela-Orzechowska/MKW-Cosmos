@@ -19,7 +19,7 @@
 #include "UI/Language/LanguageManager.hpp"
 #include "hooks.hpp"
 #include <game/UI/Page/Page.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 #include <Settings/UserData.hpp>
 #include <core/System/SystemManager.hpp>
 #include <game/System/Archive.hpp>
@@ -126,7 +126,7 @@ void AddPauseSceneToOnline(Scene& scene, PageId id){
     scene.CreatePage(id);
     scene.CreatePage(VS_RACE_PAUSE_MENU);
     scene.CreatePage(ARE_YOU_SURE_YOU_WANT_TO_QUIT);
-    scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
+    scene.CreatePage((PageId)Aurora::SETTINGS_MAIN);
 }
 kmCall(0x8062eccc, AddPauseSceneToOnline);
 kmCall(0x8062f020, AddPauseSceneToOnline);

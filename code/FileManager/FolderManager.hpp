@@ -40,7 +40,6 @@ namespace CosmosFile
             void CloseFolder();
             u32 fileCount;
 
-        protected:
             FileManager * curFile;
             char folderName[IPCMAXPATH];
             IOS::IPCPath * filenames;

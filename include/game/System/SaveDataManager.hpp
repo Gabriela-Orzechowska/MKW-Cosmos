@@ -12,6 +12,12 @@ Contributors:
 -kHacker35000vr
 */
 
+#pragma pack(push, 1)
+struct RFLCreateID {
+    u32 miiID;
+    u32 consoleID;
+};
+#pragma pack(pop)
 struct TimeEntry{
     TimeEntry(); //80544358
     ~TimeEntry(); //8054437c
@@ -63,7 +69,6 @@ struct RKPD{ //licenses
 static_assert(sizeof(RKPD) == 0x8cc0, "RKPD");
 
 
-
 struct RKSYS{ //https://wiki.tockdom.com/wiki/Rksys.dat
     char magic[4]; //RKSD
     u32 version; //0006
@@ -109,14 +114,7 @@ public:
 
     wchar_t miiName[10];
     u8 unknown_0x14[2];
-    u8 miiAvatarID1;
- 	u8 miiAvatarID2; //9014
- 	u8 miiAvatarID3;
- 	u8 miiAvatarID4;
-    u8 miiClientID0;
-	u8 miiClientID1;
-	u8 miiClientID2;
-	u8 miiClientID3;
+    RFLCreateID miiId;
 
     u8 unknown_0x1e[0xE20-0x1e];
     TimeEntry timentries[6][32]; //top 5 times + flap * 32 tracks //0xE20

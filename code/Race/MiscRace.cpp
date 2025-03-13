@@ -22,7 +22,7 @@
 #include <game/Race/RaceData.hpp>
 #include <game/Item/ItemManager.hpp>
 #include <Settings/UserData.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 #include <game/Race/RaceData.hpp>
 #include <Controller/MiscController.hpp>
 #include <game/KMP/STGI.hpp>

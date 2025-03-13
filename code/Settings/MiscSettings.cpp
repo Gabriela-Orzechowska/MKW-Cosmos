@@ -20,7 +20,7 @@
 #include "System/identifiers.hpp"
 #include "UI/Ctrl/PushButton.hpp"
 #include "UI/Layout/ControlLoader.hpp"
-#include "UI/MenuData/MenuData.hpp"
+#include "UI/MenuDataPlus.hpp"
 #include "UI/Page/Menu/VSModeSelect.hpp"
 #include "UI/Settings/NewSettingsPage.hpp"
 #include "core/gamespy/gamespy.hpp"
@@ -33,7 +33,7 @@
 #include <Settings/UserData.hpp>
 #include <game/Scene/BaseScene.hpp>
 #include <Debug/Draw/PerformanceMonitor.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 #include <game/UI/Page/Other/LicenseSettings.hpp>
 #include <game/UI/Ctrl/CtrlRace/CtrlRace2DMap.hpp>
 #include <game/Network/RKNetController.hpp>
@@ -219,7 +219,7 @@ void OpenSettingsOnVS(Pages::VSModeSelect* menu, u32, PushButton& button){
 
     page->SetNextSettingPage(2);
     page->SetPreviousPage(VS_MODE_SELECT, SINGLE_PLAYER_FROM_MENU);
-    menu->LoadNextPageWithDelayById((PageId)Cosmos::SETTINGS_MAIN, 0.0f);
+    menu->LoadNextPageWithDelayById((PageId)Aurora::SETTINGS_MAIN, 0.0f);
 }
 kmCall(0x80852ab4, OpenSettingsOnVS);
 

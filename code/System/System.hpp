@@ -11,13 +11,6 @@
 
 #define AURORA
 
-namespace Aurora {
-    enum CUSTOM_PAGE_IDS_AR {
-        LICENSE_CLASS_PROGRESS = 0xAE, // Replacing RankingTopTen
-        LEADERBOARDS_MAIN = 0xAF, // Replacing RankingTopTenDetail
-        LEADERBOARDS_DETAIL = 0xA4, // Replacing MK Channel Ghost Screen
-    };
-};
 
 namespace Cosmos
 {
@@ -27,10 +20,6 @@ namespace Cosmos
 
     enum CUSTOM_PAGE_IDS 
     {
-        WARNING_PAGE = 0xBA, // Replaces "Wii Wheel Comp"
-        SETTINGS_MAIN = 0xB7, // Replaces Unknown
-        VARIANT_SELECT = 0xB8, // Replaces some competition screen
-        SPINNER_WITH_BACKGROUND = 0xB9, // Replaces most likely some competition screen
     };
 
     const char packFolder[] = "/Aurora";

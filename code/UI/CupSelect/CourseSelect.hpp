@@ -19,7 +19,7 @@
 #include <kamek.hpp>
 #include <game/UI/Page/Menu/CourseSelect.hpp>
 #include <game/UI/Page/Menu/CupSelect.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 #include <SlotExpansion/CupManager.hpp>
 #include <UI/CupSelect/CupSelect.hpp>
 #include <game/Sound/SoundId.hpp>
@@ -57,7 +57,7 @@ namespace CosmosUI{
             SheetSelectControl arrows;
             void SetupPage(u32 slot);
 
-            static inline VariantSelectPlus* GetPage() { return MenuData::GetStaticInstance()->GetPage<VariantSelectPlus>((PageId)Cosmos::VARIANT_SELECT); }
+            static inline VariantSelectPlus* GetPage() { return MenuData::GetStaticInstance()->GetPage<VariantSelectPlus>((PageId)Aurora::VARIANT_SELECT); }
         protected:
             void BeforeEntranceAnimations() override;
             void OnActivate() override;

@@ -20,7 +20,7 @@
 
 #include <kamek.hpp>
 #include <game/Race/Kart/KartHolder.hpp>
-#include <game/UI/MenuData/Menudata.hpp>
+#include <UI/MenuDataPlus.hpp>
 #include <UI/RaceBase/ControlRaceBase.hpp>
 #include <Settings/UserData.hpp>
 

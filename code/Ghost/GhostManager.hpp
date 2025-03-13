@@ -152,12 +152,16 @@ namespace Cosmos
             bool IsFinished() { return this->isFinished; }
             void MarkFinished() { this->isFinished = true; }
 
+            inline void CloseFolder() { this->folderManager->CloseFolder();} ;
+
             //Aurora
             void ResetMetadata();
             AuroraMetadata* GetMetadata() { return &this->metadata; }
             RKG* GetRKG() { return &this->rkg; }
             u32 GetRKGSize() { return this->rkgSize; }
             void SetSHA1(u32* sha1) { memcpy(&this->metadata.sha1, sha1, 20); }
+
+            bool LoadGhostFromFile(const char* filename);
 
             void FillMetadata();
             void AddShroom(ItemPlayer* movement);
@@ -166,6 +170,7 @@ namespace Cosmos
             static char folderPath[IPCMAXPATH];
 
             RKG rkg __attribute__((aligned(0x20)));
+            AuroraMetadata metadata __attribute__((aligned(0x20)));
             GhostLeaderboardManager leaderboard __attribute__((aligned(0x20)));
             u32 mainGhostIndex;
             CosmosFile::FolderManager *folderManager;
@@ -186,7 +191,6 @@ namespace Cosmos
             // AURORA
             u8 shroomsUsed;
             bool isAuroraGhost;
-            AuroraMetadata metadata __attribute__((aligned(0x20)));
         };
 
     }

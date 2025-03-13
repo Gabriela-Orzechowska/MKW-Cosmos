@@ -201,6 +201,7 @@ namespace CosmosFile
         this->GetPath(filepath);
         FRESULT ret = f_open(&this->currentFile, this->realPath, actualMode);
         if(ret == FR_OK) {
+            CosmosLog("Opening %s\n", filepath);
             this->fileSize = f_size(&this->currentFile);
             f_lseek(&this->currentFile, 0);
         }
@@ -256,6 +257,7 @@ namespace CosmosFile
             CosmosLog("File save failed! Error: %i\n", ret);
             return -1;
         }
+        this->fileSize = f_size(&this->currentFile);
         return writtenSize;
     }
 
@@ -265,6 +267,7 @@ namespace CosmosFile
         UINT writtenSize;
         f_lseek(&this->currentFile, 0);
         FRESULT ret = f_write(&this->currentFile, buffer, size, &writtenSize);
+        this->fileSize = f_size(&this->currentFile);
         if(ret != FR_OK) 
         {
             CosmosLog("File save failed! Error: %i\n", ret);

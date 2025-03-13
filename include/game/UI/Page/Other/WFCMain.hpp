@@ -2,7 +2,7 @@
 #define _WFCMAIN_
 #include <kamek.hpp>
 #include <game/UI/Page/Page.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 /*
 Contributors:
 -Melg

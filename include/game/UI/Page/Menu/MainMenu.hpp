@@ -1,6 +1,6 @@
 #include <kamek.hpp>
 #include <game/UI/Page/Menu/Menu.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 #ifndef _MAINMENU_
 #define _MAINMENU_
 namespace Pages{

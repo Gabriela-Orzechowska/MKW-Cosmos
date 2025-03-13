@@ -20,7 +20,7 @@
 #include "Settings/UserData.hpp"
 #include "SlotExpansion/CupManager.hpp"
 #include "System/identifiers.hpp"
-#include "UI/MenuData/MenuData.hpp"
+#include "UI/MenuDataPlus.hpp"
 #include "core/rvl/os/OS.hpp"
 #include "hooks.hpp"
 #include <Network/RKNetControllerPlus.hpp>

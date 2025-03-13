@@ -14,15 +14,15 @@
  * You should have received a copy of the GNU General Public License 
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
+#include <UI/Settings/NewSettingsPage.hpp>
 #include "UI/Page/RaceMenu/RaceMenu.hpp"
 #include "Ghost/AntiCheat.hpp"
 #include "Ghost/GhostManager.hpp"
 #include "System/Identifiers.hpp"
-#include "UI/MenuData/MenuData.hpp"
+#include "UI/MenuDataPlus.hpp"
 #include "game/System/identifiers.hpp"
 #include <UI/Race/RaceMenu.hpp>
-#include <UI/Settings/NewSettingsPage.hpp>
+
 #include <game/Race/RaceData.hpp>
 
 namespace CosmosUI {
@@ -66,7 +66,7 @@ namespace CosmosUI {
             {
                 case RaceMenu_ButtonSettings:
                     CosmosUI::NewSettings::SetPreviousPageGlobal(TIME_TRIAL_PAUSE_MENU, MENU_NONE);
-                    menu.nextPage = (PageId) Cosmos::SETTINGS_MAIN;
+                    menu.nextPage = (PageId) Aurora::SETTINGS_MAIN;
                     menu.EndStateAnimate(0.0f,0);
                     break;
                 case Pages::RaceMenu::ButtonQuit:
@@ -104,7 +104,7 @@ namespace CosmosUI {
             }
             else if(button->buttonId == RaceMenu_ButtonSettings){
                     CosmosUI::NewSettings::SetPreviousPageGlobal(VS_RACE_PAUSE_MENU, MENU_NONE);
-                    menu.nextPage = (PageId) Cosmos::SETTINGS_MAIN;
+                    menu.nextPage = (PageId) Aurora::SETTINGS_MAIN;
                     menu.EndStateAnimate(0.0f,0);
                     return;
             }

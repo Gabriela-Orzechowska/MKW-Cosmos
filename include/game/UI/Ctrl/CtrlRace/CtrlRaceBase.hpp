@@ -1,7 +1,7 @@
 #ifndef _CTRLRACEBASE_
 #define _CTRLRACEBASE_
 #include <game/UI/Ctrl/UIControl.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 #include <game/Race/RaceData.hpp>
 
 

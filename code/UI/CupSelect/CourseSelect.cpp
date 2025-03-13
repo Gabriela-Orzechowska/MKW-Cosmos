@@ -134,7 +134,7 @@ namespace CosmosUI
                 variantSelect->SetupPage(trackIndex);
                 Cosmos::CupManager::GetStaticInstance()->lastSelectedGroup = (trackIndex);
                 Cosmos::CupManager::GetStaticInstance()->lastSelectedCourse = -1U;
-                page->LoadNextPageWithDelayById((PageId)Cosmos::VARIANT_SELECT,0.0f);
+                page->LoadNextPageWithDelayById((PageId)Aurora::VARIANT_SELECT,0.0f);
             }
             else {
                 Cosmos::CupManager::GetStaticInstance()->lastSelectedGroup = -1;

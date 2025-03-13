@@ -10,7 +10,7 @@
 #include <game/UI/Ctrl/SheetSelect.hpp>
 #include <game/UI/Ctrl/CountDown.hpp>
 #include <game/Network/RKNetRoom.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 
 namespace Pages{
 class FriendRoomMessages;

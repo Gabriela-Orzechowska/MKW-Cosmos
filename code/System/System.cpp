@@ -14,7 +14,7 @@
 #include <Debug/SymbolMap.hpp>
 #include <Debug/Draw/DebugDraw.hpp>
 #include <Settings/UserData.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 
 extern char gameID[4];
 

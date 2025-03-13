@@ -161,7 +161,9 @@ Open__3IOSFPcQ23IOS4Mode = 0x801938f8
 OpenAsync__3IOSFPCcQ23IOS4ModePFiPv_vPv = 0x801937e0
 Close__3IOSFi = 0x80193ad8
 Read__3IOSFiPvi = 0x80193c80
+ReadAsync__3IOSFiPviPFiPv_vPv = 0x80193b80
 Write__3IOSFiPvi = 0x80193e88
+WriteAsync__3IOSFiPviPFiPv_vPv = 0x80193d88
 Seek__3IOSFiiQ23IOS8SeekType = 0x80194070
 IOCtl__3IOSFiQ23IOS9IOCtlTypePviPvi = 0x80194290
 IOCtlAsync__3IOSFiQ23IOS9IOCtlTypePviPviPFiPv_vPv = 0x80194158
@@ -208,6 +210,12 @@ SOStartup = 0x801ec184
 SOInit = 0x801ebec0
 _SOAlloc = 0x80658418
 _SOFree = 0x80658498
+SOGetAddrInfo = 0x801ee040
+SOConnect = 0x801ed270
+SOSocket = 0x801ecff4
+SOClose = 0x801ed0e4
+SOSend = 0x801ed4c8
+SORecv = 0x801ed47c
 
 #OS
 OSReport = 0x801A25D0
@@ -379,6 +387,7 @@ kandoTestCancelAllThread__Q23EGG6ThreadFv = 0x8024353c
 #TaskThread
 Create__Q23EGG10TaskThreadFiiUiPQ23EGG4Heap = 0x802428e8
 Request__Q23EGG10TaskThreadFPFPv_vPvUi = 0x80242c18
+Destroy__Q23EGG10TaskThreadFPQ23EGG10TaskThread = 0x80242ba8
 
 #Scene
 GetCurrent__9GameSceneFv = 0x8051bed0
@@ -629,8 +638,10 @@ SetMiiPane__15LayoutUIControlFPCcP8MiiGroupUiUc = 0x8063e3dc
 SetPicturePane__15LayoutUIControlFPCcPCc = 0x8063e0f0
 __ct__24LayoutUIControlScaleFadeFv = 0x8063e674
 __dt__24LayoutUIControlScaleFadeFv = 0x8063e7a8
+LoadPictureLayout__15LayoutUIControlFPCcPCc = 0x8063d9c0
+PicturePaneExists__15LayoutUIControlFPCc = 0x8063e328
 
-
+GetCharacterIconPaneName__F11CharacterId = 0x80860acc
 
 #ControlGroup
 ControlGroup = 0x805C23E4
@@ -661,6 +672,8 @@ RequestSceneChange__8MenuDataFUiUi = 0x80635ac8
 CreatePageById__5SceneF6PageId = 0x80623390
 RequestGoToWiiMenu__10SectionMgrFv = 0x80635c0c
 SetNextSection__8MenuDataFUiUi = 0x80635a3c
+
+InitMenudata98Params__9GhostListFi = 0x805e2588
 
 #SectionMgrPad
 GetCurrentSlotAndType__10SectionPadFUi = 0x8061b358
@@ -843,6 +856,7 @@ GetHudSlotIdColor__18ControlManipulatorFUcP6RGBA16P6RGBA16 = 0x805f0440
 GetHudSlotIdColorSingle__18ControlManipulatorFUcP6RGBA16 = 0x805f04d8
 CalcDistanceBothWrapping__18ControlManipulatorFP18ControlManipulator17DirectionsAllowed = 0x805f0d38
 CalcDistanceVerticalWrappingOnly__18ControlManipulatorFP18ControlManipulator17DirectionsAllowed = 0x805f0e18
+CalcDistanceVerticalWrappingOnly__18ControlManipulatorFP18ControlManipulator10Directions = 0x805f0e18
 CalcDistanceNoWrapping__18ControlManipulatorFP18ControlManipulator17DirectionsAllowed = 0x805f0e24
 CalcDistanceNoWrapping__18ControlManipulatorFP18ControlManipulator10Directions = 0x805f0e24
 CalcDistance__18ControlManipulatorFP18ControlManipulator17DirectionsAllowedbb = 0x805f2384
@@ -911,6 +925,9 @@ GetControllerHolder__11MenuDataPadFUi = 0x8061b398
 #Scene
 BuildPages__5SceneF6MenuId = 0x8062c3a4
 CreatePage__5SceneF6PageId = 0x80622d08
+__ct__5SceneFv = 0x80621d0c
+__dt__5SceneFv = 0x80621d84
+Exit__5SceneFv = 0x806221d8
 
 #LayoutUIControl
 __vt__15LayoutUIControl = 0x808befb4
@@ -992,6 +1009,12 @@ SubtractTimers__21CtrlRaceGhostDiffTimeFR5TimerPC5TimerPC5Timer = 0x807ee860
 Load__21CtrlRaceGhostDiffTimeFPCc = 0x807ee8e0
 
 WriteFrame__11GhostWriterFUsUcUcUc = 0x80524e74
+
+#GhostInfo
+__ct__16GhostInfoControlFv = 0x805e274c
+__dt__16GhostInfoControlFv = 0x805e27dc
+Load__16GhostInfoControlFPCc = 0x805e2844
+
 
 #CtrlRaceTime
 SetTimer__12CtrlRaceTimeFP5Timer = 0x807f84c0
@@ -1094,6 +1117,7 @@ StartExit__4PageFv = 0x80602b04
 StartEntrance__4PageFv = 0x80602970
 OnInit__4PageFv = 0x80601ad8
 PlaySound__4PageFUii = 0x80602cf8
+Dispose__4PageFv = 0x80601adc
 
 Stop__Q44nw4r3snd6detail10BasicSoundFi = 0x8008e330
 

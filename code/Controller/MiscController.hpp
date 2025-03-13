@@ -17,7 +17,7 @@
 
 #include <kamek.hpp>
 #include <game/Input/InputData.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 
 // This code is inspired by Bbg's VP implementation
 

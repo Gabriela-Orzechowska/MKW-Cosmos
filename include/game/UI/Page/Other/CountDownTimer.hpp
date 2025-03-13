@@ -6,7 +6,7 @@
 #include <game/Visual/Mii.hpp>
 #include <game/UI/Ctrl/CountDown.hpp>
 #include <game/UI/Page/Other/Message.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 
 /*
 Contributors:

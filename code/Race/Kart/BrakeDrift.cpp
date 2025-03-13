@@ -21,7 +21,7 @@
 #include <game/Race/Kart/KartBase.hpp>
 #include <game/Race/Kart/KartMovement.hpp>
 #include <game/Visual/Effect/EffectMgr.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 #include <game/Race/RaceData.hpp>
 #include <Controller/MiscController.hpp>
 #include <System/System.hpp>

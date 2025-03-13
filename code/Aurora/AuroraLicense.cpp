@@ -6,7 +6,7 @@
 #include "UI/Ctrl/CtrlRace/CtrlRaceBalloon.hpp"
 #include "UI/Ctrl/PushButton.hpp"
 #include "UI/Layout/ControlLoader.hpp"
-#include "UI/MenuData/MenuData.hpp"
+#include "UI/MenuDataPlus.hpp"
 #include "UI/Page/Other/LicenseSettings.hpp"
 #include "hooks.hpp"
 #include "kamek.hpp"

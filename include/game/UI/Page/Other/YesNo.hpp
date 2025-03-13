@@ -4,7 +4,7 @@
 #include <kamek.hpp>
 #include <game/UI/Page/Page.hpp>
 #include <game/UI/Ctrl/MessageWindowControl.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 
 //_sinit_ at 806531dc
 namespace Pages {

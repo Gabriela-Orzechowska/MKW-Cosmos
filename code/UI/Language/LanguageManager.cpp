@@ -17,7 +17,7 @@
 
 #include "System/Identifiers.hpp"
 #include "System/SaveDataManager.hpp"
-#include "UI/MenuData/MenuData.hpp"
+#include "UI/MenuDataPlus.hpp"
 #include "UI/MenuData/Scene.hpp"
 #include "UI/Page/Page.hpp"
 #include "kamek.hpp"
@@ -157,7 +157,7 @@ namespace Cosmos
                 MenuCategory cat = Scene::GetType(MenuData::GetStaticInstance()->GetCurrentScene()->menuId);
                 if(cat != CATEGORY_GAMEPLAY && !isOnlineSettingsMenu()){
                     CosmosUI::NewSettings* page = MenuData::GetStaticInstance()->curScene->
-                        Get<CosmosUI::NewSettings>((PageId)Cosmos::SETTINGS_MAIN);
+                        Get<CosmosUI::NewSettings>((PageId)Aurora::SETTINGS_MAIN);
                     if(page != nullptr) page->ChangeMenu(page->GetPreviousMenu(), 0, 0.0f);
                     else {
                         if(SaveDataManager::GetStaticInstance()->rksysRaw->licenses[MenuData::GetStaticInstance()

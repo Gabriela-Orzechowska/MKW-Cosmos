@@ -9,7 +9,7 @@
 #include "UI/Page/Other/VR.hpp"
 #include "System/System.hpp"
 #include <kamek.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 #include <game/UI/Page/Menu/Menu.hpp>
 #include <game/UI/Page/Other/LicenseSettings.hpp>
 #include <SlotExpansion/CupManager.hpp>

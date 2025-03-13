@@ -21,7 +21,7 @@
 #include "Race/RaceData.hpp"
 #include "Race/RaceInfo.hpp"
 #include "System/Identifiers.hpp"
-#include "UI/MenuData/MenuData.hpp"
+#include "UI/MenuDataPlus.hpp"
 #include "hooks.hpp"
 #include "kamek.hpp"
 #include "System/System.hpp"

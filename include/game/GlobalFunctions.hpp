@@ -1,7 +1,7 @@
 #ifndef _GLOBALFUNCTIONS_
 #define _GLOBALFUNCTIONS_
 #include <game/System/Identifiers.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 #include <game/UI/Text.hpp>
 #include <game/Item/ItemManager.hpp>
 

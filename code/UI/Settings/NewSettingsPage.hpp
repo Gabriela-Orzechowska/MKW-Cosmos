@@ -48,12 +48,12 @@
 
 
 #pragma once
+#include <UI/MenuDataPlus.hpp>
 #include "UI/Ctrl/CountDown.hpp"
 #include "System/System.hpp"
 #include <kamek.hpp>
 #include <game/UI/Page/Page.hpp>
 #include <game/UI/Ctrl/UpDown.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
 #include <Settings/UserData.hpp>
 #include <UI/BMG/BMG.hpp>
 
@@ -71,7 +71,7 @@ namespace CosmosUI
         void OnUpdate() override;
         PageId GetNextPage() const override { return this->returnPage; }
 
-        static inline NewSettings* GetPage() { return MenuData::GetStaticInstance()->GetPage<NewSettings>((PageId)Cosmos::SETTINGS_MAIN); }
+        static inline NewSettings* GetPage() { return MenuData::GetStaticInstance()->GetAuroraPage<NewSettings>(Aurora::SETTINGS_MAIN); }
         static void SetPreviousPageGlobal(PageId id, MenuId menu){
             NewSettings* page = NewSettings::GetPage();
             if(page != nullptr){

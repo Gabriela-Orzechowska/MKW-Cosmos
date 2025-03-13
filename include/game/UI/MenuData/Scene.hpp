@@ -34,8 +34,8 @@ public:
     static const char *GetArchiveName(MenuId menuId); //80631734
 
     template<class T>
-    T* Get(PageId id) const {return (T*) this->pages[id];}
-    void Set(Page *t, PageId id) {this->pages[id] = t;}
+    inline T* Get(PageId id) const {return (T*) this->pages[id];}
+    inline void Set(Page *t, PageId id) {this->pages[id] = t;}
     Scene(); //0x80621d0c
     ~Scene(); //0x80621d84
     void Init(MenuId menuId); //0x80621e00
@@ -43,10 +43,11 @@ public:
     void CreatePage(PageId pageId); //0x80622d08
     void CreateMoviePlayer(); //80622c68
     void CreateFriendList(); //80622cb8
+    void Exit(); //806221d8
     
     
     MenuId menuId;
-    u32 openingAnimIdx;
+    s32 openingAnimIdx;
     Page *pages[0xD2]; //https://wiki.tockdom.com/wiki/List_of_Identifiers#PAGE_Identifiers
     Page *activePages[11]; //0x354
     u32 layerCount; //0x37C

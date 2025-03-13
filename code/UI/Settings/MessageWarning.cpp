@@ -34,7 +34,7 @@ namespace CosmosUI
     void MessagePageWindow::OnBackPress(u32 hudSlotId)
     {
         if(type[0] == RESTART_REQUIRED){
-            this->nextPageId = (PageId) Cosmos::SETTINGS_MAIN;
+            this->nextPageId = (PageId) Aurora::SETTINGS_MAIN;
         }
         else if(type[0] == SHUTDOWN){
             Cosmos::System::Shutdown();

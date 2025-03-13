@@ -1,7 +1,7 @@
 #include <UI/Multiplayer/WFCPlus.hpp>
 #include "Aurora/AuroraAPI.hpp"
 #include "UI/BMG/BMG.hpp"
-#include "UI/MenuData/MenuData.hpp"
+#include "UI/MenuDataPlus.hpp"
 #include "UI/Settings/NewSettingsPage.hpp"
 #include "UI/Text.hpp"
 #include "kamek.hpp"
@@ -22,7 +22,7 @@ namespace Cosmos {
             MenuId currentMenu = MenuData::GetStaticInstance()->GetCurrentScene()->menuId;
             settings->SetPreviousPage(WFC_MAIN_PAGE, currentMenu);
 
-            this->nextPageId = (PageId) Cosmos::SETTINGS_MAIN;
+            this->nextPageId = (PageId) Aurora::SETTINGS_MAIN;
 
             this->EndStateAnimate(0.0f, 0);
         }

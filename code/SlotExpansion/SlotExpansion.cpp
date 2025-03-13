@@ -22,7 +22,7 @@
 #include "System/identifiers.hpp"
 #include "UI/BMG/BMG.hpp"
 #include "UI/Ctrl/UIControl.hpp"
-#include "UI/MenuData/MenuData.hpp"
+#include "UI/MenuDataPlus.hpp"
 #include "hooks.hpp"
 #include <SlotExpansion/SlotExpansion.hpp>
 #include <game/UI/Page/Menu/CourseSelect.hpp>

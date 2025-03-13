@@ -127,7 +127,7 @@ class ActionLess : public Page{
     int GetRuntimeTypeInfo() const override; //0x60 805bb28c
     void Pop();
     ManipulatorManager manipulatorManager;
-    u8 unknown_0x54[4]; //0x54
+    bool isPopped;
 }; //0x58
 
 class AutoEnding : public ActionLess{ //0x4F but also 0x50 and 0xc7

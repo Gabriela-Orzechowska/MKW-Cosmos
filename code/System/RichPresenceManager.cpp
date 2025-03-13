@@ -22,7 +22,7 @@
 #include "Debug/IOSDolphin.hpp"
 #include <System/RichPresenceManager.hpp>
 #include <core/System/RKSystem.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 #include <SlotExpansion/CupManager.hpp>
 #include <UI/BMG/MessageGroup.hpp>
 #include <System/Sha1.hpp>

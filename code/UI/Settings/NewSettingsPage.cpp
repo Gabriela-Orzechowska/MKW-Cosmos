@@ -84,10 +84,12 @@ namespace CosmosUI {
     }
 
     void NewSettings::OnInit() {
+        Page::OnInit();
     // Init Manipulator
         this->controlsManipulatorManager.Init(0x1, false);
         this->controlsManipulatorManager.SetDistanceFunc(2);
         this->SetManipulatorManager(&this->controlsManipulatorManager);
+        this->animationDelay = 5.0f;
         
     // Init Controls
         this->InitControlGroup(4 + SETTINGCONTROLCOUNT);
@@ -155,12 +157,13 @@ namespace CosmosUI {
         }
 
         this->title.SetMsgId(0x0);
-        this->pageSelector.SelectDefault(0);
         this->currentPage = 0;
     }   
 
     void NewSettings::OnActivate() {
+        Page::OnActivate();
         this->bottomText.SetMsgId(0x0);
+        this->pageSelector.SelectDefault(0);
         this->title.SetMsgId(BMG_SETTINGS_TITLE);
     }
 

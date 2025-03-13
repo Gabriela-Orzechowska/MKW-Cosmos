@@ -32,6 +32,7 @@
 #include "System/System.hpp"
 #include <UI/Multiplayer/MultiPlayer.hpp>
 #include <game/Network/RKNetController.hpp>
+#include <UI/Scene.hpp>
 
 extern KartId kartIdByWeigth[3][12];
 
@@ -362,7 +363,7 @@ namespace CosmosUI
     {
         scene.CreatePage(id);
         scene.CreatePage(CHARACTER_SELECT);
-        scene.CreatePage((PageId)Cosmos::SETTINGS_MAIN);
+        scene.CreatePage((PageId)Aurora::SETTINGS_MAIN);
         switch (scene.menuId)
         {
             case(P1_WIFI_VS_VOTING):
@@ -424,7 +425,7 @@ namespace CosmosUI
             vrPage->menuState = 7;
             page.timerControl.Reset();
         }
-        else if(vrPage->menuState == 3) pageId = (PageId)Cosmos::SETTINGS_MAIN;
+        else if(vrPage->menuState == 3) pageId = (PageId)Aurora::SETTINGS_MAIN;
         else if(Cosmos::Data::SettingsHolder::GetStaticInstance()->IsRandomComboForced()){
             pageId = CHARACTER_SELECT;
         }

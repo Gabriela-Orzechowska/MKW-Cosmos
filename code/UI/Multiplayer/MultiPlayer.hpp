@@ -21,7 +21,7 @@
 #include "System/Identifiers.hpp"
 #include "UI/Ctrl/PushButton.hpp"
 #include <kamek.hpp>
-#include <game/UI/MenuData/MenuData.hpp>
+#include <UI/MenuDataPlus.hpp>
 #include <game/UI/Page/Page.hpp>
 #include <game/UI/Page/Menu/CharacterSelect.hpp>
 #include <game/UI/Page/Menu/KartSelect.hpp>
