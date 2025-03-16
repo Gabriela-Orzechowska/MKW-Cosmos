@@ -28,6 +28,7 @@
 #include "core/rvl/os/OS.hpp"
 #include "hooks.hpp"
 #include "System/System.hpp"
+#include "kamek.hpp"
 #include <Ghost/GhostManager.hpp>
 #include <SlotExpansion/CupManager.hpp>
 #include <game/UI/Page/RaceMenu/TTPause.hpp>
@@ -73,7 +74,7 @@ namespace Cosmos
             GhostManager *holder = GhostManager::sInstance;
             if (holder == nullptr)
             {
-                holder = new (RKSystem::mInstance.EGGSystem) GhostManager;
+                holder = new (RKSystem::mInstance.EGGSystem, 0x20) GhostManager;
                 GhostManager::sInstance = holder;
             }
             holder->Reset();
@@ -134,6 +135,38 @@ namespace Cosmos
             RaceData::GetStaticInstance()->menusScenario.GetSettings().engineClass = cc;
         }
 
+        bool GhostManager::LoadGhostFromBuffer(RKG* buffer){
+            this->Reset();
+            this->courseId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
+
+            new (&this->GetLeaderboard()) GhostLeaderboardManager(folderPath, courseId);
+            this->files = new (RKSystem::mInstance.EGGSystem) GhostData[1]; 
+            this->rkgCount = 1;
+
+            RKG *rkg = &this->rkg;
+            if (buffer == nullptr){
+                buffer = rkg;
+            }
+            if(buffer != rkg){
+                rkg->ClearBuffer();
+                memcpy(rkg, buffer, sizeof(RKG));
+            }
+            GhostData *header = &this->files[0];
+            header->isValid = false;
+            if (rkg->CheckValidity()) {
+                header->Init(rkg);
+            }
+
+            header->padding = 0xFF;
+            this->mainGhostIndex = 0xFF;
+
+            // Set correct CC mode
+            EngineClass cc = CC_150;
+            if (Cosmos::System::GetStaticInstance()->GetTTMode() == Cosmos::COSMOS_TT_200cc)
+                cc = CC_100;
+            RaceData::GetStaticInstance()->menusScenario.GetSettings().engineClass = cc;
+        }
+
         bool GhostManager::LoadGhostFromFile(const char* filename){
             this->Reset();
             this->courseId = Cosmos::CupManager::GetStaticInstance()->GetTrackID();
@@ -151,9 +184,7 @@ namespace Cosmos
             GhostData *header = &this->files[0];
             header->isValid = false;
             if (manager->Read(rkg, manager->GetFileSize()) > 0 && rkg->CheckValidity())
-            {
                 header->Init(rkg);
-            }
             manager->Close();
 
             header->padding = 0xFF;
@@ -164,7 +195,6 @@ namespace Cosmos
             if (Cosmos::System::GetStaticInstance()->GetTTMode() == Cosmos::COSMOS_TT_200cc)
                 cc = CC_100;
             RaceData::GetStaticInstance()->menusScenario.GetSettings().engineClass = cc;
-
         }
 
 

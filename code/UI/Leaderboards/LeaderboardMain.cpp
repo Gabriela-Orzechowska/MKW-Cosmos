@@ -15,6 +15,7 @@
 #include <UI/MiscUI.hpp>
 #include <UI/Scene.hpp>
 #include <game/UI/Page/Menu/StartRace.hpp>
+#include <Ghost/GhostManager.hpp>
 
 extern "C" char* vehicle_names[1]; //808B3B50
 
@@ -115,6 +116,15 @@ namespace Aurora {
             this->backButton.SetOnClickHandler(&this->onBackButtonPress, 0);
             this->titleText.SetMsgId(0x0);
         };
+        void LeaderboardMain::OnBack(u32 hudslotId){
+            (void)hudslotId;
+            this->nextPageId = READING_GHOST_DATAPAGE_WITH_TEXT__SPINNER;
+            this->EndStateAnimate(0.0f, 0);
+
+            Pages::AutoEnding* waitPage = MenuData::GetStaticInstance()->GetPage<Pages::AutoEnding>(READING_GHOST_DATAPAGE_WITH_TEXT__SPINNER);
+            waitPage->SetMessageWindowText(0x157c, nullptr);
+            CosmosFile::FileManager::GetStaticInstance()->taskThread->Request(&Cosmos::Ghost::GhostManager::StartReadingGhosts, Cosmos::Ghost::GhostManager::GetStaticInstance(), NULL);
+        }
 
         void LeaderboardMain::UpdateData() {
             API::APILeaderboards* leaderboards = API::Manager::GetStaticInstance()->GetLeaderboards();

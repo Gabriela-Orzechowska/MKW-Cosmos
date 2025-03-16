@@ -39,13 +39,8 @@ namespace Aurora {
             void OnActivate() override;
             PageId GetNextPage() const override { return nextPageId; };
 
-            void OnBack(u32 hudSlotId) { 
-                nextPageId = GHOST_SELECT;
-                EndStateAnimate(0.0, 1); }
-            void OnBackButtonClick(PushButton * button, u32 hudSlotId) {
-                nextPageId = GHOST_SELECT;
-                EndStateAnimate(0.0f, 1); 
-            }
+            void OnBack(u32 hudSlotId);
+            void OnBackButtonClick(PushButton * button, u32 hudSlotId) { this->OnBack(hudSlotId); }
 
             void OnButtonClick(PushButton* button, u32 hudSlotId);
             void OnButtonSelect(PushButton* button, u32 hudSlotId) { return; }

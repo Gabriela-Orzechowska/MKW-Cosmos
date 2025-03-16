@@ -162,6 +162,7 @@ namespace Cosmos
             void SetSHA1(u32* sha1) { memcpy(&this->metadata.sha1, sha1, 20); }
 
             bool LoadGhostFromFile(const char* filename);
+            bool LoadGhostFromBuffer(RKG* buffer = nullptr);
 
             void FillMetadata();
             void AddShroom(ItemPlayer* movement);
