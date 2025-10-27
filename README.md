@@ -2,32 +2,16 @@
 
 Mario Kart Wii Custom Track Distribution
 
+## **Note**
+**This repository is no longer maintained. The development has been changed to closed-source. You are still free to use whatever was left here.**
+
 ## Building
 Run `build.py`. Update `CC=` path inside `build.py` if needed.
 
 ### Requires
 [CodeWarrior for MPC55xx/MPC56xx v2.10 Special Edition](https://nxp.com/lgfiles/devsuites/PowerPC/CW55xx_v2_10_SE.exe) ([mirror](https://cache.nxp.com/lgfiles/devsuites/PowerPC/CW55xx_v2_10_SE.exe))
 
-## Current Features
-### General
-- Slot Expansion
-- Discord Rich Presence
-- Custom WiiLink based servers.
-- Files loading from additional archives/bmg files
-- Auto BRSAR Patching
-- Full ghost support (saving, watching, racing)
-- SD Card Support
-- LZMA Compression
-- Custom Track Selection
 
-### Gameplay
-- Custom License system
-- Time Trial CC mode selection
-- No multi channel music cut off
-- Speed-o-meter
-- Extended Presence Flags
-- Many minor fixes and patches
-  
 ## License
 
 The "Cosmos" parts of the code are under GPLv3 and are free to use in your projects. Please make sure the proper license text is present in the file. Aurora specific parts are not licensed and cannot be used without private permission. 
