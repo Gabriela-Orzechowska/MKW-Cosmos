@@ -141,14 +141,13 @@ s32 HandleResponse(u8 *block)
         &ctx, reinterpret_cast<u8 *>(payload) + sizeof(wwfc_payload_header),
         payload->header.total_size - sizeof(wwfc_payload_header));
     u8 *hash = SHA256Final(&ctx);
-/*
+
     if (!RSAVerify(
             reinterpret_cast<const RSAPublicKey *>(PayloadPublicKey),
             payload->header.signature, hash))
     {
         return WL_ERROR_PAYLOAD_STAGE1_SIGNATURE_INVALID;
     }
-    */
 
     // Flush data cache and invalidate instruction cache
     for (register u32 i = 0; i < 0x20000; i += 0x20)
